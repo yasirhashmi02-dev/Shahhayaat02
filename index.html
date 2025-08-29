@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Shah Hayaat — Ayurveda for Modern Wellness</title>
+  <meta name="description" content="Shah Hayaat - premium Ayurvedic wellness products. Certified WHO, GMP, ISO. Order now on WhatsApp.">
+  <link rel="icon" href="logo.jpg"/>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{--green:#2c7a3a;--accent:#c69b1e;--muted:#666;--bg:#f9faf7;--card:#fff;}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,Arial,sans-serif;background:#f9faf7;color:#111;overflow-x:hidden}
+    a{text-decoration:none;color:inherit}
+
+    /* NAV */
+    header{position:sticky;top:0;z-index:50;background:#fffddfbd;backdrop-filter:blur(8px);border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;padding:10px 20px}
+    header img{height:50px;border-radius:50%}
+    header nav{display:flex;gap:15px}
+    header nav a{padding:8px 10px;font-weight:600;color:#444}
+    header nav a:hover{color:var(--green)}
+
+    /* HERO */
+    .hero{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:40px 20px}
+    .hero-text{flex:1;min-width:280px;padding-right:20px;animation:fadeIn 1s ease-in}
+    .hero-text h1{font-family:"Playfair Display";font-size:40px;color:var(--green);margin-bottom:12px}
+    .hero-text p{color:var(--muted);line-height:1.5}
+    .hero-buttons{margin-top:15px;display:flex;gap:10px}
+    .btn{padding:12px 16px;border:none;border-radius:10px;cursor:pointer;font-weight:600;transition:all .3s}
+    .btn-primary{background:var(--green);color:#fff}
+    .btn-ghost{background:#fff;border:1px solid var(--green);color:var(--green)}
+    .btn:hover{transform:scale(1.05)}
+
+    /* SECTIONS */
+    section{padding:60px 20px;max-width:1200px;margin:0 auto}
+    section h2{font-family:"Playfair Display";font-size:28px;color:var(--green);margin-bottom:20px;text-align:center}
+
+    /* PRODUCTS */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+    .card{background:var(--card);padding:15px;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);display:flex;flex-direction:column;opacity:0;transform:translateY(40px);transition:all .6s}
+    .card img{width:100%;height:180px;object-fit:cover;border-radius:10px;transition:transform .4s}
+    .card:hover img{transform:scale(1.05)}
+    .card h3{margin:10px 0 6px}
+    .price{color:var(--green);font-weight:700}
+    .desc{color:var(--muted);font-size:14px;margin-bottom:8px}
+    .card button{margin-top:auto}
+    .card.visible{opacity:1;transform:translateY(0)}
+
+    /* Catalog Carousel */
+    .carousel{position:relative;overflow:hidden;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.1);max-width:800px;margin:0 auto}
+    .carousel img{width:100%;display:none}
+    .carousel img.active{display:block;animation:fadeIn 1s}
+
+    /* Testimonials & FAQ */
+    .testimonials,.faq{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .test,.faq-item{background:#fff;padding:16px;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+    .test strong{color:var(--green)}
+
+    /* CONTACT */
+    form{display:flex;flex-direction:column;gap:10px}
+    input,textarea{padding:10px;border-radius:8px;border:1px solid #ddd;width:100%}
+    footer{background:#eef6ee;padding:20px;text-align:center;color:#555;margin-top:40px}
+
+    /* Floating WhatsApp */
+    .wa-float{position:fixed;bottom:20px;right:20px;z-index:999}
+    .wa-float a{background:var(--green);color:#fff;padding:12px 16px;border-radius:50px;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.2)}
+
+    /* Animations */
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;align-items:center;gap:10px">
+    <img src="logo.jpg" alt="Shah Hayaat logo">
+    <strong>Shah Hayaat</strong>
+  </div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#products">Products</a>
+    <a href="#catalog">Catalogue</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>Healing Naturally, Living Purely</h1>
+    <p>Shah Hayaat brings the ancient wisdom of Ayurveda into modern wellness. Certified by WHO, GMP and ISO, we create safe, premium herbal remedies to support a healthier life.</p>
+    <div class="hero-buttons">
+      <a href="#products" class="btn btn-primary">Explore Products</a>
+      <a href="https://wa.me/917051056287" target="_blank" class="btn btn-ghost">Order on WhatsApp</a>
+    </div>
+  </div>
+  <img src="logo.jpg" alt="logo" style="max-width:280px;border-radius:14px;box-shadow:0 4px 16px rgba(0,0,0,.1);animation:fadeIn 1.5s">
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <h2>Our Philosophy</h2>
+  <p style="text-align:center;max-width:800px;margin:0 auto">Shah Hayaat is your trusted partner in holistic health. We blend Ayurvedic tradition with modern science to deliver wellness solutions that are safe, effective and reliable. Guided by values of excellence, care and innovation, every formula is made from premium herbal extracts and tested to meet international standards.</p>
+  <div style="margin-top:20px;display:flex;gap:15px;flex-wrap:wrap;justify-content:center">
+    <div class="test"><strong>WHO Certified</strong><p>Quality ingredients sourced responsibly.</p></div>
+    <div class="test"><strong>GMP Standard</strong><p>Manufacturing practices you can trust.</p></div>
+    <div class="test"><strong>ISO & HACCP</strong><p>Global benchmarks for safety and consistency.</p></div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <h2>Our Ayurvedic Range</h2>
+  <div class="grid" id="productGrid"></div>
+</section>
+
+<!-- CATALOG -->
+<section id="catalog">
+  <h2>Our Complete Catalogue</h2>
+  <div class="carousel" id="catalogCarousel"></div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <h2>What Our Customers Say</h2>
+  <div class="testimonials">
+    <div class="test"><strong>Rohit</strong><p>Brain Champ helped me focus better. Gentle and effective.</p></div>
+    <div class="test"><strong>Meera</strong><p>Utro Hayaat eased my monthly discomfort. Truly caring products.</p></div>
+    <div class="test"><strong>Kuldeep</strong><p>Livo Hayaat improved my liver health. Highly recommend.</p></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq">
+    <div class="faq-item"><strong>Are your products safe?</strong><p>Yes. Made with herbal extracts and tested against global safety standards.</p></div>
+    <div class="faq-item"><strong>Do they contain chemicals?</strong><p>We use natural extracts. Only safe excipients for stability are added.</p></div>
+    <div class="faq-item"><strong>How to order?</strong><p>Click the Order button on any product or chat with us on WhatsApp.</p></div>
+    <div class="faq-item"><strong>Can pregnant women use?</strong><p>Please consult your physician before starting any supplement during pregnancy.</p></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2>Contact & Orders</h2>
+  <form id="contactForm">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="text" name="phone" placeholder="Phone / WhatsApp" required>
+    <textarea name="message" placeholder="Your message" required></textarea>
+    <button class="btn btn-primary" type="submit">Send on WhatsApp</button>
+  </form>
+</section>
+
+<footer>
+  © <span id="year"></span> Shah Hayaat · Instagram: <a href="https://instagram.com/shahhayaatofficial" target="_blank">@shahhayaatofficial</a>
+</footer>
+
+<div class="wa-float">
+  <a href="https://wa.me/917051056287" target="_blank">Chat / Order</a>
+</div>
+
+<script>
+// dynamic year
+document.getElementById('year').textContent=new Date().getFullYear();
+
+// Product list (all files in root, no folders)
+const products=[
+ {name:"Brain Champ",price:175,desc:"Memory booster tonic.",img:"brainchamp.jpg"},
+ {name:"Shah Zyme",price:155,desc:"Digestive enzyme syrup.",img:"shahzyme.jpg"},
+ {name:"Blood Storm",price:165,desc:"Blood tonic for vitality.",img:"bloodstorm.jpg"},
+ {name:"Cough X Pro",price:90,desc:"Herbal cough relief.",img:"coughxpro.jpg"},
+ {name:"Musaffa Khoon",price:165,desc:"Blood purifier syrup.",img:"musaffakhoon.jpg"},
+ {name:"PanaSip",price:165,desc:"Antacid and anti-gas.",img:"panasip.jpg"},
+ {name:"Livo Hayaat",price:349,desc:"Liver care formulation.",img:"livohayaat.jpg"},
+ {name:"Dia-Ease",price:695,desc:"Sugar balance support.",img:"diaease.png"},
+ {name:"Ortho Hayaat",price:649,desc:"Joint pain support.",img:"orthohayaat.jpg"},
+ {name:"Utro Hayaat",price:549,desc:"Women's health blend.",img:"utrohayaat.png"},
+ {name:"Passion Pulse",price:599,desc:"Vitality support.",img:"passionpulse.jpg"},
+ {name:"Fevodol",price:165,desc:"Immunity booster capsule.",img:"fevodol.png"}
+];
+
+// render products
+const grid=document.getElementById("productGrid");
+const catalog=document.getElementById("catalogCarousel");
+products.forEach((p,i)=>{
+  const card=document.createElement("div");
+  card.className="card";
+  card.innerHTML=`
+    <img src="${p.img}" alt="${p.name}" onerror="this.src='logo.jpg'">
+    <h3>${p.name}</h3>
+    <div class="price">₹${p.price}</div>
+    <p class="desc">${p.desc}</p>
+    <a href="https://wa.me/917051056287?text=I%20want%20to%20order%20${encodeURIComponent(p.name)}%20(₹${p.price})" target="_blank" class="btn btn-primary">Order Now</a>
+  `;
+  grid.appendChild(card);
+
+  // also add to catalog carousel
+  const img=document.createElement("img");
+  img.src=p.img;
+  img.alt=p.name;
+  if(i===0) img.classList.add("active");
+  catalog.appendChild(img);
+});
+
+// scroll animation
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');}
+  });
+},{threshold:.2});
+document.querySelectorAll('.card').forEach(c=>observer.observe(c));
+
+// catalog auto-slide
+const slides=document.querySelectorAll('#catalogCarousel img');
+let idx=0;
+setInterval(()=>{
+  slides[idx].classList.remove('active');
+  idx=(idx+1)%slides.length;
+  slides[idx].classList.add('active');
+},3000);
+
+// contact form
+document.getElementById("contactForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  const name=this.name.value, phone=this.phone.value, msg=this.message.value;
+  const text=`Hello, I am ${name} (${phone}). ${msg}`;
+  window.open(`https://wa.me/917051056287?text=${encodeURIComponent(text)}`,"_blank");
+});
+</script>
+</body>
+</html>
