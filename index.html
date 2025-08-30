@@ -6,8 +6,6 @@
   <title>Shah Hayaat — Ayurveda for Modern Wellness</title>
   <meta name="description" content="Shah Hayaat - premium Ayurvedic wellness products. Certified WHO, GMP, ISO. Order now on WhatsApp.">
   <link rel="icon" href="logo.jpg"/>
-
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -15,6 +13,7 @@
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:Inter,Arial,sans-serif;background:#f9faf7;color:#111;overflow-x:hidden}
     a{text-decoration:none;color:inherit}
+    html{scroll-behavior:smooth;}
 
     /* NAV */
     header{position:sticky;top:0;z-index:50;background:#fffddfbd;backdrop-filter:blur(8px);border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;padding:10px 20px}
@@ -24,42 +23,54 @@
     header nav a:hover{color:var(--green)}
 
     /* HERO */
-    .hero{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:40px 20px}
+    .hero{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:60px 20px;position:relative;overflow:hidden}
+    .hero::before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:url('bg.jpg') center/cover no-repeat;z-index:-1;transform:translateY(-20px);opacity:.15;}
     .hero-text{flex:1;min-width:280px;padding-right:20px;animation:fadeIn 1s ease-in}
-    .hero-text h1{font-family:"Playfair Display";font-size:40px;color:var(--green);margin-bottom:12px}
-    .hero-text p{color:var(--muted);line-height:1.5}
+    .hero-text h1{font-family:"Playfair Display";font-size:42px;color:var(--green);margin-bottom:12px}
+    .hero-text p{color:var(--muted);line-height:1.6;font-size:17px}
     .hero-buttons{margin-top:15px;display:flex;gap:10px}
-    .btn{padding:12px 16px;border:none;border-radius:10px;cursor:pointer;font-weight:600;transition:all .3s}
-    .btn-primary{background:var(--green);color:#fff}
+    .btn{padding:12px 18px;border:none;border-radius:10px;cursor:pointer;font-weight:600;transition:all .3s}
+    .btn-primary{background:var(--green);color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.15);}
     .btn-ghost{background:#fff;border:1px solid var(--green);color:var(--green)}
     .btn:hover{transform:scale(1.05)}
 
-    /* SECTIONS */
-    section{padding:60px 20px;max-width:1200px;margin:0 auto}
-    section h2{font-family:"Playfair Display";font-size:28px;color:var(--green);margin-bottom:20px;text-align:center}
+    /* Sections */
+    section{padding:70px 20px;max-width:1200px;margin:0 auto;opacity:0;transform:translateY(40px);transition:all .8s ease-out}
+    section.visible{opacity:1;transform:translateY(0)}
+    section h2{font-family:"Playfair Display";font-size:30px;color:var(--green);margin-bottom:25px;text-align:center}
 
-    /* PRODUCTS */
+    /* Products */
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
     .card{background:var(--card);padding:15px;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.08);display:flex;flex-direction:column;opacity:0;transform:translateY(40px);transition:all .6s}
     .card img{width:100%;height:180px;object-fit:cover;border-radius:10px;transition:transform .4s}
     .card:hover img{transform:scale(1.05)}
-    .card h3{margin:10px 0 6px}
+    .card h3{margin:10px 0 6px;font-size:18px}
     .price{color:var(--green);font-weight:700}
     .desc{color:var(--muted);font-size:14px;margin-bottom:8px}
     .card button{margin-top:auto}
     .card.visible{opacity:1;transform:translateY(0)}
 
-    /* Catalog Carousel */
-    .carousel{position:relative;overflow:hidden;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.1);max-width:800px;margin:0 auto}
-    .carousel img{width:100%;display:none}
-    .carousel img.active{display:block;animation:fadeIn 1s}
+    /* Ingredients Accordion */
+    .accordion{max-width:800px;margin:0 auto}
+    .accordion-item{background:#fff;margin-bottom:12px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.05);overflow:hidden}
+    .accordion-header{padding:14px;cursor:pointer;font-weight:600;color:var(--green);display:flex;justify-content:space-between;align-items:center}
+    .accordion-body{padding:0 14px;max-height:0;overflow:hidden;transition:max-height .4s ease}
+    .accordion-item.active .accordion-body{padding:14px;max-height:300px}
+
+    /* Catalog Viewer */
+    .catalog-viewer iframe{width:100%;height:600px;border:none;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.1)}
 
     /* Testimonials & FAQ */
     .testimonials,.faq{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
     .test,.faq-item{background:#fff;padding:16px;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
     .test strong{color:var(--green)}
 
-    /* CONTACT */
+    /* Quiz */
+    .quiz{max-width:600px;margin:0 auto;text-align:center}
+    .quiz button{margin-top:15px}
+    .quiz-result{margin-top:20px;padding:16px;background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.05)}
+
+    /* Contact */
     form{display:flex;flex-direction:column;gap:10px}
     input,textarea{padding:10px;border-radius:8px;border:1px solid #ddd;width:100%}
     footer{background:#eef6ee;padding:20px;text-align:center;color:#555;margin-top:40px}
@@ -68,7 +79,6 @@
     .wa-float{position:fixed;bottom:20px;right:20px;z-index:999}
     .wa-float a{background:var(--green);color:#fff;padding:12px 16px;border-radius:50px;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.2)}
 
-    /* Animations */
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
   </style>
 </head>
@@ -82,7 +92,9 @@
   <nav>
     <a href="#about">About</a>
     <a href="#products">Products</a>
+    <a href="#ingredients">Ingredients</a>
     <a href="#catalog">Catalogue</a>
+    <a href="#quiz">Dosha Quiz</a>
     <a href="#faq">FAQ</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -118,10 +130,46 @@
   <div class="grid" id="productGrid"></div>
 </section>
 
+<!-- INGREDIENTS -->
+<section id="ingredients">
+  <h2>Ingredients Transparency</h2>
+  <div class="accordion" id="ingredientsAccordion">
+    <div class="accordion-item">
+      <div class="accordion-header">Ashwagandha (Withania somnifera)</div>
+      <div class="accordion-body">Boosts energy, reduces stress, and supports immunity.</div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header">Brahmi (Bacopa monnieri)</div>
+      <div class="accordion-body">Enhances memory, concentration, and calms the mind.</div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header">Tulsi (Ocimum sanctum)</div>
+      <div class="accordion-body">Strengthens respiratory health and immunity.</div>
+    </div>
+  </div>
+</section>
+
 <!-- CATALOG -->
 <section id="catalog">
   <h2>Our Complete Catalogue</h2>
-  <div class="carousel" id="catalogCarousel"></div>
+  <div class="catalog-viewer">
+    <iframe src="https://drive.google.com/file/d/1zFsHSI6XKaBmrN3egPFhK-626OI3ZRDT/preview"></iframe>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <h2>Dosha Quiz — Find Your Body Type</h2>
+  <div class="quiz">
+    <p>Answer to discover your dominant Dosha.</p>
+    <select id="quizQ">
+      <option value="vata">I often feel cold & energetic</option>
+      <option value="pitta">I get hungry quickly & feel warm</option>
+      <option value="kapha">I feel calm, slow & steady</option>
+    </select>
+    <button class="btn btn-primary" onclick="showResult()">See My Result</button>
+    <div class="quiz-result" id="quizResult" style="display:none"></div>
+  </div>
 </section>
 
 <!-- TESTIMONIALS -->
@@ -168,63 +216,60 @@
 // dynamic year
 document.getElementById('year').textContent=new Date().getFullYear();
 
-// Product list (all files in root, no folders)
-const products=[
- {name:"Brain Champ",price:175,desc:"Memory booster tonic.",img:"brainchamp.jpg"},
- {name:"Shah Zyme",price:165,desc:"Digestive enzyme syrup.",img:"shahzyme.jpg"},
- {name:"Blood Storm",price:175,desc:"Blood tonic for vitality.",img:"bloodstorm.jpg"},
- {name:"Cough X Pro",price:90,desc:"Herbal cough relief.",img:"coughxpro.jpg"},
- {name:"Musaffa Khoon",price:165,desc:"Blood purifier syrup.",img:"musaffakhoon.jpg"},
- {name:"PanaSip",price:165,desc:"Antacid and anti-gas.",img:"panasip.jpg"},
- {name:"Livo Hayaat",price:349,desc:"Liver care formulation.",img:"livohayaat.jpg"},
- {name:"Dia-Ease",price:695,desc:"Sugar balance support.",img:"diaease.png"},
- {name:"Ortho Hayaat",price:649,desc:"Joint pain support.",img:"orthohayaat.jpg"},
- {name:"Utro Hayaat",price:625,desc:"Women's health blend.",img:"utrohayaat.png"},
- {name:"Passion Pulse",price:599,desc:"Vitality support.",img:"passionpulse.jpg"},
- {name:"Fevodol",price:165,desc:"Immunity booster capsule.",img:"fevodol.png"}
-];
+// Product list
+const products=[{name:"Brain Champ",price:175,desc:"Memory booster tonic.",img:"brainchamp.jpg"},
+{name:"Shah Zyme",price:165,desc:"Digestive enzyme syrup.",img:"shahzyme.jpg"},
+{name:"Blood Storm",price:175,desc:"Blood tonic for vitality.",img:"bloodstorm.jpg"},
+{name:"Cough X Pro",price:90,desc:"Herbal cough relief.",img:"coughxpro.jpg"},
+{name:"Musaffa Khoon",price:165,desc:"Blood purifier syrup.",img:"musaffakhoon.jpg"},
+{name:"PanaSip",price:165,desc:"Antacid and anti-gas.",img:"panasip.jpg"},
+{name:"Livo Hayaat",price:349,desc:"Liver care formulation.",img:"livohayaat.jpg"},
+{name:"Dia-Ease",price:695,desc:"Sugar balance support.",img:"diaease.png"},
+{name:"Ortho Hayaat",price:649,desc:"Joint pain support.",img:"orthohayaat.jpg"},
+{name:"Utro Hayaat",price:625,desc:"Women's health blend.",img:"utrohayaat.png"},
+{name:"Passion Pulse",price:599,desc:"Vitality support.",img:"passionpulse.jpg"},
+{name:"Fevodol",price:165,desc:"Immunity booster capsule.",img:"fevodol.png"}];
 
 // render products
 const grid=document.getElementById("productGrid");
-const catalog=document.getElementById("catalogCarousel");
-products.forEach((p,i)=>{
+products.forEach((p)=>{
   const card=document.createElement("div");
   card.className="card";
-  card.innerHTML=`
-    <img src="${p.img}" alt="${p.name}" onerror="this.src='logo.jpg'">
+  card.innerHTML=`<img src="${p.img}" alt="${p.name}" onerror="this.src='logo.jpg'">
     <h3>${p.name}</h3>
     <div class="price">₹${p.price}</div>
     <p class="desc">${p.desc}</p>
-    <a href="https://wa.me/917051056287?text=I%20want%20to%20order%20${encodeURIComponent(p.name)}%20(₹${p.price})" target="_blank" class="btn btn-primary">Order Now</a>
-  `;
+    <a href="https://wa.me/917051056287?text=I%20want%20to%20order%20${encodeURIComponent(p.name)}%20(₹${p.price})" target="_blank" class="btn btn-primary">Order Now</a>`;
   grid.appendChild(card);
-
-  // also add to catalog carousel
-  const img=document.createElement("img");
-  img.src=p.img;
-  img.alt=p.name;
-  if(i===0) img.classList.add("active");
-  catalog.appendChild(img);
 });
 
-// scroll animation
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){e.target.classList.add('visible');}
-  });
+// Scroll animation for sections
+const sectionObserver=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
 },{threshold:.2});
-document.querySelectorAll('.card').forEach(c=>observer.observe(c));
+document.querySelectorAll('section').forEach(s=>sectionObserver.observe(s));
+document.querySelectorAll('.card').forEach(c=>sectionObserver.observe(c));
 
-// catalog auto-slide
-const slides=document.querySelectorAll('#catalogCarousel img');
-let idx=0;
-setInterval(()=>{
-  slides[idx].classList.remove('active');
-  idx=(idx+1)%slides.length;
-  slides[idx].classList.add('active');
-},3000);
+// Accordion toggle
+document.querySelectorAll(".accordion-header").forEach(head=>{
+  head.addEventListener("click",()=>{
+    head.parentElement.classList.toggle("active");
+  });
+});
 
-// contact form
+// Quiz
+function showResult(){
+  const val=document.getElementById("quizQ").value;
+  let text="";
+  if(val==="vata") text="You are Vata. Best products: Brain Champ, Musaffa Khoon.";
+  if(val==="pitta") text="You are Pitta. Best products: Livo Hayaat, PanaSip.";
+  if(val==="kapha") text="You are Kapha. Best products: Ortho Hayaat, Dia-Ease.";
+  const result=document.getElementById("quizResult");
+  result.innerText=text;
+  result.style.display="block";
+}
+
+// Contact form
 document.getElementById("contactForm").addEventListener("submit",function(e){
   e.preventDefault();
   const name=this.name.value, phone=this.phone.value, msg=this.message.value;
