@@ -1,84 +1,66 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Shah Hayaat — Ayurveda for Modern Wellness</title>
-<link rel="icon" href="logo.jpg"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --green:#2c7a3a; --accent:#c69b1e; --muted:#666; --bg:#f9faf7; --card:#fff; --shadow:0 8px 28px rgba(0,0,0,.12);
-    --hero-h: clamp(360px,46vh,640px);
-    --max-width:1200px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);color:#111;line-height:1.6;-webkit-font-smoothing:antialiased}
-  a{text-decoration:none;color:inherit}
-  header{position:sticky;top:0;z-index:120;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid #eee}
-  .brand a{font-weight:800;color:var(--green);font-size:18px}
-  nav{display:flex;gap:10px;align-items:center}
-  nav a{padding:7px 10px;border-radius:8px;color:#333;font-weight:600}
-  nav a:hover{background:#f1fff1;color:var(--green)}
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Shah Hayaat — Ayurveda for Modern Wellness</title>
+  <link rel="icon" href="logo.jpg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --green:#2c7a3a; --bg:#f9faf7; --shadow:0 8px 24px rgba(0,0,0,.1); }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:#111;line-height:1.6}
+    a{text-decoration:none;color:inherit}
+    header{position:sticky;top:0;z-index:100;background:#fff;backdrop-filter:blur(6px);
+      display:flex;justify-content:space-between;align-items:center;padding:10px 18px;border-bottom:1px solid #eee;}
+    .brand a{font-weight:800;color:var(--green);font-size:18px}
+    nav{display:flex;gap:10px}
+    nav a{padding:8px 10px;border-radius:6px;font-weight:600;color:#333}
+    nav a:hover{background:#f1fff1;color:var(--green)}
 
-  /* HERO - slides are generated from inline SVGs (data URIs) so no external fetch */
-  .hero{position:relative;overflow:hidden;height:var(--hero-h);display:flex;align-items:center;padding:22px 18px;max-width:var(--max-width);margin:0 auto}
-  .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .7s ease;filter:brightness(.62)}
-  .slide.visible{opacity:1}
-  .slideMask{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.24),rgba(0,0,0,.15));pointer-events:none}
-  .heroInner{position:relative;z-index:4;color:#fff;max-width:900px;padding:18px}
-  .hero h1{font-family:"Playfair Display";font-size:clamp(26px,4.4vw,44px);margin-bottom:10px;text-shadow:0 6px 18px rgba(0,0,0,.5)}
-  .hero p{color:#f2f2f2;margin-bottom:14px;text-shadow:0 3px 10px rgba(0,0,0,.4)}
-  .cta{display:flex;gap:12px;flex-wrap:wrap}
-  .btn{padding:12px 18px;border-radius:28px;border:none;font-weight:700;cursor:pointer}
-  .btn-primary{background:var(--green);color:#fff}
-  .btn-ghost{background:#fff;border:2px solid var(--green);color:var(--green)}
-  .dots{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;display:flex;gap:8px;z-index:6}
-  .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer}
-  .dot.active{background:#fff;box-shadow:0 3px 10px rgba(0,0,0,.25)}
+    /* Hero Slideshow */
+    .hero{position:relative;overflow:hidden;height:clamp(400px,60vh,700px);display:flex;align-items:center;justify-content:center;color:#fff;text-align:center}
+    .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1s ease-in-out}
+    .slide.active{opacity:1}
+    .hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.55)}
+    .hero-content{position:relative;z-index:5;max-width:850px;padding:20px}
+    .hero h1{font-family:"Playfair Display";font-size:clamp(28px,5vw,52px);margin-bottom:14px}
+    .hero p{font-size:18px;margin-bottom:16px}
+    .hero-cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .btn{padding:12px 16px;border:none;border-radius:28px;font-weight:700;cursor:pointer;transition:.25s}
+    .btn-primary{background:var(--green);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.14)}
+    .btn-ghost{background:#fff;border:2px solid var(--green);color:var(--green)}
+    .btn:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.18)}
 
-  /* page sections */
-  main{max-width:var(--max-width);margin:18px auto;padding:0 16px}
-  section{padding:42px 0}
-  h2{font-family:"Playfair Display";font-size:28px;color:var(--green);margin-bottom:12px;text-align:center}
-  p.lead{color:var(--muted);max-width:880px;margin:0 auto 18px;text-align:center}
+    section{padding:60px 18px;max-width:1200px;margin:0 auto}
+    section h2{font-family:"Playfair Display";font-size:28px;color:var(--green);margin-bottom:16px;text-align:center}
+    .lead{color:#666;text-align:center;max-width:860px;margin:0 auto 20px}
+    .grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    .card{background:#fff;padding:14px;border-radius:12px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .card img{width:100%;height:150px;object-fit:cover;border-radius:10px;margin-bottom:10px}
+    .card h3{font-size:18px;margin-bottom:6px}
+    .card p{color:#666;font-size:14px;margin-bottom:8px}
+    .card .price{color:var(--green);font-weight:800;margin-bottom:8px}
+    .order-btn{margin-top:auto}
+    .catalog-viewer iframe{width:100%;height:600px;border:0;border-radius:12px;box-shadow:var(--shadow)}
+    footer{background:linear-gradient(90deg,var(--green),#1e5026);padding:20px;text-align:center;color:#fff;margin-top:20px}
+    .wa-float{position:fixed;bottom:20px;right:20px;z-index:200}
+    .wa-float a{background:var(--green);color:#fff;padding:12px 16px;border-radius:50px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.2)}
 
-  .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-  .card{background:var(--card);border-radius:12px;padding:14px;box-shadow:var(--shadow);display:flex;flex-direction:column}
-  .card img{width:100%;height:150px;object-fit:cover;border-radius:10px;margin-bottom:10px}
-  .price{color:var(--green);font-weight:800;margin-top:6px}
+    /* Quiz */
+    #quizWrap{display:flex;flex-direction:column;gap:20px}
+    .question{background:#fff;padding:16px;border-radius:10px;box-shadow:var(--shadow)}
+    .question label{display:block;margin-top:6px}
+    .msg{margin:10px 0}
+    .msg.bot{background:#eef6ee;padding:10px;border-radius:8px}
 
-  /* accordion */
-  .accordion{max-width:920px;margin:0 auto}
-  .acc-item{background:#fff;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.06);margin-bottom:12px;overflow:hidden}
-  .acc-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;cursor:pointer;font-weight:700;color:var(--green)}
-  .acc-body{padding:0 16px;max-height:0;overflow:hidden;transition:max-height .38s ease}
-  .acc-item.active .acc-body{padding:12px 16px;max-height:420px}
-
-  /* quiz */
-  .q-card{background:#fff;border-radius:12px;padding:12px;box-shadow:var(--shadow);margin-bottom:12px}
-  .q-options label{display:block;padding:10px;border-radius:10px;border:1px solid #f2f2f2;margin:8px 0;cursor:pointer}
-  .msg{background:#fff;padding:12px;border-radius:12px;box-shadow:var(--shadow);margin-top:12px}
-
-  /* modal */
-  .modalWrap{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);z-index:200}
-  .modal{background:#fff;border-radius:12px;padding:16px;max-width:720px;width:94%;box-shadow:0 16px 60px rgba(0,0,0,.4)}
-  .modal form{display:grid;gap:8px}
-  .modal input,.modal textarea{padding:10px;border-radius:8px;border:1px solid #e6e6e6;width:100%}
-
-  footer{background:linear-gradient(90deg,var(--green),#1e5026);padding:18px;text-align:center;color:#fff;margin-top:22px}
-
-  /* responsive tweaks */
-  @media (max-width:860px){
-    .hero{padding:20px}
-    .hero h1{font-size:28px}
-    main{padding:0 12px}
-  }
-</style>
+    /* Testimonials & FAQ */
+    .testimonials,.faq{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .test,.faq-item{background:#fff;padding:16px;border-radius:12px;box-shadow:var(--shadow)}
+    .test strong{color:var(--green)}
+  </style>
 </head>
 <body>
-
 <header>
   <div class="brand"><a href="#hero">Home</a></div>
   <nav>
@@ -87,298 +69,153 @@
     <a href="#catalog">Catalogue</a>
     <a href="#ingredients">Ingredients</a>
     <a href="#quiz">Dosha Quiz</a>
+    <a href="#testimonials">Testimonials</a>
     <a href="#faq">FAQ</a>
     <a href="#contact">Contact</a>
   </nav>
 </header>
 
-<!-- HERO -->
-<section id="hero" class="hero" aria-label="Hero banner">
-  <div id="loader" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#111;z-index:9">
-    <div style="width:46px;height:46px;border:5px solid #fff;border-top-color:var(--green);border-radius:50%;animation:spin 1s linear infinite"></div>
-  </div>
+<!-- Hero Slideshow -->
+<section id="hero" class="hero">
+  <div class="hero-overlay"></div>
+  <div class="slide" style="background-image:url('https://drive.google.com/uc?export=view&id=1zjuhS9WCysOVvpRQWcmw3Zgfv7Kn3lC2')"></div>
+  <div class="slide" style="background-image:url('https://drive.google.com/uc?export=view&id=1zo5LlvSpaYsrKNCgiyeZihrzI-fNwHtK')"></div>
+  <div class="slide" style="background-image:url('https://drive.google.com/uc?export=view&id=1zlAVwqh9DBYvzoAsl8G08IdaHfBmI7Jb')"></div>
+  <div class="slide" style="background-image:url('https://drive.google.com/uc?export=view&id=1znCitr3_UwYK_vFDJQrqL1xvqX5IDm7w')"></div>
+  <div class="slide" style="background-image:url('https://drive.google.com/uc?export=view&id=1zoI2L24ctuhSvnyIoJKq6gnUV8kTqoJ5')"></div>
 
-  <!-- slides will be injected here by JS -->
-  <div class="slideMask"></div>
-
-  <div class="heroInner" style="z-index:11">
+  <div class="hero-content">
     <h1>Healing Naturally, Living Purely</h1>
-    <p class="lead">Shah Hayaat blends Ayurvedic tradition with modern quality to deliver safe and effective herbal remedies.</p>
-    <div class="cta">
-      <a class="btn btn-primary" href="#products">Explore Products</a>
-      <a class="btn btn-ghost" href="https://wa.me/917051056287" target="_blank">Order on WhatsApp</a>
+    <p>Shah Hayaat brings timeless Ayurvedic wisdom into modern wellness, crafted with trusted herbs for real-life care.</p>
+    <div class="hero-cta">
+      <a href="#products" class="btn btn-primary">Explore Products</a>
+      <a href="https://wa.me/917051056287" target="_blank" class="btn btn-ghost">Order on WhatsApp</a>
     </div>
   </div>
-
-  <div class="dots" id="dots" style="z-index:12"></div>
 </section>
 
-<main>
-  <!-- About -->
-  <section id="about">
-    <h2>Our Philosophy</h2>
-    <p class="lead">We honor Ayurvedic wisdom while following modern quality standards. Our formulas use well known herbs to support everyday health.</p>
-  </section>
+<!-- About -->
+<section id="about">
+  <h2>Our Philosophy</h2>
+  <p class="lead">We blend Ayurvedic tradition with modern science to deliver safe and effective solutions.</p>
+</section>
 
-  <!-- Products -->
-  <section id="products">
-    <h2>Our Ayurvedic Range</h2>
-    <p class="lead">Select a product and fill your shipping details to send us an order on WhatsApp.</p>
-    <div class="grid" id="productGrid"></div>
-  </section>
+<!-- Products -->
+<section id="products">
+  <h2>Our Ayurvedic Range</h2>
+  <div class="grid" id="productGrid"></div>
+</section>
 
-  <!-- Catalogue -->
-  <section id="catalog">
-    <h2>Catalogue</h2>
-    <div style="max-width:100%;overflow:hidden;border-radius:12px;box-shadow:var(--shadow)">
-      <iframe src="https://drive.google.com/file/d/1zFsHSI6XKaBmrN3egPFhK-626OI3ZRDT/preview" style="width:100%;height:640px;border:0"></iframe>
-    </div>
-  </section>
+<!-- Catalogue -->
+<section id="catalog">
+  <h2>Our Complete Catalogue</h2>
+  <div class="catalog-viewer">
+    <iframe src="https://drive.google.com/file/d/1zFsHSI6XKaBmrN3egPFhK-626OI3ZRDT/preview"></iframe>
+  </div>
+</section>
 
-  <!-- Ingredients -->
-  <section id="ingredients">
-    <h2>Ingredients Transparency</h2>
-    <p class="lead">Ten commonly used herbs and their traditional benefits.</p>
-    <div class="accordion" id="accordion"></div>
-  </section>
+<!-- Ingredients -->
+<section id="ingredients">
+  <h2>Ingredients Transparency</h2>
+  <div class="grid">
+    <div class="card"><h3>Ashwagandha</h3><p>Boosts vitality and reduces stress.</p></div>
+    <div class="card"><h3>Brahmi</h3><p>Supports memory and concentration.</p></div>
+    <div class="card"><h3>Tulsi</h3><p>Enhances immunity and purifies airways.</p></div>
+    <div class="card"><h3>Amla</h3><p>Rich in Vitamin C, rejuvenates body.</p></div>
+    <div class="card"><h3>Neem</h3><p>Purifies blood, supports skin health.</p></div>
+    <div class="card"><h3>Shatavari</h3><p>Supports women’s health and balance.</p></div>
+    <div class="card"><h3>Triphala</h3><p>Detoxifies and supports digestion.</p></div>
+    <div class="card"><h3>Turmeric</h3><p>Powerful anti-inflammatory herb.</p></div>
+    <div class="card"><h3>Arjuna</h3><p>Strengthens the heart.</p></div>
+    <div class="card"><h3>Guggul</h3><p>Supports healthy metabolism.</p></div>
+  </div>
+</section>
 
-  <!-- Dosha Quiz -->
-  <section id="quiz">
-    <h2>Dosha Quiz</h2>
-    <p class="lead">Quick quiz to see which body type is closer to you and what products may help.</p>
-    <div id="quizWrap"></div>
-    <div style="text-align:center;margin-top:8px">
-      <button id="getRec" class="btn btn-primary">Get Recommendations</button>
-      <button id="restart" class="btn btn-ghost" style="display:none">Restart</button>
-    </div>
-    <div id="quizResult"></div>
-  </section>
+<!-- Quiz -->
+<section id="quiz">
+  <h2>Dosha Quiz</h2>
+  <div id="quizWrap"></div>
+  <button id="submitQuiz" class="btn btn-primary">Get Recommendation</button>
+  <button id="restartQuiz" class="btn btn-ghost" style="display:none">Restart Quiz</button>
+  <div id="quizChat"></div>
+</section>
 
-  <!-- Testimonials -->
-  <section id="testimonials">
-    <h2>What Our Customers Say</h2>
-    <div class="grid">
-      <div class="card"><strong>Rohit</strong><p style="color:var(--muted)">Brain Champ helped me focus without jitters.</p></div>
-      <div class="card"><strong>Meera</strong><p style="color:var(--muted)">Utro Hayaat supported my monthly comfort.</p></div>
-      <div class="card"><strong>Kuldeep</strong><p style="color:var(--muted)">Livo Hayaat gave gentle liver support.</p></div>
-    </div>
-  </section>
+<!-- Testimonials -->
+<section id="testimonials">
+  <h2>What Our Customers Say</h2>
+  <div class="testimonials">
+    <div class="test"><strong>Rohit</strong><p>Brain Champ helped me focus better. Gentle and effective.</p></div>
+    <div class="test"><strong>Meera</strong><p>Utro Hayaat eased my monthly discomfort. Truly caring products.</p></div>
+    <div class="test"><strong>Kuldeep</strong><p>Livo Hayaat improved my liver health. Highly recommend.</p></div>
+  </div>
+</section>
 
-  <!-- FAQ -->
-  <section id="faq">
-    <h2>FAQ</h2>
-    <div class="grid">
-      <div class="card"><strong>Are your products safe?</strong><p style="color:var(--muted)">Yes. Prepared and tested to meet recognized quality standards.</p></div>
-      <div class="card"><strong>How do I order?</strong><p style="color:var(--muted)">Click Order on a product, fill details and the request will go to WhatsApp.</p></div>
-      <div class="card"><strong>Pregnancy?</strong><p style="color:var(--muted)">Please consult your physician before using supplements during pregnancy.</p></div>
-    </div>
-  </section>
+<!-- FAQ -->
+<section id="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq">
+    <div class="faq-item"><strong>Are your products safe?</strong><p>Yes. Made with herbal extracts and tested against global safety standards.</p></div>
+    <div class="faq-item"><strong>Do they contain chemicals?</strong><p>We use natural extracts. Only safe excipients for stability are added.</p></div>
+    <div class="faq-item"><strong>How to order?</strong><p>Click the Order button on any product or chat with us on WhatsApp.</p></div>
+    <div class="faq-item"><strong>Can pregnant women use?</strong><p>Please consult your physician before starting any supplement during pregnancy.</p></div>
+  </div>
+</section>
 
-  <!-- Contact -->
-  <section id="contact">
-    <h2>Contact & Orders</h2>
-    <form id="contactForm" style="max-width:840px;margin:0 auto;display:grid;gap:8px">
-      <input name="name" placeholder="Full name" required />
-      <input name="phone" placeholder="Mobile number (with country code)" required />
-      <input name="pincode" placeholder="Pincode / ZIP" required />
-      <textarea name="address" placeholder="Full shipping address" rows="3" required></textarea>
-      <textarea name="note" placeholder="Message (optional)" rows="2"></textarea>
-      <div style="text-align:center"><button class="btn btn-primary" type="submit">Send on WhatsApp</button></div>
-    </form>
-  </section>
-</main>
+<!-- Contact -->
+<section id="contact">
+  <h2>Contact & Orders</h2>
+  <form id="contactForm">
+    <input type="text" name="name" placeholder="Full Name" required>
+    <input type="text" name="phone" placeholder="Mobile Number" required>
+    <input type="text" name="pincode" placeholder="Pincode" required>
+    <textarea name="address" placeholder="Full Address" required></textarea>
+    <textarea name="message" placeholder="Your message" required></textarea>
+    <button class="btn btn-primary" type="submit">Send on WhatsApp</button>
+  </form>
+</section>
 
 <footer>
-  © <span id="year"></span> Shah Hayaat · Instagram: <a href="https://instagram.com/shahhayaatofficial" target="_blank" style="color:#fff"> @shahhayaatofficial</a>
+  © <span id="year"></span> Shah Hayaat · Instagram: <a href="https://instagram.com/shahhayaatofficial" target="_blank" style="color:#fff">@shahhayaatofficial</a>
 </footer>
-
-<!-- Order Modal -->
-<div id="modal" class="modalWrap" aria-hidden="true">
-  <div class="modal" role="dialog" aria-modal="true">
-    <h3 id="modalTitle">Place your order</h3>
-    <form id="orderForm">
-      <input type="hidden" name="product" id="productInput">
-      <div style="display:flex;gap:8px">
-        <input name="name" placeholder="Full name" required />
-        <input name="mobile" placeholder="Mobile (with country code)" required />
-      </div>
-      <input name="pincode" placeholder="Pincode / ZIP" required />
-      <textarea name="address" placeholder="Full shipping address" rows="3" required></textarea>
-      <div style="display:flex;gap:8px">
-        <input name="quantity" type="number" value="1" min="1" placeholder="Quantity" required />
-        <input name="note" placeholder="Note (optional)" />
-      </div>
-      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
-        <button type="button" id="cancelOrder" class="btn btn-ghost">Cancel</button>
-        <button type="submit" class="btn btn-primary">Confirm and Send</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div style="position:fixed;bottom:18px;right:18px;z-index:160">
-  <a class="btn btn-primary" href="https://wa.me/917051056287" target="_blank">Chat / Order</a>
-</div>
+<div class="wa-float"><a href="https://wa.me/917051056287" target="_blank">Chat / Order</a></div>
 
 <script>
-/* ---------- utilities ---------- */
-function encodeLines(lines){
-  // produce a clean WhatsApp message body
-  return encodeURIComponent(lines.join('\n'));
-}
-document.getElementById('year').textContent = new Date().getFullYear();
+// Hero slideshow autoplay
+const slides=document.querySelectorAll('.slide');
+let i=0;
+function showSlide(n){slides.forEach((s,idx)=>s.classList.toggle('active',idx===n));}
+function nextSlide(){i=(i+1)%slides.length;showSlide(i);}
+showSlide(0);setInterval(nextSlide,4000);
 
-/* ---------- HERO: inline SVG slides (always work) ---------- */
-/* We'll build 8 SVG slides in JS and set them as background data URIs (no external images). */
-const slideDefs = [
-  {key:'joint', title:'Unlocking Ayurvedic Joint Care', bg1:'#9CCB9A', bg2:'#2c7a3a', initials:'JP'},
-  {key:'digestion', title:'Digestive Support', bg1:'#FFD9B3', bg2:'#E0852B', initials:'DG'},
-  {key:'liver', title:'Liver Care', bg1:'#D1F0FF', bg2:'#2A7CB8', initials:'LV'},
-  {key:'immunity', title:'Immunity Boost', bg1:'#FFE6E6', bg2:'#D94D4D', initials:'IM'},
-  {key:'women', title:"Women's Wellness", bg1:'#FDEEFF', bg2:'#C85FA8', initials:'WW'},
-  {key:'clarity', title:'Mental Clarity & Focus', bg1:'#E9E6FF', bg2:'#5B4CE6', initials:'MC'},
-  {key:'blood', title:'Blood Purification', bg1:'#FFEFE6', bg2:'#E06B45', initials:'BP'},
-  {key:'herbal', title:'Herbal Blends & Tonic', bg1:'#F0F7E9', bg2:'#3B8B3B', initials:'HB'}
+// Dynamic year
+document.getElementById("year").textContent=new Date().getFullYear();
+
+// Products
+const products=[
+ {name:"Brain Champ",price:175,desc:"Memory booster tonic.",img:"brainchamp.jpg"},
+ {name:"Shah Zyme",price:165,desc:"Digestive enzyme syrup.",img:"shahzyme.jpg"},
+ {name:"Livo Hayaat",price:349,desc:"Liver care formulation.",img:"livohayaat.jpg"},
 ];
-
-const hero = document.getElementById('hero');
-const dots = document.getElementById('dots');
-const loader = document.getElementById('loader');
-
-function makeSVG(def){
-  // simple, fast SVG — bold initials and label, gradient background
-  const svg =
-`<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'>
-  <defs>
-    <linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>
-      <stop offset='0' stop-color='${def.bg1}'/>
-      <stop offset='1' stop-color='${def.bg2}'/>
-    </linearGradient>
-  </defs>
-  <rect width='100%' height='100%' fill='url(#g)'/>
-  <g transform='translate(120,120)'>
-    <circle cx='200' cy='150' r='120' fill='rgba(255,255,255,0.12)'/>
-    <text x='200' y='175' font-size='84' font-family='Inter,Arial' font-weight='800' text-anchor='middle' fill='white' opacity='0.98'>${def.initials}</text>
-  </g>
-  <g transform='translate(420,560)'>
-    <text x='0' y='0' font-size='46' font-family='Playfair Display,serif' font-weight='700' fill='white'>${def.title}</text>
-  </g>
-</svg>`;
-  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
-}
-
-const slides = [];
-slideDefs.forEach((d,i)=>{
-  const url = makeSVG(d);
-  const el = document.createElement('div');
-  el.className = 'slide';
-  el.style.backgroundImage = `url("${url}")`;
-  hero.insertBefore(el, hero.firstChild);
-  const dot = document.createElement('div');
-  dot.className = 'dot';
-  dot.addEventListener('click', ()=>goTo(i));
-  dots.appendChild(dot);
-  slides.push(el);
-});
-
-// show first slide immediately
-let current = 0;
-function show(i){
-  slides.forEach((s,idx)=> s.classList.toggle('visible', idx===i));
-  const dotNodes = dots.querySelectorAll('.dot');
-  dotNodes.forEach((d,idx)=> d.classList.toggle('active', idx===i));
-  current = i;
-}
-function goTo(i){
-  show(i);
-  resetTimer();
-}
-function resetTimer(){
-  clearInterval(window._slideTimer);
-  window._slideTimer = setInterval(()=> show((current+1) % slides.length), 3800);
-}
-/* Start slideshow quickly — no network required */
-show(0);
-loader.style.transition = 'opacity .45s ease';
-loader.style.opacity = '0';
-setTimeout(()=> loader.style.display='none',450);
-resetTimer();
-
-/* ---------- Products (same list as before) ---------- */
-const products = [
-  {name:"Brain Champ", price:175, desc:"Memory booster tonic.", img:"brainchamp.jpg"},
-  {name:"Shah Zyme", price:165, desc:"Digestive enzyme syrup.", img:"shahzyme.jpg"},
-  {name:"Blood Storm", price:165, desc:"Blood tonic for vitality.", img:"bloodstorm.jpg"},
-  {name:"Cough X Pro", price:90, desc:"Herbal cough relief.", img:"coughxpro.jpg"},
-  {name:"Musaffa Khoon", price:165, desc:"Blood purifier syrup.", img:"musaffakhoon.jpg"},
-  {name:"PanaSip", price:165, desc:"Antacid and anti-gas.", img:"panasip.jpg"},
-  {name:"Livo Hayaat", price:349, desc:"Liver care formulation.", img:"livohayaat.jpg"},
-  {name:"Dia-Ease", price:695, desc:"Sugar balance support.", img:"diaease.png"},
-  {name:"Ortho Hayaat", price:649, desc:"Joint pain support.", img:"orthohayaat.jpg"},
-  {name:"Utro Hayaat", price:625, desc:"Women's health blend.", img:"utrohayaat.png"},
-];
-
-const grid = document.getElementById('productGrid');
+const grid=document.getElementById("productGrid");
 products.forEach(p=>{
-  const c = document.createElement('div'); c.className='card';
-  c.innerHTML = `<img src="${p.img}" alt="${p.name}" onerror="this.src='logo.jpg'"><h3>${p.name}</h3><p style="color:var(--muted)">${p.desc}</p><div class="price">₹${p.price}</div><div style="display:flex;gap:8px;margin-top:8px"><button class="btn btn-primary" onclick="openOrder('${p.name}')">Order</button><a class="btn btn-ghost" target="_blank" href="https://wa.me/917051056287?text=${encodeURIComponent('I would like to order '+p.name+' (₹'+p.price+')')}">Quick WhatsApp</a></div>`;
-  grid.appendChild(c);
+ const card=document.createElement("div");
+ card.className="card";
+ card.innerHTML=`<img src="${p.img}" alt="${p.name}" onerror="this.src='logo.jpg'"><h3>${p.name}</h3><div class="price">₹${p.price}</div><p>${p.desc}</p>
+ <a href="https://wa.me/917051056287?text=I want to order ${encodeURIComponent(p.name)} (₹${p.price})" target="_blank" class="btn btn-primary order-btn">Order Now</a>`;
+ grid.appendChild(card);
 });
 
-/* ---------- Ingredients (10 core) ---------- */
-const ING = [
-  {s:"Ashwagandha", l:"Withania somnifera", b:"Adaptogen that supports stress resilience and stamina."},
-  {s:"Brahmi", l:"Bacopa monnieri", b:"Supports memory and calm mental function."},
-  {s:"Tulsi", l:"Ocimum sanctum", b:"Helps respiratory health and immune balance."},
-  {s:"Amla (Amalaki)", l:"Emblica officinalis", b:"Rich in vitamin C and rejuvenative antioxidants."},
-  {s:"Neem", l:"Azadirachta indica", b:"Traditionally used for purification and skin health."},
-  {s:"Shatavari", l:"Asparagus racemosus", b:"Nourishing tonic often used for women's health."},
-  {s:"Triphala", l:"Haritaki Bibhitaki Amalaki", b:"Gentle digestive and cleansing support."},
-  {s:"Turmeric", l:"Curcuma longa", b:"Anti inflammatory and antioxidant properties."},
-  {s:"Arjuna", l:"Terminalia arjuna", b:"Traditionally used for cardiac and circulatory support."},
-  {s:"Guggul", l:"Commiphora mukul", b:"Used for joint comfort and metabolic support."}
-];
-const acc = document.getElementById('accordion');
-ING.forEach(item=>{
-  const el = document.createElement('div'); el.className='acc-item';
-  el.innerHTML = `<div class="acc-head">${item.s} <span style="font-weight:500;color:#666;font-size:13px">${item.l}</span></div><div class="acc-body"><p style="color:var(--muted)">${item.b}</p></div>`;
-  el.querySelector('.acc-head').addEventListener('click', ()=> {
-    const active = acc.querySelector('.acc-item.active');
-    if(active && active!==el) active.classList.remove('active');
-    el.classList.toggle('active');
-  });
-  acc.appendChild(el);
-});
+// Quiz
+const Q=[{q:"How is your body frame?",opts:[["vata","Thin"],["pitta","Medium"],["kapha","Heavy"]]},{q:"How is your digestion?",opts:[["vata","Irregular"],["pitta","Strong"],["kapha","Slow"]]}];
+const R={vata:["Brain Champ","Fevodol"],pitta:["Livo Hayaat","Cough X Pro"],kapha:["Ortho Hayaat","Dia-Ease"]};
+const wrap=document.getElementById("quizWrap");
+Q.forEach((o,i)=>{let d=document.createElement("div");d.className="question";let h=`<p>${o.q}</p>`;o.opts.forEach(([v,l])=>h+=`<label><input type="radio" name="q${i}" value="${v}">${l}</label>`);d.innerHTML=h;wrap.appendChild(d);});
+document.getElementById("submitQuiz").onclick=()=>{let sc={vata:0,pitta:0,kapha:0};Q.forEach((q,i)=>{const c=document.querySelector(`input[name=q${i}]:checked`);if(c)sc[c.value]++;});let top=Object.keys(sc).reduce((a,b)=>sc[a]>sc[b]?a:b);document.getElementById("quizChat").innerHTML=`<div class="msg bot">Your body type seems <strong>${top}</strong>. Suggested: ${R[top].join(", ")}.</div>`;document.getElementById("restartQuiz").style.display="inline-block";};
+document.getElementById("restartQuiz").onclick=()=>{document.querySelectorAll('#quizWrap input').forEach(i=>i.checked=false);document.getElementById("quizChat").innerHTML="";};
 
-/* ---------- Dosha Quiz (human wording) ---------- */
-const QUIZ = [
-  {q:'Your body frame is mostly', o:[['vata','Light or slim'],['pitta','Medium or athletic'],['kapha','Broad or sturdy']]},
-  {q:'Your digestion is usually', o:[['vata','Irregular'],['pitta','Strong'],['kapha','Slow but steady']]},
-  {q:'Your skin and temperature tend to be', o:[['vata','Dry or cool'],['pitta','Warm or rosy'],['kapha','Cool and moist']]},
-  {q:'Energy through the day is', o:[['vata','In bursts with breaks'],['pitta','Steady and focused'],['kapha','Slow start but long lasting']]},
-  {q:'Sleep pattern is', o:[['vata','Light or easily disturbed'],['pitta','Moderate'],['kapha','Deep sleeper']]},
-  {q:'Usual mood and thought style', o:[['vata','Creative, quick'],['pitta','Driven, focused'],['kapha','Calm and steady']]}
-];
-
-const quizWrap = document.getElementById('quizWrap');
-QUIZ.forEach((q,i)=>{
-  const box = document.createElement('div'); box.className='q-card';
-  let html = `<div style="font-weight:700;margin-bottom:8px">${i+1}. ${q.q}</div>`;
-  q.o.forEach(([val,label])=> html += `<label><input type="radio" name="q${i}" value="${val}"> ${label}</label>`);
-  box.innerHTML = html; quizWrap.appendChild(box);
-});
-
-document.getElementById('getRec').addEventListener('click', ()=>{
-  const counts = {vata:0,pitta:0,kapha:0}; let all=true;
-  for(let i=0;i<QUIZ.length;i++){ const sel = document.querySelector(`input[name=q${i}]:checked`); if(!sel){ all=false; break } counts[sel.value]++; }
-  const resultBox = document.getElementById('quizResult');
-  if(!all){ resultBox.innerHTML = `<div class="msg">Please answer all questions to get a personalized suggestion.</div>`; return; }
-  let dom = Object.keys(counts).reduce((a,b)=>counts[a]>=counts[b]?a:b);
-  const suggestions = { vata:["Brain Champ","PanaSip"], pitta:["Livo Hayaat","Shah Zyme"], kapha:["Ortho Hayaat","Fevodol"] };
-  resultBox.innerHTML = `<div class="msg"><strong>We suggest:</strong> ${suggestions[dom].join(', ')}. <div style="margin-top:8px">${suggestions[dom].map(n=>`<button class="btn btn-primary" style="margin-right:6px" onclick="openOrder('${n}')">Order ${n}</button>`).join('')}</div></div>`;
-  document.getElementById('restart').style.display='inline-block';
-});
-document.getElementById('restart').addEventListener('click', ()=>{ document.querySelectorAll('#quizWrap input').forEach(i=>i.checked=false); document.getElementById('quizResult').innerHTML=''; document.getElementById('restart').style.display='none' });
-
-/* ---------- Modal order flow ---------- */
+// Contact form
+document.getElementById("contactForm").onsubmit=function(e){e.preventDefault();let n=this.name.value,ph=this.phone.value,pin=this.pincode.value,addr=this.address.value,msg=this.message.value;let txt=`New Order:\n• Name: ${n}\n• Phone: ${ph}\n• Pincode: ${pin}\n• Address: ${addr}\n• Message: ${msg}`;window.open(`https://wa.me/917051056287?text=${encodeURIComponent(txt)}`,"_blank");};
+</script>
+</body>
+  </html>
   
