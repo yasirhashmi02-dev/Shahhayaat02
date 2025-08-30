@@ -1,206 +1,158 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Shah Hayaat — Ayurveda for Modern Wellness</title>
-<link rel="icon" href="logo.jpg"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Shah Hayaat — Ayurveda for Modern Wellness</title>
+  <link rel="icon" href="logo.jpg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --green:#2c7a3a; --bg:#f9faf7; --shadow:0 8px 24px rgba(0,0,0,.1); --hero-height: clamp(400px,48vh,640px);}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:#111;line-height:1.6}
+    a{text-decoration:none;color:inherit}
+    header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);
+      display:flex;justify-content:space-between;align-items:center;padding:10px 18px;border-bottom:1px solid #eee;}
+    .brand a{font-weight:800;color:var(--green);font-size:18px}
+    nav{display:flex;gap:10px}
+    nav a{padding:8px 10px;border-radius:6px;font-weight:600;color:#333}
+    nav a:hover{background:#f1fff1;color:var(--green)}
 
-<style>
-:root{
-  --green:#2c7a3a; --muted:#666; --bg:#f9faf7; --card:#fff; --shadow:0 8px 24px rgba(0,0,0,.1);
-  --hero-height: clamp(400px, 48vh, 640px);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:#111;line-height:1.6}
-a{text-decoration:none;color:inherit}
+    /* Hero Slideshow */
+    .hero{position:relative;overflow:hidden;height:var(--hero-height);display:flex;align-items:center;padding:22px 20px}
+    .hero .slide-layer{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .8s ease;filter:brightness(.55)}
+    .hero .slide-layer.visible{opacity:1}
+    .hero .slide-mask{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.15))}
+    .hero-content{position:relative;z-index:5;max-width:880px;color:#fff;padding:18px}
+    .hero h1{font-family:"Playfair Display";font-size:clamp(26px,4.5vw,48px);margin-bottom:12px;text-shadow:0 4px 14px rgba(0,0,0,.5)}
+    .hero p{color:#f0f0f0;margin-bottom:14px;text-shadow:0 3px 10px rgba(0,0,0,.4)}
+    .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{padding:12px 16px;border:none;border-radius:28px;font-weight:700;cursor:pointer;transition:.25s}
+    .btn-primary{background:var(--green);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.14)}
+    .btn-ghost{background:#fff;border:2px solid var(--green);color:var(--green)}
+    .btn:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.18)}
+    .hero .dots{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;display:flex;gap:6px;z-index:6}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer}
+    .dot.active{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.3)}
 
-/* NAV */
-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);
-  display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-bottom:1px solid #eee}
-header .brand a{font-weight:800;color:var(--green);font-size:18px}
-nav{display:flex;gap:10px}
-nav a{padding:8px 10px;border-radius:6px;font-weight:600;color:#333}
-nav a:hover{background:#f1fff1;color:var(--green)}
+    /* Loader */
+    .loader-overlay{position:absolute;inset:0;background:#111;display:flex;align-items:center;justify-content:center;z-index:10}
+    .spinner{width:50px;height:50px;border:5px solid #fff;border-top-color:var(--green);border-radius:50%;animation:spin 1s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loader-overlay.fade-out{opacity:0;pointer-events:none;transition:opacity .7s ease}
 
-/* HERO SLIDESHOW */
-.hero{position:relative;overflow:hidden;height:var(--hero-height);display:flex;align-items:center;padding:22px 20px}
-.hero .slide-layer{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .8s ease;filter:brightness(.55)}
-.hero .slide-layer.visible{opacity:1}
-.hero .slide-mask{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.15))}
-.hero-content{position:relative;z-index:5;max-width:880px;color:#fff;padding:18px}
-.hero h1{font-family:"Playfair Display";font-size:clamp(26px,4.5vw,48px);margin-bottom:12px;text-shadow:0 4px 14px rgba(0,0,0,.5)}
-.hero p{color:#f0f0f0;margin-bottom:14px;text-shadow:0 3px 10px rgba(0,0,0,.4)}
-.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
-.btn{padding:12px 16px;border:none;border-radius:28px;font-weight:700;cursor:pointer;transition:.25s}
-.btn-primary{background:var(--green);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.14)}
-.btn-ghost{background:#fff;border:2px solid var(--green);color:var(--green)}
-.btn:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.18)}
-.hero .dots{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;display:flex;gap:6px;z-index:6}
-.dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer}
-.dot.active{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.3)}
-
-/* Loader */
-.loader-overlay{position:absolute;inset:0;background:#111;display:flex;align-items:center;justify-content:center;z-index:10}
-.spinner{width:50px;height:50px;border:5px solid #fff;border-top-color:var(--green);border-radius:50%;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loader-overlay.fade-out{opacity:0;pointer-events:none;transition:opacity .7s ease}
-
-/* Sections */
-section{padding:60px 18px;max-width:1200px;margin:0 auto}
-section h2{font-family:"Playfair Display";font-size:28px;color:var(--green);margin-bottom:16px;text-align:center}
-.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-.card{background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow);display:flex;flex-direction:column}
-.card img{width:100%;height:150px;object-fit:cover;border-radius:10px;margin-bottom:10px}
-.card h3{font-size:18px;margin-bottom:6px}
-.card p{color:var(--muted);font-size:14px;margin-bottom:6px}
-.card .price{color:var(--green);font-weight:800;margin-bottom:8px}
-
-/* Catalogue */
-.catalog-viewer iframe{width:100%;height:600px;border:0;border-radius:12px;box-shadow:var(--shadow)}
-
-/* Footer & WA */
-footer{background:linear-gradient(90deg,var(--green),#1e5026);padding:20px;text-align:center;color:#fff;margin-top:20px}
-.wa-float{position:fixed;bottom:20px;right:20px;z-index:200}
-.wa-float a{background:var(--green);color:#fff;padding:12px 16px;border-radius:50px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.2)}
-</style>
+    /* Additional Sections & Styles (Products, Quiz, Ingredients, etc.) */
+    section{padding:60px 18px;max-width:1200px;margin:0 auto}
+    section h2{font-family:"Playfair Display";font-size:28px;color:var(--green);margin-bottom:16px;text-align:center}
+    .lead{color:#666;text-align:center;max-width:860px;margin:0 auto 20px}
+    .grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    .card{background:#fff;padding:14px;border-radius:12px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .card img{width:100%;height:150px;object-fit:cover;border-radius:10px;margin-bottom:10px}
+    .card h3{font-size:18px;margin-bottom:6px}
+    .card p{color:#666;font-size:14px;margin-bottom:8px}
+    .card .price{color:var(--green);font-weight:800;margin-bottom:8px}
+    .order-btn{margin-top:auto}
+    .catalog-viewer iframe{width:100%;height:600px;border:0;border-radius:12px;box-shadow:var(--shadow)}
+    footer{background:linear-gradient(90deg,var(--green),#1e5026);padding:20px;text-align:center;color:#fff;margin-top:20px}
+    .wa-float{position:fixed;bottom:20px;right:20px;z-index:200}
+    .wa-float a{background:var(--green);color:#fff;padding:12px 16px;border-radius:50px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+  </style>
 </head>
 <body>
+  <header>
+    <div class="brand"><a href="#hero">Home</a></div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#products">Products</a>
+      <a href="#catalog">Catalogue</a>
+      <a href="#ingredients">Ingredients</a>
+      <a href="#quiz">Dosha Quiz</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-<header>
-  <div class="brand"><a href="#hero">Home</a></div>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#products">Products</a>
-    <a href="#catalog">Catalogue</a>
-    <a href="#ingredients">Ingredients</a>
-    <a href="#quiz">Dosha Quiz</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
-
-<!-- HERO -->
-<section id="hero" class="hero">
-  <div class="loader-overlay" id="heroLoader"><div class="spinner"></div></div>
-  <div class="slide-mask"></div>
-  <div class="hero-content">
-    <h1>Healing Naturally, Living Purely</h1>
-    <p>Shah Hayaat brings timeless Ayurvedic wisdom into modern wellness, crafted with trusted herbs for real-life care.</p>
-    <div class="hero-cta">
-      <a href="#products" class="btn btn-primary">Explore Products</a>
-      <a href="https://wa.me/917051056287" target="_blank" class="btn btn-ghost">Order on WhatsApp</a>
+  <!-- Hero Slideshow -->
+  <section id="hero" class="hero">
+    <div class="loader-overlay" id="heroLoader"><div class="spinner"></div></div>
+    <div class="slide-mask"></div>
+    <div class="hero-content">
+      <h1>Healing Naturally, Living Purely</h1>
+      <p>Shah Hayaat brings timeless Ayurvedic wisdom into modern wellness, crafted with trusted herbs for real-life care.</p>
+      <div class="hero-cta">
+        <a href="#products" class="btn btn-primary">Explore Products</a>
+        <a href="https://wa.me/917051056287" class="btn btn-ghost" target="_blank">Order on WhatsApp</a>
+      </div>
     </div>
+    <div class="dots" id="heroDots"></div>
+  </section>
+
+  <!-- Other sections like About, Products, Ingredients, Quiz, FAQ, Testimonials, Contact go here -->
+
+  <footer>
+    © <span id="year"></span> Shah Hayaat · Instagram: <a href="https://instagram.com/shahhayaatofficial" target="_blank" style="color:#fff">@shahhayaatofficial</a>
+  </footer>
+
+  <div class="wa-float">
+    <a href="https://wa.me/917051056287" target="_blank">Chat / Order</a>
   </div>
-  <div class="dots" id="heroDots"></div>
-</section>
-
-<!-- Example Products Section -->
-<section id="products">
-  <h2>Our Ayurvedic Range</h2>
-  <div class="grid" id="productGrid"></div>
-</section>
-
-<!-- Catalogue -->
-<section id="catalog">
-  <h2>Our Complete Catalogue</h2>
-  <div class="catalog-viewer">
-    <iframe src="https://drive.google.com/file/d/1zFsHSI6XKaBmrN3egPFhK-626OI3ZRDT/preview"></iframe>
-  </div>
-</section>
-
-<!-- Contact -->
-<section id="contact">
-  <h2>Contact & Orders</h2>
-  <form id="contactForm">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="text" name="phone" placeholder="Mobile Number" required>
-    <input type="text" name="pincode" placeholder="Pincode" required>
-    <textarea name="address" placeholder="Full Address" required></textarea>
-    <textarea name="message" placeholder="Your Message" required></textarea>
-    <button class="btn btn-primary" type="submit">Send on WhatsApp</button>
-  </form>
-</section>
-
-<footer>
-  © <span id="year"></span> Shah Hayaat · Instagram: 
-  <a href="https://instagram.com/shahhayaatofficial" target="_blank" style="color:#fff">@shahhayaatofficial</a>
-</footer>
-
-<div class="wa-float">
-  <a href="https://wa.me/917051056287" target="_blank">Chat / Order</a>
-</div>
 
 <script>
-document.getElementById("year").textContent=new Date().getFullYear();
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-/* Hero slideshow optimized */
-const heroSlides=["joint pain relief","digestive health","women wellness","immunity boost"];
-const heroEl=document.getElementById("hero"),
-dotsEl=document.getElementById("heroDots"),
-loader=document.getElementById("heroLoader");
+  // Actual image URLs — replace these placeholders with real ones
+  const heroImages = [
+    "URL-of-your-selected-Ayurvedic-joint-pain-slide",       // joint pain image if needed
+    "URL-of-unlocking-ayurvedic-joint-pain-relief-image",   // kept image
+    "URL-of-digestive-health-image",
+    "URL-of-liver-care-image",
+    "URL-of-immunity-image",
+    "URL-of-women-wellness-image",
+    "URL-of-mental-clarity-image",
+    "URL-of-blood-purification-image"
+  ];
 
-heroSlides.forEach((q,i)=>{
-  const d=document.createElement("div");
-  d.className="slide-layer";
-  heroEl.insertBefore(d,heroEl.firstChild);
-  const dot=document.createElement("div");
-  dot.className="dot";
-  if(i===0) dot.classList.add("active");
-  dot.onclick=()=>goSlide(i);
-  dotsEl.appendChild(dot);
-});
-const layers=document.querySelectorAll(".slide-layer");let idx=0;
+  const heroEl = document.getElementById("hero"),
+        dotsEl = document.getElementById("heroDots"),
+        loader = document.getElementById("heroLoader");
+  let idx = 0, t;
 
-function loadImg(i,cb){
-  if(layers[i].dataset.loaded) return cb&&cb();
-  const src=`https://source.unsplash.com/800x450/?${heroSlides[i]},ayurveda`;
-  const im=new Image();
-  im.src=src;
-  im.onload=()=>{layers[i].style.backgroundImage=`url('${src}')`;layers[i].dataset.loaded=1;if(cb)cb();};
-  im.onerror=()=>{layers[i].style.background=`linear-gradient(135deg,#2c7a3a,#1e5026)`;if(cb)cb();}
-}
+  heroImages.forEach((src,i)=>{
+    const layer = document.createElement("div");
+    layer.className = "slide-layer";
+    heroEl.insertBefore(layer, heroEl.firstChild);
+    const dot = document.createElement("div");
+    dot.className = "dot";
+    if(i===0) dot.classList.add("active");
+    dot.onclick = () => goSlide(i);
+    dotsEl.appendChild(dot);
+  });
 
-function showSlide(i){
-  layers.forEach((l,j)=>l.classList.toggle("visible",j===i));
-  dotsEl.querySelectorAll(".dot").forEach((d,j)=>d.classList.toggle("active",j===i));
-  loadImg((i+1)%layers.length);
-  idx=i;
-}
-function goSlide(i){showSlide(i);reset();}
-function reset(){clearInterval(t);t=setInterval(()=>showSlide((idx+1)%layers.length),4000);}
+  const layers = document.querySelectorAll(".slide-layer");
 
-loadImg(0,()=>{showSlide(0);loader.classList.add("fade-out");});
-let t;reset();
+  function showSlide(i){
+    layers.forEach((l,j)=>l.classList.toggle("visible", j===i));
+    dotsEl.querySelectorAll(".dot").forEach((d,j)=>d.classList.toggle("active", j===i));
+    idx = i;
+  }
 
-/* Products */
-const products=[
- {name:"Brain Champ",price:175,desc:"Memory booster tonic.",img:"brainchamp.jpg"},
- {name:"Shah Zyme",price:165,desc:"Digestive enzyme syrup.",img:"shahzyme.jpg"},
- {name:"Livo Hayaat",price:349,desc:"Liver care formulation.",img:"livohayaat.jpg"},
- {name:"Ortho Hayaat",price:649,desc:"Joint pain support.",img:"orthohayaat.jpg"}
-];
-const grid=document.getElementById("productGrid");
-products.forEach(p=>{
-  const card=document.createElement("div");
-  card.className="card";
-  card.innerHTML=`
-    <img src="${p.img}" alt="${p.name}" onerror="this.src='logo.jpg'">
-    <h3>${p.name}</h3>
-    <div class="price">₹${p.price}</div>
-    <p>${p.desc}</p>
-    <a href="https://wa.me/917051056287?text=I want to order ${encodeURIComponent(p.name)} (₹${p.price})" target="_blank" class="btn btn-primary order-btn">Order Now</a>`;
-  grid.appendChild(card);
-});
+  function preloadImages(){
+    heroImages.forEach((src,i)=>{
+      const img = new Image();
+      img.src = src;
+      img.onload = () => layers[i].style.backgroundImage = `url('${src}')`;
+    });
+  }
 
-/* Contact form */
-document.getElementById("contactForm").onsubmit=function(e){
-  e.preventDefault();
-  const n=this.name.value,ph=this.phone.value,pin=this.pincode.value,addr=this.address.value,msg=this.message.value;
-  const txt=`New Order Request:\n• Name: ${n}\n• Phone: ${ph}\n• Pincode: ${pin}\n• Address: ${addr}\n• Message: ${msg}`;
-  window.open(`https://wa.me/917051056287?text=${encodeURIComponent(txt)}`,"_blank");
-};
+  function goSlide(i){ showSlide(i); reset(); }
+  function reset(){ clearInterval(t); t = setInterval(()=>showSlide((idx+1) % heroImages.length), 3500); }
+
+  window.addEventListener("load", ()=> {
+    preloadImages();
+    showSlide(0);
+    loader.classList.add("fade-out");
+    reset();
+  });
 </script>
 </body>
 </html>
