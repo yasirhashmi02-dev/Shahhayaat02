@@ -1,66 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shah Hayaat</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Font Awesome for Social Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    body { margin: 0; font-family: Arial, sans-serif; scroll-behavior: smooth; }
-    header { background: #2c3e50; color: white; padding: 15px 20px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; }
-    header nav a { color: white; margin: 0 10px; text-decoration: none; font-weight: bold; }
-    header nav a:hover { text-decoration: underline; }
-    section { padding: 80px 20px; }
-    footer { background: #2c3e50; color: white; text-align: center; padding: 30px 20px; }
-    footer p { margin-bottom: 15px; font-weight: bold; font-size: 1.1em; }
-    .social-icons { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; }
-    .social-icons a img { width: 45px; height: 45px; transition: transform 0.3s ease; }
-    .social-icons a img:hover { transform: scale(1.2); }
-    /* Example sections just for scroll test */
-    #about, #products, #catalogue, #ingredients, #quiz, #faq, #contact { min-height: 300px; }
-    .certifications strong { font-weight: bold; font-size: 1.1em; }
+    /* Footer styles */
+    footer {
+      background: #222;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    footer p {
+      margin: 5px 0;
+    }
+    .social-icons {
+      margin-top: 10px;
+    }
+    .social-icons a {
+      display: inline-block;
+      margin: 0 10px;
+      font-size: 22px;
+      color: white;
+      transition: transform 0.3s, color 0.3s;
+    }
+    .social-icons a:hover {
+      transform: scale(1.2);
+      color: #ffd700;
+    }
+    /* Header fix */
+    nav a.home-btn {
+      font-weight: bold;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
 
   <!-- Header -->
   <header>
-    <a href="#top" style="color:white; font-weight:bold; text-decoration:none;">Home</a>
     <nav>
-      <a href="#about">About</a>
-      <a href="#products">Products</a>
-      <a href="#catalogue">Catalogue</a>
-      <a href="#ingredients">Ingredients</a>
-      <a href="#quiz">Quiz</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
+      <ul>
+        <li><a href="#top" class="home-btn">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#catalogue">Catalogue</a></li>
+        <li><a href="#ingredients">Ingredients</a></li>
+        <li><a href="#quiz">Quiz</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </nav>
   </header>
 
   <!-- Sections -->
-  <section id="about"><h2>About</h2><p>About section content here.</p></section>
-  <section id="products"><h2>Products</h2><p>Products section content here.</p></section>
-  <section id="catalogue"><h2>Catalogue</h2><p>Catalogue section content here.</p></section>
-  <section id="ingredients"><h2>Ingredients</h2><p>Ingredients section content here.</p></section>
-  <section id="quiz"><h2>Quiz</h2><p>Quiz section content here.</p></section>
-  <section id="faq"><h2>FAQ</h2><p>FAQ section content here.</p></section>
-  <section id="contact" class="certifications"><h2>Contact</h2><p><strong>Certified by XYZ, Approved by ABC</strong></p></section>
+  <section id="about">
+    <h2>About Us</h2>
+    <p>We are dedicated to providing the best quality health products...</p>
+  </section>
+
+  <section id="products">
+    <h2>Our Products</h2>
+    <p>Explore our range of herbal and Ayurvedic products.</p>
+  </section>
+
+  <section id="catalogue">
+    <h2>Catalogue</h2>
+    <p>Download our catalogue for full product details.</p>
+  </section>
+
+  <section id="ingredients">
+    <h2>Ingredients</h2>
+    <p>Our products are made from natural and authentic ingredients.</p>
+  </section>
+
+  <section id="quiz">
+    <h2>Health Quiz</h2>
+    <p>Take our quiz to know more about your health.</p>
+  </section>
+
+  <section id="faq">
+    <h2>FAQ</h2>
+    <p>Frequently asked questions about our products and services.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>Email us at support@shahhayaat.com</p>
+  </section>
 
   <!-- Footer -->
   <footer>
-    <p>Also available on:</p>
+    <p><strong>Certifications:</strong> WHO, GMP, ISO</p>
+    <p>© 2025 Shah Hayaat. All rights reserved.</p>
+    <p><strong>Also available on:</strong></p>
     <div class="social-icons">
-      <a href="https://www.instagram.com/shahhayaatofficial" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
-      </a>
-      <a href="https://www.amazon.in/HAYAAT-Combo-Complete-Liver-Health/dp/B0CXY46HXM" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/731/731985.png" alt="Amazon">
-      </a>
-      <a href="https://m.indiamart.com/shah-hayaat/?srsltid=AfmBOopDyjI5KfktrgSPBo1m_OswzYvhy8WsPH_-wuIAXrNRBlI0cibu" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968885.png" alt="Indiamart">
-      </a>
-      <a href="https://www.facebook.com/people/Shah-Hayaat/61556791491075/" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
-      </a>
+      <a href="https://www.instagram.com/shahhayaatofficial" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.amazon.in/HAYAAT-Combo-Complete-Liver-Health/dp/B0CXY46HXM" target="_blank"><i class="fab fa-amazon"></i></a>
+      <a href="https://m.indiamart.com/shah-hayaat/?srsltid=AfmBOopDyjI5KfktrgSPBo1m_OswzYvhy8WsPH_-wuIAXrNRBlI0cibu" target="_blank"><i class="fas fa-store"></i></a>
+      <a href="https://www.facebook.com/people/Shah-Hayaat/61556791491075/" target="_blank"><i class="fab fa-facebook"></i></a>
     </div>
   </footer>
 
