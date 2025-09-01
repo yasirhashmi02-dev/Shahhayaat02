@@ -3,107 +3,145 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shah Hayaat</title>
-  <link rel="stylesheet" href="styles.css">
-  <!-- Font Awesome for Social Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Ayurvedic Products</title>
   <style>
-    /* Footer styles */
-    footer {
-      background: #222;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
+    /* Basic Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f9f9f9;
+      scroll-behavior: smooth;
     }
-    footer p {
-      margin: 5px 0;
+
+    header {
+      background: #008080;
+      color: #fff;
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-    .social-icons {
-      margin-top: 10px;
+
+    header nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
     }
-    .social-icons a {
-      display: inline-block;
-      margin: 0 10px;
-      font-size: 22px;
-      color: white;
-      transition: transform 0.3s, color 0.3s;
+
+    header nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
     }
-    .social-icons a:hover {
-      transform: scale(1.2);
+
+    header nav a:hover {
       color: #ffd700;
     }
-    /* Header fix */
-    nav a.home-btn {
-      font-weight: bold;
+
+    section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    section h2 {
+      margin-bottom: 15px;
+      color: #008080;
+    }
+
+    footer {
+      background: #222;
       color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    footer img {
+      height: 40px;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+
+    footer a {
+      color: #ffd700;
+      text-decoration: none;
+      margin-left: 5px;
+      transition: opacity 0.3s;
+    }
+
+    footer a:hover {
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Navigation -->
   <header>
     <nav>
-      <ul>
-        <li><a href="#top" class="home-btn">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#products">Products</a></li>
-        <li><a href="#catalogue">Catalogue</a></li>
-        <li><a href="#ingredients">Ingredients</a></li>
-        <li><a href="#quiz">Quiz</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+      <a href="#about">About</a>
+      <a href="#products">Products</a>
+      <a href="#catalogue">Catalogue</a>
+      <a href="#ingredients">Ingredients</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
     </nav>
   </header>
 
   <!-- Sections -->
   <section id="about">
     <h2>About Us</h2>
-    <p>We are dedicated to providing the best quality health products...</p>
+    <p>We are dedicated to providing the best quality Ayurvedic health products to improve your well-being naturally.</p>
   </section>
 
   <section id="products">
     <h2>Our Products</h2>
-    <p>Explore our range of herbal and Ayurvedic products.</p>
+    <p>Explore our range of herbal and Ayurvedic products designed to support a healthy lifestyle.</p>
   </section>
 
   <section id="catalogue">
     <h2>Catalogue</h2>
-    <p>Download our catalogue for full product details.</p>
+    <p>Download our catalogue for full product details. (Add link to your PDF here)</p>
   </section>
 
   <section id="ingredients">
     <h2>Ingredients</h2>
-    <p>Our products are made from natural and authentic ingredients.</p>
+    <p>Our products are made from 100% natural and authentic herbal ingredients.</p>
   </section>
 
   <section id="quiz">
     <h2>Health Quiz</h2>
-    <p>Take our quiz to know more about your health.</p>
+    <p>Take our fun health quiz to know which Ayurvedic product suits you best. (You can add interactive quiz later.)</p>
   </section>
 
   <section id="faq">
     <h2>FAQ</h2>
-    <p>Frequently asked questions about our products and services.</p>
+    <p><b>Q:</b> Are your products safe?<br>
+       <b>A:</b> Yes, they are made from pure and authentic Ayurvedic ingredients.</p>
   </section>
 
   <section id="contact">
     <h2>Contact Us</h2>
-    <p>Email us at support@shahhayaat.com</p>
+    <p>Email: info@ayurveda.com | Phone: +91-1234567890</p>
   </section>
 
   <!-- Footer -->
   <footer>
-    <p><strong>Certifications:</strong> WHO, GMP, ISO</p>
-    <p>© 2025 Shah Hayaat. All rights reserved.</p>
-    <p><strong>Also available on:</strong></p>
-    <div class="social-icons">
-      <a href="https://www.instagram.com/shahhayaatofficial" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="https://www.amazon.in/HAYAAT-Combo-Complete-Liver-Health/dp/B0CXY46HXM" target="_blank"><i class="fab fa-amazon"></i></a>
-      <a href="https://m.indiamart.com/shah-hayaat/?srsltid=AfmBOopDyjI5KfktrgSPBo1m_OswzYvhy8WsPH_-wuIAXrNRBlI0cibu" target="_blank"><i class="fas fa-store"></i></a>
-      <a href="https://www.facebook.com/people/Shah-Hayaat/61556791491075/" target="_blank"><i class="fab fa-facebook"></i></a>
-    </div>
+    <p>
+      <img src="logo.png" alt="Company Logo">  
+      Also available on 
+      <a href="https://www.amazon.in" target="_blank">Amazon</a>
+    </p>
   </footer>
 
 </body>
