@@ -6,113 +6,451 @@
 <title>Shah Hayaat — Ayurveda for Modern Wellness</title>
 <meta name="description" content="Shah Hayaat - premium Ayurvedic wellness products. Certified WHO, GMP, ISO. Order now on WhatsApp.">
 <link rel="icon" href="logo.jpg"/>
+
+<!-- Performance: font preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-  :root{--green:#2c7a3a;--accent:#c69b1e;--muted:#666;--bg:#f9faf7;--card:#fff;--shadow:0 6px 20px rgba(0,0,0,.12)}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:#111;line-height:1.6;overflow-x:hidden}
-  a{text-decoration:none;color:inherit}
+:root{--green:#2c7a3a;--accent:#c69b1e;--muted:#666;--bg:#f9faf7;--card:#fff;--shadow:0 6px 20px rgba(0,0,0,.10)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:#111;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
 
-/* NAV */
-  header{position:sticky;top:0;z-index:100;background:#ffffffdc;backdrop-filter:blur(6px);border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;padding:10px 18px}
-  header img{height:48px;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.14)}
-  header nav{display:flex;gap:12px;flex-wrap:wrap}
-  header nav a{padding:8px 10px;font-weight:600;color:#444;transition:.25s}
-  header nav a:hover{color:var(--green);transform:translateY(-2px)}
-  .social-icons{display:flex;gap:10px}
-  .social-icons a{font-size:18px;color:var(--green);transition:.25s}
-  .social-icons a:hover{color:var(--accent)}
+/* HEADER */
+header{position:sticky;top:0;z-index:120;background:#ffffffdd;backdrop-filter: blur(6px);border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between;padding:10px 18px;gap:12px}
+.header-left{display:flex;align-items:center;gap:10px}
+.logo{height:48px;border-radius:8px;object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.home-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;font-weight:800;background:transparent;border:2px solid transparent;cursor:pointer;color:var(--green)}
+.home-btn:hover{background:#f0fff0;border-color:rgba(44,122,58,.08);transform:translateY(-2px)}
+nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+nav a{padding:8px 10px;font-weight:600;color:#444;border-radius:8px}
+nav a:hover{color:var(--green);transform:translateY(-2px)}
+.social-icons{display:flex;gap:8px;align-items:center}
 
-/* Section */
-  section{padding:72px 20px;max-width:1200px;margin:0 auto;opacity:0;transform:translateY(40px);transition:all .7s ease-out}
-  section.visible{opacity:1;transform:translateY(0)}
-  section h2{font-family:"Playfair Display";font-size:30px;color:var(--green);margin-bottom:20px;text-align:center}
+/* Section + overlay */
+section{padding:64px 18px;max-width:1100px;margin:0 auto;opacity:0;transform:translateY(28px);transition:all .62s ease-out;position:relative;z-index:2}
+section.visible{opacity:1;transform:translateY(0)}
+section h2{font-family:"Playfair Display";font-size:28px;color:var(--green);margin-bottom:16px;text-align:center}
+.overlay{position:absolute;inset:0;z-index:0;opacity:.14;background-size:cover;background-position:center;transition:transform .6s linear}
+section>*{position:relative;z-index:3}
 
-/* Cards */
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
-  .card{background:var(--card);padding:16px;border-radius:14px;box-shadow:var(--shadow);display:flex;flex-direction:column}
-  .card img{width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:10px}
+/* hero */
+.hero{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding-top:80px;padding-bottom:90px}
+.hero-text{flex:1;min-width:240px}
+.hero-text h1{font-family:"Playfair Display";font-size:40px;color:var(--green);margin-bottom:10px}
+.hero-text p{color:var(--muted);max-width:720px}
 
-/* Certification highlight */
-  .cert{font-weight:800;color:var(--green);animation:blink 2s infinite}
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:.6}}
+/* buttons */
+.btn{padding:10px 16px;border:none;border-radius:28px;cursor:pointer;font-weight:700;transition:all .22s;display:inline-block}
+.btn-primary{background:var(--green);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.btn-ghost{background:#fff;border:2px solid var(--green);color:var(--green)}
+.btn:hover{transform:translateY(-3px)}
 
-/* Footer */
-  footer{background:linear-gradient(90deg,var(--green),#1e5026);padding:26px;text-align:center;color:#fff;margin-top:40px}
-  footer .social{margin-top:12px;display:flex;justify-content:center;gap:14px}
-  footer .social a{color:#fff;font-weight:600;transition:.25s}
-  footer .social a:hover{color:var(--accent)}
+/* grid/cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card{background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card img{width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:10px}
 
-@media(max-width:768px){
-  header nav{justify-content:center}
+/* catalog */
+.catalog-viewer iframe{width:100%;height:640px;border:none;border-radius:12px;box-shadow:var(--shadow)}
+
+/* Accordion */
+.accordion{max-width:920px;margin:0 auto}
+.accordion-item{background:#fff;margin-bottom:10px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.05);overflow:hidden}
+.accordion-header{padding:12px 14px;cursor:pointer;font-weight:700;color:var(--green);display:flex;justify-content:space-between;align-items:center}
+.accordion-body{padding:0 14px;max-height:0;overflow:hidden;transition:max-height .38s ease}
+.accordion-item.active .accordion-body{padding:12px 14px;max-height:420px}
+.pill{display:inline-block;background:#eef6ee;color:#225b2d;border-radius:999px;padding:5px 10px;margin:6px 8px 0 0;font-size:12px}
+
+/* quiz */
+.q-card{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:12px;margin-bottom:12px}
+.q-title{font-weight:700;color:#111;margin-bottom:8px}
+.q-options label{display:block;padding:8px 10px;border:1px solid #f3f3f3;border-radius:10px;margin:8px 0;cursor:pointer}
+.msg{background:#fff;border-radius:12px;padding:12px;margin:10px 0;box-shadow:var(--shadow)}
+.msg.bot{border-left:4px solid var(--green)}
+.recos{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+.reco{flex:1 1 220px;background:#fff;border:1px solid #eef7ee;border-radius:10px;padding:12px;box-shadow:0 4px 10px rgba(0,0,0,.04)}
+
+/* FAQ/testimonials */
+.faq,.testimonials{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+
+/* footer */
+footer{background:linear-gradient(90deg,var(--green),#1e5026);padding:24px;text-align:center;color:#fff;margin-top:36px}
+footer .social{margin-top:12px;display:flex;justify-content:center;gap:14px}
+footer a{color:#fff;font-weight:600}
+
+/* certification highlight */
+.cert{font-weight:900;color:var(--green);display:inline-block;padding:6px 10px;border-radius:8px;background:rgba(44,122,58,.06)}
+.cert.blink{animation:certPulse 2.2s infinite}
+@keyframes certPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.02);opacity:.85}}
+
+/* small screen tweaks */
+@media (max-width:820px){
+  .hero-text h1{font-size:30px}
+  .catalog-viewer iframe{height:480px}
+  header{padding:10px}
+  nav{display:none} /* keep header compact — you can enable a hamburger later if needed */
 }
 </style>
 </head>
 <body>
 
 <header>
-  <div style="display:flex;align-items:center;gap:10px">
-    <img src="logo.jpg" alt="Shah Hayaat logo" loading="lazy">
-    <strong>Shah Hayaat</strong>
+  <div class="header-left">
+    <img src="logo.jpg" alt="Shah Hayaat logo" class="logo" loading="lazy" decoding="async" onerror="this.src='logo.jpg'">
+    <!-- Home button (replaces 'Shah Hayaat' text) -->
+    <a href="#hero" class="home-btn" aria-label="Home">🏠 Home</a>
   </div>
+
+  <!-- primary nav (hidden on very small screens for compactness) -->
   <nav>
     <a href="#about">About</a>
     <a href="#products">Products</a>
     <a href="#catalog">Catalogue</a>
     <a href="#ingredients">Ingredients</a>
-    <a href="#quiz">Quiz</a>
+    <a href="#quiz">Dosha Quiz</a>
     <a href="#faq">FAQ</a>
     <a href="#contact">Contact</a>
   </nav>
-  <div class="social-icons">
-    <a href="https://instagram.com/shahhayaatofficial" target="_blank">📷</a>
-    <a href="https://www.facebook.com/people/Shah-Hayaat/61556791491075/" target="_blank">📘</a>
-    <a href="https://www.amazon.in/HAYAAT-Combo-Complete-Liver-Health/dp/B0CXY46HXM" target="_blank">🛒</a>
-    <a href="https://m.indiamart.com/shah-hayaat/?srsltid=AfmBOopDyjI5KfktrgSPBo1m_OswzYvhy8WsPH_-wuIAXrNRBlI0cibu" target="_blank">🏭</a>
+
+  <div class="social-icons" aria-hidden="false">
+    <!-- Instagram -->
+    <a href="https://instagram.com/shahhayaatofficial" target="_blank" title="Instagram" aria-label="Instagram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/people/Shah-Hayaat/61556791491075/" target="_blank" title="Facebook" aria-label="Facebook">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 12.1C22 6.6 17.5 2 12 2S2 6.6 2 12.1c0 5 3.7 9.2 8.5 9.9v-7H8.1v-2.9h2.4V9.1c0-2.4 1.4-3.7 3.5-3.7 1 0 2 .08 2 .08v2.2h-1.1c-1.1 0-1.4.64-1.4 1.3v1.55h2.4l-.38 2.9h-2.02v7C18.3 21.3 22 17.1 22 12.1z" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <!-- Amazon -->
+    <a href="https://www.amazon.in/HAYAAT-Combo-Complete-Liver-Health/dp/B0CXY46HXM" target="_blank" title="Amazon" aria-label="Amazon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12s2.5 6 10 6c7.5 0 8-6 8-6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </a>
+    <!-- IndiaMART -->
+    <a href="https://m.indiamart.com/shah-hayaat/?srsltid=AfmBOopDyjI5KfktrgSPBo1m_OswzYvhy8WsPH_-wuIAXrNRBlI0cibu" target="_blank" title="IndiaMART" aria-label="IndiaMART">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M7 9h10M7 12h6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </a>
   </div>
 </header>
 
+<!-- HERO -->
+<section id="hero" class="hero">
+  <div class="overlay" data-bg="https://source.unsplash.com/1200x900/?ayurveda,herbs"></div>
+  <div class="hero-text">
+    <h1>Healing Naturally, Living Purely</h1>
+    <p>Shah Hayaat brings the ancient wisdom of Ayurveda into modern wellness. Certified by <span class="cert blink">WHO</span>, <span class="cert blink">GMP</span> and <span class="cert blink">ISO & HACCP</span> — premium herbal remedies crafted with care.</p>
+    <div style="margin-top:14px">
+      <a href="#products" class="btn btn-primary">Explore Products</a>
+      <a href="https://wa.me/917051056287" target="_blank" class="btn btn-ghost">Order on WhatsApp</a>
+    </div>
+  </div>
+  <img src="logo.jpg" alt="logo" style="max-width:260px;border-radius:18px;box-shadow:0 6px 20px rgba(0,0,0,.16)" loading="lazy" decoding="async" onerror="this.src='logo.jpg'">
+</section>
+
 <!-- ABOUT -->
 <section id="about">
+  <div class="overlay" data-bg="https://source.unsplash.com/1200x900/?spa,leafy,nature"></div>
   <h2>Our Philosophy</h2>
-  <p style="text-align:center;max-width:820px;margin:0 auto">We blend Ayurvedic tradition with modern science to deliver wellness solutions that are safe, effective and reliable.</p>
+  <p style="text-align:center;max-width:820px;margin:0 auto">We blend Ayurvedic tradition with modern science to deliver wellness solutions that are safe, effective and reliable. Every formula is made from carefully selected herbs with traditional benefits.</p>
   <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
-    <div class="card" style="max-width:260px;"><span class="cert">WHO Certified</span><p>Quality ensured via recognized standards.</p></div>
-    <div class="card" style="max-width:260px;"><span class="cert">GMP Standard</span><p>Manufactured with strict processes.</p></div>
-    <div class="card" style="max-width:260px;"><span class="cert">ISO & HACCP</span><p>Global benchmarks for safety.</p></div>
+    <div class="card" style="max-width:260px;"><strong class="cert">WHO Certified</strong><p style="color:var(--muted)">Quality ensured via recognized standards.</p></div>
+    <div class="card" style="max-width:260px;"><strong class="cert">GMP Standard</strong><p style="color:var(--muted)">Manufactured with strict processes.</p></div>
+    <div class="card" style="max-width:260px;"><strong class="cert">ISO & HACCP</strong><p style="color:var(--muted)">Global benchmarks for safety.</p></div>
   </div>
 </section>
 
-<!-- PRODUCTS (simplified for demo, can reuse your product JS) -->
+<!-- PRODUCTS -->
 <section id="products">
+  <div class="overlay" data-bg="https://source.unsplash.com/1200x900/?herbal,bottles,medicine"></div>
   <h2>Our Ayurvedic Range</h2>
-  <div class="grid">
-    <div class="card"><img src="brainchamp.jpg" alt="Brain Champ" loading="lazy"><h3>Brain Champ</h3><p>Memory booster tonic.</p></div>
-    <div class="card"><img src="shahzyme.jpg" alt="Shah Zyme" loading="lazy"><h3>Shah Zyme</h3><p>Digestive enzyme syrup.</p></div>
+  <div class="grid" id="productGrid" aria-live="polite"></div>
+</section>
+
+<!-- CATALOG -->
+<section id="catalog">
+  <div class="overlay" data-bg="https://source.unsplash.com/1200x900/?herbs,spices,flatlay"></div>
+  <h2>Our Complete Catalogue</h2>
+  <div class="catalog-viewer">
+    <!-- lazy-load the drive preview -->
+    <iframe src="https://drive.google.com/file/d/1zFsHSI6XKaBmrN3egPFhK-626OI3ZRDT/preview" loading="lazy" referrerpolicy="no-referrer"></iframe>
+  </div>
+</section>
+
+<!-- INGREDIENTS -->
+<section id="ingredients">
+  <div class="overlay" data-bg="https://source.unsplash.com/1200x900/?ayurvedic,spices,flatlay"></div>
+  <h2>Ingredients Transparency</h2>
+  <p style="text-align:center;max-width:820px;margin:0 auto 14px">Ten core herbs used across our formulas — click each to learn the Sanskrit/Latin name and benefits.</p>
+  <div class="accordion" id="ingredientsAccordion"></div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="overlay" data-bg="https://source.unsplash.com/1200x900/?meditation,nature,calm"></div>
+  <h2>Dosha Quiz</h2>
+  <p style="text-align:center;max-width:820px;margin:0 auto 12px">Answer 6 quick questions and get a tailored dosha-type recommendation and product suggestions.</p>
+
+  <div class="quiz-wrap" id="quizWrap"></div>
+  <div style="text-align:center;margin-top:6px">
+    <button class="btn btn-primary" id="submitQuiz">Get Recommendations</button>
+    <button class="btn btn-ghost" id="restartQuiz" style="display:none">Restart</button>
+  </div>
+
+  <div id="quizChat"></div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="overlay" data-bg="https://source.unsplash.com/1200x900/?herbal,nature,wellness"></div>
+  <h2>What Our Customers Say</h2>
+  <div class="testimonials">
+    <div class="test card"><strong>Rohit</strong><p>Brain Champ helped me focus better. Gentle and effective.</p></div>
+    <div class="test card"><strong>Meera</strong><p>Utro Hayaat eased my monthly discomfort. Truly caring products.</p></div>
+    <div class="test card"><strong>Kuldeep</strong><p>Livo Hayaat improved my liver health. Highly recommend.</p></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="overlay" data-bg="https://source.unsplash.com/1200x900/?green,texture,leaves"></div>
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq">
+    <div class="faq-item card"><strong>Are your products safe?</strong><p>Yes — prepared and tested under recognized quality systems.</p></div>
+    <div class="faq-item card"><strong>How to order?</strong><p>Tap any product's Order button or chat with us on WhatsApp.</p></div>
+    <div class="faq-item card"><strong>Pregnancy?</strong><p>Please consult your physician before using supplements during pregnancy.</p></div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
+  <div class="overlay" data-bg="https://source.unsplash.com/1200x900/?herb,leaf,background"></div>
   <h2>Contact & Orders</h2>
-  <p style="text-align:center">Order via WhatsApp or connect on our social platforms below.</p>
+  <form id="contactForm" style="max-width:680px;margin:0 auto;background:#fff;padding:14px;border-radius:12px;box-shadow:var(--shadow)">
+    <input type="text" name="name" placeholder="Your Name" required style="width:100%;padding:10px;margin-bottom:8px;border-radius:8px;border:1px solid #eee">
+    <input type="text" name="phone" placeholder="Phone / WhatsApp" required style="width:100%;padding:10px;margin-bottom:8px;border-radius:8px;border:1px solid #eee">
+    <textarea name="message" placeholder="Your message" required style="width:100%;padding:10px;margin-bottom:8px;border-radius:8px;border:1px solid #eee"></textarea>
+    <button class="btn btn-primary" type="submit">Send on WhatsApp</button>
+  </form>
 </section>
 
 <footer>
-  © <span id="year"></span> Shah Hayaat  
-  <div class="social">
+  © <span id="year"></span> Shah Hayaat · Connect:
+  <div class="social" style="margin-top:10px">
     <a href="https://instagram.com/shahhayaatofficial" target="_blank">Instagram</a>
     <a href="https://www.facebook.com/people/Shah-Hayaat/61556791491075/" target="_blank">Facebook</a>
     <a href="https://www.amazon.in/HAYAAT-Combo-Complete-Liver-Health/dp/B0CXY46HXM" target="_blank">Amazon</a>
-    <a href="https://m.indiamart.com/shah-hayaat/?srsltid=AfmBOopDyjI5KfktrgSPBo1m_OswzYvhy8WsPH_-wuIAXrNRBlI0cibu" target="_blank">Indiamart</a>
+    <a href="https://m.indiamart.com/shah-hayaat/?srsltid=AfmBOopDyjI5KfktrgSPBo1m_OswzYvhy8WsPH_-wuIAXrNRBlI0cibu" target="_blank">IndiaMART</a>
   </div>
 </footer>
 
+<!-- floating WA -->
+<div style="position:fixed;bottom:18px;right:18px;z-index:140">
+  <a href="https://wa.me/917051056287" target="_blank" class="btn btn-primary" style="border-radius:999px;padding:12px 14px;display:inline-flex;align-items:center;gap:8px">💬 Chat / Order</a>
+</div>
+
 <script>
+/* ========================
+   Inline JS (lightweight)
+   ======================== */
+
+/* ---------- Dynamic year ---------- */
 document.getElementById('year').textContent = new Date().getFullYear();
-const revealObs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.2});
-document.querySelectorAll('section').forEach(s=>revealObs.observe(s));
+
+/* ---------- Products list ---------- */
+const products = [
+ {name:"Brain Champ",price:175,desc:"Memory booster tonic.",img:"brainchamp.jpg"},
+ {name:"Shah Zyme",price:165,desc:"Digestive enzyme syrup.",img:"shahzyme.jpg"},
+ {name:"Blood Storm",price:165,desc:"Blood tonic for vitality.",img:"bloodstorm.jpg"},
+ {name:"Cough X Pro",price:90,desc:"Herbal cough relief.",img:"coughxpro.jpg"},
+ {name:"Musaffa Khoon",price:165,desc:"Blood purifier syrup.",img:"musaffakhoon.jpg"},
+ {name:"PanaSip",price:165,desc:"Antacid and anti-gas.",img:"panasip.jpg"},
+ {name:"Livo Hayaat",price:349,desc:"Liver care formulation.",img:"livohayaat.jpg"},
+ {name:"Dia-Ease",price:695,desc:"Sugar balance support.",img:"diaease.png"},
+ {name:"Ortho Hayaat",price:649,desc:"Joint pain support.",img:"orthohayaat.jpg"},
+ {name:"Utro Hayaat",price:625,desc:"Women's health blend.",img:"utrohayaat.png"},
+ {name:"Passion Pulse",price:599,desc:"Vitality support.",img:"passionpulse.jpg"},
+ {name:"Fevodol",price:165,desc:"Immunity booster capsule.",img:"fevodol.png"}
+];
+
+(function renderProducts(){
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = '';
+  products.forEach(p=>{
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `<img src="${p.img}" alt="${p.name}" loading="lazy" decoding="async" onerror="this.src='logo.jpg'">
+      <h3 style="margin-top:6px">${p.name}</h3>
+      <div style="color:var(--green);font-weight:700;margin:6px 0">₹${p.price}</div>
+      <p style="color:var(--muted);font-size:14px;margin-bottom:10px">${p.desc}</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn btn-primary" target="_blank" href="https://wa.me/917051056287?text=${encodeURIComponent('I want to order '+p.name+' (₹'+p.price+')')}">Order</a>
+        <a class="btn btn-ghost" target="_blank" href="#catalog">View Info</a>
+      </div>`;
+    grid.appendChild(card);
+  });
+})();
+
+/* ---------- Reveal on scroll ---------- */
+const revealObserver = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting) en.target.classList.add('visible');
+  });
+},{threshold:0.18});
+document.querySelectorAll('section').forEach(el=>revealObserver.observe(el));
+
+/* ---------- Lazy-load backgrounds for overlays ---------- */
+document.querySelectorAll('section .overlay').forEach(ov=>{
+  ov.style.backgroundColor = '#e9f3ea';
+  const sec = ov.closest('section');
+  const lo = new IntersectionObserver(entries=>{
+    entries.forEach(ent => {
+      if(ent.isIntersecting){
+        const bg = ov.getAttribute('data-bg');
+        if(bg) {
+          ov.style.backgroundImage = `url('${bg}')`;
+          ov.style.backgroundRepeat = 'no-repeat';
+          ov.style.backgroundSize = 'cover';
+          ov.style.backgroundPosition = 'center';
+        }
+        lo.disconnect();
+      }
+    });
+  },{rootMargin:'200px'});
+  lo.observe(sec);
+});
+
+/* small parallax for overlays (cheap) */
+window.addEventListener('scroll',()=>{
+  document.querySelectorAll('.overlay').forEach(ov=>{
+    const rect = ov.getBoundingClientRect();
+    const pct = (rect.top + rect.height/2 - window.innerHeight/2) / window.innerHeight;
+    ov.style.transform = `translateY(${pct * 12}px)`;
+  });
+});
+
+/* ---------- Ingredients accordion ---------- */
+const INGREDIENTS = [
+  {sanskrit:"Ashwagandha", latin:"Withania somnifera", benefits:"Adaptogen — supports stress resilience, strength and vitality.", products:["Brain Champ","Passion Pulse"]},
+  {sanskrit:"Brahmi", latin:"Bacopa monnieri", benefits:"Cognitive support — memory, learning and calm.", products:["Brain Champ"]},
+  {sanskrit:"Tulsi", latin:"Ocimum sanctum", benefits:"Respiratory & immunity support; calming adaptogen.", products:["Shah Zyme","Fevodol"]},
+  {sanskrit:"Amla (Amalaki)", latin:"Emblica officinalis", benefits:"Vitamin-rich rejuvenator; antioxidant & digestive support.", products:["Blood Storm","Livo Hayaat"]},
+  {sanskrit:"Neem", latin:"Azadirachta indica", benefits:"Supports skin & purification pathways.", products:["Musaffa Khoon"]},
+  {sanskrit:"Shatavari", latin:"Asparagus racemosus", benefits:"Nourishing tonic, especially for women's health.", products:["Utro Hayaat"]},
+  {sanskrit:"Triphala", latin:"Haritaki, Bibhitaki, Amalaki", benefits:"Gentle cleansing & digestive balance.", products:["Shah Zyme","PanaSip"]},
+  {sanskrit:"Turmeric", latin:"Curcuma longa", benefits:"Anti-inflammatory & antioxidant; general wellbeing.", products:["Blood Storm","Ortho Hayaat"]},
+  {sanskrit:"Arjuna", latin:"Terminalia arjuna", benefits:"Traditionally used for heart and circulatory support.", products:["Blood Storm"]},
+  {sanskrit:"Guggul", latin:"Commiphora mukul", benefits:"Joint & metabolic support; used in classical formulations.", products:["Ortho Hayaat"]}
+];
+
+(function renderIngredients(){
+  const acc = document.getElementById('ingredientsAccordion');
+  acc.innerHTML = '';
+  INGREDIENTS.forEach((ing)=>{
+    const item = document.createElement('div'); item.className='accordion-item';
+    const header = document.createElement('div'); header.className='accordion-header';
+    header.innerHTML = `<div><div style="font-weight:800">${ing.sanskrit}</div><div style="font-size:13px;color:#666">${ing.latin}</div></div><div style="color:#999">+</div>`;
+    const body = document.createElement('div'); body.className='accordion-body';
+    body.innerHTML = `<p style="margin:0">${ing.benefits}</p><div style="margin-top:10px"><strong>Found in:</strong> ${ing.products.map(p=>`<span class="pill">${p}</span>`).join('')}</div>`;
+    header.addEventListener('click',()=> {
+      const current = acc.querySelector('.accordion-item.active');
+      if(current && current!==item) current.classList.remove('active');
+      item.classList.toggle('active');
+    });
+    item.appendChild(header); item.appendChild(body); acc.appendChild(item);
+  });
+})();
+
+/* ---------- Dosha Quiz ---------- */
+const QUIZ = [
+ {q:'Your body frame is mostly…', o:[['vata','Light / slim'],['pitta','Medium / athletic'],['kapha','Broad / sturdy']]},
+ {q:'Your appetite / digestion tends to be…', o:[['vata','Irregular'],['pitta','Strong and sharp'],['kapha','Slow but steady']]},
+ {q:'Skin & temperature feel…', o:[['vata','Dry / cool'],['pitta','Warm / prone to redness'],['kapha','Cool / moist']]},
+ {q:'Energy pattern across the day…', o:[['vata','Bursts with crashes'],['pitta','Focused and driven'],['kapha','Even but slow start']]},
+ {q:'Sleep pattern is…', o:[['vata','Light / easily disturbed'],['pitta','Moderate / may wake hot'],['kapha','Deep / hard to wake']]},
+ {q:'Mind & mood mostly…', o:[['vata','Creative, on-the-go'],['pitta','Determined, intense'],['kapha','Calm, steady']]},
+];
+
+const RECO = {
+  vata:["Brain Champ","Musaffa Khoon","PanaSip"],
+  pitta:["Livo Hayaat","Shah Zyme","Dia-Ease"],
+  kapha:["Ortho Hayaat","Fevodol","Shah Zyme"]
+};
+
+(function renderQuiz(){
+  const wrap = document.getElementById('quizWrap'); wrap.innerHTML = '';
+  QUIZ.forEach((row,i)=>{
+    const card = document.createElement('div'); card.className='q-card';
+    card.innerHTML = `<div class="q-title">${i+1}. ${row.q}</div>`;
+    const opts = document.createElement('div'); opts.className='q-options';
+    row.o.forEach(([val,label])=>{
+      opts.innerHTML += `<label><input type="radio" name="q${i}" value="${val}"> ${label}</label>`;
+    });
+    card.appendChild(opts); wrap.appendChild(card);
+  });
+})();
+
+const chat = document.getElementById('quizChat');
+const submitBtn = document.getElementById('submitQuiz');
+const restartBtn = document.getElementById('restartQuiz');
+
+function whatsappBtn(name){
+  const p = products.find(x=>x.name === name);
+  const price = p ? ` (₹${p.price})` : '';
+  const link = `https://wa.me/917051056287?text=${encodeURIComponent('I want to order '+name+price)}`;
+  return `<a class="btn btn-primary" target="_blank" href="${link}">Order ${name}</a>`;
+}
+
+function showRecommendations(dosha){
+  const picks = RECO[dosha] || [];
+  const cards = picks.map(name=>{
+    const p = products.find(x => x.name === name) || {};
+    const img = p.img ? `<img src="${p.img}" alt="${name}" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:8px" loading="lazy" decoding="async" onerror="this.src='logo.jpg'">` : '';
+    const price = p.price ? `₹${p.price}` : '';
+    return `<div class="reco">${img}<h4 style="margin:0 0 6px 0">${name}</h4><div style="color:var(--green);font-weight:700">${price}</div>${whatsappBtn(name)}</div>`;
+  }).join('');
+  return `<div class="msg bot"><strong>Your dominant Dosha: ${dosha.toUpperCase()}</strong><div class="recos">${cards}</div></div>`;
+}
+
+submitBtn.addEventListener('click',()=>{
+  const counts = {vata:0,pitta:0,kapha:0};
+  let all = true;
+  for(let i=0;i<QUIZ.length;i++){
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    if(!sel){ all=false; break; }
+    counts[sel.value] += 1;
+  }
+  if(!all){
+    chat.innerHTML = `<div class="msg bot">Please answer all questions to get a recommendation.</div>`;
+    return;
+  }
+
+  let dominant = Object.keys(counts).reduce((a,b)=>counts[a]>=counts[b]?a:b);
+  chat.innerHTML = `<div class="msg bot">Analyzing your responses… balancing elements…</div>`;
+  setTimeout(()=> {
+    chat.innerHTML = showRecommendations(dominant) + `<div class="msg">Note: This is guidance only, not a medical diagnosis. Consult a professional for medical advice.</div>`;
+    restartBtn.style.display = 'inline-block';
+    chat.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 700);
+});
+
+restartBtn.addEventListener('click',()=>{
+  document.querySelectorAll('input[type="radio"]').forEach(i=>i.checked=false);
+  chat.innerHTML = '';
+  restartBtn.style.display = 'none';
+});
+
+/* ---------- Contact form sends to WhatsApp ---------- */
+document.getElementById('contactForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const name = this.name.value.trim();
+  const phone = this.phone.value.trim();
+  const msg = this.message.value.trim();
+  const text = `Hello, I am ${name} (${phone}). ${msg}`;
+  window.open(`https://wa.me/917051056287?text=${encodeURIComponent(text)}`, '_blank');
+});
 </script>
 </body>
 </html>
