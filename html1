@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Shah Hayaat — Ayurveda for Modern Wellness</title>
+<meta name="description" content="Shah Hayaat - premium Ayurvedic wellness products. Certified WHO, GMP, ISO. Order now on WhatsApp.">
+<link rel="icon" href="logo.jpg"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{--green:#2c7a3a;--accent:#c69b1e;--muted:#666;--bg:#f9faf7;--card:#fff;--shadow:0 6px 20px rgba(0,0,0,.12)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:#111;line-height:1.6;overflow-x:hidden}
+  a{text-decoration:none;color:inherit}
+
+/* NAV */
+  header{position:sticky;top:0;z-index:100;background:#ffffffdc;backdrop-filter:blur(6px);border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;padding:10px 18px}
+  header img{height:48px;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+  header nav{display:flex;gap:12px;flex-wrap:wrap}
+  header nav a{padding:8px 10px;font-weight:600;color:#444;transition:.25s}
+  header nav a:hover{color:var(--green);transform:translateY(-2px)}
+  .social-icons{display:flex;gap:10px}
+  .social-icons a{font-size:18px;color:var(--green);transition:.25s}
+  .social-icons a:hover{color:var(--accent)}
+
+/* Section */
+  section{padding:72px 20px;max-width:1200px;margin:0 auto;opacity:0;transform:translateY(40px);transition:all .7s ease-out}
+  section.visible{opacity:1;transform:translateY(0)}
+  section h2{font-family:"Playfair Display";font-size:30px;color:var(--green);margin-bottom:20px;text-align:center}
+
+/* Cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+  .card{background:var(--card);padding:16px;border-radius:14px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .card img{width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:10px}
+
+/* Certification highlight */
+  .cert{font-weight:800;color:var(--green);animation:blink 2s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.6}}
+
+/* Footer */
+  footer{background:linear-gradient(90deg,var(--green),#1e5026);padding:26px;text-align:center;color:#fff;margin-top:40px}
+  footer .social{margin-top:12px;display:flex;justify-content:center;gap:14px}
+  footer .social a{color:#fff;font-weight:600;transition:.25s}
+  footer .social a:hover{color:var(--accent)}
+
+@media(max-width:768px){
+  header nav{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;align-items:center;gap:10px">
+    <img src="logo.jpg" alt="Shah Hayaat logo" loading="lazy">
+    <strong>Shah Hayaat</strong>
+  </div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#products">Products</a>
+    <a href="#catalog">Catalogue</a>
+    <a href="#ingredients">Ingredients</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="social-icons">
+    <a href="https://instagram.com/shahhayaatofficial" target="_blank">📷</a>
+    <a href="https://www.facebook.com/people/Shah-Hayaat/61556791491075/" target="_blank">📘</a>
+    <a href="https://www.amazon.in/HAYAAT-Combo-Complete-Liver-Health/dp/B0CXY46HXM" target="_blank">🛒</a>
+    <a href="https://m.indiamart.com/shah-hayaat/?srsltid=AfmBOopDyjI5KfktrgSPBo1m_OswzYvhy8WsPH_-wuIAXrNRBlI0cibu" target="_blank">🏭</a>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+  <h2>Our Philosophy</h2>
+  <p style="text-align:center;max-width:820px;margin:0 auto">We blend Ayurvedic tradition with modern science to deliver wellness solutions that are safe, effective and reliable.</p>
+  <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+    <div class="card" style="max-width:260px;"><span class="cert">WHO Certified</span><p>Quality ensured via recognized standards.</p></div>
+    <div class="card" style="max-width:260px;"><span class="cert">GMP Standard</span><p>Manufactured with strict processes.</p></div>
+    <div class="card" style="max-width:260px;"><span class="cert">ISO & HACCP</span><p>Global benchmarks for safety.</p></div>
+  </div>
+</section>
+
+<!-- PRODUCTS (simplified for demo, can reuse your product JS) -->
+<section id="products">
+  <h2>Our Ayurvedic Range</h2>
+  <div class="grid">
+    <div class="card"><img src="brainchamp.jpg" alt="Brain Champ" loading="lazy"><h3>Brain Champ</h3><p>Memory booster tonic.</p></div>
+    <div class="card"><img src="shahzyme.jpg" alt="Shah Zyme" loading="lazy"><h3>Shah Zyme</h3><p>Digestive enzyme syrup.</p></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2>Contact & Orders</h2>
+  <p style="text-align:center">Order via WhatsApp or connect on our social platforms below.</p>
+</section>
+
+<footer>
+  © <span id="year"></span> Shah Hayaat  
+  <div class="social">
+    <a href="https://instagram.com/shahhayaatofficial" target="_blank">Instagram</a>
+    <a href="https://www.facebook.com/people/Shah-Hayaat/61556791491075/" target="_blank">Facebook</a>
+    <a href="https://www.amazon.in/HAYAAT-Combo-Complete-Liver-Health/dp/B0CXY46HXM" target="_blank">Amazon</a>
+    <a href="https://m.indiamart.com/shah-hayaat/?srsltid=AfmBOopDyjI5KfktrgSPBo1m_OswzYvhy8WsPH_-wuIAXrNRBlI0cibu" target="_blank">Indiamart</a>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+const revealObs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.2});
+document.querySelectorAll('section').forEach(s=>revealObs.observe(s));
+</script>
+</body>
+</html>
