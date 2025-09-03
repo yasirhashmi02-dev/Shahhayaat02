@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+    <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
 
     <style>
         /* --- 1. VARIABLES & RESET --- */
@@ -18,12 +18,12 @@
             --green-dark: #2A4633;
             --green-light: #4D7C5D;
             --bg-light: #F8F6F2;
-            --bg-white: #FFFFFF;
+            --bg-white: rgba(255, 255, 255, 0.95);
             --accent-gold: #B68D40;
             --text-dark: #1F1F1F;
             --text-light: #6B6B6B;
             --border-color: #EAEAEA;
-            --shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px rgba(0,0,0,0.04), 0 10px 20px rgba(0,0,0,0.04);
             
             --font-heading: 'Playfair Display', serif;
             --font-body: 'Inter', sans-serif;
@@ -46,6 +46,11 @@
             color: var(--text-dark);
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
+            /* AYURVEDIC BACKGROUND IMAGE */
+            background-image: url('https://images.unsplash.com/photo-1600095945197-a54b34cf10a8?q=80&w=2940&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
         }
 
         /* --- 2. LAYOUT & GENERAL STYLES --- */
@@ -60,13 +65,25 @@
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            background-color: var(--bg-light);
+            border-radius: 16px;
+            margin: 40px auto;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+        }
+        
+        section:first-of-type {
+            background: transparent;
+            box-shadow: none;
+            border-radius: 0;
+            margin-top: 0;
+        }
+
+        section:nth-of-type(even) {
+            background-color: var(--bg-white);
         }
         section.visible {
             opacity: 1;
             transform: translateY(0);
-        }
-        section:nth-of-type(even) {
-            background-color: var(--bg-white);
         }
 
         h1, h2, h3 {
@@ -94,8 +111,8 @@
             z-index: 100;
             width: 100%;
             padding: 1rem 0;
-            background-color: rgba(248, 246, 242, 0.8);
-            backdrop-filter: blur(10px);
+            background-color: rgba(248, 246, 242, 0.85);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid transparent;
             transition: all 0.3s ease;
         }
@@ -124,6 +141,7 @@
             width: 50px;
             border-radius: 50%;
             object-fit: cover;
+            border: 2px solid var(--green-dark);
         }
 
         .nav-desktop { display: none; }
@@ -204,6 +222,7 @@
         .btn-primary:hover {
             background-color: var(--green-dark);
             transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .btn-secondary {
             background-color: transparent;
@@ -216,29 +235,13 @@
         }
 
         /* --- 5. HERO SECTION --- */
-        #hero {
-            text-align: center;
-            padding: 100px 0;
-        }
-        #hero h1 {
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            margin-bottom: 1.5rem;
-        }
-        #hero p {
-            font-size: clamp(1.1rem, 3vw, 1.25rem);
-            max-width: 700px;
-            margin: 0 auto 2.5rem;
-            color: var(--text-light);
-        }
+        #hero { text-align: center; padding: 100px 0; }
+        #hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 1.5rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        #hero p { font-size: clamp(1.1rem, 3vw, 1.25rem); max-width: 700px; margin: 0 auto 2.5rem; color: #f0f0f0; text-shadow: 0 1px 5px rgba(0,0,0,0.3); }
         .hero-actions { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-        .hero-certifications { margin-top: 3rem; }
-        .hero-certifications span {
-            display: inline-block;
-            margin: 0 1rem;
-            font-weight: 600;
-            color: var(--text-light);
-        }
-
+        .hero-certifications { margin-top: 3rem; color: #fff; }
+        .hero-certifications span { display: inline-block; margin: 0 1rem; font-weight: 600; text-shadow: 0 1px 5px rgba(0,0,0,0.3); }
+        
         /* --- 6. PRODUCTS SECTION --- */
         .product-grid {
             display: grid;
@@ -253,6 +256,12 @@
             display: flex;
             flex-direction: column;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .product-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         .product-card:hover {
             transform: translateY(-5px);
@@ -264,67 +273,37 @@
             object-fit: cover;
             background-color: #f0f0f0;
         }
-        .product-card-content {
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
+        .product-card-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
         .product-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
         .product-card-desc { color: var(--text-light); margin-bottom: 1rem; flex-grow: 1; }
-        .product-card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .product-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--green-dark);
-        }
+        .product-card-footer { display: flex; justify-content: space-between; align-items: center; }
+        .product-price { font-size: 1.5rem; font-weight: 700; color: var(--green-dark); }
 
         /* --- 7. ACCORDION (INGREDIENTS & FAQ) --- */
         .accordion { max-width: 800px; margin: 0 auto; }
         .accordion-item {
-            background-color: var(--bg-white);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+            background-color: transparent;
+            border-bottom: 1px solid var(--border-color);
             margin-bottom: 1rem;
-            overflow: hidden;
         }
         .accordion-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.25rem 1.5rem;
+            padding: 1.25rem 0.5rem;
             cursor: pointer;
             font-weight: 600;
             font-size: 1.1rem;
         }
-        .accordion-icon {
-            transition: transform 0.3s ease;
-        }
+        .accordion-icon { transition: transform 0.3s ease; font-size: 1.5rem; }
         .accordion-item.active .accordion-icon { transform: rotate(135deg); }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.4s ease;
-        }
-        .accordion-content p { padding: 0 1.5rem; }
-        .accordion-item.active .accordion-content {
-            max-height: 200px;
-            padding-bottom: 1.5rem;
-        }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; }
+        .accordion-content p { padding: 0 0.5rem; }
+        .accordion-item.active .accordion-content { max-height: 200px; padding-bottom: 1.5rem; }
 
         /* --- 8. QUIZ SECTION --- */
         .quiz-container { max-width: 700px; margin: 0 auto; }
-        .quiz-question {
-            background: var(--bg-white);
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
+        .quiz-question { background: var(--bg-white); padding: 1.5rem; margin-bottom: 1rem; border-radius: 8px; border: 1px solid var(--border-color); }
         .quiz-question-title { font-weight: 600; margin-bottom: 1rem; }
         .quiz-options label {
             display: block;
@@ -340,61 +319,28 @@
         .quiz-options input { margin-right: 0.75rem; accent-color: var(--green-light); }
         .quiz-actions { text-align: center; margin-top: 2rem; }
         #quiz-results { margin-top: 2rem; }
-        .result-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid var(--border-color);
-        }
+        .result-card { background: white; padding: 2rem; border-radius: 12px; text-align: center; border: 1px solid var(--border-color); }
         .result-card h3 { font-size: 1.75rem; }
         .result-products { display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
-        .result-product {
-            background: var(--bg-light);
-            padding: 1rem;
-            border-radius: 8px;
-            min-width: 200px;
-        }
+        .result-product { background: var(--bg-light); padding: 1rem; border-radius: 8px; min-width: 200px; }
         .result-product h4 { font-family: var(--font-body); font-size: 1rem; }
 
         /* --- 9. FOOTER --- */
-        .footer {
-            background-color: var(--green-dark);
-            color: #E0E0E0;
-            padding: 60px 0 30px;
-        }
-        .footer-grid {
-            display: grid;
-            gap: 2rem;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            margin-bottom: 3rem;
-        }
-        .footer-col h4 {
-            color: white;
-            font-family: var(--font-body);
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-        }
-        .footer-col p, .footer-col a {
-            color: #BDBDBD;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 0.5rem;
-            transition: color 0.2s ease;
-        }
+        .footer { background-color: var(--green-dark); color: #E0E0E0; padding: 60px 0 30px; }
+        .footer-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 3rem; }
+        .footer-col h4 { color: white; font-family: var(--font-body); font-size: 1.1rem; margin-bottom: 1rem; }
+        .footer-col p, .footer-col a { color: #BDBDBD; text-decoration: none; display: block; margin-bottom: 0.5rem; transition: color 0.2s ease; }
         .footer-col a:hover { color: white; }
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid #4A6354;
-            color: #9E9E9E;
-            font-size: 0.9rem;
-        }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid #4A6354; color: #9E9E9E; font-size: 0.9rem; }
 
         /* --- 10. RESPONSIVE MEDIA QUERIES --- */
         @media (min-width: 768px) {
             .nav-toggle, .nav-mobile { display: none; }
             .nav-desktop { display: block; }
+            section {
+                padding: 100px 0;
+                margin: 60px auto;
+            }
         }
     </style>
 </head>
@@ -403,7 +349,7 @@
     <header class="header">
         <div class="container">
             <a href="#" class="logo">
-                <img src="https://placehold.co/100x100/2A4633/FFFFFF?text=SH&font=playfair" alt="Shah Hayaat Logo">
+                <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat Logo">
                 <span>Shah Hayaat</span>
             </a>
             <nav class="nav-desktop">
@@ -460,8 +406,7 @@
             <div class="container">
                 <h2>The Power of Pure Ingredients</h2>
                 <p class="section-subtitle">We believe in transparency. Learn more about the core Ayurvedic herbs that provide the healing power in our products.</p>
-                <div class="accordion" id="ingredients-accordion-container">
-                    </div>
+                <div class="accordion" id="ingredients-accordion-container"></div>
             </div>
         </section>
 
@@ -469,8 +414,7 @@
             <div class="container">
                 <h2>Find Your Ayurvedic Profile</h2>
                 <p class="section-subtitle">This simple quiz helps you understand your dominant Dosha (Vata, Pitta, or Kapha) and recommends products suited to your unique constitution.</p>
-                <div class="quiz-container" id="quiz-container">
-                    </div>
+                <div class="quiz-container" id="quiz-container"></div>
                 <div class="quiz-actions">
                     <button class="btn btn-primary" id="submit-quiz-btn">Get My Recommendation</button>
                 </div>
@@ -482,8 +426,7 @@
             <div class="container">
                 <h2>Frequently Asked Questions</h2>
                 <p class="section-subtitle">Have questions? We have answers. Find information about our products, ordering process, and safety standards.</p>
-                <div class="accordion" id="faq-accordion-container">
-                    </div>
+                <div class="accordion" id="faq-accordion-container"></div>
             </div>
         </section>
     </main>
@@ -493,7 +436,7 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <h4>Shah Hayaat</h4>
-                    <p>Natural healing, pure living. Your trusted source for premium Ayurvedic wellness products since 2024.</p>
+                    <p>Natural healing, pure living. Your trusted source for premium Ayurvedic wellness products.</p>
                 </div>
                 <div class="footer-col">
                     <h4>Quick Links</h4>
@@ -507,7 +450,6 @@
                     <a href="https://wa.me/917051056287" target="_blank">WhatsApp</a>
                     <a href="mailto:info@shahhayaat.com">Email Us</a>
                     <a href="https://instagram.com/shahhayaatofficial" target="_blank">Instagram</a>
-                    <a href="https://facebook.com/people/Shah-Hayaat/61556791491075/" target="_blank">Facebook</a>
                 </div>
                  <div class="footer-col">
                     <h4>Also Available On</h4>
@@ -525,14 +467,22 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     
-    // --- 1. DATA FOR DYNAMIC CONTENT ---
+    // --- Correct GitHub URL for images ---
+    const GITHUB_BASE_URL = "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/";
+
     const PRODUCTS_DATA = [
-        { name: "Brain Champ", price: 175, desc: "A potent tonic designed to enhance memory and cognitive function.", img: "https://placehold.co/600x600/4D7C5D/FFFFFF?text=Brain+Champ" },
-        { name: "Shah Zyme", price: 165, desc: "An effective digestive enzyme syrup to support a healthy gut.", img: "https://placehold.co/600x600/4D7C5D/FFFFFF?text=Shah+Zyme" },
-        { name: "Blood Storm", price: 165, desc: "A revitalizing blood tonic formulated to boost vitality and energy levels.", img: "https://placehold.co/600x600/4D7C5D/FFFFFF?text=Blood+Storm" },
-        { name: "Cough X Pro", price: 90, desc: "Natural and soothing herbal relief for persistent coughs and throat irritation.", img: "https://placehold.co/600x600/4D7C5D/FFFFFF?text=Cough+X+Pro" },
-        { name: "Livo Hayaat", price: 349, desc: "A comprehensive formulation for maintaining optimal liver health and function.", img: "https://placehold.co/600x600/4D7C5D/FFFFFF?text=Livo+Hayaat" },
-        { name: "Dia-Ease", price: 695, desc: "Support for healthy sugar balance and overall metabolic wellness.", img: "https://placehold.co/600x600/4D7C5D/FFFFFF?text=Dia-Ease" },
+        { name: "Brain Champ", price: 175, desc: "A potent tonic designed to enhance memory and cognitive function.", img: `${GITHUB_BASE_URL}brainchamp.jpg` },
+        { name: "Shah Zyme", price: 165, desc: "An effective digestive enzyme syrup to support a healthy gut.", img: `${GITHUB_BASE_URL}shahzyme.jpg` },
+        { name: "Blood Storm", price: 165, desc: "A revitalizing blood tonic formulated to boost vitality and energy levels.", img: `${GITHUB_BASE_URL}bloodstorm.jpg` },
+        { name: "Cough X Pro", price: 90, desc: "Natural and soothing herbal relief for persistent coughs.", img: `${GITHUB_BASE_URL}coughxpro.jpg` },
+        { name: "Musaffa Khoon", price: 165, desc: "A traditional blood purifier for clear, healthy skin.", img: `${GITHUB_BASE_URL}musaffakhoon.jpg` },
+        { name: "PanaSip", price: 165, desc: "Fast-acting relief from acidity and gas for digestive comfort.", img: `${GITHUB_BASE_URL}panasip.jpg` },
+        { name: "Livo Hayaat", price: 349, desc: "A comprehensive formulation for maintaining optimal liver health.", img: `${GITHUB_BASE_URL}livohayaat.jpg` },
+        { name: "Dia-Ease", price: 695, desc: "Support for healthy sugar balance and metabolic wellness.", img: `${GITHUB_BASE_URL}diaease.png` },
+        { name: "Ortho Hayaat", price: 649, desc: "A specialized blend to support joint health and mobility.", img: `${GITHUB_BASE_URL}orthohayaat.jpg` },
+        { name: "Utro Hayaat", price: 625, desc: "A gentle tonic formulated to support women's health.", img: `${GITHUB_BASE_URL}utrohayaat.png` },
+        { name: "Passion Pulse", price: 599, desc: "A natural vitality booster for enhanced stamina and performance.", img: `${GITHUB_BASE_URL}passionpulse.jpg` },
+        { name: "Fevodol", price: 165, desc: "Herbal capsules to support the body's natural immune response.", img: `${GITHUB_BASE_URL}fevodol.png` }
     ];
 
     const INGREDIENTS_DATA = [
@@ -561,9 +511,6 @@ document.addEventListener('DOMContentLoaded', function() {
         kapha: { title: "Kapha Balancing", desc: "Your constitution benefits from stimulating and lightening herbs.", products: ["Cough X Pro", "Dia-Ease"] }
     };
 
-    // --- 2. DYNAMIC RENDERING FUNCTIONS ---
-    
-    // Render Product Cards
     const productGrid = document.getElementById('product-grid-container');
     if (productGrid) {
         productGrid.innerHTML = PRODUCTS_DATA.map(p => `
@@ -581,7 +528,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `).join('');
     }
 
-    // Render Accordions
     const renderAccordion = (containerId, data) => {
         const container = document.getElementById(containerId);
         if (!container) return;
@@ -598,109 +544,74 @@ document.addEventListener('DOMContentLoaded', function() {
     renderAccordion('ingredients-accordion-container', INGREDIENTS_DATA);
     renderAccordion('faq-accordion-container', FAQ_DATA);
 
-    // Render Quiz Questions
     const quizContainer = document.getElementById('quiz-container');
     if (quizContainer) {
         quizContainer.innerHTML = QUIZ_DATA.map((item, index) => `
             <div class="quiz-question">
                 <p class="quiz-question-title">${index + 1}. ${item.q}</p>
                 <div class="quiz-options">
-                    ${item.o.map(([val, label]) => `
-                        <label><input type="radio" name="q${index}" value="${val}">${label}</label>
-                    `).join('')}
+                    ${item.o.map(([val, label]) => `<label><input type="radio" name="q${index}" value="${val}">${label}</label>`).join('')}
                 </div>
             </div>
         `).join('');
     }
 
-    // --- 3. EVENT LISTENERS & UI LOGIC ---
-
-    // Header scroll effect
     const header = document.querySelector('.header');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            document.body.classList.add('scrolled');
-        } else {
-            document.body.classList.remove('scrolled');
-        }
-    });
+    window.addEventListener('scroll', () => { document.body.classList.toggle('scrolled', window.scrollY > 50); });
 
-    // Mobile Navigation
     const navToggle = document.querySelector('.nav-toggle');
     const mobileNavLinks = document.querySelectorAll('.nav-mobile a');
-    navToggle.addEventListener('click', () => {
-        document.body.classList.toggle('nav-open');
-    });
-    mobileNavLinks.forEach(link => {
-        link.addEventListener('click', () => document.body.classList.remove('nav-open'));
-    });
+    navToggle.addEventListener('click', () => { document.body.classList.toggle('nav-open'); });
+    mobileNavLinks.forEach(link => { link.addEventListener('click', () => document.body.classList.remove('nav-open')); });
 
-    // Accordion functionality
     document.querySelectorAll('.accordion').forEach(accordion => {
         accordion.addEventListener('click', e => {
             const header = e.target.closest('.accordion-header');
-            if (!header) return;
-            const item = header.parentElement;
-            item.classList.toggle('active');
+            if (header) header.parentElement.classList.toggle('active');
         });
     });
 
-    // Quiz submission logic
     const quizSubmitBtn = document.getElementById('submit-quiz-btn');
     const quizResultsContainer = document.getElementById('quiz-results');
     if (quizSubmitBtn) {
         quizSubmitBtn.addEventListener('click', () => {
             const answers = {};
-            let allAnswered = true;
-            for (let i = 0; i < QUIZ_DATA.length; i++) {
+            if ([...Array(QUIZ_DATA.length).keys()].some(i => {
                 const checked = document.querySelector(`input[name="q${i}"]:checked`);
                 if (checked) {
                     answers[checked.value] = (answers[checked.value] || 0) + 1;
-                } else {
-                    allAnswered = false;
-                    break;
+                    return false;
                 }
-            }
-
-            if (!allAnswered) {
+                return true;
+            })) {
                 alert('Please answer all questions to find your profile.');
                 return;
             }
-
             const dominantDosha = Object.keys(answers).reduce((a, b) => answers[a] > answers[b] ? a : b);
             const reco = QUIZ_RECOS[dominantDosha];
-            
-            quizResultsContainer.innerHTML = `
-                <div class="result-card">
-                    <h3>Your Profile: ${reco.title}</h3>
-                    <p class="section-subtitle">${reco.desc}</p>
-                    <div class="result-products">
-                        ${reco.products.map(pName => {
-                            const product = PRODUCTS_DATA.find(p => p.name === pName);
-                            return `<div class="result-product">
-                                <h4>${product.name}</h4>
-                                <a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${product.name} based on my quiz results`)}" target="_blank">Order Now</a>
-                            </div>`;
-                        }).join('')}
-                    </div>
-                </div>`;
+            quizResultsContainer.innerHTML = `<div class="result-card"><h3>Your Profile: ${reco.title}</h3><p class="section-subtitle">${reco.desc}</p><div class="result-products">${reco.products.map(pName => { const p = PRODUCTS_DATA.find(pr => pr.name === pName); return `<div class="result-product"><h4>${p.name}</h4><a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} based on my quiz results`)}" target="_blank">Order Now</a></div>`; }).join('')}</div></div>`;
             quizResultsContainer.scrollIntoView({ behavior: 'smooth' });
         });
     }
 
-    // Intersection Observer for scroll animations
-    const sections = document.querySelectorAll('section');
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                if (entry.target.id === 'products') {
+                    const cards = document.querySelectorAll('.product-card');
+                    cards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                        }, index * 100);
+                    });
+                }
                 observer.unobserve(entry.target);
             }
         });
     }, { threshold: 0.1 });
-    sections.forEach(section => observer.observe(section));
+    document.querySelectorAll('section').forEach(section => observer.observe(section));
 
-    // Dynamic year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
 });
 </script>
