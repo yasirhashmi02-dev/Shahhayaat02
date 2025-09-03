@@ -70,12 +70,16 @@
             margin: 40px auto;
             box-shadow: 0 15px 40px rgba(0,0,0,0.05);
         }
-        
-        section:first-of-type {
-            background: transparent;
+
+        section:first-of-type { /* This targets the hero section */
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)); /* Dark overlay for text visibility */
+            background-size: cover; /* Inherit from body background */
+            background-position: center center; /* Inherit from body background */
+            background-attachment: fixed; /* Inherit from body background */
             box-shadow: none;
             border-radius: 0;
             margin-top: 0;
+            padding: 120px 0; /* More vertical padding for hero */
         }
 
         section:nth-of-type(even) {
@@ -111,7 +115,7 @@
             z-index: 100;
             width: 100%;
             padding: 1rem 0;
-            background-color: rgba(248, 246, 242, 0.85);
+            background-color: rgba(248, 246, 242, 0.95); /* Slightly less transparent */
             backdrop-filter: blur(12px);
             border-bottom: 1px solid transparent;
             transition: all 0.3s ease;
@@ -176,7 +180,7 @@
         .nav-toggle span:nth-child(1) { top: 0; }
         .nav-toggle span:nth-child(2) { top: 50%; transform: translateY(-50%); }
         .nav-toggle span:nth-child(3) { bottom: 0; }
-        
+
         body.nav-open .nav-toggle span:nth-child(1) { top: 50%; transform: translateY(-50%) rotate(45deg); }
         body.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
         body.nav-open .nav-toggle span:nth-child(3) { top: 50%; transform: translateY(-50%) rotate(-45deg); }
@@ -226,22 +230,25 @@
         }
         .btn-secondary {
             background-color: transparent;
-            color: var(--green-light);
-            box-shadow: inset 0 0 0 2px var(--green-light);
+            color: white; /* Changed to white for hero visibility */
+            box-shadow: inset 0 0 0 2px white; /* Changed to white for hero visibility */
         }
         .btn-secondary:hover {
-            background-color: var(--green-light);
-            color: white;
+            background-color: white; /* Changed to white for hero visibility */
+            color: var(--green-dark); /* Changed text to dark for contrast */
+            box-shadow: inset 0 0 0 2px white;
         }
+
 
         /* --- 5. HERO SECTION --- */
         #hero { text-align: center; padding: 100px 0; }
-        #hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 1.5rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        #hero p { font-size: clamp(1.1rem, 3vw, 1.25rem); max-width: 700px; margin: 0 auto 2.5rem; color: #f0f0f0; text-shadow: 0 1px 5px rgba(0,0,0,0.3); }
+        #hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 1.5rem; color: #FFFFFF; text-shadow: 0 2px 10px rgba(0,0,0,0.7); } /* Darker shadow */
+        #hero p { font-size: clamp(1.1rem, 3vw, 1.25rem); max-width: 700px; margin: 0 auto 2.5rem; color: #E0E0E0; text-shadow: 0 1px 5px rgba(0,0,0,0.7); } /* Darker shadow */
         .hero-actions { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-        .hero-certifications { margin-top: 3rem; color: #fff; }
-        .hero-certifications span { display: inline-block; margin: 0 1rem; font-weight: 600; text-shadow: 0 1px 5px rgba(0,0,0,0.3); }
-        
+        .hero-certifications { margin-top: 3rem; color: #f0f0f0; text-shadow: 0 1px 5px rgba(0,0,0,0.7); } /* Darker shadow */
+        .hero-certifications span { display: inline-block; margin: 0 1rem; font-weight: 600; }
+
+
         /* --- 6. PRODUCTS SECTION --- */
         .product-grid {
             display: grid;
@@ -340,6 +347,9 @@
             section {
                 padding: 100px 0;
                 margin: 60px auto;
+            }
+            section:first-of-type {
+                padding: 180px 0; /* More vertical padding for hero on larger screens */
             }
         }
     </style>
@@ -463,158 +473,157 @@
         </div>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- Correct GitHub URL for images ---
+            const GITHUB_BASE_URL = "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/";
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // --- Correct GitHub URL for images ---
-    const GITHUB_BASE_URL = "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/";
+            const PRODUCTS_DATA = [
+                { name: "Brain Champ", price: 175, desc: "A potent tonic designed to enhance memory and cognitive function.", img: `${GITHUB_BASE_URL}brainchamp.jpg` },
+                { name: "Shah Zyme", price: 165, desc: "An effective digestive enzyme syrup to support a healthy gut.", img: `${GITHUB_BASE_URL}shahzyme.jpg` },
+                { name: "Blood Storm", price: 165, desc: "A revitalizing blood tonic formulated to boost vitality and energy levels.", img: `${GITHUB_BASE_URL}bloodstorm.jpg` },
+                { name: "Cough X Pro", price: 90, desc: "Natural and soothing herbal relief for persistent coughs.", img: `${GITHUB_BASE_URL}coughxpro.jpg` },
+                { name: "Musaffa Khoon", price: 165, desc: "A traditional blood purifier for clear, healthy skin.", img: `${GITHUB_BASE_URL}musaffakhoon.jpg` },
+                { name: "PanaSip", price: 165, desc: "Fast-acting relief from acidity and gas for digestive comfort.", img: `${GITHUB_BASE_URL}panasip.jpg` },
+                { name: "Livo Hayaat", price: 349, desc: "A comprehensive formulation for maintaining optimal liver health.", img: `${GITHUB_BASE_URL}livohayaat.jpg` },
+                { name: "Dia-Ease", price: 695, desc: "Support for healthy sugar balance and metabolic wellness.", img: `${GITHUB_BASE_URL}diaease.png` },
+                { name: "Ortho Hayaat", price: 649, desc: "A specialized blend to support joint health and mobility.", img: `${GITHUB_BASE_URL}orthohayaat.jpg` },
+                { name: "Utro Hayaat", price: 625, desc: "A gentle tonic formulated to support women's health.", img: `${GITHUB_BASE_URL}utrohayaat.png` },
+                { name: "Passion Pulse", price: 599, desc: "A natural vitality booster for enhanced stamina and performance.", img: `${GITHUB_BASE_URL}passionpulse.jpg` },
+                { name: "Fevodol", price: 165, desc: "Herbal capsules to support the body's natural immune response.", img: `${GITHUB_BASE_URL}fevodol.png` }
+            ];
 
-    const PRODUCTS_DATA = [
-        { name: "Brain Champ", price: 175, desc: "A potent tonic designed to enhance memory and cognitive function.", img: `${GITHUB_BASE_URL}brainchamp.jpg` },
-        { name: "Shah Zyme", price: 165, desc: "An effective digestive enzyme syrup to support a healthy gut.", img: `${GITHUB_BASE_URL}shahzyme.jpg` },
-        { name: "Blood Storm", price: 165, desc: "A revitalizing blood tonic formulated to boost vitality and energy levels.", img: `${GITHUB_BASE_URL}bloodstorm.jpg` },
-        { name: "Cough X Pro", price: 90, desc: "Natural and soothing herbal relief for persistent coughs.", img: `${GITHUB_BASE_URL}coughxpro.jpg` },
-        { name: "Musaffa Khoon", price: 165, desc: "A traditional blood purifier for clear, healthy skin.", img: `${GITHUB_BASE_URL}musaffakhoon.jpg` },
-        { name: "PanaSip", price: 165, desc: "Fast-acting relief from acidity and gas for digestive comfort.", img: `${GITHUB_BASE_URL}panasip.jpg` },
-        { name: "Livo Hayaat", price: 349, desc: "A comprehensive formulation for maintaining optimal liver health.", img: `${GITHUB_BASE_URL}livohayaat.jpg` },
-        { name: "Dia-Ease", price: 695, desc: "Support for healthy sugar balance and metabolic wellness.", img: `${GITHUB_BASE_URL}diaease.png` },
-        { name: "Ortho Hayaat", price: 649, desc: "A specialized blend to support joint health and mobility.", img: `${GITHUB_BASE_URL}orthohayaat.jpg` },
-        { name: "Utro Hayaat", price: 625, desc: "A gentle tonic formulated to support women's health.", img: `${GITHUB_BASE_URL}utrohayaat.png` },
-        { name: "Passion Pulse", price: 599, desc: "A natural vitality booster for enhanced stamina and performance.", img: `${GITHUB_BASE_URL}passionpulse.jpg` },
-        { name: "Fevodol", price: 165, desc: "Herbal capsules to support the body's natural immune response.", img: `${GITHUB_BASE_URL}fevodol.png` }
-    ];
+            const INGREDIENTS_DATA = [
+                { title: "Ashwagandha (Withania somnifera)", content: "A powerful adaptogen known to reduce stress, improve strength, and enhance vitality. It's a cornerstone of rejuvenating Ayurvedic formulations." },
+                { title: "Brahmi (Bacopa monnieri)", content: "Renowned for its ability to support cognitive function, Brahmi helps improve memory, learning, and mental clarity, promoting a calm mind." },
+                { title: "Tulsi (Ocimum sanctum)", content: "Holy Basil, or Tulsi, is a sacred herb that supports respiratory health, boosts immunity, and acts as a calming adaptogen." },
+                { title: "Amla (Emblica officinalis)", content: "A rich source of Vitamin C, Amla is a potent antioxidant that supports rejuvenation, digestion, and overall immune function." },
+            ];
+            
+            const FAQ_DATA = [
+                { title: "Are your products certified and safe?", content: "Absolutely. All our products are manufactured in facilities that are WHO-GMP, ISO, and HACCP certified, ensuring the highest standards of quality, safety, and efficacy." },
+                { title: "How can I place an order?", content: "Ordering is easy. You can click the 'Order Now' button on any product or use the 'Order on WhatsApp' link in the main section to connect with us directly. We'll guide you through the process." },
+                { title: "Are these products suitable during pregnancy?", content: "While our products are made from natural herbs, we strongly advise consulting with your doctor or a qualified Ayurvedic practitioner before taking any supplements during pregnancy or lactation." },
+                { title: "What is the delivery time for an order?", content: "Typically, orders are delivered within 5-7 business days across India. You will receive tracking information once your order is dispatched from our facility." }
+            ];
 
-    const INGREDIENTS_DATA = [
-        { title: "Ashwagandha (Withania somnifera)", content: "A powerful adaptogen known to reduce stress, improve strength, and enhance vitality. It's a cornerstone of rejuvenating Ayurvedic formulations." },
-        { title: "Brahmi (Bacopa monnieri)", content: "Renowned for its ability to support cognitive function, Brahmi helps improve memory, learning, and mental clarity, promoting a calm mind." },
-        { title: "Tulsi (Ocimum sanctum)", content: "Holy Basil, or Tulsi, is a sacred herb that supports respiratory health, boosts immunity, and acts as a calming adaptogen." },
-        { title: "Amla (Emblica officinalis)", content: "A rich source of Vitamin C, Amla is a potent antioxidant that supports rejuvenation, digestion, and overall immune function." },
-    ];
-    
-    const FAQ_DATA = [
-        { title: "Are your products certified and safe?", content: "Absolutely. All our products are manufactured in facilities that are WHO-GMP, ISO, and HACCP certified, ensuring the highest standards of quality, safety, and efficacy." },
-        { title: "How can I place an order?", content: "Ordering is easy. You can click the 'Order Now' button on any product or use the 'Order on WhatsApp' link in the main section to connect with us directly. We'll guide you through the process." },
-        { title: "Are these products suitable during pregnancy?", content: "While our products are made from natural herbs, we strongly advise consulting with your doctor or a qualified Ayurvedic practitioner before taking any supplements during pregnancy or lactation." },
-        { title: "What is the delivery time for an order?", content: "Typically, orders are delivered within 5-7 business days across India. You will receive tracking information once your order is dispatched from our facility." }
-    ];
+            const QUIZ_DATA = [
+                { q: 'How would you describe your natural body frame?', o: [['vata', 'Slender and light'], ['pitta', 'Medium and athletic'], ['kapha', 'Broad and sturdy']] },
+                { q: 'What is your appetite typically like?', o: [['vata', 'Irregular, varies a lot'], ['pitta', 'Strong and sharp, I get hungry'], ['kapha', 'Slow but steady, can miss meals']] },
+                { q: 'How does your skin usually feel?', o: [['vata', 'Dry and cool to the touch'], ['pitta', 'Warm, sometimes sensitive or reddish'], ['kapha', 'Cool, smooth, and often oily']] },
+                { q: 'What is your energy pattern?', o: [['vata', 'Comes in bursts, can feel scattered'], ['pitta', 'Focused and driven, goal-oriented'], ['kapha', 'Steady and sustained, slow to start']] },
+            ];
+            const QUIZ_RECOS = {
+                vata: { title: "Vata Balancing", desc: "Your constitution benefits from grounding and nourishing herbs.", products: ["Brain Champ", "Shah Zyme"] },
+                pitta: { title: "Pitta Balancing", desc: "Your constitution benefits from cooling and calming herbs.", products: ["Livo Hayaat", "Blood Storm"] },
+                kapha: { title: "Kapha Balancing", desc: "Your constitution benefits from stimulating and lightening herbs.", products: ["Cough X Pro", "Dia-Ease"] }
+            };
 
-    const QUIZ_DATA = [
-        { q: 'How would you describe your natural body frame?', o: [['vata', 'Slender and light'], ['pitta', 'Medium and athletic'], ['kapha', 'Broad and sturdy']] },
-        { q: 'What is your appetite typically like?', o: [['vata', 'Irregular, varies a lot'], ['pitta', 'Strong and sharp, I get hungry'], ['kapha', 'Slow but steady, can miss meals']] },
-        { q: 'How does your skin usually feel?', o: [['vata', 'Dry and cool to the touch'], ['pitta', 'Warm, sometimes sensitive or reddish'], ['kapha', 'Cool, smooth, and often oily']] },
-        { q: 'What is your energy pattern?', o: [['vata', 'Comes in bursts, can feel scattered'], ['pitta', 'Focused and driven, goal-oriented'], ['kapha', 'Steady and sustained, slow to start']] },
-    ];
-    const QUIZ_RECOS = {
-        vata: { title: "Vata Balancing", desc: "Your constitution benefits from grounding and nourishing herbs.", products: ["Brain Champ", "Shah Zyme"] },
-        pitta: { title: "Pitta Balancing", desc: "Your constitution benefits from cooling and calming herbs.", products: ["Livo Hayaat", "Blood Storm"] },
-        kapha: { title: "Kapha Balancing", desc: "Your constitution benefits from stimulating and lightening herbs.", products: ["Cough X Pro", "Dia-Ease"] }
-    };
-
-    const productGrid = document.getElementById('product-grid-container');
-    if (productGrid) {
-        productGrid.innerHTML = PRODUCTS_DATA.map(p => `
-            <div class="product-card">
-                <img src="${p.img}" alt="${p.name}" loading="lazy">
-                <div class="product-card-content">
-                    <h3>${p.name}</h3>
-                    <p class="product-card-desc">${p.desc}</p>
-                    <div class="product-card-footer">
-                        <span class="product-price">₹${p.price}</span>
-                        <a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} - ₹${p.price}`)}" target="_blank" class="btn btn-primary">Order Now</a>
+            const productGrid = document.getElementById('product-grid-container');
+            if (productGrid) {
+                productGrid.innerHTML = PRODUCTS_DATA.map(p => `
+                    <div class="product-card">
+                        <img src="${p.img}" alt="${p.name}" loading="lazy">
+                        <div class="product-card-content">
+                            <h3>${p.name}</h3>
+                            <p class="product-card-desc">${p.desc}</p>
+                            <div class="product-card-footer">
+                                <span class="product-price">₹${p.price}</span>
+                                <a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} - ₹${p.price}`)}" target="_blank" class="btn btn-primary">Order Now</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    const renderAccordion = (containerId, data) => {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        container.innerHTML = data.map(item => `
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span>${item.title}</span>
-                    <span class="accordion-icon">+</span>
-                </div>
-                <div class="accordion-content"><p>${item.content}</p></div>
-            </div>
-        `).join('');
-    };
-    renderAccordion('ingredients-accordion-container', INGREDIENTS_DATA);
-    renderAccordion('faq-accordion-container', FAQ_DATA);
-
-    const quizContainer = document.getElementById('quiz-container');
-    if (quizContainer) {
-        quizContainer.innerHTML = QUIZ_DATA.map((item, index) => `
-            <div class="quiz-question">
-                <p class="quiz-question-title">${index + 1}. ${item.q}</p>
-                <div class="quiz-options">
-                    ${item.o.map(([val, label]) => `<label><input type="radio" name="q${index}" value="${val}">${label}</label>`).join('')}
-                </div>
-            </div>
-        `).join('');
-    }
-
-    const header = document.querySelector('.header');
-    window.addEventListener('scroll', () => { document.body.classList.toggle('scrolled', window.scrollY > 50); });
-
-    const navToggle = document.querySelector('.nav-toggle');
-    const mobileNavLinks = document.querySelectorAll('.nav-mobile a');
-    navToggle.addEventListener('click', () => { document.body.classList.toggle('nav-open'); });
-    mobileNavLinks.forEach(link => { link.addEventListener('click', () => document.body.classList.remove('nav-open')); });
-
-    document.querySelectorAll('.accordion').forEach(accordion => {
-        accordion.addEventListener('click', e => {
-            const header = e.target.closest('.accordion-header');
-            if (header) header.parentElement.classList.toggle('active');
-        });
-    });
-
-    const quizSubmitBtn = document.getElementById('submit-quiz-btn');
-    const quizResultsContainer = document.getElementById('quiz-results');
-    if (quizSubmitBtn) {
-        quizSubmitBtn.addEventListener('click', () => {
-            const answers = {};
-            if ([...Array(QUIZ_DATA.length).keys()].some(i => {
-                const checked = document.querySelector(`input[name="q${i}"]:checked`);
-                if (checked) {
-                    answers[checked.value] = (answers[checked.value] || 0) + 1;
-                    return false;
-                }
-                return true;
-            })) {
-                alert('Please answer all questions to find your profile.');
-                return;
+                `).join('');
             }
-            const dominantDosha = Object.keys(answers).reduce((a, b) => answers[a] > answers[b] ? a : b);
-            const reco = QUIZ_RECOS[dominantDosha];
-            quizResultsContainer.innerHTML = `<div class="result-card"><h3>Your Profile: ${reco.title}</h3><p class="section-subtitle">${reco.desc}</p><div class="result-products">${reco.products.map(pName => { const p = PRODUCTS_DATA.find(pr => pr.name === pName); return `<div class="result-product"><h4>${p.name}</h4><a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} based on my quiz results`)}" target="_blank">Order Now</a></div>`; }).join('')}</div></div>`;
-            quizResultsContainer.scrollIntoView({ behavior: 'smooth' });
-        });
-    }
 
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                if (entry.target.id === 'products') {
-                    const cards = document.querySelectorAll('.product-card');
-                    cards.forEach((card, index) => {
-                        setTimeout(() => {
-                            card.classList.add('visible');
-                        }, index * 100);
-                    });
-                }
-                observer.unobserve(entry.target);
+            const renderAccordion = (containerId, data) => {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                container.innerHTML = data.map(item => `
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>${item.title}</span>
+                            <span class="accordion-icon">+</span>
+                        </div>
+                        <div class="accordion-content"><p>${item.content}</p></div>
+                    </div>
+                `).join('');
+            };
+            renderAccordion('ingredients-accordion-container', INGREDIENTS_DATA);
+            renderAccordion('faq-accordion-container', FAQ_DATA);
+
+            const quizContainer = document.getElementById('quiz-container');
+            if (quizContainer) {
+                quizContainer.innerHTML = QUIZ_DATA.map((item, index) => `
+                    <div class="quiz-question">
+                        <p class="quiz-question-title">${index + 1}. ${item.q}</p>
+                        <div class="quiz-options">
+                            ${item.o.map(([val, label]) => `<label><input type="radio" name="q${index}" value="${val}">${label}</label>`).join('')}
+                        </div>
+                    </div>
+                `).join('');
             }
-        });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('section').forEach(section => observer.observe(section));
 
-    document.getElementById('year').textContent = new Date().getFullYear();
-});
-</script>
+            const header = document.querySelector('.header');
+            window.addEventListener('scroll', () => { document.body.classList.toggle('scrolled', window.scrollY > 50); });
+
+            const navToggle = document.querySelector('.nav-toggle');
+            const mobileNavLinks = document.querySelectorAll('.nav-mobile a');
+            navToggle.addEventListener('click', () => { document.body.classList.toggle('nav-open'); });
+            mobileNavLinks.forEach(link => { link.addEventListener('click', () => document.body.classList.remove('nav-open')); });
+
+            document.querySelectorAll('.accordion').forEach(accordion => {
+                accordion.addEventListener('click', e => {
+                    const header = e.target.closest('.accordion-header');
+                    if (header) header.parentElement.classList.toggle('active');
+                });
+            });
+
+            const quizSubmitBtn = document.getElementById('submit-quiz-btn');
+            const quizResultsContainer = document.getElementById('quiz-results');
+            if (quizSubmitBtn) {
+                quizSubmitBtn.addEventListener('click', () => {
+                    const answers = {};
+                    if ([...Array(QUIZ_DATA.length).keys()].some(i => {
+                        const checked = document.querySelector(`input[name="q${i}"]:checked`);
+                        if (checked) {
+                            answers[checked.value] = (answers[checked.value] || 0) + 1;
+                            return false;
+                        }
+                        return true;
+                    })) {
+                        alert('Please answer all questions to find your profile.');
+                        return;
+                    }
+                    const dominantDosha = Object.keys(answers).reduce((a, b) => answers[a] > answers[b] ? a : b);
+                    const reco = QUIZ_RECOS[dominantDosha];
+                    quizResultsContainer.innerHTML = `<div class="result-card"><h3>Your Profile: ${reco.title}</h3><p class="section-subtitle">${reco.desc}</p><div class="result-products">${reco.products.map(pName => { const p = PRODUCTS_DATA.find(pr => pr.name === pName); return `<div class="result-product"><h4>${p.name}</h4><a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} based on my quiz results`)}" target="_blank">Order Now</a></div>`; }).join('')}</div></div>`;
+                    quizResultsContainer.scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.id === 'products') {
+                            const cards = document.querySelectorAll('.product-card');
+                            cards.forEach((card, index) => {
+                                setTimeout(() => {
+                                    card.classList.add('visible');
+                                }, index * 100);
+                            });
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('section').forEach(section => observer.observe(section));
+
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+    </script>
 
 </body>
 </html>
