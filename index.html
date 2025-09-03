@@ -75,22 +75,14 @@
         .product-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 1rem; }
         .product-price { font-size: 1.5rem; font-weight: 700; }
         .product-card .btn-primary { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
-        .catalogue-viewer { border: 1px solid var(--border-color); border-radius: 12px; box-shadow: var(--shadow); height: 70vh; }
-        .catalogue-viewer iframe { width: 100%; height: 100%; border: none; }
-        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-        .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
-        @keyframes kenburns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
-        #home { position: relative; height: 100vh; padding: 0; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .carousel-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; }
-        .carousel-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 2s ease-in-out; transform: scale(1.1); }
-        .carousel-slide.active { opacity: 1; animation: kenburns 15s linear infinite alternate; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); }
-        .hero-content { position: relative; z-index: 2; }
+        .blog-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
         .blog-card { background-color: white; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); text-decoration: none; color: var(--text-dark); transition: all 0.3s ease; }
         .blog-card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
         .blog-card img { width: 100%; height: 200px; object-fit: cover; }
         .blog-card-content { padding: 1.5rem; }
         .blog-card p { color: var(--accent-gold); font-weight: 600; }
+        .catalogue-viewer { border: 1px solid var(--border-color); border-radius: 12px; box-shadow: var(--shadow); height: 70vh; }
+        .catalogue-viewer iframe { width: 100%; height: 100%; border: none; }
         .quiz-container { max-width: 700px; margin: 0 auto; }
         .quiz-question { background: var(--bg-white); padding: 1.5rem; margin-bottom: 1.5rem; border-radius: 8px; border-left: 4px solid var(--green-dark); }
         .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
@@ -102,22 +94,24 @@
         .result-products { display: grid; gap: 1rem; margin-top: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
         .result-product { background: var(--bg-light); padding: 1rem; border-radius: 8px; }
         .result-disclaimer { font-size: 0.9rem; color: var(--text-light); margin-top: 1.5rem; }
+        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+        @keyframes kenburns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+        #home { position: relative; height: 100vh; padding: 0; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .carousel-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; }
+        .carousel-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 2s ease-in-out; transform: scale(1.1); }
+        .carousel-slide.active { opacity: 1; animation: kenburns 15s linear infinite alternate; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); }
+        .hero-content { position: relative; z-index: 2; }
     </style>
 </head>
 <body>
 
     <header class="header">
-        <div class="container">
-            <a href="#home" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat Logo"><span>Shah Hayaat</span></a>
-            <nav class="nav-desktop">
-                <ul><li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#products">Products</a></li><li><a href="#catalogue">Catalogue</a></li><li><a href="#blog">Blog</a></li><li><a href="#quiz">Dosha Quiz</a></li><li><a href="#contact">Contact</a></li></ul>
-            </nav>
-            <button class="nav-toggle" aria-label="Toggle Navigation"><span></span><span></span><span></span></button>
-        </div>
-    </header>
+        </header>
+
     <nav class="nav-mobile">
-        <ul><li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#products">Products</a></li><li><a href="#catalogue">Catalogue</a></li><li><a href="#blog">Blog</a></li><li><a href="#quiz">Dosha Quiz</a></li><li><a href="#contact">Contact</a></li></ul>
-    </nav>
+        </nav>
 
     <main>
         <section id="home">
@@ -129,7 +123,7 @@
             <div class="hero-overlay"></div>
             <div class="container hero-content animate-on-scroll">
                 <h1>Natural Healing, Pure Living.</h1>
-                <p>Experience the timeless wisdom of Ayurveda, crafted for modern wellness.</p>
+                <p>Experience the timeless wisdom of Ayurveda, crafted for modern wellness. Our certified, premium herbal remedies are your path to balanced health and vitality.</p>
                 <div class="hero-actions"><a href="#products" class="btn btn-primary">Explore Our Range</a></div>
             </div>
         </section>
@@ -167,7 +161,7 @@
         <section id="blog" class="animate-on-scroll">
             <div class="container">
                 <h2>From Our Wellness Journal</h2>
-                <p class="section-subtitle">Explore articles on health, wellness, and the timeless wisdom of Ayurveda.</p>
+                <p class="section-subtitle">Your guide to balanced living. Discover practical tips and ancient wisdom for modern-day wellness challenges.</p>
                 <div class="blog-grid" id="blog-grid-container"></div>
             </div>
         </section>
@@ -208,16 +202,7 @@
     </main>
     
     <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col"><h4>Shah Hayaat</h4><p>Natural healing, pure living.</p></div>
-                <div class="footer-col"><h4>Quick Links</h4><a href="#home">Home</a><a href="#about">About</a><a href="#products">Products</a><a href="#quiz">Dosha Quiz</a><a href="#contact">Contact</a></div>
-                <div class="footer-col"><h4>Contact & Orders</h4><a href="https://wa.me/917051056287" target="_blank">WhatsApp</a><a href="mailto:shahhayaat02@gmail.com">Email Us</a><a href="https://instagram.com/shahhayaatofficial" target="_blank">Instagram</a></div>
-                <div class="footer-col"><h4>Also Available On</h4><a href="https://www.amazon.in/HAYAAT-Combo-Complete-Liver-Health/dp/B0CXY46HXM" target="_blank">Amazon</a><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></div>
-            </div>
-            <div class="footer-bottom">&copy; <span id="year"></span> Shah Hayaat. All Rights Reserved.</div>
-        </div>
-    </footer>
+        </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -237,9 +222,11 @@
                 { name: "Fevodol", price: 165, desc: "Supports the body's immune response.", img: `${GITHUB_BASE_URL}fevodol.png` }
             ];
             const BLOG_DATA = [
-                { title: "How Ayurveda Can Help Manage Arthritis", img: `${GITHUB_BASE_URL}image(1).png`, link: "#" },
-                { title: "5 Ayurvedic Herbs for a Stronger Immune System", img: `${GITHUB_BASE_URL}image(4).png`, link: "#" },
-                { title: "The Secret to Better Sleep: An Ayurvedic Approach", img: `${GITHUB_BASE_URL}image(5).png`, link: "#" }
+                { title: "Feeling Bloated? 5 Ayurvedic Secrets for a Happy Gut", desc: "Tired of that uncomfortable feeling after meals? You're not alone. Discover simple, ancient tips to improve your digestion naturally.", img: `${GITHUB_BASE_URL}image(3).png` },
+                { title: "Can't Switch Off? How Ashwagandha Can Calm Modern-Day Stress", desc: "In a world that never stops, finding peace can feel impossible. Learn how this powerful adaptogen helps your body manage stress.", img: `${GITHUB_BASE_URL}image(6).png` },
+                { title: "Beat the Afternoon Slump: Ayurvedic Tips for All-Day Energy", desc: "If you rely on coffee to get through the day, there's a better way. We share natural techniques to maintain vibrant energy from morning to night.", img: `${GITHUB_BASE_URL}image(5).png` },
+                { title: "The Glow-Up from Within: Ayurvedic Secrets for Radiant Skin", desc: "True radiance starts from the inside. Explore the connection between your diet, digestion, and clear, glowing skin.", img: `${GITHUB_BASE_URL}image(4).png` },
+                { title: "Managing Joint Pain Naturally with Ayurveda", desc: "Don't let aches and pains hold you back. Learn about traditional Ayurvedic approaches to soothe joint discomfort and improve mobility.", img: `${GITHUB_BASE_URL}image(1).png` }
             ];
             const QUIZ_DATA = [
                 { q: 'How would you describe your natural body frame?', o: [['vata', 'Slender and light'], ['pitta', 'Medium and athletic'], ['kapha', 'Broad and sturdy']] },
@@ -249,18 +236,37 @@
             ];
             const QUIZ_RECOS = { vata: { title: "Vata Balancing", products: ["Brain Champ", "Shah Zyme"] }, pitta: { title: "Pitta Balancing", products: ["Livo Hayaat", "Blood Storm"] }, kapha: { title: "Kapha Balancing", products: ["Cough X Pro", "Ortho Hayaat"] } };
             
+            const header = document.querySelector('.header');
+            if (header) {
+                const navDesktop = header.querySelector('.nav-desktop ul');
+                const navMobile = document.querySelector('.nav-mobile ul');
+                let navLinks = '';
+                const pages = [{href: "#home", text: "Home"}, {href: "#about", text: "About"}, {href: "#products", text: "Products"}, {href: "#catalogue", text: "Catalogue"}, {href: "#blog", text: "Blog"}, {href: "#quiz", text: "Dosha Quiz"}, {href: "#contact", text: "Contact"}];
+                pages.forEach(page => { navLinks += `<li><a href="${page.href}">${page.text}</a></li>`; });
+                if (navDesktop) navDesktop.innerHTML = navLinks;
+                if (navMobile) navMobile.innerHTML = navLinks;
+            }
+
             const productGrid = document.getElementById('product-grid-container');
             if (productGrid) { productGrid.innerHTML = PRODUCTS_DATA.map(p => `<div class="product-card"><img src="${p.img}" alt="${p.name}" loading="lazy"><div class="product-card-content"><h3>${p.name}</h3><p class="product-desc">${p.desc}</p><div class="product-card-footer"><span class="product-price">₹${p.price}</span><a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} - ₹${p.price}`)}" target="_blank" class="btn btn-primary">Order Now</a></div></div></div>`).join(''); }
+            
             const blogGrid = document.getElementById('blog-grid-container');
-            if(blogGrid) { blogGrid.innerHTML = BLOG_DATA.map(post => `<a href="${post.link}" class="blog-card"><img src="${post.img}" alt="${post.title}" loading="lazy"><div class="blog-card-content"><h3>${post.title}</h3><p>Read More &rarr;</p></div></a>`).join(''); }
+            if(blogGrid) { blogGrid.innerHTML = BLOG_DATA.map(post => `<a href="#" class="blog-card"><img src="${post.img}" alt="${post.title}" loading="lazy"><div class="blog-card-content"><h3>${post.title}</h3><p>${post.desc}</p><p>Read More &rarr;</p></div></a>`).join(''); }
+
             const quizContainer = document.getElementById('quiz-container');
             if(quizContainer) { quizContainer.innerHTML = QUIZ_DATA.map((item, index) => `<div class="quiz-question"><p class="quiz-question-title">${index + 1}. ${item.q}</p><div class="quiz-options">${item.o.map(([val, label]) => `<label><input type="radio" name="q${index}" value="${val}">${label}</label>`).join('')}</div></div>`).join(''); }
             
-            document.getElementById('year').textContent = new Date().getFullYear();
+            const footer = document.querySelector('.footer');
+            if(footer) {
+                const yearSpan = footer.querySelector('#year');
+                if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+            }
+
             const navToggle = document.querySelector('.nav-toggle');
             if (navToggle) { navToggle.addEventListener('click', () => { document.body.classList.toggle('nav-open'); }); }
             document.querySelectorAll('.nav-mobile a, .nav-desktop a').forEach(link => { link.addEventListener('click', () => { setTimeout(() => { document.body.classList.remove('nav-open'); }, 300); }); });
             window.addEventListener('scroll', () => { document.body.classList.toggle('scrolled', window.scrollY > 50); });
+
             const heroSection = document.getElementById('home');
             const slides = document.querySelectorAll('.carousel-slide');
             if (slides.length > 0) {
@@ -277,6 +283,7 @@
                 heroSection.classList.add('progress-animate');
                 setInterval(nextSlide, slideInterval);
             }
+            
             const quizSubmitBtn = document.getElementById('submit-quiz-btn');
             if(quizSubmitBtn) {
                 quizSubmitBtn.addEventListener('click', () => {
@@ -295,6 +302,7 @@
                     quizResultsContainer.scrollIntoView({ behavior: 'smooth' });
                 });
             }
+
             const animatedElements = document.querySelectorAll('.animate-on-scroll');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
