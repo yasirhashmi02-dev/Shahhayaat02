@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // --- 1. DATA (Used across different pages) ---
+
+    // --- 1. DATA ---
     const GITHUB_BASE_URL = "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/";
     const PRODUCTS_DATA = [
         { name: "Brain Champ", price: 175, desc: "Enhances memory and cognitive function.", img: `${GITHUB_BASE_URL}brainchamp.jpg` },
@@ -19,20 +19,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- 2. SHARED FUNCTIONALITY (Runs on every page) ---
     const navToggle = document.querySelector('.nav-toggle');
-    if (navToggle) { navToggle.addEventListener('click', () => { document.body.classList.toggle('nav-open'); }); }
-    window.addEventListener('scroll', () => { document.body.classList.toggle('scrolled', window.scrollY > 50); });
+    if (navToggle) { 
+        navToggle.addEventListener('click', () => { 
+            document.body.classList.toggle('nav-open'); 
+        }); 
+    }
+    window.addEventListener('scroll', () => { 
+        document.body.classList.toggle('scrolled', window.scrollY > 50); 
+    });
     const yearSpan = document.getElementById('year');
-    if (yearSpan) { yearSpan.textContent = new Date().getFullYear(); }
+    if (yearSpan) { 
+        yearSpan.textContent = new Date().getFullYear(); 
+    }
     
     // Scroll animations
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) { entry.target.classList.add('is-visible'); } 
+            if (entry.isIntersecting) { 
+                entry.target.classList.add('is-visible'); 
+            } 
         });
     }, { threshold: 0.15 });
     animatedElements.forEach(el => observer.observe(el));
-
 
     // --- 3. PAGE-SPECIFIC LOGIC ---
     // Homepage
@@ -44,11 +53,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (heroSection) {
         const slides = document.querySelectorAll('.carousel-slide');
         let currentSlide = 0;
-        setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 5000);
+        if (slides.length > 0) {
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 5000);
+        }
     }
 
     // Products Page
@@ -56,12 +67,4 @@ document.addEventListener('DOMContentLoaded', function() {
     if (fullGrid) {
         fullGrid.innerHTML = PRODUCTS_DATA.map(p => `<div class="product-card"><img src="${p.img}" alt="${p.name}" loading="lazy"><div class="product-card-content"><h3>${p.name}</h3><p class="product-desc">${p.desc}</p><div class="product-card-footer"><span class="product-price">₹${p.price}</span><a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} - ₹${p.price}`)}" target="_blank" class="btn btn-primary">Order Now</a></div></div></div>`).join('');
     }
-    
-    // Other pages can have their specific JS here, for example:
-    const blogGrid = document.getElementById('blog-grid-container');
-    if(blogGrid) { /* logic to load blog posts */ }
-
-    const quizContainer = document.getElementById('quiz-container');
-    if(quizContainer) { /* logic to load quiz */ }
-
 });
