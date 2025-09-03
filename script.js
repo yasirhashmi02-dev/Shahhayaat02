@@ -24,24 +24,39 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.classList.toggle('nav-open'); 
         }); 
     }
-    window.addEventListener('scroll', () => { 
-        document.body.classList.toggle('scrolled', window.scrollY > 50); 
-    });
     const yearSpan = document.getElementById('year');
     if (yearSpan) { 
         yearSpan.textContent = new Date().getFullYear(); 
     }
     
-    // Scroll animations
-    const animatedElements = document.querySelectorAll('.animate-on-scroll');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) { 
-                entry.target.classList.add('is-visible'); 
-            } 
+    // Active Navigation Link Logic
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('.nav-desktop a, .nav-mobile a');
+    navLinks.forEach(link => {
+        const linkPage = link.getAttribute('href').split('/').pop();
+        if (linkPage === currentPage) {
+            link.classList.add('active-link');
+        }
+    });
+
+    // Smart Floating Button Logic
+    const homeBtn = document.querySelector('.floating-home-btn');
+    if (homeBtn) {
+        if (currentPage === 'index.html') {
+            homeBtn.setAttribute('href', '#home'); // On homepage, it's a "Back to Top" button
+        } else {
+            homeBtn.setAttribute('href', 'index.html'); // On other pages, it's a "Home" button
+        }
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                homeBtn.classList.add('visible');
+            } else {
+                homeBtn.classList.remove('visible');
+            }
+            document.body.classList.toggle('scrolled', window.scrollY > 50);
         });
-    }, { threshold: 0.15 });
-    animatedElements.forEach(el => observer.observe(el));
+    }
 
 
     // --- 3. PAGE-SPECIFIC LOGIC ---
@@ -68,12 +83,4 @@ document.addEventListener('DOMContentLoaded', function() {
     if (fullGrid) {
         fullGrid.innerHTML = PRODUCTS_DATA.map(p => `<div class="product-card"><img src="${p.img}" alt="${p.name}" loading="lazy"><div class="product-card-content"><h3>${p.name}</h3><p class="product-desc">${p.desc}</p><div class="product-card-footer"><span class="product-price">₹${p.price}</span><a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} - ₹${p.price}`)}" target="_blank" class="btn btn-primary">Order Now</a></div></div></div>`).join('');
     }
-    
-    // Other pages can have their specific JS here, for example:
-    const blogGrid = document.getElementById('blog-grid-container');
-    if(blogGrid) { /* logic to load blog posts */ }
-
-    const quizContainer = document.getElementById('quiz-container');
-    if(quizContainer) { /* logic to load quiz */ }
-
 });
