@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Shah Hayaat — Premium Ayurvedic Wellness</title>
     <meta name="description" content="Discover premium, certified Ayurvedic wellness products from Shah Hayaat. Naturally crafted for modern life.">
-    <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
 
     <style>
         /* --- 1. VARIABLES & RESET --- */
@@ -17,7 +18,7 @@
             --green-dark: #2A4633;
             --green-light: #4D7C5D;
             --bg-light: #F8F6F2;
-            --bg-white: #FFFFFF;
+            --bg-white: rgba(255, 255, 255, 0.95);
             --accent-gold: #B68D40;
             --text-dark: #1F1F1F;
             --text-light: #6B6B6B;
@@ -27,43 +28,315 @@
             --font-heading: 'Playfair Display', serif;
             --font-body: 'Inter', sans-serif;
         }
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
         body {
             font-family: var(--font-body);
-            background-color: var(--bg-light);
+            /* Updated: Changed to solid light green background */
+            background-color: var(--green-light); 
             color: var(--text-dark);
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
+            /* Removed: Background image for the body */
+            /* background-image: url('https://images.unsplash.com/photo-1600095945197-a54b34cf10a8?q=80&w=2940&auto=format&fit=crop'); */
+            /* background-size: cover; */
+            /* background-position: center center; */
+            /* background-attachment: fixed; */
         }
-        img { max-width: 100%; height: auto; display: block; }
-        ul, ol { list-style-position: inside; }
 
         /* --- 2. LAYOUT & GENERAL STYLES --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        section { padding: 80px 0; }
-        .text-center { text-align: center; }
-        .two-col-layout { display: grid; gap: 3rem; align-items: center; }
-        @media (min-width: 768px) { .two-col-layout { grid-template-columns: 1fr 1fr; } }
-
-        section:nth-of-type(even) { background-color: var(--bg-white); }
-        
-        h1, h2, h3 { font-family: var(--font-heading); color: var(--green-dark); line-height: 1.2; }
-        h2 { font-size: clamp(2rem, 5vw, 2.75rem); text-align: center; margin-bottom: 1rem; }
-        .section-subtitle { text-align: center; max-width: 600px; margin: 0 auto 4rem; color: var(--text-light); font-size: clamp(1rem, 2.5vw, 1.125rem); }
-
-        /* --- 3. HEADER & FOOTER (SHARED) --- */
-        .header {
-            position: sticky; top: 0; z-index: 100; width: 100%; padding: 1rem 0;
-            background-color: rgba(248, 246, 242, 0.95);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid transparent; transition: all 0.3s ease;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-        body.scrolled .header { border-bottom-color: var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-        .header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; font-weight: 700; font-size: 1.25rem; color: var(--green-dark); }
-        .logo img { height: 50px; width: 50px; border-radius: 50%; object-fit: cover; }
 
+        section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            background-color: var(--bg-light);
+            border-radius: 16px;
+            margin: 40px auto;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+        }
+
+        section:first-of-type { /* This targets the hero section */
+            /* Updated: Background color for hero with darker green */
+            background-color: var(--green-dark); 
+            /* Removed: image-related properties as we're using solid color */
+            /* background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)); */
+            /* background-size: cover; */
+            /* background-position: center center; */
+            /* background-attachment: fixed; */
+            box-shadow: none;
+            border-radius: 0;
+            margin-top: 0;
+            padding: 120px 0; /* More vertical padding for hero */
+        }
+
+        section:nth-of-type(even) {
+            background-color: var(--bg-white);
+        }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            color: var(--green-dark);
+            line-height: 1.2;
+        }
+        h2 {
+            font-size: clamp(2rem, 5vw, 2.75rem);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+            color: var(--text-light);
+            font-size: clamp(1rem, 2.5vw, 1.125rem);
+        }
+
+        /* --- 3. HEADER & NAVIGATION --- */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+            padding: 1rem 0;
+            background-color: rgba(248, 246, 242, 0.95); /* Slightly less transparent */
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        body.scrolled .header {
+            border-bottom-color: var(--border-color);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--green-dark);
+        }
+        .logo img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--green-dark);
+        }
+
+        .nav-desktop { display: none; }
+        .nav-desktop ul { list-style: none; display: flex; gap: 2rem; }
+        .nav-desktop a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+        .nav-desktop a:hover { color: var(--accent-gold); }
+
+        .nav-toggle {
+            display: block;
+            width: 28px;
+            height: 22px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 101;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--green-dark);
+            border-radius: 2px;
+            position: absolute;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .nav-toggle span:nth-child(1) { top: 0; }
+        .nav-toggle span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+        .nav-toggle span:nth-child(3) { bottom: 0; }
+
+        body.nav-open .nav-toggle span:nth-child(1) { top: 50%; transform: translateY(-50%) rotate(45deg); }
+        body.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
+        body.nav-open .nav-toggle span:nth-child(3) { top: 50%; transform: translateY(-50%) rotate(-45deg); }
+
+        .nav-mobile {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-light);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: translateX(100%);
+            transition: transform 0.4s ease;
+        }
+        body.nav-open .nav-mobile { transform: translateX(0); }
+        .nav-mobile ul { list-style: none; text-align: center; }
+        .nav-mobile li { margin-bottom: 2.5rem; }
+        .nav-mobile a {
+            text-decoration: none;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--green-dark);
+        }
+
+        /* --- 4. BUTTONS & CTA --- */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.75rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background-color: var(--green-light);
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: var(--green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            box-shadow: inset 0 0 0 2px white;
+        }
+        .btn-secondary:hover {
+            background-color: white;
+            color: var(--green-dark);
+            box-shadow: inset 0 0 0 2px white;
+        }
+
+
+        /* --- 5. HERO SECTION --- */
+        #hero { text-align: center; padding: 100px 0; }
+        #hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 1.5rem; color: #FFFFFF; text-shadow: 0 2px 10px rgba(0,0,0,0.4); } /* Slightly lighter shadow for better contrast on solid color */
+        #hero p { font-size: clamp(1.1rem, 3vw, 1.25rem); max-width: 700px; margin: 0 auto 2.5rem; color: #E0E0E0; text-shadow: 0 1px 5px rgba(0,0,0,0.4); } /* Slightly lighter shadow */
+        .hero-actions { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        .hero-certifications { margin-top: 3rem; color: #f0f0f0; text-shadow: 0 1px 5px rgba(0,0,0,0.4); } /* Slightly lighter shadow */
+        .hero-certifications span { display: inline-block; margin: 0 1rem; font-weight: 600; }
+
+
+        /* --- 6. PRODUCTS SECTION --- */
+        .product-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+        .product-card {
+            background-color: var(--bg-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .product-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background-color: #f0f0f0;
+        }
+        .product-card-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .product-card-desc { color: var(--text-light); margin-bottom: 1rem; flex-grow: 1; }
+        .product-card-footer { display: flex; justify-content: space-between; align-items: center; }
+        .product-price { font-size: 1.5rem; font-weight: 700; color: var(--green-dark); }
+
+        /* --- 7. ACCORDION (INGREDIENTS & FAQ) --- */
+        .accordion { max-width: 800px; margin: 0 auto; }
+        .accordion-item {
+            background-color: transparent;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+        }
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .accordion-icon { transition: transform 0.3s ease; font-size: 1.5rem; }
+        .accordion-item.active .accordion-icon { transform: rotate(135deg); }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; }
+        .accordion-content p { padding: 0 0.5rem; }
+        .accordion-item.active .accordion-content { max-height: 200px; padding-bottom: 1.5rem; }
+
+        /* --- 8. QUIZ SECTION --- */
+        .quiz-container { max-width: 700px; margin: 0 auto; }
+        .quiz-question { background: var(--bg-white); padding: 1.5rem; margin-bottom: 1rem; border-radius: 8px; border: 1px solid var(--border-color); }
+        .quiz-question-title { font-weight: 600; margin-bottom: 1rem; }
+        .quiz-options label {
+            display: block;
+            background: var(--bg-light);
+            padding: 0.75rem 1rem;
+            margin-top: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .quiz-options label:hover { border-color: var(--accent-gold); }
+        .quiz-options input { margin-right: 0.75rem; accent-color: var(--green-light); }
+        .quiz-actions { text-align: center; margin-top: 2rem; }
+        #quiz-results { margin-top: 2rem; }
+        .result-card { background: white; padding: 2rem; border-radius: 12px; text-align: center; border: 1px solid var(--border-color); }
+        .result-card h3 { font-size: 1.75rem; }
+        .result-products { display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
+        .result-product { background: var(--bg-light); padding: 1rem; border-radius: 8px; min-width: 200px; }
+        .result-product h4 { font-family: var(--font-body); font-size: 1rem; }
+
+        /* --- 9. FOOTER --- */
         .footer { background-color: var(--green-dark); color: #E0E0E0; padding: 60px 0 30px; }
         .footer-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 3rem; }
         .footer-col h4 { color: white; font-family: var(--font-body); font-size: 1.1rem; margin-bottom: 1rem; }
@@ -71,181 +344,103 @@
         .footer-col a:hover { color: white; }
         .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid #4A6354; color: #9E9E9E; font-size: 0.9rem; }
 
-        /* --- 4. NAVIGATION (SHARED) --- */
-        .nav-desktop { display: none; }
-        .nav-desktop ul { list-style: none; display: flex; gap: 2rem; }
-        .nav-desktop a { text-decoration: none; color: var(--text-dark); font-weight: 600; transition: color 0.2s ease; }
-        .nav-desktop a:hover { color: var(--accent-gold); }
-        .nav-toggle { display: block; width: 28px; height: 22px; background: none; border: none; cursor: pointer; position: relative; z-index: 101; }
-        .nav-toggle span { display: block; width: 100%; height: 3px; background-color: var(--green-dark); border-radius: 2px; position: absolute; transition: transform 0.3s ease, opacity 0.3s ease; }
-        .nav-toggle span:nth-child(1) { top: 0; }
-        .nav-toggle span:nth-child(2) { top: 50%; transform: translateY(-50%); }
-        .nav-toggle span:nth-child(3) { bottom: 0; }
-        body.nav-open .nav-toggle span:nth-child(1) { top: 50%; transform: translateY(-50%) rotate(45deg); }
-        body.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
-        body.nav-open .nav-toggle span:nth-child(3) { top: 50%; transform: translateY(-50%) rotate(-45deg); }
-        .nav-mobile { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-light); z-index: 100; display: flex; flex-direction: column; justify-content: center; align-items: center; transform: translateX(100%); transition: transform 0.4s ease; }
-        body.nav-open .nav-mobile { transform: translateX(0); }
-        .nav-mobile ul { list-style: none; text-align: center; }
-        .nav-mobile li { margin-bottom: 2.5rem; }
-        .nav-mobile a { text-decoration: none; font-size: 1.75rem; font-weight: 600; color: var(--green-dark); }
-        @media (min-width: 768px) { .nav-toggle, .nav-mobile { display: none; } .nav-desktop { display: block; } }
-
-        /* --- 5. COMPONENTS (Buttons, Cards, Forms) --- */
-        .btn { display: inline-block; padding: 0.8rem 1.75rem; border-radius: 50px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; border: 2px solid transparent; }
-        .btn-primary { background-color: var(--green-light); color: white; border-color: var(--green-light); }
-        .btn-primary:hover { background-color: var(--green-dark); border-color: var(--green-dark); transform: translateY(-2px); }
-        .btn-secondary { background-color: transparent; color: var(--green-dark); border-color: var(--green-dark); }
-        .btn-secondary:hover { background-color: var(--green-dark); color: white; }
-
-        .product-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-        .product-card { background-color: var(--bg-white); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; text-decoration: none; }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
-        .product-card img { width: 100%; height: 250px; object-fit: cover; }
-        .product-card-content { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
-        .product-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
-        .product-card .product-desc { flex-grow: 1; }
-        .product-price { font-size: 1.5rem; font-weight: 700; color: var(--green-dark); margin-top: 1rem; }
-
-        .blog-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-        .blog-card { background-color: white; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); text-decoration: none; color: var(--text-dark); }
-        .blog-card img { width: 100%; height: 200px; object-fit: cover; }
-        .blog-card-content { padding: 1.5rem; }
-        .blog-card h3 { margin-bottom: 0.5rem; }
-
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
-        .form-group input, .form-group textarea { width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border-color); font-family: var(--font-body); font-size: 1rem; }
-
-        /* --- 6. PAGE-SPECIFIC STYLES --- */
-        /* Hero & Carousel */
-        #home { position: relative; height: 90vh; padding: 0; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .carousel-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; }
-        .carousel-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease-in-out; }
-        .carousel-slide.active { opacity: 1; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); }
-        .hero-content { position: relative; z-index: 2; }
-        #home h1 { color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.5); font-size: clamp(2.5rem, 8vw, 4rem); }
-        #home p { color: #f0f0f0; text-shadow: 0 1px 5px rgba(0,0,0,0.5); max-width: 600px; margin: 1rem auto 2rem; }
-        #home .btn-secondary { color: white; border-color: white; }
-        #home .btn-secondary:hover { background-color: white; color: var(--green-dark); }
-        
-        /* About Section */
-        #about .col-image img { border-radius: 12px; }
-        
-        /* Contact Section */
-        .contact-link { display: block; margin-bottom: 1rem; font-weight: 600; text-decoration: none; color: var(--green-dark); }
+        /* --- 10. RESPONSIVE MEDIA QUERIES --- */
+        @media (min-width: 768px) {
+            .nav-toggle, .nav-mobile { display: none; }
+            .nav-desktop { display: block; }
+            section {
+                padding: 100px 0;
+                margin: 60px auto;
+            }
+            section:first-of-type {
+                padding: 180px 0; /* More vertical padding for hero on larger screens */
+            }
+        }
     </style>
 </head>
 <body>
 
     <header class="header">
         <div class="container">
-            <a href="#home" class="logo">
+            <a href="#" class="logo">
                 <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat Logo">
                 <span>Shah Hayaat</span>
             </a>
             <nav class="nav-desktop">
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
                     <li><a href="#products">Products</a></li>
-                    <li><a href="#blog">Blog</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#ingredients">Ingredients</a></li>
+                    <li><a href="#quiz">Dosha Quiz</a></li>
+                    <li><a href="#faq">FAQ</a></li>
                 </ul>
             </nav>
             <button class="nav-toggle" aria-label="Toggle Navigation">
-                <span></span><span></span><span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
         </div>
     </header>
 
     <nav class="nav-mobile">
         <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
             <li><a href="#products">Products</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#ingredients">Ingredients</a></li>
+            <li><a href="#quiz">Dosha Quiz</a></li>
+            <li><a href="#faq">FAQ</a></li>
         </ul>
     </nav>
 
     <main>
-        <section id="home">
-            <div class="carousel-container">
-                <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1604537443195-2745d4f38b46?q=80&w=2874&auto=format&fit=crop');"></div>
-                <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1598555763524-349254c49159?q=80&w=2940&auto=format&fit=crop');"></div>
-                <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1544829393-2774a3821f45?q=80&w=2838&auto=format&fit=crop');"></div>
-            </div>
-            <div class="hero-overlay"></div>
-            <div class="container hero-content">
+        <section id="hero">
+            <div class="container">
                 <h1>Natural Healing, Pure Living.</h1>
                 <p>Experience the timeless wisdom of Ayurveda, crafted for modern wellness. Our certified, premium herbal remedies are your path to balanced health and vitality.</p>
                 <div class="hero-actions">
                     <a href="#products" class="btn btn-primary">Explore Our Range</a>
                     <a href="https://wa.me/917051056287" target="_blank" class="btn btn-secondary">Order on WhatsApp</a>
                 </div>
-            </div>
-        </section>
-
-        <section id="about">
-            <div class="container">
-                <h2>Our Story: A Legacy of Wellness</h2>
-                <div class="two-col-layout">
-                    <div class="col-text">
-                        <h3>Our Mission & Philosophy</h3>
-                        <p>At Shah Hayaat, we bridge the ancient wisdom of Ayurveda with the precision of modern science. Our mission is to provide pure, effective, and accessible wellness solutions that empower you to live a healthier, more balanced life naturally.</p>
-                        <p>We honor the purity of nature by sourcing the finest ingredients. Every product is a testament to our commitment to quality, manufactured in facilities certified by WHO-GMP, ISO, and HACCP.</p>
-                    </div>
-                    <div class="col-image">
-                        <img src="https://images.unsplash.com/photo-1620061221136-9494a80ef0ac?q=80&w=2803&auto=format&fit=crop" alt="Ayurvedic herbs and spices in bowls">
-                    </div>
+                <div class="hero-certifications">
+                    <span>✓ WHO-GMP Certified</span>
+                    <span>✓ ISO & HACCP Compliant</span>
                 </div>
             </div>
         </section>
-        
+
         <section id="products">
             <div class="container">
-                <h2>Our Full Ayurvedic Range</h2>
-                <p class="section-subtitle">Explore our complete collection of remedies, each formulated with pure, potent herbs to support your well-being from head to toe.</p>
+                <h2>Our Ayurvedic Formulations</h2>
+                <p class="section-subtitle">A curated selection of our most effective remedies, each formulated with pure, potent herbs to support your well-being.</p>
                 <div class="product-grid" id="product-grid-container">
                     </div>
             </div>
         </section>
-        
-        <section id="blog">
+
+        <section id="ingredients">
             <div class="container">
-                <h2>From Our Wellness Journal</h2>
-                 <p class="section-subtitle">Explore articles on health, wellness, and the timeless wisdom of Ayurveda from our experts.</p>
-                <div class="blog-grid" id="blog-grid-container">
-                    </div>
+                <h2>The Power of Pure Ingredients</h2>
+                <p class="section-subtitle">We believe in transparency. Learn more about the core Ayurvedic herbs that provide the healing power in our products.</p>
+                <div class="accordion" id="ingredients-accordion-container"></div>
+            </div>
+        </section>
+
+        <section id="quiz">
+            <div class="container">
+                <h2>Find Your Ayurvedic Profile</h2>
+                <p class="section-subtitle">This simple quiz helps you understand your dominant Dosha (Vata, Pitta, or Kapha) and recommends products suited to your unique constitution.</p>
+                <div class="quiz-container" id="quiz-container"></div>
+                <div class="quiz-actions">
+                    <button class="btn btn-primary" id="submit-quiz-btn">Get My Recommendation</button>
+                </div>
+                <div id="quiz-results"></div>
             </div>
         </section>
         
-        <section id="contact">
+        <section id="faq">
             <div class="container">
-                <h2>Get In Touch</h2>
-                <p class="section-subtitle">We're here to help with any questions about our products, orders, or your wellness journey.</p>
-                <div class="two-col-layout">
-                    <div class="col-text">
-                        <h3>Contact Information</h3>
-                        <p><strong>For Orders & Inquiries:</strong></p>
-                        <a href="https://wa.me/917051056287" class="contact-link" target="_blank">Chat with us on WhatsApp</a>
-                        <p><strong>Email:</strong></p>
-                        <a href="mailto:info@shahhayaat.com" class="contact-link">info@shahhayaat.com</a>
-                        <p><strong>Follow Us:</strong></p>
-                        <a href="https://instagram.com/shahhayaatofficial" class="contact-link" target="_blank">Instagram</a>
-                    </div>
-                    <div class="col-form">
-                        <h3>Send us a Message</h3>
-                        <form id="contactForm">
-                            <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" required></div>
-                            <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" required></div>
-                            <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" rows="5" required></textarea></div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
-                </div>
+                <h2>Frequently Asked Questions</h2>
+                <p class="section-subtitle">Have questions? We have answers. Find information about our products, ordering process, and safety standards.</p>
+                <div class="accordion" id="faq-accordion-container"></div>
             </div>
         </section>
     </main>
@@ -253,93 +448,186 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-col"><h4>Shah Hayaat</h4><p>Natural healing, pure living. Your trusted source for premium Ayurvedic wellness.</p></div>
-                <div class="footer-col"><h4>Quick Links</h4><a href="#home">Home</a><a href="#about">About</a><a href="#products">Products</a><a href="#blog">Blog</a></div>
-                <div class="footer-col"><h4>Contact & Orders</h4><a href="https://wa.me/917051056287" target="_blank">WhatsApp</a><a href="mailto:info@shahhayaat.com">Email Us</a><a href="https://instagram.com/shahhayaatofficial" target="_blank">Instagram</a></div>
-                <div class="footer-col"><h4>Also Available On</h4><a href="https://www.amazon.in/HAYAAT-Combo-Complete-Liver-Health/dp/B0CXY46HXM" target="_blank">Amazon</a><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></div>
+                <div class="footer-col">
+                    <h4>Shah Hayaat</h4>
+                    <p>Natural healing, pure living. Your trusted source for premium Ayurvedic wellness products.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="#products">Products</a>
+                    <a href="#ingredients">Ingredients</a>
+                    <a href="#quiz">Dosha Quiz</a>
+                    <a href="#faq">FAQ</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact & Orders</h4>
+                    <a href="https://wa.me/917051056287" target="_blank">WhatsApp</a>
+                    <a href="mailto:info@shahhayaat.com">Email Us</a>
+                    <a href="https://instagram.com/shahhayaatofficial" target="_blank">Instagram</a>
+                </div>
+                 <div class="footer-col">
+                    <h4>Also Available On</h4>
+                    <a href="https://www.amazon.in/HAYAAT-Combo-Complete-Liver-Health/dp/B0CXY46HXM" target="_blank">Amazon</a>
+                    <a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a>
+                </div>
             </div>
-            <div class="footer-bottom">&copy; <span id="year"></span> Shah Hayaat. All Rights Reserved.</div>
+            <div class="footer-bottom">
+                &copy; <span id="year"></span> Shah Hayaat. All Rights Reserved.
+            </div>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-    
-            const GITHUB_BASE_URL = "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/";
             
+            // --- Correct GitHub URL for images ---
+            const GITHUB_BASE_URL = "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/";
+
             const PRODUCTS_DATA = [
-                { name: "Brain Champ", price: 175, desc: "Enhances memory and cognitive function.", img: `${GITHUB_BASE_URL}brainchamp.jpg` },
-                { name: "Shah Zyme", price: 165, desc: "Effective digestive enzyme syrup.", img: `${GITHUB_BASE_URL}shahzyme.jpg` },
-                { name: "Blood Storm", price: 165, desc: "Revitalizing blood tonic for vitality.", img: `${GITHUB_BASE_URL}bloodstorm.jpg` },
-                { name: "Cough X Pro", price: 90, desc: "Soothing herbal relief for coughs.", img: `${GITHUB_BASE_URL}coughxpro.jpg` },
-                { name: "Musaffa Khoon", price: 165, desc: "Traditional blood purifier for clear skin.", img: `${GITHUB_BASE_URL}musaffakhoon.jpg` },
-                { name: "PanaSip", price: 165, desc: "Fast-acting relief from acidity and gas.", img: `${GITHUB_BASE_URL}panasip.jpg` },
-                { name: "Livo Hayaat", price: 349, desc: "Formulation for optimal liver health.", img: `${GITHUB_BASE_URL}livohayaat.jpg` },
-                { name: "Dia-Ease", price: 695, desc: "Support for healthy sugar balance.", img: `${GITHUB_BASE_URL}diaease.png` },
-                { name: "Ortho Hayaat", price: 649, desc: "Specialized blend for joint health.", img: `${GITHUB_BASE_URL}orthohayaat.jpg` },
-                { name: "Utro Hayaat", price: 625, desc: "Gentle tonic for women's health.", img: `${GITHUB_BASE_URL}utrohayaat.png` },
-                { name: "Passion Pulse", price: 599, desc: "Natural vitality booster for stamina.", img: `${GITHUB_BASE_URL}passionpulse.jpg` },
-                { name: "Fevodol", price: 165, desc: "Supports the body's immune response.", img: `${GITHUB_BASE_URL}fevodol.png` }
+                { name: "Brain Champ", price: 175, desc: "A potent tonic designed to enhance memory and cognitive function.", img: `${GITHUB_BASE_URL}brainchamp.jpg` },
+                { name: "Shah Zyme", price: 165, desc: "An effective digestive enzyme syrup to support a healthy gut.", img: `${GITHUB_BASE_URL}shahzyme.jpg` },
+                { name: "Blood Storm", price: 165, desc: "A revitalizing blood tonic formulated to boost vitality and energy levels.", img: `${GITHUB_BASE_URL}bloodstorm.jpg` },
+                { name: "Cough X Pro", price: 90, desc: "Natural and soothing herbal relief for persistent coughs.", img: `${GITHUB_BASE_URL}coughxpro.jpg` },
+                { name: "Musaffa Khoon", price: 165, desc: "A traditional blood purifier for clear, healthy skin.", img: `${GITHUB_BASE_URL}musaffakhoon.jpg` },
+                { name: "PanaSip", price: 165, desc: "Fast-acting relief from acidity and gas for digestive comfort.", img: `${GITHUB_BASE_URL}panasip.jpg` },
+                { name: "Livo Hayaat", price: 349, desc: "A comprehensive formulation for maintaining optimal liver health.", img: `${GITHUB_BASE_URL}livohayaat.jpg` },
+                { name: "Dia-Ease", price: 695, desc: "Support for healthy sugar balance and metabolic wellness.", img: `${GITHUB_BASE_URL}diaease.png` },
+                { name: "Ortho Hayaat", price: 649, desc: "A specialized blend to support joint health and mobility.", img: `${GITHUB_BASE_URL}orthohayaat.jpg` },
+                { name: "Utro Hayaat", price: 625, desc: "A gentle tonic formulated to support women's health.", img: `${GITHUB_BASE_URL}utrohayaat.png` },
+                { name: "Passion Pulse", price: 599, desc: "A natural vitality booster for enhanced stamina and performance.", img: `${GITHUB_BASE_URL}passionpulse.jpg` },
+                { name: "Fevodol", price: 165, desc: "Herbal capsules to support the body's natural immune response.", img: `${GITHUB_BASE_URL}fevodol.png` }
             ];
 
-            const BLOG_DATA = [
-                { title: "How Ayurveda Can Help Manage Arthritis", img: `${GITHUB_BASE_URL}arthritis-blog-post.jpg`, link: "#" },
-                { title: "5 Ayurvedic Herbs for a Stronger Immune System", img: "https://images.unsplash.com/photo-1598555763524-349254c49159?q=80&w=2940&auto=format&fit=crop", link: "#" },
-                { title: "The Secret to Better Sleep: An Ayurvedic Approach", img: "https://images.unsplash.com/photo-1544829393-2774a3821f45?q=80&w=2838&auto=format&fit=crop", link: "#" }
+            const INGREDIENTS_DATA = [
+                { title: "Ashwagandha (Withania somnifera)", content: "A powerful adaptogen known to reduce stress, improve strength, and enhance vitality. It's a cornerstone of rejuvenating Ayurvedic formulations." },
+                { title: "Brahmi (Bacopa monnieri)", content: "Renowned for its ability to support cognitive function, Brahmi helps improve memory, learning, and mental clarity, promoting a calm mind." },
+                { title: "Tulsi (Ocimum sanctum)", content: "Holy Basil, or Tulsi, is a sacred herb that supports respiratory health, boosts immunity, and acts as a calming adaptogen." },
+                { title: "Amla (Emblica officinalis)", content: "A rich source of Vitamin C, Amla is a potent antioxidant that supports rejuvenation, digestion, and overall immune function." },
+            ];
+            
+            const FAQ_DATA = [
+                { title: "Are your products certified and safe?", content: "Absolutely. All our products are manufactured in facilities that are WHO-GMP, ISO, and HACCP certified, ensuring the highest standards of quality, safety, and efficacy." },
+                { title: "How can I place an order?", content: "Ordering is easy. You can click the 'Order Now' button on any product or use the 'Order on WhatsApp' link in the main section to connect with us directly. We'll guide you through the process." },
+                { title: "Are these products suitable during pregnancy?", content: "While our products are made from natural herbs, we strongly advise consulting with your doctor or a qualified Ayurvedic practitioner before taking any supplements during pregnancy or lactation." },
+                { title: "What is the delivery time for an order?", content: "Typically, orders are delivered within 5-7 business days across India. You will receive tracking information once your order is dispatched from our facility." }
             ];
 
-            // --- Populate Dynamic Content ---
+            const QUIZ_DATA = [
+                { q: 'How would you describe your natural body frame?', o: [['vata', 'Slender and light'], ['pitta', 'Medium and athletic'], ['kapha', 'Broad and sturdy']] },
+                { q: 'What is your appetite typically like?', o: [['vata', 'Irregular, varies a lot'], ['pitta', 'Strong and sharp, I get hungry'], ['kapha', 'Slow but steady, can miss meals']] },
+                { q: 'How does your skin usually feel?', o: [['vata', 'Dry and cool to the touch'], ['pitta', 'Warm, sometimes sensitive or reddish'], ['kapha', 'Cool, smooth, and often oily']] },
+                { q: 'What is your energy pattern?', o: [['vata', 'Comes in bursts, can feel scattered'], ['pitta', 'Focused and driven, goal-oriented'], ['kapha', 'Steady and sustained, slow to start']] },
+            ];
+            const QUIZ_RECOS = {
+                vata: { title: "Vata Balancing", desc: "Your constitution benefits from grounding and nourishing herbs.", products: ["Brain Champ", "Shah Zyme"] },
+                pitta: { title: "Pitta Balancing", desc: "Your constitution benefits from cooling and calming herbs.", products: ["Livo Hayaat", "Blood Storm"] },
+                kapha: { title: "Kapha Balancing", desc: "Your constitution benefits from stimulating and lightening herbs.", products: ["Cough X Pro", "Dia-Ease"] }
+            };
+
             const productGrid = document.getElementById('product-grid-container');
             if (productGrid) {
                 productGrid.innerHTML = PRODUCTS_DATA.map(p => `
-                    <a href="#" class="product-card">
+                    <div class="product-card">
                         <img src="${p.img}" alt="${p.name}" loading="lazy">
                         <div class="product-card-content">
                             <h3>${p.name}</h3>
-                            <p class="product-desc">${p.desc}</p>
-                            <span class="product-price">₹${p.price}</span>
+                            <p class="product-card-desc">${p.desc}</p>
+                            <div class="product-card-footer">
+                                <span class="product-price">₹${p.price}</span>
+                                <a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} - ₹${p.price}`)}" target="_blank" class="btn btn-primary">Order Now</a>
+                            </div>
                         </div>
-                    </a>`).join('');
+                    </div>
+                `).join('');
             }
 
-            const blogGrid = document.getElementById('blog-grid-container');
-            if(blogGrid) {
-                blogGrid.innerHTML = BLOG_DATA.map(post => `
-                     <a href="${post.link}" class="blog-card">
-                        <img src="${post.img}" alt="${post.title}" loading="lazy">
-                        <div class="blog-card-content">
-                            <h3>${post.title}</h3>
-                            <p>Read More &rarr;</p>
+            const renderAccordion = (containerId, data) => {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                container.innerHTML = data.map(item => `
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <span>${item.title}</span>
+                            <span class="accordion-icon">+</span>
                         </div>
-                    </a>`).join('');
-            }
-        
-            // --- General Functionality ---
-            document.getElementById('year').textContent = new Date().getFullYear();
+                        <div class="accordion-content"><p>${item.content}</p></div>
+                    </div>
+                `).join('');
+            };
+            renderAccordion('ingredients-accordion-container', INGREDIENTS_DATA);
+            renderAccordion('faq-accordion-container', FAQ_DATA);
 
-            // Navigation
-            const navToggle = document.querySelector('.nav-toggle');
-            if (navToggle) {
-                navToggle.addEventListener('click', () => { document.body.classList.toggle('nav-open'); });
+            const quizContainer = document.getElementById('quiz-container');
+            if (quizContainer) {
+                quizContainer.innerHTML = QUIZ_DATA.map((item, index) => `
+                    <div class="quiz-question">
+                        <p class="quiz-question-title">${index + 1}. ${item.q}</p>
+                        <div class="quiz-options">
+                            ${item.o.map(([val, label]) => `<label><input type="radio" name="q${index}" value="${val}">${label}</label>`).join('')}
+                        </div>
+                    </div>
+                `).join('');
             }
-            document.querySelectorAll('.nav-mobile a').forEach(link => {
-                link.addEventListener('click', () => document.body.classList.remove('nav-open'));
-            });
 
-            // Header scroll effect
+            const header = document.querySelector('.header');
             window.addEventListener('scroll', () => { document.body.classList.toggle('scrolled', window.scrollY > 50); });
 
-            // Hero Carousel
-            const slides = document.querySelectorAll('.carousel-slide');
-            if (slides.length > 0) {
-                let currentSlide = 0;
-                setInterval(() => {
-                    slides[currentSlide].classList.remove('active');
-                    currentSlide = (currentSlide + 1) % slides.length;
-                    slides[currentSlide].classList.add('active');
-                }, 5000);
+            const navToggle = document.querySelector('.nav-toggle');
+            const mobileNavLinks = document.querySelectorAll('.nav-mobile a');
+            navToggle.addEventListener('click', () => { document.body.classList.toggle('nav-open'); });
+            mobileNavLinks.forEach(link => { link.addEventListener('click', () => document.body.classList.remove('nav-open')); });
+
+            document.querySelectorAll('.accordion').forEach(accordion => {
+                accordion.addEventListener('click', e => {
+                    const header = e.target.closest('.accordion-header');
+                    if (header) header.parentElement.classList.toggle('active');
+                });
+            });
+
+            const quizSubmitBtn = document.getElementById('submit-quiz-btn');
+            const quizResultsContainer = document.getElementById('quiz-results');
+            if (quizSubmitBtn) {
+                quizSubmitBtn.addEventListener('click', () => {
+                    const answers = {};
+                    if ([...Array(QUIZ_DATA.length).keys()].some(i => {
+                        const checked = document.querySelector(`input[name="q${i}"]:checked`);
+                        if (checked) {
+                            answers[checked.value] = (answers[checked.value] || 0) + 1;
+                            return false;
+                        }
+                        return true;
+                    })) {
+                        alert('Please answer all questions to find your profile.');
+                        return;
+                    }
+                    const dominantDosha = Object.keys(answers).reduce((a, b) => answers[a] > answers[b] ? a : b);
+                    const reco = QUIZ_RECOS[dominantDosha];
+                    quizResultsContainer.innerHTML = `<div class="result-card"><h3>Your Profile: ${reco.title}</h3><p class="section-subtitle">${reco.desc}</p><div class="result-products">${reco.products.map(pName => { const p = PRODUCTS_DATA.find(pr => pr.name === pName); return `<div class="result-product"><h4>${p.name}</h4><a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} based on my quiz results`)}" target="_blank">Order Now</a></div>`; }).join('')}</div></div>`;
+                    quizResultsContainer.scrollIntoView({ behavior: 'smooth' });
+                });
             }
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.id === 'products') {
+                            const cards = document.querySelectorAll('.product-card');
+                            cards.forEach((card, index) => {
+                                setTimeout(() => {
+                                    card.classList.add('visible');
+                                }, index * 100);
+                            });
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('section').forEach(section => observer.observe(section));
+
+            document.getElementById('year').textContent = new Date().getFullYear();
         });
     </script>
+
 </body>
 </html>
