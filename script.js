@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-
-    // --- 1. DATA ---
+    
+    // --- 1. DATA (Used across different pages) ---
     const GITHUB_BASE_URL = "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/";
     const PRODUCTS_DATA = [
         { name: "Brain Champ", price: 175, desc: "Enhances memory and cognitive function.", img: `${GITHUB_BASE_URL}brainchamp.jpg` },
@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { threshold: 0.15 });
     animatedElements.forEach(el => observer.observe(el));
 
+
     // --- 3. PAGE-SPECIFIC LOGIC ---
     // Homepage
     const featuredGrid = document.getElementById('product-grid-featured');
@@ -67,4 +68,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (fullGrid) {
         fullGrid.innerHTML = PRODUCTS_DATA.map(p => `<div class="product-card"><img src="${p.img}" alt="${p.name}" loading="lazy"><div class="product-card-content"><h3>${p.name}</h3><p class="product-desc">${p.desc}</p><div class="product-card-footer"><span class="product-price">₹${p.price}</span><a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} - ₹${p.price}`)}" target="_blank" class="btn btn-primary">Order Now</a></div></div></div>`).join('');
     }
+    
+    // Other pages can have their specific JS here, for example:
+    const blogGrid = document.getElementById('blog-grid-container');
+    if(blogGrid) { /* logic to load blog posts */ }
+
+    const quizContainer = document.getElementById('quiz-container');
+    if(quizContainer) { /* logic to load quiz */ }
+
 });
