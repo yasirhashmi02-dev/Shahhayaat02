@@ -22,6 +22,7 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; scroll-padding-top: 100px; }
         body { font-family: var(--font-body); background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; overflow-x: hidden; }
+        body.modal-open { overflow: hidden; }
         img { max-width: 100%; height: auto; display: block; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         section { padding: clamp(4rem, 10vw, 6rem) 0; overflow: hidden; }
@@ -60,7 +61,6 @@
         body.nav-open .nav-toggle span:nth-child(3) { top: 50%; transform: translateY(-50%) rotate(-45deg); }
 
         .nav-mobile { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-light); z-index: 999; display: flex; justify-content: center; align-items: center; transform: translateX(100%); transition: transform var(--transition-speed) cubic-bezier(0.77, 0, 0.175, 1); }
-        body.nav-open { overflow: hidden; }
         body.nav-open .nav-mobile { transform: translateX(0); }
         .nav-mobile ul { list-style: none; text-align: center; }
         .nav-mobile li { margin-bottom: 2.5rem; }
@@ -113,8 +113,9 @@
         .blog-card-content { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
         .blog-card-content h3 { margin-bottom: 0.5rem; color: var(--green-dark); }
         .blog-card-content .blog-excerpt { flex-grow: 1; color: var(--text-light); }
-        .blog-card-content .read-more { color: var(--accent-gold); font-weight: 600; text-decoration: none; margin-top: 1rem; }
-
+        .read-more-btn { color: var(--accent-gold); font-weight: 600; text-decoration: none; margin-top: 1rem; background: none; border: none; padding: 0; font-size: 1em; cursor: pointer; text-align: left; }
+        .read-more-btn:hover { text-decoration: underline; }
+        
         /* Catalogue Section */
         .catalogue-viewer { border: 1px solid var(--border-color); border-radius: 12px; box-shadow: var(--shadow); height: 70vh; }
         .catalogue-viewer iframe { width: 100%; height: 100%; border: none; border-radius: 12px; }
@@ -173,6 +174,17 @@
         .back-to-top { position: fixed; bottom: 20px; right: 20px; background-color: var(--accent-gold); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 24px; z-index: 100; opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0.4s, transform 0.4s; }
         .back-to-top.visible { opacity: 1; visibility: visible; }
         .back-to-top:hover { transform: scale(1.1); }
+        
+        /* Blog Modal */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0.4s; }
+        .modal.is-open { opacity: 1; visibility: visible; }
+        .modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); cursor: pointer; }
+        .modal-content { position: relative; background-color: white; border-radius: 12px; max-width: 800px; width: 90%; max-height: 85vh; overflow-y: auto; padding: 2rem; z-index: 2001; transform: scale(0.9); transition: transform 0.4s; }
+        .modal.is-open .modal-content { transform: scale(1); }
+        .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 2rem; color: #888; cursor: pointer; line-height: 1; }
+        #modal-title { font-family: var(--font-heading); color: var(--green-dark); margin-bottom: 1.5rem; padding-right: 2rem; }
+        #modal-body h3 { margin-top: 2rem; }
+        #modal-body ul { list-style-position: inside; padding-left: 1rem; }
         
         /* Animation Utility */
         .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
@@ -355,6 +367,15 @@
     </footer>
 
     <a href="#home" class="back-to-top" aria-label="Back to top">&#8593;</a>
+    
+    <div id="blog-modal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <h2 id="modal-title"></h2>
+            <div id="modal-body"></div>
+        </div>
+    </div>
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -362,31 +383,83 @@
             // --- DATA ---
             const GITHUB_BASE_URL = "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/";
             const PRODUCTS_DATA = [
-                { name: "Brain Champ", price: 175, desc: "Enhances memory and cognitive function.", img: `${GITHUB_BASE_URL}brainchamp.jpg` },
-                { name: "Shah Zyme", price: 165, desc: "Effective digestive enzyme syrup.", img: `${GITHUB_BASE_URL}shahzyme.jpg` },
-                { name: "Blood Storm", price: 165, desc: "Revitalizing blood tonic for vitality.", img: `${GITHUB_BASE_URL}bloodstorm.jpg` },
-                { name: "Cough X Pro", price: 90, desc: "Soothing herbal relief for coughs.", img: `${GITHUB_BASE_URL}coughxpro.jpg` },
-                { name: "Musaffa Khoon", price: 165, desc: "Traditional blood purifier for clear skin.", img: `${GITHUB_BASE_URL}musaffakhoon.jpg` },
-                { name: "PanaSip", price: 165, desc: "Fast-acting relief from acidity and gas.", img: `${GITHUB_BASE_URL}panasip.jpg` },
-                { name: "Livo Hayaat", price: 349, desc: "Formulation for optimal liver health.", img: `${GITHUB_BASE_URL}livohayaat.jpg` },
-                { name: "Dia-Ease", price: 695, desc: "Support for healthy sugar balance.", img: `${GITHUB_BASE_URL}diaease.png` },
-                { name: "Ortho Hayaat", price: 649, desc: "Specialized blend for joint health.", img: `${GITHUB_BASE_URL}orthohayaat.jpg` },
-                { name: "Utro Hayaat", price: 625, desc: "Gentle tonic for women's health.", img: `${GITHUB_BASE_URL}utrohayaat.png` },
-                { name: "Passion Pulse", price: 599, desc: "Natural vitality booster for stamina.", img: `${GITHUB_BASE_URL}passionpulse.jpg` },
-                { name: "Fevodol", price: 165, desc: "Supports the body's immune response.", img: `${GITHUB_BASE_URL}fevodol.png` }
+                { name: "Brain Champ", price: 175, desc: "Enhances memory and cognitive function.", img: `${GITHUB_BASE_URL}brainchamp.jpg` }, { name: "Shah Zyme", price: 165, desc: "Effective digestive enzyme syrup.", img: `${GITHUB_BASE_URL}shahzyme.jpg` }, { name: "Blood Storm", price: 165, desc: "Revitalizing blood tonic for vitality.", img: `${GITHUB_BASE_URL}bloodstorm.jpg` }, { name: "Cough X Pro", price: 90, desc: "Soothing herbal relief for coughs.", img: `${GITHUB_BASE_URL}coughxpro.jpg` }, { name: "Musaffa Khoon", price: 165, desc: "Traditional blood purifier for clear skin.", img: `${GITHUB_BASE_URL}musaffakhoon.jpg` }, { name: "PanaSip", price: 165, desc: "Fast-acting relief from acidity and gas.", img: `${GITHUB_BASE_URL}panasip.jpg` }, { name: "Livo Hayaat", price: 349, desc: "Formulation for optimal liver health.", img: `${GITHUB_BASE_URL}livohayaat.jpg` }, { name: "Dia-Ease", price: 695, desc: "Support for healthy sugar balance.", img: `${GITHUB_BASE_URL}diaease.png` }, { name: "Ortho Hayaat", price: 649, desc: "Specialized blend for joint health.", img: `${GITHUB_BASE_URL}orthohayaat.jpg` }, { name: "Utro Hayaat", price: 625, desc: "Gentle tonic for women's health.", img: `${GITHUB_BASE_URL}utrohayaat.png` }, { name: "Passion Pulse", price: 599, desc: "Natural vitality booster for stamina.", img: `${GITHUB_BASE_URL}passionpulse.jpg` }, { name: "Fevodol", price: 165, desc: "Supports the body's immune response.", img: `${GITHUB_BASE_URL}fevodol.png` }
             ];
             const BLOG_DATA = [
-                { title: "Feeling Bloated? 5 Ayurvedic Secrets for a Happy Gut", desc: "Tired of that uncomfortable feeling after meals? You're not alone. Discover simple, ancient tips to improve your digestion naturally.", img: `${GITHUB_BASE_URL}image(3).png` },
-                { title: "Can't Switch Off? How Ashwagandha Can Calm Modern-Day Stress", desc: "In a world that never stops, finding peace can feel impossible. Learn how this powerful adaptogen helps your body manage stress.", img: `${GITHUB_BASE_URL}image(6).png` },
-                { title: "Beat the Afternoon Slump: Ayurvedic Tips for All-Day Energy", desc: "If you rely on coffee to get through the day, there's a better way. We share natural techniques to maintain vibrant energy from morning to night.", img: `${GITHUB_BASE_URL}image(5).png` },
-                { title: "The Glow-Up from Within: Ayurvedic Secrets for Radiant Skin", desc: "True radiance starts from the inside. Explore the connection between your diet, digestion, and clear, glowing skin.", img: `${GITHUB_BASE_URL}image(4).png` },
-                { title: "Managing Joint Pain Naturally with Ayurveda", desc: "Don't let aches and pains hold you back. Learn about traditional Ayurvedic approaches to soothe joint discomfort and improve mobility.", img: `${GITHUB_BASE_URL}image(1).png` }
+                { 
+                    title: "Feeling Bloated? 5 Ayurvedic Secrets for a Happy Gut", 
+                    desc: "Tired of that uncomfortable feeling after meals? You're not alone. Discover simple, ancient tips to improve your digestion naturally.", 
+                    img: `${GITHUB_BASE_URL}image(3).png`,
+                    fullContent: `
+                        <p>Tired of that uncomfortable, heavy feeling after you eat? You're not alone. Bloating is a common issue, and while modern medicine has its solutions, sometimes the best remedies are the oldest ones. Ayurveda, a traditional system of medicine from India, offers simple, ancient tips to improve your digestion and help you feel better naturally.</p>
+                        <h3>Here are five Ayurvedic secrets to a happy gut:</h3>
+                        <p><strong>1. Sip Warm Water</strong><br>You've probably heard that drinking water is good for you, but Ayurveda emphasizes the importance of drinking warm water, especially with your meals. Ice-cold drinks can dampen your digestive fire, known as agni, making it harder for your body to break down food. Sipping on warm or hot water throughout the day, and particularly while eating, can aid digestion and help flush out toxins.</p>
+                        <p><strong>2. Eat Your Largest Meal at Midday</strong><br>Ayurveda suggests that our digestive power is strongest when the sun is at its highest point. This makes lunchtime the perfect time for your biggest meal of the day. Eating a hearty lunch allows your body to efficiently process the food, while a heavy dinner can sit in your stomach and lead to bloating, indigestion, and poor sleep. Aim for a lighter, earlier dinner to give your digestive system a break before bed.</p>
+                        <p><strong>3. Chew Your Food Well</strong><br>This might seem obvious, but we often rush through our meals. Chewing is the first and most crucial step in digestion. Ayurveda teaches that you should chew your food until it's a liquid. This not only makes it easier for your stomach to do its job but also helps you to eat more mindfully and recognize when you're full. Slower eating also prevents you from swallowing excess air, a common cause of bloating.</p>
+                        <p><strong>4. Use Digestive Spices</strong><br>Think of your spice rack as a natural medicine cabinet. Many common kitchen spices have powerful digestive properties. Ingredients like ginger, cumin, fennel, and coriander are staples in Ayurvedic cooking. You can add them to your meals, brew them into a digestive tea, or even chew on a few fennel seeds after eating to help prevent gas and bloating.</p>
+                        <p><strong>5. Take a Short Walk After Meals</strong><br>Instead of collapsing onto the couch right after dinner, try a gentle 10-15 minute walk. This simple activity helps get things moving in your body and stimulates digestion. It doesn't have to be a fast-paced workout—a slow, relaxing stroll is all you need to aid your body in processing the food you’ve just eaten and reduce that feeling of heaviness.</p>
+                        <p>These Ayurvedic principles are about more than just food; they're about listening to your body and creating healthy routines. By incorporating these simple practices, you can improve your digestion, reduce bloating, and feel lighter and more energetic.</p>
+                    `
+                },
+                { 
+                    title: "Can't Switch Off? How Ashwagandha Can Calm Modern-Day Stress", 
+                    desc: "In a world that never stops, finding peace can feel impossible. Learn how this powerful adaptogen helps your body manage stress.", 
+                    img: `${GITHUB_BASE_URL}image(6).png`,
+                    fullContent: `
+                        <p>In a world that never stops, finding a moment of peace can feel impossible. The constant notifications, tight deadlines, and endless to-do lists leave many of us feeling wired and unable to relax. If you're struggling to switch off, it might be time to look at an ancient remedy: Ashwagandha.</p>
+                        <p>Ashwagandha is a powerful herb that has been used in Ayurvedic medicine for thousands of years. It’s known as an adaptogen, which is a unique class of herbs that helps your body adapt to and manage stress. Think of it like a personal trainer for your nervous system.</p>
+                        <p>Here's how it works: When you're stressed, your body goes into fight-or-flight mode. Ashwagandha helps to calm this response, balancing your stress hormones (like cortisol) and bringing your body back to a state of equilibrium. It doesn't just mask the stress; it helps your body build resilience against it.</p>
+                        <p>By regularly incorporating Ashwagandha into your routine, you may find it easier to feel calm, more focused, and better equipped to handle life's challenges. It's not a magic pill, but it's a natural way to help your body manage the constant pressure of modern life.</p>
+                    `
+                },
+                { 
+                    title: "Beat the Afternoon Slump: Ayurvedic Tips for All-Day Energy", 
+                    desc: "If you rely on coffee to get through the day, there's a better way. We share natural techniques to maintain vibrant energy from morning to night.", 
+                    img: `${GITHUB_BASE_URL}image(5).png`,
+                    fullContent: `
+                        <p>If you find yourself reaching for a second or third cup of coffee to power through the afternoon, there's a better way. Ayurveda offers natural techniques to maintain vibrant energy from morning to night without the caffeine crash.</p>
+                        <h3>Here's how to beat the afternoon slump the Ayurvedic way:</h3>
+                        <p><strong>Eat a Warm, Nourishing Lunch:</strong> Instead of a heavy, cold sandwich, opt for a warm, cooked meal for lunch. This is when your digestive fire is strongest, so a balanced meal with cooked vegetables, grains, and a protein will give you lasting energy without weighing you down.</p>
+                        <p><strong>Take a Quick Walk:</strong> A short 10-15 minute walk after lunch can work wonders. It helps with digestion and gets your blood flowing, preventing that heavy, sleepy feeling.</p>
+                        <p><strong>Breathe and Stretch:</strong> When you feel a slump coming on, take a few deep breaths. Simple stretches at your desk can also re-energize your body and mind, helping you feel refreshed and focused for the rest of the day.</p>
+                        <p>By making a few small changes to your daily routine, you can break free from the coffee cycle and enjoy consistent, natural energy that lasts all day long.</p>
+                    `
+                },
+                { 
+                    title: "The Glow-Up from Within: Ayurvedic Secrets for Radiant Skin", 
+                    desc: "True radiance starts from the inside. Explore the connection between your diet, digestion, and clear, glowing skin.", 
+                    img: `${GITHUB_BASE_URL}image(4).png`,
+                    fullContent: `
+                        <p>True radiance isn't just about what you put on your skin; it's about what you put in your body. According to Ayurveda, your skin is a mirror of your inner health, and a clear, glowing complexion starts with a happy gut.</p>
+                        <p>So, what's the connection? Ayurveda teaches that healthy, radiant skin depends on strong digestion. When your digestive system isn't working properly, toxins can build up in your body, leading to breakouts, dullness, and other skin issues.</p>
+                        <h3>Here’s how to get that glow from the inside out:</h3>
+                        <ul>
+                            <li><strong>Eat Mindfully:</strong> Pay attention to what and how you eat. Choosing fresh, whole foods and chewing them well helps your body absorb all the good stuff.</li>
+                            <li><strong>Stay Hydrated:</strong> Drinking warm water throughout the day is key. It helps flush out toxins and keeps your skin plump and hydrated.</li>
+                            <li><strong>Balance Your Digestion:</strong> Use digestive spices like turmeric and cumin in your cooking. They support your body's ability to process food and eliminate waste, which in turn leads to clearer skin.</li>
+                        </ul>
+                        <p>By focusing on your diet and digestion, you're not just treating a symptom—you're getting to the root of the problem. A healthy gut means a healthy body, and a healthy body naturally glows.</p>
+                    `
+                },
+                { 
+                    title: "Managing Joint Pain Naturally with Ayurveda", 
+                    desc: "Don't let aches and pains hold you back. Learn about traditional Ayurvedic approaches to soothe joint discomfort and improve mobility.", 
+                    img: `${GITHUB_BASE_URL}image(1).png`,
+                    fullContent: `
+                        <p>Don't let aches and pains hold you back. While joint pain is often seen as a sign of aging, Ayurveda offers traditional approaches to soothe discomfort and improve mobility naturally.</p>
+                        <p>Ayurveda views joint pain as a result of imbalances in the body, often due to poor digestion or a buildup of toxins. By addressing the root cause, you can find lasting relief.</p>
+                        <h3>Here are a few Ayurvedic tips for managing joint pain:</h3>
+                        <ul>
+                            <li><strong>Warmth and Massage:</strong> Massaging your joints with warm oil (like sesame or castor oil) can be incredibly soothing. The warmth and gentle pressure help to improve circulation and reduce stiffness.</li>
+                            <li><strong>Anti-Inflammatory Spices:</strong> Incorporate spices like turmeric and ginger into your diet. They have natural anti-inflammatory properties that can help ease pain and swelling.</li>
+                            <li><strong>Gentle Movement:</strong> Regular, gentle exercise like walking, yoga, or swimming can help keep your joints mobile. The key is consistency, not intensity.</li>
+                        </ul>
+                        <p>Ayurveda teaches us that our bodies have an incredible ability to heal. By using these natural approaches, you can take an active role in managing your joint pain and improving your overall quality of life.</p>
+                    `
+                }
             ];
             const QUIZ_DATA = [
-                { q: 'How would you describe your natural body frame?', o: [['vata', 'Slender and light'], ['pitta', 'Medium and athletic'], ['kapha', 'Broad and sturdy']] },
-                { q: 'What is your appetite typically like?', o: [['vata', 'Irregular, varies a lot'], ['pitta', 'Strong and sharp'], ['kapha', 'Slow but steady']] },
-                { q: 'How does your skin usually feel?', o: [['vata', 'Dry and cool'], ['pitta', 'Warm, sometimes sensitive'], ['kapha', 'Cool, smooth, and often oily']] },
-                { q: 'What is your energy pattern?', o: [['vata', 'Comes in bursts'], ['pitta', 'Focused and driven'], ['kapha', 'Steady and sustained']] },
+                { q: 'How would you describe your natural body frame?', o: [['vata', 'Slender and light'], ['pitta', 'Medium and athletic'], ['kapha', 'Broad and sturdy']] }, { q: 'What is your appetite typically like?', o: [['vata', 'Irregular, varies a lot'], ['pitta', 'Strong and sharp'], ['kapha', 'Slow but steady']] }, { q: 'How does your skin usually feel?', o: [['vata', 'Dry and cool'], ['pitta', 'Warm, sometimes sensitive'], ['kapha', 'Cool, smooth, and often oily']] }, { q: 'What is your energy pattern?', o: [['vata', 'Comes in bursts'], ['pitta', 'Focused and driven'], ['kapha', 'Steady and sustained']] },
             ];
             const QUIZ_RECOS = { vata: { title: "Vata Balancing", products: ["Brain Champ", "Shah Zyme"] }, pitta: { title: "Pitta Balancing", products: ["Livo Hayaat", "Blood Storm"] }, kapha: { title: "Kapha Balancing", products: ["Cough X Pro", "Ortho Hayaat"] } };
             
@@ -407,7 +480,15 @@
                 }
                 
                 if(blogGrid) {
-                    blogGrid.innerHTML = BLOG_DATA.map(post => `<a href="#" class="blog-card"><img src="${post.img}" alt="${post.title}" loading="lazy"><div class="blog-card-content"><h3>${post.title}</h3><p class="blog-excerpt">${post.desc}</p><p class="read-more">Read More &rarr;</p></div></a>`).join('');
+                    blogGrid.innerHTML = BLOG_DATA.map((post, index) => `
+                        <article class="blog-card">
+                            <img src="${post.img}" alt="${post.title}" loading="lazy">
+                            <div class="blog-card-content">
+                                <h3>${post.title}</h3>
+                                <p class="blog-excerpt">${post.desc}</p>
+                                <button class="read-more-btn" data-index="${index}">Read More &rarr;</button>
+                            </div>
+                        </article>`).join('');
                 }
 
                 if(quizContainer) {
@@ -421,6 +502,12 @@
             function setupInteractions() {
                 const navToggle = document.querySelector('.nav-toggle');
                 const backToTopBtn = document.querySelector('.back-to-top');
+                const blogGrid = document.getElementById('blog-grid-container');
+                const modal = document.getElementById('blog-modal');
+                const modalTitle = document.getElementById('modal-title');
+                const modalBody = document.getElementById('modal-body');
+                const modalCloseBtn = modal.querySelector('.modal-close');
+                const modalOverlay = modal.querySelector('.modal-overlay');
 
                 if (navToggle) {
                     navToggle.addEventListener('click', () => { document.body.classList.toggle('nav-open'); });
@@ -467,22 +554,7 @@
                         
                         const dominantDosha = Object.keys(answers).length ? Object.keys(answers).reduce((a, b) => answers[a] > answers[b] ? a : b) : 'vata';
                         const reco = QUIZ_RECOS[dominantDosha];
-                        quizResultsContainer.innerHTML = `
-                            <div class="result-card">
-                                <h3>Your Recommended Products</h3>
-                                <p>Based on your answers, these products may help support your natural balance:</p>
-                                <div class="result-products">
-                                    ${reco.products.map(pName => {
-                                        const p = PRODUCTS_DATA.find(pr => pr.name === pName);
-                                        return p ? `<div class="result-product">
-                                            <img src="${p.img}" alt="${p.name}" loading="lazy">
-                                            <h4>${p.name}</h4>
-                                            <a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} based on my quiz results`)}" target="_blank" class="btn btn-primary">Order</a>
-                                        </div>` : '';
-                                    }).join('')}
-                                </div>
-                                <p class="result-disclaimer">This is a general recommendation and not medical advice. Consult a healthcare professional for specific concerns.</p>
-                            </div>`;
+                        quizResultsContainer.innerHTML = `<div class="result-card"><h3>Your Recommended Products</h3><p>Based on your answers, these products may help support your natural balance:</p><div class="result-products">${reco.products.map(pName => { const p = PRODUCTS_DATA.find(pr => pr.name === pName); return p ? `<div class="result-product"><img src="${p.img}" alt="${p.name}" loading="lazy"><h4>${p.name}</h4><a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} based on my quiz results`)}" target="_blank" class="btn btn-primary">Order</a></div>` : ''; }).join('')}</div><p class="result-disclaimer">This is a general recommendation and not medical advice. Consult a healthcare professional for specific concerns.</p></div>`;
                         quizResultsContainer.scrollIntoView({ behavior: 'smooth' });
                     });
                 }
@@ -508,6 +580,37 @@
                         } catch (error) { status.innerHTML = "Oops! There was a problem submitting your form."; status.className = 'error'; status.style.display = 'block'; }
                     });
                 }
+                
+                // Blog Modal Logic
+                function openModal(index) {
+                    const post = BLOG_DATA[index];
+                    modalTitle.textContent = post.title;
+                    modalBody.innerHTML = post.fullContent;
+                    modal.classList.add('is-open');
+                    document.body.classList.add('modal-open');
+                }
+                
+                function closeModal() {
+                    modal.classList.remove('is-open');
+                    document.body.classList.remove('modal-open');
+                }
+
+                if (blogGrid) {
+                    blogGrid.addEventListener('click', function(event) {
+                        if (event.target.matches('.read-more-btn')) {
+                            const index = event.target.dataset.index;
+                            openModal(index);
+                        }
+                    });
+                }
+                
+                modalCloseBtn.addEventListener('click', closeModal);
+                modalOverlay.addEventListener('click', closeModal);
+                window.addEventListener('keydown', function(event) {
+                    if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+                        closeModal();
+                    }
+                });
 
                 const animatedElements = document.querySelectorAll('.animate-on-scroll');
                 const observer = new IntersectionObserver((entries) => {
