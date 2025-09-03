@@ -90,8 +90,9 @@
         .quiz-actions { text-align: center; margin-top: 2rem; }
         #quiz-results { margin-top: 3rem; }
         .result-card { background: white; padding: 2rem; border-radius: 12px; text-align: center; border: 2px solid var(--green-dark); box-shadow: var(--shadow); }
-        .result-products { display: grid; gap: 1rem; margin-top: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+        .result-products { display: grid; gap: 1rem; margin-top: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); align-items: start; }
         .result-product { background: var(--bg-light); padding: 1rem; border-radius: 8px; }
+        .result-product img { width: 100%; height: 100px; object-fit: cover; border-radius: 4px; margin-bottom: 0.5rem; }
         .result-disclaimer { font-size: 0.9rem; color: var(--text-light); margin-top: 1.5rem; }
         .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
         .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
@@ -102,6 +103,9 @@
         .carousel-slide.active { opacity: 1; animation: kenburns 15s linear infinite alternate; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); }
         .hero-content { position: relative; z-index: 2; }
+        .cert-grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+        .cert-box { background-color: var(--bg-white); border: 1px solid var(--border-color); border-left: 4px solid var(--accent-gold); padding: 1.5rem; border-radius: 8px; box-shadow: var(--shadow); }
+        .cert-box h3 { font-size: 1.2rem; }
     </style>
 </head>
 <body>
@@ -134,6 +138,16 @@
             </div>
         </section>
 
+        <section id="certifications" class="animate-on-scroll">
+            <div class="container">
+                <div class="cert-grid">
+                    <div class="cert-box"><h3>WHO-GMP Certified</h3><p>Our products adhere to the World Health Organization's Good Manufacturing Practices, ensuring the highest standards of quality.</p></div>
+                    <div class="cert-box"><h3>ISO 9001:2015</h3><p>We follow internationally recognized quality management systems to deliver consistent and reliable wellness solutions.</p></div>
+                    <div class="cert-box"><h3>HACCP Certified</h3><p>Our manufacturing process meets systematic preventive controls for food safety, from sourcing to final product.</p></div>
+                </div>
+            </div>
+        </section>
+
         <section id="about" class="animate-on-scroll">
             <div class="container">
                 <h2>Our Story</h2>
@@ -141,7 +155,7 @@
                     <div class="col-text">
                         <h3>Our Mission & Philosophy</h3>
                         <p>At Shah Hayaat, we combine ancient Ayurvedic wisdom with modern science. Our mission is to provide pure, effective, and accessible wellness solutions that empower you to live a healthier, more balanced life naturally.</p>
-                        <p>Every product is a reflection of our commitment to quality, manufactured in facilities certified by WHO-GMP, ISO, and HACCP.</p>
+                        <p>Every product is a reflection of our commitment to quality, manufactured with the highest standards of purity and care.</p>
                     </div>
                     <div class="col-image"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(2).png" loading="lazy" alt="Serene Ayurvedic treatment scene"></div>
                 </div>
@@ -182,11 +196,11 @@
                 <h2>From Our Wellness Journal</h2>
                 <p class="section-subtitle">Your guide to balanced living. Discover practical tips and ancient wisdom for modern-day wellness challenges.</p>
                 <div class="blog-grid">
-                    <a href="#" class="blog-card"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(3).png" alt="Feeling Bloated? 5 Ayurvedic Secrets for a Happy Gut" loading="lazy"><div class="blog-card-content"><h3>Feeling Bloated? 5 Ayurvedic Secrets for a Happy Gut</h3><p>Tired of that uncomfortable feeling after meals? You're not alone. Discover simple, ancient tips to improve your digestion naturally.</p><p>Read More &rarr;</p></div></a>
-                    <a href="#" class="blog-card"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(6).png" alt="Can't Switch Off? How Ashwagandha Can Calm Modern-Day Stress" loading="lazy"><div class="blog-card-content"><h3>Can't Switch Off? How Ashwagandha Can Calm Modern-Day Stress</h3><p>In a world that never stops, finding peace can feel impossible. Learn how this powerful adaptogen helps your body manage stress.</p><p>Read More &rarr;</p></div></a>
-                    <a href="#" class="blog-card"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(5).png" alt="Beat the Afternoon Slump: Ayurvedic Tips for All-Day Energy" loading="lazy"><div class="blog-card-content"><h3>Beat the Afternoon Slump: Ayurvedic Tips for All-Day Energy</h3><p>If you rely on coffee to get through the day, there's a better way. We share natural techniques to maintain vibrant energy from morning to night.</p><p>Read More &rarr;</p></div></a>
-                    <a href="#" class="blog-card"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(4).png" alt="The Glow-Up from Within: Ayurvedic Secrets for Radiant Skin" loading="lazy"><div class="blog-card-content"><h3>The Glow-Up from Within: Ayurvedic Secrets for Radiant Skin</h3><p>True radiance starts from the inside. Explore the connection between your diet, digestion, and clear, glowing skin.</p><p>Read More &rarr;</p></div></a>
-                    <a href="#" class="blog-card"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(1).png" alt="Managing Joint Pain Naturally with Ayurveda" loading="lazy"><div class="blog-card-content"><h3>Managing Joint Pain Naturally with Ayurveda</h3><p>Don't let aches and pains hold you back. Learn about traditional Ayurvedic approaches to soothe joint discomfort and improve mobility.</p><p>Read More &rarr;</p></div></a>
+                    <a href="#" class="blog-card"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(3).png" alt="Blog post illustration" loading="lazy"><div class="blog-card-content"><h3>Feeling Bloated? 5 Ayurvedic Secrets for a Happy Gut</h3><p>Tired of that uncomfortable feeling after meals? You're not alone. Discover simple, ancient tips to improve your digestion naturally.</p><p>Read More &rarr;</p></div></a>
+                    <a href="#" class="blog-card"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(6).png" alt="Blog post illustration" loading="lazy"><div class="blog-card-content"><h3>Can't Switch Off? How Ashwagandha Can Calm Stress</h3><p>In a world that never stops, finding peace can feel impossible. Learn how this powerful adaptogen helps your body manage stress.</p><p>Read More &rarr;</p></div></a>
+                    <a href="#" class="blog-card"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(5).png" alt="Blog post illustration" loading="lazy"><div class="blog-card-content"><h3>Beat the Afternoon Slump: Tips for All-Day Energy</h3><p>If you rely on coffee to get through the day, there's a better way. We share natural techniques to maintain vibrant energy from morning to night.</p><p>Read More &rarr;</p></div></a>
+                    <a href="#" class="blog-card"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(4).png" alt="Blog post illustration" loading="lazy"><div class="blog-card-content"><h3>The Glow-Up from Within: Ayurvedic Secrets for Radiant Skin</h3><p>True radiance starts from the inside. Explore the connection between your diet, digestion, and clear, glowing skin.</p><p>Read More &rarr;</p></div></a>
+                    <a href="#" class="blog-card"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(1).png" alt="Blog post illustration" loading="lazy"><div class="blog-card-content"><h3>Managing Joint Pain Naturally with Ayurveda</h3><p>Don't let aches and pains hold you back. Learn about traditional Ayurvedic approaches to soothe joint discomfort and improve mobility.</p><p>Read More &rarr;</p></div></a>
                 </div>
             </div>
         </section>
@@ -196,10 +210,10 @@
                 <h2>Find Your Dosha</h2>
                 <p class="section-subtitle">Answer these simple questions to get a personalized Ayurvedic profile and product recommendations.</p>
                 <div class="quiz-container">
-                    <div class="quiz-question"><p class="quiz-question-title">1. How would you describe your natural body frame?</p><div class="quiz-options"><label><input type="radio" name="q0" value="vata">Slender and light</label><label><input type="radio" name="q0" value="pitta">Medium and athletic</label><label><input type="radio" name="q0" value="kapha">Broad and sturdy</label></div></div>
-                    <div class="quiz-question"><p class="quiz-question-title">2. What is your appetite typically like?</p><div class="quiz-options"><label><input type="radio" name="q1" value="vata">Irregular, varies a lot</label><label><input type="radio" name="q1" value="pitta">Strong and sharp</label><label><input type="radio" name="q1" value="kapha">Slow but steady</label></div></div>
-                    <div class="quiz-question"><p class="quiz-question-title">3. How does your skin usually feel?</p><div class="quiz-options"><label><input type="radio" name="q2" value="vata">Dry and cool</label><label><input type="radio" name="q2" value="pitta">Warm, sometimes sensitive</label><label><input type="radio" name="q2" value="kapha">Cool, smooth, and often oily</label></div></div>
-                    <div class="quiz-question"><p class="quiz-question-title">4. What is your energy pattern?</p><div class="quiz-options"><label><input type="radio" name="q3" value="vata">Comes in bursts</label><label><input type="radio" name="q3" value="pitta">Focused and driven</label><label><input type="radio" name="q3" value="kapha">Steady and sustained</label></div></div>
+                    <div class="quiz-question"><p>1. How would you describe your natural body frame?</p><div class="quiz-options"><label><input type="radio" name="q0" value="vata">Slender and light</label><label><input type="radio" name="q0" value="pitta">Medium and athletic</label><label><input type="radio" name="q0" value="kapha">Broad and sturdy</label></div></div>
+                    <div class="quiz-question"><p>2. What is your appetite typically like?</p><div class="quiz-options"><label><input type="radio" name="q1" value="vata">Irregular, varies a lot</label><label><input type="radio" name="q1" value="pitta">Strong and sharp</label><label><input type="radio" name="q1" value="kapha">Slow but steady</label></div></div>
+                    <div class="quiz-question"><p>3. How does your skin usually feel?</p><div class="quiz-options"><label><input type="radio" name="q2" value="vata">Dry and cool</label><label><input type="radio" name="q2" value="pitta">Warm, sometimes sensitive</label><label><input type="radio" name="q2" value="kapha">Cool, smooth, and often oily</label></div></div>
+                    <div class="quiz-question"><p>4. What is your energy pattern?</p><div class="quiz-options"><label><input type="radio" name="q3" value="vata">Comes in bursts</label><label><input type="radio" name="q3" value="pitta">Focused and driven</label><label><input type="radio" name="q3" value="kapha">Steady and sustained</label></div></div>
                 </div>
                 <div class="quiz-actions"><button class="btn btn-primary" id="submit-quiz-btn">Get My Recommendation</button></div>
                 <div id="quiz-results"></div>
@@ -232,22 +246,17 @@
     </main>
     
     <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col"><h4>Shah Hayaat</h4><p>Natural healing, pure living.</p></div>
-                <div class="footer-col"><h4>Quick Links</h4><a href="#home">Home</a><a href="#about">About</a><a href="#products">Products</a><a href="#quiz">Dosha Quiz</a><a href="#contact">Contact</a></div>
-                <div class="footer-col"><h4>Contact & Orders</h4><a href="https://wa.me/917051056287" target="_blank">WhatsApp</a><a href="mailto:shahhayaat02@gmail.com">Email Us</a><a href="https://instagram.com/shahhayaatofficial" target="_blank">Instagram</a></div>
-                <div class="footer-col"><h4>Also Available On</h4><a href="https://www.amazon.in/HAYAAT-Combo-Complete-Liver-Health/dp/B0CXY46HXM" target="_blank">Amazon</a><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></div>
-            </div>
-            <div class="footer-bottom">&copy; <span id="year"></span> Shah Hayaat. All Rights Reserved.</div>
-        </div>
-    </footer>
+        </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const PRODUCTS_DATA = [
-                { name: "Brain Champ", price: 175 }, { name: "Shah Zyme", price: 165 }, { name: "Blood Storm", price: 165 },
-                { name: "Cough X Pro", price: 90 }, { name: "Livo Hayaat", price: 349 }, { name: "Ortho Hayaat", price: 649 }
+                { name: "Brain Champ", price: 175, desc: "Enhances memory and cognitive function.", img: `https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp.jpg` },
+                { name: "Shah Zyme", price: 165, desc: "Effective digestive enzyme syrup.", img: `https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/shahzyme.jpg` },
+                { name: "Blood Storm", price: 165, desc: "Revitalizing blood tonic for vitality.", img: `https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/bloodstorm.jpg` },
+                { name: "Cough X Pro", price: 90, desc: "Soothing herbal relief for coughs.", img: `https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/coughxpro.jpg` },
+                { name: "Livo Hayaat", price: 349, desc: "Formulation for optimal liver health.", img: `https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat.jpg` },
+                { name: "Ortho Hayaat", price: 649, desc: "Specialized blend for joint health.", img: `https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat.jpg` }
             ];
             const QUIZ_DATA = [
                 { q: 'How would you describe your natural body frame?', o: [['vata', 'Slender and light'], ['pitta', 'Medium and athletic'], ['kapha', 'Broad and sturdy']] },
@@ -288,7 +297,7 @@
                     if (!allAnswered) { alert('Please answer all questions to find your profile.'); return; }
                     const dominantDosha = Object.keys(answers).reduce((a, b) => answers[a] > answers[b] ? a : b);
                     const reco = QUIZ_RECOS[dominantDosha];
-                    quizResultsContainer.innerHTML = `<div class="result-card"><h3>Your Profile: ${reco.title}</h3><div class="result-products">${reco.products.map(pName => { const p = PRODUCTS_DATA.find(pr => pr.name === pName); return `<div class="result-product"><h4>${p.name}</h4><a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} based on my quiz results`)}" target="_blank" class="btn btn-primary">Order</a></div>`; }).join('')}</div><p class="result-disclaimer">This is a general recommendation, not medical advice.</p></div>`;
+                    quizResultsContainer.innerHTML = `<div class="result-card"><h3>Your Profile: ${reco.title}</h3><div class="result-products">${reco.products.map(pName => { const p = PRODUCTS_DATA.find(pr => pr.name === pName); return `<div class="result-product"><img src="${p.img}" alt="${p.name}" loading="lazy"><h4>${p.name}</h4><a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} based on my quiz results`)}" target="_blank" class="btn btn-primary">Order</a></div>`; }).join('')}</div><p class="result-disclaimer">This is a general recommendation, not medical advice.</p></div>`;
                     quizResultsContainer.scrollIntoView({ behavior: 'smooth' });
                 });
             }
@@ -301,6 +310,19 @@
                 });
             }, { threshold: 0.15 });
             animatedElements.forEach(el => observer.observe(el));
+            
+            const footer = document.querySelector('.footer');
+            if(footer) {
+                footer.innerHTML = `<div class="container">
+                    <div class="footer-grid">
+                        <div class="footer-col"><h4>Shah Hayaat</h4><p>Natural healing, pure living.</p></div>
+                        <div class="footer-col"><h4>Quick Links</h4><a href="#home">Home</a><a href="#about">About</a><a href="#products">Products</a><a href="#catalogue">Catalogue</a><a href="#blog">Blog</a><a href="#quiz">Dosha Quiz</a><a href="#contact">Contact</a></div>
+                        <div class="footer-col"><h4>Contact & Orders</h4><a href="https://wa.me/917051056287" target="_blank">WhatsApp</a><a href="mailto:shahhayaat02@gmail.com">Email Us</a><a href="https://instagram.com/shahhayaatofficial" target="_blank">Instagram</a></div>
+                        <div class="footer-col"><h4>Also Available On</h4><a href="https://www.amazon.in/HAYAAT-Combo-Complete-Liver-Health/dp/B0CXY46HXM" target="_blank">Amazon</a><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></div>
+                    </div>
+                    <div class="footer-bottom">&copy; <span id="year">${new Date().getFullYear()}</span> Shah Hayaat. All Rights Reserved.</div>
+                </div>`;
+            }
         });
     </script>
 </body>
