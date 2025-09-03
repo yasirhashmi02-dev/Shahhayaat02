@@ -6,12 +6,39 @@
     <title>Shah Hayaat — Premium Ayurvedic Wellness</title>
     <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <header class="header"></header>
-    <nav class="nav-mobile"></nav>
-
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat Logo"><span>Shah Hayaat</span></a>
+            <nav class="nav-desktop">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="catalogue.html">Catalogue</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="quiz.html">Dosha Quiz</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="nav-toggle" aria-label="Toggle Navigation"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+    <nav class="nav-mobile">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="catalogue.html">Catalogue</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="quiz.html">Dosha Quiz</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
     <main>
         <section id="home">
             <div class="carousel-container">
@@ -23,16 +50,14 @@
             <div class="container hero-content">
                 <h1>Natural Healing, Pure Living.</h1>
                 <p>Experience the timeless wisdom of Ayurveda, crafted for modern wellness.</p>
-                <div class="hero-actions">
-                    <a href="products.html" class="btn btn-primary">Explore Our Range</a>
-                </div>
+                <div class="hero-actions"><a href="products.html" class="btn btn-primary">Explore Our Range</a></div>
             </div>
         </section>
 
         <section class="animate-on-scroll">
             <div class="container">
                 <h2>Featured Formulations</h2>
-                <p class="section-subtitle">A selection of our most popular remedies, trusted by customers for their purity and effectiveness.</p>
+                <p class="section-subtitle">A selection of our most popular remedies, trusted for their purity and effectiveness.</p>
                 <div class="product-grid" id="product-grid-featured">
                     </div>
                 <div style="text-align: center; margin-top: 3rem;">
@@ -41,8 +66,16 @@
             </div>
         </section>
     </main>
-
-    <footer class="footer"></footer>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col"><h4>Shah Hayaat</h4><p>Natural healing, pure living.</p></div>
+                <div class="footer-col"><h4>Quick Links</h4><a href="index.html">Home</a><a href="about.html">About</a><a href="products.html">Products</a><a href="quiz.html">Dosha Quiz</a><a href="contact.html">Contact</a></div>
+                <div class="footer-col"><h4>Contact & Orders</h4><a href="https://wa.me/917051056287" target="_blank">WhatsApp</a><a href="mailto:shahhayaat02@gmail.com">Email Us</a><a href="https://instagram.com/shahhayaatofficial" target="_blank">Instagram</a></div>
+            </div>
+            <div class="footer-bottom">&copy; <span id="year"></span> Shah Hayaat. All Rights Reserved.</div>
+        </div>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
