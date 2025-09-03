@@ -18,7 +18,7 @@
             --green-light: #4D7C5D;
             --bg-light: #F8F6F2;
             --bg-white: #FFFFFF;
-            --accent-gold: #B68D40;
+            --accent-gold: #D4AF37; /* Bolder Gold */
             --text-dark: #222222;
             --text-light: #6B6B6B;
             --border-color: #EAEAEA;
@@ -137,7 +137,7 @@
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
         .form-group input, .form-group textarea { width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border-color); font-family: var(--font-body); font-size: 1rem; transition: border-color 0.3s, box-shadow 0.3s; }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--accent-gold); box-shadow: 0 0 0 3px rgba(182, 141, 64, 0.2); outline: none; }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--accent-gold); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2); outline: none; } /* Updated gold shadow */
         
         .catalogue-viewer { border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); height: 70vh; }
         .catalogue-viewer iframe { width: 100%; height: 100%; border: none; }
@@ -237,7 +237,7 @@
                         <p>We honor the purity of nature by sourcing the finest ingredients. Every product is a **reflection** of our commitment to quality, manufactured in facilities certified by WHO-GMP, ISO, and HACCP.</p>
                     </div>
                     <div class="col-image">
-                        <img src="https://images.unsplash.com/photo-1620061221136-9494a80ef0ac?q=80&w=2803&auto=format&fit=crop" loading="lazy" alt="Ayurvedic herbs and spices in bowls">
+                        <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/about_us_image.jpg" loading="lazy" alt="Assortment of natural Ayurvedic ingredients and herbs">
                     </div>
                 </div>
             </div>
@@ -300,7 +300,16 @@
     </main>
 
     <footer class="footer">
-        </footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col"><h4>Shah Hayaat</h4><p>Natural healing, pure living. Your trusted source for premium Ayurvedic wellness.</p></div>
+                <div class="footer-col"><h4>Quick Links</h4><a href="#home">Home</a><a href="#about">About</a><a href="#products">Products</a><a href="#catalogue">Catalogue</a><a href="#blog">Blog</a></div>
+                <div class="footer-col"><h4>Contact & Orders</h4><a href="https://wa.me/917051056287" target="_blank">WhatsApp</a><a href="mailto:shahhayaat02@gmail.com">Email Us</a><a href="https://instagram.com/shahhayaatofficial" target="_blank">Instagram</a></div>
+                <div class="footer-col"><h4>Also Available On</h4><a href="https://www.amazon.in/HAYAAT-Combo-Complete-Liver-Health/dp/BCXY46HXM" target="_blank">Amazon</a><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></div>
+            </div>
+            <div class="footer-bottom">&copy; <span id="year"></span> Shah Hayaat. All Rights Reserved.</div>
+        </div>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -323,8 +332,8 @@
             ];
             const BLOG_DATA = [
                 { title: "How Ayurveda Can Help Manage Arthritis", img: `${GITHUB_BASE_URL}image(1).png`, link: "#" },
-                { title: "5 Ayurvedic Herbs for a Stronger Immune System", img: "https://images.unsplash.com/photo-1598555763524-349254c49159?q=80&w=2940&auto=format&fit=crop", link: "#" },
-                { title: "The Secret to Better Sleep: An Ayurvedic Approach", img: "https://images.unsplash.com/photo-1544829393-2774a3821f45?q=80&w=2838&auto=format&fit=crop", link: "#" }
+                { title: "5 Ayurvedic Herbs for a Stronger Immune System", img: "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/blog-immune.jpg", link: "#" }, /* Updated Blog Image */
+                { title: "The Secret to Better Sleep: An Ayurvedic Approach", img: "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/blog-sleep.jpg", link: "#" } /* Updated Blog Image */
             ];
 
             // --- 2. DYNAMIC CONTENT RENDERING ---
@@ -356,9 +365,7 @@
                         </div>
                     </a>`).join('');
             }
-            // Footer
-            const footerHTML = `<div class="container"><div class="footer-grid"><div class="footer-col"><h4>Shah Hayaat</h4><p>Natural healing, pure living. Your trusted source for premium Ayurvedic wellness.</p></div><div class="footer-col"><h4>Quick Links</h4><a href="#home">Home</a><a href="#about">About</a><a href="#products">Products</a><a href="#catalogue">Catalogue</a><a href="#blog">Blog</a></div><div class="footer-col"><h4>Contact & Orders</h4><a href="https://wa.me/917051056287" target="_blank">WhatsApp</a><a href="mailto:shahhayaat02@gmail.com">Email Us</a><a href="https://instagram.com/shahhayaatofficial" target="_blank">Instagram</a></div><div class="footer-col"><h4>Also Available On</h4><a href="https://www.amazon.in/HAYAAT-Combo-Complete-Liver-Health/dp/BCXY46HXM" target="_blank">Amazon</a><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></div></div><div class="footer-bottom">&copy; <span id="year"></span> Shah Hayaat. All Rights Reserved.</div></div>`;
-            document.querySelector('.footer').innerHTML = footerHTML;
+            // Footer (Year Update)
             document.getElementById('year').textContent = new Date().getFullYear();
 
             // --- 3. INTERACTIVE FUNCTIONALITY ---
@@ -400,7 +407,11 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
+                        // No need to unobserve if you want the animation to replay on subsequent scrolls
+                        // observer.unobserve(entry.target); 
+                    } else {
+                        // Optional: remove is-visible when not intersecting to allow re-animation on scroll up
+                        entry.target.classList.remove('is-visible');
                     }
                 });
             }, { threshold: 0.15 });
