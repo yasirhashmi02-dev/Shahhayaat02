@@ -105,14 +105,13 @@
         .cert-box:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
         .cert-box h4 { font-family: var(--font-heading); font-size: 1.5rem; color: var(--green-dark); font-weight: 700; }
 
-        /* --- NEW CSS: Testimonials Section --- */
+        /* Testimonials Section */
         #testimonials { background-color: var(--bg-light); }
         .testimonial-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
         .testimonial-card { background: var(--bg-white); padding: 2rem; border-radius: 12px; box-shadow: var(--shadow); border-left: 5px solid var(--accent-gold); }
         .testimonial-card p { font-style: italic; color: var(--text-light); margin-bottom: 1.5rem; }
         .testimonial-card p::before { content: '“'; font-size: 3rem; color: var(--accent-gold); line-height: 0; display: block; margin-bottom: 1rem; }
         .testimonial-author { font-weight: 700; color: var(--green-dark); text-align: right; }
-        /* --- END NEW CSS --- */
 
         /* Blog Section */
         .blog-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
@@ -179,13 +178,11 @@
         .footer-col a:hover { color: var(--accent-gold); }
         .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid #4A6354; color: #9E9E9E; font-size: 0.9rem; }
         
-        /* --- NEW CSS: Newsletter Form --- */
         .newsletter-form { display: flex; gap: 0.5rem; }
         .newsletter-form input { flex-grow: 1; padding: 0.75rem; border: 1px solid #4A6354; background-color: #3b5745; color: white; border-radius: 6px; }
         .newsletter-form input::placeholder { color: #9E9E9E; }
         .newsletter-form button { background: var(--accent-gold); color: white; border: none; padding: 0.75rem 1rem; border-radius: 6px; cursor: pointer; transition: background 0.3s; }
         .newsletter-form button:hover { background: #d4a01c; }
-        /* --- END NEW CSS --- */
 
         /* Back to Top Button */
         .back-to-top { position: fixed; bottom: 20px; right: 20px; background-color: var(--accent-gold); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 24px; z-index: 100; opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0.4s, transform 0.4s; }
@@ -240,20 +237,20 @@
             </div>
             <div class="hero-overlay"></div>
             <div class="container hero-content animate-on-scroll">
-                <h1>Natural Healing, Pure Living.</h1>
-                <p>Experience the timeless wisdom of Ayurveda, crafted for modern wellness. Our certified, premium herbal remedies are your path to balanced health and vitality.</p>
-                <a href="#products" class="btn btn-primary">Explore Our Range</a>
+                <h1>Find Your Balance, Naturally.</h1>
+                <p>Life gets busy. We get it. That's why we create pure, time-tested Ayurvedic remedies to help you feel your best, right here in the modern world.</p>
+                <a href="#products" class="btn btn-primary">See What We Offer</a>
             </div>
         </section>
 
         <section id="about">
             <div class="container animate-on-scroll">
-                <h2>Our Story</h2>
+                <h2>Our Story is Simple.</h2>
                 <div class="two-col-layout">
                     <div class="col-text">
-                        <h3>From Ancient Roots to Modern Wellness</h3>
-                        <p>Shah Hayaat was born from a deep respect for Ayurveda's timeless wisdom and a desire to make its benefits accessible for modern life. Our journey began with a simple mission: to create pure, effective, and trustworthy wellness solutions that honor both nature and science.</p>
-                        <p>We believe that true health is a state of balance. That's why we meticulously source the finest ingredients and adhere to the highest standards of quality (WHO-GMP, ISO 9001:2015). Every product is a testament to our values of purity, efficacy, and transparency, empowering you to live a healthier, more vibrant life, naturally.</p>
+                        <h3>We Believe in Nature's Wisdom</h3>
+                        <p>Shah Hayaat started with a simple belief: the best healing comes from nature. We wanted to share the incredible power of Ayurveda, but in a way that fits into your busy life today. It's about blending ancient knowledge with modern standards.</p>
+                        <p>For us, it's not just about selling products. It's about helping you find that feeling of balance and well-being. We're picky about our ingredients and serious about quality (with all the certifications to prove it!) because we know you trust us with your health.</p>
                     </div>
                     <div class="col-image"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(2).png" loading="lazy" alt="Serene Ayurvedic treatment scene with herbal ingredients" style="border-radius: 12px; box-shadow: var(--shadow-hover);"></div>
                 </div>
@@ -262,8 +259,8 @@
         
         <section id="certifications">
             <div class="container animate-on-scroll">
-                <h2>Our Commitment to Quality</h2>
-                <p class="section-subtitle">Every product is a reflection of our commitment to your health, manufactured in facilities that adhere to the strictest quality standards.</p>
+                <h2>Quality You Can Trust</h2>
+                <p class="section-subtitle">We take your health seriously. That's why our products are made in top-notch facilities that meet the strictest quality standards out there.</p>
                 <div class="cert-grid">
                     <div class="cert-box"><h4>WHO-GMP Certified</h4></div>
                     <div class="cert-box"><h4>ISO 9001:2015 Certified</h4></div>
@@ -274,36 +271,37 @@
 
         <section id="products">
             <div class="container animate-on-scroll">
-                <h2>Our Ayurvedic Range</h2>
-                <p class="section-subtitle">Explore our complete collection of remedies, each crafted with the purest ingredients to support your well-being and restore natural balance.</p>
+                <h2>Our Handpicked Remedies</h2>
+                <p class="section-subtitle">Here's our range of wellness solutions. Each one is carefully crafted with pure, powerful ingredients to help you get back to feeling great.</p>
                 <div class="product-grid" id="product-grid-container"></div>
             </div>
         </section>
         
         <section id="testimonials">
             <div class="container animate-on-scroll">
-                <h2>What Our Customers Say</h2>
-                <p class="section-subtitle">Your stories inspire us. Here's how Shah Hayaat has helped others on their wellness journey.</p>
+                <h2>Real Stories from People Like You</h2>
+                <p class="section-subtitle">Nothing makes us happier than hearing how we've helped. Here are a few stories from our amazing customers.</p>
                 <div class="testimonial-grid">
                     <div class="testimonial-card">
-                        <p>After trying Ortho Hayaat for a month, the stiffness in my knees has significantly reduced. I can finally enjoy my morning walks again. Truly a life-changing product!</p>
+                        <p>My morning walks are back! After just a month of using Ortho Hayaat, my knees feel so much better. I honestly can't believe the difference it's made.</p>
                         <cite class="testimonial-author">- Priya S., Mumbai</cite>
                     </div>
                     <div class="testimonial-card">
-                        <p>Shah Zyme has been a game-changer for my digestion. I feel lighter and more energetic after meals, with no more bloating. I highly recommend it to everyone.</p>
+                        <p>Shah Zyme is a lifesaver. I used to feel so bloated and heavy after eating, but now I just feel... normal! Lighter and way more energetic. I recommend it to everyone.</p>
                         <cite class="testimonial-author">- Rohan K., Delhi</cite>
                     </div>
                     <div class="testimonial-card">
-                        <p>As a student, Brain Champ helped me improve my focus and memory during exam season. It feels great to use something natural and effective. Thank you, Shah Hayaat!</p>
+                        <p>As a student, exam season is tough. Brain Champ genuinely helped me focus and cut through the brain fog. It's awesome to use something that's natural and actually works.</p>
                         <cite class="testimonial-author">- Anjali P., Bengaluru</cite>
                     </div>
                 </div>
             </div>
         </section>
+
         <section id="catalogue">
             <div class="container animate-on-scroll">
-                <h2>Our Complete Catalogue</h2>
-                <p class="section-subtitle">Browse our interactive catalogue for a detailed look at our entire product line, from classic formulations to specialized wellness solutions.</p>
+                <h2>Take a Look at Our Full Catalogue</h2>
+                <p class="section-subtitle">Want to see everything we offer? Dive into our interactive catalogue for a detailed look at all our wellness solutions, from classics to special formulas.</p>
                 <div class="catalogue-viewer"><iframe src="https://drive.google.com/file/d/1zFsHSI6XKaBmrN3egPFhK-626OI3ZRDT/preview" loading="lazy" title="Shah Hayaat Product Catalogue"></iframe></div>
             </div>
         </section>
@@ -311,34 +309,34 @@
         <section id="blog">
             <div class="container animate-on-scroll">
                 <h2>From Our Wellness Journal</h2>
-                <p class="section-subtitle">Your guide to balanced living. Discover practical tips and ancient wisdom for modern-day wellness challenges.</p>
+                <p class="section-subtitle">Think of this as your friendly guide to living well. We share simple tips from ancient wisdom to help you tackle modern-day stress and feel your best.</p>
                 <div class="blog-grid" id="blog-grid-container"></div>
             </div>
         </section>
 
         <section id="quiz">
             <div class="container animate-on-scroll">
-                <h2>Find Your Personalised Solution</h2>
-                <p class="section-subtitle">Don't know where to start? Answer these simple questions to get a personalized Ayurvedic profile and product recommendations tailored to your unique constitution.</p>
+                <h2>Find Your Perfect Ayurvedic Match</h2>
+                <p class="section-subtitle">Not sure where to begin? No problem! This quick and easy quiz will help us point you to the right products for your body's unique needs.</p>
                 <div class="quiz-container" id="quiz-container"></div>
-                <div class="quiz-actions"><button class="btn btn-primary" id="submit-quiz-btn">Get My Recommendation</button></div>
+                <div class="quiz-actions"><button class="btn btn-primary" id="submit-quiz-btn">Get My Results</button></div>
                 <div id="quiz-results"></div>
             </div>
         </section>
 
         <section id="contact">
             <div class="container animate-on-scroll">
-                <h2>Get In Touch</h2>
-                <p class="section-subtitle">We're here to help with any questions about your products or your wellness journey. Reach out to us anytime.</p>
+                <h2>Let's Talk</h2>
+                <p class="section-subtitle">Got a question? Need some advice on your wellness journey? We'd love to hear from you. Just drop us a line and we'll get right back to you!</p>
                 <div class="two-col-layout">
                     <div class="contact-info">
-                        <h3>Contact Information</h3>
-                        <p><strong>For Orders & Inquiries:</strong><br><a href="https://wa.me/917051056287" class="contact-link" target="_blank">Chat with us on WhatsApp</a></p>
+                        <h3>Contact Info</h3>
+                        <p><strong>Orders & Questions:</strong><br><a href="https://wa.me/917051056287" class="contact-link" target="_blank">Chat with us on WhatsApp</a></p>
                         <p><strong>Email:</strong><br><a href="mailto:shahhayaat02@gmail.com" class="contact-link">shahhayaat02@gmail.com</a></p>
-                        <p><strong>Follow Us:</strong><br><a href="https://instagram.com/shahhayaatofficial" class="contact-link" target="_blank">Instagram</a></p>
+                        <p><strong>Follow Us:</strong><br><a href="https://instagram.com/shahhayaatofficial" class="contact-link" target="_blank">Find us on Instagram</a></p>
                     </div>
                     <div class="col-form">
-                        <h3>Send us a Message</h3>
+                        <h3>Send a Quick Message</h3>
                         <form id="contactForm" action="https://formspree.io/f/YOUR_UNIQUE_FORM_ID" method="POST">
                             <div class="form-group">
                                 <label for="name">Name</label>
@@ -352,7 +350,7 @@
                                 <label for="message">Message</label>
                                 <textarea id="message" name="message" rows="5" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
                         </form>
                         <div id="form-status"></div>
                     </div>
@@ -362,7 +360,7 @@
         
         <section id="availability">
             <div class="container animate-on-scroll">
-                <h2 style="font-size: 1.5rem; color: var(--text-light);">Available On</h2>
+                <h2 style="font-size: 1.5rem; color: var(--text-light);">Find Us Here</h2>
                 <div class="partner-logos">
                     <a href="https://amzn.in/d/9vsBOWH" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Available on Amazon"></a>
                     <a href="https://m.indiamart.com/shah-hayaat/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/96/IndiaMART_logo.svg" alt="Available on IndiaMART"></a>
@@ -377,20 +375,20 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <h4>About Shah Hayaat</h4>
-                    <p>We provide authentic, high-quality Ayurvedic products crafted to bring balance and vitality to your modern lifestyle. Certified and pure.</p>
+                    <p>We make pure, high-quality Ayurvedic remedies that help bring a little balance back to your busy life. Simple, natural, and effective.</p>
                 </div>
                 <div class="footer-col">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#products">Products</a></li>
+                        <li><a href="#about">Our Story</a></li>
+                        <li><a href="#products">Our Products</a></li>
                         <li><a href="#testimonials">Reviews</a></li>
-                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#blog">Wellness Journal</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Contact Us</h4>
+                    <h4>Get In Touch</h4>
                     <ul>
                         <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
                         <li><a href="https://wa.me/917051056287" target="_blank">WhatsApp</a></li>
@@ -398,11 +396,11 @@
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Join Our Community</h4>
-                    <p>Get wellness tips and exclusive offers delivered to your inbox.</p>
+                    <h4>Stay in the Loop</h4>
+                    <p>Get helpful wellness tips and special offers sent right to your inbox.</p>
                     <form class="newsletter-form" action="#" method="post">
-                        <input type="email" name="email" placeholder="Your email address" required>
-                        <button type="submit">Go</button>
+                        <input type="email" name="email" placeholder="Your email" required>
+                        <button type="submit">Sign Up</button>
                     </form>
                 </div>
             </div>
@@ -429,95 +427,56 @@
             // --- DATA ---
             const GITHUB_BASE_URL = "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/";
             
-            // UPDATED: Benefit-oriented product descriptions
+            // --- REWRITTEN CONTENT: More human and relatable product descriptions ---
             const PRODUCTS_DATA = [
-                { name: "Brain Champ", price: 175, desc: "Nourish your mind to enhance memory, sharpen focus, and improve cognitive function naturally.", img: `${GITHUB_BASE_URL}brainchamp.jpg` }, 
-                { name: "Shah Zyme", price: 165, desc: "Aids digestion and relieves bloating, helping you feel lighter and more comfortable after meals.", img: `${GITHUB_BASE_URL}shahzyme.jpg` }, 
-                { name: "Blood Storm", price: 165, desc: "A revitalizing tonic designed to purify the blood and boost your overall vitality and energy.", img: `${GITHUB_BASE_URL}bloodstorm.jpg` }, 
-                { name: "Cough X Pro", price: 90, desc: "Find fast, soothing relief from coughs and throat irritation with this gentle herbal formula.", img: `${GITHUB_BASE_URL}coughxpro.jpg` }, 
-                { name: "Musaffa Khoon", price: 165, desc: "Promote clear, healthy skin from within using this traditional and effective blood purifier.", img: `${GITHUB_BASE_URL}musaffakhoon.jpg` }, 
-                { name: "PanaSip", price: 165, desc: "Get fast-acting relief from uncomfortable acidity and gas for immediate digestive comfort.", img: `${GITHUB_BASE_URL}panasip.jpg` }, 
-                { name: "Livo Hayaat", price: 349, desc: "Support and protect your liver with this powerful formulation for optimal organ health.", img: `${GITHUB_BASE_URL}livohayaat.jpg` }, 
-                { name: "Dia-Ease", price: 695, desc: "A natural blend to help you manage and maintain healthy blood sugar balance effectively.", img: `${GITHUB_BASE_URL}diaease.png` }, 
-                { name: "Ortho Hayaat", price: 649, desc: "Soothe joint discomfort and improve mobility with this specialized blend for joint health.", img: `${GITHUB_BASE_URL}orthohayaat.jpg` }, 
-                { name: "Utro Hayaat", price: 625, desc: "A gentle yet effective tonic to support and balance overall women's health and well-being.", img: `${GITHUB_BASE_URL}utrohayaat.png` }, 
-                { name: "Passion Pulse", price: 599, desc: "Enhance your stamina and performance with this natural vitality and energy booster.", img: `${GITHUB_BASE_URL}passionpulse.jpg` }, 
-                { name: "Fevodol", price: 165, desc: "Strengthen your body’s natural defenses and support a healthy immune response.", img: `${GITHUB_BASE_URL}fevodol.png` }
+                { name: "Brain Champ", price: 175, desc: "For when you need to focus. Helps clear the mental fog and sharpen your memory, naturally.", img: `${GITHUB_BASE_URL}brainchamp.jpg` }, 
+                { name: "Shah Zyme", price: 165, desc: "Feeling bloated after eating? This gentle syrup helps your digestion run smoothly.", img: `${GITHUB_BASE_URL}shahzyme.jpg` }, 
+                { name: "Blood Storm", price: 165, desc: "A great-tasting tonic to help purify your blood and give your energy a natural boost.", img: `${GITHUB_BASE_URL}bloodstorm.jpg` }, 
+                { name: "Cough X Pro", price: 90, desc: "Soothe that nagging cough and scratchy throat with this comforting herbal formula.", img: `${GITHUB_BASE_URL}coughxpro.jpg` }, 
+                { name: "Musaffa Khoon", price: 165, desc: "Happy skin starts from within. This classic formula helps purify blood for a clearer complexion.", img: `${GITHUB_BASE_URL}musaffakhoon.jpg` }, 
+                { name: "PanaSip", price: 165, desc: "For that uncomfortable heartburn and gas. Get fast, cooling relief when you need it most.", img: `${GITHUB_BASE_URL}panasip.jpg` }, 
+                { name: "Livo Hayaat", price: 349, desc: "Give your liver some love. This powerful blend helps support and protect this vital organ.", img: `${GITHUB_BASE_URL}livohayaat.jpg` }, 
+                { name: "Dia-Ease", price: 695, desc: "A helping hand from nature to support and maintain healthy blood sugar levels.", img: `${GITHUB_BASE_URL}diaease.png` }, 
+                { name: "Ortho Hayaat", price: 649, desc: "For when your joints start complaining. This helps soothe discomfort and keep you moving freely.", img: `${GITHUB_BASE_URL}orthohayaat.jpg` }, 
+                { name: "Utro Hayaat", price: 625, desc: "A gentle and effective tonic made to support and balance women's health through every stage.", img: `${GITHUB_BASE_URL}utrohayaat.png` }, 
+                { name: "Passion Pulse", price: 599, desc: "Feeling a little run down? This is a natural way to boost your stamina, energy, and vitality.", img: `${GITHUB_BASE_URL}passionpulse.jpg` }, 
+                { name: "Fevodol", price: 165, desc: "Help your body's natural defenses stay strong and fight off whatever's going around.", img: `${GITHUB_BASE_URL}fevodol.png` }
             ];
 
+            // --- REWRITTEN CONTENT: More conversational blog titles and descriptions ---
             const BLOG_DATA = [
                 { 
-                    title: "Feeling Bloated? 5 Ayurvedic Secrets for a Happy Gut", 
-                    desc: "Tired of that uncomfortable feeling after meals? You're not alone. Discover simple, ancient tips to improve your digestion naturally.", 
+                    title: "Tummy Troubles? 5 Easy Tricks for a Happy Gut", 
+                    desc: "That post-meal bloat is no fun. Here are some super simple, ancient secrets to get your digestion back on track.", 
                     img: `${GITHUB_BASE_URL}image(3).png`,
-                    fullContent: `
-                        <p>Tired of that uncomfortable, heavy feeling after you eat? You're not alone. Bloating is a common issue, and while modern medicine has its solutions, sometimes the best remedies are the oldest ones. Ayurveda, a traditional system of medicine from India, offers simple, ancient tips to improve your digestion and help you feel better naturally.</p>
-                        <h3>Here are five Ayurvedic secrets to a happy gut:</h3>
-                        <p><strong>1. Sip Warm Water</strong><br>You've probably heard that drinking water is good for you, but Ayurveda emphasizes the importance of drinking warm water, especially with your meals. Ice-cold drinks can dampen your digestive fire, known as agni, making it harder for your body to break down food. Sipping on warm or hot water throughout the day, and particularly while eating, can aid digestion and help flush out toxins.</p>
-                        <p><strong>2. Eat Your Largest Meal at Midday</strong><br>Ayurveda suggests that our digestive power is strongest when the sun is at its highest point. This makes lunchtime the perfect time for your biggest meal of the day. Eating a hearty lunch allows your body to efficiently process the food, while a heavy dinner can sit in your stomach and lead to bloating, indigestion, and poor sleep. Aim for a lighter, earlier dinner to give your digestive system a break before bed.</p>
-                        <p><strong>3. Chew Your Food Well</strong><br>This might seem obvious, but we often rush through our meals. Chewing is the first and most crucial step in digestion. Ayurveda teaches that you should chew your food until it's a liquid. This not only makes it easier for your stomach to do its job but also helps you to eat more mindfully and recognize when you're full. Slower eating also prevents you from swallowing excess air, a common cause of bloating.</p>
-                        <p><strong>4. Use Digestive Spices</strong><br>Think of your spice rack as a natural medicine cabinet. Many common kitchen spices have powerful digestive properties. Ingredients like ginger, cumin, fennel, and coriander are staples in Ayurvedic cooking. You can add them to your meals, brew them into a digestive tea, or even chew on a few fennel seeds after eating to help prevent gas and bloating.</p>
-                        <p><strong>5. Take a Short Walk After Meals</strong><br>Instead of collapsing onto the couch right after dinner, try a gentle 10-15 minute walk. This simple activity helps get things moving in your body and stimulates digestion. It doesn't have to be a fast-paced workout—a slow, relaxing stroll is all you need to aid your body in processing the food you’ve just eaten and reduce that feeling of heaviness.</p>
-                        <p>These Ayurvedic principles are about more than just food; they're about listening to your body and creating healthy routines. By incorporating these simple practices, you can improve your digestion, reduce bloating, and feel lighter and more energetic.</p>
-                    `
+                    fullContent: `<p>Tired of that uncomfortable, heavy feeling after you eat? You're not alone. Bloating is a common issue, and while modern medicine has its solutions, sometimes the best remedies are the oldest ones. Ayurveda, a traditional system of medicine from India, offers simple, ancient tips to improve your digestion and help you feel better naturally.</p><h3>Here are five Ayurvedic secrets to a happy gut:</h3><p><strong>1. Sip Warm Water</strong><br>You've probably heard that drinking water is good for you, but Ayurveda emphasizes the importance of drinking warm water, especially with your meals. Ice-cold drinks can dampen your digestive fire, known as agni, making it harder for your body to break down food. Sipping on warm or hot water throughout the day, and particularly while eating, can aid digestion and help flush out toxins.</p><p><strong>2. Eat Your Largest Meal at Midday</strong><br>Ayurveda suggests that our digestive power is strongest when the sun is at its highest point. This makes lunchtime the perfect time for your biggest meal of the day. Eating a hearty lunch allows your body to efficiently process the food, while a heavy dinner can sit in your stomach and lead to bloating, indigestion, and poor sleep. Aim for a lighter, earlier dinner to give your digestive system a break before bed.</p><p><strong>3. Chew Your Food Well</strong><br>This might seem obvious, but we often rush through our meals. Chewing is the first and most crucial step in digestion. Ayurveda teaches that you should chew your food until it's a liquid. This not only makes it easier for your stomach to do its job but also helps you to eat more mindfully and recognize when you're full. Slower eating also prevents you from swallowing excess air, a common cause of bloating.</p><p><strong>4. Use Digestive Spices</strong><br>Think of your spice rack as a natural medicine cabinet. Many common kitchen spices have powerful digestive properties. Ingredients like ginger, cumin, fennel, and coriander are staples in Ayurvedic cooking. You can add them to your meals, brew them into a digestive tea, or even chew on a few fennel seeds after eating to help prevent gas and bloating.</p><p><strong>5. Take a Short Walk After Meals</strong><br>Instead of collapsing onto the couch right after dinner, try a gentle 10-15 minute walk. This simple activity helps get things moving in your body and stimulates digestion. It doesn't have to be a fast-paced workout—a slow, relaxing stroll is all you need to aid your body in processing the food you’ve just eaten and reduce that feeling of heaviness.</p><p>These Ayurvedic principles are about more than just food; they're about listening to your body and creating healthy routines. By incorporating these simple practices, you can improve your digestion, reduce bloating, and feel lighter and more energetic.</p>`
                 },
                 { 
-                    title: "Can't Switch Off? How Ashwagandha Can Calm Modern-Day Stress", 
-                    desc: "In a world that never stops, finding peace can feel impossible. Learn how this powerful adaptogen helps your body manage stress.", 
+                    title: "Can't Switch Off? How Ashwagandha Can Help You Chill", 
+                    desc: "In a world that never stops, finding your 'off' switch can feel impossible. Learn how this ancient herb helps your body handle modern stress.", 
                     img: `${GITHUB_BASE_URL}image(6).png`,
-                    fullContent: `
-                        <p>In a world that never stops, finding a moment of peace can feel impossible. The constant notifications, tight deadlines, and endless to-do lists leave many of us feeling wired and unable to relax. If you're struggling to switch off, it might be time to look at an ancient remedy: Ashwagandha.</p>
-                        <p>Ashwagandha is a powerful herb that has been used in Ayurvedic medicine for thousands of years. It’s known as an adaptogen, which is a unique class of herbs that helps your body adapt to and manage stress. Think of it like a personal trainer for your nervous system.</p>
-                        <p>Here's how it works: When you're stressed, your body goes into fight-or-flight mode. Ashwagandha helps to calm this response, balancing your stress hormones (like cortisol) and bringing your body back to a state of equilibrium. It doesn't just mask the stress; it helps your body build resilience against it.</p>
-                        <p>By regularly incorporating Ashwagandha into your routine, you may find it easier to feel calm, more focused, and better equipped to handle life's challenges. It's not a magic pill, but it's a natural way to help your body manage the constant pressure of modern life.</p>
-                    `
+                    fullContent: `<p>In a world that never stops, finding a moment of peace can feel impossible. The constant notifications, tight deadlines, and endless to-do lists leave many of us feeling wired and unable to relax. If you're struggling to switch off, it might be time to look at an ancient remedy: Ashwagandha.</p><p>Ashwagandha is a powerful herb that has been used in Ayurvedic medicine for thousands of years. It’s known as an adaptogen, which is a unique class of herbs that helps your body adapt to and manage stress. Think of it like a personal trainer for your nervous system.</p><p>Here's how it works: When you're stressed, your body goes into fight-or-flight mode. Ashwagandha helps to calm this response, balancing your stress hormones (like cortisol) and bringing your body back to a state of equilibrium. It doesn't just mask the stress; it helps your body build resilience against it.</p><p>By regularly incorporating Ashwagandha into your routine, you may find it easier to feel calm, more focused, and better equipped to handle life's challenges. It's not a magic pill, but it's a natural way to help your body manage the constant pressure of modern life.</p>`
                 },
                 { 
-                    title: "Beat the Afternoon Slump: Ayurvedic Tips for All-Day Energy", 
-                    desc: "If you rely on coffee to get through the day, there's a better way. We share natural techniques to maintain vibrant energy from morning to night.", 
+                    title: "How to Beat That 3 PM Slump, Naturally", 
+                    desc: "Still relying on coffee to get through the day? There's a better way. Here are some Ayurvedic tips for energy that actually lasts.", 
                     img: `${GITHUB_BASE_URL}image(5).png`,
-                    fullContent: `
-                        <p>If you find yourself reaching for a second or third cup of coffee to power through the afternoon, there's a better way. Ayurveda offers natural techniques to maintain vibrant energy from morning to night without the caffeine crash.</p>
-                        <h3>Here’s how to beat the afternoon slump the Ayurvedic way:</h3>
-                        <p><strong>Eat a Warm, Nourishing Lunch:</strong> Instead of a heavy, cold sandwich, opt for a warm, cooked meal for lunch. This is when your digestive fire is strongest, so a balanced meal with cooked vegetables, grains, and a protein will give you lasting energy without weighing you down.</p>
-                        <p><strong>Take a Quick Walk:</strong> A short 10-15 minute walk after lunch can work wonders. It helps with digestion and gets your blood flowing, preventing that heavy, sleepy feeling.</p>
-                        <p><strong>Breathe and Stretch:</strong> When you feel a slump coming on, take a few deep breaths. Simple stretches at your desk can also re-energize your body and mind, helping you feel refreshed and focused for the rest of the day.</p>
-                        <p>By making a few small changes to your daily routine, you can break free from the coffee cycle and enjoy consistent, natural energy that lasts all day long.</p>
-                    `
+                    fullContent: `<p>If you find yourself reaching for a second or third cup of coffee to power through the afternoon, there's a better way. Ayurveda offers natural techniques to maintain vibrant energy from morning to night without the caffeine crash.</p><h3>Here’s how to beat the afternoon slump the Ayurvedic way:</h3><p><strong>Eat a Warm, Nourishing Lunch:</strong> Instead of a heavy, cold sandwich, opt for a warm, cooked meal for lunch. This is when your digestive fire is strongest, so a balanced meal with cooked vegetables, grains, and a protein will give you lasting energy without weighing you down.</p><p><strong>Take a Quick Walk:</strong> A short 10-15 minute walk after lunch can work wonders. It helps with digestion and gets your blood flowing, preventing that heavy, sleepy feeling.</p><p><strong>Breathe and Stretch:</strong> When you feel a slump coming on, take a few deep breaths. Simple stretches at your desk can also re-energize your body and mind, helping you feel refreshed and focused for the rest of the day.</p><p>By making a few small changes to your daily routine, you can break free from the coffee cycle and enjoy consistent, natural energy that lasts all day long.</p>`
                 },
                 { 
-                    title: "The Glow-Up from Within: Ayurvedic Secrets for Radiant Skin", 
-                    desc: "True radiance starts from the inside. Explore the connection between your diet, digestion, and clear, glowing skin.", 
+                    title: "Want Glowing Skin? Ayurveda Says Look at Your Gut", 
+                    desc: "Forget expensive creams for a second. True radiance starts from the inside. Let's explore the link between diet, digestion, and clear skin.", 
                     img: `${GITHUB_BASE_URL}image(4).png`,
-                    fullContent: `
-                        <p>True radiance isn't just about what you put on your skin; it's about what you put in your body. According to Ayurveda, your skin is a mirror of your inner health, and a clear, glowing complexion starts with a happy gut.</p>
-                        <p>So, what's the connection? Ayurveda teaches that healthy, radiant skin depends on strong digestion. When your digestive system isn't working properly, toxins can build up in your body, leading to breakouts, dullness, and other skin issues.</p>
-                        <h3>Here’s how to get that glow from the inside out:</h3>
-                        <ul>
-                            <li><strong>Eat Mindfully:</strong> Pay attention to what and how you eat. Choosing fresh, whole foods and chewing them well helps your body absorb all the good stuff.</li>
-                            <li><strong>Stay Hydrated:</strong> Drinking warm water throughout the day is key. It helps flush out toxins and keeps your skin plump and hydrated.</li>
-                            <li><strong>Balance Your Digestion:</strong> Use digestive spices like turmeric and cumin in your cooking. They support your body's ability to process food and eliminate waste, which in turn leads to clearer skin.</li>
-                        </ul>
-                        <p>By focusing on your diet and digestion, you're not just treating a symptom—you're getting to the root of the problem. A healthy gut means a healthy body, and a healthy body naturally glows.</p>
-                    `
+                    fullContent: `<p>True radiance isn't just about what you put on your skin; it's about what you put in your body. According to Ayurveda, your skin is a mirror of your inner health, and a clear, glowing complexion starts with a happy gut.</p><p>So, what's the connection? Ayurveda teaches that healthy, radiant skin depends on strong digestion. When your digestive system isn't working properly, toxins can build up in your body, leading to breakouts, dullness, and other skin issues.</p><h3>Here’s how to get that glow from the inside out:</h3><ul><li><strong>Eat Mindfully:</strong> Pay attention to what and how you eat. Choosing fresh, whole foods and chewing them well helps your body absorb all the good stuff.</li><li><strong>Stay Hydrated:</strong> Drinking warm water throughout the day is key. It helps flush out toxins and keeps your skin plump and hydrated.</li><li><strong>Balance Your Digestion:</strong> Use digestive spices like turmeric and cumin in your cooking. They support your body's ability to process food and eliminate waste, which in turn leads to clearer skin.</li></ul><p>By focusing on your diet and digestion, you're not just treating a symptom—you're getting to the root of the problem. A healthy gut means a healthy body, and a healthy body naturally glows.</p>`
                 },
                 { 
-                    title: "Managing Joint Pain Naturally with Ayurveda", 
-                    desc: "Don't let aches and pains hold you back. Learn about traditional Ayurvedic approaches to soothe joint discomfort and improve mobility.", 
+                    title: "A Natural Approach to Soothing Achy Joints", 
+                    desc: "Don't let aches and pains hold you back from doing what you love. Learn about some traditional ways to manage joint discomfort.", 
                     img: `${GITHUB_BASE_URL}image(1).png`,
-                    fullContent: `
-                        <p>Don't let aches and pains hold you back. While joint pain is often seen as a sign of aging, Ayurveda offers traditional approaches to soothe discomfort and improve mobility naturally.</p>
-                        <p>Ayurveda views joint pain as a result of imbalances in the body, often due to poor digestion or a buildup of toxins. By addressing the root cause, you can find lasting relief.</p>
-                        <h3>Here are a few Ayurvedic tips for managing joint pain:</h3>
-                        <ul>
-                            <li><strong>Warmth and Massage:</strong> Massaging your joints with warm oil (like sesame or castor oil) can be incredibly soothing. The warmth and gentle pressure help to improve circulation and reduce stiffness.</li>
-                            <li><strong>Anti-Inflammatory Spices:</strong> Incorporate spices like turmeric and ginger into your diet. They have natural anti-inflammatory properties that can help ease pain and swelling.</li>
-                            <li><strong>Gentle Movement:</strong> Regular, gentle exercise like walking, yoga, or swimming can help keep your joints mobile. The key is consistency, not intensity.</li>
-                        </ul>
-                        <p>Ayurveda teaches us that our bodies have an incredible ability to heal. By using these natural approaches, you can take an active role in managing your joint pain and improving your overall quality of life.</p>
-                    `
+                    fullContent: `<p>Don't let aches and pains hold you back. While joint pain is often seen as a sign of aging, Ayurveda offers traditional approaches to soothe discomfort and improve mobility naturally.</p><p>Ayurveda views joint pain as a result of imbalances in the body, often due to poor digestion or a buildup of toxins. By addressing the root cause, you can find lasting relief.</p><h3>Here are a few Ayurvedic tips for managing joint pain:</h3><ul><li><strong>Warmth and Massage:</strong> Massaging your joints with warm oil (like sesame or castor oil) can be incredibly soothing. The warmth and gentle pressure help to improve circulation and reduce stiffness.</li><li><strong>Anti-Inflammatory Spices:</strong> Incorporate spices like turmeric and ginger into your diet. They have natural anti-inflammatory properties that can help ease pain and swelling.</li><li><strong>Gentle Movement:</strong> Regular, gentle exercise like walking, yoga, or swimming can help keep your joints mobile. The key is consistency, not intensity.</li></ul><p>Ayurveda teaches us that our bodies have an incredible ability to heal. By using these natural approaches, you can take an active role in managing your joint pain and improving your overall quality of life.</p>`
                 }
             ];
+
             const QUIZ_DATA = [
                 { q: 'How would you describe your natural body frame?', o: [['vata', 'Slender and light'], ['pitta', 'Medium and athletic'], ['kapha', 'Broad and sturdy']] }, { q: 'What is your appetite typically like?', o: [['vata', 'Irregular, varies a lot'], ['pitta', 'Strong and sharp'], ['kapha', 'Slow but steady']] }, { q: 'How does your skin usually feel?', o: [['vata', 'Dry and cool'], ['pitta', 'Warm, sometimes sensitive'], ['kapha', 'Cool, smooth, and often oily']] }, { q: 'What is your energy pattern?', o: [['vata', 'Comes in bursts'], ['pitta', 'Focused and driven'], ['kapha', 'Steady and sustained']] },
             ];
@@ -614,7 +573,8 @@
                         
                         const dominantDosha = Object.keys(answers).length ? Object.keys(answers).reduce((a, b) => answers[a] > answers[b] ? a : b) : 'vata';
                         const reco = QUIZ_RECOS[dominantDosha];
-                        quizResultsContainer.innerHTML = `<div class="result-card"><h3>Your Recommended Products</h3><p>Based on your answers, these products may help support your natural balance:</p><div class="result-products">${reco.products.map(pName => { const p = PRODUCTS_DATA.find(pr => pr.name === pName); return p ? `<div class="result-product"><img src="${p.img}" alt="${p.name}" loading="lazy"><h4>${p.name}</h4><a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} based on my quiz results`)}" target="_blank" class="btn btn-primary">Order</a></div>` : ''; }).join('')}</div><p class="result-disclaimer">This is a general recommendation and not medical advice. Consult a healthcare professional for specific concerns.</p></div>`;
+                        // REWRITTEN CONTENT
+                        quizResultsContainer.innerHTML = `<div class="result-card"><h3>Here's What We Suggest for You!</h3><p>Based on your answers, these products could be a great fit for helping you find balance:</p><div class="result-products">${reco.products.map(pName => { const p = PRODUCTS_DATA.find(pr => pr.name === pName); return p ? `<div class="result-product"><img src="${p.img}" alt="${p.name}" loading="lazy"><h4>${p.name}</h4><a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} based on my quiz results`)}" target="_blank" class="btn btn-primary">Order</a></div>` : ''; }).join('')}</div><p class="result-disclaimer">Just a friendly reminder: this is a general suggestion, not medical advice. Please chat with a doctor for any specific health concerns.</p></div>`;
                         quizResultsContainer.scrollIntoView({ behavior: 'smooth' });
                     });
                 }
@@ -630,18 +590,17 @@
                         try {
                             const response = await fetch(form.action, { method: form.method, body: data, headers: { 'Accept': 'application/json' } });
                             if (response.ok) {
-                                status.innerHTML = "Thanks for your submission!"; status.className = 'success'; status.style.display = 'block'; form.reset();
+                                status.innerHTML = "Thanks, we got your message!"; status.className = 'success'; status.style.display = 'block'; form.reset();
                             } else {
                                 const responseData = await response.json();
                                 if (responseData && responseData.errors) { status.innerHTML = responseData.errors.map(error => error.message).join(", "); } 
-                                else { status.innerHTML = "Oops! There was a problem submitting your form."; }
+                                else { status.innerHTML = "Uh oh! Something went wrong. Please try again."; }
                                 status.className = 'error'; status.style.display = 'block';
                             }
-                        } catch (error) { status.innerHTML = "Oops! There was a problem submitting your form."; status.className = 'error'; status.style.display = 'block'; }
+                        } catch (error) { status.innerHTML = "Uh oh! Something went wrong. Please try again."; status.className = 'error'; status.style.display = 'block'; }
                     });
                 }
                 
-                // Blog Modal Logic
                 function openModal(index) {
                     const post = BLOG_DATA[index];
                     modalTitle.textContent = post.title;
