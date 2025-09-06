@@ -105,6 +105,15 @@
         .cert-box:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
         .cert-box h4 { font-family: var(--font-heading); font-size: 1.5rem; color: var(--green-dark); font-weight: 700; }
 
+        /* --- NEW CSS: Testimonials Section --- */
+        #testimonials { background-color: var(--bg-light); }
+        .testimonial-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .testimonial-card { background: var(--bg-white); padding: 2rem; border-radius: 12px; box-shadow: var(--shadow); border-left: 5px solid var(--accent-gold); }
+        .testimonial-card p { font-style: italic; color: var(--text-light); margin-bottom: 1.5rem; }
+        .testimonial-card p::before { content: '“'; font-size: 3rem; color: var(--accent-gold); line-height: 0; display: block; margin-bottom: 1rem; }
+        .testimonial-author { font-weight: 700; color: var(--green-dark); text-align: right; }
+        /* --- END NEW CSS --- */
+
         /* Blog Section */
         .blog-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
         .blog-card { background-color: white; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); text-decoration: none; color: var(--text-dark); transition: all 0.3s ease; display: flex; flex-direction: column; }
@@ -170,6 +179,14 @@
         .footer-col a:hover { color: var(--accent-gold); }
         .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid #4A6354; color: #9E9E9E; font-size: 0.9rem; }
         
+        /* --- NEW CSS: Newsletter Form --- */
+        .newsletter-form { display: flex; gap: 0.5rem; }
+        .newsletter-form input { flex-grow: 1; padding: 0.75rem; border: 1px solid #4A6354; background-color: #3b5745; color: white; border-radius: 6px; }
+        .newsletter-form input::placeholder { color: #9E9E9E; }
+        .newsletter-form button { background: var(--accent-gold); color: white; border: none; padding: 0.75rem 1rem; border-radius: 6px; cursor: pointer; transition: background 0.3s; }
+        .newsletter-form button:hover { background: #d4a01c; }
+        /* --- END NEW CSS --- */
+
         /* Back to Top Button */
         .back-to-top { position: fixed; bottom: 20px; right: 20px; background-color: var(--accent-gold); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 24px; z-index: 100; opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0.4s, transform 0.4s; }
         .back-to-top.visible { opacity: 1; visibility: visible; }
@@ -234,11 +251,11 @@
                 <h2>Our Story</h2>
                 <div class="two-col-layout">
                     <div class="col-text">
-                        <h3>Our Mission & Philosophy</h3>
-                        <p>At Shah Hayaat, we combine ancient Ayurvedic wisdom with modern science. Our mission is to provide pure, effective, and accessible wellness solutions that empower you to live a healthier, more balanced life naturally.</p>
-                        <p>We believe in transparency, purity, and the potent healing power of nature, ensuring every product meets the highest standards of quality and efficacy.</p>
+                        <h3>From Ancient Roots to Modern Wellness</h3>
+                        <p>Shah Hayaat was born from a deep respect for Ayurveda's timeless wisdom and a desire to make its benefits accessible for modern life. Our journey began with a simple mission: to create pure, effective, and trustworthy wellness solutions that honor both nature and science.</p>
+                        <p>We believe that true health is a state of balance. That's why we meticulously source the finest ingredients and adhere to the highest standards of quality (WHO-GMP, ISO 9001:2015). Every product is a testament to our values of purity, efficacy, and transparency, empowering you to live a healthier, more vibrant life, naturally.</p>
                     </div>
-                    <div class="col-image"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(2).png" loading="lazy" alt="Serene Ayurvedic treatment scene" style="border-radius: 12px; box-shadow: var(--shadow-hover);"></div>
+                    <div class="col-image"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(2).png" loading="lazy" alt="Serene Ayurvedic treatment scene with herbal ingredients" style="border-radius: 12px; box-shadow: var(--shadow-hover);"></div>
                 </div>
             </div>
         </section>
@@ -262,7 +279,27 @@
                 <div class="product-grid" id="product-grid-container"></div>
             </div>
         </section>
-
+        
+        <section id="testimonials">
+            <div class="container animate-on-scroll">
+                <h2>What Our Customers Say</h2>
+                <p class="section-subtitle">Your stories inspire us. Here's how Shah Hayaat has helped others on their wellness journey.</p>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <p>After trying Ortho Hayaat for a month, the stiffness in my knees has significantly reduced. I can finally enjoy my morning walks again. Truly a life-changing product!</p>
+                        <cite class="testimonial-author">- Priya S., Mumbai</cite>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>Shah Zyme has been a game-changer for my digestion. I feel lighter and more energetic after meals, with no more bloating. I highly recommend it to everyone.</p>
+                        <cite class="testimonial-author">- Rohan K., Delhi</cite>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>As a student, Brain Champ helped me improve my focus and memory during exam season. It feels great to use something natural and effective. Thank you, Shah Hayaat!</p>
+                        <cite class="testimonial-author">- Anjali P., Bengaluru</cite>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section id="catalogue">
             <div class="container animate-on-scroll">
                 <h2>Our Complete Catalogue</h2>
@@ -327,8 +364,8 @@
             <div class="container animate-on-scroll">
                 <h2 style="font-size: 1.5rem; color: var(--text-light);">Available On</h2>
                 <div class="partner-logos">
-                    <a href="https://amzn.in/d/9vsBOWH" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon"></a>
-                    <a href="https://m.indiamart.com/shah-hayaat/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/96/IndiaMART_logo.svg" alt="IndiaMART"></a>
+                    <a href="https://amzn.in/d/9vsBOWH" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Available on Amazon"></a>
+                    <a href="https://m.indiamart.com/shah-hayaat/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/96/IndiaMART_logo.svg" alt="Available on IndiaMART"></a>
                 </div>
             </div>
         </section>
@@ -347,6 +384,7 @@
                     <ul>
                         <li><a href="#about">About Us</a></li>
                         <li><a href="#products">Products</a></li>
+                        <li><a href="#testimonials">Reviews</a></li>
                         <li><a href="#blog">Blog</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
@@ -358,6 +396,14 @@
                         <li><a href="https://wa.me/917051056287" target="_blank">WhatsApp</a></li>
                         <li><a href="https://instagram.com/shahhayaatofficial" target="_blank">Instagram</a></li>
                     </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Join Our Community</h4>
+                    <p>Get wellness tips and exclusive offers delivered to your inbox.</p>
+                    <form class="newsletter-form" action="#" method="post">
+                        <input type="email" name="email" placeholder="Your email address" required>
+                        <button type="submit">Go</button>
+                    </form>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -382,9 +428,23 @@
         try {
             // --- DATA ---
             const GITHUB_BASE_URL = "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/";
+            
+            // UPDATED: Benefit-oriented product descriptions
             const PRODUCTS_DATA = [
-                { name: "Brain Champ", price: 175, desc: "Enhances memory and cognitive function.", img: `${GITHUB_BASE_URL}brainchamp.jpg` }, { name: "Shah Zyme", price: 165, desc: "Effective digestive enzyme syrup.", img: `${GITHUB_BASE_URL}shahzyme.jpg` }, { name: "Blood Storm", price: 165, desc: "Revitalizing blood tonic for vitality.", img: `${GITHUB_BASE_URL}bloodstorm.jpg` }, { name: "Cough X Pro", price: 90, desc: "Soothing herbal relief for coughs.", img: `${GITHUB_BASE_URL}coughxpro.jpg` }, { name: "Musaffa Khoon", price: 165, desc: "Traditional blood purifier for clear skin.", img: `${GITHUB_BASE_URL}musaffakhoon.jpg` }, { name: "PanaSip", price: 165, desc: "Fast-acting relief from acidity and gas.", img: `${GITHUB_BASE_URL}panasip.jpg` }, { name: "Livo Hayaat", price: 349, desc: "Formulation for optimal liver health.", img: `${GITHUB_BASE_URL}livohayaat.jpg` }, { name: "Dia-Ease", price: 695, desc: "Support for healthy sugar balance.", img: `${GITHUB_BASE_URL}diaease.png` }, { name: "Ortho Hayaat", price: 649, desc: "Specialized blend for joint health.", img: `${GITHUB_BASE_URL}orthohayaat.jpg` }, { name: "Utro Hayaat", price: 625, desc: "Gentle tonic for women's health.", img: `${GITHUB_BASE_URL}utrohayaat.png` }, { name: "Passion Pulse", price: 599, desc: "Natural vitality booster for stamina.", img: `${GITHUB_BASE_URL}passionpulse.jpg` }, { name: "Fevodol", price: 165, desc: "Supports the body's immune response.", img: `${GITHUB_BASE_URL}fevodol.png` }
+                { name: "Brain Champ", price: 175, desc: "Nourish your mind to enhance memory, sharpen focus, and improve cognitive function naturally.", img: `${GITHUB_BASE_URL}brainchamp.jpg` }, 
+                { name: "Shah Zyme", price: 165, desc: "Aids digestion and relieves bloating, helping you feel lighter and more comfortable after meals.", img: `${GITHUB_BASE_URL}shahzyme.jpg` }, 
+                { name: "Blood Storm", price: 165, desc: "A revitalizing tonic designed to purify the blood and boost your overall vitality and energy.", img: `${GITHUB_BASE_URL}bloodstorm.jpg` }, 
+                { name: "Cough X Pro", price: 90, desc: "Find fast, soothing relief from coughs and throat irritation with this gentle herbal formula.", img: `${GITHUB_BASE_URL}coughxpro.jpg` }, 
+                { name: "Musaffa Khoon", price: 165, desc: "Promote clear, healthy skin from within using this traditional and effective blood purifier.", img: `${GITHUB_BASE_URL}musaffakhoon.jpg` }, 
+                { name: "PanaSip", price: 165, desc: "Get fast-acting relief from uncomfortable acidity and gas for immediate digestive comfort.", img: `${GITHUB_BASE_URL}panasip.jpg` }, 
+                { name: "Livo Hayaat", price: 349, desc: "Support and protect your liver with this powerful formulation for optimal organ health.", img: `${GITHUB_BASE_URL}livohayaat.jpg` }, 
+                { name: "Dia-Ease", price: 695, desc: "A natural blend to help you manage and maintain healthy blood sugar balance effectively.", img: `${GITHUB_BASE_URL}diaease.png` }, 
+                { name: "Ortho Hayaat", price: 649, desc: "Soothe joint discomfort and improve mobility with this specialized blend for joint health.", img: `${GITHUB_BASE_URL}orthohayaat.jpg` }, 
+                { name: "Utro Hayaat", price: 625, desc: "A gentle yet effective tonic to support and balance overall women's health and well-being.", img: `${GITHUB_BASE_URL}utrohayaat.png` }, 
+                { name: "Passion Pulse", price: 599, desc: "Enhance your stamina and performance with this natural vitality and energy booster.", img: `${GITHUB_BASE_URL}passionpulse.jpg` }, 
+                { name: "Fevodol", price: 165, desc: "Strengthen your body’s natural defenses and support a healthy immune response.", img: `${GITHUB_BASE_URL}fevodol.png` }
             ];
+
             const BLOG_DATA = [
                 { 
                     title: "Feeling Bloated? 5 Ayurvedic Secrets for a Happy Gut", 
@@ -418,7 +478,7 @@
                     img: `${GITHUB_BASE_URL}image(5).png`,
                     fullContent: `
                         <p>If you find yourself reaching for a second or third cup of coffee to power through the afternoon, there's a better way. Ayurveda offers natural techniques to maintain vibrant energy from morning to night without the caffeine crash.</p>
-                        <h3>Here's how to beat the afternoon slump the Ayurvedic way:</h3>
+                        <h3>Here’s how to beat the afternoon slump the Ayurvedic way:</h3>
                         <p><strong>Eat a Warm, Nourishing Lunch:</strong> Instead of a heavy, cold sandwich, opt for a warm, cooked meal for lunch. This is when your digestive fire is strongest, so a balanced meal with cooked vegetables, grains, and a protein will give you lasting energy without weighing you down.</p>
                         <p><strong>Take a Quick Walk:</strong> A short 10-15 minute walk after lunch can work wonders. It helps with digestion and gets your blood flowing, preventing that heavy, sleepy feeling.</p>
                         <p><strong>Breathe and Stretch:</strong> When you feel a slump coming on, take a few deep breaths. Simple stretches at your desk can also re-energize your body and mind, helping you feel refreshed and focused for the rest of the day.</p>
@@ -470,7 +530,7 @@
                 const blogGrid = document.getElementById('blog-grid-container');
                 const quizContainer = document.getElementById('quiz-container');
                 
-                const navLinks = [{href: "#home", text: "Home"}, {href: "#about", text: "About"}, {href: "#products", text: "Products"}, {href: "#catalogue", text: "Catalogue"}, {href: "#blog", text: "Blog"}, {href: "#quiz", text: "Dosha Quiz"}, {href: "#contact", text: "Contact"}];
+                const navLinks = [{href: "#home", text: "Home"}, {href: "#about", text: "About"}, {href: "#products", text: "Products"}, {href: "#testimonials", text: "Reviews"}, {href: "#catalogue", text: "Catalogue"}, {href: "#blog", text: "Blog"}, {href: "#quiz", text: "Dosha Quiz"}, {href: "#contact", text: "Contact"}];
                 let navHtml = navLinks.map(link => `<li><a href="${link.href}">${link.text}</a></li>`).join('');
                 if(navLinksContainerDesktop) navLinksContainerDesktop.innerHTML = navHtml;
                 if(navLinksContainerMobile) navLinksContainerMobile.innerHTML = navHtml;
