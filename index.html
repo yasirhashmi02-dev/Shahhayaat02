@@ -1,653 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shah Hayaat — Premium Ayurvedic Wellness</title>
-    <meta name="description" content="Discover premium, certified Ayurvedic wellness products from Shah Hayaat. Naturally crafted for modern life.">
-    <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --green-dark: #2A4633; --green-light: #4D7C5D; --bg-light: #F8F6F2; --bg-white: #FFFFFF;
-            --accent-gold: #B8860B; --text-dark: #222222; --text-light: #555555; --border-color: #EAEAEA;
-            --shadow: 0 4px 15px rgba(0,0,0,0.05); --shadow-hover: 0 15px 35px rgba(0,0,0,0.1);
-            --font-heading: 'Playfair Display', serif; --font-body: 'Inter', sans-serif;
-            --transition-speed: 0.4s;
-        }
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; scroll-padding-top: 100px; }
-        body { font-family: var(--font-body); background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; overflow-x: hidden; }
-        body.modal-open { overflow: hidden; }
-        img { max-width: 100%; height: auto; display: block; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        section { padding: clamp(4rem, 10vw, 6rem) 0; overflow: hidden; }
-        .two-col-layout { display: grid; gap: 3rem; align-items: center; }
-        @media (min-width: 800px) { .two-col-layout { grid-template-columns: 1fr 1fr; } }
-        section:nth-of-type(even) { background-color: var(--bg-white); }
-        
-        h1 { font-family: var(--font-heading); color: white; line-height: 1.2; font-size: clamp(2.5rem, 7vw, 4.5rem); text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
-        h2 { font-family: var(--font-heading); color: var(--accent-gold); font-size: clamp(2.2rem, 6vw, 3rem); text-align: center; margin-bottom: 1rem; position: relative; padding-bottom: 1.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
-        h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 70px; height: 4px; background: linear-gradient(90deg, var(--accent-gold), #e0a92a); border-radius: 2px; }
-        h3 { font-family: var(--font-heading); font-size: clamp(1.25rem, 3vw, 1.5rem); color: var(--accent-gold); margin-bottom: 0.5rem; }
-        p { font-size: clamp(1rem, 2.5vw, 1.1rem); margin-bottom: 1rem; color: var(--text-light); }
-        .section-subtitle { text-align: center; max-width: 650px; margin: 0 auto 4rem; color: var(--text-light); }
-
-        /* Header & Navigation */
-        .header { position: sticky; top: 0; z-index: 1000; width: 100%; padding: 1rem 0; background-color: rgba(248, 246, 242, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: all var(--transition-speed) ease; }
-        body.scrolled .header { border-bottom-color: var(--border-color); box-shadow: var(--shadow); }
-        .header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; font-weight: 700; font-size: 1.25rem; color: var(--green-dark); }
-        .logo img { height: 50px; width: 50px; border-radius: 50%; object-fit: cover; }
-        
-        .nav-desktop { display: none; }
-        .nav-desktop ul { list-style: none; display: flex; gap: 2.5rem; }
-        .nav-desktop a { text-decoration: none; color: var(--text-dark); font-weight: 600; transition: color 0.3s ease; position: relative; padding-bottom: 5px; }
-        .nav-desktop a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: var(--accent-gold); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: center; }
-        .nav-desktop a:hover, .nav-desktop a:focus { color: var(--green-dark); }
-        .nav-desktop a:hover::after { transform: scaleX(1); }
-
-        .nav-toggle { display: block; width: 28px; height: 22px; background: none; border: none; cursor: pointer; position: relative; z-index: 1001; }
-        .nav-toggle span { display: block; width: 100%; height: 3px; background-color: var(--green-dark); border-radius: 2px; position: absolute; transition: all 0.3s ease; left:0; }
-        .nav-toggle span:first-child { top: 0; }
-        .nav-toggle span:nth-child(2) { top: 50%; transform: translateY(-50%); }
-        .nav-toggle span:nth-child(3) { bottom: 0; }
-        body.nav-open .nav-toggle span:first-child { top: 50%; transform: translateY(-50%) rotate(45deg); }
-        body.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
-        body.nav-open .nav-toggle span:nth-child(3) { top: 50%; transform: translateY(-50%) rotate(-45deg); }
-
-        .nav-mobile { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-light); z-index: 999; display: flex; justify-content: center; align-items: center; transform: translateX(100%); transition: transform var(--transition-speed) cubic-bezier(0.77, 0, 0.175, 1); }
-        body.nav-open .nav-mobile { transform: translateX(0); }
-        .nav-mobile ul { list-style: none; text-align: center; }
-        .nav-mobile li { margin-bottom: 2.5rem; }
-        .nav-mobile a { text-decoration: none; font-size: 1.75rem; font-weight: 600; color: var(--green-dark); transition: color 0.3s ease; }
-        .nav-mobile a:hover { color: var(--accent-gold); }
-
-        @media (min-width: 900px) { .nav-toggle, .nav-mobile { display: none; } .nav-desktop { display: block; } }
-
-        /* Buttons */
-        .btn { display: inline-block; padding: 0.8rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 700; transition: all var(--transition-speed) ease; border: 2px solid transparent; text-align: center; cursor: pointer; }
-        .btn-primary { background: linear-gradient(45deg, var(--accent-gold), #e0a92a); color: white; border: none; }
-        .btn-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 7px 20px rgba(184, 134, 11, 0.3); }
-
-        /* Hero Section */
-        @keyframes kenburns { 0% { transform: scale(1.1); } 100% { transform: scale(1); } }
-        @keyframes progress { 0% { width: 0%; } 100% { width: 100%; } }
-        #home { position: relative; height: 100vh; padding: 0; display: flex; align-items: center; justify-content: center; text-align: center; }
-        #home::after { content: ''; position: absolute; bottom: 0; left: 0; height: 4px; background-color: var(--accent-gold); z-index: 3; }
-        #home.progress-animate::after { animation: progress 5s linear forwards; }
-        .carousel-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; }
-        .carousel-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 2s ease-in-out; transform: scale(1.1); }
-        .carousel-slide.active { opacity: 1; animation: kenburns 15s linear infinite alternate; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); }
-        .hero-content { position: relative; z-index: 2; }
-        .hero-content p { color: white; max-width: 600px; margin: 1rem auto 2rem; font-size: 1.2rem; }
-        
-        /* Products Section */
-        .product-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-        .product-card { background-color: var(--bg-white); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; border-bottom: 4px solid transparent; transition: all 0.3s ease; }
-        .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); border-color: var(--accent-gold); }
-        .product-card img { width: 100%; height: 250px; object-fit: cover; }
-        .product-card-content { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
-        .product-card .product-desc { flex-grow: 1; margin-bottom: 1.5rem; color: var(--text-light); }
-        .product-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
-        .product-price { font-size: 1.5rem; font-weight: 700; color: var(--green-dark); }
-        .product-card .btn-primary { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
-        
-        /* Certifications Section */
-        #certifications { background-color: var(--bg-white); }
-        .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; text-align: center; }
-        .cert-box { border: 2px solid var(--accent-gold); background-color: #fff; padding: 2rem; border-radius: 12px; box-shadow: var(--shadow); transition: all 0.3s ease; }
-        .cert-box:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
-        .cert-box h4 { font-family: var(--font-heading); font-size: 1.5rem; color: var(--green-dark); font-weight: 700; }
-
-        /* Testimonials Section */
-        #testimonials { background-color: var(--bg-light); }
-        .testimonial-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-        .testimonial-card { background: var(--bg-white); padding: 2rem; border-radius: 12px; box-shadow: var(--shadow); border-left: 5px solid var(--accent-gold); }
-        .testimonial-card p { font-style: italic; color: var(--text-light); margin-bottom: 1.5rem; }
-        .testimonial-card p::before { content: '“'; font-size: 3rem; color: var(--accent-gold); line-height: 0; display: block; margin-bottom: 1rem; }
-        .testimonial-author { font-weight: 700; color: var(--green-dark); text-align: right; }
-
-        /* Blog Section */
-        .blog-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-        .blog-card { background-color: white; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); text-decoration: none; color: var(--text-dark); transition: all 0.3s ease; display: flex; flex-direction: column; }
-        .blog-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
-        .blog-card img { width: 100%; height: 200px; object-fit: cover; }
-        .blog-card-content { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
-        .blog-card-content h3 { margin-bottom: 0.5rem; color: var(--green-dark); }
-        .blog-card-content .blog-excerpt { flex-grow: 1; color: var(--text-light); }
-        .read-more-btn { color: var(--accent-gold); font-weight: 600; text-decoration: none; margin-top: 1rem; background: none; border: none; padding: 0; font-size: 1em; cursor: pointer; text-align: left; }
-        .read-more-btn:hover { text-decoration: underline; }
-        
-        /* Catalogue Section */
-        .catalogue-viewer { border: 1px solid var(--border-color); border-radius: 12px; box-shadow: var(--shadow); height: 70vh; }
-        .catalogue-viewer iframe { width: 100%; height: 100%; border: none; border-radius: 12px; }
-
-        /* Quiz Section */
-        .quiz-container { max-width: 700px; margin: 0 auto; }
-        .quiz-question { background: var(--bg-white); padding: 1.5rem; margin-bottom: 1.5rem; border-radius: 8px; border-left: 4px solid var(--green-dark); }
-        .quiz-question p { color: var(--text-dark); }
-        .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
-        .quiz-options label { display: flex; align-items: center; gap: 0.75rem; background: var(--bg-light); padding: 0.75rem 1rem; border-radius: 6px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s ease; }
-        .quiz-options label:hover { border-color: var(--accent-gold); }
-        .quiz-options input[type="radio"]:checked + span { font-weight: bold; color: var(--green-dark); }
-        .quiz-actions { text-align: center; margin-top: 2rem; }
-        #quiz-results { margin-top: 3rem; }
-        .result-card { background: white; padding: 2rem; border-radius: 12px; text-align: center; border: 2px solid var(--green-dark); box-shadow: var(--shadow); }
-        .result-card p { color: var(--text-light); }
-        .result-products { display: grid; gap: 1.5rem; margin-top: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-        .result-product { background: var(--bg-light); padding: 1rem; border-radius: 8px; }
-        .result-product img { width: 100%; height: 150px; object-fit: contain; margin-bottom: 1rem; border-radius: 8px; }
-        .result-product h4 { color: var(--green-dark); font-size: 1.1rem; }
-        .result-product .btn-primary { padding: 0.5rem 1rem; font-size: 0.8rem; margin-top: 0.5rem;}
-        .result-disclaimer { font-size: 0.9rem; color: var(--text-light); margin-top: 1.5rem; }
-        
-        /* Contact Section */
-        .contact-info p { margin-bottom: 1.5rem; }
-        .contact-link { color: var(--green-light); text-decoration: none; font-weight: 600; word-break: break-all; }
-        .contact-link:hover { text-decoration: underline; color: var(--green-dark); }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--green-dark); }
-        .form-group input, .form-group textarea { width: 100%; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid var(--border-color); background-color: var(--bg-white); font-family: var(--font-body); font-size: 1rem; transition: all 0.3s ease; }
-        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--green-light); box-shadow: 0 0 0 3px rgba(77, 124, 93, 0.2); }
-        .form-group textarea { resize: vertical; }
-        #contactForm button { width: 100%; }
-        #form-status { margin-top: 1rem; padding: 1rem; border-radius: 8px; text-align: center; display: none; }
-        #form-status.success { background-color: #e8f5e9; color: #2e7d32; }
-        #form-status.error { background-color: #ffebee; color: #c62828; }
-        
-        /* Availability Section */
-        #availability { background-color: var(--bg-white); }
-        #availability h2 { margin-bottom: 2rem; }
-        .partner-logos { display: flex; justify-content: center; align-items: center; gap: clamp(2rem, 8vw, 5rem); flex-wrap: wrap; }
-        .partner-logos img { max-height: 50px; filter: grayscale(100%); transition: filter 0.3s ease; }
-        .partner-logos img:hover { filter: grayscale(0%); }
-
-        /* Footer */
-        .footer { background-color: var(--green-dark); color: #E0E0E0; padding: 60px 0 30px; }
-        .footer-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: 3rem; }
-        .footer-col h4 { color: white; margin-bottom: 1rem; font-family: var(--font-heading); font-size: 1.25rem; }
-        .footer-col p, .footer-col a { color: #BDBDBD; text-decoration: none; transition: color 0.3s ease; }
-        .footer-col ul { list-style: none; }
-        .footer-col li { margin-bottom: 0.5rem; }
-        .footer-col a:hover { color: var(--accent-gold); }
-        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid #4A6354; color: #9E9E9E; font-size: 0.9rem; }
-        
-        .newsletter-form { display: flex; gap: 0.5rem; }
-        .newsletter-form input { flex-grow: 1; padding: 0.75rem; border: 1px solid #4A6354; background-color: #3b5745; color: white; border-radius: 6px; }
-        .newsletter-form input::placeholder { color: #9E9E9E; }
-        .newsletter-form button { background: var(--accent-gold); color: white; border: none; padding: 0.75rem 1rem; border-radius: 6px; cursor: pointer; transition: background 0.3s; }
-        .newsletter-form button:hover { background: #d4a01c; }
-
-        /* Back to Top Button */
-        .back-to-top { position: fixed; bottom: 20px; right: 20px; background-color: var(--accent-gold); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 24px; z-index: 100; opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0.4s, transform 0.4s; }
-        .back-to-top.visible { opacity: 1; visibility: visible; }
-        .back-to-top:hover { transform: scale(1.1); }
-        
-        /* Blog Modal */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0.4s; }
-        .modal.is-open { opacity: 1; visibility: visible; }
-        .modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); cursor: pointer; }
-        .modal-content { position: relative; background-color: white; border-radius: 12px; max-width: 800px; width: 90%; max-height: 85vh; overflow-y: auto; padding: 2rem; z-index: 2001; transform: scale(0.9); transition: transform 0.4s; }
-        .modal.is-open .modal-content { transform: scale(1); }
-        .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 2rem; color: #888; cursor: pointer; line-height: 1; }
-        #modal-title { font-family: var(--font-heading); color: var(--green-dark); margin-bottom: 1.5rem; padding-right: 2rem; }
-        #modal-body h3 { margin-top: 2rem; }
-        #modal-body ul { list-style-position: inside; padding-left: 1rem; }
-        
-        /* Animation Utility */
-        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-        .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shah Hayaat — Premium Ayurvedic Wellness | Natural Healing for Modern Life</title>
+  <meta name="description" content="Discover certified Ayurvedic wellness products from Shah Hayaat. WHO-GMP, ISO 9001:2015 & HACCP certified. Shop Brain Champ, Livo Hayaat, Ortho Hayaat & more.">
+  <meta property="og:title" content="Shah Hayaat — Premium Ayurvedic Wellness">
+  <meta property="og:description" content="Pure, certified Ayurvedic remedies crafted for modern life. Find your balance naturally.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
+  <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-    <header class="header">
-        <div class="container">
-            <a href="#home" class="logo">
-                <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat Logo">
-                <span>Shah Hayaat</span>
-            </a>
-            <nav class="nav-desktop">
-                <ul id="nav-desktop-links"></ul>
-            </nav>
-            <button class="nav-toggle" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </header>
-
-    <nav class="nav-mobile">
-        <ul id="nav-mobile-links"></ul>
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat Logo">
+      <span>Shah <em>Hayaat</em></span>
+    </a>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="quiz.html">Health Quiz</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
     </nav>
+    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-primary nav-cta" style="display:none" id="nav-wa-btn">WhatsApp Us</a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
 
-    <main>
-        <section id="home">
-            <div class="carousel-container">
-                <div class="carousel-slide active" style="background-image: url('https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image.png');"></div>
-                <div class="carousel-slide" style="background-image: url('https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(1).png');"></div>
-                <div class="carousel-slide" style="background-image: url('https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(2).png');"></div>
-            </div>
-            <div class="hero-overlay"></div>
-            <div class="container hero-content animate-on-scroll">
-                <h1>Find Your Balance, Naturally.</h1>
-                <p>Life gets busy. We get it. That's why we create pure, time-tested Ayurvedic remedies to help you feel your best, right here in the modern world.</p>
-                <a href="#products" class="btn btn-primary">See What We Offer</a>
-            </div>
-        </section>
+<nav class="nav-mobile" aria-label="Mobile navigation">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="quiz.html">Health Quiz</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-mobile-footer">
+    <a href="https://wa.me/917051056287" target="_blank" class="btn btn-primary">WhatsApp Us</a>
+  </div>
+</nav>
 
-        <section id="about">
-            <div class="container animate-on-scroll">
-                <h2>Our Story is Simple.</h2>
-                <div class="two-col-layout">
-                    <div class="col-text">
-                        <h3>We Believe in Nature's Wisdom</h3>
-                        <p>Shah Hayaat started with a simple belief: the best healing comes from nature. We wanted to share the incredible power of Ayurveda, but in a way that fits into your busy life today. It's about blending ancient knowledge with modern standards.</p>
-                        <p>For us, it's not just about selling products. It's about helping you find that feeling of balance and well-being. We're picky about our ingredients and serious about quality (with all the certifications to prove it!) because we know you trust us with your health.</p>
-                    </div>
-                    <div class="col-image"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(2).png" loading="lazy" alt="Serene Ayurvedic treatment scene with herbal ingredients" style="border-radius: 12px; box-shadow: var(--shadow-hover);"></div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="certifications">
-            <div class="container animate-on-scroll">
-                <h2>Quality You Can Trust</h2>
-                <p class="section-subtitle">We take your health seriously. That's why our products are made in top-notch facilities that meet the strictest quality standards out there.</p>
-                <div class="cert-grid">
-                    <div class="cert-box"><h4>WHO-GMP Certified</h4></div>
-                    <div class="cert-box"><h4>ISO 9001:2015 Certified</h4></div>
-                    <div class="cert-box"><h4>HACCP Certified</h4></div>
-                </div>
-            </div>
-        </section>
+<main>
 
-        <section id="products">
-            <div class="container animate-on-scroll">
-                <h2>Our Handpicked Remedies</h2>
-                <p class="section-subtitle">Here's our range of wellness solutions. Each one is carefully crafted with pure, powerful ingredients to help you get back to feeling great.</p>
-                <div class="product-grid" id="product-grid-container"></div>
-            </div>
-        </section>
-        
-        <section id="testimonials">
-            <div class="container animate-on-scroll">
-                <h2>Real Stories from People Like You</h2>
-                <p class="section-subtitle">Nothing makes us happier than hearing how we've helped. Here are a few stories from our amazing customers.</p>
-                <div class="testimonial-grid">
-                    <div class="testimonial-card">
-                        <p>My morning walks are back! After just a month of using Ortho Hayaat, my knees feel so much better. I honestly can't believe the difference it's made.</p>
-                        <cite class="testimonial-author">- Priya S., Mumbai</cite>
-                    </div>
-                    <div class="testimonial-card">
-                        <p>Shah Zyme is a lifesaver. I used to feel so bloated and heavy after eating, but now I just feel... normal! Lighter and way more energetic. I recommend it to everyone.</p>
-                        <cite class="testimonial-author">- Rohan K., Delhi</cite>
-                    </div>
-                    <div class="testimonial-card">
-                        <p>As a student, exam season is tough. Brain Champ genuinely helped me focus and cut through the brain fog. It's awesome to use something that's natural and actually works.</p>
-                        <cite class="testimonial-author">- Anjali P., Bengaluru</cite>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="catalogue">
-            <div class="container animate-on-scroll">
-                <h2>Take a Look at Our Full Catalogue</h2>
-                <p class="section-subtitle">Want to see everything we offer? Dive into our interactive catalogue for a detailed look at all our wellness solutions, from classics to special formulas.</p>
-                <div class="catalogue-viewer"><iframe src="https://drive.google.com/file/d/1zFsHSI6XKaBmrN3egPFhK-626OI3ZRDT/preview" loading="lazy" title="Shah Hayaat Product Catalogue"></iframe></div>
-            </div>
-        </section>
-
-        <section id="blog">
-            <div class="container animate-on-scroll">
-                <h2>From Our Wellness Journal</h2>
-                <p class="section-subtitle">Think of this as your friendly guide to living well. We share simple tips from ancient wisdom to help you tackle modern-day stress and feel your best.</p>
-                <div class="blog-grid" id="blog-grid-container"></div>
-            </div>
-        </section>
-
-        <section id="quiz">
-            <div class="container animate-on-scroll">
-                <h2>Find Your Perfect Ayurvedic Match</h2>
-                <p class="section-subtitle">Not sure where to begin? No problem! This quick and easy quiz will help us point you to the right products for your body's unique needs.</p>
-                <div class="quiz-container" id="quiz-container"></div>
-                <div class="quiz-actions"><button class="btn btn-primary" id="submit-quiz-btn">Get My Results</button></div>
-                <div id="quiz-results"></div>
-            </div>
-        </section>
-
-        <section id="contact">
-            <div class="container animate-on-scroll">
-                <h2>Let's Talk</h2>
-                <p class="section-subtitle">Got a question? Need some advice on your wellness journey? We'd love to hear from you. Just drop us a line and we'll get right back to you!</p>
-                <div class="two-col-layout">
-                    <div class="contact-info">
-                        <h3>Contact Info</h3>
-                        <p><strong>Orders & Questions:</strong><br><a href="https://wa.me/917051056287" class="contact-link" target="_blank">Chat with us on WhatsApp</a></p>
-                        <p><strong>Email:</strong><br><a href="mailto:shahhayaat02@gmail.com" class="contact-link">shahhayaat02@gmail.com</a></p>
-                        <p><strong>Follow Us:</strong><br><a href="https://instagram.com/shahhayaatofficial" class="contact-link" target="_blank">Find us on Instagram</a></p>
-                    </div>
-                    <div class="col-form">
-                        <h3>Send a Quick Message</h3>
-                        <form id="contactForm" action="https://formspree.io/f/YOUR_UNIQUE_FORM_ID" method="POST">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" id="name" name="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea id="message" name="message" rows="5" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Send Message</button>
-                        </form>
-                        <div id="form-status"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="availability">
-            <div class="container animate-on-scroll">
-                <h2 style="font-size: 1.5rem; color: var(--text-light);">Find Us Here</h2>
-                <div class="partner-logos">
-                    <a href="https://amzn.in/d/9vsBOWH" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Available on Amazon"></a>
-                    <a href="https://m.indiamart.com/shah-hayaat/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/96/IndiaMART_logo.svg" alt="Available on IndiaMART"></a>
-                </div>
-            </div>
-        </section>
-        
-    </main>
-    
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>About Shah Hayaat</h4>
-                    <p>We make pure, high-quality Ayurvedic remedies that help bring a little balance back to your busy life. Simple, natural, and effective.</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#about">Our Story</a></li>
-                        <li><a href="#products">Our Products</a></li>
-                        <li><a href="#testimonials">Reviews</a></li>
-                        <li><a href="#blog">Wellness Journal</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Get In Touch</h4>
-                    <ul>
-                        <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
-                        <li><a href="https://wa.me/917051056287" target="_blank">WhatsApp</a></li>
-                        <li><a href="https://instagram.com/shahhayaatofficial" target="_blank">Instagram</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Stay in the Loop</h4>
-                    <p>Get helpful wellness tips and special offers sent right to your inbox.</p>
-                    <form class="newsletter-form" action="#" method="post">
-                        <input type="email" name="email" placeholder="Your email" required>
-                        <button type="submit">Sign Up</button>
-                    </form>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; <span id="year"></span> Shah Hayaat. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <a href="#home" class="back-to-top" aria-label="Back to top">&#8593;</a>
-    
-    <div id="blog-modal" class="modal">
-        <div class="modal-overlay"></div>
-        <div class="modal-content">
-            <button class="modal-close" aria-label="Close modal">&times;</button>
-            <h2 id="modal-title"></h2>
-            <div id="modal-body"></div>
-        </div>
+  <!-- ===== HERO ===== -->
+  <section class="hero hero-carousel" id="home" aria-label="Hero">
+    <div class="hero-bg active" style="background-image:url('https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image.png')"></div>
+    <div class="hero-bg" style="background-image:url('https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(1).png')"></div>
+    <div class="hero-bg" style="background-image:url('https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(2).png')"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-progress"></div>
+    <div class="container hero-content">
+      <div class="hero-badge">🌿 WHO-GMP · ISO 9001:2015 · HACCP Certified</div>
+      <h1>Find Your Balance,<br>Naturally.</h1>
+      <p class="hero-subtitle">Experience the timeless wisdom of Ayurveda, crafted for modern wellness. Pure, certified herbal remedies to help you feel your best — every day.</p>
+      <div class="hero-actions">
+        <a href="products.html" class="btn btn-primary">Explore Our Range</a>
+        <a href="quiz.html" class="btn btn-outline-white">Take Health Quiz</a>
+      </div>
     </div>
+    <div class="hero-scroll" aria-hidden="true">Scroll</div>
+  </section>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        try {
-            // --- DATA ---
-            const GITHUB_BASE_URL = "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/";
-            
-            // --- REWRITTEN CONTENT: More human and relatable product descriptions ---
-            const PRODUCTS_DATA = [
-                { name: "Brain Champ", price: 175, desc: "For when you need to focus. Helps clear the mental fog and sharpen your memory, naturally.", img: `${GITHUB_BASE_URL}brainchamp.jpg` }, 
-                { name: "Shah Zyme", price: 165, desc: "Feeling bloated after eating? This gentle syrup helps your digestion run smoothly.", img: `${GITHUB_BASE_URL}shahzyme.jpg` }, 
-                { name: "Blood Storm", price: 165, desc: "A great-tasting tonic to help purify your blood and give your energy a natural boost.", img: `${GITHUB_BASE_URL}bloodstorm.jpg` }, 
-                { name: "Cough X Pro", price: 90, desc: "Soothe that nagging cough and scratchy throat with this comforting herbal formula.", img: `${GITHUB_BASE_URL}coughxpro.jpg` }, 
-                { name: "Musaffa Khoon", price: 165, desc: "Happy skin starts from within. This classic formula helps purify blood for a clearer complexion.", img: `${GITHUB_BASE_URL}musaffakhoon.jpg` }, 
-                { name: "PanaSip", price: 165, desc: "For that uncomfortable heartburn and gas. Get fast, cooling relief when you need it most.", img: `${GITHUB_BASE_URL}panasip.jpg` }, 
-                { name: "Livo Hayaat", price: 349, desc: "Give your liver some love. This powerful blend helps support and protect this vital organ.", img: `${GITHUB_BASE_URL}livohayaat.jpg` }, 
-                { name: "Dia-Ease", price: 695, desc: "A helping hand from nature to support and maintain healthy blood sugar levels.", img: `${GITHUB_BASE_URL}diaease.png` }, 
-                { name: "Ortho Hayaat", price: 649, desc: "For when your joints start complaining. This helps soothe discomfort and keep you moving freely.", img: `${GITHUB_BASE_URL}orthohayaat.jpg` }, 
-                { name: "Utro Hayaat", price: 625, desc: "A gentle and effective tonic made to support and balance women's health through every stage.", img: `${GITHUB_BASE_URL}utrohayaat.png` }, 
-                { name: "Passion Pulse", price: 599, desc: "Feeling a little run down? This is a natural way to boost your stamina, energy, and vitality.", img: `${GITHUB_BASE_URL}passionpulse.jpg` }, 
-                { name: "Fevodol", price: 165, desc: "Help your body's natural defenses stay strong and fight off whatever's going around.", img: `${GITHUB_BASE_URL}fevodol.png` }
-            ];
+  <!-- ===== STATS BAR ===== -->
+  <div class="stats-bar">
+    <div class="container stats-inner">
+      <div class="stat-item"><span class="stat-number">12+</span><div class="stat-label">Herbal Products</div></div>
+      <div class="stat-item"><span class="stat-number">3</span><div class="stat-label">Certifications</div></div>
+      <div class="stat-item"><span class="stat-number">100%</span><div class="stat-label">Natural Ingredients</div></div>
+      <div class="stat-item"><span class="stat-number">5000+</span><div class="stat-label">Happy Customers</div></div>
+    </div>
+  </div>
 
-            // --- REWRITTEN CONTENT: More conversational blog titles and descriptions ---
-            const BLOG_DATA = [
-                { 
-                    title: "Tummy Troubles? 5 Easy Tricks for a Happy Gut", 
-                    desc: "That post-meal bloat is no fun. Here are some super simple, ancient secrets to get your digestion back on track.", 
-                    img: `${GITHUB_BASE_URL}image(3).png`,
-                    fullContent: `<p>Tired of that uncomfortable, heavy feeling after you eat? You're not alone. Bloating is a common issue, and while modern medicine has its solutions, sometimes the best remedies are the oldest ones. Ayurveda, a traditional system of medicine from India, offers simple, ancient tips to improve your digestion and help you feel better naturally.</p><h3>Here are five Ayurvedic secrets to a happy gut:</h3><p><strong>1. Sip Warm Water</strong><br>You've probably heard that drinking water is good for you, but Ayurveda emphasizes the importance of drinking warm water, especially with your meals. Ice-cold drinks can dampen your digestive fire, known as agni, making it harder for your body to break down food. Sipping on warm or hot water throughout the day, and particularly while eating, can aid digestion and help flush out toxins.</p><p><strong>2. Eat Your Largest Meal at Midday</strong><br>Ayurveda suggests that our digestive power is strongest when the sun is at its highest point. This makes lunchtime the perfect time for your biggest meal of the day. Eating a hearty lunch allows your body to efficiently process the food, while a heavy dinner can sit in your stomach and lead to bloating, indigestion, and poor sleep. Aim for a lighter, earlier dinner to give your digestive system a break before bed.</p><p><strong>3. Chew Your Food Well</strong><br>This might seem obvious, but we often rush through our meals. Chewing is the first and most crucial step in digestion. Ayurveda teaches that you should chew your food until it's a liquid. This not only makes it easier for your stomach to do its job but also helps you to eat more mindfully and recognize when you're full. Slower eating also prevents you from swallowing excess air, a common cause of bloating.</p><p><strong>4. Use Digestive Spices</strong><br>Think of your spice rack as a natural medicine cabinet. Many common kitchen spices have powerful digestive properties. Ingredients like ginger, cumin, fennel, and coriander are staples in Ayurvedic cooking. You can add them to your meals, brew them into a digestive tea, or even chew on a few fennel seeds after eating to help prevent gas and bloating.</p><p><strong>5. Take a Short Walk After Meals</strong><br>Instead of collapsing onto the couch right after dinner, try a gentle 10-15 minute walk. This simple activity helps get things moving in your body and stimulates digestion. It doesn't have to be a fast-paced workout—a slow, relaxing stroll is all you need to aid your body in processing the food you’ve just eaten and reduce that feeling of heaviness.</p><p>These Ayurvedic principles are about more than just food; they're about listening to your body and creating healthy routines. By incorporating these simple practices, you can improve your digestion, reduce bloating, and feel lighter and more energetic.</p>`
-                },
-                { 
-                    title: "Can't Switch Off? How Ashwagandha Can Help You Chill", 
-                    desc: "In a world that never stops, finding your 'off' switch can feel impossible. Learn how this ancient herb helps your body handle modern stress.", 
-                    img: `${GITHUB_BASE_URL}image(6).png`,
-                    fullContent: `<p>In a world that never stops, finding a moment of peace can feel impossible. The constant notifications, tight deadlines, and endless to-do lists leave many of us feeling wired and unable to relax. If you're struggling to switch off, it might be time to look at an ancient remedy: Ashwagandha.</p><p>Ashwagandha is a powerful herb that has been used in Ayurvedic medicine for thousands of years. It’s known as an adaptogen, which is a unique class of herbs that helps your body adapt to and manage stress. Think of it like a personal trainer for your nervous system.</p><p>Here's how it works: When you're stressed, your body goes into fight-or-flight mode. Ashwagandha helps to calm this response, balancing your stress hormones (like cortisol) and bringing your body back to a state of equilibrium. It doesn't just mask the stress; it helps your body build resilience against it.</p><p>By regularly incorporating Ashwagandha into your routine, you may find it easier to feel calm, more focused, and better equipped to handle life's challenges. It's not a magic pill, but it's a natural way to help your body manage the constant pressure of modern life.</p>`
-                },
-                { 
-                    title: "How to Beat That 3 PM Slump, Naturally", 
-                    desc: "Still relying on coffee to get through the day? There's a better way. Here are some Ayurvedic tips for energy that actually lasts.", 
-                    img: `${GITHUB_BASE_URL}image(5).png`,
-                    fullContent: `<p>If you find yourself reaching for a second or third cup of coffee to power through the afternoon, there's a better way. Ayurveda offers natural techniques to maintain vibrant energy from morning to night without the caffeine crash.</p><h3>Here’s how to beat the afternoon slump the Ayurvedic way:</h3><p><strong>Eat a Warm, Nourishing Lunch:</strong> Instead of a heavy, cold sandwich, opt for a warm, cooked meal for lunch. This is when your digestive fire is strongest, so a balanced meal with cooked vegetables, grains, and a protein will give you lasting energy without weighing you down.</p><p><strong>Take a Quick Walk:</strong> A short 10-15 minute walk after lunch can work wonders. It helps with digestion and gets your blood flowing, preventing that heavy, sleepy feeling.</p><p><strong>Breathe and Stretch:</strong> When you feel a slump coming on, take a few deep breaths. Simple stretches at your desk can also re-energize your body and mind, helping you feel refreshed and focused for the rest of the day.</p><p>By making a few small changes to your daily routine, you can break free from the coffee cycle and enjoy consistent, natural energy that lasts all day long.</p>`
-                },
-                { 
-                    title: "Want Glowing Skin? Ayurveda Says Look at Your Gut", 
-                    desc: "Forget expensive creams for a second. True radiance starts from the inside. Let's explore the link between diet, digestion, and clear skin.", 
-                    img: `${GITHUB_BASE_URL}image(4).png`,
-                    fullContent: `<p>True radiance isn't just about what you put on your skin; it's about what you put in your body. According to Ayurveda, your skin is a mirror of your inner health, and a clear, glowing complexion starts with a happy gut.</p><p>So, what's the connection? Ayurveda teaches that healthy, radiant skin depends on strong digestion. When your digestive system isn't working properly, toxins can build up in your body, leading to breakouts, dullness, and other skin issues.</p><h3>Here’s how to get that glow from the inside out:</h3><ul><li><strong>Eat Mindfully:</strong> Pay attention to what and how you eat. Choosing fresh, whole foods and chewing them well helps your body absorb all the good stuff.</li><li><strong>Stay Hydrated:</strong> Drinking warm water throughout the day is key. It helps flush out toxins and keeps your skin plump and hydrated.</li><li><strong>Balance Your Digestion:</strong> Use digestive spices like turmeric and cumin in your cooking. They support your body's ability to process food and eliminate waste, which in turn leads to clearer skin.</li></ul><p>By focusing on your diet and digestion, you're not just treating a symptom—you're getting to the root of the problem. A healthy gut means a healthy body, and a healthy body naturally glows.</p>`
-                },
-                { 
-                    title: "A Natural Approach to Soothing Achy Joints", 
-                    desc: "Don't let aches and pains hold you back from doing what you love. Learn about some traditional ways to manage joint discomfort.", 
-                    img: `${GITHUB_BASE_URL}image(1).png`,
-                    fullContent: `<p>Don't let aches and pains hold you back. While joint pain is often seen as a sign of aging, Ayurveda offers traditional approaches to soothe discomfort and improve mobility naturally.</p><p>Ayurveda views joint pain as a result of imbalances in the body, often due to poor digestion or a buildup of toxins. By addressing the root cause, you can find lasting relief.</p><h3>Here are a few Ayurvedic tips for managing joint pain:</h3><ul><li><strong>Warmth and Massage:</strong> Massaging your joints with warm oil (like sesame or castor oil) can be incredibly soothing. The warmth and gentle pressure help to improve circulation and reduce stiffness.</li><li><strong>Anti-Inflammatory Spices:</strong> Incorporate spices like turmeric and ginger into your diet. They have natural anti-inflammatory properties that can help ease pain and swelling.</li><li><strong>Gentle Movement:</strong> Regular, gentle exercise like walking, yoga, or swimming can help keep your joints mobile. The key is consistency, not intensity.</li></ul><p>Ayurveda teaches us that our bodies have an incredible ability to heal. By using these natural approaches, you can take an active role in managing your joint pain and improving your overall quality of life.</p>`
-                }
-            ];
+  <!-- ===== ABOUT ===== -->
+  <section class="section-pad bg-white" id="about">
+    <div class="container">
+      <div class="two-col">
+        <div class="col-text reveal">
+          <p style="font-size:0.82rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent-gold);margin-bottom:0.75rem">Our Story</p>
+          <h2 style="text-align:left;margin-bottom:0.75rem">We Believe in<br>Nature's Wisdom</h2>
+          <div class="divider"></div>
+          <p>Shah Hayaat started with a simple belief: the best healing comes from nature. We wanted to share the incredible power of Ayurveda, but in a way that fits into your busy life today — blending ancient knowledge with modern standards of quality.</p>
+          <p>For us, it's not just about selling products. It's about helping you find that feeling of balance and well-being. We're serious about quality — with all the certifications to prove it — because we know you trust us with your health.</p>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.5rem">
+            <a href="about.html" class="btn btn-outline">Our Full Story</a>
+            <a href="products.html" class="btn btn-primary">View Products</a>
+          </div>
+        </div>
+        <div class="col-img reveal reveal-delay-2">
+          <div class="about-img-wrap">
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(2).png" alt="Ayurvedic herbs and natural ingredients" loading="lazy">
+            <div class="about-img-badge">
+              <span>Est. 2020</span>
+              <p>Trusted Ayurvedic Brand</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            const QUIZ_DATA = [
-                { q: 'How would you describe your natural body frame?', o: [['vata', 'Slender and light'], ['pitta', 'Medium and athletic'], ['kapha', 'Broad and sturdy']] }, { q: 'What is your appetite typically like?', o: [['vata', 'Irregular, varies a lot'], ['pitta', 'Strong and sharp'], ['kapha', 'Slow but steady']] }, { q: 'How does your skin usually feel?', o: [['vata', 'Dry and cool'], ['pitta', 'Warm, sometimes sensitive'], ['kapha', 'Cool, smooth, and often oily']] }, { q: 'What is your energy pattern?', o: [['vata', 'Comes in bursts'], ['pitta', 'Focused and driven'], ['kapha', 'Steady and sustained']] },
-            ];
-            const QUIZ_RECOS = { vata: { title: "Vata Balancing", products: ["Brain Champ", "Shah Zyme"] }, pitta: { title: "Pitta Balancing", products: ["Livo Hayaat", "Blood Storm"] }, kapha: { title: "Kapha Balancing", products: ["Cough X Pro", "Ortho Hayaat"] } };
-            
-            function populateContent() {
-                const navLinksContainerDesktop = document.getElementById('nav-desktop-links');
-                const navLinksContainerMobile = document.getElementById('nav-mobile-links');
-                const productGrid = document.getElementById('product-grid-container');
-                const blogGrid = document.getElementById('blog-grid-container');
-                const quizContainer = document.getElementById('quiz-container');
-                
-                const navLinks = [{href: "#home", text: "Home"}, {href: "#about", text: "About"}, {href: "#products", text: "Products"}, {href: "#testimonials", text: "Reviews"}, {href: "#catalogue", text: "Catalogue"}, {href: "#blog", text: "Blog"}, {href: "#quiz", text: "Dosha Quiz"}, {href: "#contact", text: "Contact"}];
-                let navHtml = navLinks.map(link => `<li><a href="${link.href}">${link.text}</a></li>`).join('');
-                if(navLinksContainerDesktop) navLinksContainerDesktop.innerHTML = navHtml;
-                if(navLinksContainerMobile) navLinksContainerMobile.innerHTML = navHtml;
+  <!-- ===== CERTIFICATIONS ===== -->
+  <section class="section-pad bg-light" id="certifications">
+    <div class="container">
+      <h2 class="section-heading reveal">Our Commitment to Quality</h2>
+      <p class="section-sub reveal reveal-delay-1">Every product is manufactured in top-tier facilities that adhere to the world's strictest quality standards — because your health deserves nothing less.</p>
+      <div class="cert-grid">
+        <div class="cert-card reveal reveal-delay-1">
+          <div class="cert-icon">🌍</div>
+          <h4>WHO-GMP Certified</h4>
+          <p>World Health Organization Good Manufacturing Practices — global standards for pharmaceutical quality.</p>
+        </div>
+        <div class="cert-card reveal reveal-delay-2">
+          <div class="cert-icon">🏆</div>
+          <h4>ISO 9001:2015</h4>
+          <p>International standard for quality management systems, ensuring consistent product excellence and safety.</p>
+        </div>
+        <div class="cert-card reveal reveal-delay-3">
+          <div class="cert-icon">✅</div>
+          <h4>HACCP Certified</h4>
+          <p>Hazard Analysis Critical Control Points — the gold standard for food and supplement safety management.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                if (productGrid) {
-                    productGrid.innerHTML = PRODUCTS_DATA.map(p => `<div class="product-card"><img src="${p.img}" alt="${p.name}" loading="lazy"><div class="product-card-content"><h3>${p.name}</h3><p class="product-desc">${p.desc}</p><div class="product-card-footer"><span class="product-price">₹${p.price}</span><a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} - ₹${p.price}`)}" target="_blank" class="btn btn-primary">Order Now</a></div></div></div>`).join('');
-                }
-                
-                if(blogGrid) {
-                    blogGrid.innerHTML = BLOG_DATA.map((post, index) => `
-                        <article class="blog-card">
-                            <img src="${post.img}" alt="${post.title}" loading="lazy">
-                            <div class="blog-card-content">
-                                <h3>${post.title}</h3>
-                                <p class="blog-excerpt">${post.desc}</p>
-                                <button class="read-more-btn" data-index="${index}">Read More &rarr;</button>
-                            </div>
-                        </article>`).join('');
-                }
+  <!-- ===== PRODUCTS PREVIEW ===== -->
+  <section class="section-pad bg-white" id="products">
+    <div class="container">
+      <h2 class="section-heading reveal">Our Ayurvedic Range</h2>
+      <p class="section-sub reveal reveal-delay-1">Explore our handpicked collection of remedies, each crafted with the purest ingredients to restore your natural balance and vitality.</p>
+      <div class="product-grid" id="product-preview-grid"></div>
+      <div style="text-align:center;margin-top:3rem" class="reveal">
+        <a href="products.html" class="btn btn-primary">View All 12 Products</a>
+      </div>
+    </div>
+  </section>
 
-                if(quizContainer) {
-                    quizContainer.innerHTML = QUIZ_DATA.map((item, index) => `<div class="quiz-question"><p class="quiz-question-title"><strong>${index + 1}.</strong> ${item.q}</p><div class="quiz-options">${item.o.map(([val, label]) => `<label><input type="radio" name="q${index}" value="${val}"><span>${label}</span></label>`).join('')}</div></div>`).join('');
-                }
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="section-pad bg-light" id="testimonials">
+    <div class="container">
+      <h2 class="section-heading reveal">Real Stories from Real People</h2>
+      <p class="section-sub reveal reveal-delay-1">Nothing makes us happier than hearing how we've helped. Here are a few stories from our wonderful customers.</p>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal reveal-delay-1">
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">My morning walks are back! After just a month of using Ortho Hayaat, my knees feel so much better. I honestly can't believe the difference it's made in my daily life.</p>
+          <div class="testimonial-author">
+            <div>
+              <div class="testimonial-stars">★★★★★</div>
+              <div class="testimonial-name">Priya S.</div>
+              <div class="testimonial-loc">Mumbai</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal reveal-delay-2">
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">Shah Zyme is a lifesaver. I used to feel so bloated and heavy after eating, but now I just feel lighter and way more energetic. I recommend it to everyone I know!</p>
+          <div class="testimonial-author">
+            <div>
+              <div class="testimonial-stars">★★★★★</div>
+              <div class="testimonial-name">Rohan K.</div>
+              <div class="testimonial-loc">Delhi</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal reveal-delay-3">
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">As a student, exam season is tough. Brain Champ genuinely helped me focus and cut through the brain fog. It's amazing to use something natural that actually works.</p>
+          <div class="testimonial-author">
+            <div>
+              <div class="testimonial-stars">★★★★★</div>
+              <div class="testimonial-name">Anjali P.</div>
+              <div class="testimonial-loc">Bengaluru</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                const yearSpan = document.getElementById('year');
-                if(yearSpan) yearSpan.textContent = new Date().getFullYear();
-            }
-            
-            function setupInteractions() {
-                const navToggle = document.querySelector('.nav-toggle');
-                const backToTopBtn = document.querySelector('.back-to-top');
-                const blogGrid = document.getElementById('blog-grid-container');
-                const modal = document.getElementById('blog-modal');
-                const modalTitle = document.getElementById('modal-title');
-                const modalBody = document.getElementById('modal-body');
-                const modalCloseBtn = modal.querySelector('.modal-close');
-                const modalOverlay = modal.querySelector('.modal-overlay');
+  <!-- ===== QUIZ CTA BANNER ===== -->
+  <div class="cta-banner">
+    <div class="container">
+      <div class="reveal">
+        <p style="font-size:0.82rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent-gold2);margin-bottom:0.75rem">Smart Health Quiz</p>
+        <h2 style="color:#fff;margin-bottom:1rem">Not Sure Where to Start?</h2>
+        <p style="color:rgba(255,255,255,0.75);max-width:550px;margin:0 auto 2rem">Our smart health assessment asks the right questions and recommends only the products that match your specific health concerns.</p>
+        <a href="quiz.html" class="btn btn-primary" style="font-size:1.05rem;padding:1rem 2.5rem">Take the Free Quiz →</a>
+      </div>
+    </div>
+  </div>
 
-                if (navToggle) {
-                    navToggle.addEventListener('click', () => { document.body.classList.toggle('nav-open'); });
-                }
-                document.querySelectorAll('.nav-mobile a, .nav-desktop a').forEach(link => {
-                    link.addEventListener('click', () => { setTimeout(() => { document.body.classList.remove('nav-open'); }, 300); });
-                });
-                
-                window.addEventListener('scroll', () => { 
-                    const isScrolled = window.scrollY > 50;
-                    document.body.classList.toggle('scrolled', isScrolled);
-                    if(backToTopBtn) backToTopBtn.classList.toggle('visible', window.scrollY > 300);
-                });
+  <!-- ===== BLOG PREVIEW ===== -->
+  <section class="section-pad bg-light" id="blog">
+    <div class="container">
+      <h2 class="section-heading reveal">From Our Wellness Journal</h2>
+      <p class="section-sub reveal reveal-delay-1">Your guide to balanced living — practical tips from ancient wisdom for modern-day wellness challenges.</p>
+      <div class="blog-grid" id="blog-preview-grid"></div>
+      <div style="text-align:center;margin-top:3rem" class="reveal">
+        <a href="blog.html" class="btn btn-outline">Read All Articles</a>
+      </div>
+    </div>
+  </section>
 
-                const heroSection = document.getElementById('home');
-                const slides = document.querySelectorAll('.carousel-slide');
-                if (slides.length > 0) {
-                    let currentSlide = 0;
-                    const slideInterval = 5000;
-                    const nextSlide = () => {
-                        heroSection.classList.remove('progress-animate');
-                        slides[currentSlide].classList.remove('active');
-                        currentSlide = (currentSlide + 1) % slides.length;
-                        slides[currentSlide].classList.add('active');
-                        void heroSection.offsetWidth;
-                        heroSection.classList.add('progress-animate');
-                    };
-                    heroSection.classList.add('progress-animate');
-                    setInterval(nextSlide, slideInterval);
-                }
-                
-                const quizSubmitBtn = document.getElementById('submit-quiz-btn');
-                if(quizSubmitBtn) {
-                    quizSubmitBtn.addEventListener('click', () => {
-                        const quizResultsContainer = document.getElementById('quiz-results');
-                        const answers = {};
-                        let allAnswered = true;
-                        for (let i = 0; i < QUIZ_DATA.length; i++) {
-                            const checked = document.querySelector(`input[name="q${i}"]:checked`);
-                            if(checked) { answers[checked.value] = (answers[checked.value] || 0) + 1; }  
-                            else { allAnswered = false; break; }
-                        }
-                        if (!allAnswered) { alert('Please answer all questions to find your profile.'); return; }
-                        
-                        const dominantDosha = Object.keys(answers).length ? Object.keys(answers).reduce((a, b) => answers[a] > answers[b] ? a : b) : 'vata';
-                        const reco = QUIZ_RECOS[dominantDosha];
-                        // REWRITTEN CONTENT
-                        quizResultsContainer.innerHTML = `<div class="result-card"><h3>Here's What We Suggest for You!</h3><p>Based on your answers, these products could be a great fit for helping you find balance:</p><div class="result-products">${reco.products.map(pName => { const p = PRODUCTS_DATA.find(pr => pr.name === pName); return p ? `<div class="result-product"><img src="${p.img}" alt="${p.name}" loading="lazy"><h4>${p.name}</h4><a href="https://wa.me/917051056287?text=${encodeURIComponent(`I'd like to order ${p.name} based on my quiz results`)}" target="_blank" class="btn btn-primary">Order</a></div>` : ''; }).join('')}</div><p class="result-disclaimer">Just a friendly reminder: this is a general suggestion, not medical advice. Please chat with a doctor for any specific health concerns.</p></div>`;
-                        quizResultsContainer.scrollIntoView({ behavior: 'smooth' });
-                    });
-                }
+  <!-- ===== AVAILABILITY ===== -->
+  <section class="section-pad-sm bg-white">
+    <div class="container reveal">
+      <p style="text-align:center;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-light);margin-bottom:1.5rem">Also Available On</p>
+      <div class="partner-logos">
+        <a href="https://amzn.in/d/9vsBOWH" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon India"></a>
+        <a href="https://m.indiamart.com/shah-hayaat/" target="_blank" rel="noopener"><img src="https://upload.wikimedia.org/wikipedia/commons/9/96/IndiaMART_logo.svg" alt="IndiaMART"></a>
+      </div>
+    </div>
+  </section>
 
-                const contactForm = document.getElementById('contactForm');
-                if(contactForm) {
-                    contactForm.addEventListener("submit", async function(event) {
-                        event.preventDefault();
-                        const form = event.target;
-                        const data = new FormData(form);
-                        const status = document.getElementById("form-status");
+</main>
 
-                        try {
-                            const response = await fetch(form.action, { method: form.method, body: data, headers: { 'Accept': 'application/json' } });
-                            if (response.ok) {
-                                status.innerHTML = "Thanks, we got your message!"; status.className = 'success'; status.style.display = 'block'; form.reset();
-                            } else {
-                                const responseData = await response.json();
-                                if (responseData && responseData.errors) { status.innerHTML = responseData.errors.map(error => error.message).join(", "); } 
-                                else { status.innerHTML = "Uh oh! Something went wrong. Please try again."; }
-                                status.className = 'error'; status.style.display = 'block';
-                            }
-                        } catch (error) { status.innerHTML = "Uh oh! Something went wrong. Please try again."; status.className = 'error'; status.style.display = 'block'; }
-                    });
-                }
-                
-                function openModal(index) {
-                    const post = BLOG_DATA[index];
-                    modalTitle.textContent = post.title;
-                    modalBody.innerHTML = post.fullContent;
-                    modal.classList.add('is-open');
-                    document.body.classList.add('modal-open');
-                }
-                
-                function closeModal() {
-                    modal.classList.remove('is-open');
-                    document.body.classList.remove('modal-open');
-                }
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat Logo">
+          <span>Shah <em>Hayaat</em></span>
+        </a>
+        <p style="margin-top:1rem">Pure, certified Ayurvedic remedies that bring balance and vitality to your modern lifestyle.</p>
+        <div class="footer-socials">
+          <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="footer-social-icon" aria-label="Instagram">📷</a>
+          <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="footer-social-icon" aria-label="WhatsApp">💬</a>
+          <a href="mailto:shahhayaat02@gmail.com" class="footer-social-icon" aria-label="Email">✉️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="quiz.html">Health Quiz</a></li>
+          <li><a href="blog.html">Wellness Blog</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="product-detail.html?id=brainchamp">Brain Champ</a></li>
+          <li><a href="product-detail.html?id=shahzyme">Shah Zyme</a></li>
+          <li><a href="product-detail.html?id=livohayaat">Livo Hayaat</a></li>
+          <li><a href="product-detail.html?id=orthohayaat">Ortho Hayaat</a></li>
+          <li><a href="products.html">View All →</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <ul>
+          <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
+          <li><a href="https://wa.me/917051056287" target="_blank">WhatsApp: +91 70510 56287</a></li>
+          <li><a href="https://instagram.com/shahhayaatofficial" target="_blank">@shahhayaatofficial</a></li>
+          <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
+          <li><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Shah Hayaat. All Rights Reserved. | WHO-GMP · ISO 9001:2015 · HACCP Certified</p>
+    </div>
+  </div>
+</footer>
 
-                if (blogGrid) {
-                    blogGrid.addEventListener('click', function(event) {
-                        if (event.target.matches('.read-more-btn')) {
-                            const index = event.target.dataset.index;
-                            openModal(index);
-                        }
-                    });
-                }
-                
-                modalCloseBtn.addEventListener('click', closeModal);
-                modalOverlay.addEventListener('click', closeModal);
-                window.addEventListener('keydown', function(event) {
-                    if (event.key === 'Escape' && modal.classList.contains('is-open')) {
-                        closeModal();
-                    }
-                });
+<a href="#home" class="back-to-top" aria-label="Back to top">↑</a>
+<a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp">💬</a>
 
-                const animatedElements = document.querySelectorAll('.animate-on-scroll');
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
-                    });
-                }, { threshold: 0.1 });
-                animatedElements.forEach(el => observer.observe(el));
-            }
-
-            populateContent();
-            setupInteractions();
-            
-        } catch (error) {
-            console.error("A critical error occurred on page load:", error);
-            document.body.innerHTML = `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h1>An Error Occurred</h1><p>There was a problem loading the page. Please try again later.</p><p style="color: grey; font-size: 0.8em;">Error: ${error.message}</p></div>`;
-        }
-    });
-    </script>
+<script src="assets/js/main.js"></script>
+<script>
+  // Show nav CTA on desktop
+  if (window.innerWidth >= 960) document.getElementById('nav-wa-btn').style.display = 'inline-flex';
+</script>
 </body>
 </html>
