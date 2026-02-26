@@ -1,29 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wellness Journal - Shah Hayaat</title>
-    <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wellness Journal — Ayurvedic Tips & Health Insights | Shah Hayaat</title>
+  <meta name="description" content="Explore Shah Hayaat's wellness journal for practical Ayurvedic tips on digestion, stress, energy, skin and natural living for the modern world.">
+  <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <header class="header"></header>
-    <nav class="nav-mobile"></nav>
-    <main>
-        <section class="animate-on-scroll">
-            <div class="container">
-                <h2>From Our Wellness Journal</h2>
-                <p class="section-subtitle">Explore articles on health, wellness, and the timeless wisdom of Ayurveda from our experts.</p>
-                <div class="blog-grid" id="blog-grid-container">
-                    </div>
-            </div>
-        </section>
-    </main>
-    <footer class="footer"></footer>
-    <script src="script.js"></script>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat Logo"><span>Shah <em>Hayaat</em></span></a>
+    <nav class="nav-desktop"><ul>
+      <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+      <li><a href="products.html">Products</a></li><li><a href="quiz.html">Health Quiz</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li><li><a href="contact.html">Contact</a></li>
+    </ul></nav>
+    <button class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<nav class="nav-mobile"><ul>
+  <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+  <li><a href="products.html">Products</a></li><li><a href="quiz.html">Health Quiz</a></li>
+  <li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li>
+</ul><div class="nav-mobile-cta"><a href="https://wa.me/917051056287" target="_blank" class="btn btn-primary">💬 WhatsApp Us</a></div></nav>
+
+<main>
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <nav class="breadcrumb"><a href="index.html">Home</a><span class="sep">/</span><span>Wellness Journal</span></nav>
+      <h1>Wellness Journal</h1>
+      <p>Practical Ayurvedic wisdom for modern life — simple, actionable tips to help you feel your absolute best every day.</p>
+    </div>
+  </div>
+
+  <section class="section bg-cream">
+    <div class="container">
+      <div class="blog-grid" id="full-blog-grid"></div>
+
+      <!-- Newsletter -->
+      <div style="margin-top:4rem;background:var(--green-dark);border-radius:var(--radius);padding:2.5rem;text-align:center" class="reveal">
+        <h3 style="color:#fff;margin-bottom:0.5rem">Get Wellness Tips in Your Inbox</h3>
+        <p style="color:rgba(255,255,255,0.68);margin-bottom:1.5rem">Ayurvedic tips, new product launches and health insights — delivered regularly.</p>
+        <form style="display:flex;gap:0.7rem;justify-content:center;flex-wrap:wrap;max-width:420px;margin:0 auto"
+              onsubmit="handleNewsletterSubmit(event)">
+          <input type="email" placeholder="Your email address" required
+            style="flex:1;padding:0.8rem 1rem;border-radius:50px;border:none;font-family:var(--font-body);font-size:0.95rem;min-width:200px;outline:none">
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+        <p id="nl-status" style="margin-top:0.8rem;font-size:0.85rem;color:rgba(255,255,255,0.65);min-height:1.2em"></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat Logo"><span>Shah <em>Hayaat</em></span></a>
+        <p>Pure, certified Ayurvedic remedies for modern life.</p>
+      </div>
+      <div class="footer-col"><h4>Quick Links</h4><ul>
+        <li><a href="products.html">All Products</a></li><li><a href="quiz.html">Health Quiz</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
+        <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom"><p>© <span id="year"></span> Shah Hayaat. All Rights Reserved.</p></div>
+  </div>
+</footer>
+<a href="#" class="back-top">↑</a>
+<a href="https://wa.me/917051056287" target="_blank" class="wa-float">💬</a>
+
+<script src="assets/js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    window.SHAH.renderBlogs(document.getElementById('full-blog-grid'));
+  });
+  function handleNewsletterSubmit(e) {
+    e.preventDefault();
+    document.getElementById('nl-status').textContent = '✓ Thank you! We\'ll be in touch soon.';
+    e.target.reset();
+  }
+</script>
 </body>
 </html>

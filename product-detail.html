@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pg-title">Product — Shah Hayaat</title>
+  <meta name="description" id="pg-desc" content="Premium Ayurvedic product from Shah Hayaat.">
+  <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat Logo"><span>Shah <em>Hayaat</em></span></a>
+    <nav class="nav-desktop"><ul>
+      <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+      <li><a href="products.html" class="active">Products</a></li><li><a href="quiz.html">Health Quiz</a></li>
+      <li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li>
+    </ul></nav>
+    <button class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<nav class="nav-mobile"><ul>
+  <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+  <li><a href="products.html">Products</a></li><li><a href="quiz.html">Health Quiz</a></li>
+  <li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li>
+</ul><div class="nav-mobile-cta"><a href="https://wa.me/917051056287" target="_blank" class="btn btn-primary">💬 WhatsApp Us</a></div></nav>
+
+<main id="product-main">
+  <!-- JS populates this -->
+  <div id="loading" style="min-height:70vh;display:flex;align-items:center;justify-content:center">
+    <p style="color:var(--text-muted)">Loading product…</p>
+  </div>
+</main>
+
+<section class="section bg-cream" id="related-wrap" style="display:none">
+  <div class="container">
+    <h2 class="section-heading">You Might Also Like</h2>
+    <div class="product-grid" id="related-grid"></div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat Logo"><span>Shah <em>Hayaat</em></span></a>
+        <p>Pure, certified Ayurvedic remedies for modern life.</p>
+      </div>
+      <div class="footer-col"><h4>Quick Links</h4><ul>
+        <li><a href="products.html">All Products</a></li><li><a href="quiz.html">Health Quiz</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
+        <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom"><p>© <span id="year"></span> Shah Hayaat. All Rights Reserved.</p></div>
+  </div>
+</footer>
+<a href="#" class="back-top">↑</a>
+<a href="https://wa.me/917051056287" target="_blank" class="wa-float">💬</a>
+
+<script src="assets/js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const { PRODUCTS, imgSrc } = window.SHAH;
+  const id = new URLSearchParams(location.search).get('id');
+  const main = document.getElementById('product-main');
+  const loading = document.getElementById('loading');
+  const p = PRODUCTS.find(x => x.id === id);
+
+  if (!p) {
+    loading.innerHTML = `<div style="text-align:center;padding:5rem 2rem">
+      <div style="font-size:3rem;margin-bottom:1rem">🌿</div>
+      <h2 style="color:var(--green-dark);margin-bottom:0.5rem">Product Not Found</h2>
+      <p>We couldn't find that product. Please browse our full range.</p>
+      <a href="products.html" class="btn btn-primary" style="margin-top:1.2rem">Browse All Products</a>
+    </div>`;
+    return;
+  }
+
+  document.getElementById('pg-title').textContent = p.name + ' — Shah Hayaat';
+  document.getElementById('pg-desc').content = p.full;
+
+  loading.remove();
+  main.innerHTML = `
+    <!-- Page Hero -->
+    <div class="page-hero">
+      <div class="container page-hero-inner">
+        <nav class="breadcrumb">
+          <a href="index.html">Home</a><span class="sep">/</span>
+          <a href="products.html">Products</a><span class="sep">/</span>
+          <span>${p.name}</span>
+        </nav>
+        <h1 style="font-size:clamp(1.75rem,4vw,2.6rem)">${p.name}</h1>
+        <p>${p.tag}</p>
+      </div>
+    </div>
+
+    <!-- Detail -->
+    <section class="section bg-white">
+      <div class="container">
+        <div class="detail-grid">
+          <!-- Image -->
+          <div class="reveal">
+            <div class="detail-img">
+              <img src="${imgSrc(p.id)}" alt="${p.name}" loading="eager">
+            </div>
+          </div>
+
+          <!-- Info -->
+          <div class="reveal delay-2">
+            <div class="detail-price">₹${p.price} <sub>/ pack</sub></div>
+            <div class="detail-actions">
+              <a href="https://wa.me/917051056287?text=${encodeURIComponent("Hi! I'd like to order " + p.name + ' — ₹' + p.price)}"
+                 target="_blank" rel="noopener" class="btn btn-primary btn-lg">💬 Order on WhatsApp</a>
+              <a href="products.html" class="btn btn-outline">← All Products</a>
+            </div>
+
+            <div class="info-block" style="margin-top:2rem">
+              <div class="info-block-label">About This Product</div>
+              <p style="color:var(--text-mid);line-height:1.8">${p.full}</p>
+            </div>
+
+            <div class="info-block">
+              <div class="info-block-label">Key Benefits</div>
+              <div>
+                ${p.benefits.map(b => `<div class="benefit-item">${b}</div>`).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info Boxes -->
+        <div class="info-boxes">
+          <div class="info-box reveal delay-1">
+            <span class="info-block-label">Key Ingredients</span>
+            <p>${p.ingredients}</p>
+          </div>
+          <div class="info-box reveal delay-2">
+            <span class="info-block-label">Dosage Instructions</span>
+            <p>${p.dosage}</p>
+          </div>
+          <div class="info-box reveal delay-3">
+            <span class="info-block-label">Precautions</span>
+            <p>${p.precautions}</p>
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="quiz-disclaimer reveal" style="margin-top:2rem">
+          <strong>Disclaimer:</strong> This is an Ayurvedic supplement and is not intended to diagnose, treat, cure or prevent any disease. Results may vary. Please consult a qualified healthcare professional before use, especially if pregnant, nursing or on medication.
+        </div>
+      </div>
+    </section>`;
+
+  // Trigger reveals on dynamically inserted content
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Related products
+  const related = PRODUCTS.filter(x => x.cat === p.cat && x.id !== p.id).slice(0, 3);
+  if (related.length) {
+    document.getElementById('related-wrap').style.display = '';
+    const rGrid = document.getElementById('related-grid');
+    rGrid.innerHTML = related.map(r => `
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="${imgSrc(r.id)}" alt="${r.name}" loading="lazy">
+          <span class="product-cat-tag">${r.tag}</span>
+        </div>
+        <div class="product-body">
+          <h3>${r.name}</h3>
+          <p class="product-desc">${r.desc}</p>
+          <div class="product-footer">
+            <div class="product-price">₹${r.price}</div>
+            <a href="product-detail.html?id=${r.id}" class="btn btn-outline btn-sm">View Details</a>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+});
+</script>
+</body>
+</html>
