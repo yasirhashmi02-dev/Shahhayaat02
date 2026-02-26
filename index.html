@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shah Hayaat — Premium Ayurvedic Wellness | Natural Healing for Modern Life</title>
-  <meta name="description" content="Discover certified Ayurvedic wellness products from Shah Hayaat. WHO-GMP, ISO 9001:2015 and HACCP certified. Shop Brain Champ, Livo Hayaat, Ortho Hayaat and more.">
-  <meta property="og:title" content="Shah Hayaat — Premium Ayurvedic Wellness">
-  <meta property="og:description" content="Pure, certified Ayurvedic remedies crafted for modern life. Find your balance naturally.">
+  <title>Shah Hayaat — Premium Ayurvedic Wellness | Natural Healing</title>
+  <meta name="description" content="Discover WHO-GMP, ISO 9001:2015 and HACCP certified Ayurvedic products. Brain Champ, Ortho Hayaat, Livo Hayaat and 9 more remedies for complete natural wellness.">
+  <meta property="og:title" content="Shah Hayaat — Premium Ayurvedic Wellness | Natural Healing">
+  <meta property="og:description" content="Discover WHO-GMP, ISO 9001:2015 and HACCP certified Ayurvedic products. Brain Champ, Ortho Hayaat, Livo Hayaat and 9 more remedies for complete natural wellness.">
   <meta property="og:image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yasirhashmi02-dev.github.io/Shahhayaat02/index.html">
   <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -381,72 +384,111 @@ body.nav-open .nav-mobile{transform:translateX(0)}
   .detail-img img{height:300px}
 }
 
-</style>
+/* ---- v3 Additions ---- */
+
+/* Accessibility: focus outlines */
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:4px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+/* Better touch targets on mobile */
+@media(max-width:768px){
+  .btn{min-height:48px;padding:0.9rem 1.8rem}
+  .btn-sm{min-height:42px}
+  .filter-btn{min-height:44px}
+  .faq-q{min-height:52px}
+  .nav-mobile a{padding:0.9rem 2rem}
+}
+
+/* Sticky header shrinks */
+body.scrolled .site-header{padding:0.45rem 0}
+
+/* Legal pages */
+.legal-content{max-width:820px;margin:0 auto;padding:2rem 0}
+.legal-content h2{font-size:1.4rem;margin:2.2rem 0 0.6rem;color:var(--green-dark)}
+.legal-content h3{font-size:1.1rem;margin:1.5rem 0 0.4rem;color:var(--green-dark)}
+.legal-content ul{margin:0.6rem 0 1rem 1.5rem;list-style:disc}
+.legal-content ul li{margin-bottom:0.35rem;font-size:0.95rem;color:var(--text-muted)}
+.legal-content p{font-size:0.96rem}
+.legal-date{font-size:0.82rem;color:var(--text-muted);margin-bottom:2rem;padding:0.7rem 1rem;
+            background:var(--bg-cream);border-radius:var(--radius-sm);display:inline-block}
+
+/* Footer legal links */
+.footer-legal{display:flex;flex-wrap:wrap;gap:0.5rem 1.5rem;justify-content:center;
+              margin-top:0.6rem}
+.footer-legal a{color:rgba(255,255,255,0.35);font-size:0.76rem;transition:color 0.2s}
+.footer-legal a:hover{color:var(--gold-light)}
+
+/* Schema / SEO invisible but structured */
+
+/* Better section spacing on mobile */
+@media(max-width:640px){
+  .section{padding:clamp(3rem,8vw,5rem) 0}
+  .testi-grid{grid-template-columns:1fr}
+  .cert-grid{grid-template-columns:1fr}
+  .blog-grid{grid-template-columns:1fr}
+  .product-grid{grid-template-columns:1fr}
+  .stats-inner{gap:1rem 2rem}
+  .stat-num{font-size:1.65rem}
+}
+
+/* Alt text visible for SEO crawlers but not users */
+img[alt]{font-size:0}
+
+  </style>
 </head>
 <body>
-
-<!-- ===== HEADER ===== -->
 <header class="site-header">
   <div class="container header-inner">
     <a href="index.html" class="logo">
       <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat Logo">
       <span>Shah <em>Hayaat</em></span>
     </a>
-    <nav class="nav-desktop" aria-label="Main navigation">
-      <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="products.html">Products</a></li>
-        <li><a href="quiz.html">Health Quiz</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-    <a href="https://wa.me/917051056287" target="_blank" rel="noopener"
-       class="btn btn-primary btn-sm" style="display:none" id="hdr-wa">WhatsApp Us</a>
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <nav class="nav-desktop" aria-label="Main navigation"><ul>
+      <li><a href="index.html" class='active'>Home</a></li>
+      <li><a href="about.html" >About</a></li>
+      <li><a href="products.html" >Products</a></li>
+      <li><a href="catalogue.html" >Catalogue</a></li>
+      <li><a href="quiz.html" >Health Quiz</a></li>
+      <li><a href="blog.html" >Blog</a></li>
+      <li><a href="contact.html" >Contact</a></li>
+    </ul></nav>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
-
-<nav class="nav-mobile" aria-label="Mobile navigation">
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="products.html">Products</a></li>
-    <li><a href="quiz.html">Health Quiz</a></li>
-    <li><a href="blog.html">Blog</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-  <div class="nav-mobile-cta">
-    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-primary">💬 WhatsApp Us</a>
-  </div>
-</nav>
+<nav class="nav-mobile" aria-label="Mobile navigation"><ul>
+  <li><a href="index.html">Home</a></li>
+  <li><a href="about.html">About</a></li>
+  <li><a href="products.html">Products</a></li>
+  <li><a href="catalogue.html">Catalogue</a></li>
+  <li><a href="quiz.html">Health Quiz</a></li>
+  <li><a href="blog.html">Blog</a></li>
+  <li><a href="contact.html">Contact</a></li>
+</ul>
+<div class="nav-mobile-cta">
+  <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-primary">💬 WhatsApp Us</a>
+</div></nav>
 
 <main>
-
-  <!-- ===== HERO ===== -->
-  <section class="hero" aria-label="Welcome to Shah Hayaat">
-    <div class="hero-slide active" style="background-image:url('https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image.png')"></div>
-    <div class="hero-slide" style="background-image:url('https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(1).png')"></div>
-    <div class="hero-slide" style="background-image:url('https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(2).png')"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-progress"></div>
+  <section class="hero" aria-label="Shah Hayaat — Find Your Balance Naturally">
+    <div class="hero-slide active" style="background-image:url('https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image.png')" role="img" aria-label="Ayurvedic herbs and natural ingredients"></div>
+    <div class="hero-slide" style="background-image:url('https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(2).png')" role="img" aria-label="Natural wellness ingredients"></div>
+    <div class="hero-slide" style="background-image:url('https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(4).png')" role="img" aria-label="Ayurvedic lifestyle"></div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-progress" aria-hidden="true"></div>
     <div class="container hero-content">
-      <div class="hero-badge">🌿 WHO-GMP &nbsp;·&nbsp; ISO 9001:2015 &nbsp;·&nbsp; HACCP Certified</div>
+      <div class="hero-badge" role="note">🌿 WHO-GMP &nbsp;·&nbsp; ISO 9001:2015 &nbsp;·&nbsp; HACCP Certified</div>
       <h1>Find Your Balance,<br>Naturally.</h1>
       <p class="hero-sub">Experience the timeless wisdom of Ayurveda, crafted for modern wellness. Pure, certified herbal remedies to help you feel your best — every day.</p>
       <div class="hero-btns">
         <a href="products.html" class="btn btn-primary btn-lg">Explore Our Range</a>
-        <a href="quiz.html" class="btn btn-ghost-white btn-lg">Take Health Quiz</a>
+        <a href="quiz.html" class="btn btn-ghost-white btn-lg">Take Free Health Quiz</a>
       </div>
     </div>
     <div class="hero-scroll" aria-hidden="true">Scroll</div>
   </section>
 
-  <!-- ===== STATS BAR ===== -->
-  <div class="stats-bar">
+  <!-- Stats -->
+  <div class="stats-bar" role="region" aria-label="Brand statistics">
     <div class="container stats-inner">
       <div class="stat-item"><span class="stat-num">12+</span><div class="stat-lbl">Herbal Products</div></div>
       <div class="stat-item"><span class="stat-num">3</span><div class="stat-lbl">Certifications</div></div>
@@ -455,16 +497,16 @@ body.nav-open .nav-mobile{transform:translateX(0)}
     </div>
   </div>
 
-  <!-- ===== ABOUT PREVIEW ===== -->
-  <section class="section bg-white">
+  <!-- About preview -->
+  <section class="section bg-white" aria-labelledby="about-heading">
     <div class="container">
       <div class="grid-2">
         <div class="reveal">
           <span class="section-label">Our Story</span>
-          <h2 style="margin-bottom:0.75rem">We Believe in<br>Nature's Wisdom</h2>
+          <h2 id="about-heading" style="margin-bottom:0.75rem">We Believe in<br>Nature's Wisdom</h2>
           <div class="divider"></div>
-          <p>Shah Hayaat started with a simple belief: the best healing comes from nature. We wanted to share the incredible power of Ayurveda in a way that fits into your busy, modern life — blending ancient knowledge with today's standards of quality and safety.</p>
-          <p>For us, it's not just about selling products. It's about helping you find genuine balance and wellbeing. We're serious about quality — with all the certifications to prove it — because we know you trust us with your health.</p>
+          <p>Shah Hayaat started with a simple belief: the best healing comes from nature. We blend the timeless wisdom of Ayurveda with modern quality standards — creating remedies that are pure, safe and genuinely effective.</p>
+          <p>For us, it's not just about selling products. It's about helping you find genuine balance and wellbeing. Our WHO-GMP, ISO 9001:2015 and HACCP certifications are your assurance that we take quality as seriously as you do.</p>
           <div class="flex-center" style="justify-content:flex-start;margin-top:1.6rem;flex-wrap:wrap">
             <a href="about.html" class="btn btn-outline">Our Full Story</a>
             <a href="products.html" class="btn btn-primary">View Products</a>
@@ -473,7 +515,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
         <div class="reveal delay-2">
           <div class="about-img-wrap">
             <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/image(2).png"
-                 alt="Ayurvedic herbs and natural ingredients" loading="lazy">
+                 alt="Natural Ayurvedic herbs and healing ingredients used in Shah Hayaat products" loading="lazy">
             <div class="about-img-badge">
               <div class="badge-num">Est. 2020</div>
               <p>Trusted Ayurvedic Brand</p>
@@ -484,164 +526,163 @@ body.nav-open .nav-mobile{transform:translateX(0)}
     </div>
   </section>
 
-  <!-- ===== CERTIFICATIONS ===== -->
-  <section class="section bg-cream">
+  <!-- Certifications -->
+  <section class="section bg-cream" aria-labelledby="cert-heading">
     <div class="container">
       <span class="section-label reveal" style="display:block;text-align:center">Quality Assurance</span>
-      <h2 class="section-heading reveal delay-1">Our Commitment to Quality</h2>
-      <p class="section-sub reveal delay-2">Every product is manufactured in top-tier facilities adhering to the world's strictest quality standards — because your health deserves nothing less.</p>
+      <h2 class="section-heading reveal delay-1" id="cert-heading">Certified Quality You Can Trust</h2>
+      <p class="section-sub reveal delay-2">Every Shah Hayaat product is manufactured in facilities meeting the world's most rigorous quality standards — because your health deserves nothing less.</p>
       <div class="cert-grid">
         <div class="cert-card reveal delay-1">
-          <div class="cert-icon">🌍</div>
-          <h4>WHO-GMP Certified</h4>
+          <div class="cert-icon" aria-hidden="true">🌍</div>
+          <h3>WHO-GMP Certified</h3>
           <p>World Health Organization Good Manufacturing Practices — the global benchmark for pharmaceutical production quality and safety.</p>
         </div>
         <div class="cert-card reveal delay-2">
-          <div class="cert-icon">🏆</div>
-          <h4>ISO 9001:2015</h4>
-          <p>International standard for quality management systems, ensuring consistent product excellence and full regulatory compliance.</p>
+          <div class="cert-icon" aria-hidden="true">🏆</div>
+          <h3>ISO 9001:2015</h3>
+          <p>International quality management standard ensuring consistent product excellence and full regulatory compliance in every batch.</p>
         </div>
         <div class="cert-card reveal delay-3">
-          <div class="cert-icon">✅</div>
-          <h4>HACCP Certified</h4>
-          <p>Hazard Analysis Critical Control Points — the gold standard for food and supplement safety management throughout production.</p>
+          <div class="cert-icon" aria-hidden="true">✅</div>
+          <h3>HACCP Certified</h3>
+          <p>Hazard Analysis Critical Control Points — the gold standard for food and supplement safety management throughout our entire production process.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== PRODUCTS PREVIEW ===== -->
-  <section class="section bg-white">
+  <!-- Products preview -->
+  <section class="section bg-white" aria-labelledby="products-heading">
     <div class="container">
       <span class="section-label reveal" style="display:block;text-align:center">Herbal Remedies</span>
-      <h2 class="section-heading reveal delay-1">Our Ayurvedic Range</h2>
-      <p class="section-sub reveal delay-2">Handpicked remedies, each crafted with the purest ingredients to restore your natural balance and vitality.</p>
-      <div class="product-grid" id="product-preview-grid"></div>
+      <h2 class="section-heading reveal delay-1" id="products-heading">Our Ayurvedic Range</h2>
+      <p class="section-sub reveal delay-2">Handpicked remedies crafted with the purest ingredients — each targeting a specific area of your health and wellbeing.</p>
+      <div class="product-grid" id="product-preview-grid" role="list" aria-label="Featured Ayurvedic products"></div>
       <div class="text-center mt-3 reveal">
         <a href="products.html" class="btn btn-primary btn-lg">View All 12 Products →</a>
       </div>
     </div>
   </section>
 
-  <!-- ===== TESTIMONIALS ===== -->
-  <section class="section bg-cream">
+  <!-- Testimonials -->
+  <section class="section bg-cream" aria-labelledby="testi-heading">
     <div class="container">
       <span class="section-label reveal" style="display:block;text-align:center">Customer Stories</span>
-      <h2 class="section-heading reveal delay-1">Real Stories, Real Results</h2>
-      <p class="section-sub reveal delay-2">Nothing makes us happier than hearing how we've helped. Here are a few stories from our wonderful customers.</p>
+      <h2 class="section-heading reveal delay-1" id="testi-heading">Real People, Real Results</h2>
+      <p class="section-sub reveal delay-2">Nothing means more to us than the stories of customers who've found genuine relief and balance with our products.</p>
       <div class="testi-grid">
-        <div class="testi-card reveal delay-1">
-          <div class="testi-mark">"</div>
+        <article class="testi-card reveal delay-1">
+          <div class="testi-mark" aria-hidden="true">"</div>
           <p class="testi-text">My morning walks are back! After just a month of Ortho Hayaat, my knees feel so much better. The difference it's made in my daily life is honestly remarkable.</p>
-          <div class="testi-stars">★★★★★</div>
+          <div class="testi-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
           <div class="testi-name">Priya S.</div>
           <div class="testi-loc">Mumbai</div>
-        </div>
-        <div class="testi-card reveal delay-2">
-          <div class="testi-mark">"</div>
-          <p class="testi-text">Shah Zyme is a lifesaver. I used to feel so bloated and heavy after eating. Now I feel lighter and way more energetic. I recommend it to everyone!</p>
-          <div class="testi-stars">★★★★★</div>
+        </article>
+        <article class="testi-card reveal delay-2">
+          <div class="testi-mark" aria-hidden="true">"</div>
+          <p class="testi-text">Shah Zyme is a lifesaver. I used to feel so bloated after eating. Now I feel lighter and way more energetic every single day. I recommend it to everyone!</p>
+          <div class="testi-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
           <div class="testi-name">Rohan K.</div>
           <div class="testi-loc">Delhi</div>
-        </div>
-        <div class="testi-card reveal delay-3">
-          <div class="testi-mark">"</div>
-          <p class="testi-text">As a student, exam season is brutal. Brain Champ genuinely helped me focus and cut through the fog. Amazing that something natural works this well.</p>
-          <div class="testi-stars">★★★★★</div>
+        </article>
+        <article class="testi-card reveal delay-3">
+          <div class="testi-mark" aria-hidden="true">"</div>
+          <p class="testi-text">As a student, exam season is brutal. Brain Champ genuinely helped me focus and cut through brain fog. Amazing that something natural works this well.</p>
+          <div class="testi-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
           <div class="testi-name">Anjali P.</div>
           <div class="testi-loc">Bengaluru</div>
-        </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- ===== QUIZ CTA BANNER ===== -->
-  <div class="cta-banner">
-    <div class="container reveal">
-      <span class="section-label" style="color:var(--gold-light);display:block;text-align:center;margin-bottom:0.6rem">Smart Health Quiz</span>
-      <h2 style="color:#fff;text-align:center;margin-bottom:1rem">Not Sure Where to Start?</h2>
-      <p style="text-align:center;max-width:540px;margin:0 auto 2rem">Our smart assessment asks targeted questions about your symptoms and recommends only the products matched to your specific health concerns — not a generic list.</p>
-      <div class="text-center">
+  <!-- Quiz CTA -->
+  <div class="cta-banner" role="complementary" aria-labelledby="quiz-cta-heading">
+    <div class="container">
+      <span class="section-label reveal" style="display:block;text-align:center;color:var(--gold-light)">Free Smart Assessment</span>
+      <h2 class="reveal delay-1" id="quiz-cta-heading" style="color:#fff;text-align:center;margin-bottom:1rem">Not Sure Which Product Is Right for You?</h2>
+      <p class="reveal delay-2" style="text-align:center;max-width:540px;margin:0 auto 2rem;color:rgba(255,255,255,0.72)">Our symptom-based quiz asks focused questions and recommends only the products matched to your specific health concerns — not a generic list.</p>
+      <div class="text-center reveal delay-3">
         <a href="quiz.html" class="btn btn-primary btn-lg">Take the Free Quiz →</a>
       </div>
     </div>
   </div>
 
-  <!-- ===== FAQ ===== -->
-  <section class="section bg-white">
+  <!-- FAQ -->
+  <section class="section bg-white" aria-labelledby="faq-heading">
     <div class="container">
       <span class="section-label reveal" style="display:block;text-align:center">Common Questions</span>
-      <h2 class="section-heading reveal delay-1">Frequently Asked Questions</h2>
+      <h2 class="section-heading reveal delay-1" id="faq-heading">Frequently Asked Questions</h2>
       <p class="section-sub reveal delay-2">Everything you need to know about our products and brand.</p>
-      <div class="faq-list reveal delay-2">
-        <div class="faq-item">
-          <button class="faq-q">Are Shah Hayaat products safe to use alongside prescription medicines? <span class="faq-icon">+</span></button>
-          <div class="faq-a"><p>While our products are 100% natural and certified, we always recommend consulting your doctor if you are on prescription medication. Some herbs may interact with certain drugs, so medical guidance is the safest approach.</p></div>
+      <div class="faq-list reveal delay-2" role="list">
+        <div class="faq-item" role="listitem">
+          <button class="faq-q" aria-expanded="false">Are Shah Hayaat products safe to use alongside prescription medicines? <span class="faq-icon" aria-hidden="true">+</span></button>
+          <div class="faq-a" role="region"><p>While our products are 100% natural and certified, we always recommend consulting your doctor if you are on prescription medication. Some herbs may interact with certain drugs, so medical guidance is the safest approach.</p></div>
         </div>
-        <div class="faq-item">
-          <button class="faq-q">How long before I see results? <span class="faq-icon">+</span></button>
-          <div class="faq-a"><p>Ayurvedic remedies work gradually and holistically. Most customers notice improvements within 3–4 weeks of consistent use. For chronic conditions, we recommend a full 6–8 week course for optimal results.</p></div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-q" aria-expanded="false">How long before I see results? <span class="faq-icon" aria-hidden="true">+</span></button>
+          <div class="faq-a" role="region"><p>Ayurvedic remedies work gradually and holistically. Most customers notice improvements within 3–4 weeks of consistent use. For chronic conditions, a full 6–8 week course is recommended for best results.</p></div>
         </div>
-        <div class="faq-item">
-          <button class="faq-q">Are your products suitable for vegetarians and vegans? <span class="faq-icon">+</span></button>
-          <div class="faq-a"><p>Yes — all Shah Hayaat tablet and capsule formulations are 100% vegetarian. Our syrups use natural honey in some cases, which may not suit strict vegans; this is always listed clearly in the ingredients.</p></div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-q" aria-expanded="false">Are your products suitable for vegetarians and vegans? <span class="faq-icon" aria-hidden="true">+</span></button>
+          <div class="faq-a" role="region"><p>Yes — all Shah Hayaat tablet and capsule formulations are 100% vegetarian. Our syrups use natural honey in some cases, which may not suit strict vegans; this is always listed clearly in the ingredients.</p></div>
         </div>
-        <div class="faq-item">
-          <button class="faq-q">What certifications do your products hold? <span class="faq-icon">+</span></button>
-          <div class="faq-a"><p>All our products are manufactured in facilities certified by WHO-GMP (World Health Organization Good Manufacturing Practices), ISO 9001:2015, and HACCP. These are among the highest standards in the supplement industry.</p></div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-q" aria-expanded="false">What certifications do your products hold? <span class="faq-icon" aria-hidden="true">+</span></button>
+          <div class="faq-a" role="region"><p>All our products are manufactured in facilities certified by WHO-GMP, ISO 9001:2015 and HACCP — among the highest standards in the supplement industry globally.</p></div>
         </div>
-        <div class="faq-item">
-          <button class="faq-q">How can I order? <span class="faq-icon">+</span></button>
-          <div class="faq-a"><p>The easiest way is via WhatsApp — message us at +91 70510 56287 with the product name. You can also find us on Amazon India and IndiaMART. Simply click "Order Now" on any product page to connect directly.</p></div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-q" aria-expanded="false">How can I order? <span class="faq-icon" aria-hidden="true">+</span></button>
+          <div class="faq-a" role="region"><p>The easiest way is via WhatsApp — message us at +91 70510 56287 with the product name. We're also available on Amazon India and IndiaMART. Click "Order" on any product page to connect directly.</p></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== BLOG PREVIEW ===== -->
-  <section class="section bg-cream">
+  <!-- Blog preview -->
+  <section class="section bg-cream" aria-labelledby="blog-heading">
     <div class="container">
       <span class="section-label reveal" style="display:block;text-align:center">Wellness Journal</span>
-      <h2 class="section-heading reveal delay-1">Tips for Balanced Living</h2>
-      <p class="section-sub reveal delay-2">Practical Ayurvedic wisdom for modern life — simple guidance to help you feel your absolute best.</p>
-      <div class="blog-grid" id="blog-preview-grid"></div>
+      <h2 class="section-heading reveal delay-1" id="blog-heading">Ayurvedic Tips for Modern Life</h2>
+      <p class="section-sub reveal delay-2">Practical, science-backed wellness guidance to help you feel your absolute best every day.</p>
+      <div class="blog-grid" id="blog-preview-grid" role="list" aria-label="Recent wellness articles"></div>
       <div class="text-center mt-3 reveal">
         <a href="blog.html" class="btn btn-outline">Read All Articles</a>
       </div>
     </div>
   </section>
 
-  <!-- ===== AVAILABILITY ===== -->
-  <section class="section-sm bg-white">
+  <!-- Marketplaces -->
+  <section class="section-sm bg-white" aria-label="Available on">
     <div class="container reveal">
       <p style="text-align:center;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:1.6rem">Also Available On</p>
       <div class="partner-logos">
-        <a href="https://amzn.in/d/9vsBOWH" target="_blank" rel="noopener" aria-label="Amazon India">
+        <a href="https://amzn.in/d/9vsBOWH" target="_blank" rel="noopener" aria-label="Buy Shah Hayaat products on Amazon India">
           <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon India" loading="lazy">
         </a>
-        <a href="https://m.indiamart.com/shah-hayaat/" target="_blank" rel="noopener" aria-label="IndiaMART">
+        <a href="https://m.indiamart.com/shah-hayaat/" target="_blank" rel="noopener" aria-label="View Shah Hayaat on IndiaMART">
           <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/IndiaMART_logo.svg" alt="IndiaMART" loading="lazy">
         </a>
       </div>
     </div>
   </section>
-
 </main>
 
-<!-- ===== FOOTER ===== -->
+
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo">
-          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat Logo">
+          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat Ayurvedic Brand Logo">
           <span>Shah <em>Hayaat</em></span>
         </a>
-        <p>Pure, certified Ayurvedic remedies that bring balance and vitality to your modern lifestyle.</p>
+        <p>Pure, certified Ayurvedic remedies bringing balance and vitality to modern life.</p>
         <div class="footer-socials">
-          <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
-          <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
-          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon" aria-label="Email">✉️</a>
+          <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Follow us on Instagram">📷</a>
+          <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="Chat on WhatsApp">💬</a>
+          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon" aria-label="Email us">✉️</a>
         </div>
       </div>
       <div class="footer-col">
@@ -649,6 +690,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
         <ul>
           <li><a href="about.html">About Us</a></li>
           <li><a href="products.html">All Products</a></li>
+          <li><a href="catalogue.html">Catalogue</a></li>
           <li><a href="quiz.html">Health Quiz</a></li>
           <li><a href="blog.html">Wellness Blog</a></li>
           <li><a href="contact.html">Contact Us</a></li>
@@ -661,35 +703,389 @@ body.nav-open .nav-mobile{transform:translateX(0)}
           <li><a href="product-detail.html?id=shahzyme">Shah Zyme</a></li>
           <li><a href="product-detail.html?id=livohayaat">Livo Hayaat</a></li>
           <li><a href="product-detail.html?id=orthohayaat">Ortho Hayaat</a></li>
-          <li><a href="products.html">View All →</a></li>
+          <li><a href="product-detail.html?id=diaease">Dia-Ease</a></li>
+          <li><a href="products.html">View All 12 →</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Contact</h4>
         <ul>
           <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
-          <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
-          <li><a href="https://instagram.com/shahhayaatofficial" target="_blank">@shahhayaatofficial</a></li>
-          <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
-          <li><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></li>
+          <li><a href="https://wa.me/917051056287" target="_blank" rel="noopener">+91 70510 56287</a></li>
+          <li><a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener">@shahhayaatofficial</a></li>
+          <li><a href="https://amzn.in/d/9vsBOWH" target="_blank" rel="noopener">Amazon India</a></li>
+          <li><a href="https://m.indiamart.com/shah-hayaat/" target="_blank" rel="noopener">IndiaMART</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© <span id="year"></span> Shah Hayaat. All Rights Reserved. &nbsp;|&nbsp; WHO-GMP · ISO 9001:2015 · HACCP Certified</p>
+      <div class="footer-legal">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="disclaimer.html">Disclaimer</a>
+      </div>
     </div>
   </div>
 </footer>
-
 <a href="#" class="back-top" aria-label="Back to top">↑</a>
-<a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float" aria-label="Chat on WhatsApp">💬</a>
+<a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float" aria-label="Order on WhatsApp">💬</a>
 
-<script src="main.js"></script>
 <script>
-  // Show desktop header CTA only on wide screens
-  if (window.matchMedia('(min-width:960px)').matches) {
-    document.getElementById('hdr-wa').style.display = 'inline-flex';
+/* ============================================================
+   SHAH HAYAAT — main.js  v2.0
+   All shared data + UI: nav, scroll, carousel, animations,
+   product grid, blog grid, contact form, FAQ
+   ============================================================ */
+'use strict';
+
+/* ── CONSTANTS ─────────────────────────────────────────────── */
+const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
+
+/* Image filename map — exact filenames, case-sensitive */
+const IMG = {
+  brainchamp:   'brainchamp.jpg',
+  shahzyme:     'shahzyme.jpg',
+  bloodstorm:   'bloodstorm.jpg',
+  coughxpro:    'coughxpro.jpg',
+  musaffakhoon: 'musaffakhoon.jpg',
+  panasip:      'panasip.jpg',
+  livohayaat:   'livohayaat.jpg',
+  diaease:      'diaease.png',
+  orthohayaat:  'orthohayaat.jpg',
+  utrohayaat:   'utrohayaat.png',
+  passionpulse: 'passionpulse.jpg',
+  fevodol:      'fevodol.png',
+};
+
+function imgSrc(id) { return GH + (IMG[id] || id); }
+
+/* ── PRODUCT DATA ───────────────────────────────────────────── */
+const PRODUCTS = [
+  {
+    id: 'brainchamp', name: 'Brain Champ', price: 175, cat: 'brain', tag: 'Brain & Focus',
+    desc: 'Enhances memory, focus and cognitive function with powerful Ayurvedic herbs.',
+    full: 'Brain Champ is a scientifically formulated Ayurvedic supplement combining Brahmi, Shankhpushpi, Ashwagandha and other classical herbs to support optimal brain health. It helps reduce mental fatigue, improve concentration and enhance memory retention naturally.',
+    benefits: ['Improves memory & recall', 'Reduces mental fatigue & brain fog', 'Manages stress & anxiety naturally', 'Enhances focus & concentration', 'Adaptogen blend for long-term brain health'],
+    ingredients: 'Brahmi (Bacopa monnieri), Shankhpushpi, Ashwagandha, Jatamansi, Vacha',
+    dosage: '2 tablets twice daily with warm milk or water, preferably after meals.',
+    precautions: 'Not recommended during pregnancy. Consult a physician if you are on existing medication.',
+  },
+  {
+    id: 'shahzyme', name: 'Shah Zyme', price: 165, cat: 'digestion', tag: 'Digestion',
+    desc: 'Effective digestive enzyme syrup for relief from gas, bloating and indigestion.',
+    full: 'Shah Zyme is a potent herbal digestive enzyme syrup. Its unique combination of digestive herbs helps break down food efficiently, relieving uncomfortable symptoms of gas, bloating and sluggish digestion after meals.',
+    benefits: ['Relieves gas & bloating', 'Improves nutrient absorption', 'Stimulates healthy appetite', 'Supports enzyme activity', 'Reduces post-meal heaviness'],
+    ingredients: 'Ajwain, Saunf (Fennel), Jeera (Cumin), Pudina (Mint), Harad, Baheda, Amla',
+    dosage: '10–15 ml after meals, twice daily. Shake well before use.',
+    precautions: 'Store in a cool, dry place. Not for children under 5 years without medical advice.',
+  },
+  {
+    id: 'bloodstorm', name: 'Blood Storm', price: 165, cat: 'blood', tag: 'Blood & Immunity',
+    desc: 'Revitalizing blood tonic to combat anemia, weakness and low hemoglobin.',
+    full: 'Blood Storm is a premium Ayurvedic blood tonic combining iron-rich herbs with powerful rejuvenating ingredients. Formulated to naturally raise hemoglobin levels, improve circulation and restore energy to those suffering from anemia and chronic weakness.',
+    benefits: ['Raises hemoglobin naturally', 'Combats iron-deficiency anemia', 'Restores energy & vitality', 'Improves blood circulation', 'Strengthens overall immunity'],
+    ingredients: 'Loha Bhasma, Punarnava, Shatavari, Ashwagandha, Amla, Draksha',
+    dosage: '2 tablets twice daily with water or milk after meals.',
+    precautions: 'Keep out of reach of children. Consult a physician before use during pregnancy.',
+  },
+  {
+    id: 'coughxpro', name: 'Cough X Pro', price: 90, cat: 'respiratory', tag: 'Respiratory',
+    desc: 'Soothing herbal cough syrup for fast, lasting relief from chronic cough.',
+    full: 'Cough X Pro is a time-tested Ayurvedic formulation that soothes the respiratory tract, reduces inflammation and provides lasting relief from acute and chronic cough. Its herbal ingredients work synergistically to clear mucus and calm irritated airways.',
+    benefits: ['Soothes throat irritation', 'Reduces mucus congestion', 'Anti-inflammatory action', 'Fast & lasting relief', 'Safe for adults & children'],
+    ingredients: 'Tulsi (Holy Basil), Mulethi (Licorice), Adrak (Ginger), Pippali, Vasa, Honey',
+    dosage: '10 ml three times daily. Children (5–12): 5 ml three times daily.',
+    precautions: 'Diabetics should consult a physician due to natural honey content. Avoid overdose.',
+  },
+  {
+    id: 'musaffakhoon', name: 'Musaffa Khoon', price: 165, cat: 'skin', tag: 'Skin Care',
+    desc: 'Traditional blood purifier for clear, glowing skin free from acne and disorders.',
+    full: 'Musaffa Khoon is a classical Ayurvedic blood purifier that detoxifies the blood and lymphatic system. By purifying from within it effectively addresses the root cause of skin disorders including acne, psoriasis, eczema and dull skin.',
+    benefits: ['Purifies blood & lymph', 'Clears acne & pimples', 'Reduces psoriasis symptoms', 'Promotes glowing clear skin', 'Full-body natural detox'],
+    ingredients: 'Neem, Manjistha, Khadir, Sarsaparilla, Giloy, Triphala',
+    dosage: '2 tablets twice daily with water before meals.',
+    precautions: 'Results typically visible after 4–6 weeks of consistent use.',
+  },
+  {
+    id: 'panasip', name: 'PanaSip', price: 165, cat: 'acidity', tag: 'Acidity',
+    desc: 'Fast-acting Ayurvedic relief from acidity, heartburn and peptic ulcers.',
+    full: 'PanaSip is a powerful Ayurvedic antacid syrup that neutralises excess stomach acid naturally. Its cooling and soothing herbs form a protective layer over the stomach lining, providing rapid relief from acidity, heartburn and gastric ulcers without harsh chemical side effects.',
+    benefits: ['Neutralises stomach acid', 'Soothes esophageal inflammation', 'Heals peptic ulcers naturally', 'Prevents acid reflux', 'Promotes healthy gastric pH'],
+    ingredients: 'Mulethi, Shatavari, Amalaki, Guduchi, Yashtimadhu, Shankha Bhasma',
+    dosage: '15 ml before meals, three times daily. Shake well before use.',
+    precautions: 'Take on an empty stomach for best results. Refrigerate after opening.',
+  },
+  {
+    id: 'livohayaat', name: 'Livo Hayaat', price: 349, cat: 'liver', tag: 'Liver Health',
+    desc: 'Premium Ayurvedic formulation for optimal liver health and detoxification.',
+    full: 'Livo Hayaat is a hepatoprotective Ayurvedic tablet that supports the liver\'s natural detoxification processes. Formulated with liver-protecting herbs, it helps regenerate liver cells, reduce fatty liver, normalise enzyme levels and improve overall hepatic function.',
+    benefits: ['Protects & regenerates liver cells', 'Reduces fatty liver condition', 'Normalises liver enzyme levels', 'Supports bile production', 'Powerful antioxidant properties'],
+    ingredients: 'Bhumi Amla, Kalmegh, Kutki, Punarnava, Makoy, Kasni',
+    dosage: '2 tablets twice daily with warm water before meals.',
+    precautions: 'Not for use with hepatotoxic drugs without physician advice.',
+  },
+  {
+    id: 'diaease', name: 'Dia-Ease', price: 695, cat: 'diabetes', tag: 'Diabetes Care',
+    desc: 'Advanced Ayurvedic support for maintaining healthy blood sugar balance.',
+    full: 'Dia-Ease is a specialised Ayurvedic formulation to help manage blood glucose levels naturally. Its multi-herb approach addresses insulin sensitivity, reduces glucose absorption and supports pancreatic function for comprehensive diabetic management support.',
+    benefits: ['Supports healthy blood sugar', 'Improves insulin sensitivity', 'Reduces sugar cravings', 'Supports pancreatic health', 'Helps prevent diabetic complications'],
+    ingredients: 'Karela (Bitter Melon), Jamun Seed, Gurmar, Vijaysar, Methi, Neem, Tulsi',
+    dosage: '2 tablets twice daily, 30 minutes before meals with warm water.',
+    precautions: 'Monitor blood sugar regularly. Do not discontinue prescribed medication without physician guidance.',
+  },
+  {
+    id: 'orthohayaat', name: 'Ortho Hayaat', price: 649, cat: 'joint', tag: 'Joint Care',
+    desc: 'Specialised Ayurvedic blend for joint health, pain relief and improved mobility.',
+    full: 'Ortho Hayaat combines the most potent anti-inflammatory and analgesic Ayurvedic herbs for comprehensive joint care. It works to reduce inflammation, lubricate joints, strengthen bones and improve mobility — ideal for arthritis, knee pain and age-related joint degeneration.',
+    benefits: ['Reduces joint inflammation', 'Relieves chronic joint pain', 'Improves mobility & flexibility', 'Strengthens bones & cartilage', 'Anti-arthritis properties'],
+    ingredients: 'Shallaki (Boswellia), Guggul, Rasna, Nirgundi, Ashwagandha, Sunthi',
+    dosage: '2 tablets twice daily with warm milk or water after meals.',
+    precautions: 'Results typically noticeable within 4–6 weeks of consistent use.',
+  },
+  {
+    id: 'utrohayaat', name: 'Utro Hayaat', price: 625, cat: 'female', tag: 'Female Health',
+    desc: "Gentle Ayurvedic tonic for women's reproductive health and hormonal balance.",
+    full: 'Utro Hayaat is a carefully formulated Ayurvedic uterine tonic addressing common female health concerns. It helps regulate menstrual cycles, relieve period pain, treat leucorrhoea and support hormonal balance using the safest classical Ayurvedic herbs.',
+    benefits: ['Regulates menstrual cycles', 'Relieves painful periods', 'Treats leucorrhoea', 'Supports hormonal balance', 'Strengthens uterine health'],
+    ingredients: 'Ashoka, Lodhra, Shatavari, Nagkesar, Daruharidra, Kumari (Aloe)',
+    dosage: '2 tablets twice daily after meals with milk or water.',
+    precautions: 'Not recommended during pregnancy or breastfeeding without medical advice.',
+  },
+  {
+    id: 'passionpulse', name: 'Passion Pulse', price: 599, cat: 'male', tag: 'Male Vitality',
+    desc: 'Natural vitality booster for men — stamina, libido and reproductive health.',
+    full: 'Passion Pulse is a premium Ayurvedic male vitality supplement combining powerful adaptogens and vajikarana herbs to enhance stamina, improve libido, support testosterone levels and boost overall masculine vitality naturally.',
+    benefits: ['Enhances stamina & endurance', 'Improves libido & sexual health', 'Supports testosterone levels', 'Improves sperm health & motility', 'Reduces fatigue & boosts energy'],
+    ingredients: 'Ashwagandha, Shilajit, Safed Musli, Kaunch Beej, Gokshura, Vidarikanda',
+    dosage: '2 tablets twice daily with milk or warm water before bedtime.',
+    precautions: 'Not for use under 18 years. Consult physician if you have existing health conditions.',
+  },
+  {
+    id: 'fevodol', name: 'Fevodol', price: 165, cat: 'immunity', tag: 'Immunity',
+    desc: "Powerful immunity booster to defend against fever, infections and illness.",
+    full: "Fevodol is an Ayurvedic immune-strengthening formulation supporting the body's natural defence mechanisms. Its antipyretic, anti-infective and immunomodulatory herbs help reduce fever, fight infections and build long-term immunity against recurrent illness.",
+    benefits: ['Reduces fever naturally', 'Fights infections', 'Strengthens immune system', 'Anti-inflammatory', 'Prevents recurrent illness'],
+    ingredients: 'Giloy (Guduchi), Tulsi, Chirayata, Kutki, Sudarshan Churna',
+    dosage: '2 tablets three times daily with warm water during illness. For immunity: twice daily.',
+    precautions: 'Continue medical treatment during severe infections. This is a supportive supplement.',
+  },
+];
+
+/* ── BLOG DATA ─────────────────────────────────────────────── */
+const BLOGS = [
+  { title: 'Feeling Bloated? 5 Ayurvedic Secrets for a Happy Gut', cat: 'Digestion', img: GH + 'image(3).png', desc: "Tired of that uncomfortable feeling after meals? Discover simple, ancient tips to improve your digestion naturally and feel lighter every day." },
+  { title: "Can't Switch Off? How Ashwagandha Calms Modern Stress", cat: 'Wellness', img: GH + 'image(6).png', desc: "In a world that never stops, finding peace can feel impossible. Learn how this powerful adaptogen helps your body manage and recover from stress." },
+  { title: 'Beat the Afternoon Slump: Ayurvedic Tips for All-Day Energy', cat: 'Energy', img: GH + 'image(3).png', desc: "If you rely on coffee to get through the day, there's a better way. Discover natural Ayurvedic techniques to maintain vibrant energy from morning to night." },
+  { title: 'The Glow-Up from Within: Ayurvedic Secrets for Radiant Skin', cat: 'Skin', img: GH + 'image(4).png', desc: "True radiance starts from the inside. Explore the connection between your diet, digestion and achieving naturally clear, glowing skin." },
+  { title: 'Managing Joint Pain Naturally with Ayurveda', cat: 'Joint Care', img: GH + 'image(2).png', desc: "Don't let aches and pains hold you back. Learn about traditional Ayurvedic approaches to soothe joint discomfort and improve your mobility." },
+];
+
+/* ── HELPERS ───────────────────────────────────────────────── */
+function $(sel, ctx) { return (ctx || document).querySelector(sel); }
+function $$(sel, ctx) { return [...(ctx || document).querySelectorAll(sel)]; }
+
+function observeReveal(root) {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  $$(root ? '.reveal' : '.reveal', root).forEach(el => io.observe(el));
+}
+
+/* ── NAVIGATION ────────────────────────────────────────────── */
+function initNav() {
+  const toggle = $('.nav-toggle');
+  if (!toggle) return;
+  toggle.addEventListener('click', () => document.body.classList.toggle('nav-open'));
+  $$('.nav-mobile a').forEach(a => a.addEventListener('click', () => {
+    setTimeout(() => document.body.classList.remove('nav-open'), 320);
+  }));
+  // Mark active link
+  const page = location.pathname.split('/').pop() || 'index.html';
+  $$('.nav-desktop a, .nav-mobile a').forEach(a => {
+    const href = a.getAttribute('href') || '';
+    if (href === page || (page === '' && href === 'index.html')) a.classList.add('active');
+  });
+}
+
+/* ── SCROLL ────────────────────────────────────────────────── */
+function initScroll() {
+  const btn = $('.back-top');
+  window.addEventListener('scroll', () => {
+    document.body.classList.toggle('scrolled', window.scrollY > 55);
+    if (btn) btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive: true });
+  observeReveal();
+}
+
+/* ── HERO CAROUSEL ─────────────────────────────────────────── */
+function initCarousel() {
+  const slides = $$('.hero-slide');
+  const bar = $('.hero-progress');
+  if (slides.length < 2) return;
+
+  let cur = 0;
+  slides[0].classList.add('active');
+
+  function next() {
+    slides[cur].classList.remove('active');
+    cur = (cur + 1) % slides.length;
+    slides[cur].classList.add('active');
+    if (bar) { bar.classList.remove('running'); void bar.offsetWidth; bar.classList.add('running'); }
   }
+  if (bar) bar.classList.add('running');
+  setInterval(next, 5000);
+}
+
+/* ── PRODUCT GRID ──────────────────────────────────────────── */
+function renderProducts(container, { limit = null, cat = null } = {}) {
+  if (!container) return;
+  let list = cat && cat !== 'all' ? PRODUCTS.filter(p => p.cat === cat) : PRODUCTS;
+  if (limit) list = list.slice(0, limit);
+
+  container.innerHTML = list.map((p, i) => `
+    <div class="product-card reveal delay-${(i % 4) + 1}" data-cat="${p.cat}">
+      <div class="product-card-img">
+        <img src="${imgSrc(p.id)}" alt="${p.name}" loading="lazy">
+        <span class="product-cat-tag">${p.tag}</span>
+      </div>
+      <div class="product-body">
+        <h3>${p.name}</h3>
+        <p class="product-desc">${p.desc}</p>
+        <div class="product-footer">
+          <div class="product-price">₹${p.price}</div>
+          <div class="product-actions-row">
+            <a href="product-detail.html?id=${p.id}" class="btn btn-outline btn-sm">Details</a>
+            <a href="https://wa.me/917051056287?text=${encodeURIComponent(`Hi! I'd like to order ${p.name} — ₹${p.price}`)}"
+               target="_blank" rel="noopener" class="btn btn-primary btn-sm">Order</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  // Observe new cards
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  $$('.reveal', container).forEach(el => io.observe(el));
+}
+
+/* ── BLOG GRID ─────────────────────────────────────────────── */
+function renderBlogs(container, { limit = null } = {}) {
+  if (!container) return;
+  const list = limit ? BLOGS.slice(0, limit) : BLOGS;
+  container.innerHTML = list.map(b => `
+    <a href="blog.html" class="blog-card reveal">
+      <div class="blog-card-img"><img src="${b.img}" alt="${b.title}" loading="lazy"></div>
+      <div class="blog-body">
+        <span class="blog-cat">${b.cat}</span>
+        <h3>${b.title}</h3>
+        <p>${b.desc}</p>
+        <span class="blog-more">Read More →</span>
+      </div>
+    </a>
+  `).join('');
+}
+
+/* ── FAQ ACCORDION ─────────────────────────────────────────── */
+function initFAQ() {
+  $$('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      $$('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+}
+
+/* ── CONTACT FORM ──────────────────────────────────────────── */
+function initContactForm() {
+  const form = $('#contactForm');
+  if (!form) return;
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const status = $('#form-status');
+    const btn = form.querySelector('button[type="submit"]');
+    const orig = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Sending…';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }
+      });
+      if (res.ok) {
+        status.textContent = '✓ Message sent! We\'ll be in touch soon.';
+        status.className = 'form-status ok';
+        form.reset();
+      } else {
+        status.textContent = 'Something went wrong — please try WhatsApp instead.';
+        status.className = 'form-status err';
+      }
+    } catch {
+      status.textContent = 'Network error — please try WhatsApp instead.';
+      status.className = 'form-status err';
+    }
+    btn.disabled = false; btn.textContent = orig;
+  });
+}
+
+/* ── YEAR ──────────────────────────────────────────────────── */
+function setYear() {
+  const el = $('#year');
+  if (el) el.textContent = new Date().getFullYear();
+}
+
+
+/* ── SCHEMA.ORG ────────────────────────────────────────────── */
+function injectSchema() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Shah Hayaat",
+    "url": "https://yasirhashmi02-dev.github.io/Shahhayaat02/",
+    "logo": "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg",
+    "description": "Premium certified Ayurvedic wellness products. WHO-GMP, ISO 9001:2015 and HACCP certified.",
+    "telephone": "+917051056287",
+    "email": "shahhayaat02@gmail.com",
+    "sameAs": [
+      "https://instagram.com/shahhayaatofficial",
+      "https://amzn.in/d/9vsBOWH"
+    ]
+  };
+  const el = document.createElement('script');
+  el.type = 'application/ld+json';
+  el.textContent = JSON.stringify(schema);
+  document.head.appendChild(el);
+}
+
+/* ── INIT ──────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  initNav();
+  initScroll();
+  initCarousel();
+  initFAQ();
+  initContactForm();
+  setYear();
+  injectSchema();
+
+  // Homepage grids
+  const productPreview = $('#product-preview-grid');
+  if (productPreview) renderProducts(productPreview, { limit: 6 });
+
+  const blogPreview = $('#blog-preview-grid');
+  if (blogPreview) renderBlogs(blogPreview, { limit: 3 });
+
+  // Products page full grid
+  const allGrid = $('#all-products-grid');
+  if (allGrid) renderProducts(allGrid);
+});
+
+/* ── PUBLIC API ────────────────────────────────────────────── */
+window.SHAH = { PRODUCTS, BLOGS, IMG, GH, imgSrc, renderProducts, renderBlogs, $, $$ };
+
 </script>
+
+
 </body>
 </html>
