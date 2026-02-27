@@ -3458,6 +3458,1207 @@ console.log('[WellnessLab] Part 3 loaded — Modules 5–13 registered.');
 </script>
 
 
+
+<!-- ============================================================
+     PART 4 CSS — Female Modules + Dashboard + PDF
+     ============================================================ -->
+<style>
+
+/* ── Female Module Cards ─────────────────────────────────── */
+.female-module-card {
+  background: linear-gradient(135deg, var(--ink-3), rgba(28, 22, 8, 0.9));
+  border: 1px solid rgba(201, 150, 12, 0.22);
+  border-radius: var(--radius);
+  padding: clamp(1.8rem, 4vw, 2.8rem);
+  position: relative; overflow: hidden;
+}
+.female-module-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.5;
+}
+.female-module-card::after {
+  content: '🌸';
+  position: absolute; top: 1.4rem; right: 1.4rem;
+  font-size: 1.2rem; opacity: 0.25;
+}
+
+/* Option cards for female questionnaires */
+.opt-grid {
+  display: grid; gap: 0.55rem; margin: 1rem 0;
+}
+.opt-card {
+  display: flex; align-items: center; gap: 0.9rem;
+  padding: 0.88rem 1.1rem;
+  background: var(--ink-4); border: 2px solid var(--border);
+  border-radius: var(--radius-sm); cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+.opt-card:hover { border-color: rgba(201,150,12,0.4); background: rgba(201,150,12,0.04); }
+.opt-card.selected {
+  border-color: var(--gold);
+  background: rgba(201,150,12,0.08);
+}
+.opt-card .opt-dot {
+  width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.opt-card.selected .opt-dot {
+  border-color: var(--gold);
+  background: var(--gold);
+}
+.opt-card.selected .opt-dot::after {
+  content: '✓'; font-size: 0.6rem; color: var(--ink); font-weight: 700;
+}
+.opt-card .opt-text {
+  font-size: 0.88rem; color: var(--text-mid); line-height: 1.4;
+}
+.opt-card.selected .opt-text { color: var(--text); }
+.opt-section-label {
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: rgba(201,150,12,0.7); margin: 1.3rem 0 0.5rem;
+}
+
+/* ── Dashboard Layout ────────────────────────────────────── */
+.dashboard-wrap {
+  animation: lab-fade-up 0.45s var(--ease) both;
+  padding-bottom: 4rem;
+}
+.dashboard-hero {
+  text-align: center;
+  padding: clamp(3rem, 7vw, 5rem) 0 2.5rem;
+  position: relative;
+}
+.dashboard-hero::before {
+  content: '';
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 400px;
+  background: radial-gradient(ellipse, rgba(56,180,140,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.dashboard-complete-badge {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 0.5rem 1.2rem;
+  background: rgba(62,186,124,0.1); border: 1px solid rgba(62,186,124,0.3);
+  border-radius: 50px; margin-bottom: 1.5rem;
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--green-ok); letter-spacing: 0.1em; text-transform: uppercase;
+}
+.dashboard-title {
+  font-family: var(--font-head); font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 700; color: var(--text); margin-bottom: 0.6rem; line-height: 1.15;
+}
+.dashboard-sub {
+  font-family: var(--font-mono); font-size: 0.72rem;
+  color: var(--text-muted); letter-spacing: 0.06em;
+}
+
+/* Score grid */
+.score-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1.2rem; margin-bottom: 3rem;
+}
+.score-card {
+  background: var(--ink-3); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.8rem 1.4rem;
+  text-align: center; transition: all 0.3s var(--ease);
+  position: relative; overflow: hidden;
+}
+.score-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--card-accent, var(--lab));
+  opacity: 0.7;
+}
+.score-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-h);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+}
+.score-card canvas {
+  display: block; margin: 0 auto 1rem;
+}
+.score-card-name {
+  font-family: var(--font-mono); font-size: 0.64rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--text-muted); margin-bottom: 0.3rem;
+}
+.score-card-num {
+  font-family: var(--font-mono); font-size: 1.7rem; font-weight: 700;
+  line-height: 1; margin-bottom: 0.22rem;
+}
+.score-card-label {
+  font-size: 0.74rem; color: var(--text-muted);
+}
+
+/* Wellness tips section */
+.wellness-tips-section {
+  background: var(--ink-3); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 2rem;
+  margin-bottom: 2.5rem;
+}
+.section-heading {
+  font-family: var(--font-head); font-size: 1.3rem;
+  color: var(--text); margin-bottom: 1.3rem;
+}
+.tip-item {
+  display: flex; align-items: flex-start; gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  background: var(--ink-4); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); margin-bottom: 0.65rem;
+}
+.tip-item:last-child { margin-bottom: 0; }
+.tip-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.05rem; }
+.tip-text { font-size: 0.86rem; color: var(--text-mid); line-height: 1.65; margin: 0; }
+.tip-text strong { color: var(--text); }
+
+/* Product recommendations */
+.rec-section {
+  margin-bottom: 2.5rem;
+}
+.rec-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 1.1rem;
+}
+.rec-card {
+  background: var(--ink-3); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  transition: all 0.28s var(--ease);
+}
+.rec-card:hover {
+  border-color: rgba(201,150,12,0.4);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.3);
+}
+.rec-card-img {
+  width: 100%; height: 140px; object-fit: cover;
+  display: block; background: var(--ink-4);
+}
+.rec-card-body { padding: 1rem; }
+.rec-card-name {
+  font-weight: 700; color: var(--text); font-size: 0.93rem;
+  margin-bottom: 0.3rem;
+}
+.rec-card-reason {
+  font-size: 0.78rem; color: var(--text-mid); line-height: 1.55;
+  margin-bottom: 0.8rem;
+}
+.rec-card-btn {
+  display: block; padding: 0.52rem; border-radius: 50px;
+  background: linear-gradient(135deg, var(--lab), var(--lab-bright));
+  color: var(--ink); font-size: 0.78rem; font-weight: 700;
+  text-align: center; text-decoration: none; transition: opacity 0.2s;
+}
+.rec-card-btn:hover { opacity: 0.85; }
+
+/* Legal footer notice */
+.legal-notice-box {
+  background: rgba(56,180,140,0.04);
+  border: 1px solid rgba(56,180,140,0.14);
+  border-radius: var(--radius-sm); padding: 1.1rem 1.3rem;
+  font-size: 0.78rem; color: var(--text-muted); line-height: 1.75;
+  margin-bottom: 2.5rem;
+}
+.legal-notice-box strong { color: var(--lab); }
+
+/* All green / no recommendations state */
+.all-green-box {
+  text-align: center; padding: 3rem 2rem;
+  background: var(--ink-3); border: 1px solid rgba(62,186,124,0.25);
+  border-radius: var(--radius); margin-bottom: 2.5rem;
+}
+.all-green-box .ag-icon { font-size: 3rem; margin-bottom: 0.75rem; }
+.all-green-box h3 { font-family: var(--font-head); font-size: 1.3rem; color: var(--green-ok); margin-bottom: 0.5rem; }
+.all-green-box p { font-size: 0.9rem; color: var(--text-mid); max-width: 400px; margin: 0 auto; }
+
+/* PDF button pulsing */
+.pdf-btn-wrap {
+  text-align: center; padding: 2.5rem 0;
+}
+.pdf-pulse {
+  animation: lab-glow-pulse 2.5s ease-in-out infinite;
+}
+</style>
+
+<!-- jsPDF for PDF generation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- ============================================================
+     PART 4 JAVASCRIPT — Female Modules 14-18 + Dashboard + PDF
+     ============================================================ -->
+<script>
+'use strict';
+
+/* ============================================================
+   FEMALE OPTION HELPER
+   Renders a single-select option grid and returns the value
+   ============================================================ */
+function _femaleOptGrid(id, options) {
+  return `<div class="opt-grid" id="optGrid_${id}">
+    ${options.map((o, i) => `
+      <div class="opt-card" id="opt_${id}_${i}"
+           onclick="_optSelect('${id}', ${i}, ${o.val})"
+           role="radio" aria-checked="false" tabindex="0"
+           onkeydown="if(event.key==='Enter'||event.key===' ')_optSelect('${id}',${i},${o.val})">
+        <div class="opt-dot"></div>
+        <span class="opt-text">${o.label}</span>
+      </div>`).join('')}
+  </div>`;
+}
+
+// Track selected values
+const _femaleSelections = {};
+
+window._optSelect = function(id, idx, val) {
+  _femaleSelections[id] = val;
+  // Update UI
+  const grid = document.getElementById('optGrid_' + id);
+  if (!grid) return;
+  grid.querySelectorAll('.opt-card').forEach((c, i) => {
+    const active = (i === idx);
+    c.classList.toggle('selected', active);
+    c.setAttribute('aria-checked', String(active));
+  });
+};
+
+function _getOptVal(id, fallback) {
+  return _femaleSelections[id] !== undefined ? _femaleSelections[id] : fallback;
+}
+
+/* ============================================================
+   MODULE 14 — HORMONAL RHYTHM ASSESSMENT
+   ============================================================ */
+window.mod_hormonalRhythm = function() {
+  LAB.renderModule(`
+  <div class="lab-module-wrap">
+    <div class="female-module-card">
+      <div class="lab-step-head">
+        <div class="lab-tag lab-tag--gold">🌸 Female · Module ${LAB.moduleIndex+1} of ${LAB.moduleQueue.length}</div>
+        <h2 class="lab-h2" style="margin-top:1rem;margin-bottom:0.6rem">Hormonal Rhythm Assessment</h2>
+        <p class="lab-p">All responses are processed locally and never stored or transmitted. Answer based on your average experience over the past 3 months.</p>
+      </div>
+
+      <div class="opt-section-label">Cycle Length</div>
+      ${_femaleOptGrid('cycleLen', [
+        {val:2, label:'Very short (under 21 days)'},
+        {val:3, label:'Irregular / unpredictable'},
+        {val:4, label:'Very long (over 35 days)'},
+        {val:5, label:'Normal (21–35 days)'},
+      ])}
+
+      <div class="opt-section-label">Cycle Regularity</div>
+      ${_femaleOptGrid('cycleReg', [
+        {val:2, label:'Very irregular — hard to predict'},
+        {val:3, label:'Somewhat irregular'},
+        {val:4, label:'Mostly regular'},
+        {val:5, label:'Very regular — clockwork'},
+      ])}
+
+      <div class="opt-section-label">PMS Severity</div>
+      ${_femaleOptGrid('pmsSev', [
+        {val:5, label:'None — no PMS symptoms'},
+        {val:4, label:'Mild — barely noticeable'},
+        {val:3, label:'Moderate — noticeable but manageable'},
+        {val:2, label:'Significant — affects daily life'},
+        {val:1, label:'Severe — debilitating'},
+      ])}
+
+      <div class="opt-section-label">Menstrual Flow</div>
+      ${_femaleOptGrid('flow', [
+        {val:3, label:'Very light or absent'},
+        {val:4, label:'Normal flow'},
+        {val:2, label:'Heavy'},
+        {val:1, label:'Very heavy with clots'},
+      ])}
+
+      <div class="opt-section-label">Mood Changes Around Cycle</div>
+      ${_femaleOptGrid('moodCycle', [
+        {val:5, label:'None — mood is stable throughout'},
+        {val:4, label:'Mild / easily managed'},
+        {val:3, label:'Moderate changes'},
+        {val:2, label:'Significant mood swings'},
+        {val:1, label:'Severe — major disruption'},
+      ])}
+
+      <div class="lab-btn-row">
+        <button class="lab-btn lab-btn--gold" onclick="_saveHormonalRhythm()">Next →</button>
+      </div>
+    </div>
+  </div>`);
+};
+
+window._saveHormonalRhythm = function() {
+  const vals = [
+    _getOptVal('cycleLen', 4),
+    _getOptVal('cycleReg', 4),
+    _getOptVal('pmsSev',   3),
+    _getOptVal('flow',     4),
+    _getOptVal('moodCycle',3),
+  ];
+  const score = LAB.clamp(Math.round(LAB.avg(vals) * 20), 15, 100);
+  LAB.raw.hormonalRhythmScore = score;
+  LAB.moduleIndex++; LAB.nextModule();
+};
+
+/* ============================================================
+   MODULE 15 — ENERGY & IRON PATTERN DRIFT
+   ============================================================ */
+window.mod_energyIron = function() {
+  LAB.renderModule(`
+  <div class="lab-module-wrap">
+    <div class="female-module-card">
+      <div class="lab-step-head">
+        <div class="lab-tag lab-tag--gold">🌸 Female · Module ${LAB.moduleIndex+1} of ${LAB.moduleQueue.length}</div>
+        <h2 class="lab-h2" style="margin-top:1rem;margin-bottom:0.6rem">Energy &amp; Iron Pattern</h2>
+        <p class="lab-p">Assesses symptoms commonly associated with low iron and energy deficiency patterns in women.</p>
+      </div>
+
+      <div class="opt-section-label">General Fatigue Level</div>
+      ${_femaleOptGrid('fatigue', [
+        {val:5, label:'Rarely tired — good baseline energy'},
+        {val:4, label:'Occasionally tired'},
+        {val:3, label:'Frequently tired'},
+        {val:2, label:'Tired most of the time'},
+        {val:1, label:'Always exhausted'},
+      ])}
+
+      <div class="opt-section-label">Physical Weakness or Dizziness</div>
+      ${_femaleOptGrid('weakness', [
+        {val:5, label:'Never'},
+        {val:4, label:'Rarely'},
+        {val:3, label:'Sometimes'},
+        {val:2, label:'Often'},
+        {val:1, label:'Frequently — affects daily activity'},
+      ])}
+
+      <div class="opt-section-label">Breathlessness on Mild Exertion</div>
+      ${_femaleOptGrid('breathless', [
+        {val:5, label:'Never'},
+        {val:4, label:'Rarely'},
+        {val:3, label:'Sometimes'},
+        {val:2, label:'Often'},
+        {val:1, label:'Frequently'},
+      ])}
+
+      <div class="opt-section-label">Hair Loss or Brittle Nails</div>
+      ${_femaleOptGrid('hairNails', [
+        {val:5, label:'Not at all'},
+        {val:4, label:'Minimal / normal shedding'},
+        {val:3, label:'Noticeable increase'},
+        {val:2, label:'Significant loss or brittleness'},
+        {val:1, label:'Severe'},
+      ])}
+
+      <div class="lab-btn-row">
+        <button class="lab-btn lab-btn--gold" onclick="_saveEnergyIron()">Next →</button>
+      </div>
+    </div>
+  </div>`);
+};
+
+window._saveEnergyIron = function() {
+  const vals = [
+    _getOptVal('fatigue',    4),
+    _getOptVal('weakness',   4),
+    _getOptVal('breathless', 4),
+    _getOptVal('hairNails',  4),
+  ];
+  const score = LAB.clamp(Math.round(LAB.avg(vals) * 20), 15, 100);
+  LAB.raw.energyIronScore = score;
+  LAB.moduleIndex++; LAB.nextModule();
+};
+
+/* ============================================================
+   MODULE 16 — HORMONAL SKIN IMPACT
+   ============================================================ */
+window.mod_hormonalSkin = function() {
+  LAB.renderModule(`
+  <div class="lab-module-wrap">
+    <div class="female-module-card">
+      <div class="lab-step-head">
+        <div class="lab-tag lab-tag--gold">🌸 Female · Module ${LAB.moduleIndex+1} of ${LAB.moduleQueue.length}</div>
+        <h2 class="lab-h2" style="margin-top:1rem;margin-bottom:0.6rem">Hormonal Skin Impact</h2>
+        <p class="lab-p">Hormonal fluctuations significantly affect skin health. This identifies common cyclical patterns.</p>
+      </div>
+
+      <div class="opt-section-label">Acne / Breakouts Linked to Your Cycle</div>
+      ${_femaleOptGrid('acneCycle', [
+        {val:5, label:'Never — skin unaffected by cycle'},
+        {val:4, label:'Rarely — occasional spot'},
+        {val:3, label:'Sometimes — a few spots each cycle'},
+        {val:2, label:'Often — noticeable breakout each cycle'},
+        {val:1, label:'Every cycle — significant breakout'},
+      ])}
+
+      <div class="opt-section-label">Oily Skin or Hormonal Acne Outside Cycle</div>
+      ${_femaleOptGrid('oilySkin', [
+        {val:5, label:'Never'},
+        {val:4, label:'Rarely'},
+        {val:3, label:'Sometimes'},
+        {val:2, label:'Often — skin chronically oily'},
+        {val:1, label:'Constant — very oily or persistent acne'},
+      ])}
+
+      <div class="opt-section-label">Skin Inflammation, Rashes or Sensitivity</div>
+      ${_femaleOptGrid('skinInflam', [
+        {val:5, label:'Never'},
+        {val:4, label:'Rarely'},
+        {val:3, label:'Sometimes'},
+        {val:2, label:'Often'},
+        {val:1, label:'Frequently — sensitive / reactive skin'},
+      ])}
+
+      <div class="lab-btn-row">
+        <button class="lab-btn lab-btn--gold" onclick="_saveHormonalSkin()">Next →</button>
+      </div>
+    </div>
+  </div>`);
+};
+
+window._saveHormonalSkin = function() {
+  const vals = [
+    _getOptVal('acneCycle',  4),
+    _getOptVal('oilySkin',   4),
+    _getOptVal('skinInflam', 4),
+  ];
+  const score = LAB.clamp(Math.round(LAB.avg(vals) * 20), 15, 100);
+  LAB.raw.hormonalSkinScore = score;
+  LAB.moduleIndex++; LAB.nextModule();
+};
+
+/* ============================================================
+   MODULE 17 — SLEEP-CYCLE DISRUPTION
+   ============================================================ */
+window.mod_sleepCycle = function() {
+  LAB.renderModule(`
+  <div class="lab-module-wrap">
+    <div class="female-module-card">
+      <div class="lab-step-head">
+        <div class="lab-tag lab-tag--gold">🌸 Female · Module ${LAB.moduleIndex+1} of ${LAB.moduleQueue.length}</div>
+        <h2 class="lab-h2" style="margin-top:1rem;margin-bottom:0.6rem">Sleep-Cycle Disruption</h2>
+        <p class="lab-p">PMS and hormonal changes are known to disrupt sleep quality. This measures the pattern and severity.</p>
+      </div>
+
+      <div class="opt-section-label">Sleep Disruption in the Week Before Period</div>
+      ${_femaleOptGrid('premensSleep', [
+        {val:5, label:'None — sleep completely unaffected'},
+        {val:4, label:'Slight — occasional difficulty'},
+        {val:3, label:'Moderate — noticeable disruption'},
+        {val:2, label:'Significant — multiple poor nights'},
+        {val:1, label:'Severe — very disrupted sleep each cycle'},
+      ])}
+
+      <div class="opt-section-label">Night Sweats or Hot Flushes</div>
+      ${_femaleOptGrid('nightSweats', [
+        {val:5, label:'Never'},
+        {val:4, label:'Rarely'},
+        {val:3, label:'Sometimes'},
+        {val:2, label:'Often'},
+        {val:1, label:'Frequently — most nights'},
+      ])}
+
+      <div class="opt-section-label">Anxiety or Restlessness Affecting Sleep</div>
+      ${_femaleOptGrid('sleepAnxiety', [
+        {val:5, label:'Never — sleep peacefully'},
+        {val:4, label:'Rarely'},
+        {val:3, label:'Sometimes'},
+        {val:2, label:'Often'},
+        {val:1, label:'Frequently — anxiety disrupts sleep regularly'},
+      ])}
+
+      <div class="lab-btn-row">
+        <button class="lab-btn lab-btn--gold" onclick="_saveSleepCycle()">Next →</button>
+      </div>
+    </div>
+  </div>`);
+};
+
+window._saveSleepCycle = function() {
+  const vals = [
+    _getOptVal('premensSleep', 4),
+    _getOptVal('nightSweats',  4),
+    _getOptVal('sleepAnxiety', 4),
+  ];
+  const score = LAB.clamp(Math.round(LAB.avg(vals) * 20), 15, 100);
+  LAB.raw.sleepCycleScore = score;
+  LAB.moduleIndex++; LAB.nextModule();
+};
+
+/* ============================================================
+   MODULE 18 — PELVIC COMFORT INDICATOR
+   ============================================================ */
+window.mod_pelvicComfort = function() {
+  LAB.renderModule(`
+  <div class="lab-module-wrap">
+    <div class="female-module-card">
+      <div class="lab-step-head">
+        <div class="lab-tag lab-tag--gold">🌸 Female · Final Module ${LAB.moduleIndex+1} of ${LAB.moduleQueue.length}</div>
+        <h2 class="lab-h2" style="margin-top:1rem;margin-bottom:0.6rem">Pelvic Comfort Indicator</h2>
+        <p class="lab-p">A non-diagnostic comfort scoring tool. Please answer based on your typical experience over the past month.</p>
+      </div>
+
+      <div class="opt-section-label">Menstrual Cramp Severity</div>
+      ${_femaleOptGrid('cramps', [
+        {val:5, label:'None — pain-free periods'},
+        {val:4, label:'Mild — manageable without medication'},
+        {val:3, label:'Moderate — requires OTC pain relief'},
+        {val:2, label:'Significant — interferes with daily activity'},
+        {val:1, label:'Severe — debilitating'},
+      ])}
+
+      <div class="opt-section-label">Lower Abdominal Discomfort Outside Menstruation</div>
+      ${_femaleOptGrid('lowerAbdom', [
+        {val:5, label:'Never'},
+        {val:4, label:'Rarely'},
+        {val:3, label:'Occasionally'},
+        {val:2, label:'Frequently'},
+        {val:1, label:'Almost daily'},
+      ])}
+
+      <div class="opt-section-label">Changes in Vaginal Discharge</div>
+      ${_femaleOptGrid('discharge', [
+        {val:5, label:'Normal — no unusual change'},
+        {val:4, label:'Slight variation'},
+        {val:3, label:'Noticeable change in amount'},
+        {val:2, label:'Significant change in amount or colour'},
+      ])}
+
+      <div class="lab-notice" style="margin-top:1.5rem">
+        <div class="notice-icon">⚕️</div>
+        <p>This indicator is for general wellness awareness only. If you experience persistent discomfort or unusual discharge, please consult a qualified healthcare professional.</p>
+      </div>
+
+      <div class="lab-btn-row">
+        <button class="lab-btn lab-btn--gold lab-btn--lg" onclick="_savePelvicComfort()">
+          Complete Assessment →
+        </button>
+      </div>
+    </div>
+  </div>`);
+};
+
+window._savePelvicComfort = function() {
+  const vals = [
+    _getOptVal('cramps',     4),
+    _getOptVal('lowerAbdom', 4),
+    _getOptVal('discharge',  4),
+  ];
+  const score = LAB.clamp(Math.round(LAB.avg(vals) * 20), 15, 100);
+  LAB.raw.pelvicComfortScore = score;
+
+  // ── Compute Hormonal Composite ────────────────────────
+  const fScores = [
+    LAB.raw.hormonalRhythmScore || 60,
+    LAB.raw.energyIronScore     || 60,
+    LAB.raw.hormonalSkinScore   || 60,
+    LAB.raw.sleepCycleScore     || 60,
+    LAB.raw.pelvicComfortScore  || 60,
+  ];
+  LAB.scores.hormonal = Math.round(LAB.avg(fScores));
+
+  LAB.moduleIndex++; LAB.nextModule();
+};
+
+
+/* ============================================================
+   RADIAL CHART RENDERER
+   ============================================================ */
+function _drawRadial(canvasId, score, color) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx  = canvas.getContext('2d');
+  const W    = canvas.width;
+  const H    = canvas.height;
+  const cx   = W / 2;
+  const cy   = H / 2;
+  const r    = Math.min(cx, cy) - 8;
+  const lw   = 9;
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Background ring
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+  ctx.lineWidth   = lw;
+  ctx.stroke();
+
+  // Score arc
+  const startAngle = -Math.PI / 2;
+  const endAngle   = startAngle + (2 * Math.PI * (score / 100));
+  const grad       = ctx.createLinearGradient(0, 0, W, H);
+  grad.addColorStop(0, color);
+  grad.addColorStop(1, color + 'BB');
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, startAngle, endAngle);
+  ctx.strokeStyle = grad;
+  ctx.lineWidth   = lw;
+  ctx.lineCap     = 'round';
+  ctx.stroke();
+}
+
+/* ============================================================
+   PRODUCT MATCHING ENGINE
+   ============================================================ */
+function _getRecommendations() {
+  const sc  = LAB.scores;
+  const raw = LAB.raw;
+  const recs = [];
+
+  if (sc.cognitive !== null && sc.cognitive < 65)
+    recs.push({
+      id: 'brainchamp', img: 'brainchamp.jpg', name: 'Brain Champ',
+      reason: 'Your cognitive score suggests mental fatigue or brain fog. Ayurvedic cognitive support may help.'
+    });
+
+  if (sc.respiratory !== null && sc.respiratory < 55)
+    recs.push({
+      id: 'coughxpro', img: 'coughxpro.jpg', name: 'Cough X Pro',
+      reason: 'Your respiratory indicators suggest potential benefit from herbal respiratory support.'
+    });
+
+  if (sc.stress !== null && sc.stress < 55)
+    recs.push({
+      id: 'livohayaat', img: 'livohayaat.jpg', name: 'Livo Hayaat',
+      reason: 'Chronic stress burdens the liver. Herbal liver support may assist your body\'s natural detox pathways.'
+    });
+
+  if (raw.lifestyleScore !== null && raw.lifestyleScore < 55)
+    recs.push({
+      id: 'shahzyme', img: 'shahzyme.jpg', name: 'Shah Zyme',
+      reason: 'Your lifestyle load suggests digestive strain. Herbal enzyme support may improve nutrient absorption.'
+    });
+
+  if (sc.lifestyle !== null && sc.lifestyle < 55)
+    recs.push({
+      id: 'fevodol', img: 'fevodol.png', name: 'Fevodol',
+      reason: 'Low lifestyle wellness may compromise immunity. General herbal immune support may be beneficial.'
+    });
+
+  if (LAB.gender === 'female') {
+    if (sc.hormonal !== null && sc.hormonal < 60)
+      recs.push({
+        id: 'utrohayaat', img: 'utrohayaat.png', name: 'Utro Hayaat',
+        reason: 'Your hormonal rhythm assessment indicates potential benefit from Ayurvedic uterine tonic support.'
+      });
+
+    if (raw.energyIronScore !== null && raw.energyIronScore < 55)
+      recs.push({
+        id: 'bloodstorm', img: 'bloodstorm.jpg', name: 'Blood Storm',
+        reason: 'Your energy and iron pattern suggests potential benefit from a blood-building Ayurvedic tonic.'
+      });
+
+    if (raw.hormonalSkinScore !== null && raw.hormonalSkinScore < 60)
+      recs.push({
+        id: 'musaffakhoon', img: 'musaffakhoon.jpg', name: 'Musaffa Khoon',
+        reason: 'Hormonal skin patterns suggest potential benefit from an Ayurvedic blood purifier for clearer skin.'
+      });
+  }
+
+  return recs.slice(0, 4);
+}
+
+/* ============================================================
+   WELLNESS TIPS GENERATOR
+   ============================================================ */
+function _getWellnessTips() {
+  const sc = LAB.scores;
+  const tips = [];
+
+  if (sc.cognitive < 65)
+    tips.push({ icon: '🧠', text: '<strong>Cognitive:</strong> Aim for 7–9 hours quality sleep, reduce multitasking and try 10 minutes of daily mindfulness or meditation.' });
+
+  if (sc.respiratory < 65)
+    tips.push({ icon: '🌬', text: '<strong>Respiratory:</strong> Practice diaphragmatic breathing for 5 minutes daily. Anulom Vilom pranayama morning and evening is highly effective.' });
+
+  if (sc.stress < 65)
+    tips.push({ icon: '🔥', text: '<strong>Stress:</strong> 20–30 minutes of moderate physical activity daily. Limit caffeine after noon and try progressive muscle relaxation before sleep.' });
+
+  if (sc.stability < 65)
+    tips.push({ icon: '📱', text: '<strong>Motor:</strong> Balance exercises — standing on one leg, yoga, or Tai Chi — improve neuromotor coordination significantly over 4–6 weeks.' });
+
+  if (sc.lifestyle < 65)
+    tips.push({ icon: '⚖️', text: '<strong>Lifestyle:</strong> Target 2.5–3 litres of water daily, reduce screen time before bed and aim for 7,000+ steps per day.' });
+
+  if (LAB.scores.hormonal !== null && LAB.scores.hormonal < 65)
+    tips.push({ icon: '🌸', text: '<strong>Hormonal:</strong> Track your cycle, manage stress with adaptogens, prioritise sleep and discuss any significant symptoms with a gynaecologist.' });
+
+  if (tips.length === 0)
+    tips.push({ icon: '🌟', text: 'Your wellness indicators are in a healthy range. Maintain your current lifestyle, stay hydrated and keep up with regular physical activity.' });
+
+  tips.push({ icon: '💤', text: '<strong>Sleep Hygiene:</strong> Consistent sleep schedule 7 days a week, avoid screens 45 minutes before bed, and keep your room cool and dark.' });
+  tips.push({ icon: '🥗', text: '<strong>Nutrition:</strong> Emphasise seasonal vegetables, whole grains, lean proteins and adequate iron. Reduce processed sugar and refined foods.' });
+  tips.push({ icon: '🌿', text: '<strong>Ayurvedic Tip:</strong> Begin each day with warm water and a few drops of lemon. Abhyanga (self-massage with warm sesame oil) supports grounding and immunity.' });
+
+  return tips;
+}
+
+/* ============================================================
+   DASHBOARD
+   ============================================================ */
+LAB.showDashboard = function() {
+  // Ensure all composites are computed
+  if (!LAB.scores.cognitive)   LAB.scores.cognitive   = Math.round(LAB.avg([LAB.raw.reactionScore||50, LAB.raw.fatigueScore||50, LAB.raw.memoryScore||50, LAB.raw.attentionScore||50]));
+  if (!LAB.scores.respiratory) LAB.scores.respiratory = Math.round(LAB.avg([LAB.raw.breathSyncScore||60, LAB.raw.co2Score||60, LAB.raw.recoveryScore||60]));
+  if (!LAB.scores.stress)      LAB.scores.stress      = Math.round(LAB.avg([LAB.raw.arithScore||60, LAB.raw.patternScore||60]));
+  if (!LAB.scores.stability)   LAB.scores.stability   = Math.round(LAB.avg([LAB.raw.stabilityScore||65, LAB.raw.tremorScore||65]));
+  if (!LAB.scores.lifestyle)   LAB.scores.lifestyle   = Math.round(LAB.avg([LAB.raw.sleepScore||60, LAB.raw.lifestyleScore||60]));
+
+  const sc   = LAB.scores;
+  const recs = _getRecommendations();
+  const tips = _getWellnessTips();
+  const GH   = LAB.GH;
+
+  // Hide progress bar
+  const pb = document.getElementById('labProgressBar');
+  if (pb) pb.style.display = 'none';
+  LAB.setStatus('idle', 'Assessment Complete');
+
+  // Build score cards data
+  const scoreCards = [
+    { key:'cognitive',   label:'COGNITIVE',        canvasId:'cvCog'  },
+    { key:'respiratory', label:'RESPIRATORY',       canvasId:'cvResp' },
+    { key:'stress',      label:'STRESS RESILIENCE', canvasId:'cvStr'  },
+    { key:'stability',   label:'MOTOR STABILITY',   canvasId:'cvStab' },
+    { key:'lifestyle',   label:'LIFESTYLE',         canvasId:'cvLife' },
+  ];
+  if (sc.hormonal !== null)
+    scoreCards.push({ key:'hormonal', label:'HORMONAL BALANCE', canvasId:'cvHorm' });
+
+  const scoreCardsHTML = scoreCards.map(card => {
+    const val = sc[card.key];
+    if (val === null || val === undefined) return '';
+    const col  = LAB.scoreColor(val);
+    const lbl  = LAB.scoreLabel(val);
+    return `
+    <div class="score-card" style="--card-accent:${col}">
+      <canvas id="${card.canvasId}" width="90" height="90"></canvas>
+      <div class="score-card-name">${card.label}</div>
+      <div class="score-card-num" style="color:${col}">${Math.round(val)}</div>
+      <div class="score-card-label">${lbl}</div>
+    </div>`;
+  }).join('');
+
+  const recsHTML = recs.length > 0
+    ? `<div class="rec-grid">
+        ${recs.map(p => `
+        <div class="rec-card">
+          <img class="rec-card-img"
+               src="${GH}${p.img}"
+               alt="${p.name}"
+               loading="lazy"
+               onerror="this.src='${GH}logo.jpg'">
+          <div class="rec-card-body">
+            <div class="rec-card-name">${p.name}</div>
+            <div class="rec-card-reason">${p.reason}</div>
+            <a class="rec-card-btn" href="product-detail.html?id=${p.id}">Learn More →</a>
+          </div>
+        </div>`).join('')}
+      </div>`
+    : `<div class="all-green-box">
+        <div class="ag-icon">🌟</div>
+        <h3>All Indicators in Healthy Range</h3>
+        <p>No specific herbal support is recommended at this time. Keep up the excellent work maintaining your wellness!</p>
+      </div>`;
+
+  const tipsHTML = tips.map(t =>
+    `<div class="tip-item">
+      <span class="tip-icon">${t.icon}</span>
+      <p class="tip-text">${t.text}</p>
+    </div>`
+  ).join('');
+
+  LAB.renderModule(`
+  <div class="dashboard-wrap">
+
+    <!-- Hero -->
+    <div class="dashboard-hero">
+      <div class="dashboard-complete-badge">✅ Assessment Complete — ${LAB.totalSteps} Modules</div>
+      <h1 class="dashboard-title">Your Wellness Intelligence Report</h1>
+      <p class="dashboard-sub">All data computed locally · Zero transmissions · ${new Date().toDateString()}</p>
+    </div>
+
+    <!-- Score Grid -->
+    <div class="score-grid" id="scoreGrid" aria-label="Wellness scores">
+      ${scoreCardsHTML}
+    </div>
+
+    <!-- Product Recommendations -->
+    ${recs.length > 0 ? `
+    <div class="rec-section">
+      <div class="lab-tag lab-tag--gold" style="margin-bottom:1rem">🌿 Personalised Herbal Support</div>
+      <h2 class="section-heading">Ayurvedic Recommendations Based on Your Results</h2>
+      <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:1.5rem">Based on your assessment scores only. For general wellness support — not prescriptions or medical advice.</p>
+      ${recsHTML}
+    </div>` : recsHTML}
+
+    <!-- Wellness Tips -->
+    <div class="wellness-tips-section">
+      <h2 class="section-heading">📋 General Wellness Guidance</h2>
+      ${tipsHTML}
+    </div>
+
+    <!-- Legal Notice -->
+    <div class="legal-notice-box">
+      <strong>⚕️ Legal Disclaimer:</strong>
+      This report provides general wellness insights based on self-reported responses and browser-based activity tests.
+      It does not constitute a medical diagnosis and does not replace professional healthcare advice.
+      All calculations were performed locally in your browser.
+      No personal data has been stored or transmitted. Consult a qualified healthcare provider for any medical concerns.
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="pdf-btn-wrap lab-btn-row" style="justify-content:center">
+      <button class="lab-btn lab-btn--gold lab-btn--lg pdf-pulse" id="pdfBtn" onclick="generatePDF()">
+        ⬇ Download Wellness Report PDF
+      </button>
+      <button class="lab-btn lab-btn--ghost" onclick="LAB.showWelcome()">
+        ↺ New Assessment
+      </button>
+      <a class="lab-btn lab-btn--ghost" href="index.html">
+        ← Back to Shah Hayaat
+      </a>
+    </div>
+
+  </div>`);
+
+  // Draw all radial charts after DOM paints
+  requestAnimationFrame(() => {
+    scoreCards.forEach(card => {
+      const val = sc[card.key];
+      if (val !== null && val !== undefined)
+        _drawRadial(card.canvasId, Math.round(val), LAB.scoreColor(val));
+    });
+  });
+};
+
+/* ============================================================
+   PDF GENERATION
+   ============================================================ */
+window.generatePDF = async function() {
+  const btn = document.getElementById('pdfBtn');
+  if (btn) { btn.textContent = '⏳ Generating PDF…'; btn.disabled = true; }
+
+  // Wait for jsPDF to load
+  if (!window.jspdf) {
+    await new Promise(resolve => setTimeout(resolve, 1200));
+  }
+
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    const W = 210, H = 297;
+    const sc = LAB.scores;
+
+    // ── Colour palette ────────────────────────────────────
+    const BG    = [4, 8, 10];
+    const SURF  = [14, 26, 18];
+    const GREEN = [56, 180, 140];
+    const GOLD  = [201, 150, 12];
+    const GBRT  = [240, 185, 41];
+    const RED   = [232, 85, 85];
+    const WHITE = [214, 234, 228];
+    const MUTED = [110, 130, 120];
+
+    function scoreRgb(s) {
+      return s >= 80 ? [62,186,124] : s >= 55 ? [240,160,32] : [232,85,85];
+    }
+
+    // ════════════════════════════════════════════════════════
+    // PAGE 1 — COVER
+    // ════════════════════════════════════════════════════════
+    doc.setFillColor(...BG); doc.rect(0, 0, W, H, 'F');
+
+    // Top green strip
+    doc.setFillColor(10, 28, 18); doc.rect(0, 0, W, 16, 'F');
+    doc.setFillColor(...GREEN); doc.rect(0, 0, W, 4, 'F');
+
+    // Border frame
+    doc.setDrawColor(...GREEN); doc.setLineWidth(0.25);
+    doc.rect(10, 20, W-20, H-28, 'S');
+
+    // Brand name
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(11);
+    doc.setTextColor(...GREEN);
+    doc.text('SHAH HAYAAT', W/2, 36, { align: 'center' });
+
+    // Gold divider
+    doc.setDrawColor(...GOLD); doc.setLineWidth(0.6);
+    doc.line(W/2 - 25, 39, W/2 + 25, 39);
+
+    // Main title
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(22);
+    doc.setTextColor(...WHITE);
+    doc.text('Digital Wellness', W/2, 54, { align: 'center' });
+    doc.text('Intelligence Report', W/2, 65, { align: 'center' });
+
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+    doc.setTextColor(...MUTED);
+    doc.text('Powered by Shah Hayaat Digital Wellness Lab', W/2, 72, { align: 'center' });
+
+    // ── Score overview box ────────────────────────────────
+    doc.setFillColor(...SURF); doc.setDrawColor(...GREEN); doc.setLineWidth(0.25);
+    doc.roundedRect(22, 82, W-44, 94, 3, 3, 'FD');
+
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(7);
+    doc.setTextColor(...GREEN);
+    doc.text('WELLNESS SCORES OVERVIEW', W/2, 91, { align: 'center' });
+
+    const cardList = [
+      ['COGNITIVE',    sc.cognitive],
+      ['RESPIRATORY',  sc.respiratory],
+      ['STRESS',       sc.stress],
+      ['STABILITY',    sc.stability],
+      ['LIFESTYLE',    sc.lifestyle],
+    ];
+    if (sc.hormonal !== null) cardList.push(['HORMONAL', sc.hormonal]);
+
+    const perRow = 3;
+    cardList.forEach(([lbl, val], i) => {
+      if (val === null || val === undefined) return;
+      const col  = i % perRow;
+      const row  = Math.floor(i / perRow);
+      const x    = 34 + col * 54;
+      const y    = 102 + row * 42;
+      const sval = Math.round(val);
+      const cr   = scoreRgb(sval);
+
+      doc.setDrawColor(...cr); doc.setLineWidth(1.5);
+      doc.circle(x + 20, y + 11, 12, 'S');
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(10);
+      doc.setTextColor(...cr);
+      doc.text(String(sval), x + 20, y + 14.5, { align: 'center' });
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(5.5);
+      doc.setTextColor(...MUTED);
+      doc.text(lbl, x + 20, y + 24.5, { align: 'center' });
+      doc.setFontSize(5); doc.setTextColor(...cr);
+      doc.text(LAB.scoreLabel(sval), x + 20, y + 29, { align: 'center' });
+    });
+
+    // ── Meta ──────────────────────────────────────────────
+    const now = new Date();
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(7);
+    doc.setTextColor(...MUTED);
+    doc.text(`Generated: ${now.toDateString()} at ${now.toLocaleTimeString()}`, W/2, 190, { align: 'center' });
+    doc.text('All calculations performed locally. Zero data stored or transmitted.', W/2, 196, { align: 'center' });
+
+    // ── Contact block ─────────────────────────────────────
+    doc.setFillColor(...SURF);
+    doc.roundedRect(22, 205, W-44, 30, 3, 3, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5);
+    doc.setTextColor(...GREEN);
+    doc.text('Shah Hayaat — Pure Ayurvedic Wellness', W/2, 214, { align: 'center' });
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(7);
+    doc.setTextColor(...MUTED);
+    doc.text('+91 70510 56287  ·  shahhayaat02@gmail.com  ·  @shahhayaatofficial', W/2, 221, { align: 'center' });
+    doc.setTextColor(...Array(3).fill(160));
+    doc.text('WHO-GMP Certified  ·  ISO 9001:2015  ·  HACCP', W/2, 227, { align: 'center' });
+
+    // ── Disclaimer footer ──────────────────────────────────
+    doc.setFillColor(18, 6, 6); doc.rect(0, 262, W, 28, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(6.5);
+    doc.setTextColor(...RED);
+    doc.text('⚠  THIS REPORT PROVIDES WELLNESS INDICATORS ONLY — NOT A MEDICAL DIAGNOSIS', W/2, 271, { align: 'center' });
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(5.5);
+    doc.setTextColor(...MUTED);
+    doc.text('For any health concerns, consult a qualified healthcare professional. No data was stored or transmitted.', W/2, 278, { align: 'center' });
+    doc.text('© Shah Hayaat Digital Wellness Lab  |  shahhayaat02.github.io', W/2, 283, { align: 'center' });
+
+    // ════════════════════════════════════════════════════════
+    // PAGE 2 — DETAILED SCORES + WELLNESS TIPS
+    // ════════════════════════════════════════════════════════
+    doc.addPage();
+    doc.setFillColor(...BG); doc.rect(0, 0, W, H, 'F');
+    doc.setFillColor(10, 28, 18); doc.rect(0, 0, W, 12, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5);
+    doc.setTextColor(...WHITE);
+    doc.text('SHAH HAYAAT — DIGITAL WELLNESS INTELLIGENCE REPORT', W/2, 8, { align: 'center' });
+
+    doc.setFontSize(13); doc.setTextColor(...WHITE);
+    doc.text('Section 1: Detailed Score Analysis', 18, 25);
+    doc.setDrawColor(...GOLD); doc.setLineWidth(0.4);
+    doc.line(18, 28, W-18, 28);
+
+    const scoreDetails = [
+      { key:'cognitive',   label:'Cognitive Performance',
+        desc:'Measures reaction speed, working memory, attention control and cognitive resilience under pressure. Lower scores may indicate mental fatigue, poor sleep quality or chronic stress.' },
+      { key:'respiratory', label:'Respiratory Wellness',
+        desc:'Evaluates breath synchronisation, CO₂ tolerance and nervous system recovery. Lower scores may reflect shallow breathing, low cardiovascular fitness or high stress.' },
+      { key:'stress',      label:'Stress Resilience',
+        desc:'Tests cognitive performance under time pressure and visual decision accuracy under distraction. Lower scores indicate reduced capacity to maintain function under stress.' },
+      { key:'stability',   label:'Motor Stability',
+        desc:'Assesses fine neuromotor control through device stability analysis and drawn-line precision. Lower scores may indicate fatigue, dehydration or neuromotor strain.' },
+      { key:'lifestyle',   label:'Lifestyle & Sleep Wellness',
+        desc:'Composite of sleep efficiency, hydration, physical activity, screen time and dietary patterns. Lower scores indicate cumulative lifestyle strain.' },
+    ];
+    if (sc.hormonal !== null)
+      scoreDetails.push({ key:'hormonal', label:'Female Hormonal Balance',
+        desc:'Composite of cycle regularity, PMS severity, energy/iron patterns, hormonal skin impact and pelvic comfort indicators. Lower scores suggest benefit from hormonal wellness support.' });
+
+    let yy = 36;
+    scoreDetails.forEach(sd => {
+      const val = sc[sd.key];
+      if (val === null || val === undefined) return;
+      const sval = Math.round(val);
+      const cr   = scoreRgb(sval);
+      doc.setFillColor(...SURF); doc.setDrawColor(...cr); doc.setLineWidth(0.25);
+      doc.roundedRect(16, yy, W-32, 26, 3, 3, 'FD');
+      doc.setDrawColor(...cr); doc.setLineWidth(1.5);
+      doc.circle(30, yy + 13, 8, 'S');
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(8);
+      doc.setTextColor(...cr);
+      doc.text(String(sval), 30, yy + 16, { align: 'center' });
+      doc.setFontSize(8.5); doc.setTextColor(...WHITE);
+      doc.text(sd.label, 44, yy + 9);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(6);
+      doc.setTextColor(...MUTED);
+      const lines = doc.splitTextToSize(sd.desc, W - 68);
+      doc.text(lines.slice(0, 2), 44, yy + 15);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(6.5);
+      doc.setTextColor(...cr);
+      doc.text(LAB.scoreLabel(sval), W - 28, yy + 13, { align: 'center' });
+      yy += 30;
+    });
+
+    // ── Wellness tips ──────────────────────────────────────
+    yy += 4;
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(11);
+    doc.setTextColor(...WHITE);
+    doc.text('Section 2: General Wellness Recommendations', 18, yy); yy += 5;
+    doc.setDrawColor(...GOLD); doc.setLineWidth(0.4);
+    doc.line(18, yy, W - 18, yy); yy += 7;
+
+    const tipBlocks = [
+      { cat: 'Nutrition', pts: [
+        'Aim for balanced nutrition with seasonal vegetables and whole grains.',
+        'Include iron-rich foods: spinach, lentils, dates, jaggery — especially if energy is low.',
+        'Drink 2.5–3 litres of water daily. Reduce processed sugars and ultra-processed foods.',
+      ]},
+      { cat: 'Exercise', pts: [
+        '30 minutes of moderate activity (brisk walk, yoga, cycling) daily is optimal.',
+        'Include pranayama breathing: Anulom Vilom for 5–10 minutes morning and evening.',
+        'Light yoga or stretching before sleep improves sleep quality and overnight recovery.',
+      ]},
+      { cat: 'Sleep Hygiene', pts: [
+        'Maintain a consistent sleep and wake schedule every day of the week.',
+        'Avoid screens for at least 45 minutes before bed. Keep the bedroom cool and dark.',
+        'Avoid heavy meals within 2 hours of sleep. Consider ashwagandha for sleep quality.',
+      ]},
+    ];
+
+    tipBlocks.forEach(blk => {
+      if (yy > 268) { doc.addPage(); doc.setFillColor(...BG); doc.rect(0,0,W,H,'F'); yy = 20; }
+      const bh = 8 + blk.pts.length * 7;
+      doc.setFillColor(...SURF); doc.setDrawColor(30, 48, 34); doc.setLineWidth(0.2);
+      doc.roundedRect(16, yy, W-32, bh, 3, 3, 'FD');
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5);
+      doc.setTextColor(...GREEN);
+      doc.text(blk.cat.toUpperCase(), 24, yy + 7);
+      blk.pts.forEach((pt, pi) => {
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(6.3);
+        doc.setTextColor(...MUTED);
+        doc.text('• ' + pt, 24, yy + 14 + pi * 6.8);
+      });
+      yy += bh + 5;
+    });
+
+    // ════════════════════════════════════════════════════════
+    // PAGE 3 — PRODUCT RECOMMENDATIONS + FINAL LEGAL
+    // ════════════════════════════════════════════════════════
+    doc.addPage();
+    doc.setFillColor(...BG); doc.rect(0, 0, W, H, 'F');
+    doc.setFillColor(10, 28, 18); doc.rect(0, 0, W, 12, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5);
+    doc.setTextColor(...WHITE);
+    doc.text('SHAH HAYAAT — DIGITAL WELLNESS INTELLIGENCE REPORT', W/2, 8, { align: 'center' });
+
+    doc.setFontSize(13); doc.setTextColor(...WHITE);
+    doc.text('Section 3: Ayurvedic Herbal Support Suggestions', 18, 25);
+    doc.setDrawColor(...GOLD); doc.setLineWidth(0.4);
+    doc.line(18, 28, W-18, 28);
+
+    yy = 36;
+    const recs = _getRecommendations();
+
+    if (recs.length > 0) {
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(7);
+      doc.setTextColor(...MUTED);
+      const note = 'The following suggestions are based on your assessment scores and are for general wellness support only. They are not prescriptions or medical advice. Consult a healthcare professional before starting any supplement.';
+      const noteLines = doc.splitTextToSize(note, W-36);
+      doc.text(noteLines, 18, yy); yy += noteLines.length * 4.5 + 5;
+
+      recs.forEach(r => {
+        doc.setFillColor(...SURF); doc.setDrawColor(...GOLD); doc.setLineWidth(0.3);
+        doc.roundedRect(16, yy, W-32, 22, 3, 3, 'FD');
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5);
+        doc.setTextColor(...WHITE);
+        doc.text(r.name, 26, yy + 8);
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(6.3);
+        doc.setTextColor(...MUTED);
+        doc.text(r.reason, 26, yy + 14.5, { maxWidth: W - 50 });
+        doc.setTextColor(...GOLD); doc.setFont('helvetica', 'bold'); doc.setFontSize(6);
+        doc.text('shahhayaat02.github.io', W - 20, yy + 11, { align: 'right' });
+        yy += 26;
+      });
+    } else {
+      doc.setFillColor(...SURF); doc.setDrawColor(...GREEN); doc.setLineWidth(0.4);
+      doc.roundedRect(18, yy, W-36, 28, 3, 3, 'FD');
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(9);
+      doc.setTextColor(...GREEN);
+      doc.text('All Wellness Indicators in Healthy Range', W/2, yy + 12, { align: 'center' });
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(7);
+      doc.setTextColor(...MUTED);
+      doc.text('No specific herbal support is recommended at this time.', W/2, yy + 19, { align: 'center' });
+      yy += 36;
+    }
+
+    // ── Final legal page ───────────────────────────────────
+    yy = Math.max(yy + 10, 185);
+    doc.setFillColor(12, 22, 14); doc.setDrawColor(...GREEN); doc.setLineWidth(0.3);
+    doc.roundedRect(16, yy, W-32, 68, 3, 3, 'FD');
+
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(9);
+    doc.setTextColor(...GREEN);
+    doc.text('Final Legal Statement', W/2, yy + 10, { align: 'center' });
+    doc.setDrawColor(...GREEN); doc.setLineWidth(0.3);
+    doc.line(W/2-30, yy+13, W/2+30, yy+13);
+
+    const legalText = 'This report provides general wellness insights based on browser-based activity tests and self-reported questionnaire responses. It does not constitute a medical diagnosis, clinical assessment, or prescription. The results are wellness indicators only and must not be used to self-diagnose, self-treat, or replace professional medical advice.\n\nAll calculations were performed exclusively within your web browser session. No personal data, health information or test results have been stored, transmitted to any server, or shared with any third party at any time.\n\nThis platform is not regulated by any medical authority. Products suggested herein are Ayurvedic dietary supplements regulated under Indian law. They are not intended to diagnose, treat, cure, or prevent any disease.\n\nConsult a qualified healthcare professional before starting any supplement regimen, especially if you are pregnant, nursing, have a medical condition, or are taking medication.';
+
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(6.2);
+    doc.setTextColor(...MUTED);
+    const legalLines = doc.splitTextToSize(legalText, W-52);
+    doc.text(legalLines, 26, yy + 19);
+
+    // Final branding
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(7);
+    doc.setTextColor(...GREEN);
+    doc.text('Shah Hayaat Digital Wellness Intelligence Lab', W/2, H - 16, { align: 'center' });
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(6);
+    doc.setTextColor(...MUTED);
+    doc.text('shahhayaat02.github.io  ·  Pure Ayurvedic Wellness  ·  WHO-GMP · ISO · HACCP Certified', W/2, H - 10, { align: 'center' });
+
+    // Save
+    const filename = `ShahHayaat_Wellness_Report_${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}.pdf`;
+    doc.save(filename);
+
+  } catch (err) {
+    console.error('PDF generation error:', err);
+    alert('PDF generation failed. Please ensure you have an internet connection for the PDF library, then try again.');
+  } finally {
+    if (btn) { btn.textContent = '⬇ Download Wellness Report PDF'; btn.disabled = false; }
+  }
+};
+
+console.log('[WellnessLab] Part 4 loaded — Female modules 14–18, Dashboard, PDF registered. COMPLETE.');
+</script>
+
+
 </body>
 </html>
 
