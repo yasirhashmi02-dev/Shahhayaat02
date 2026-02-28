@@ -748,14 +748,29 @@ const LAB = {
     if (this.lang === 'ur') { text = ur || en; langCode = 'ur-PK'; }
 
     this._synth.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang  = langCode;
-    u.rate  = 0.87;
-    u.pitch = 1.05;
-    const t = this.el('vtog');
-    u.onstart = () => { if(t) t.classList.add('speaking'); };
-    u.onend   = () => { if(t) t.classList.remove('speaking'); };
-    this._synth.speak(u);
+    // Small delay so cancel() flushes first
+    setTimeout(() => {
+      if (!this.voiceOn || !this._synth) return;
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang  = langCode;
+      u.rate  = this.lang === 'en' ? 0.92 : 0.82;
+      u.pitch = 1.0;
+      u.volume = 1.0;
+      // Prefer a natural-sounding voice for the language
+      const voices = this._synth.getVoices();
+      const prefer = voices.filter(v =>
+        v.lang.startsWith(langCode.split('-')[0]) && !v.name.toLowerCase().includes('compact')
+      );
+      if (prefer.length) {
+        // Prefer online/enhanced voices over local
+        const enhanced = prefer.find(v => v.localService === false) || prefer[0];
+        u.voice = enhanced;
+      }
+      const t = this.el('vtog');
+      u.onstart = () => { if(t) t.classList.add('speaking'); };
+      u.onend   = () => { if(t) t.classList.remove('speaking'); };
+      this._synth.speak(u);
+    }, 80);
   },
 
   toggleVoice() {
@@ -928,12 +943,87 @@ console.log('[WellnessLab v2 Part 1] Foundation ready — voice (EN/HI/UR), demo
      Each module: animated demo → voice → activity → result
 ════════════════════════════════════════════════════════ -->
 <script>
+
 'use strict';
+
+/* ══════════════════════════════════════════════════════
+   PART 2  —  7 INTERACTIVE MODULES
+   ⚡ Reaction  📉 Fatigue  🧩 Memory  👁 Attention
+   🎨 Colour Blindness  📏 Visual Acuity  ⬜ Contrast
+══════════════════════════════════════════════════════ */
+
+/* ─── Extra CSS injected once ─────────────────────── */
+(function(){
+  if (document.getElementById('p2css')) return;
+  const s = document.createElement('style');
+  s.id = 'p2css';
+  s.textContent = `
+    .rz{width:100%;border-radius:14px;height:178px;display:flex;align-items:center;
+        justify-content:center;flex-direction:column;gap:.4rem;cursor:pointer;
+        user-select:none;border:2.5px solid var(--b);transition:background .18s,border-color .18s,box-shadow .18s;
+        background:#fff;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}
+    .rz-l{font-size:clamp(1rem,3vw,1.3rem);font-weight:700;color:var(--tq);transition:color .18s}
+    .rz-s{font-size:.68rem;color:var(--tq);transition:opacity .3s}
+    .rz.go{background:var(--g4);border-color:var(--g);
+           box-shadow:0 0 0 6px rgba(42,120,90,.15),0 0 32px rgba(42,120,90,.12);
+           animation:rzPulse 1s ease-in-out infinite}
+    .rz.go .rz-l{color:var(--g)}
+    .rz.early{background:var(--am2);border-color:var(--am)}
+    .rz.early .rz-l{color:var(--am)}
+    .rz.done{background:var(--g3);border-color:var(--g2);cursor:default}
+    .rz.done .rz-l{color:var(--t)}
+    @keyframes rzPulse{0%,100%{box-shadow:0 0 0 6px rgba(42,120,90,.15)}
+      50%{box-shadow:0 0 0 14px rgba(42,120,90,.04)}}
+    .rxh{display:flex;align-items:flex-end;gap:3px;height:44px;padding:0 .2rem;margin:.5rem 0}
+    .rxb{flex:1;border-radius:3px 3px 0 0;min-height:3px;
+         transition:height .4s cubic-bezier(.4,0,.2,1),background .3s}
+    .timer{font-family:'JetBrains Mono',monospace;font-size:clamp(2.4rem,7vw,3.8rem);
+           font-weight:600;line-height:1;text-align:center;color:var(--g);
+           display:block;margin:.6rem 0;transition:color .35s}
+    .timer.warn{color:var(--am)}
+    .timer.crit{color:var(--rd);animation:timerWiggle .45s ease-in-out infinite}
+    @keyframes timerWiggle{0%,100%{transform:rotate(0)}
+      25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+    .mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;
+           width:min(276px,82vw);margin:0 auto}
+    .mcell{aspect-ratio:1;background:#fff;border:2px solid var(--b);
+           border-radius:10px;transition:all .2s cubic-bezier(.4,0,.2,1);
+           cursor:pointer;display:flex;align-items:center;justify-content:center;
+           font-size:1.1rem;-webkit-tap-highlight-color:transparent}
+    .mcell.lit{background:var(--g2);border-color:var(--g);
+               transform:scale(1.08);box-shadow:0 4px 14px rgba(42,120,90,.25)}
+    .mcell.sel{background:#DBEAFE;border-color:#3B82F6}
+    .mcell.ok{background:var(--g3);border-color:var(--ok)}
+    .mcell.bad{background:var(--rd2);border-color:var(--rd)}
+    .ac-row{display:flex;align-items:center;justify-content:center;padding:.75rem;
+            background:#fff;border:2px solid var(--b);border-radius:var(--rs);
+            margin:.42rem 0;cursor:pointer;transition:all .22s;font-weight:700;
+            letter-spacing:.12em;color:var(--t);font-family:'JetBrains Mono',monospace}
+    .ac-row:hover{border-color:var(--g);background:var(--g4);transform:translateX(3px)}
+    .ac-row.seen{background:var(--g3);border-color:var(--ok)}
+    .ac-row.unseen{background:var(--rd2);border-color:var(--rd)}
+    .sc-row{display:flex;flex-wrap:wrap;gap:.55rem;margin:.9rem 0}
+    .scb{background:var(--bg);border:1.5px solid var(--b);border-radius:var(--rs);
+         padding:.55rem .88rem;min-width:76px;transition:border-color .2s}
+    .scb:hover{border-color:rgba(42,122,90,.3)}
+    .scb .v{font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:600;
+            color:var(--g);display:block;line-height:1}
+    .scb .l{font-size:.57rem;color:var(--tq);text-transform:uppercase;
+            letter-spacing:.09em;margin-top:.15rem;display:block}
+    /* demo box shimmer */
+    @keyframes shimmer{0%{opacity:.5}50%{opacity:1}100%{opacity:.5}}
+    .dem-shimmer{animation:shimmer 1.6s ease-in-out infinite}
+    /* score pop */
+    @keyframes scorePop{0%{transform:scale(.8);opacity:0}
+      60%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
+    .score-pop{animation:scorePop .45s cubic-bezier(.4,0,.2,1) both}
+  `;
+  document.head.appendChild(s);
+})();
+
 
 /* ╔══════════════════════════════════════════════════════╗
    MODULE 1 — REACTION SPEED
-   User taps a box the moment it turns green. 10 rounds.
-   Score based on average ms + consistency (low SD = better).
 ╚══════════════════════════════════════════════════════╝ */
 window.mod_reactionSpeed = function () {
   const ROUNDS = 10;
@@ -942,25 +1032,33 @@ window.mod_reactionSpeed = function () {
 
   LAB.showDemo({
     title: '⚡ Reaction Speed',
-    txt: 'The box below will say <strong style="color:var(--am)">Wait…</strong> then suddenly turn <strong style="color:var(--g)">green</strong> and say <strong style="color:var(--g)">TAP!</strong><br>Hit it as fast as you can the moment you see green. <strong>Do NOT tap during Wait.</strong>',
-    hint: '10 rounds — try to beat your own best time!',
-    voiceEN: 'Reaction speed test. The box will turn green and say TAP. Hit it as fast as you can. Do not tap during the Wait period. Ten rounds.',
-    voiceUR: 'ردعمل کی رفتار کا ٹیسٹ۔ جب باکس سبز ہو اور TAP لکھے تو فوراً دبائیں۔ دس راؤنڈ۔',
-    voiceHI: 'प्रतिक्रिया गति परीक्षण। जब बॉक्स हरा हो और TAP लिखे, तुरंत दबाएं। दस राउंड।',
+    txt: 'The box turns <strong style="color:var(--am)">red → Wait</strong> then suddenly goes <strong style="color:var(--g)">green → TAP!</strong><br>Hit it the instant you see green. <strong>Do NOT tap on Wait or you lose that round.</strong>',
+    hint: '10 rounds · try to beat your best each time!',
+    voiceEN: 'Here is how this works. A box will appear — red means wait, green means tap as fast as you can. Ten rounds. Ready?',
+    voiceUR: 'جب باکس سبز ہو جائے — فوری دبائیں۔ سرخ ہو تو انتظار کریں۔ دس راؤنڈ۔',
+    voiceHI: 'बॉक्स हरा हो जाए — तुरंत दबाएं। लाल हो तो रुकें। दस राउंड।',
     btnLabel: 'Start Reaction Test →',
-    vis: `<div id="demoRxBox" style="width:160px;height:62px;border-radius:12px;background:#FAFBF8;border:2.5px solid var(--b);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.05rem;color:var(--tq);transition:all .35s">Wait…</div>`,
+    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.6rem">
+      <div id="dRxBox" style="width:170px;height:64px;border-radius:13px;
+           background:#FAFBF8;border:2.5px solid #D4E8DC;
+           display:flex;align-items:center;justify-content:center;
+           font-weight:700;font-size:1rem;color:#6A8A6A;
+           transition:all .3s cubic-bezier(.4,0,.2,1)">Wait…</div>
+      <div style="font-size:.68rem;color:var(--tq)">Watch for green → tap fast!</div>
+    </div>`,
     anim(vis) {
       let on = false;
-      const box = vis.querySelector('#demoRxBox');
+      const box = vis.querySelector('#dRxBox');
       const id = setInterval(() => {
         on = !on;
         if (!box) return;
-        box.style.background    = on ? 'var(--g4)' : '#FAFBF8';
-        box.style.borderColor   = on ? 'var(--g)'  : 'var(--b)';
-        box.style.color         = on ? 'var(--g)'  : 'var(--tq)';
-        box.style.boxShadow     = on ? '0 0 0 4px rgba(42,122,90,.18)' : 'none';
-        box.textContent         = on ? 'TAP! 👆' : 'Wait…';
-      }, 1100);
+        box.style.background   = on ? '#E8F5EE' : '#FFF5F5';
+        box.style.borderColor  = on ? '#2A7A5A' : '#E88080';
+        box.style.color        = on ? '#1A8C52' : '#C05050';
+        box.style.boxShadow    = on ? '0 0 0 5px rgba(42,120,90,.15)' : 'none';
+        box.style.transform    = on ? 'scale(1.04)' : 'scale(1)';
+        box.textContent        = on ? '👆 TAP NOW!' : '🔴 Wait…';
+      }, 1000);
       return id;
     }
   }, () => {
@@ -968,166 +1066,125 @@ window.mod_reactionSpeed = function () {
       <div class="step-head">
         <div class="tag">⚡ Cognitive · 1 of 4</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Reaction Speed</h2>
-        <p class="pg">Tap the box the <strong>instant</strong> it turns <strong style="color:var(--g)">green</strong>. 10 rounds. Don't tap on Wait — you'll lose the round!</p>
+        <p class="pg">Tap the box the <strong>instant</strong> it turns <strong style="color:var(--g)">green</strong>. 10 rounds. Tap on red = lost round!</p>
       </div>
-
-      <div id="rxBox" class="rz rz-wait"
-           onclick="_rxTap()" role="button" tabindex="0"
+      <div id="rxBox" class="rz" onclick="_rxTap()" role="button" tabindex="0"
            onkeydown="if(event.key===' '||event.key==='Enter')_rxTap()"
-           aria-label="Reaction zone — tap when green">
+           aria-label="Reaction zone">
         <span class="rz-l" id="rxLbl">Getting ready…</span>
-        <span class="rz-s" id="rxSub">Stay focused</span>
+        <span class="rz-s" id="rxSub">⬆ keep your finger ready above</span>
       </div>
-
       <div class="rxh" id="rxH" aria-hidden="true"></div>
-
       <div class="sc-row">
         <div class="scb"><span class="v" id="rxRnd">0/${ROUNDS}</span><span class="l">Round</span></div>
-        <div class="scb"><span class="v" id="rxLast">—</span><span class="l">Last (ms)</span></div>
-        <div class="scb"><span class="v" id="rxBest">—</span><span class="l">Best (ms)</span></div>
+        <div class="scb"><span class="v" id="rxLast">—</span><span class="l">Last ms</span></div>
+        <div class="scb"><span class="v" id="rxBest">—</span><span class="l">Best ms</span></div>
         <div class="scb"><span class="v" id="rxAvg">—</span><span class="l">Average</span></div>
       </div>
-
-      <div class="notice">
-        <div class="ni">💡</div>
-        <p>Keep your finger hovering just above the screen. React only to the colour change — not the text.</p>
-      </div>
     </div></div>`);
-
-    LAB.say(
-      'Ready. The box will turn green. Tap it immediately.',
-      'تیار ہیں۔ باکس سبز ہو گا، فوراً دبائیں۔',
-      'तैयार रहें। बॉक्स हरा होगा, तुरंत दबाएं।'
-    );
-    setTimeout(_rxSchedule, 950);
+    LAB.say('Alright, keep your finger ready. Tap as soon as you see green.','تیار رہیں۔ سبز ہوتے ہی دبائیں۔','तैयार रहें। हरा होते ही दबाएं।');
+    setTimeout(_rxSchedule, 900);
   });
 
   function _rxSchedule() {
-    const z = document.getElementById('rxBox');
-    const l = document.getElementById('rxLbl');
-    const s = document.getElementById('rxSub');
+    const z=document.getElementById('rxBox'), l=document.getElementById('rxLbl'), s=document.getElementById('rxSub');
     if (!z) return;
-
-    z.className = 'rz rz-wait';
-    if (l) l.textContent = 'Wait…';
-    if (s) s.textContent = 'Get ready…';
-    st.waiting = false; st.locked = false;
-
-    // Random delay 1.1–3.5s so they can't predict it
+    z.className='rz'; z.style.background='#FFF5F5'; z.style.borderColor='#E88080';
+    if (l) { l.textContent='🔴 Wait…'; l.style.color='#C05050'; }
+    if (s) s.textContent='do NOT tap yet';
+    st.waiting=false; st.locked=false;
     _wait = setTimeout(() => {
-      const z2 = document.getElementById('rxBox');
-      const l2 = document.getElementById('rxLbl');
+      const z2=document.getElementById('rxBox'), l2=document.getElementById('rxLbl');
       if (!z2) return;
-      z2.className = 'rz rz-go';
-      if (l2) l2.textContent = 'TAP! 👆';
-      st.waiting = true;
-      st.startT  = performance.now();
-    }, 1100 + Math.random() * 2400);
+      z2.className='rz go'; z2.style.background=''; z2.style.borderColor='';
+      if (l2) { l2.textContent='👆 TAP NOW!'; l2.style.color=''; }
+      st.waiting=true; st.startT=performance.now();
+    }, 1200 + Math.random()*2800);
   }
 
   window._rxTap = function () {
     if (st.locked) return;
-
     if (!st.waiting) {
-      // Tapped too early
-      clearTimeout(_wait); st.locked = true;
-      const z = document.getElementById('rxBox');
-      const l = document.getElementById('rxLbl');
-      if (z) z.className = 'rz rz-early';
-      if (l) l.textContent = '⚠ Too early! Wait for green.';
+      clearTimeout(_wait); st.locked=true;
+      const z=document.getElementById('rxBox'), l=document.getElementById('rxLbl');
+      if (z) { z.className='rz early'; z.style.background=''; z.style.borderColor=''; }
+      if (l) { l.textContent='⚠ Too early! Wait for green.'; l.style.color=''; }
       LAB.flash('miss');
-      setTimeout(_rxSchedule, 1500);
+      setTimeout(_rxSchedule, 1400);
       return;
     }
-
     const rt = Math.round(performance.now() - st.startT);
-    st.times.push(rt); st.round++; st.waiting = false; st.locked = true;
-
-    // Update UI
-    const col = rt<250 ? 'var(--ok)' : rt<400 ? 'var(--am)' : 'var(--rd)';
-    const em  = rt<250 ? '🚀' : rt<400 ? '👍' : '⏳';
-    const z = document.getElementById('rxBox');
-    const l = document.getElementById('rxLbl');
-    if (z) { z.className='rz rz-done'; z.style.borderColor=col; }
+    st.times.push(rt); st.round++; st.waiting=false; st.locked=true;
+    const col = rt<250?'var(--ok)':rt<400?'var(--am)':'var(--rd)';
+    const em  = rt<200?'🚀':rt<280?'⚡':rt<380?'👍':'⏳';
+    const z=document.getElementById('rxBox'), l=document.getElementById('rxLbl');
+    if (z) { z.className='rz done'; z.style.background=''; z.style.borderColor=''; }
     if (l) { l.textContent=`${em} ${rt} ms`; l.style.color=col; }
-
-    const set = (id,v,c) => {
-      const e=document.getElementById(id); if(!e)return;
-      e.textContent=v; if(c) e.style.color=c;
-    };
-    set('rxRnd',  st.round+'/'+ROUNDS);
-    set('rxLast', rt+'ms', col);
-    set('rxBest', Math.min(...st.times)+'ms', 'var(--ok)');
-    set('rxAvg',  Math.round(LAB.avg(st.times))+'ms');
-
-    const h = document.getElementById('rxH');
-    if (h) h.innerHTML = LAB.rxBars(st.times);
-
+    const set=(id,v,c)=>{const e=document.getElementById(id);if(!e)return;e.textContent=v;if(c)e.style.color=c;};
+    set('rxRnd',st.round+'/'+ROUNDS);
+    set('rxLast',rt+'ms',col);
+    set('rxBest',Math.min(...st.times)+'ms','var(--ok)');
+    set('rxAvg',Math.round(LAB.avg(st.times))+'ms');
+    const h=document.getElementById('rxH');
+    if (h) {
+      const mx=Math.max(...st.times,400);
+      h.innerHTML=st.times.map(t=>{
+        const ht=Math.max(4,Math.round(t/mx*40));
+        const c=t<250?'var(--ok)':t<400?'var(--am)':'var(--rd)';
+        return `<div class="rxb" style="height:${ht}px;background:${c}" title="${t}ms"></div>`;
+      }).join('');
+    }
     LAB.flash('hit');
-
-    if (st.round >= ROUNDS) setTimeout(_rxDone, 750);
-    else setTimeout(_rxSchedule, 880);
+    if (st.round>=ROUNDS) setTimeout(_rxDone,700);
+    else setTimeout(_rxSchedule,820);
   };
 
   function _rxDone() {
-    const m  = LAB.avg(st.times);
-    const sd = LAB.sd(st.times);
-    const best = Math.min(...st.times);
-    // Score: fast average = good, low SD = consistent = bonus
-    const sc = LAB.clamp(Math.round(
-      (m<200?100 : m<260?92 : m<320?82 : m<420?70 : m<560?55 : 38) - sd/22
-    ), 18, 100);
-
-    LAB.raw.rxAvg   = Math.round(m);
-    LAB.raw.rxBest  = best;
-    LAB.raw.rxSD    = Math.round(sd);
-    LAB.raw.rxScore = sc;
-
+    const m=LAB.avg(st.times), sd=LAB.sd(st.times), best=Math.min(...st.times);
+    const sc=LAB.clamp(Math.round((m<200?100:m<260?92:m<320?82:m<420?70:m<560?55:38) - sd/22),18,100);
+    LAB.raw.rxAvg=Math.round(m); LAB.raw.rxBest=best; LAB.raw.rxSD=Math.round(sd); LAB.raw.rxScore=sc;
     LAB.celebrate();
-    LAB.say(`Done! Your average reaction time was ${Math.round(m)} milliseconds. ${LAB.scoreLbl(sc)}!`,
-            `مکمل! اوسط ردعمل ${Math.round(m)} ملی سیکنڈ۔`,
-            `हो गया! आपका औसत प्रतिक्रिया समय ${Math.round(m)} मिलीसेकंड था।`);
-    setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
+    LAB.say(`Nice work! Your average was ${Math.round(m)} milliseconds. That is ${LAB.scoreLbl(sc)}!`,
+            `مکمل! اوسط وقت ${Math.round(m)} ملی سیکنڈ۔ ${LAB.scoreLbl(sc)}!`,
+            `हो गया! औसत समय ${Math.round(m)} मिलीसेकंड। ${LAB.scoreLbl(sc)}!`);
+    setTimeout(()=>{ LAB.idx++; LAB.next(); },1900);
   }
 };
 
 
 /* ╔══════════════════════════════════════════════════════╗
-   MODULE 2 — FATIGUE DRIFT
-   30-second sustained reaction test. Compares first half
-   vs second half. Slowdown = fatigue drift score.
+   MODULE 2 — FATIGUE DRIFT (30s sustained reaction)
 ╚══════════════════════════════════════════════════════╝ */
 window.mod_reactionFatigue = function () {
-  const DUR = 30;
-  const st = { active:false, elapsed:0, waiting:false, startT:0, taps:[], locked:false };
-  let _cd = null, _pt = null;
+  const DUR=30;
+  const st={active:false,elapsed:0,waiting:false,startT:0,taps:[],locked:false};
+  let _cd=null,_pt=null;
 
   LAB.showDemo({
     title: '📉 Fatigue Test',
-    txt: 'This is a <strong>30-second</strong> version of the reaction test. Keep tapping every time the box turns green — over and over. We check whether you slow down as you get tired.',
-    hint: '30 seconds of tapping — are you consistent?',
-    voiceEN: '30-second fatigue test. Keep tapping every time the box turns green. We will measure if you slow down towards the end.',
-    voiceUR: '30 سیکنڈ کا تھکاوٹ ٹیسٹ۔ ہر بار جب باکس سبز ہو، دبائیں۔',
-    voiceHI: '30 सेकंड का थकान परीक्षण। हर बार जब बॉक्स हरा हो, दबाएं।',
-    btnLabel: 'Start 30s Fatigue Test →',
-    vis: `<div style="text-align:center">
-      <div style="font-size:1.3rem;font-weight:700;color:var(--g);margin-bottom:.4rem">⏱ 30 seconds</div>
-      <div style="font-size:.78rem;color:var(--tq);margin-bottom:.55rem">Tap green → tap green → tap green…</div>
-      <div style="display:flex;justify-content:center;align-items:flex-end;gap:4px;height:48px" id="ftDemoBars">
-        ${[40,55,45,60,50,70,58,62,52,68].map((h,i)=>`<div id="ftdb${i}" style="width:9px;height:${h}%;background:var(--g2);border-radius:3px 3px 0 0;transition:height .3s,background .3s"></div>`).join('')}
+    txt: 'Same as reaction speed — but for <strong>30 seconds non-stop</strong>. Keep tapping every time the box flashes green. We check if you slow down towards the end.',
+    hint: '30 seconds · do you stay consistent?',
+    voiceEN: 'Same idea as before — but this time for thirty seconds non-stop. We will check if you slow down towards the end.',
+    voiceUR: '30 سیکنڈ تک ہر بار سبز باکس دبائیں۔ تھکاوٹ کا اندازہ ہوگا۔',
+    voiceHI: '30 सेकंड तक हर बार हरे बॉक्स को दबाएं। थकान का पता चलेगा।',
+    btnLabel: 'Start 30s Test →',
+    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
+      <div id="dFtBar" style="display:flex;align-items:flex-end;gap:3px;height:46px">
+        ${Array.from({length:12},(_,i)=>`<div id="dFb${i}" style="width:9px;border-radius:3px 3px 0 0;background:var(--g2);transition:height .25s,background .25s;height:${12+i*2}px"></div>`).join('')}
       </div>
+      <div style="font-size:.68rem;color:var(--tq)">tap · tap · tap · keep going!</div>
     </div>`,
     anim(vis) {
-      let curr = 0;
-      const heights = [40,55,45,60,50,70,58,62,52,68];
-      const id = setInterval(() => {
-        const bars = vis.querySelectorAll('[id^="ftdb"]');
-        bars.forEach((b,i) => {
-          b.style.background = i===curr ? 'var(--g)' : 'var(--g2)';
-          b.style.height     = i===curr ? '90%'      : heights[i]+'%';
+      let i=0;
+      const id=setInterval(()=>{
+        const bars=vis.querySelectorAll('[id^="dFb"]');
+        bars.forEach((b,j)=>{
+          const isActive=j===i;
+          b.style.height=(isActive?'42px':(12+j*2)+'px');
+          b.style.background=isActive?'var(--g)':'var(--g2)';
         });
-        curr = (curr+1) % bars.length;
-      }, 300);
+        i=(i+1)%bars.length;
+      },200);
       return id;
     }
   }, () => {
@@ -1135,161 +1192,138 @@ window.mod_reactionFatigue = function () {
       <div class="step-head">
         <div class="tag">📉 Cognitive · 2 of 4</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Fatigue Drift</h2>
-        <p class="pg">Tap the green box as fast as possible, every time it appears, for <strong>30 seconds</strong>. We compare your speed at the start and the end.</p>
+        <p class="pg">Tap every time the box turns green — <strong>for 30 seconds</strong>. We compare your speed at the start vs the end.</p>
       </div>
-
       <span class="timer" id="ftTimer">30</span>
-
-      <div id="ftBox" class="rz rz-wait" style="cursor:default"
-           onclick="_ftTap()" role="button" tabindex="0"
-           onkeydown="if(event.key===' '||event.key==='Enter')_ftTap()">
+      <div id="ftBox" class="rz" onclick="_ftTap()" role="button" tabindex="0"
+           onkeydown="if(event.key===' '||event.key==='Enter')_ftTap()" aria-label="Fatigue tap zone"
+           style="cursor:default;background:#F8FAFB;border-color:#D4E8DC">
         <span class="rz-l" id="ftLbl">Press Start below</span>
         <span class="rz-s">30-second endurance test</span>
       </div>
-
       <div class="sc-row">
         <div class="scb"><span class="v" id="ftTaps">0</span><span class="l">Total Taps</span></div>
-        <div class="scb"><span class="v" id="ftAvg">—</span><span class="l">Average (ms)</span></div>
-        <div class="scb"><span class="v" id="ftDrift">—</span><span class="l">Fatigue Drift</span></div>
+        <div class="scb"><span class="v" id="ftAvg">—</span><span class="l">Avg ms</span></div>
+        <div class="scb"><span class="v" id="ftDrift">—</span><span class="l">Drift</span></div>
       </div>
-
       <div class="btn-row">
         <button class="btn btn--p btn--lg" id="ftStartBtn" onclick="_ftBegin()">▶ Start 30s Test</button>
       </div>
     </div></div>`);
-
-    LAB.say('Press Start and keep tapping every time the box turns green for 30 seconds.',
-            '30 سیکنڈ تک ہر بار سبز باکس دبائیں۔',
-            '30 सेकंड तक हर बार हरे बॉक्स को दबाएं।');
+    LAB.say('Press start and tap every time the box turns green. Thirty seconds.','سٹارٹ دبائیں، ہر بار سبز باکس تپ کریں۔','स्टार्ट दबाएं, हर बार हरे बॉक्स को टैप करें।');
   });
 
   window._ftBegin = function () {
-    const b = document.getElementById('ftStartBtn');
-    const z = document.getElementById('ftBox');
-    if (b) b.style.display = 'none';
-    if (z) z.style.cursor = 'pointer';
-    st.active = true;
-
-    _cd = setInterval(() => {
+    const b=document.getElementById('ftStartBtn'); if(b) b.style.display='none';
+    const z=document.getElementById('ftBox'); if(z) z.style.cursor='pointer';
+    st.active=true;
+    _cd=setInterval(()=>{
       st.elapsed++;
-      const rem = DUR - st.elapsed;
-      const te  = document.getElementById('ftTimer');
-      if (te) {
-        te.textContent  = rem;
-        te.className = 'timer' + (rem<=5?' crit':rem<=12?' warn':'');
-      }
-      // Milestone encouragements
-      if (rem===20) LAB.say('Great! 20 seconds to go!','20 سیکنڈ باقی!','20 सेकंड बाकी!');
-      if (rem===10) LAB.say('Almost there! 10 seconds!','10 سیکنڈ باقی!','10 सेकंड बाकी!');
-      if (rem===5)  LAB.say('5 seconds — finish strong!','5 سیکنڈ!','5 सेकंड!');
-      if (st.elapsed >= DUR) { clearInterval(_cd); clearTimeout(_pt); _ftDone(); }
-    }, 1000);
-
+      const rem=DUR-st.elapsed;
+      const te=document.getElementById('ftTimer');
+      if(te){ te.textContent=rem; te.className='timer'+(rem<=5?' crit':rem<=12?' warn':''); }
+      if(rem===20) LAB.say('Good — twenty seconds to go!','20 سیکنڈ باقی، جاری رکھیں!','20 सेकंड बाकी, जारी रखें!');
+      if(rem===10) LAB.say('Nearly there — ten seconds left!','دس سیکنڈ باقی!','दस सेकंड बाकी!');
+      if(rem===5)  LAB.say('Last five — keep going!','آخری پانچ!','आखिरी पाँच!');
+      if(st.elapsed>=DUR){ clearInterval(_cd); clearTimeout(_pt); st.active=false; _ftDone(); }
+    },1000);
     _ftNext();
   };
 
   function _ftNext() {
-    if (!st.active || !document.getElementById('ftBox')) return;
+    if(!st.active||!document.getElementById('ftBox')) return;
     const z=document.getElementById('ftBox'), l=document.getElementById('ftLbl');
-    if (z) z.className = 'rz rz-wait';
-    if (l) l.textContent = 'Wait…';
-    st.waiting = false; st.locked = false;
-
-    _pt = setTimeout(() => {
+    if(z){ z.className='rz'; z.style.background='#FFF5F5'; z.style.borderColor='#E88080'; }
+    if(l){ l.textContent='🔴 Wait…'; l.style.color='#C05050'; }
+    st.waiting=false; st.locked=false;
+    _pt=setTimeout(()=>{
       const z2=document.getElementById('ftBox'), l2=document.getElementById('ftLbl');
-      if (!z2) return;
-      z2.className = 'rz rz-go';
-      if (l2) l2.textContent = 'TAP! 👆';
-      st.waiting = true;
-      st.startT  = performance.now();
-    }, 600 + Math.random() * 1500);
+      if(!z2) return;
+      z2.className='rz go'; z2.style.background=''; z2.style.borderColor='';
+      if(l2){ l2.textContent='👆 TAP!'; l2.style.color=''; }
+      st.waiting=true; st.startT=performance.now();
+    }, 400+Math.random()*800);
   }
 
   window._ftTap = function () {
-    if (!st.active || !st.waiting || st.locked) return;
-    st.locked = true;
-    const rt = Math.round(performance.now() - st.startT);
-    st.taps.push({ at: st.elapsed, rt });
-    LAB.flash('hit');
-
-    const all = st.taps.map(x=>x.rt);
-    const te=document.getElementById('ftTaps'), ae=document.getElementById('ftAvg'), de=document.getElementById('ftDrift');
-    if (te) te.textContent = st.taps.length;
-    if (ae) ae.textContent = Math.round(LAB.avg(all))+'ms';
-
-    if (de && st.taps.length >= 6) {
-      const h = Math.floor(st.taps.length / 2);
-      const drift = Math.round(
-        LAB.avg(st.taps.slice(h).map(x=>x.rt)) - LAB.avg(st.taps.slice(0,h).map(x=>x.rt))
-      );
-      de.textContent  = (drift>0?'+':'')+drift+'ms';
-      de.style.color  = drift>45?'var(--rd)':drift>18?'var(--am)':'var(--ok)';
-    }
-
+    if(!st.active||st.locked) return;
+    if(!st.waiting){ LAB.flash('miss'); return; }
+    const rt=Math.round(performance.now()-st.startT);
+    st.taps.push({t:rt, elapsed:st.elapsed}); st.waiting=false; st.locked=true;
     const z=document.getElementById('ftBox'), l=document.getElementById('ftLbl');
-    if (z) z.className = 'rz rz-done';
-    if (l) l.textContent = '✓ '+rt+'ms';
-    clearTimeout(_pt);
-    setTimeout(_ftNext, 300);
+    if(z){ z.className='rz done'; z.style.background=''; z.style.borderColor=''; }
+    if(l){ l.textContent=`⚡ ${rt}ms`; l.style.color='var(--ok)'; }
+    const tc=document.getElementById('ftTaps'); if(tc) tc.textContent=st.taps.length;
+    if(st.taps.length>=2){
+      const avg=Math.round(LAB.avg(st.taps.map(t=>t.t)));
+      const avgEl=document.getElementById('ftAvg'); if(avgEl) avgEl.textContent=avg+'ms';
+    }
+    LAB.flash('hit');
+    setTimeout(_ftNext, 250);
   };
 
   function _ftDone() {
-    const taps = st.taps;
-    let score = 68, drift = 0;
-    if (taps.length >= 4) {
-      const h = Math.floor(taps.length/2);
-      drift = LAB.avg(taps.slice(h).map(x=>x.rt)) - LAB.avg(taps.slice(0,h).map(x=>x.rt));
-      score = LAB.clamp(Math.round(85 - drift/4.5), 18, 100);
-    }
-    LAB.raw.ftTaps  = taps.length;
-    LAB.raw.ftDrift = Math.round(drift);
-    LAB.raw.ftScore = score;
-
+    const taps=st.taps;
+    if(taps.length<4){ LAB.raw.ftScore=55; LAB.idx++; LAB.next(); return; }
+    const half=Math.floor(taps.length/2);
+    const first=LAB.avg(taps.slice(0,half).map(t=>t.t));
+    const last =LAB.avg(taps.slice(-half).map(t=>t.t));
+    const drift=Math.round(last-first);
+    const score=LAB.clamp(Math.round(100-Math.max(0,drift)/3.5),15,100);
+    LAB.raw.ftTaps=taps.length; LAB.raw.ftDrift=drift; LAB.raw.ftScore=score;
+    const dEl=document.getElementById('ftDrift');
+    if(dEl){ dEl.textContent=(drift>0?'+':'')+drift+'ms'; dEl.style.color=LAB.scoreCol(score); }
     LAB.celebrate();
-    LAB.say(`Fatigue test done! You tapped ${taps.length} times. ${LAB.scoreLbl(score)} endurance.`,
-            `مکمل! آپ نے ${taps.length} بار دبایا۔`,
-            `हो गया! आपने ${taps.length} बार दबाया।`);
-    setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
+    LAB.say(`Fatigue test done! ${taps.length} taps. Drift of ${Math.abs(drift)} milliseconds. ${LAB.scoreLbl(score)} endurance.`,
+            `مکمل! ${taps.length} تپس۔ ڈرفٹ ${Math.abs(drift)}ms۔`,
+            `पूरा! ${taps.length} टैप। ड्रिफ्ट ${Math.abs(drift)}ms।`);
+    setTimeout(()=>{ LAB.idx++; LAB.next(); },1900);
   }
 };
 
 
 /* ╔══════════════════════════════════════════════════════╗
-   MODULE 3 — WORKING MEMORY (3×3 Matrix)
-   A 3×3 grid lights cells in sequence. User repeats it.
-   Span grows from 3 up to 9 over 7 rounds.
+   MODULE 3 — WORKING MEMORY (3×3 grid)
 ╚══════════════════════════════════════════════════════╝ */
 window.mod_workingMemory = function () {
-  const TOTAL_ROUNDS = 7;
-  const st = { seq:[], user:[], span:3, round:0, maxSpan:0, errors:0, phase:'idle' };
+  const TOTAL_ROUNDS=7;
+  const st={seq:[],user:[],span:3,round:0,maxSpan:0,errors:0,phase:'idle'};
 
   LAB.showDemo({
     title: '🧩 Memory Matrix',
-    txt: 'A 3×3 grid lights up boxes <strong>one by one</strong>. Watch the order carefully. Then tap the same boxes in the <strong>same order</strong>. Each round gets a little longer!',
-    hint: 'Short-term memory challenge — stays fun!',
-    voiceEN: 'Memory matrix. Boxes will light up one by one. Remember the order. Then tap them back in the same order. Each round gets longer.',
-    voiceUR: 'میموری میٹرکس۔ خانے ایک ایک کر کے روشن ہوں گے۔ ترتیب یاد کریں پھر اسی ترتیب میں دبائیں۔',
-    voiceHI: 'याददाश्त परीक्षण। बॉक्स एक-एक करके जलेंगे। क्रम याद करें, फिर उसी क्रम में दबाएं।',
+    txt: 'Boxes light up one by one in a sequence. <strong>Remember the order</strong>, then tap them back in the same order. Each round gets a little longer!',
+    hint: 'Watch carefully — then repeat the pattern',
+    voiceEN: 'Watch the grid carefully. Some boxes will light up one by one. Once they stop, tap them back in the exact same order. Each round gets a little longer.',
+    voiceUR: 'یادداشت ٹیسٹ۔ خانے ایک ایک کر کے روشن ہوں گے۔ ترتیب یاد رکھیں، پھر دبائیں۔',
+    voiceHI: 'याददाश्त परीक्षण। बॉक्स एक-एक करके जलेंगे। क्रम याद रखें, फिर उसी क्रम में दबाएं।',
     btnLabel: 'Start Memory Test →',
-    vis: `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;width:110px;margin:0 auto" id="demoMem">
-      ${Array.from({length:9},(_,i)=>`<div id="dc${i}" style="aspect-ratio:1;background:#fff;border:2px solid var(--b);border-radius:7px;transition:all .28s"></div>`).join('')}
+    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.7rem">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;width:108px" id="dMemGrid">
+        ${Array.from({length:9},(_,i)=>`<div id="dm${i}" style="aspect-ratio:1;background:#fff;border:2px solid #D4E8DC;border-radius:8px;transition:all .25s"></div>`).join('')}
+      </div>
+      <div style="font-size:.68rem;color:var(--tq)" id="dMemHint">Watch the sequence…</div>
     </div>`,
     anim(vis) {
-      const cells = vis.querySelectorAll('[id^="dc"]');
-      const seq = [0,4,2,7,1];
-      let step = 0, showing = false;
-      const id = setInterval(() => {
-        if (showing) {
-          cells.forEach(c => { c.style.background='#fff'; c.style.borderColor='var(--b)'; });
-          showing = false;
+      const cells=vis.querySelectorAll('[id^="dm"]');
+      const hint=vis.querySelector('#dMemHint');
+      const seqs=[[0,4,2,7,1],[3,8,0,5],[1,6,3,8,2,4]];
+      let si=0,step=0,showing=false;
+      const seq=seqs[si];
+      const id=setInterval(()=>{
+        if(showing){
+          cells.forEach(c=>{c.style.background='#fff';c.style.borderColor='#D4E8DC';c.style.transform='scale(1)';});
+          showing=false;
         } else {
-          if (step < seq.length) {
-            const c = cells[seq[step]];
-            if (c) { c.style.background='var(--g2)'; c.style.borderColor='var(--g)'; }
-            step++; showing = true;
-          } else { step = 0; }
+          if(step<seq.length){
+            const c=cells[seq[step]];
+            if(c){c.style.background='#38A87A';c.style.borderColor='#2A7A5A';c.style.transform='scale(1.1)';}
+            step++;showing=true;
+          } else {
+            step=0;si=(si+1)%seqs.length;
+            if(hint) hint.textContent=step===0?'Now tap them back…':'Watch the sequence…';
+          }
         }
-      }, 550);
+      },520);
       return id;
     }
   }, () => {
@@ -1297,187 +1331,120 @@ window.mod_workingMemory = function () {
       <div class="step-head">
         <div class="tag">🧩 Cognitive · 3 of 4</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Memory Matrix</h2>
-        <p class="pg">Boxes light up one by one. Then tap them back in the <strong>exact same order</strong>.</p>
+        <p class="pg">Watch the boxes light up, then tap them back in the <strong>exact same order</strong>.</p>
       </div>
-
-      <!-- Span pips -->
-      <div style="display:flex;justify-content:center;gap:.28rem;margin:.6rem 0" id="mPips" aria-label="Sequence length indicator">
-        ${Array.from({length:9},(_,i)=>`<div id="mp${i}" style="width:8px;height:8px;border-radius:50%;background:var(--b);transition:.3s"></div>`).join('')}
+      <div style="display:flex;justify-content:center;gap:.3rem;margin:.6rem 0" id="mPips" aria-label="Sequence length">
+        ${Array.from({length:9},(_,i)=>`<div id="mp${i}" style="width:9px;height:9px;border-radius:50%;background:var(--b);transition:.35s"></div>`).join('')}
       </div>
-
-      <!-- 3×3 Grid -->
       <div style="display:flex;justify-content:center;margin:.85rem 0">
         <div class="mgrid" role="group" aria-label="Memory grid">
-          ${Array.from({length:9},(_,i)=>`
-            <div class="mcell" id="mc${i}" role="button" tabindex="0" aria-label="Cell ${i+1}"
-                 onclick="_mTap(${i})"
-                 onkeydown="if(event.key==='Enter'||event.key===' ')_mTap(${i})"></div>
-          `).join('')}
+          ${Array.from({length:9},(_,i)=>`<div class="mcell" id="mc${i}" role="button" tabindex="0"
+            aria-label="Cell ${i+1}" onclick="_mTap(${i})"
+            onkeydown="if(event.key==='Enter'||event.key===' ')_mTap(${i})"></div>`).join('')}
         </div>
       </div>
-
-      <div class="mono" style="text-align:center;font-size:.7rem;color:var(--tq);min-height:1.3em;transition:.3s" id="mStatus">Prepare yourself…</div>
-
+      <div class="mono" style="text-align:center;font-size:.72rem;color:var(--tq);min-height:1.4em;transition:.3s" id="mSt">Prepare yourself…</div>
       <div class="sc-row" style="justify-content:center">
         <div class="scb"><span class="v" id="mRnd">0/${TOTAL_ROUNDS}</span><span class="l">Round</span></div>
-        <div class="scb"><span class="v" id="mLen">3</span><span class="l">Sequence Length</span></div>
+        <div class="scb"><span class="v" id="mLen">3</span><span class="l">Sequence</span></div>
         <div class="scb"><span class="v" id="mMax">0</span><span class="l">Best Span</span></div>
         <div class="scb"><span class="v" id="mErr">0</span><span class="l">Mistakes</span></div>
       </div>
     </div></div>`);
-
-    LAB.say('Watch the boxes light up. Then tap them in the same order.',
-            'خانوں کو روشن ہوتے دیکھیں، پھر اسی ترتیب میں دبائیں۔',
-            'बॉक्स जलते देखें, फिर उसी क्रम में दबाएं।');
-    setTimeout(_mRound, 700);
+    LAB.say('Watch carefully, then repeat the pattern. Here we go.','غور سے دیکھیں، پھر دہرائیں۔','ध्यान से देखें, फिर दोहराएं।');
+    setTimeout(_mRound,700);
   });
 
-  function _mPips(n) {
-    for (let i=0;i<9;i++) {
-      const p=document.getElementById('mp'+i);
-      if (p) p.style.background = i<n ? 'var(--g2)' : 'var(--b)';
-    }
-  }
-  function _mSetCell(i,cls) {
-    const c=document.getElementById('mc'+i);
-    if (!c) return;
-    c.className = 'mcell' + (cls ? ' '+cls : '');
-  }
-  function _mInteract(on) {
-    for(let i=0;i<9;i++){
-      const c=document.getElementById('mc'+i);
-      if (!c) break;
-      c.style.pointerEvents = on ? 'auto' : 'none';
-      c.tabIndex = on ? 0 : -1;
-    }
-  }
-  function _mStatus(t, col='var(--tq)') {
-    const e=document.getElementById('mStatus');
-    if (e) { e.textContent=t; e.style.color=col; }
-  }
+  function _mPips(n){for(let i=0;i<9;i++){const p=document.getElementById('mp'+i);if(p)p.style.background=i<n?'var(--g2)':'var(--b)';}}
+  function _mSetCell(i,cls){const c=document.getElementById('mc'+i);if(!c)return;c.className='mcell'+(cls?' '+cls:'');}
+  function _mInteract(on){for(let i=0;i<9;i++){const c=document.getElementById('mc'+i);if(!c)break;c.style.pointerEvents=on?'auto':'none';c.tabIndex=on?0:-1;}}
+  function _mSt(t,col='var(--tq)'){const e=document.getElementById('mSt');if(e){e.textContent=t;e.style.color=col;}}
 
-  function _mRound() {
-    if (!document.getElementById('mc0')) return;
-    st.seq=[]; st.user=[]; st.phase='show'; st.round++;
-
-    // Build sequence — no adjacent repeats
-    for(let i=0;i<st.span;i++){
-      let n;
-      do { n=Math.floor(Math.random()*9); }
-      while (st.seq.length && n===st.seq[st.seq.length-1]);
-      st.seq.push(n);
-    }
-
-    const rEl=document.getElementById('mRnd'), lEl=document.getElementById('mLen');
-    if (rEl) rEl.textContent=st.round+'/'+TOTAL_ROUNDS;
-    if (lEl) lEl.textContent=st.span;
-    _mPips(st.span);
-    _mInteract(false);
-    _mStatus('👀 Watch the sequence…');
-
+  function _mRound(){
+    if(!document.getElementById('mc0')) return;
+    st.seq=[];st.user=[];st.phase='show';st.round++;
+    for(let i=0;i<st.span;i++){let n;do{n=Math.floor(Math.random()*9);}while(st.seq.length&&n===st.seq[st.seq.length-1]);st.seq.push(n);}
+    const rEl=document.getElementById('mRnd'),lEl=document.getElementById('mLen');
+    if(rEl)rEl.textContent=st.round+'/'+TOTAL_ROUNDS;
+    if(lEl)lEl.textContent=st.span;
+    _mPips(st.span);_mInteract(false);_mSt('👀 Watch the sequence carefully…');
     let idx=0;
-    function _show() {
-      if (!document.getElementById('mc0')) return;
-      if (idx>0) _mSetCell(st.seq[idx-1], '');
-      if (idx>=st.seq.length) {
-        st.phase='input';
-        _mInteract(true);
-        _mStatus('👆 Now tap them in order!', 'var(--g)');
-        return;
-      }
-      _mSetCell(st.seq[idx], 'lit');
-      idx++;
-      setTimeout(_show, 500);
+    function _show(){
+      if(!document.getElementById('mc0')) return;
+      if(idx>0) _mSetCell(st.seq[idx-1],'');
+      if(idx>=st.seq.length){st.phase='input';_mInteract(true);_mSt('👆 Now tap them in order!','var(--g)');return;}
+      _mSetCell(st.seq[idx],'lit');idx++;
+      setTimeout(_show,520);
     }
-    setTimeout(_show, 400);
+    setTimeout(_show,500);
   }
 
-  window._mTap = function(i) {
-    if (st.phase !== 'input') return;
-    const pos = st.user.length;
-    const expected = st.seq[pos];
+  window._mTap=function(i){
+    if(st.phase!=='input') return;
+    const pos=st.user.length,expected=st.seq[pos];
     st.user.push(i);
-
-    if (i === expected) {
-      _mSetCell(i, 'sel');
-      LAB.flash('hit');
-      setTimeout(()=>_mSetCell(i,'ok'), 240);
-    } else {
-      st.errors++;
-      _mSetCell(i, 'bad');
-      LAB.flash('miss');
-      // Show correct cell briefly
-      setTimeout(()=>{ _mSetCell(expected,'lit'); setTimeout(()=>_mSetCell(expected,''),400); },180);
-      const eEl=document.getElementById('mErr'); if(eEl) eEl.textContent=st.errors;
+    if(i===expected){_mSetCell(i,'sel');LAB.flash('hit');setTimeout(()=>_mSetCell(i,'ok'),230);}
+    else{
+      st.errors++;_mSetCell(i,'bad');LAB.flash('miss');
+      setTimeout(()=>{_mSetCell(expected,'lit');setTimeout(()=>_mSetCell(expected,''),380);},160);
+      const eEl=document.getElementById('mErr');if(eEl)eEl.textContent=st.errors;
     }
-
-    if (st.user.length === st.seq.length) {
+    if(st.user.length===st.seq.length){
       _mInteract(false);
-      const allOk = st.user.every((v,j)=>v===st.seq[j]);
-      if (allOk) {
-        st.maxSpan = Math.max(st.maxSpan, st.span);
-        if (st.span < 9) st.span++;
-        _mStatus('✅ Correct! Getting longer…','var(--ok)');
-        const mm=document.getElementById('mMax'); if(mm) mm.textContent=st.maxSpan;
-      } else {
-        if (st.span > 2) st.span--;
-        _mStatus('❌ Not quite. A little shorter next round.','var(--rd)');
-      }
-      const delay = st.round >= TOTAL_ROUNDS ? 1200 : 1300;
-      setTimeout(st.round >= TOTAL_ROUNDS ? _mDone : _mRound, delay);
+      const allOk=st.user.every((v,j)=>v===st.seq[j]);
+      if(allOk){st.maxSpan=Math.max(st.maxSpan,st.span);if(st.span<9)st.span++;_mSt('✅ Correct! Getting longer…','var(--ok)');const mm=document.getElementById('mMax');if(mm)mm.textContent=st.maxSpan;}
+      else{if(st.span>2)st.span--;_mSt('❌ Not quite. A little shorter next round.','var(--rd)');}
+      setTimeout(st.round>=TOTAL_ROUNDS?_mDone:_mRound,st.round>=TOTAL_ROUNDS?1100:1250);
     }
   };
 
-  function _mDone() {
-    const sc = LAB.clamp(Math.round((st.maxSpan/9)*80 - st.errors*2.5 + 18), 12, 100);
-    LAB.raw.memSpan   = st.maxSpan;
-    LAB.raw.memErrors = st.errors;
-    LAB.raw.memScore  = sc;
-
+  function _mDone(){
+    const sc=LAB.clamp(Math.round((st.maxSpan/9)*80-st.errors*2.5+18),12,100);
+    LAB.raw.memSpan=st.maxSpan;LAB.raw.memErrors=st.errors;LAB.raw.memScore=sc;
     LAB.celebrate();
-    LAB.say(`Memory test done! Best span: ${st.maxSpan} items. ${LAB.scoreLbl(sc)} working memory.`,
-            `مکمل! بہترین تسلسل: ${st.maxSpan}`,
-            `हो गया! सबसे अच्छा क्रम: ${st.maxSpan}`);
-    setTimeout(() => { LAB.idx++; LAB.next(); }, 1900);
+    LAB.say(`Well done! Your best sequence was ${st.maxSpan} items long. That is ${LAB.scoreLbl(sc)} working memory.`,
+            `مکمل! بہترین تسلسل ${st.maxSpan}۔ ${LAB.scoreLbl(sc)}`,
+            `हो गया! सबसे अच्छा क्रम ${st.maxSpan}। ${LAB.scoreLbl(sc)}`);
+    setTimeout(()=>{LAB.idx++;LAB.next();},1900);
   }
 };
 
 
 /* ╔══════════════════════════════════════════════════════╗
-   MODULE 4 — SUSTAINED ATTENTION  (60 seconds)
-   Green circle = TAP IT.  Red circle = IGNORE IT.
-   Score is F1 (balances hits vs false alarms).
+   MODULE 4 — SUSTAINED ATTENTION (60 seconds)
 ╚══════════════════════════════════════════════════════╝ */
 window.mod_sustainedAttention = function () {
-  const DUR = 60;
-  const st = { active:false, elapsed:0, type:null, canTap:false, hits:0, fa:0, misses:0 };
-  let _cd=null, _st=null;
+  const DUR=60;
+  const st={active:false,elapsed:0,type:null,canTap:false,hits:0,fa:0,misses:0};
+  let _cd=null,_st=null;
 
   LAB.showDemo({
     title: '👁 Attention Test',
-    txt: 'A circle appears — either <strong style="color:var(--g)">🟢 GREEN</strong> or <strong style="color:var(--rd)">🔴 RED</strong>.<br>Tap <strong style="color:var(--g)">only the GREEN one</strong>. Completely ignore the red one. 60 seconds — stay sharp!',
-    hint: '🟢 = TAP · 🔴 = IGNORE — just 60 seconds',
-    voiceEN: 'Sustained attention test. Tap the green circle immediately. Completely ignore the red one. 60 seconds — you can do it!',
-    voiceUR: '60 سیکنڈ کا دھیان کا ٹیسٹ۔ صرف سبز دائرے کو دبائیں، سرخ کو نہیں۔',
-    voiceHI: '90 सेकंड का ध्यान परीक्षण। केवल हरे गोले को दबाएं, लाल को नहीं।',
+    txt: 'A circle appears — either <strong style="color:var(--g)">GREEN</strong> or <strong style="color:var(--rd)">RED</strong>.<br>Tap <strong>only the GREEN</strong> circle. Completely ignore red. 60 seconds.',
+    hint: 'Green = tap · Red = ignore · stay sharp!',
+    voiceEN: 'This one is sixty seconds long. A circle will appear — sometimes green, sometimes red. Only tap the green one. Completely ignore red. Try to stay sharp the whole time.',
+    voiceUR: '60 سیکنڈ کا توجہ ٹیسٹ۔ صرف سبز دائرہ دبائیں، سرخ کو بالکل نہ دبائیں۔',
+    voiceHI: '60 सेकंड का ध्यान परीक्षण। केवल हरे गोले को दबाएं, लाल को बिल्कुल नहीं।',
     btnLabel: 'Start Attention Test →',
-    vis: `<div style="text-align:center;font-size:.82rem;color:var(--tq);line-height:2.2">
-      <div id="atDemoCircle" style="width:72px;height:72px;border-radius:50%;background:var(--g4);border:3px solid var(--g);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:2rem;transition:all .35s">🟢</div>
-      <div id="atDemoLabel" style="font-weight:700;color:var(--g)">TAP THIS ← tap immediately</div>
+    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
+      <div id="dAtCirc" style="width:76px;height:76px;border-radius:50%;background:#E8F5EE;
+           border:3px solid #2A7A5A;display:flex;align-items:center;justify-content:center;
+           font-size:2rem;transition:all .4s cubic-bezier(.4,0,.2,1)">🟢</div>
+      <div id="dAtLbl" style="font-size:.75rem;font-weight:700;color:var(--g)">TAP THIS ← immediately</div>
     </div>`,
     anim(vis) {
-      const circle = vis.querySelector('#atDemoCircle');
-      const label  = vis.querySelector('#atDemoLabel');
-      let green = true;
-      const id = setInterval(() => {
-        green = !green;
-        if(!circle||!label) return;
-        circle.style.background   = green ? 'var(--g4)' : 'var(--rd2)';
-        circle.style.borderColor  = green ? 'var(--g)'  : 'var(--rd)';
-        circle.textContent        = green ? '🟢' : '🔴';
-        label.style.color         = green ? 'var(--g)' : 'var(--rd)';
-        label.textContent         = green ? 'TAP THIS ← tap immediately' : 'IGNORE THIS ✋ don\'t tap';
-      }, 1200);
+      const c=vis.querySelector('#dAtCirc'),l=vis.querySelector('#dAtLbl');
+      let green=true;
+      const id=setInterval(()=>{
+        green=!green;
+        if(!c||!l) return;
+        c.style.background=green?'#E8F5EE':'#FEECEB';
+        c.style.borderColor=green?'#2A7A5A':'#C0392B';
+        c.style.transform=green?'scale(1.08)':'scale(1)';
+        c.textContent=green?'🟢':'🔴';
+        l.style.color=green?'var(--g)':'var(--rd)';
+        l.textContent=green?'TAP THIS ← immediately':'IGNORE THIS ✋';
+      },1100);
       return id;
     }
   }, () => {
@@ -1486,589 +1453,453 @@ window.mod_sustainedAttention = function () {
         <div class="tag">👁 Cognitive · 4 of 4</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Attention Test</h2>
         <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.6rem">
-          <span class="tag tag--bl" style="font-size:.8rem">🟢 Green = TAP immediately</span>
-          <span style="display:inline-flex;align-items:center;gap:.3rem;padding:.22rem .72rem;background:var(--rd2);border:1px solid rgba(192,57,43,.28);border-radius:50px;font-size:.8rem;font-weight:700;color:var(--rd)">🔴 Red = IGNORE completely</span>
+          <span style="display:inline-flex;align-items:center;gap:.3rem;padding:.22rem .72rem;background:var(--g3);border:1px solid rgba(42,122,90,.28);border-radius:50px;font-size:.8rem;font-weight:700;color:var(--g)">🟢 Green = TAP</span>
+          <span style="display:inline-flex;align-items:center;gap:.3rem;padding:.22rem .72rem;background:var(--rd2);border:1px solid rgba(192,57,43,.28);border-radius:50px;font-size:.8rem;font-weight:700;color:var(--rd)">🔴 Red = IGNORE</span>
         </div>
-        <p class="pg">60 seconds. Stay focused — you can do it! Missing a green or tapping a red both cost points.</p>
+        <p class="pg">60 seconds. Missing a green or tapping red both reduce your score.</p>
       </div>
-
       <span class="timer" id="atTimer">60</span>
-
-      <!-- Target circle -->
       <div style="display:flex;justify-content:center;margin:.9rem 0">
         <div id="atTarget" onclick="_atTap()" role="button" tabindex="0"
              onkeydown="if(event.key===' '||event.key==='Enter')_atTap()"
-             aria-label="Attention target — tap when green"
-             style="width:138px;height:138px;border-radius:50%;background:var(--bg);border:3px solid var(--b);
+             aria-label="Attention target"
+             style="width:140px;height:140px;border-radius:50%;background:var(--bg);border:3px solid var(--b);
                     display:flex;flex-direction:column;align-items:center;justify-content:center;
-                    cursor:pointer;transition:all .16s;user-select:none;-webkit-tap-highlight-color:transparent">
-          <span style="font-size:2.7rem" id="atIcon">—</span>
-          <span style="font-size:.6rem;font-family:'JetBrains Mono',monospace;color:var(--tq);margin-top:.15rem" id="atHint">Waiting…</span>
+                    cursor:pointer;transition:all .18s;user-select:none;-webkit-tap-highlight-color:transparent">
+          <span style="font-size:2.8rem" id="atIcon">—</span>
+          <span style="font-size:.62rem;font-family:'JetBrains Mono',monospace;color:var(--tq);margin-top:.15rem" id="atHint">Waiting…</span>
         </div>
       </div>
-
-      <!-- Dot trail (recent results) -->
-      <div style="display:flex;flex-wrap:wrap;gap:3px;justify-content:center;min-height:14px;margin:.25rem 0" id="atTrail" aria-hidden="true"></div>
-
+      <div style="display:flex;flex-wrap:wrap;gap:3px;justify-content:center;min-height:14px;margin:.2rem 0" id="atTrail" aria-hidden="true"></div>
       <div class="sc-row" style="justify-content:center">
         <div class="scb"><span class="v" id="atH">0</span><span class="l">Hits ✓</span></div>
-        <div class="scb"><span class="v" id="atF">0</span><span class="l">False Alarms ✗</span></div>
+        <div class="scb"><span class="v" id="atF">0</span><span class="l">False ✗</span></div>
         <div class="scb"><span class="v" id="atM">0</span><span class="l">Missed</span></div>
         <div class="scb"><span class="v" id="atAcc">—</span><span class="l">Accuracy</span></div>
       </div>
-
-      <div class="notice" id="atNotice"><div class="ni">🎯</div>
-        <p>Missing green = 1 point lost. Tapping red = 2 points lost. Stay consistent!</p>
-      </div>
       <div class="btn-row">
-        <button class="btn btn--p btn--lg" id="atStart" onclick="_atBegin()">▶ ▶ Start 60s Test</button>
+        <button class="btn btn--p btn--lg" id="atStart" onclick="_atBegin()">▶ Start 60s Test</button>
       </div>
     </div></div>`);
-
-    LAB.say('Tap Start and focus. Green circle — tap it. Red circle — ignore it.',
-            'سٹارٹ دبائیں۔ سبز دائرہ دبائیں، سرخ نہ دبائیں۔',
-            'स्टार्ट दबाएं। हरे गोले को दबाएं, लाल को नहीं।');
+    LAB.say('Remember — green means tap, red means ignore. Sixty seconds.','یاد رہے — سبز دبائیں، سرخ نہیں۔ ساٹھ سیکنڈ۔','याद रखें — हरा दबाएं, लाल नहीं। साठ सेकंड।');
   });
 
-  window._atBegin = function () {
-    const b=document.getElementById('atStart'), n=document.getElementById('atNotice');
-    if(b) b.style.display='none';
-    if(n) n.style.display='none';
+  window._atBegin=function(){
+    const b=document.getElementById('atStart');if(b)b.style.display='none';
     st.active=true;
-
-    _cd = setInterval(()=>{
+    _cd=setInterval(()=>{
       st.elapsed++;
       const rem=DUR-st.elapsed;
       const te=document.getElementById('atTimer');
-      if(te){ te.textContent=rem; te.className='timer'+(rem<=8?" crit":rem<=18?" warn":''); }
-      if (rem===40) LAB.say('Halfway there! Keep going!','آدھا ہو گیا! جاری رکھیں!','आधा हो गया!');
-      if (rem===20) LAB.say('20 seconds left — stay sharp!','20 سیکنڈ باقی!','20 सेकंड बाकी!');
-      if (rem===5)  LAB.say('Last 5 seconds!','آخری 5 سیکنڈ!','आखिरी 5 सेकंड!');
-      if(st.elapsed>=DUR){ clearInterval(_cd); clearTimeout(_st); _atDone(); }
+      if(te){te.textContent=rem;te.className='timer'+(rem<=8?' crit':rem<=18?' warn':'');}
+      if(rem===40) LAB.say('Halfway through — keep your focus!','آدھا مکمل، توجہ رکھیں!','आधा पूरा, ध्यान बनाए रखें!');
+      if(rem===20) LAB.say('Twenty seconds left!','20 سیکنڈ باقی!','20 सेकंड बाकी!');
+      if(rem===5)  LAB.say('Last five!','آخری 5!','आखिरी 5!');
+      if(st.elapsed>=DUR){clearInterval(_cd);clearTimeout(_st);_atDone();}
     },1000);
-
     _atNext();
   };
 
-  function _atNext() {
+  function _atNext(){
     if(!st.active||!document.getElementById('atTarget')) return;
-    const isGreen = Math.random()>0.38;
-    st.type=''; st.canTap=false;
-
-    // Brief blank gap
+    const isGreen=Math.random()>0.36; st.type='';st.canTap=false;
     const tg=document.getElementById('atTarget'),ic=document.getElementById('atIcon'),ht=document.getElementById('atHint');
-    if(tg){ tg.style.background='var(--bg)'; tg.style.borderColor='var(--b)'; tg.style.boxShadow='none'; }
-    if(ic) ic.textContent='—';
-    if(ht) ht.textContent='Waiting…';
-
+    if(tg){tg.style.background='var(--bg)';tg.style.borderColor='var(--b)';tg.style.boxShadow='none';}
+    if(ic)ic.textContent='—';if(ht)ht.textContent='Waiting…';
     setTimeout(()=>{
       if(!st.active||!document.getElementById('atTarget')) return;
-      st.type   = isGreen?'green':'red';
-      st.canTap = true;
-
+      st.type=isGreen?'green':'red';st.canTap=true;
       if(tg){
-        tg.style.background = isGreen?'var(--g4)':'var(--rd2)';
-        tg.style.borderColor= isGreen?'var(--g)':'var(--rd)';
-        tg.style.boxShadow  = isGreen?'0 0 26px rgba(42,122,90,.22)':'0 0 26px rgba(192,57,43,.18)';
+        tg.style.background=isGreen?'var(--g4)':'var(--rd2)';
+        tg.style.borderColor=isGreen?'var(--g)':'var(--rd)';
+        tg.style.boxShadow=isGreen?'0 0 28px rgba(42,120,90,.22)':'0 0 28px rgba(192,57,43,.18)';
+        tg.style.transform='scale(1.04)';
       }
-      if(ic) ic.textContent = isGreen?'🟢':'🔴';
-      if(ht) ht.textContent = isGreen?'TAP! 👆':'IGNORE ✋';
-
-      const vis = 750+Math.random()*700;
-      _st = setTimeout(()=>{
-        if(!st.canTap) return;
+      if(ic)ic.textContent=isGreen?'🟢':'🔴';
+      if(ht)ht.textContent=isGreen?'TAP! 👆':'IGNORE ✋';
+      _st=setTimeout(()=>{
+        if(!st.canTap)return;
         st.canTap=false;
-        if(st.type==='green'){ st.misses++; _atDot('miss'); _atStats(); }
-        if(tg){ tg.style.background='var(--bg)'; tg.style.borderColor='var(--b)'; tg.style.boxShadow='none'; }
-        if(ic) ic.textContent='—';
-        if(ht) ht.textContent='Waiting…';
-        setTimeout(_atNext, 260+Math.random()*380);
-      }, vis);
-    }, 220+Math.random()*330);
+        if(st.type==='green'){st.misses++;_atDot('miss');_atStats();}
+        if(tg){tg.style.background='var(--bg)';tg.style.borderColor='var(--b)';tg.style.boxShadow='none';tg.style.transform='';}
+        if(ic)ic.textContent='—';if(ht)ht.textContent='Waiting…';
+        setTimeout(_atNext,280+Math.random()*360);
+      },780+Math.random()*680);
+    },200+Math.random()*300);
   }
 
-  window._atTap = function () {
+  window._atTap=function(){
     if(!st.active||!st.canTap) return;
-    clearTimeout(_st);
-    st.canTap=false;
-
-    if(st.type==='green'){ st.hits++; _atDot('hit'); LAB.flash('hit'); }
-    else { st.fa++; _atDot('fa'); LAB.flash('miss'); }
+    clearTimeout(_st);st.canTap=false;
+    if(st.type==='green'){st.hits++;_atDot('hit');LAB.flash('hit');}
+    else{st.fa++;_atDot('fa');LAB.flash('miss');}
     _atStats();
-
     const tg=document.getElementById('atTarget'),ic=document.getElementById('atIcon'),ht=document.getElementById('atHint');
-    if(tg){ tg.style.background='var(--bg)'; tg.style.borderColor='var(--b)'; tg.style.boxShadow='none'; }
-    if(ic) ic.textContent='—';
-    if(ht) ht.textContent='Waiting…';
-    setTimeout(_atNext, 250+Math.random()*320);
+    if(tg){tg.style.background='var(--bg)';tg.style.borderColor='var(--b)';tg.style.boxShadow='none';tg.style.transform='';}
+    if(ic)ic.textContent='—';if(ht)ht.textContent='Waiting…';
+    setTimeout(_atNext,260+Math.random()*300);
   };
 
-  function _atDot(type) {
-    const tr=document.getElementById('atTrail'); if(!tr) return;
+  function _atDot(type){
+    const tr=document.getElementById('atTrail');if(!tr)return;
     const d=document.createElement('div');
-    d.style.cssText=`width:8px;height:8px;border-radius:50%;flex-shrink:0;
+    d.style.cssText=`width:9px;height:9px;border-radius:50%;flex-shrink:0;transition:transform .2s;
       background:${type==='hit'?'var(--ok)':type==='fa'?'var(--rd)':'var(--am)'}`;
+    d.style.transform='scale(1.5)';
     tr.appendChild(d);
-    while(tr.children.length>32) tr.removeChild(tr.firstChild);
+    setTimeout(()=>{if(d)d.style.transform='scale(1)';},150);
+    while(tr.children.length>30) tr.removeChild(tr.firstChild);
   }
 
-  function _atStats() {
-    const tot=Math.max(1,st.hits+st.fa);
-    const acc=Math.round(st.hits/tot*100);
-    const set=(id,v,c)=>{const e=document.getElementById(id);if(e){e.textContent=v;if(c)e.style.color=c;}};
-    set('atH', st.hits);
-    set('atF', st.fa);
-    set('atM', st.misses);
-    set('atAcc', acc+'%', acc>85?'var(--ok)':acc>65?'var(--am)':'var(--rd)');
+  function _atStats(){
+    const tot=Math.max(1,st.hits+st.fa),acc=Math.round(st.hits/tot*100);
+    const s=(id,v,c)=>{const e=document.getElementById(id);if(e){e.textContent=v;if(c)e.style.color=c;}};
+    s('atH',st.hits);s('atF',st.fa);s('atM',st.misses);
+    s('atAcc',acc+'%',acc>85?'var(--ok)':acc>65?'var(--am)':'var(--rd)');
   }
 
-  function _atDone() {
-    const prec = st.hits / Math.max(1, st.hits+st.fa);
-    const rec  = st.hits / Math.max(1, st.hits+st.misses);
-    const f1   = (2*prec*rec) / Math.max(.01, prec+rec);
-    const sc   = LAB.clamp(Math.round(f1*90), 12, 100);
-
-    LAB.raw.attHits  = st.hits;
-    LAB.raw.attFA    = st.fa;
-    LAB.raw.attMiss  = st.misses;
-    LAB.raw.attScore = sc;
-
-    // Compute cognitive composite
-    const cogScores = [LAB.raw.rxScore, LAB.raw.ftScore, LAB.raw.memScore, sc].filter(x=>x!=null);
-    LAB.scores.cognitive = cogScores.length ? Math.round(LAB.avg(cogScores)) : sc;
-
+  function _atDone(){
+    const prec=st.hits/Math.max(1,st.hits+st.fa),rec=st.hits/Math.max(1,st.hits+st.misses);
+    const f1=(2*prec*rec)/Math.max(.01,prec+rec);
+    const sc=LAB.clamp(Math.round(f1*90),12,100);
+    LAB.raw.attHits=st.hits;LAB.raw.attFA=st.fa;LAB.raw.attMiss=st.misses;LAB.raw.attScore=sc;
+    const cogScores=[LAB.raw.rxScore,LAB.raw.ftScore,LAB.raw.memScore,sc].filter(x=>x!=null);
+    LAB.scores.cognitive=cogScores.length?Math.round(LAB.avg(cogScores)):sc;
     LAB.celebrate();
-    LAB.say(`Attention test done! Hits: ${st.hits}, false alarms: ${st.fa}. ${LAB.scoreLbl(sc)} attention.`,
-            `مکمل! ${st.hits} ہٹس، ${st.fa} غلطیاں۔`,
-            `हो गया! ${st.hits} सही, ${st.fa} गलतियां।`);
-    setTimeout(() => { LAB.idx++; LAB.next(); }, 1900);
+    LAB.say(`Great effort! You hit ${st.hits} green circles over sixty seconds. That is ${LAB.scoreLbl(sc)} attention.`,
+            `مکمل! ${st.hits} سبز دائرے دبائے۔ ${LAB.scoreLbl(sc)}۔`,
+            `पूरा! ${st.hits} हरे गोले दबाए। ${LAB.scoreLbl(sc)}।`);
+    setTimeout(()=>{LAB.idx++;LAB.next();},1900);
   }
 };
 
 
 /* ╔══════════════════════════════════════════════════════╗
-   MODULE 5 — COLOUR BLINDNESS (CSS Ishihara-style)
-   6 SVG plates. Each has a number hidden in differently
-   coloured dots. User types the number they see.
-   Uses pure SVG — no canvas, no images needed.
+   MODULE 5 — COLOUR BLINDNESS (SVG Ishihara)
 ╚══════════════════════════════════════════════════════╝ */
 window.mod_colourBlindness = function () {
-  // Each plate: bg=background dot colour, fg=number dot colour, ans=correct number
-  const plates = [
-    { ans:'12', bg:'#E09040', fg:'#C83010', label:'Plate 1 of 6' },
-    { ans:'8',  bg:'#70B070', fg:'#2A6020', label:'Plate 2 of 6' },
-    { ans:'6',  bg:'#9090CC', fg:'#D0A020', label:'Plate 3 of 6' },
-    { ans:'29', bg:'#CC6060', fg:'#50A050', label:'Plate 4 of 6' },
-    { ans:'5',  bg:'#80A8C0', fg:'#E07020', label:'Plate 5 of 6' },
-    { ans:'3',  bg:'#B870B0', fg:'#70C070', label:'Plate 6 of 6' },
+  const plates=[
+    {ans:'12',bg:'#E09040',fg:'#C83010',label:'Plate 1 of 6'},
+    {ans:'8', bg:'#70B070',fg:'#2A6020',label:'Plate 2 of 6'},
+    {ans:'6', bg:'#9090CC',fg:'#D0A020',label:'Plate 3 of 6'},
+    {ans:'29',bg:'#CC6060',fg:'#50A050',label:'Plate 4 of 6'},
+    {ans:'5', bg:'#80A8C0',fg:'#E07020',label:'Plate 5 of 6'},
+    {ans:'3', bg:'#B870B0',fg:'#70C070',label:'Plate 6 of 6'},
   ];
-  let curr=0, correct=0;
+  let curr=0,correct=0;
 
-  // Seeded pseudo-random number generator for consistent dot placement
-  function mkRng(seed) {
-    let s = seed;
-    return () => { s=(s*9301+49297)%233280; return s/233280; };
-  }
+  function mkRng(seed){let s=seed;return()=>{s=(s*9301+49297)%233280;return s/233280;};}
 
-  // Generate an SVG Ishihara-style plate
-  function makePlate(bgCol, fgCol, numStr) {
-    const W=240, R=118, cx=120, cy=120;
-    const rng = mkRng(numStr.split('').reduce((a,c)=>a+c.charCodeAt(0),0)*17);
-    const dots = [];
-
-    // 1. Background noise dots
-    for (let i=0; i<340; i++) {
-      const angle = rng()*Math.PI*2;
-      const r     = rng()*(R-8)+4;
-      const x     = cx + r*Math.cos(angle);
-      const y     = cy + r*Math.sin(angle);
-      const sz    = 3.5 + rng()*5.5;
-      const op    = 0.55 + rng()*0.45;
+  function makePlate(bgCol,fgCol,numStr){
+    const W=240,R=118,cx=120,cy=120;
+    const rng=mkRng(numStr.split('').reduce((a,c)=>a+c.charCodeAt(0),0)*17);
+    const dots=[];
+    for(let i=0;i<340;i++){
+      const angle=rng()*Math.PI*2,r=rng()*(R-8)+4;
+      const x=cx+r*Math.cos(angle),y=cy+r*Math.sin(angle),sz=3.5+rng()*5.5,op=0.55+rng()*0.45;
       dots.push(`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${sz.toFixed(1)}" fill="${bgCol}" opacity="${op.toFixed(2)}"/>`);
     }
-
-    // 2. Digit rendering via a simple 5×7 pixel font
-    const glyphs = {
-      '0':[[1,1,1],[1,0,1],[1,0,1],[1,0,1],[1,0,1],[1,0,1],[1,1,1]],
-      '1':[[0,1,0],[1,1,0],[0,1,0],[0,1,0],[0,1,0],[0,1,0],[1,1,1]],
-      '2':[[1,1,1],[0,0,1],[0,0,1],[1,1,1],[1,0,0],[1,0,0],[1,1,1]],
-      '3':[[1,1,1],[0,0,1],[0,0,1],[1,1,1],[0,0,1],[0,0,1],[1,1,1]],
-      '4':[[1,0,1],[1,0,1],[1,0,1],[1,1,1],[0,0,1],[0,0,1],[0,0,1]],
-      '5':[[1,1,1],[1,0,0],[1,0,0],[1,1,1],[0,0,1],[0,0,1],[1,1,1]],
-      '6':[[1,1,1],[1,0,0],[1,0,0],[1,1,1],[1,0,1],[1,0,1],[1,1,1]],
-      '7':[[1,1,1],[0,0,1],[0,0,1],[0,1,0],[0,1,0],[0,1,0],[0,1,0]],
-      '8':[[1,1,1],[1,0,1],[1,0,1],[1,1,1],[1,0,1],[1,0,1],[1,1,1]],
-      '9':[[1,1,1],[1,0,1],[1,0,1],[1,1,1],[0,0,1],[0,0,1],[1,1,1]],
-    };
-    const digits    = numStr.split('').filter(d => glyphs[d]);
-    const cellSize  = 11;
-    const gap       = 4;
-    const totalW    = digits.length*(3*cellSize+gap) - gap;
-    const startX    = cx - totalW/2;
-    const startY    = cy - 3.5*cellSize;
-
-    digits.forEach((d, di) => {
-      const glyph = glyphs[d];
-      const ox    = startX + di*(3*cellSize+gap);
-      glyph.forEach((row, ry) => {
-        row.forEach((pixel, rx) => {
-          if (!pixel) return;
-          const px = ox + rx*cellSize + cellSize/2;
-          const py = startY + ry*cellSize + cellSize/2;
-          const dist = Math.hypot(px-cx, py-cy);
-          if (dist > R-6) return;  // clip to circle
-          const sz = 5.5 + rng()*3;
-          dots.push(`<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${sz.toFixed(1)}" fill="${fgCol}" opacity="${(0.75+rng()*0.25).toFixed(2)}"/>`);
-        });
-      });
+    const glyphs={'0':[[1,1,1],[1,0,1],[1,0,1],[1,0,1],[1,0,1],[1,0,1],[1,1,1]],'1':[[0,1,0],[1,1,0],[0,1,0],[0,1,0],[0,1,0],[0,1,0],[1,1,1]],'2':[[1,1,1],[0,0,1],[0,0,1],[1,1,1],[1,0,0],[1,0,0],[1,1,1]],'3':[[1,1,1],[0,0,1],[0,0,1],[1,1,1],[0,0,1],[0,0,1],[1,1,1]],'4':[[1,0,1],[1,0,1],[1,0,1],[1,1,1],[0,0,1],[0,0,1],[0,0,1]],'5':[[1,1,1],[1,0,0],[1,0,0],[1,1,1],[0,0,1],[0,0,1],[1,1,1]],'6':[[1,1,1],[1,0,0],[1,0,0],[1,1,1],[1,0,1],[1,0,1],[1,1,1]],'7':[[1,1,1],[0,0,1],[0,0,1],[0,1,0],[0,1,0],[0,1,0],[0,1,0]],'8':[[1,1,1],[1,0,1],[1,0,1],[1,1,1],[1,0,1],[1,0,1],[1,1,1]],'9':[[1,1,1],[1,0,1],[1,0,1],[1,1,1],[0,0,1],[0,0,1],[1,1,1]]};
+    const digits=numStr.split('').filter(d=>glyphs[d]);
+    const cellSize=11,gap=4,totalW=digits.length*(3*cellSize+gap)-gap;
+    const startX=cx-totalW/2,startY=cy-3.5*cellSize;
+    digits.forEach((d,di)=>{
+      const glyph=glyphs[d],ox=startX+di*(3*cellSize+gap);
+      glyph.forEach((row,ry)=>row.forEach((pixel,rx)=>{
+        if(!pixel)return;
+        const px=ox+rx*cellSize+cellSize/2,py=startY+ry*cellSize+cellSize/2;
+        const dist=Math.hypot(px-cx,py-cy);
+        if(dist>R-6)return;
+        const sz=5.5+rng()*3;
+        dots.push(`<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${sz.toFixed(1)}" fill="${fgCol}" opacity="${(0.75+rng()*0.25).toFixed(2)}"/>`);
+      }));
     });
-
-    return `<svg viewBox="0 0 ${W} ${W}" width="${W}" height="${W}" style="max-width:100%;border-radius:50%;box-shadow:var(--sh)">
-      <circle cx="${cx}" cy="${cy}" r="${R}" fill="#E8E0D0"/>
-      ${dots.join('')}
-    </svg>`;
+    return `<svg viewBox="0 0 ${W} ${W}" width="${W}" height="${W}" style="max-width:100%;border-radius:50%;box-shadow:0 4px 20px rgba(0,0,0,.12)"><circle cx="${cx}" cy="${cy}" r="${R}" fill="#E8E0D0"/>${dots.join('')}</svg>`;
   }
 
   LAB.showDemo({
     title: '🎨 Colour Blindness Check',
-    txt: 'You will see a circle full of coloured dots. <strong>A number is hidden inside</strong> — look for it carefully. Type the number you see, or tap "I can't see any number".',
+    txt: 'You will see a circle packed with coloured dots. <strong>A number is hidden inside</strong> — look carefully. Type the number or tap "Cannot see it".',
     hint: '6 plates — takes about 2 minutes',
-    voiceEN: 'Colour blindness check. Look at the coloured circle carefully. A number is hidden inside. Type what you see.',
-    voiceUR: 'رنگ اندھا پن کی جانچ۔ رنگین دائرے میں چھپا نمبر ڈھونڈیں۔',
+    voiceEN: 'Take a look at the circle. It is packed with coloured dots, and a number is hidden somewhere inside. Try to spot it and type it in. Do not worry if you cannot see it.',
+    voiceUR: 'رنگ پہچاننے کا ٹیسٹ۔ رنگین دائرے میں چھپا نمبر ڈھونڈیں۔',
     voiceHI: 'रंग अंधापन जाँच। रंगीन गोले में छुपे नंबर को ढूंढें।',
-    btnLabel: 'Start Colour Blindness Check →',
-    vis: `<div style="text-align:center">
-      <div id="cbDemoPlate" style="width:90px;height:90px;border-radius:50%;margin:0 auto 6px;box-shadow:var(--sh);overflow:hidden;position:relative;background:#E8E0D0">
-        <canvas id="cbDemoCanvas" width="90" height="90" style="position:absolute;inset:0"></canvas>
-      </div>
-      <span style="font-size:.75rem;color:var(--tq)" id="cbDemoHint">Look for the hidden number…</span>
+    btnLabel: 'Start Colour Check →',
+    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
+      <canvas id="cbDemoC" width="88" height="88" style="border-radius:50%;box-shadow:0 3px 12px rgba(0,0,0,.1)"></canvas>
+      <div id="cbDemoH" style="font-size:.7rem;color:var(--tq)">Can you see a hidden number?</div>
     </div>`,
     anim(vis) {
-      const canvas = vis.querySelector('#cbDemoCanvas');
-      const hint   = vis.querySelector('#cbDemoHint');
-      if (!canvas) return null;
-      const ctx = canvas.getContext('2d');
-      const W=90, cx=45, cy=45, R=43;
-      // Draw Ishihara-style mini plate
-      function draw(reveal) {
+      const canvas=vis.querySelector('#cbDemoC'),hint=vis.querySelector('#cbDemoH');
+      if(!canvas)return null;
+      const ctx=canvas.getContext('2d');
+      const W=88,cx=44,cy=44,R=41;
+      function draw(reveal){
         ctx.clearRect(0,0,W,W);
-        // Background dots — orange/brown tones
-        const rng = (s=>{let x=s;return()=>{x=(x*9301+49297)%233280;return x/233280;}})(42);
+        const rng=(s=>{let x=s;return()=>{x=(x*9301+49297)%233280;return x/233280;}})(42);
+        ctx.fillStyle='#E8E0D0';ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);ctx.fill();
         for(let i=0;i<120;i++){
-          const a=rng()*Math.PI*2, r=rng()*(R-5)+2;
-          const x=cx+r*Math.cos(a), y=cy+r*Math.sin(a), sz=1.8+rng()*3;
-          ctx.beginPath(); ctx.arc(x,y,sz,0,Math.PI*2);
-          ctx.fillStyle=`hsl(${25+rng()*30},${60+rng()*25}%,${45+rng()*25}%)`; ctx.fill();
+          const a=rng()*Math.PI*2,r=rng()*(R-4)+2;
+          const x=cx+r*Math.cos(a),y=cy+r*Math.sin(a),sz=1.5+rng()*2.5;
+          ctx.fillStyle=`hsl(${25+rng()*30},${60+rng()*25}%,${45+rng()*25}%)`;
+          ctx.beginPath();ctx.arc(x,y,sz,0,Math.PI*2);ctx.fill();
         }
-        // Number "6" dots — red/green revealed
-        const pts6=[[1,0],[1,1],[1,2],[1,3],[0,2],[0,3],[1,4]];
-        pts6.forEach(([px,py])=>{
-          const nx=cx-12+px*11, ny=cy-22+py*11;
-          ctx.beginPath(); ctx.arc(nx,ny,4.5,0,Math.PI*2);
-          ctx.fillStyle=reveal?'#C83010':'hsl(25,65%,52%)'; ctx.fill();
+        const pts=[[1,0],[1,1],[1,2],[1,3],[0,2],[0,3],[1,4]];
+        pts.forEach(([px,py])=>{
+          const nx=cx-10+px*9,ny=cy-20+py*9;
+          ctx.fillStyle=reveal?'#C83010':`hsl(${25+Math.random()*30},65%,52%)`;
+          ctx.beginPath();ctx.arc(nx,ny,4,0,Math.PI*2);ctx.fill();
         });
       }
-      let phase=0;
-      draw(false);
-      const id=setInterval(()=>{
-        phase++;
-        draw(phase%6>2);
-        if(hint) hint.textContent = phase%6>2 ? '🔴 Number revealed — a "6"!' : 'Can you spot it?…';
-      },700);
+      let ph=0; draw(false);
+      const id=setInterval(()=>{ph++;draw(ph%6>2);if(hint)hint.textContent=ph%6>2?'Number revealed: "6"!':'Can you spot it?';},700);
       return id;
     }
-  }, () => _showPlate());
+  }, ()=>_showPlate());
 
-  function _showPlate() {
-    if (curr >= plates.length) { _cbDone(); return; }
-    const pl = plates[curr];
-
-    LAB.render(`<div class="mwrap"><div class="card card--bl card--pop" style="border-color:rgba(37,99,235,.2);background:linear-gradient(135deg,var(--bl2),#fff)">
+  function _showPlate(){
+    if(curr>=plates.length){_cbDone();return;}
+    const pl=plates[curr];
+    LAB.render(`<div class="mwrap"><div class="card card--pop" style="border-color:rgba(37,99,235,.2);background:linear-gradient(135deg,#EEF4FF,#fff)">
       <div class="step-head">
-        <div class="tag tag--bl">👁 Eye Test · 1 of 3</div>
+        <div class="tag" style="background:#EEF4FF;border-color:rgba(37,99,235,.28);color:#2563EB">👁 Eye Test · 1 of 3</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Colour Blindness Check</h2>
-        <p class="pg">Look at the circle below. <strong>What number do you see hidden in the dots?</strong><br>Take your time — look at it from a normal reading distance.</p>
+        <p class="pg">Look at the circle below. <strong>What number can you see inside the dots?</strong></p>
       </div>
-
-      <div class="ish-wrap" aria-label="Ishihara test plate ${curr+1}">
-        ${makePlate(pl.bg, pl.fg, pl.ans)}
-      </div>
-
-      <p style="text-align:center;font-size:.7rem;color:var(--tq);margin:.4rem 0 1rem" class="mono">${pl.label}</p>
-
+      <div style="text-align:center;margin:1rem 0">${makePlate(pl.bg,pl.fg,pl.ans)}</div>
+      <p style="text-align:center;font-size:.7rem;color:var(--tq);margin:.3rem 0 1rem" class="mono">${pl.label}</p>
       <div class="fld">
-        <label class="lbl" for="cbInp">Type the number you see (1–99)</label>
-        <input class="inp" type="number" id="cbInp" placeholder="Type the number here…"
+        <label class="lbl" for="cbInp">Type the number you see</label>
+        <input class="inp" type="number" id="cbInp" placeholder="e.g. 12"
                inputmode="numeric" min="1" max="99" autocomplete="off"
-               onkeydown="if(event.key==='Enter')_cbAnswer()" style="text-align:center;font-size:1.2rem;font-weight:700;letter-spacing:.1em">
+               onkeydown="if(event.key==='Enter')_cbAnswer()"
+               style="text-align:center;font-size:1.4rem;font-weight:700;letter-spacing:.15em">
       </div>
-
       <div class="btn-row">
         <button class="btn btn--p btn--lg" onclick="_cbAnswer()">Confirm →</button>
-        <button class="btn btn--g" onclick="_cbCantSee()">I can't see a number</button>
+        <button class="btn btn--g" onclick="_cbCantSee()">Cannot see a number</button>
       </div>
     </div></div>`);
-
-    setTimeout(()=>{ const inp=document.getElementById('cbInp'); if(inp) inp.focus(); }, 400);
-
-    LAB.say(`Plate ${curr+1} of ${plates.length}. Look carefully for a hidden number.`,
-            `پلیٹ ${curr+1}۔ چھپا نمبر تلاش کریں۔`,
-            `प्लेट ${curr+1}। छुपा नंबर ढूंढें।`);
+    setTimeout(()=>{const inp=document.getElementById('cbInp');if(inp)inp.focus();},400);
+    LAB.say(`Plate ${curr+1}. Take your time — look carefully at the dots for a hidden number.`,
+            `پلیٹ ${curr+1}۔ نمبر تلاش کریں۔`,
+            `प्लेट ${curr+1}। नंबर ढूंढें।`);
   }
 
-  window._cbAnswer = function () {
-    const inp = document.getElementById('cbInp');
-    const val = inp ? inp.value.trim() : '';
-    if (!val) { _cbCantSee(); return; }
-    const isCorrect = val === plates[curr].ans;
-    if (isCorrect) correct++;
-    curr++;
-    _showPlate();
+  window._cbAnswer=function(){
+    const inp=document.getElementById('cbInp'),val=inp?inp.value.trim():'';
+    if(!val){_cbCantSee();return;}
+    if(val===plates[curr].ans)correct++;
+    curr++;_showPlate();
   };
+  window._cbCantSee=function(){curr++;_showPlate();};
 
-  window._cbCantSee = function () {
-    curr++;
-    _showPlate();
-  };
-
-  function _cbDone() {
-    const sc = LAB.clamp(Math.round(correct/plates.length*100), 0, 100);
-    LAB.raw.cbCorrect  = correct;
-    LAB.raw.cbTotal    = plates.length;
-    LAB.raw.cbScore    = sc;
-    LAB.raw.cbFlag     = correct < Math.ceil(plates.length*0.67); // flag if <67%
-
+  function _cbDone(){
+    const sc=LAB.clamp(Math.round(correct/plates.length*100),0,100);
+    LAB.raw.cbCorrect=correct;LAB.raw.cbTotal=plates.length;LAB.raw.cbScore=sc;
+    LAB.raw.cbFlag=correct<Math.ceil(plates.length*0.67);
     LAB.celebrate();
-    LAB.say(`Colour blindness check done. You got ${correct} out of ${plates.length} correct.`,
-            `${correct} میں سے ${plates.length} درست۔`,
-            `${correct} में से ${plates.length} सही।`);
-    setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
+    LAB.say(`All done! You spotted ${correct} out of ${plates.length} numbers correctly.`,
+            `${correct} / ${plates.length} درست۔`,
+            `${correct} / ${plates.length} सही।`);
+    setTimeout(()=>{LAB.idx++;LAB.next();},1800);
   }
 };
 
 
 /* ╔══════════════════════════════════════════════════════╗
    MODULE 6 — VISUAL ACUITY
-   Rows of letters get progressively smaller.
-   User taps the smallest row they can read clearly.
-   Simple, effective, screen-distance adjusted.
 ╚══════════════════════════════════════════════════════╝ */
 window.mod_visualAcuity = function () {
-  const rows = [
-    { px:54, text:'E  F  P',    label:'Row 1 (biggest)',  logMAR:1.0 },
-    { px:40, text:'F  E  L  P', label:'Row 2',            logMAR:0.8 },
-    { px:30, text:'P  E  C  F', label:'Row 3',            logMAR:0.6 },
-    { px:22, text:'E  D  F  C', label:'Row 4',            logMAR:0.4 },
-    { px:16, text:'F  L  O  P  E', label:'Row 5',         logMAR:0.2 },
-    { px:12, text:'E  F  C  L  P  O', label:'Row 6 (smallest)', logMAR:0.0 },
+  const rows=[
+    {px:54,text:'E  F  P',        label:'Row 1 (largest)',logMAR:1.0},
+    {px:40,text:'F  E  L  P',     label:'Row 2',          logMAR:0.8},
+    {px:30,text:'P  E  C  F',     label:'Row 3',          logMAR:0.6},
+    {px:22,text:'E  D  F  C',     label:'Row 4',          logMAR:0.4},
+    {px:16,text:'F  L  O  P  E',  label:'Row 5',          logMAR:0.2},
+    {px:12,text:'E  F  C  L  P  O',label:'Row 6 (smallest)',logMAR:0.0},
   ];
-  let chosen = -1;
+  let chosen=-1;
 
   LAB.showDemo({
     title: '📏 Visual Acuity',
-    txt: 'You will see rows of letters getting <strong>smaller and smaller</strong>. Tap the <strong>smallest row you can read clearly</strong> from where you are sitting.',
-    hint: 'If you wear glasses, keep them on',
-    voiceEN: 'Visual acuity test. Rows of letters get smaller. Tap the smallest row you can read clearly from your current position. Keep glasses on if you wear them.',
-    voiceUR: 'بصری تیزی کا ٹیسٹ۔ حروف چھوٹے ہوتے جائیں گے۔ جب تک پڑھ سکیں، تپ کریں۔',
-    voiceHI: 'दृष्टि परीक्षण। अक्षर छोटे होते जाएंगे। जो सबसे छोटी पंक्ति साफ पढ़ें, उसे दबाएं।',
+    txt: 'Rows of letters appear, getting <strong>smaller and smaller</strong>. Tap the <strong>smallest row you can read clearly</strong> from where you are sitting.',
+    hint: 'Keep glasses on if you wear them',
+    voiceEN: 'You will see rows of letters, getting smaller and smaller. Just tap the smallest row you can read clearly from where you are sitting. Keep your glasses on if you normally wear them.',
+    voiceUR: 'بصری تیزی کا ٹیسٹ۔ حروف چھوٹے ہوتے جائیں گے۔ سب سے چھوٹی لائن جو واضح پڑھ سکیں، اسے دبائیں۔',
+    voiceHI: 'दृष्टि परीक्षण। अक्षर छोटे होते जाएंगे। जो सबसे छोटी पंक्ति साफ पढ़ सकते हैं उसे दबाएं।',
     btnLabel: 'Start Vision Test →',
-    vis: `<div style="text-align:center;font-family:'JetBrains Mono',monospace;line-height:1.5" id="acDemoVis">
-      <div id="acDemoL1" style="font-size:26px;font-weight:700;transition:font-size .5s">E  F  P</div>
-      <div id="acDemoL2" style="font-size:18px;font-weight:700;transition:font-size .5s">F  E  L</div>
-      <div id="acDemoL3" style="font-size:12px;font-weight:700;color:var(--tq);transition:font-size .5s">P  E  C…</div>
+    vis: `<div style="text-align:center;font-family:'JetBrains Mono',monospace;line-height:1.7" id="acDemoWrap">
+      <div id="acDl1" style="font-size:24px;font-weight:700;transition:font-size .5s">E  F  P</div>
+      <div id="acDl2" style="font-size:17px;font-weight:700;transition:font-size .5s">F  E  L</div>
+      <div id="acDl3" style="font-size:11px;font-weight:700;color:var(--tq);transition:font-size .5s">P  E  C…</div>
     </div>`,
     anim(vis) {
-      const sizes = [[26,18,12],[22,15,10],[18,12,8]];
-      let step = 0;
-      const id = setInterval(() => {
-        step = (step+1) % sizes.length;
-        const s = sizes[step];
-        const l1=vis.querySelector('#acDemoL1'), l2=vis.querySelector('#acDemoL2'), l3=vis.querySelector('#acDemoL3');
-        if(l1) l1.style.fontSize = s[0]+'px';
-        if(l2) l2.style.fontSize = s[1]+'px';
-        if(l3) l3.style.fontSize = s[2]+'px';
-      }, 900);
+      const sizes=[[24,17,11],[21,14,9],[18,12,7]];
+      let step=0;
+      const id=setInterval(()=>{
+        step=(step+1)%sizes.length;
+        const s=sizes[step];
+        const l1=vis.querySelector('#acDl1'),l2=vis.querySelector('#acDl2'),l3=vis.querySelector('#acDl3');
+        if(l1)l1.style.fontSize=s[0]+'px';
+        if(l2)l2.style.fontSize=s[1]+'px';
+        if(l3)l3.style.fontSize=s[2]+'px';
+      },900);
       return id;
     }
   }, () => {
-    LAB.render(`<div class="mwrap"><div class="card card--bl card--pop" style="border-color:rgba(37,99,235,.2);background:linear-gradient(135deg,var(--bl2),#fff)">
+    LAB.render(`<div class="mwrap"><div class="card card--pop" style="border-color:rgba(37,99,235,.2);background:linear-gradient(135deg,#EEF4FF,#fff)">
       <div class="step-head">
-        <div class="tag tag--bl">👁 Eye Test · 2 of 3</div>
+        <div class="tag" style="background:#EEF4FF;border-color:rgba(37,99,235,.28);color:#2563EB">👁 Eye Test · 2 of 3</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Visual Acuity</h2>
-        <p class="pg">Tap the <strong>smallest row you can read clearly</strong>. Rows above your tap are automatically marked as readable too.</p>
+        <p class="pg">Tap the <strong>smallest row you can read clearly</strong>. Everything above is automatically marked as readable too.</p>
       </div>
-
       <div style="background:#fff;border:1.5px solid var(--b);border-radius:var(--rs);padding:1.1rem .9rem;margin:1rem 0" role="group" aria-label="Letter size chart">
-        ${rows.map((r,i) => `
+        ${rows.map((r,i)=>`
           <div class="ac-row" id="ar${i}" onclick="_acTap(${i})" role="button" tabindex="0"
                onkeydown="if(event.key==='Enter')_acTap(${i})"
                aria-label="${r.label}" style="font-size:${r.px}px">
             ${r.text}
           </div>`).join('')}
       </div>
-
       <div class="notice notice--am">
         <div class="ni">👓</div>
-        <p><strong>Tip:</strong> Sit at your normal screen distance. Use glasses if you have them. Tap the last row you can read without squinting.</p>
+        <p><strong>Tip:</strong> Normal screen distance. Glasses on. Tap the last row you can read without squinting.</p>
       </div>
-
       <div class="btn-row">
-        <button class="btn btn--g" onclick="_acNone()">I can't read any row clearly</button>
+        <button class="btn btn--g" onclick="_acNone()">Cannot read any row clearly</button>
       </div>
     </div></div>`);
-
-    LAB.say('Tap the smallest row of letters you can read clearly from where you are.',
-            'جو سب سے چھوٹی لائن واضح پڑھ سکتے ہیں اسے دبائیں۔',
+    LAB.say('Take a moment to look at the chart. Tap the smallest row you can read clearly without straining.',
+            'جو سب سے چھوٹی لائن واضح پڑھ سکتے ہیں، دبائیں۔',
             'जो सबसे छोटी लाइन साफ पढ़ सकते हैं उसे दबाएं।');
   });
 
-  window._acTap = function (i) {
-    chosen = i;
-    rows.forEach((_,j) => {
+  window._acTap=function(i){
+    chosen=i;
+    rows.forEach((_,j)=>{
       const e=document.getElementById('ar'+j);
-      if (!e) return;
+      if(!e)return;
       e.classList.remove('seen','unseen');
-      if (j<=i) e.classList.add('seen');
-      else e.classList.add('unseen');
+      if(j<=i)e.classList.add('seen');else e.classList.add('unseen');
     });
     LAB.flash('hit');
-    setTimeout(_acDone, 700);
+    setTimeout(_acDone,650);
   };
+  window._acNone=function(){chosen=-1;_acDone();};
 
-  window._acNone = function () { chosen = -1; _acDone(); };
-
-  function _acDone() {
-    // Map: row index → approximate score (higher row = better vision)
-    // Index -1 means no row readable
-    const scArr = [10, 30, 45, 58, 72, 84, 95]; // index 0 = "no row", 1-6 = rows 0-5
-    const sc = LAB.clamp(scArr[Math.max(0, chosen+1)] ?? 10, 0, 100);
-    LAB.raw.acuityRow   = chosen;
-    LAB.raw.acuityScore = sc;
-    LAB.raw.acuityFlag  = chosen < 2;
-
+  function _acDone(){
+    const scArr=[10,30,45,58,72,84,95];
+    const sc=LAB.clamp(scArr[Math.max(0,chosen+1)]??10,0,100);
+    LAB.raw.acuityRow=chosen;LAB.raw.acuityScore=sc;LAB.raw.acuityFlag=chosen<2;
     LAB.celebrate();
-    LAB.say(`Vision test done. You could read down to row ${chosen+1}. ${LAB.scoreLbl(sc)} visual acuity.`,
-            `آنکھ کا ٹیسٹ مکمل۔ صف ${chosen+1} تک پڑھا۔`,
+    LAB.say(`Good. You could read down to row ${chosen+1}. ${LAB.scoreLbl(sc)} visual acuity.`,
+            `آنکھ ٹیسٹ مکمل۔ صف ${chosen+1} تک پڑھا۔`,
             `दृष्टि परीक्षण पूरा। पंक्ति ${chosen+1} तक पढ़ा।`);
-    setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
+    setTimeout(()=>{LAB.idx++;LAB.next();},1800);
   }
 };
 
 
 /* ╔══════════════════════════════════════════════════════╗
    MODULE 7 — CONTRAST SENSITIVITY
-   6 levels of fading text contrast. User taps each level
-   they can see, stops when too faint. Tracks last seen.
 ╚══════════════════════════════════════════════════════╝ */
 window.mod_contrastSensitivity = function () {
-  const levels = [
-    { fg:'#000000', bg:'#FFFFFF', letter:'E', label:'Full contrast'     },
-    { fg:'#4D4D4D', bg:'#FFFFFF', letter:'F', label:'High contrast'     },
-    { fg:'#888888', bg:'#FFFFFF', letter:'P', label:'Medium contrast'   },
-    { fg:'#AAAAAA', bg:'#F5F5F5', letter:'L', label:'Low contrast'      },
-    { fg:'#C8C8C8', bg:'#F8F8F8', letter:'T', label:'Very low contrast' },
-    { fg:'#E0E0E0', bg:'#F9F9F9', letter:'C', label:'Faint contrast'    },
+  const levels=[
+    {fg:'#111111',bg:'#FFFFFF',letter:'E',label:'Full contrast'},
+    {fg:'#4D4D4D',bg:'#FFFFFF',letter:'F',label:'High contrast'},
+    {fg:'#888888',bg:'#FFFFFF',letter:'P',label:'Medium contrast'},
+    {fg:'#AAAAAA',bg:'#F5F5F5',letter:'L',label:'Low contrast'},
+    {fg:'#C8C8C8',bg:'#F8F8F8',letter:'T',label:'Very low'},
+    {fg:'#E0E0E0',bg:'#F9F9F9',letter:'C',label:'Faint'},
   ];
-  let curr=0, lastSeen=-1;
+  let curr=0,lastSeen=-1;
 
   LAB.showDemo({
     title: '⬜ Contrast Sensitivity',
-    txt: 'A letter appears on a white background. Each round the letter gets <strong>harder to see</strong> as the contrast fades. Tap <strong>"I Can See It"</strong> each time you can still make it out. Stop when it becomes too faint.',
-    hint: 'The letter fades gradually — tap as long as you can see it',
-    voiceEN: 'Contrast sensitivity test. A letter appears and gets harder to see each round. Tap I can see it while you still can. Press stop when it becomes too faint.',
-    voiceUR: 'کنٹراسٹ سینسیٹیوٹی ٹیسٹ۔ حرف دھندلا ہوتا جائے گا۔ جب تک دکھے، تپ کریں۔',
+    txt: 'A letter appears on a white background. Each round it gets <strong>harder to see</strong> as the contrast fades. Tap <strong>I Can See It</strong> while you still can. Stop when it becomes too faint.',
+    hint: 'The letter gradually fades — tap while visible',
+    voiceEN: 'A letter will appear on screen, and each round it will get harder to see as the contrast fades. Keep tapping while you can still see it, and stop when it becomes too faint.',
+    voiceUR: 'کنٹراسٹ ٹیسٹ۔ حرف دھندلا ہوتا جائے گا۔ جب تک دکھے، تپ کریں۔',
     voiceHI: 'कंट्रास्ट परीक्षण। अक्षर धुंधला होता जाएगा। जब तक दिखे, दबाएं।',
     btnLabel: 'Start Contrast Test →',
     vis: `<div style="display:flex;gap:8px;justify-content:center;align-items:flex-end">
       ${[['#111','#fff'],['#555','#fff'],['#999','#fff'],['#CCC','#f5f5f5'],['#DDD','#f8f8f8']].map(([fg,bg],i)=>
-        `<div id="csDemoBox${i}" style="width:42px;height:42px;background:${bg};border:1.5px solid var(--b);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:700;color:${fg};font-family:'JetBrains Mono',monospace;transition:transform .3s,box-shadow .3s">E</div>`
+        `<div id="csd${i}" style="width:44px;height:44px;background:${bg};border:1.5px solid #D4E8DC;
+             border-radius:8px;display:flex;align-items:center;justify-content:center;
+             font-size:1.4rem;font-weight:700;color:${fg};font-family:'JetBrains Mono',monospace;
+             transition:transform .3s,box-shadow .3s">E</div>`
       ).join('')}
     </div>`,
     anim(vis) {
-      let curr = 0;
-      const id = setInterval(() => {
-        // Highlight current box
+      let cur=0;
+      const id=setInterval(()=>{
         for(let i=0;i<5;i++){
-          const b=vis.querySelector(`#csDemoBox${i}`);
-          if(!b)continue;
-          b.style.transform = i===curr ? 'scale(1.18)' : 'scale(1)';
-          b.style.boxShadow = i===curr ? '0 4px 14px rgba(42,122,90,.25)' : 'none';
+          const b=vis.querySelector(`#csd${i}`);if(!b)continue;
+          b.style.transform=i===cur?'scale(1.2)':'scale(1)';
+          b.style.boxShadow=i===cur?'0 4px 16px rgba(42,122,90,.22)':'none';
+          b.style.borderColor=i===cur?'#2A7A5A':'#D4E8DC';
         }
-        curr = (curr+1)%5;
-      }, 700);
+        cur=(cur+1)%5;
+      },650);
       return id;
     }
-  }, () => _showLevel());
+  }, ()=>_showLevel());
 
-  function _showLevel() {
-    if (curr >= levels.length) { _csDone(); return; }
-    const lv = levels[curr];
-
-    LAB.render(`<div class="mwrap"><div class="card card--bl card--pop" style="border-color:rgba(37,99,235,.2);background:linear-gradient(135deg,var(--bl2),#fff)">
+  function _showLevel(){
+    if(curr>=levels.length){_csDone();return;}
+    const lv=levels[curr];
+    LAB.render(`<div class="mwrap"><div class="card card--pop" style="border-color:rgba(37,99,235,.2);background:linear-gradient(135deg,#EEF4FF,#fff)">
       <div class="step-head">
-        <div class="tag tag--bl">👁 Eye Test · 3 of 3</div>
+        <div class="tag" style="background:#EEF4FF;border-color:rgba(37,99,235,.28);color:#2563EB">👁 Eye Test · 3 of 3</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Contrast Sensitivity</h2>
-        <p class="pg">Can you see the letter in the box below? Each round it gets harder to see.</p>
+        <p class="pg">Can you see the letter below? Each round it gets harder to see.</p>
       </div>
-
-      <!-- Large letter display -->
-      <div style="width:100%;height:160px;background:${lv.bg};border:2px solid var(--b);border-radius:var(--rs);
-                  display:flex;align-items:center;justify-content:center;margin:1rem 0;
-                  cursor:pointer;transition:background .4s,border-color .3s;-webkit-tap-highlight-color:transparent"
+      <div style="width:100%;height:165px;background:${lv.bg};border:2px solid var(--b);
+                  border-radius:var(--rs);display:flex;align-items:center;justify-content:center;
+                  margin:1rem 0;cursor:pointer;transition:background .4s;
+                  -webkit-tap-highlight-color:transparent"
            onclick="_csSeen()" role="button" tabindex="0"
            onkeydown="if(event.key==='Enter'||event.key===' ')_csSeen()"
            aria-label="Contrast letter — tap if you can see it">
-        <span style="font-size:5rem;font-weight:700;font-family:'JetBrains Mono',monospace;
+        <span style="font-size:5.5rem;font-weight:700;font-family:'JetBrains Mono',monospace;
                      color:${lv.fg};transition:color .4s;user-select:none">${lv.letter}</span>
       </div>
-
+      <div style="display:flex;justify-content:center;gap:.4rem;margin-bottom:.8rem">
+        ${Array.from({length:6},(_,i)=>`<div style="width:26px;height:5px;border-radius:3px;
+          background:${i<curr?'var(--ok)':i===curr?'var(--g)':'var(--b)'}"></div>`).join('')}
+      </div>
       <p style="text-align:center;font-size:.7rem;color:var(--tq);font-family:'JetBrains Mono',monospace;margin-bottom:1rem">
         Level ${curr+1} of ${levels.length} &nbsp;·&nbsp; ${lv.label}
       </p>
-
-      <div style="display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap">
-        ${Array.from({length:6},(_,i)=>`<div style="width:24px;height:8px;border-radius:4px;background:${i<curr?'var(--ok)':i===curr?'var(--g)':'var(--b)'}"></div>`).join('')}
-      </div>
-
-      <div class="btn-row" style="justify-content:center;margin-top:1.2rem">
+      <div style="display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap">
         <button class="btn btn--p btn--lg" onclick="_csSeen()">✓ I Can See the Letter</button>
         <button class="btn btn--g btn--lg" onclick="_csCant()">✗ Too Faint — Stop</button>
       </div>
     </div></div>`);
-
-    LAB.say(`Level ${curr+1}. Can you see the letter?`,
-            `سطح ${curr+1}۔ کیا آپ حرف دیکھ سکتے ہیں؟`,
-            `स्तर ${curr+1}। क्या आप अक्षर देख सकते हैं?`);
+    LAB.say(`Level ${curr+1} now. Can you still make out the letter?`,
+            `سطح ${curr+1}۔ کیا حرف دکھ رہا ہے؟`,
+            `स्तर ${curr+1}। क्या अक्षर दिख रहा है?`);
   }
 
-  window._csSeen = function () {
-    lastSeen = curr;
-    LAB.flash('hit');
-    curr++;
-    _showLevel();
-  };
+  window._csSeen=function(){lastSeen=curr;LAB.flash('hit');curr++;_showLevel();};
+  window._csCant=function(){_csDone();};
 
-  window._csCant = function () { _csDone(); };
-
-  function _csDone() {
-    const sc = LAB.clamp(Math.round((lastSeen+1)/levels.length*100), 0, 100);
-    LAB.raw.csLevel  = lastSeen+1;
-    LAB.raw.csScore  = sc;
-
-    // Eye composite score
-    const eyeScores = [LAB.raw.cbScore, LAB.raw.acuityScore, sc].filter(x=>x!=null);
-    LAB.scores.eye = eyeScores.length ? Math.round(LAB.avg(eyeScores)) : sc;
-
+  function _csDone(){
+    const sc=LAB.clamp(Math.round((lastSeen+1)/levels.length*100),0,100);
+    LAB.raw.csLevel=lastSeen+1;LAB.raw.csScore=sc;
+    const eyeScores=[LAB.raw.cbScore,LAB.raw.acuityScore,sc].filter(x=>x!=null);
+    LAB.scores.eye=eyeScores.length?Math.round(LAB.avg(eyeScores)):sc;
     LAB.celebrate();
-    LAB.say(`Contrast test done. You could see ${lastSeen+1} out of ${levels.length} levels. ${LAB.scoreLbl(sc)}.`,
-            `کنٹراسٹ ٹیسٹ مکمل۔ ${lastSeen+1} سطح تک دیکھا۔`,
-            `कंट्रास्ट परीक्षण पूरा। ${lastSeen+1} स्तर तक देख सका।`);
-    setTimeout(() => { LAB.idx++; LAB.next(); }, 1900);
+    LAB.say(`All three eye tests done! You could see ${lastSeen+1} contrast levels. ${LAB.scoreLbl(sc)}.`,
+            `کنٹراسٹ مکمل۔ ${lastSeen+1} سطح تک دیکھا۔`,
+            `कंट्रास्ट पूरा। ${lastSeen+1} स्तर तक देख सका।`);
+    setTimeout(()=>{LAB.idx++;LAB.next();},1900);
   }
 };
 
+console.log('[WellnessLab v2 Part 2] Reloaded — Cognitive (4) + Eye (3) modules ready. Syntax clean.');
 
-console.log('[WellnessLab v2 Part 2] Loaded — Cognitive (4) + Eye (3) modules ready.');
 </script>
 
 <!-- PART 3 APPENDED BELOW -->
@@ -2153,7 +1984,7 @@ window.mod_breathSync = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Press Start and breathe with the circle.',
+    LAB.say('Press start and just follow the circle with your breathing. In when it grows, hold when it pauses, out when it shrinks.',
             'سٹارٹ دبائیں اور دائرے کے ساتھ سانس لیں۔',
             'स्टार्ट दबाएं और गोले के साथ सांस लें।');
   });
@@ -2222,7 +2053,7 @@ window.mod_breathSync = function () {
     const sc = LAB.clamp(Math.round(LAB.avg(_scores)), 40, 100);
     LAB.raw.breathSyncScore = sc;
     LAB.celebrate();
-    LAB.say(`Breath sync done! ${CYCLES} cycles completed. ${LAB.scoreLbl(sc)} breathing rhythm.`,
+    LAB.say(`Beautifully done. ${CYCLES} full breathing cycles. That is ${LAB.scoreLbl(sc)} breathing rhythm.`,
             `سانس ٹیسٹ مکمل! ${CYCLES} سائیکل۔`,
             `सांस परीक्षण पूरा! ${CYCLES} चक्र।`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
@@ -2299,7 +2130,7 @@ window.mod_co2Tolerance = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Step 1 — breathe in normally. Tap done when ready.',
+    LAB.say('Take a slow normal breath in through your nose, then tap when ready.',
             'قدم 1 — سانس لیں۔ تیار ہوں تو دبائیں۔',
             'चरण 1 — सामान्य सांस लें। तैयार हों तो दबाएं।');
   });
@@ -2313,7 +2144,7 @@ window.mod_co2Tolerance = function () {
       if(t)  t.textContent  = 'Step 2 of 3: Breathe Out';
       if(d)  d.textContent  = 'Now breathe out slowly and completely. Tap when you have fully exhaled.';
       if(b)  b.textContent  = '✓ Exhaled — Start Hold →';
-      LAB.say('Step 2 — breathe out slowly. Tap when done.',
+      LAB.say('Now breathe out slowly and completely. Tap when you have fully exhaled.',
               'قدم 2 — آہستہ سانس چھوڑیں۔',
               'चरण 2 — धीरे सांस छोड़ें।');
 
@@ -2326,7 +2157,7 @@ window.mod_co2Tolerance = function () {
       if(d)  d.textContent='Hold still. The timer is counting. Tap the button when you feel the urge to breathe.';
       if(b){ b.textContent='🫁 I Need to Breathe — Stop'; b.className='btn btn--gold btn--lg btn--full'; }
       if(ti){ ti.style.display='block'; }
-      LAB.say('Now hold your breath. The timer is running. Tap when you need to breathe.',
+      LAB.say('Now hold. The timer is running. Tap the button the moment you feel you need to breathe — do not push it.',
               'ابھی سانس روکیں۔ دبائیں جب مزید نہ ہو سکے۔',
               'अभी सांस रोकें। जब छोड़ना हो तो दबाएं।');
       _cd = setInterval(()=>{
@@ -2359,7 +2190,7 @@ window.mod_co2Tolerance = function () {
     if(b) b.style.display='none';
 
     LAB.celebrate();
-    LAB.say(`Breath hold done. You held for ${Math.round(_held)} seconds. ${rating}!`,
+    LAB.say(`Well done! You held your breath for ${Math.round(_held)} seconds. That is ${rating}!`,
             `ہولڈ مکمل — ${Math.round(_held)} سیکنڈ۔`,
             `पूरा हुआ — ${Math.round(_held)} सेकंड।`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 2200);
@@ -2433,7 +2264,7 @@ window.mod_recovery = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Find your pulse. Press Start and tap once per heartbeat for 30 seconds.',
+    LAB.say('Find your pulse on your wrist or neck. Once you can feel it, press start and tap once for every single heartbeat for thirty seconds.',
             'نبض تلاش کریں۔ سٹارٹ دبائیں اور 30 سیکنڈ تک دبائیں۔',
             'नाड़ी ढूंढें। स्टार्ट दबाएं और 30 सेकंड तक टैप करें।');
   });
@@ -2487,7 +2318,7 @@ window.mod_recovery = function () {
     if(sEl){ sEl.textContent=sc; sEl.style.color=LAB.scoreCol(sc); }
 
     LAB.celebrate();
-    LAB.say(`Recovery test done. Estimated BPM: ${bpm}. HRV: ${hrv} milliseconds. ${LAB.scoreLbl(sc)}.`,
+    LAB.say(`Done! We estimated your heart rate at ${bpm} beats per minute, with a variability of ${hrv} milliseconds. ${LAB.scoreLbl(sc)}.`,
             `ریکوری مکمل۔ BPM ${bpm}۔ HRV ${hrv}ms۔`,
             `रिकवरी पूरा। BPM ${bpm}। HRV ${hrv}ms।`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1900);
@@ -2759,7 +2590,7 @@ window.mod_patternOverload = function () {
       </div>
     </div></div>`);
 
-    LAB.say(`Round ${_round+1}. Find the symbol with a different count.`,
+    LAB.say(`Round ${_round+1}. One of these symbols appears a different number of times — find it.`,
             `راؤنڈ ${_round+1}۔ مختلف تعداد والی علامت تلاش کریں۔`,
             `राउंड ${_round+1}। अलग संख्या वाला निशान ढूंढें।`);
 
@@ -2795,7 +2626,7 @@ window.mod_patternOverload = function () {
     LAB.scores.stress=Math.round(LAB.avg([LAB.raw.mathScore||50, sc]));
 
     LAB.celebrate();
-    LAB.say(`Pattern search done. ${_correct} out of ${ROUNDS} correct. ${LAB.scoreLbl(sc)}.`,
+    LAB.say(`Good eye! ${_correct} out of ${ROUNDS} correct. ${LAB.scoreLbl(sc)}.`,
             `${_correct} / ${ROUNDS} درست۔`,
             `${_correct} / ${ROUNDS} सही।`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
@@ -2881,7 +2712,7 @@ window.mod_stabilityHold = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Press Start then hold perfectly still for 20 seconds.',
+    LAB.say('Press start, then hold your phone as still as you possibly can for twenty seconds. Rest your elbow on something if that helps.',
             'سٹارٹ دبائیں، پھر 20 سیکنڈ بالکل ساکن رہیں۔',
             'स्टार्ट दबाएं, फिर 20 सेकंड बिल्कुल स्थिर रहें।');
   });
@@ -2973,7 +2804,7 @@ window.mod_stabilityHold = function () {
     }
     LAB.raw.stabilityScore=sc;
     LAB.celebrate();
-    LAB.say(`Steady hand done. Stability score: ${sc}. ${LAB.scoreLbl(sc)}.`,
+    LAB.say(`That is it! Your steadiness score is ${sc}. ${LAB.scoreLbl(sc)}.`,
             `اسٹیڈی ہینڈ مکمل۔ اسکور: ${sc}۔`,
             `स्थिरता पूरा। स्कोर: ${sc}।`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
@@ -3058,7 +2889,7 @@ window.mod_microTremor = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Draw along the dashed path. Start from the left circle.',
+    LAB.say('Trace along the dotted path as smoothly as you can. Start from the green circle on the left. Slow and steady.',
             'نقطے کی لائن پر ٹریس کریں۔ بائیں سے شروع کریں۔',
             'बिंदीदार रेखा पर ट्रेस करें। बाईं ओर से शुरू करें।');
 
@@ -3817,10 +3648,19 @@ LAB.showDashboard = function () {
     </div>
 
     <!-- ══ Actions ══ -->
-    <div class="btn-row" style="justify-content:center;flex-wrap:wrap;gap:.8rem;padding-bottom:3rem">
-      <button class="btn btn--p btn--lg" onclick="LAB.generatePDF()">📄 Download PDF Report</button>
-      <button class="btn btn--g" onclick="LAB.goWelcome()">↺ Start New Assessment</button>
-      <a href="index.html" class="btn btn--g">← Shah Hayaat Home</a>
+    <div class="card" style="margin-bottom:1.4rem;padding:1.25rem 1.4rem">
+      <h3 class="h3" style="margin-bottom:.5rem;font-size:.95rem">📄 Download Your PDF Report</h3>
+      <p class="pg" style="margin-bottom:.85rem;font-size:.82rem">Add your name to appear on the report — or leave it blank.</p>
+      <div class="fld" style="margin-bottom:.85rem">
+        <label class="lbl" for="pdfNameInp">Your name (optional)</label>
+        <input class="inp" type="text" id="pdfNameInp" placeholder="e.g. Ahmed Khan"
+               maxlength="60" autocomplete="name" style="font-size:1rem">
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:.75rem">
+        <button class="btn btn--p btn--lg" onclick="LAB.generatePDF()">📄 Download PDF Report</button>
+        <button class="btn btn--g" onclick="LAB.goWelcome()">↺ New Assessment</button>
+        <a href="index.html" class="btn btn--g">← Shah Hayaat Home</a>
+      </div>
     </div>
 
   </div>`);
@@ -3832,7 +3672,7 @@ LAB.showDashboard = function () {
   },80);
 
   LAB.celebrate();
-  LAB.say(`Your wellness assessment is complete! Overall score: ${overall} — ${LAB.scoreLbl(overall)}. Scroll down for your personalised recommendations.`,
+  LAB.say(`You have completed all the activities! Your overall wellness score is ${overall} out of a hundred — that is ${LAB.scoreLbl(overall)}. Scroll down to see your results and personalised recommendations.`,
           `آپ کا ویلنس اسیسمنٹ مکمل! مجموعی اسکور: ${overall}۔`,
           `आपका वेलनेस असेसमेंट पूरा! कुल स्कोर: ${overall}।`);
 };
@@ -4023,6 +3863,7 @@ LAB.generatePDF = function () {
   const now=new Date();
   const dateStr=now.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
   const recs=LAB._buildRecs();
+  const userName=(document.getElementById('pdfNameInp')?.value||'').trim();
 
   const scoreRows=[
     ['🧠 Cognitive',   S.cognitive||'—'],
@@ -4161,9 +4002,10 @@ LAB.generatePDF = function () {
       </div>
     </div>
     <div class="hdr-meta">
+      ${userName?`<div style="font-size:13px;font-weight:600;letter-spacing:.01em;margin-bottom:3px">Prepared for: ${userName}</div>`:''}
       <div>${dateStr}</div>
       <div>${isFem?'19':'16'} Activities Completed</div>
-      <div style="margin-top:4px;font-size:10px;opacity:.6">All data processed locally · Nothing stored</div>
+      <div style="margin-top:4px;font-size:10px;opacity:.6">Private · All data processed locally · Nothing stored</div>
     </div>
   </div>
 
@@ -4171,6 +4013,7 @@ LAB.generatePDF = function () {
   <div class="overall-row">
     <div class="overall-num">${overall}</div>
     <div class="overall-info">
+      ${userName?`<div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:#6A8A6A;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">${userName}</div>`:''}
       <div class="overall-lbl">Overall Wellness Score</div>
       <div class="overall-rating">${LAB.scoreLbl(overall)} — ${overall}/100</div>
       <div class="overall-sub">Combined from ${isFem?'7':'6'} health domains across ${isFem?'19':'16'} wellness activities.</div>
