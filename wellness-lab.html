@@ -1264,7 +1264,7 @@ window.mod_reactionFatigue = function () {
 
   function _ftDone() {
     const taps=st.taps;
-    if(taps.length<4){ LAB.raw.ftScore=55; LAB.idx++; LAB.next(); return; }
+    if(taps.length<4){ LAB.idx++; LAB.next(); return; } // too few taps — leave ftScore null (skipped)
     const half=Math.floor(taps.length/2);
     const first=LAB.avg(taps.slice(0,half).map(t=>t.t));
     const last =LAB.avg(taps.slice(-half).map(t=>t.t));
@@ -2310,8 +2310,8 @@ window.mod_recovery = function () {
     const sc    = LAB.clamp(Math.round(hrv<10?45:hrv<20?60:hrv<35?75:hrv<55?88:96), 30, 100);
 
     LAB.raw.recoveryBPM=bpm; LAB.raw.recoveryHRV=hrv; LAB.raw.recoveryScore=sc;
-    LAB.raw.respiratoryScores=[LAB.raw.breathSyncScore||50, LAB.raw.breathScore||50, sc];
-    LAB.scores.respiratory = Math.round(LAB.avg(LAB.raw.respiratoryScores));
+    { const rs=[LAB.raw.breathSyncScore,LAB.raw.breathScore,sc].filter(x=>x!=null);
+      LAB.scores.respiratory = rs.length?Math.round(LAB.avg(rs)):sc; }
 
     const hEl=document.getElementById('rvHRV'), sEl=document.getElementById('rvScore');
     if(hEl){ hEl.textContent=hrv+'ms'; hEl.style.color=LAB.scoreCol(sc); }
@@ -2623,7 +2623,7 @@ window.mod_patternOverload = function () {
   function _ptDone() {
     const sc = LAB.clamp(Math.round((_correct/ROUNDS)*70 + (ROUNDS/_times.length||0)*8 + 5), 15, 100);
     LAB.raw.patternCorrect=_correct; LAB.raw.patternScore=sc;
-    LAB.scores.stress=Math.round(LAB.avg([LAB.raw.mathScore||50, sc]));
+    { const ss=[LAB.raw.mathScore,sc].filter(x=>x!=null); LAB.scores.stress=Math.round(LAB.avg(ss)); }
 
     LAB.celebrate();
     LAB.say(`Good eye! ${_correct} out of ${ROUNDS} correct. ${LAB.scoreLbl(sc)}.`,
@@ -2977,7 +2977,7 @@ window.mod_microTremor = function () {
     const sc=LAB.clamp(Math.round(100-avgDev*1.4),10,100);
 
     LAB.raw.tremorDev=Math.round(avgDev); LAB.raw.tremorScore=sc;
-    LAB.scores.stability=Math.round(LAB.avg([LAB.raw.stabilityScore||60,sc]));
+    { const stab=[LAB.raw.stabilityScore,sc].filter(x=>x!=null); LAB.scores.stability=Math.round(LAB.avg(stab)); }
 
     const dv=document.getElementById('trDev'), sv=document.getElementById('trScore'), st=document.getElementById('trStatus');
     if(dv){ dv.textContent=Math.round(avgDev)+'px'; }
@@ -3517,25 +3517,28 @@ window.mod_femCombined = function () {
    DASHBOARD + RECOMMENDATIONS + PDF
 ═══════════════════════════════════════════════════════════ */
 LAB.showDashboard = function () {
-  /* ── Ensure all composite scores are filled ── */
-  const fill=(key,fallback)=>{ if(LAB.scores[key]==null) LAB.scores[key]=fallback; };
-  fill('cognitive', Math.round(LAB.avg([LAB.raw.rxScore,LAB.raw.ftScore,LAB.raw.memScore,LAB.raw.attScore].filter(x=>x!=null))||62));
-  fill('eye',       Math.round(LAB.avg([LAB.raw.cbScore,LAB.raw.acuityScore,LAB.raw.csScore].filter(x=>x!=null))||68));
-  fill('respiratory',Math.round(LAB.avg([LAB.raw.breathSyncScore,LAB.raw.breathScore,LAB.raw.recoveryScore].filter(x=>x!=null))||65));
-  fill('stress',    Math.round(LAB.avg([LAB.raw.mathScore,LAB.raw.patternScore].filter(x=>x!=null))||63));
-  fill('stability', Math.round(LAB.avg([LAB.raw.stabilityScore,LAB.raw.tremorScore].filter(x=>x!=null))||66));
-  fill('lifestyle', LAB.raw.lifestyleScore||64);
+  /* ── Compute composite scores only from completed tests ── */
+  // avg() returns null if the array is empty (all skipped) — domain stays null
+  const domAvg = (...keys) => { const v=keys.map(k=>LAB.raw[k]).filter(x=>x!=null); return v.length?Math.round(LAB.avg(v)):null; };
+  if (LAB.scores.cognitive  == null) LAB.scores.cognitive   = domAvg('rxScore','ftScore','memScore','attScore');
+  if (LAB.scores.eye        == null) LAB.scores.eye          = domAvg('cbScore','acuityScore','csScore');
+  if (LAB.scores.respiratory== null) LAB.scores.respiratory = domAvg('breathSyncScore','breathScore','recoveryScore');
+  if (LAB.scores.stress     == null) LAB.scores.stress       = domAvg('mathScore','patternScore');
+  if (LAB.scores.stability  == null) LAB.scores.stability    = domAvg('stabilityScore','tremorScore');
+  if (LAB.scores.lifestyle  == null) LAB.scores.lifestyle    = LAB.raw.lifestyleScore ?? null;
 
   /* ── Build recs ── */
   const recs = LAB._buildRecs();
   const isFem = LAB.gender==='female';
-  const hormScore = isFem ? (LAB.scores.hormonal||65) : null;
+  const hormScore = isFem ? (LAB.scores.hormonal ?? null) : null;
 
-  /* ── Overall wellness ── */
+  /* ── Overall wellness — only completed domains count ── */
   const mainScores=[LAB.scores.cognitive,LAB.scores.eye,LAB.scores.respiratory,
                     LAB.scores.stress,LAB.scores.stability,LAB.scores.lifestyle];
   if(isFem&&hormScore) mainScores.push(hormScore);
-  const overall=Math.round(LAB.avg(mainScores.filter(x=>x!=null)));
+  const completedScores = mainScores.filter(x => x != null);
+  const overall = completedScores.length ? Math.round(LAB.avg(completedScores)) : null;
+  const completedDomains = completedScores.length;
 
   /* ── Score domains ── */
   const domains=[
@@ -3564,7 +3567,7 @@ LAB.showDashboard = function () {
       </div>
       <h2 class="h1" style="margin-bottom:.6rem">Your Wellness Results</h2>
       <p class="pg" style="max-width:400px;margin:0 auto 1.5rem">
-        Based on ${isFem?'19':'16'} activities across cognitive, eye, respiratory, stability and lifestyle health.
+        ${completedDomains > 0 ? 'Based on ' + (isFem?'19':'16') + ' activities across cognitive, eye, respiratory, stability and lifestyle health.' : 'You skipped all activities — no data to score. Complete at least one test to see results.'}
       </p>
 
       <!-- Overall ring -->
@@ -3573,29 +3576,33 @@ LAB.showDashboard = function () {
                   padding:1.6rem 2.2rem;box-shadow:var(--shm);margin-bottom:1.8rem">
         <canvas id="overallRing" width="140" height="140"></canvas>
         <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--t);line-height:1"
-             id="overallNum">${overall}</div>
+             id="overallNum">${overall !== null ? overall : '—'}</div>
         <div style="font-size:.65rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;
                     letter-spacing:.1em;color:var(--tq)">Overall Wellness</div>
-        <div style="font-size:.85rem;font-weight:700;color:${LAB.scoreCol(overall)}">${LAB.scoreLbl(overall)}</div>
+        <div style="font-size:.85rem;font-weight:700;color:${overall !== null ? LAB.scoreCol(overall) : 'var(--tq)'}">
+          ${overall !== null ? LAB.scoreLbl(overall) : 'No tests completed'}</div>
       </div>
     </div>
 
     <!-- ══ Score grid ══ -->
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.9rem;margin-bottom:2.5rem" id="scoreGrid">
       ${domains.map(d=>{
-        const sc=LAB.scores[d.key]||0;
-        return `<div style="background:#fff;border:1.5px solid var(--b);border-radius:var(--r);
+        const sc = LAB.scores[d.key] ?? null;
+        const skipped = sc === null;
+        return `<div style="background:${skipped?'var(--bg)':'#fff'};border:1.5px solid var(--b);border-radius:var(--r);
                             padding:1.4rem 1rem;text-align:center;box-shadow:var(--sh);
-                            transition:all .26s;cursor:default;position:relative;overflow:hidden"
+                            transition:all .26s;cursor:default;position:relative;overflow:hidden;
+                            opacity:${skipped?'0.55':'1'}"
                      onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='var(--shm)'"
                      onmouseleave="this.style.transform='none';this.style.boxShadow='var(--sh)'">
-          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${d.col};border-radius:3px 3px 0 0"></div>
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${skipped?'var(--b)':d.col};border-radius:3px 3px 0 0"></div>
           <canvas id="ring_${d.key}" width="80" height="80" style="display:block;margin:0 auto .7rem"></canvas>
           <div style="font-size:.6rem;font-family:'JetBrains Mono',monospace;font-weight:700;
                       text-transform:uppercase;letter-spacing:.1em;color:var(--tq);margin-bottom:.22rem">${d.icon} ${d.label}</div>
           <div style="font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;
-                      line-height:1;color:${d.col}">${sc}</div>
-          <div style="font-size:.68rem;color:${LAB.scoreCol(sc)};font-weight:600;margin-top:.18rem">${LAB.scoreLbl(sc)}</div>
+                      line-height:1;color:${skipped?'var(--tq)':d.col}">${skipped ? '—' : sc}</div>
+          <div style="font-size:.68rem;color:${skipped?'var(--tq)':LAB.scoreCol(sc)};font-weight:600;margin-top:.18rem">
+            ${skipped ? 'Skipped' : LAB.scoreLbl(sc)}</div>
         </div>`;
       }).join('')}
     </div>
@@ -3667,12 +3674,24 @@ LAB.showDashboard = function () {
 
   /* ── Draw all rings after render ── */
   setTimeout(()=>{
-    LAB._drawRing('overallRing', overall, '#2A7A5A', 64);
-    domains.forEach(d=>{ LAB._drawRing('ring_'+d.key, LAB.scores[d.key]||0, d.col, 36); });
+    if (overall !== null) LAB._drawRing('overallRing', overall, '#2A7A5A', 64);
+    else {
+      // Draw empty grey ring
+      const c=document.getElementById('overallRing'); if(c){const ctx=c.getContext('2d');ctx.beginPath();ctx.arc(70,70,64,0,Math.PI*2);ctx.strokeStyle='#E4EAE4';ctx.lineWidth=10;ctx.stroke();}
+    }
+    domains.forEach(d=>{
+      const sc=LAB.scores[d.key]??null;
+      if(sc!==null) LAB._drawRing('ring_'+d.key, sc, d.col, 36);
+      else {
+        const c=document.getElementById('ring_'+d.key); if(c){const ctx=c.getContext('2d');ctx.beginPath();ctx.arc(40,40,36,0,Math.PI*2);ctx.strokeStyle='#E4EAE4';ctx.lineWidth=7;ctx.stroke();}
+      }
+    });
   },80);
 
   LAB.celebrate();
-  LAB.say(`You have completed all the activities! Your overall wellness score is ${overall} out of a hundred — that is ${LAB.scoreLbl(overall)}. Scroll down to see your results and personalised recommendations.`,
+  LAB.say(overall !== null
+    ? `You have completed all the activities! Your overall wellness score is ${overall} out of a hundred — that is ${LAB.scoreLbl(overall)}. Scroll down to see your results and personalised recommendations.`
+    : 'You have reached the end, but no tests were completed. Go back and try at least a few activities to get your wellness score.',
           `آپ کا ویلنس اسیسمنٹ مکمل! مجموعی اسکور: ${overall}۔`,
           `आपका वेलनेस असेसमेंट पूरा! कुल स्कोर: ${overall}।`);
 };
@@ -3859,7 +3878,8 @@ LAB._buildTips = function(overall) {
 LAB.generatePDF = function () {
   const S=LAB.scores, R=LAB.raw, isFem=LAB.gender==='female';
   const mainScores=[S.cognitive,S.eye,S.respiratory,S.stress,S.stability,S.lifestyle,...(isFem&&S.hormonal?[S.hormonal]:[])].filter(x=>x!=null);
-  const overall=Math.round(LAB.avg(mainScores));
+  const completedForPDF=mainScores.filter(x=>x!=null);
+  const overall=completedForPDF.length?Math.round(LAB.avg(completedForPDF)):null;
   const now=new Date();
   const dateStr=now.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
   const recs=LAB._buildRecs();
