@@ -2,17 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap"></noscript>
+<meta name="theme-color" content="#2A7A5A">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Wellness Intelligence Lab – Shah Hayaat</title>
-<meta name="description" content="21 fun, guided wellness activities. Check your brain, eyes, lungs and body. Free, private, voice-guided in English, Hindi and Urdu.">
+<meta name="description" content="21 fun, guided wellness activities. Check your brain, eyes, lungs and body. Free, private, voice-guided in English.">
 <meta property="og:title" content="Wellness Intelligence Lab – Shah Hayaat">
 <meta property="og:image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://yasirhashmi02-dev.github.io/Shahhayaat02/wellness-lab.html">
 <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
 
 <style>
 /* ============================================================
@@ -212,7 +215,18 @@ button,input,select{font-family:inherit}
 .demo-body{padding:1.05rem 1.35rem}
 .demo-txt{font-size:.86rem;color:var(--tm);line-height:1.72;margin-bottom:.85rem}
 .demo-txt strong{color:var(--t)}
-.demo-vis{height:92px;background:var(--g4);border:1.5px solid var(--b);border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:.8rem;overflow:hidden;position:relative}
+.demo-vis{height:120px;background:linear-gradient(145deg,#EBF5F0,#E0F0E8);border:1.5px solid rgba(42,122,90,.22);border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:.8rem;overflow:hidden;position:relative;perspective:500px}
+@keyframes float3d{0%,100%{transform:translateY(0) rotateX(0) rotateY(0)}33%{transform:translateY(-7px) rotateX(5deg) rotateY(-5deg)}66%{transform:translateY(4px) rotateX(-3deg) rotateY(4deg)}}
+@keyframes pulse3d{0%,100%{transform:scale(1) rotateX(0);box-shadow:0 4px 14px rgba(42,120,90,.15)}50%{transform:scale(1.08) rotateX(8deg);box-shadow:0 14px 32px rgba(42,120,90,.28)}}
+@keyframes spin3d{0%{transform:rotateY(0) rotateX(10deg)}100%{transform:rotateY(360deg) rotateX(10deg)}}
+@keyframes breathCircle{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(42,120,90,.3),0 6px 20px rgba(42,120,90,.12)}50%{transform:scale(1.2);box-shadow:0 0 0 14px rgba(42,120,90,.0),0 12px 36px rgba(42,120,90,.22)}}
+@keyframes waveBar{0%,100%{transform:scaleY(1) translateZ(0)}50%{transform:scaleY(1.8) translateZ(8px)}}
+@keyframes cardFlip{0%{transform:perspective(400px) rotateY(0)}50%{transform:perspective(400px) rotateY(90deg)}100%{transform:perspective(400px) rotateY(0)}}
+@keyframes orbFloat{0%{transform:translate(0,0) scale(1)}25%{transform:translate(6px,-8px) scale(1.05)}50%{transform:translate(-4px,-12px) scale(1.1)}75%{transform:translate(-8px,-4px) scale(1.04)}100%{transform:translate(0,0) scale(1)}}
+.d3f{animation:float3d 2.8s ease-in-out infinite;transform-style:preserve-3d}
+.d3p{animation:pulse3d 1.3s ease-in-out infinite;transform-style:preserve-3d}
+.d3s{animation:spin3d 3s linear infinite;transform-style:preserve-3d}
+.d3b{animation:breathCircle 3.5s ease-in-out infinite}
 .demo-hint{font-size:.73rem;color:var(--tq);text-align:center;min-height:1.1em}
 .demo-ftr{padding:.7rem 1.35rem 1.05rem;display:flex;gap:.6rem;justify-content:flex-end}
 
@@ -258,7 +272,7 @@ button,input,select{font-family:inherit}
 .fem-note.show{display:block}
 
 /* ── MODULE area ─────────────────────────────────────── */
-#sModules{display:none}
+#sModules{display:none;content-visibility:auto}
 #sModules.show{display:block}
 .mwrap{animation:popIn .36s var(--ease) both}
 
@@ -280,7 +294,7 @@ button,input,select{font-family:inherit}
 <div id="dis" role="banner" aria-label="Important disclaimer">
   <div class="dis-sl on" id="ds0">⚠ Wellness indicators only — not a medical diagnosis</div>
   <div class="dis-sl"    id="ds1">🔐 Zero data stored — everything runs on your device only</div>
-  <div class="dis-sl"    id="ds2">🩺 See a doctor for health concerns · ڈاکٹر سے مشورہ کریں · डॉक्टर से मिलें</div>
+  <div class="dis-sl"    id="ds2">🩺 See a doctor for health concerns </div>
   <div class="dis-dots"><div class="dis-d on" id="dd0"></div><div class="dis-d" id="dd1"></div><div class="dis-d" id="dd2"></div></div>
 </div>
 <div style="height:44px"></div>
@@ -289,7 +303,7 @@ button,input,select{font-family:inherit}
 <header id="hdr" role="banner">
   <div class="hdr-in">
     <a href="index.html" class="logo" aria-label="Shah Hayaat home">
-      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat logo" loading="eager">
+      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat logo" loading="eager" fetchpriority="high" width="38" height="38">
       <div><div class="logo-n">Shah Hayaat</div><div class="logo-s">Wellness Lab</div></div>
     </a>
     <div class="hdr-stat"><div class="hstat idle" id="hsDot" aria-hidden="true"></div><span id="hsText">Ready</span></div>
@@ -326,12 +340,12 @@ button,input,select{font-family:inherit}
       </h1>
 
       <p class="pg hero-desc au d2">
-        21 short, fun activities that check how your brain, eyes, lungs and body are really performing today. Voice guidance in <strong>English, Hindi &amp; Urdu</strong>. Every activity has a demo first. All data stays on your phone.
+        21 short, fun activities that check how your brain, eyes, lungs and body are really performing today. Voice guidance in <strong>English</strong>. Every activity has a demo first. All data stays on your phone.
       </p>
 
       <div class="hbadge-row au d2">
         <div class="hbadge">🔐 Zero data stored</div>
-        <div class="hbadge">🗣 English · Hindi · Urdu</div>
+        <div class="hbadge">🗣 Voice-Guided English</div>
         <div class="hbadge">🎬 Demo before every test</div>
         <div class="hbadge">⏭ Skip anytime</div>
         <div class="hbadge">📄 Free PDF report</div>
@@ -399,7 +413,7 @@ button,input,select{font-family:inherit}
         </div>
         <div class="iitem au d1">
           <div class="iico">🗣</div>
-          <div class="ibody"><strong>Voice Guidance</strong><p>Tap the 🔊 button (bottom right). Choose English, Hindi, or Urdu — instructions are spoken aloud before each activity.</p></div>
+          <div class="ibody"><strong>Voice Guidance</strong><p>Tap the 🔊 button (bottom right) to turn on English voice guidance — spoken instructions before each activity.</p></div>
         </div>
         <div class="iitem au d2">
           <div class="iico">⏭</div>
@@ -503,11 +517,8 @@ button,input,select{font-family:inherit}
 
 <!-- ══ Voice Controls ═════════════════════════════════ -->
 <div id="vbar" aria-label="Voice guide controls">
-  <div class="vlbl" id="vlbl">Voice OFF</div>
   <div class="vlang-row">
-    <button class="vlang" id="vEN" onclick="LAB.setLang('en')" aria-label="English voice" title="English">EN</button>
-    <button class="vlang" id="vHI" onclick="LAB.setLang('hi')" aria-label="Hindi voice" title="Hindi">हिं</button>
-    <button class="vlang" id="vUR" onclick="LAB.setLang('ur')" aria-label="Urdu voice" title="Urdu">اردو</button>
+    <div class="vlbl" id="vlbl">Voice OFF</div>
     <button class="vtog" id="vtog" onclick="LAB.toggleVoice()" aria-label="Toggle voice guidance" title="Toggle voice">🔇</button>
   </div>
 </div>
@@ -737,35 +748,20 @@ const LAB = {
   },
 
   /* ════════════════════════════════════════
-     VOICE GUIDANCE — English / Hindi / Urdu
+     VOICE GUIDANCE — English
   ════════════════════════════════════════ */
   _synth: window.speechSynthesis || null,
 
-  say(en, ur, hi) {
+  say(en) {
     if (!this.voiceOn || !this._synth) return;
-    let text = en, langCode = 'en-IN';
-    if (this.lang === 'hi') { text = hi || en; langCode = 'hi-IN'; }
-    if (this.lang === 'ur') { text = ur || en; langCode = 'ur-PK'; }
-
     this._synth.cancel();
-    // Small delay so cancel() flushes first
     setTimeout(() => {
       if (!this.voiceOn || !this._synth) return;
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang  = langCode;
-      u.rate  = this.lang === 'en' ? 0.92 : 0.82;
-      u.pitch = 1.0;
-      u.volume = 1.0;
-      // Prefer a natural-sounding voice for the language
+      const u = new SpeechSynthesisUtterance(en);
+      u.lang = 'en-IN'; u.rate = 0.92; u.pitch = 1.0; u.volume = 1.0;
       const voices = this._synth.getVoices();
-      const prefer = voices.filter(v =>
-        v.lang.startsWith(langCode.split('-')[0]) && !v.name.toLowerCase().includes('compact')
-      );
-      if (prefer.length) {
-        // Prefer online/enhanced voices over local
-        const enhanced = prefer.find(v => v.localService === false) || prefer[0];
-        u.voice = enhanced;
-      }
+      const enVoices = voices.filter(v => v.lang.startsWith('en') && !v.name.toLowerCase().includes('compact'));
+      if (enVoices.length) u.voice = enVoices.find(v => !v.localService) || enVoices[0];
       const t = this.el('vtog');
       u.onstart = () => { if(t) t.classList.add('speaking'); };
       u.onend   = () => { if(t) t.classList.remove('speaking'); };
@@ -789,18 +785,7 @@ const LAB = {
     }
   },
 
-  setLang(l) {
-    this.lang = l;
-    ['EN','HI','UR'].forEach(x => {
-      const b = this.el('v'+x);
-      if (b) b.classList.toggle('on',
-        (x==='EN'&&l==='en')||(x==='HI'&&l==='hi')||(x==='UR'&&l==='ur')
-      );
-    });
-    const l2 = this.el('vlbl');
-    if (l2 && this.voiceOn) l2.textContent = 'Voice: '+(l==='hi'?'हिंदी':l==='ur'?'اردو':'English');
-    if (this.voiceOn) this.say('Language set to English.','زبان اردو میں سیٹ ہو گئی۔','भाषा हिंदी पर सेट की गई।');
-  },
+  // setLang removed — English only
 
   /* ════════════════════════════════════════
      DEMO ENGINE — Animated overlay
@@ -832,11 +817,7 @@ const LAB = {
     document.body.style.overflow = 'hidden';
 
     // Voice reads the instruction
-    this.say(
-      cfg.voiceEN || cfg.txt.replace(/<[^>]+>/g,''),
-      cfg.voiceUR || '',
-      cfg.voiceHI || ''
-    );
+    this.say(cfg.voiceEN || cfg.txt.replace(/<[^>]+>/g,''));
   },
 
   closeDemo(skip) {
@@ -1035,16 +1016,19 @@ window.mod_reactionSpeed = function () {
     txt: 'The box turns <strong style="color:var(--am)">red → Wait</strong> then suddenly goes <strong style="color:var(--g)">green → TAP!</strong><br>Hit it the instant you see green. <strong>Do NOT tap on Wait or you lose that round.</strong>',
     hint: '10 rounds · try to beat your best each time!',
     voiceEN: 'Here is how this works. A box will appear — red means wait, green means tap as fast as you can. Ten rounds. Ready?',
-    voiceUR: 'جب باکس سبز ہو جائے — فوری دبائیں۔ سرخ ہو تو انتظار کریں۔ دس راؤنڈ۔',
-    voiceHI: 'बॉक्स हरा हो जाए — तुरंत दबाएं। लाल हो तो रुकें। दस राउंड।',
     btnLabel: 'Start Reaction Test →',
-    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.6rem">
-      <div id="dRxBox" style="width:170px;height:64px;border-radius:13px;
-           background:#FAFBF8;border:2.5px solid #D4E8DC;
+    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.8rem;padding:.6rem">
+      <div id="dRxBox" class="d3p" style="width:160px;height:58px;border-radius:16px;
+           background:#fff;border:2.5px solid #D4E8DC;
            display:flex;align-items:center;justify-content:center;
-           font-weight:700;font-size:1rem;color:#6A8A6A;
-           transition:all .3s cubic-bezier(.4,0,.2,1)">Wait…</div>
-      <div style="font-size:.68rem;color:var(--tq)">Watch for green → tap fast!</div>
+           font-weight:800;font-size:1rem;color:#6A8A6A;
+           box-shadow:0 8px 24px rgba(42,120,90,.12),0 2px 6px rgba(0,0,0,.06);
+           transition:all .25s cubic-bezier(.4,0,.2,1);letter-spacing:.03em">⏳ Wait…</div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <div style="width:10px;height:10px;border-radius:50%;background:#E88080;box-shadow:0 0 8px rgba(220,80,80,.4)"></div>
+        <div style="font-size:.65rem;color:var(--tq);font-weight:600">Red = Wait · Green = TAP!</div>
+        <div style="width:10px;height:10px;border-radius:50%;background:#38A87A;box-shadow:0 0 8px rgba(42,120,90,.4)"></div>
+      </div>
     </div>`,
     anim(vis) {
       let on = false;
@@ -1082,7 +1066,7 @@ window.mod_reactionSpeed = function () {
         <div class="scb"><span class="v" id="rxAvg">—</span><span class="l">Average</span></div>
       </div>
     </div></div>`);
-    LAB.say('Alright, keep your finger ready. Tap as soon as you see green.','تیار رہیں۔ سبز ہوتے ہی دبائیں۔','तैयार रहें। हरा होते ही दबाएं।');
+    LAB.say('Alright, keep your finger ready. Tap as soon as you see green.');
     setTimeout(_rxSchedule, 900);
   });
 
@@ -1144,9 +1128,7 @@ window.mod_reactionSpeed = function () {
     const sc=LAB.clamp(Math.round((m<200?100:m<260?92:m<320?82:m<420?70:m<560?55:38) - sd/22),18,100);
     LAB.raw.rxAvg=Math.round(m); LAB.raw.rxBest=best; LAB.raw.rxSD=Math.round(sd); LAB.raw.rxScore=sc;
     LAB.celebrate();
-    LAB.say(`Nice work! Your average was ${Math.round(m)} milliseconds. That is ${LAB.scoreLbl(sc)}!`,
-            `مکمل! اوسط وقت ${Math.round(m)} ملی سیکنڈ۔ ${LAB.scoreLbl(sc)}!`,
-            `हो गया! औसत समय ${Math.round(m)} मिलीसेकंड। ${LAB.scoreLbl(sc)}!`);
+    LAB.say(`Nice work! Your average was ${Math.round(m)} milliseconds. That is ${LAB.scoreLbl(sc)}!`);
     setTimeout(()=>{ LAB.idx++; LAB.next(); },1900);
   }
 };
@@ -1165,14 +1147,16 @@ window.mod_reactionFatigue = function () {
     txt: 'Same as reaction speed — but for <strong>30 seconds non-stop</strong>. Keep tapping every time the box flashes green. We check if you slow down towards the end.',
     hint: '30 seconds · do you stay consistent?',
     voiceEN: 'Same idea as before — but this time for thirty seconds non-stop. We will check if you slow down towards the end.',
-    voiceUR: '30 سیکنڈ تک ہر بار سبز باکس دبائیں۔ تھکاوٹ کا اندازہ ہوگا۔',
-    voiceHI: '30 सेकंड तक हर बार हरे बॉक्स को दबाएं। थकान का पता चलेगा।',
     btnLabel: 'Start 30s Test →',
-    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
-      <div id="dFtBar" style="display:flex;align-items:flex-end;gap:3px;height:46px">
-        ${Array.from({length:12},(_,i)=>`<div id="dFb${i}" style="width:9px;border-radius:3px 3px 0 0;background:var(--g2);transition:height .25s,background .25s;height:${12+i*2}px"></div>`).join('')}
+    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:.4rem">
+      <div style="display:flex;align-items:flex-end;gap:4px;height:56px;padding:0 4px">
+        ${Array.from({length:10},(_,i)=>`<div id="dFb${i}" style="width:11px;border-radius:4px 4px 0 0;
+          background:linear-gradient(to top,var(--g),var(--g2));
+          box-shadow:0 -2px 8px rgba(42,120,90,.2);
+          transition:height .2s cubic-bezier(.4,0,.2,1),box-shadow .2s;
+          height:${14+i*3}px"></div>`).join('')}
       </div>
-      <div style="font-size:.68rem;color:var(--tq)">tap · tap · tap · keep going!</div>
+      <div style="font-size:.64rem;color:var(--tq);font-weight:600;letter-spacing:.06em">TAP · TAP · TAP — 30 seconds</div>
     </div>`,
     anim(vis) {
       let i=0;
@@ -1210,7 +1194,7 @@ window.mod_reactionFatigue = function () {
         <button class="btn btn--p btn--lg" id="ftStartBtn" onclick="_ftBegin()">▶ Start 30s Test</button>
       </div>
     </div></div>`);
-    LAB.say('Press start and tap every time the box turns green. Thirty seconds.','سٹارٹ دبائیں، ہر بار سبز باکس تپ کریں۔','स्टार्ट दबाएं, हर बार हरे बॉक्स को टैप करें।');
+    LAB.say('Press start and tap every time the box turns green. Thirty seconds.');
   });
 
   window._ftBegin = function () {
@@ -1222,9 +1206,9 @@ window.mod_reactionFatigue = function () {
       const rem=DUR-st.elapsed;
       const te=document.getElementById('ftTimer');
       if(te){ te.textContent=rem; te.className='timer'+(rem<=5?' crit':rem<=12?' warn':''); }
-      if(rem===20) LAB.say('Good — twenty seconds to go!','20 سیکنڈ باقی، جاری رکھیں!','20 सेकंड बाकी, जारी रखें!');
-      if(rem===10) LAB.say('Nearly there — ten seconds left!','دس سیکنڈ باقی!','दस सेकंड बाकी!');
-      if(rem===5)  LAB.say('Last five — keep going!','آخری پانچ!','आखिरी पाँच!');
+      if(rem===20) LAB.say('Good — twenty seconds to go!');
+      if(rem===10) LAB.say('Nearly there — ten seconds left!');
+      if(rem===5)  LAB.say('Last five — keep going!');
       if(st.elapsed>=DUR){ clearInterval(_cd); clearTimeout(_pt); st.active=false; _ftDone(); }
     },1000);
     _ftNext();
@@ -1274,9 +1258,7 @@ window.mod_reactionFatigue = function () {
     const dEl=document.getElementById('ftDrift');
     if(dEl){ dEl.textContent=(drift>0?'+':'')+drift+'ms'; dEl.style.color=LAB.scoreCol(score); }
     LAB.celebrate();
-    LAB.say(`Fatigue test done! ${taps.length} taps. Drift of ${Math.abs(drift)} milliseconds. ${LAB.scoreLbl(score)} endurance.`,
-            `مکمل! ${taps.length} تپس۔ ڈرفٹ ${Math.abs(drift)}ms۔`,
-            `पूरा! ${taps.length} टैप। ड्रिफ्ट ${Math.abs(drift)}ms।`);
+    LAB.say(`Fatigue test done! ${taps.length} taps. Drift of ${Math.abs(drift)} milliseconds. ${LAB.scoreLbl(score)} endurance.`);
     setTimeout(()=>{ LAB.idx++; LAB.next(); },1900);
   }
 };
@@ -1294,14 +1276,12 @@ window.mod_workingMemory = function () {
     txt: 'Boxes light up one by one in a sequence. <strong>Remember the order</strong>, then tap them back in the same order. Each round gets a little longer!',
     hint: 'Watch carefully — then repeat the pattern',
     voiceEN: 'Watch the grid carefully. Some boxes will light up one by one. Once they stop, tap them back in the exact same order. Each round gets a little longer.',
-    voiceUR: 'یادداشت ٹیسٹ۔ خانے ایک ایک کر کے روشن ہوں گے۔ ترتیب یاد رکھیں، پھر دبائیں۔',
-    voiceHI: 'याददाश्त परीक्षण। बॉक्स एक-एक करके जलेंगे। क्रम याद रखें, फिर उसी क्रम में दबाएं।',
     btnLabel: 'Start Memory Test →',
-    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.7rem">
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;width:108px" id="dMemGrid">
-        ${Array.from({length:9},(_,i)=>`<div id="dm${i}" style="aspect-ratio:1;background:#fff;border:2px solid #D4E8DC;border-radius:8px;transition:all .25s"></div>`).join('')}
+    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.8rem;padding:.3rem">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:114px;transform-style:preserve-3d;transform:rotateX(12deg) rotateY(-6deg)" id="dMemGrid">
+        ${Array.from({length:9},(_,i)=>`<div id="dm${i}" style="aspect-ratio:1;background:#fff;border:2px solid #D4E8DC;border-radius:9px;transition:all .22s cubic-bezier(.4,0,.2,1);box-shadow:0 3px 8px rgba(0,0,0,.08)"></div>`).join('')}
       </div>
-      <div style="font-size:.68rem;color:var(--tq)" id="dMemHint">Watch the sequence…</div>
+      <div style="font-size:.65rem;color:var(--tq);font-weight:600" id="dMemHint">Watch → Remember → Tap back</div>
     </div>`,
     anim(vis) {
       const cells=vis.querySelectorAll('[id^="dm"]');
@@ -1351,7 +1331,7 @@ window.mod_workingMemory = function () {
         <div class="scb"><span class="v" id="mErr">0</span><span class="l">Mistakes</span></div>
       </div>
     </div></div>`);
-    LAB.say('Watch carefully, then repeat the pattern. Here we go.','غور سے دیکھیں، پھر دہرائیں۔','ध्यान से देखें, फिर दोहराएं।');
+    LAB.say('Watch carefully, then repeat the pattern. Here we go.');
     setTimeout(_mRound,700);
   });
 
@@ -1402,9 +1382,7 @@ window.mod_workingMemory = function () {
     const sc=LAB.clamp(Math.round((st.maxSpan/9)*80-st.errors*2.5+18),12,100);
     LAB.raw.memSpan=st.maxSpan;LAB.raw.memErrors=st.errors;LAB.raw.memScore=sc;
     LAB.celebrate();
-    LAB.say(`Well done! Your best sequence was ${st.maxSpan} items long. That is ${LAB.scoreLbl(sc)} working memory.`,
-            `مکمل! بہترین تسلسل ${st.maxSpan}۔ ${LAB.scoreLbl(sc)}`,
-            `हो गया! सबसे अच्छा क्रम ${st.maxSpan}। ${LAB.scoreLbl(sc)}`);
+    LAB.say(`Well done! Your best sequence was ${st.maxSpan} items long. That is ${LAB.scoreLbl(sc)} working memory.`);
     setTimeout(()=>{LAB.idx++;LAB.next();},1900);
   }
 };
@@ -1423,14 +1401,23 @@ window.mod_sustainedAttention = function () {
     txt: 'A circle appears — either <strong style="color:var(--g)">GREEN</strong> or <strong style="color:var(--rd)">RED</strong>.<br>Tap <strong>only the GREEN</strong> circle. Completely ignore red. 60 seconds.',
     hint: 'Green = tap · Red = ignore · stay sharp!',
     voiceEN: 'This one is sixty seconds long. A circle will appear — sometimes green, sometimes red. Only tap the green one. Completely ignore red. Try to stay sharp the whole time.',
-    voiceUR: '60 سیکنڈ کا توجہ ٹیسٹ۔ صرف سبز دائرہ دبائیں، سرخ کو بالکل نہ دبائیں۔',
-    voiceHI: '60 सेकंड का ध्यान परीक्षण। केवल हरे गोले को दबाएं, लाल को बिल्कुल नहीं।',
     btnLabel: 'Start Attention Test →',
-    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
-      <div id="dAtCirc" style="width:76px;height:76px;border-radius:50%;background:#E8F5EE;
-           border:3px solid #2A7A5A;display:flex;align-items:center;justify-content:center;
-           font-size:2rem;transition:all .4s cubic-bezier(.4,0,.2,1)">🟢</div>
-      <div id="dAtLbl" style="font-size:.75rem;font-weight:700;color:var(--g)">TAP THIS ← immediately</div>
+    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.7rem;padding:.4rem">
+      <div style="display:flex;gap:14px;align-items:center">
+        <div style="text-align:center">
+          <div id="dAtCirc" class="d3b" style="width:72px;height:72px;border-radius:50%;background:#E8F5EE;
+               border:3px solid #2A7A5A;display:flex;align-items:center;justify-content:center;
+               font-size:1.9rem;box-shadow:0 6px 20px rgba(42,120,90,.2)">🟢</div>
+          <div style="font-size:.6rem;color:var(--g);font-weight:700;margin-top:4px">TAP ✓</div>
+        </div>
+        <div style="color:var(--tq);font-size:1rem;font-weight:700">vs</div>
+        <div style="text-align:center">
+          <div style="width:72px;height:72px;border-radius:50%;background:#FEECEB;
+               border:3px solid #C0392B;display:flex;align-items:center;justify-content:center;
+               font-size:1.9rem;box-shadow:0 6px 20px rgba(192,57,43,.15);opacity:.75">🔴</div>
+          <div style="font-size:.6rem;color:var(--rd);font-weight:700;margin-top:4px">IGNORE ✗</div>
+        </div>
+      </div>
     </div>`,
     anim(vis) {
       const c=vis.querySelector('#dAtCirc'),l=vis.querySelector('#dAtLbl');
@@ -1481,7 +1468,7 @@ window.mod_sustainedAttention = function () {
         <button class="btn btn--p btn--lg" id="atStart" onclick="_atBegin()">▶ Start 60s Test</button>
       </div>
     </div></div>`);
-    LAB.say('Remember — green means tap, red means ignore. Sixty seconds.','یاد رہے — سبز دبائیں، سرخ نہیں۔ ساٹھ سیکنڈ۔','याद रखें — हरा दबाएं, लाल नहीं। साठ सेकंड।');
+    LAB.say('Remember — green means tap, red means ignore. Sixty seconds.');
   });
 
   window._atBegin=function(){
@@ -1492,9 +1479,9 @@ window.mod_sustainedAttention = function () {
       const rem=DUR-st.elapsed;
       const te=document.getElementById('atTimer');
       if(te){te.textContent=rem;te.className='timer'+(rem<=8?' crit':rem<=18?' warn':'');}
-      if(rem===40) LAB.say('Halfway through — keep your focus!','آدھا مکمل، توجہ رکھیں!','आधा पूरा, ध्यान बनाए रखें!');
-      if(rem===20) LAB.say('Twenty seconds left!','20 سیکنڈ باقی!','20 सेकंड बाकी!');
-      if(rem===5)  LAB.say('Last five!','آخری 5!','आखिरी 5!');
+      if(rem===40) LAB.say('Halfway through — keep your focus!');
+      if(rem===20) LAB.say('Twenty seconds left!');
+      if(rem===5)  LAB.say('Last five!');
       if(st.elapsed>=DUR){clearInterval(_cd);clearTimeout(_st);_atDone();}
     },1000);
     _atNext();
@@ -1566,9 +1553,7 @@ window.mod_sustainedAttention = function () {
     const cogScores=[LAB.raw.rxScore,LAB.raw.ftScore,LAB.raw.memScore,sc].filter(x=>x!=null);
     LAB.scores.cognitive=cogScores.length?Math.round(LAB.avg(cogScores)):sc;
     LAB.celebrate();
-    LAB.say(`Great effort! You hit ${st.hits} green circles over sixty seconds. That is ${LAB.scoreLbl(sc)} attention.`,
-            `مکمل! ${st.hits} سبز دائرے دبائے۔ ${LAB.scoreLbl(sc)}۔`,
-            `पूरा! ${st.hits} हरे गोले दबाए। ${LAB.scoreLbl(sc)}।`);
+    LAB.say(`Great effort! You hit ${st.hits} green circles over sixty seconds. That is ${LAB.scoreLbl(sc)} attention.`);
     setTimeout(()=>{LAB.idx++;LAB.next();},1900);
   }
 };
@@ -1622,12 +1607,12 @@ window.mod_colourBlindness = function () {
     txt: 'You will see a circle packed with coloured dots. <strong>A number is hidden inside</strong> — look carefully. Type the number or tap "Cannot see it".',
     hint: '6 plates — takes about 2 minutes',
     voiceEN: 'Take a look at the circle. It is packed with coloured dots, and a number is hidden somewhere inside. Try to spot it and type it in. Do not worry if you cannot see it.',
-    voiceUR: 'رنگ پہچاننے کا ٹیسٹ۔ رنگین دائرے میں چھپا نمبر ڈھونڈیں۔',
-    voiceHI: 'रंग अंधापन जाँच। रंगीन गोले में छुपे नंबर को ढूंढें।',
     btnLabel: 'Start Colour Check →',
-    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
-      <canvas id="cbDemoC" width="88" height="88" style="border-radius:50%;box-shadow:0 3px 12px rgba(0,0,0,.1)"></canvas>
-      <div id="cbDemoH" style="font-size:.7rem;color:var(--tq)">Can you see a hidden number?</div>
+    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:.3rem">
+      <div class="d3f" style="border-radius:50%;box-shadow:0 8px 24px rgba(0,0,0,.15),0 2px 8px rgba(0,0,0,.08)">
+        <canvas id="cbDemoC" width="90" height="90" style="border-radius:50%;display:block"></canvas>
+      </div>
+      <div id="cbDemoH" style="font-size:.65rem;color:var(--tq);font-weight:600">Can you spot the hidden number?</div>
     </div>`,
     anim(vis) {
       const canvas=vis.querySelector('#cbDemoC'),hint=vis.querySelector('#cbDemoH');
@@ -1681,9 +1666,7 @@ window.mod_colourBlindness = function () {
       </div>
     </div></div>`);
     setTimeout(()=>{const inp=document.getElementById('cbInp');if(inp)inp.focus();},400);
-    LAB.say(`Plate ${curr+1}. Take your time — look carefully at the dots for a hidden number.`,
-            `پلیٹ ${curr+1}۔ نمبر تلاش کریں۔`,
-            `प्लेट ${curr+1}। नंबर ढूंढें।`);
+    LAB.say(`Plate ${curr+1}. Take your time — look carefully at the dots for a hidden number.`);
   }
 
   window._cbAnswer=function(){
@@ -1699,9 +1682,7 @@ window.mod_colourBlindness = function () {
     LAB.raw.cbCorrect=correct;LAB.raw.cbTotal=plates.length;LAB.raw.cbScore=sc;
     LAB.raw.cbFlag=correct<Math.ceil(plates.length*0.67);
     LAB.celebrate();
-    LAB.say(`All done! You spotted ${correct} out of ${plates.length} numbers correctly.`,
-            `${correct} / ${plates.length} درست۔`,
-            `${correct} / ${plates.length} सही।`);
+    LAB.say(`All done! You spotted ${correct} out of ${plates.length} numbers correctly.`);
     setTimeout(()=>{LAB.idx++;LAB.next();},1800);
   }
 };
@@ -1726,13 +1707,13 @@ window.mod_visualAcuity = function () {
     txt: 'Rows of letters appear, getting <strong>smaller and smaller</strong>. Tap the <strong>smallest row you can read clearly</strong> from where you are sitting.',
     hint: 'Keep glasses on if you wear them',
     voiceEN: 'You will see rows of letters, getting smaller and smaller. Just tap the smallest row you can read clearly from where you are sitting. Keep your glasses on if you normally wear them.',
-    voiceUR: 'بصری تیزی کا ٹیسٹ۔ حروف چھوٹے ہوتے جائیں گے۔ سب سے چھوٹی لائن جو واضح پڑھ سکیں، اسے دبائیں۔',
-    voiceHI: 'दृष्टि परीक्षण। अक्षर छोटे होते जाएंगे। जो सबसे छोटी पंक्ति साफ पढ़ सकते हैं उसे दबाएं।',
     btnLabel: 'Start Vision Test →',
-    vis: `<div style="text-align:center;font-family:'JetBrains Mono',monospace;line-height:1.7" id="acDemoWrap">
-      <div id="acDl1" style="font-size:24px;font-weight:700;transition:font-size .5s">E  F  P</div>
-      <div id="acDl2" style="font-size:17px;font-weight:700;transition:font-size .5s">F  E  L</div>
-      <div id="acDl3" style="font-size:11px;font-weight:700;color:var(--tq);transition:font-size .5s">P  E  C…</div>
+    vis: `<div style="text-align:center;transform-style:preserve-3d;transform:perspective(300px) rotateX(8deg);padding:.5rem .8rem" id="acDemoWrap">
+      <div style="background:#fff;border-radius:10px;padding:.5rem .9rem;box-shadow:0 8px 24px rgba(0,0,0,.1),0 2px 6px rgba(0,0,0,.06);border:1.5px solid #D4E8DC">
+        <div id="acDl1" style="font-size:22px;font-weight:800;font-family:'JetBrains Mono',monospace;color:#1C2E1C;letter-spacing:.18em;transition:font-size .5s">E  F  P</div>
+        <div id="acDl2" style="font-size:15px;font-weight:700;font-family:'JetBrains Mono',monospace;color:#2A5A2A;letter-spacing:.16em;transition:font-size .5s">F  E  L  P</div>
+        <div id="acDl3" style="font-size:10px;font-weight:700;font-family:'JetBrains Mono',monospace;color:#6A8A6A;letter-spacing:.14em;transition:font-size .5s">P  E  C  F…</div>
+      </div>
     </div>`,
     anim(vis) {
       const sizes=[[24,17,11],[21,14,9],[18,12,7]];
@@ -1770,9 +1751,7 @@ window.mod_visualAcuity = function () {
         <button class="btn btn--g" onclick="_acNone()">Cannot read any row clearly</button>
       </div>
     </div></div>`);
-    LAB.say('Take a moment to look at the chart. Tap the smallest row you can read clearly without straining.',
-            'جو سب سے چھوٹی لائن واضح پڑھ سکتے ہیں، دبائیں۔',
-            'जो सबसे छोटी लाइन साफ पढ़ सकते हैं उसे दबाएं।');
+    LAB.say('Take a moment to look at the chart. Tap the smallest row you can read clearly without straining.');
   });
 
   window._acTap=function(i){
@@ -1793,9 +1772,7 @@ window.mod_visualAcuity = function () {
     const sc=LAB.clamp(scArr[Math.max(0,chosen+1)]??10,0,100);
     LAB.raw.acuityRow=chosen;LAB.raw.acuityScore=sc;LAB.raw.acuityFlag=chosen<2;
     LAB.celebrate();
-    LAB.say(`Good. You could read down to row ${chosen+1}. ${LAB.scoreLbl(sc)} visual acuity.`,
-            `آنکھ ٹیسٹ مکمل۔ صف ${chosen+1} تک پڑھا۔`,
-            `दृष्टि परीक्षण पूरा। पंक्ति ${chosen+1} तक पढ़ा।`);
+    LAB.say(`Good. You could read down to row ${chosen+1}. ${LAB.scoreLbl(sc)} visual acuity.`);
     setTimeout(()=>{LAB.idx++;LAB.next();},1800);
   }
 };
@@ -1820,15 +1797,14 @@ window.mod_contrastSensitivity = function () {
     txt: 'A letter appears on a white background. Each round it gets <strong>harder to see</strong> as the contrast fades. Tap <strong>I Can See It</strong> while you still can. Stop when it becomes too faint.',
     hint: 'The letter gradually fades — tap while visible',
     voiceEN: 'A letter will appear on screen, and each round it will get harder to see as the contrast fades. Keep tapping while you can still see it, and stop when it becomes too faint.',
-    voiceUR: 'کنٹراسٹ ٹیسٹ۔ حرف دھندلا ہوتا جائے گا۔ جب تک دکھے، تپ کریں۔',
-    voiceHI: 'कंट्रास्ट परीक्षण। अक्षर धुंधला होता जाएगा। जब तक दिखे, दबाएं।',
     btnLabel: 'Start Contrast Test →',
-    vis: `<div style="display:flex;gap:8px;justify-content:center;align-items:flex-end">
-      ${[['#111','#fff'],['#555','#fff'],['#999','#fff'],['#CCC','#f5f5f5'],['#DDD','#f8f8f8']].map(([fg,bg],i)=>
-        `<div id="csd${i}" style="width:44px;height:44px;background:${bg};border:1.5px solid #D4E8DC;
+    vis: `<div style="display:flex;gap:6px;justify-content:center;align-items:flex-end;transform-style:preserve-3d;transform:perspective(300px) rotateX(10deg);padding:.4rem .6rem">
+      ${[['#111','#fff',52],['#4D4D4D','#fff',46],['#888','#fff',40],['#BBB','#f5f5f5',34],['#D8D8D8','#f9f9f9',28]].map(([fg,bg,sz],i)=>
+        `<div id="csd${i}" style="width:${sz}px;height:${sz}px;background:${bg};border:1.5px solid #D4E8DC;
              border-radius:8px;display:flex;align-items:center;justify-content:center;
-             font-size:1.4rem;font-weight:700;color:${fg};font-family:'JetBrains Mono',monospace;
-             transition:transform .3s,box-shadow .3s">E</div>`
+             font-size:${Math.round(sz*.65)}px;font-weight:800;color:${fg};font-family:'JetBrains Mono',monospace;
+             box-shadow:0 4px 12px rgba(0,0,0,.1);
+             transition:transform .25s,box-shadow .25s,border-color .25s">E</div>`
       ).join('')}
     </div>`,
     anim(vis) {
@@ -1877,9 +1853,7 @@ window.mod_contrastSensitivity = function () {
         <button class="btn btn--g btn--lg" onclick="_csCant()">✗ Too Faint — Stop</button>
       </div>
     </div></div>`);
-    LAB.say(`Level ${curr+1} now. Can you still make out the letter?`,
-            `سطح ${curr+1}۔ کیا حرف دکھ رہا ہے؟`,
-            `स्तर ${curr+1}। क्या अक्षर दिख रहा है?`);
+    LAB.say(`Level ${curr+1} now. Can you still make out the letter?`);
   }
 
   window._csSeen=function(){lastSeen=curr;LAB.flash('hit');curr++;_showLevel();};
@@ -1891,9 +1865,7 @@ window.mod_contrastSensitivity = function () {
     const eyeScores=[LAB.raw.cbScore,LAB.raw.acuityScore,sc].filter(x=>x!=null);
     LAB.scores.eye=eyeScores.length?Math.round(LAB.avg(eyeScores)):sc;
     LAB.celebrate();
-    LAB.say(`All three eye tests done! You could see ${lastSeen+1} contrast levels. ${LAB.scoreLbl(sc)}.`,
-            `کنٹراسٹ مکمل۔ ${lastSeen+1} سطح تک دیکھا۔`,
-            `कंट्रास्ट पूरा। ${lastSeen+1} स्तर तक देख सका।`);
+    LAB.say(`All three eye tests done! You could see ${lastSeen+1} contrast levels. ${LAB.scoreLbl(sc)}.`);
     setTimeout(()=>{LAB.idx++;LAB.next();},1900);
   }
 };
@@ -1924,8 +1896,6 @@ window.mod_breathSync = function () {
     txt: 'A circle will grow and shrink. <strong>Breathe with it</strong>: inhale when it expands, hold when it pauses, exhale when it shrinks. Just follow its rhythm naturally.',
     hint: '6 breathing cycles — find your calm',
     voiceEN: 'Breath sync test. A circle will grow and shrink on screen. Breathe in as it grows. Hold when it pauses. Breathe out as it shrinks. Just follow its rhythm.',
-    voiceUR: 'سانس کا ٹیسٹ۔ دائرہ بڑھے تو سانس لیں، رکے تو روکیں، سکڑے تو چھوڑیں۔',
-    voiceHI: 'सांस परीक्षण। गोला बढ़े तो सांस लें, रुके तो रोकें, सिकुड़े तो छोड़ें।',
     btnLabel: 'Start Breath Sync →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
       <div id="bsDemoCirc" style="width:52px;height:52px;border-radius:50%;background:var(--g3);border:3px solid var(--g);transition:all .6s ease-in-out"></div>
@@ -1984,9 +1954,7 @@ window.mod_breathSync = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Press start and just follow the circle with your breathing. In when it grows, hold when it pauses, out when it shrinks.',
-            'سٹارٹ دبائیں اور دائرے کے ساتھ سانس لیں۔',
-            'स्टार्ट दबाएं और गोले के साथ सांस लें।');
+    LAB.say('Press start and just follow the circle with your breathing. In when it grows, hold when it pauses, out when it shrinks.');
   });
 
   window._bsBegin = function () {
@@ -2053,9 +2021,7 @@ window.mod_breathSync = function () {
     const sc = LAB.clamp(Math.round(LAB.avg(_scores)), 40, 100);
     LAB.raw.breathSyncScore = sc;
     LAB.celebrate();
-    LAB.say(`Beautifully done. ${CYCLES} full breathing cycles. That is ${LAB.scoreLbl(sc)} breathing rhythm.`,
-            `سانس ٹیسٹ مکمل! ${CYCLES} سائیکل۔`,
-            `सांस परीक्षण पूरा! ${CYCLES} चक्र।`);
+    LAB.say(`Beautifully done. ${CYCLES} full breathing cycles. That is ${LAB.scoreLbl(sc)} breathing rhythm.`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   }
 };
@@ -2074,8 +2040,6 @@ window.mod_co2Tolerance = function () {
     txt: 'Take a normal breath in, then breathe out slowly. Then <strong>hold your breath</strong> and tap the button when you feel you need to breathe. That\'s it!',
     hint: 'Do NOT force it — stop when it feels natural',
     voiceEN: 'Breath hold test. Take a normal breath in, breathe out, then hold. Tap the button when you feel you need to breathe again. Do not force it.',
-    voiceUR: 'سانس روکنے کا ٹیسٹ۔ عام سانس لیں، نکالیں، پھر روکیں۔ جب مزید نہ ہو سکے تو بٹن دبائیں۔',
-    voiceHI: 'सांस रोकने का परीक्षण। सामान्य सांस लें, छोड़ें, फिर रोकें। जब लगे छोड़ना है — बटन दबाएं।',
     btnLabel: 'Understood — Start →',
     vis: `<div style="text-align:center;font-size:1.1rem">
       1. 😮‍💨 <strong>Breathe in</strong> normally<br>
@@ -2130,9 +2094,7 @@ window.mod_co2Tolerance = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Take a slow normal breath in through your nose, then tap when ready.',
-            'قدم 1 — سانس لیں۔ تیار ہوں تو دبائیں۔',
-            'चरण 1 — सामान्य सांस लें। तैयार हों तो दबाएं।');
+    LAB.say('Take a slow normal breath in through your nose, then tap when ready.');
   });
 
   window._bhNext = function () {
@@ -2144,9 +2106,7 @@ window.mod_co2Tolerance = function () {
       if(t)  t.textContent  = 'Step 2 of 3: Breathe Out';
       if(d)  d.textContent  = 'Now breathe out slowly and completely. Tap when you have fully exhaled.';
       if(b)  b.textContent  = '✓ Exhaled — Start Hold →';
-      LAB.say('Now breathe out slowly and completely. Tap when you have fully exhaled.',
-              'قدم 2 — آہستہ سانس چھوڑیں۔',
-              'चरण 2 — धीरे सांस छोड़ें।');
+      LAB.say('Now breathe out slowly and completely. Tap when you have fully exhaled.');
 
     } else if (_phase === 'exhale') {
       // Start hold
@@ -2157,9 +2117,7 @@ window.mod_co2Tolerance = function () {
       if(d)  d.textContent='Hold still. The timer is counting. Tap the button when you feel the urge to breathe.';
       if(b){ b.textContent='🫁 I Need to Breathe — Stop'; b.className='btn btn--gold btn--lg btn--full'; }
       if(ti){ ti.style.display='block'; }
-      LAB.say('Now hold. The timer is running. Tap the button the moment you feel you need to breathe — do not push it.',
-              'ابھی سانس روکیں۔ دبائیں جب مزید نہ ہو سکے۔',
-              'अभी सांस रोकें। जब छोड़ना हो तो दबाएं।');
+      LAB.say('Now hold. The timer is running. Tap the button the moment you feel you need to breathe — do not push it.');
       _cd = setInterval(()=>{
         const elapsed = (performance.now()-_startT)/1000;
         const ti2 = document.getElementById('bhTimer');
@@ -2190,9 +2148,7 @@ window.mod_co2Tolerance = function () {
     if(b) b.style.display='none';
 
     LAB.celebrate();
-    LAB.say(`Well done! You held your breath for ${Math.round(_held)} seconds. That is ${rating}!`,
-            `ہولڈ مکمل — ${Math.round(_held)} سیکنڈ۔`,
-            `पूरा हुआ — ${Math.round(_held)} सेकंड।`);
+    LAB.say(`Well done! You held your breath for ${Math.round(_held)} seconds. That is ${rating}!`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 2200);
   }
 };
@@ -2212,8 +2168,6 @@ window.mod_recovery = function () {
     txt: 'Feel your heartbeat — in your chest, wrist or neck. Then <strong>tap the button once for every heartbeat</strong> for 30 seconds. This estimates your heart rate variability.',
     hint: 'Find your pulse first — then tap!',
     voiceEN: 'Recovery test. Find your pulse on your wrist or neck. Then tap the button once per heartbeat for 30 seconds.',
-    voiceUR: 'ریکوری ٹیسٹ۔ اپنی نبض محسوس کریں۔ پھر 30 سیکنڈ تک ہر دھڑکن پر دبائیں۔',
-    voiceHI: 'रिकवरी परीक्षण। अपनी नाड़ी महसूस करें। फिर 30 सेकंड तक हर धड़कन पर दबाएं।',
     btnLabel: 'Got it — Start →',
     vis: `<div style="text-align:center;font-size:.9rem;color:var(--tm);line-height:2">
       <div style="font-size:2rem">❤️</div>
@@ -2264,9 +2218,7 @@ window.mod_recovery = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Find your pulse on your wrist or neck. Once you can feel it, press start and tap once for every single heartbeat for thirty seconds.',
-            'نبض تلاش کریں۔ سٹارٹ دبائیں اور 30 سیکنڈ تک دبائیں۔',
-            'नाड़ी ढूंढें। स्टार्ट दबाएं और 30 सेकंड तक टैप करें।');
+    LAB.say('Find your pulse on your wrist or neck. Once you can feel it, press start and tap once for every single heartbeat for thirty seconds.');
   });
 
   window._rvBegin = function () {
@@ -2318,9 +2270,7 @@ window.mod_recovery = function () {
     if(sEl){ sEl.textContent=sc; sEl.style.color=LAB.scoreCol(sc); }
 
     LAB.celebrate();
-    LAB.say(`Done! We estimated your heart rate at ${bpm} beats per minute, with a variability of ${hrv} milliseconds. ${LAB.scoreLbl(sc)}.`,
-            `ریکوری مکمل۔ BPM ${bpm}۔ HRV ${hrv}ms۔`,
-            `रिकवरी पूरा। BPM ${bpm}। HRV ${hrv}ms।`);
+    LAB.say(`Done! We estimated your heart rate at ${bpm} beats per minute, with a variability of ${hrv} milliseconds. ${LAB.scoreLbl(sc)}.`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1900);
   }
 };
@@ -2375,8 +2325,6 @@ window.mod_cogUnderPressure = function () {
     txt: 'A maths question appears. Tap the <strong>correct answer</strong> from 4 choices. You have just <strong>35 seconds</strong> for all 20 questions — work fast!',
     hint: '20 questions · 35 seconds · all mental maths',
     voiceEN: 'Maths under pressure. 20 arithmetic questions. 4 choices each. 35 seconds total. Tap the correct answer as fast as you can.',
-    voiceUR: '35 سیکنڈ میں 20 سوال۔ 4 جوابوں میں سے درست چنیں۔ جلدی کریں!',
-    voiceHI: '35 सेकंड में 20 सवाल। 4 विकल्पों में से सही चुनें। जल्दी करें!',
     btnLabel: 'Start Maths Challenge →',
     vis: `<div style="text-align:center">
       <div style="font-size:1.6rem;font-weight:700;color:var(--t);font-family:'JetBrains Mono',monospace;margin-bottom:.8rem" id="mpDemo">8 × 7 = ?</div>
@@ -2482,9 +2430,7 @@ window.mod_cogUnderPressure = function () {
     LAB.scores.stress=sc; // updated after pattern search
 
     LAB.celebrate();
-    LAB.say(`Maths done! ${_correct} out of ${TOTAL} correct. ${LAB.scoreLbl(sc)} cognitive performance under pressure.`,
-            `${_correct} / ${TOTAL} درست۔`,
-            `${_correct} / ${TOTAL} सही।`);
+    LAB.say(`Maths done! ${_correct} out of ${TOTAL} correct. ${LAB.scoreLbl(sc)} cognitive performance under pressure.`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   }
 };
@@ -2525,8 +2471,6 @@ window.mod_patternOverload = function () {
     txt: 'A grid of symbols appears. <strong>One symbol appears a different number of times</strong> than the others. Tap it! Gets faster each round.',
     hint: '8 rounds — spot the odd one out!',
     voiceEN: 'Pattern search test. A grid of symbols appears. One symbol appears a different number of times. Tap that symbol. 8 rounds, gets harder.',
-    voiceUR: 'پیٹرن تلاش۔ علامتوں کی جالی میں ایک علامت مختلف تعداد میں ہے۔ اسے دبائیں۔',
-    voiceHI: 'पैटर्न खोज। निशानों की जाली में एक निशान अलग संख्या में है। उसे दबाएं।',
     btnLabel: 'Start Pattern Search →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;width:110px" id="ptDemo">
@@ -2590,9 +2534,7 @@ window.mod_patternOverload = function () {
       </div>
     </div></div>`);
 
-    LAB.say(`Round ${_round+1}. One of these symbols appears a different number of times — find it.`,
-            `راؤنڈ ${_round+1}۔ مختلف تعداد والی علامت تلاش کریں۔`,
-            `राउंड ${_round+1}। अलग संख्या वाला निशान ढूंढें।`);
+    LAB.say(`Round ${_round+1}. One of these symbols appears a different number of times — find it.`);
 
     // Store start time for this round
     window._ptStartT = start;
@@ -2626,9 +2568,7 @@ window.mod_patternOverload = function () {
     { const ss=[LAB.raw.mathScore,sc].filter(x=>x!=null); LAB.scores.stress=Math.round(LAB.avg(ss)); }
 
     LAB.celebrate();
-    LAB.say(`Good eye! ${_correct} out of ${ROUNDS} correct. ${LAB.scoreLbl(sc)}.`,
-            `${_correct} / ${ROUNDS} درست۔`,
-            `${_correct} / ${ROUNDS} सही।`);
+    LAB.say(`Good eye! ${_correct} out of ${ROUNDS} correct. ${LAB.scoreLbl(sc)}.`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   }
 };
@@ -2649,8 +2589,6 @@ window.mod_stabilityHold = function () {
     txt: '<strong>Hold your phone as still as possible</strong> for 20 seconds. On desktop, keep your mouse cursor inside the green circle without moving.',
     hint: 'The steadier you are, the higher your score',
     voiceEN: 'Steady hand test. Hold your phone completely still for 20 seconds. On desktop, keep your cursor inside the green circle.',
-    voiceUR: '20 سیکنڈ تک فون کو بالکل ساکن رکھیں۔',
-    voiceHI: '20 सेकंड तक फ़ोन को बिल्कुल स्थिर रखें।',
     btnLabel: 'Start Steady Hand Test →',
     vis: `<div style="text-align:center">
       <div style="font-size:2.5rem">📱</div>
@@ -2712,9 +2650,7 @@ window.mod_stabilityHold = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Press start, then hold your phone as still as you possibly can for twenty seconds. Rest your elbow on something if that helps.',
-            'سٹارٹ دبائیں، پھر 20 سیکنڈ بالکل ساکن رہیں۔',
-            'स्टार्ट दबाएं, फिर 20 सेकंड बिल्कुल स्थिर रहें।');
+    LAB.say('Press start, then hold your phone as still as you possibly can for twenty seconds. Rest your elbow on something if that helps.');
   });
 
   window._shBegin = function () {
@@ -2804,9 +2740,7 @@ window.mod_stabilityHold = function () {
     }
     LAB.raw.stabilityScore=sc;
     LAB.celebrate();
-    LAB.say(`That is it! Your steadiness score is ${sc}. ${LAB.scoreLbl(sc)}.`,
-            `اسٹیڈی ہینڈ مکمل۔ اسکور: ${sc}۔`,
-            `स्थिरता पूरा। स्कोर: ${sc}।`);
+    LAB.say(`That is it! Your steadiness score is ${sc}. ${LAB.scoreLbl(sc)}.`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   }
 };
@@ -2828,8 +2762,6 @@ window.mod_microTremor = function () {
     txt: 'You will see a zig-zag path on screen. <strong>Trace along it with your finger or mouse</strong> as smoothly and accurately as you can. We measure how steady your hand is.',
     hint: 'Go slowly — accuracy matters more than speed',
     voiceEN: 'Tremor drawing test. A zig-zag path appears. Trace along it as smoothly as you can with your finger. Steady and slow.',
-    voiceUR: 'کانپنے کا ٹیسٹ۔ زگزیگ لائن ٹریس کریں، آہستہ اور سیدھا۔',
-    voiceHI: 'कंपन परीक्षण। ज़िगज़ैग रेखा का अनुसरण करें, धीरे और सटीक।',
     btnLabel: 'Start Drawing Test →',
     vis: `<div style="text-align:center">
       <svg width="200" height="70" viewBox="0 0 200 70" style="border:1.5px solid var(--b);border-radius:8px;background:#fff">
@@ -2889,9 +2821,7 @@ window.mod_microTremor = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Trace along the dotted path as smoothly as you can. Start from the green circle on the left. Slow and steady.',
-            'نقطے کی لائن پر ٹریس کریں۔ بائیں سے شروع کریں۔',
-            'बिंदीदार रेखा पर ट्रेस करें। बाईं ओर से शुरू करें।');
+    LAB.say('Trace along the dotted path as smoothly as you can. Start from the green circle on the left. Slow and steady.');
 
     setTimeout(_trSetup, 200);
   });
@@ -2987,9 +2917,7 @@ window.mod_microTremor = function () {
     const nb=document.getElementById('trNext'); if(nb) nb.style.display='flex';
 
     LAB.celebrate();
-    LAB.say(`Drawing done. Average deviation ${Math.round(avgDev)} pixels. ${LAB.scoreLbl(sc)} hand steadiness.`,
-            `ڈرائنگ مکمل۔ اسکور: ${sc}۔`,
-            `ड्राइंग पूरा। स्कोर: ${sc}।`);
+    LAB.say(`Drawing done. Average deviation ${Math.round(avgDev)} pixels. ${LAB.scoreLbl(sc)} hand steadiness.`);
   }
 
   window._trClear = function () {
@@ -3013,8 +2941,6 @@ window.mod_sleepEfficiency = function () {
     txt: 'Answer 5 quick questions about your sleep last night. We calculate a sleep quality score based on your answers.',
     hint: 'Honest answers = accurate score',
     voiceEN: 'Sleep check. Answer 5 short questions about your sleep last night. Be honest for the most accurate result.',
-    voiceUR: 'نیند کی جانچ۔ گزشتہ رات کی نیند کے بارے میں 5 سوالوں کے جوابات دیں۔',
-    voiceHI: 'नींद जाँच। कल रात की नींद के बारे में 5 सवालों के जवाब दें।',
     btnLabel: 'Start Sleep Check →',
     vis: `<div style="text-align:center;font-size:2rem;margin-bottom:.5rem">💤</div>
     <div style="font-size:.82rem;color:var(--tq);text-align:center">5 quick questions<br>about last night's sleep</div>`,
@@ -3074,9 +3000,7 @@ window.mod_sleepEfficiency = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Answer the 5 sleep questions honestly.',
-            'سونے کے 5 سوالوں کے ایماندارانہ جوابات دیں۔',
-            'नींद के 5 सवालों के ईमानदारी से जवाब दें।');
+    LAB.say('Answer the 5 sleep questions honestly.');
   });
 
   window._slCalc = function () {
@@ -3101,9 +3025,7 @@ window.mod_sleepEfficiency = function () {
     LAB.raw.sleepHours=Math.round(hours*10)/10; LAB.raw.sleepScore=sc;
 
     LAB.celebrate();
-    LAB.say(`Sleep check done. You slept about ${Math.round(hours*10)/10} hours. ${LAB.scoreLbl(sc)} sleep quality.`,
-            `نیند مکمل۔ تقریباً ${Math.round(hours*10)/10} گھنٹے۔`,
-            `नींद पूरा। लगभग ${Math.round(hours*10)/10} घंटे।`);
+    LAB.say(`Sleep check done. You slept about ${Math.round(hours*10)/10} hours. ${LAB.scoreLbl(sc)} sleep quality.`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   };
 };
@@ -3120,8 +3042,6 @@ window.mod_lifestyleLoad = function () {
     txt: 'Answer 6 quick questions about your daily habits — water intake, exercise, diet, stress, screen time and social time. Takes about 2 minutes.',
     hint: 'No wrong answers — just be honest with yourself',
     voiceEN: 'Lifestyle score. Answer 6 questions about your daily habits. Water, exercise, diet, stress, screen time and social connections.',
-    voiceUR: 'طرزِ زندگی کا اسکور۔ 6 سوالوں کے جوابات — پانی، ورزش، خوراک، تناؤ، اسکرین اور سماج۔',
-    voiceHI: 'जीवनशैली स्कोर। 6 सवालों के जवाब — पानी, व्यायाम, खान-पान, तनाव, स्क्रीन और सामाजिक।',
     btnLabel: 'Start Lifestyle Check →',
     vis: `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;max-width:180px;margin:0 auto">
       ${['💧','🏃','🥗','😤','📱','👥'].map(e=>`<div style="aspect-ratio:1;background:var(--g3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem">${e}</div>`).join('')}
@@ -3178,9 +3098,7 @@ window.mod_lifestyleLoad = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Tap your honest answer for each question.',
-            'ہر سوال کا ایمانداری سے جواب دیں۔',
-            'हर सवाल का ईमानदार जवाब दें।');
+    LAB.say('Tap your honest answer for each question.');
   });
 
   window._liCalc = function () {
@@ -3192,9 +3110,7 @@ window.mod_lifestyleLoad = function () {
     LAB.scores.lifestyle=sc;
 
     LAB.celebrate();
-    LAB.say(`Lifestyle score: ${sc} out of 100. ${LAB.scoreLbl(sc)}.`,
-            `طرزِ زندگی اسکور: ${sc}۔`,
-            `जीवनशैली स्कोर: ${sc}।`);
+    LAB.say(`Lifestyle score: ${sc} out of 100. ${LAB.scoreLbl(sc)}.`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   };
 };
@@ -3218,8 +3134,6 @@ window.mod_hormonalRhythm = function () {
     txt: '5 short questions about your monthly cycle. <strong>Completely private</strong> — nothing is stored anywhere. Takes under 2 minutes.',
     hint: 'Private · not stored · just for your score',
     voiceEN: 'Hormonal rhythm check. Five quick questions about your monthly cycle. All completely private.',
-    voiceUR: 'ہارمونل ردھم چیک۔ ماہواری کے بارے میں 5 مختصر سوال۔ مکمل طور پر نجی۔',
-    voiceHI: 'हार्मोनल रिदम जाँच। मासिक चक्र के बारे में 5 छोटे सवाल। पूरी तरह निजी।',
     btnLabel: 'Start — 2 Minutes →',
     vis: `<div style="text-align:center">
       <div id="hrDemoIcon" style="font-size:2.4rem;transition:all .5s">🌸</div>
@@ -3294,9 +3208,7 @@ window.mod_hormonalRhythm = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Tap your answer for each question. All data stays on your device.',
-            'ہر سوال کا جواب دبائیں۔ ڈیٹا آپ کے ڈیوائس پر رہتا ہے۔',
-            'हर सवाल का जवाब दबाएं। डेटा आपके डिवाइस पर रहता है।');
+    LAB.say('Tap your answer for each question. All data stays on your device.');
   });
 
   window._hrCalc = function () {
@@ -3305,9 +3217,7 @@ window.mod_hormonalRhythm = function () {
     const sc=LAB.clamp(Math.round(LAB.avg(vals)),10,100);
     LAB.raw.hormonalScore=sc; LAB.raw.hormonalBreakdown=vals;
     LAB.celebrate();
-    LAB.say(`Hormonal rhythm check done. Score: ${sc}. ${LAB.scoreLbl(sc)}.`,
-            `ہارمونل چیک مکمل۔ اسکور: ${sc}۔`,
-            `हार्मोनल जाँच पूरी। स्कोर: ${sc}।`);
+    LAB.say(`Hormonal rhythm check done. Score: ${sc}. ${LAB.scoreLbl(sc)}.`);
     setTimeout(()=>{ LAB.idx++; LAB.next(); },1800);
   };
 };
@@ -3324,8 +3234,6 @@ window.mod_energyIron = function () {
     txt: '4 quick questions about energy, fatigue and common iron-deficiency signs. Gets you a simple score and practical advice.',
     hint: 'Iron deficiency is very common — worth checking',
     voiceEN: 'Energy and iron check. Four questions about your energy levels and iron deficiency symptoms.',
-    voiceUR: 'انرجی اور آئرن چیک۔ 4 سوال — تھکاوٹ اور آئرن کی کمی کی علامات۔',
-    voiceHI: 'ऊर्जा और आयरन जाँच। 4 सवाल — थकान और आयरन की कमी के लक्षण।',
     btnLabel: 'Start Energy Check →',
     vis: `<div style="text-align:center">
       <div style="font-size:2rem" id="eiIcon">⚡</div>
@@ -3390,9 +3298,7 @@ window.mod_energyIron = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Answer 4 questions about your energy and iron levels.',
-            '4 سوالوں کے جوابات دیں۔',
-            '4 सवालों के जवाब दें।');
+    LAB.say('Answer 4 questions about your energy and iron levels.');
   });
 
   window._eiCalc = function () {
@@ -3401,9 +3307,7 @@ window.mod_energyIron = function () {
     const sc=LAB.clamp(Math.round(LAB.avg(vals)),10,100);
     LAB.raw.ironScore=sc;
     LAB.celebrate();
-    LAB.say(`Energy and iron check done. Score: ${sc}.`,
-            `انرجی چیک مکمل۔ اسکور: ${sc}۔`,
-            `ऊर्जा जाँच पूरी। स्कोर: ${sc}।`);
+    LAB.say(`Energy and iron check done. Score: ${sc}.`);
     setTimeout(()=>{ LAB.idx++; LAB.next(); },1800);
   };
 };
@@ -3420,8 +3324,6 @@ window.mod_femCombined = function () {
     txt: '5 questions combining sleep-cycle quality and physical comfort — specific to female health patterns.',
     hint: 'Combines sleep cycle + comfort in one short check',
     voiceEN: 'Sleep and comfort check. Five questions about sleep quality linked to your cycle and physical comfort.',
-    voiceUR: 'نیند اور سکون کی جانچ۔ 5 سوال — ماہواری سے جڑی نیند اور جسمانی سکون۔',
-    voiceHI: 'नींद और आराम जाँच। 5 सवाल — चक्र से जुड़ी नींद और शारीरिक आराम।',
     btnLabel: 'Start — Final Female Module →',
     vis: `<div style="text-align:center;font-size:1.8rem" id="fcIcon">🌙</div>`,
     anim(vis) {
@@ -3490,9 +3392,7 @@ window.mod_femCombined = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Answer 5 final questions. After this, your full results will appear.',
-            'آخری 5 سوالات۔ پھر آپ کے مکمل نتائج آئیں گے۔',
-            'आखिरी 5 सवाल। इसके बाद आपके पूरे नतीजे आएंगे।');
+    LAB.say('Answer 5 final questions. After this, your full results will appear.');
   });
 
   window._fcCalc = function () {
@@ -3505,9 +3405,7 @@ window.mod_femCombined = function () {
     const femScores=[LAB.raw.hormonalScore,LAB.raw.ironScore,sc].filter(x=>x!=null);
     LAB.scores.hormonal=Math.round(LAB.avg(femScores));
     LAB.celebrate();
-    LAB.say('Female modules complete! Loading your full results now.',
-            'خواتین کے ماڈیول مکمل! نتائج لوڈ ہو رہے ہیں۔',
-            'महिला मॉड्यूल पूरे! नतीजे लोड हो रहे हैं।');
+    LAB.say('Female modules complete! Loading your full results now.');
     setTimeout(()=>{ LAB.idx++; LAB.next(); },1800);
   };
 };
@@ -3654,6 +3552,79 @@ LAB.showDashboard = function () {
       No data has been sent anywhere — everything was calculated on your device.
     </div>
 
+
+    <!-- ══ Shah Hayaat Products ══ -->
+    <div style="margin-bottom:2rem">
+      <div style="display:inline-flex;align-items:center;gap:.5rem;padding:.28rem .85rem;
+                  background:linear-gradient(90deg,rgba(42,122,90,.12),rgba(201,120,0,.1));
+                  border:1px solid rgba(42,122,90,.22);border-radius:50px;
+                  font-size:.6rem;font-weight:700;color:var(--g);
+                  letter-spacing:.1em;text-transform:uppercase;margin-bottom:.9rem">
+        🌿 Shah Hayaat Certified Ayurvedic Products
+      </div>
+      <h3 class="h3" style="margin-bottom:.35rem">Products Matched to Your Results</h3>
+      <p class="pg" style="margin-bottom:1.3rem;font-size:.82rem">
+        These products from the Shah Hayaat range are selected based on your specific scores.
+        WHO-GMP · ISO 9001:2015 · HACCP Certified.
+        Tap <strong style="color:#25D366">Order on WhatsApp</strong> to place an order instantly.
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.85rem" id="shProductGrid">
+        ${LAB._buildProductCards()}
+      </div>
+      <div style="text-align:center;margin-top:1.2rem">
+        <a href="https://yasirhashmi02-dev.github.io/Shahhayaat02/products.html"
+           target="_blank" style="display:inline-flex;align-items:center;gap:.4rem;
+           color:var(--g);font-weight:600;font-size:.8rem;text-decoration:none;
+           padding:.45rem 1.1rem;border:1.5px solid rgba(42,122,90,.3);border-radius:50px;
+           transition:.22s" onmouseenter="this.style.background='var(--g3)'" onmouseleave="this.style.background='transparent'">
+          🌿 View all 12 Shah Hayaat products →
+        </a>
+      </div>
+    </div>
+
+    <!-- ══ Expert Consultation via WhatsApp ══ -->
+    <div style="background:linear-gradient(135deg,#F0FBF5,#E8F5EE);border:1.5px solid rgba(42,122,90,.25);
+                border-radius:var(--r);padding:1.4rem 1.6rem;margin-bottom:2rem;
+                box-shadow:0 4px 18px rgba(42,122,90,.1)">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:1.1rem">
+        <div style="font-size:2.4rem;flex-shrink:0;line-height:1">🩺</div>
+        <div style="flex:1;min-width:180px">
+          <div style="font-weight:700;color:var(--t);font-size:1rem;margin-bottom:.25rem">
+            Talk to a Shah Hayaat Expert
+          </div>
+          <p style="font-size:.8rem;color:var(--tm);line-height:1.65;margin-bottom:.9rem">
+            Have questions about your results? Our wellness consultants can review your report, 
+            answer your questions, and guide you to the right products or next steps.
+            <strong style="color:var(--g)">Free 15-minute consultation.</strong>
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:.6rem">
+            <button onclick="LAB.whatsappShare()" 
+                    style="display:inline-flex;align-items:center;gap:.5rem;
+                           background:#25D366;color:#fff;border:none;
+                           padding:.7rem 1.3rem;border-radius:50px;font-weight:700;
+                           font-size:.9rem;cursor:pointer;box-shadow:0 4px 14px rgba(37,211,102,.35);
+                           transition:all .22s;-webkit-tap-highlight-color:transparent"
+                    onmouseenter="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 22px rgba(37,211,102,.45)'"
+                    onmouseleave="this.style.transform='none';this.style.boxShadow='0 4px 14px rgba(37,211,102,.35)'">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Share Report on WhatsApp
+            </button>
+            <a href="tel:+917051056287"
+               style="display:inline-flex;align-items:center;gap:.45rem;
+                      background:#fff;color:var(--g);border:2px solid rgba(42,122,90,.3);
+                      padding:.65rem 1.2rem;border-radius:50px;font-weight:700;
+                      font-size:.85rem;text-decoration:none;
+                      transition:all .22s;box-shadow:0 2px 8px rgba(42,122,90,.1)"
+               onmouseenter="this.style.borderColor='var(--g)';this.style.background='var(--g3)'"
+               onmouseleave="this.style.borderColor='rgba(42,122,90,.3)';this.style.background='#fff'">
+              📞 Call Expert
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- ══ Actions ══ -->
     <div class="card" style="margin-bottom:1.4rem;padding:1.25rem 1.4rem">
       <h3 class="h3" style="margin-bottom:.5rem;font-size:.95rem">📄 Download Your PDF Report</h3>
@@ -3691,9 +3662,7 @@ LAB.showDashboard = function () {
   LAB.celebrate();
   LAB.say(overall !== null
     ? `You have completed all the activities! Your overall wellness score is ${overall} out of a hundred — that is ${LAB.scoreLbl(overall)}. Scroll down to see your results and personalised recommendations.`
-    : 'You have reached the end, but no tests were completed. Go back and try at least a few activities to get your wellness score.',
-          `آپ کا ویلنس اسیسمنٹ مکمل! مجموعی اسکور: ${overall}۔`,
-          `आपका वेलनेस असेसमेंट पूरा! कुल स्कोर: ${overall}।`);
+    : 'You have reached the end, but no tests were completed. Go back and try at least a few activities to get your wellness score.');
 };
 
 
@@ -3852,6 +3821,212 @@ LAB._buildRecs = function() {
 
 
 /* ── General tips based on overall score ── */
+
+/* ═══════════════════════════════════════════════════════════
+   SHAH HAYAAT PRODUCTS — Real product catalog, score-driven
+═══════════════════════════════════════════════════════════ */
+
+/* All 12 real Shah Hayaat products */
+LAB.SH_PRODUCTS = {
+  brainchamp:   { name:'Brain Champ',    price:175, tag:'🧠 Brain & Focus',     tagColor:'#2A7A5A',
+    desc:'Brahmi, Ashwagandha & Shankhpushpi blend to boost memory, cut brain fog and sharpen focus.',
+    benefits:'Improves memory · Reduces mental fatigue · Manages stress' },
+  shahzyme:     { name:'Shah Zyme',      price:165, tag:'🫁 Digestion',          tagColor:'#059669',
+    desc:'Herbal digestive enzyme syrup for gas, bloating and sluggish digestion after meals.',
+    benefits:'Relieves bloating · Improves absorption · Stimulates appetite' },
+  bloodstorm:   { name:'Blood Storm',    price:165, tag:'🩸 Blood & Energy',     tagColor:'#C0392B',
+    desc:'Iron-rich Ayurvedic tonic to raise haemoglobin, fight anaemia and restore vitality.',
+    benefits:'Raises haemoglobin · Combats anaemia · Restores energy' },
+  coughxpro:    { name:'Cough X Pro',    price:90,  tag:'😮‍💨 Respiratory',       tagColor:'#0891B2',
+    desc:'Tulsi & Mulethi syrup to soothe airways, clear mucus and relieve chronic cough.',
+    benefits:'Soothes throat · Reduces congestion · Anti-inflammatory' },
+  musaffakhoon: { name:'Musaffa Khoon',  price:165, tag:'✨ Skin Care',           tagColor:'#7C3AED',
+    desc:'Classical blood purifier — clears acne, psoriasis and dull skin from the root cause.',
+    benefits:'Purifies blood · Clears acne · Promotes glow' },
+  panasip:      { name:'PanaSip',        price:165, tag:'🔥 Acidity',            tagColor:'#EA580C',
+    desc:'Cooling herbal antacid to neutralise acid, heal ulcers and stop heartburn naturally.',
+    benefits:'Neutralises acid · Soothes inflammation · Heals ulcers' },
+  livohayaat:   { name:'Livo Hayaat',    price:349, tag:'🟤 Liver Health',       tagColor:'#92400E',
+    desc:'Hepatoprotective formula with Bhumi Amla & Kutki to detox liver and normalise enzymes.',
+    benefits:'Regenerates liver cells · Reduces fatty liver · Antioxidant' },
+  diaease:      { name:'Dia-Ease',       price:695, tag:'🍬 Diabetes Care',      tagColor:'#0F766E',
+    desc:'Karela, Jamun & Gurmar combination to support healthy blood sugar balance naturally.',
+    benefits:'Supports blood sugar · Improves insulin sensitivity · Safe' },
+  orthohayaat:  { name:'Ortho Hayaat',   price:649, tag:'🦴 Joint Care',         tagColor:'#7C3AED',
+    desc:'Shallaki & Guggul anti-inflammatory blend for joint pain, arthritis and mobility.',
+    benefits:'Reduces joint pain · Improves mobility · Strengthens bones' },
+  utrohayaat:   { name:'Utro Hayaat',    price:625, tag:'🌸 Female Health',      tagColor:'#BE185D',
+    desc:'Ashoka & Shatavari tonic to regulate cycles, relieve period pain and balance hormones.',
+    benefits:'Regulates cycles · Relieves period pain · Hormonal balance' },
+  passionpulse: { name:'Passion Pulse',  price:599, tag:'⚡ Male Vitality',      tagColor:'#1D4ED8',
+    desc:'Ashwagandha, Shilajit & Safed Musli for stamina, libido and male reproductive health.',
+    benefits:'Enhances stamina · Improves libido · Supports testosterone' },
+  fevodol:      { name:'Fevodol',        price:165, tag:'🛡 Immunity',            tagColor:'#2A7A5A',
+    desc:'Giloy & Tulsi immunity booster to fight fever, infections and strengthen body defences.',
+    benefits:'Boosts immunity · Antipyretic · Anti-infective' },
+};
+
+LAB._buildProductCards = function () {
+  const S = LAB.scores, R = LAB.raw, P = LAB.SH_PRODUCTS;
+  const isFem = LAB.gender === 'female';
+  const isMale = LAB.gender === 'male';
+  const selected = [];
+
+  // ─── Score-driven selection — real products, accurate mapping ───
+
+  // Cognitive low → Brain Champ
+  if ((S.cognitive ?? 100) < 75 || (R.memSpan ?? 9) < 5 || (R.rxAvg ?? 0) > 350)
+    selected.push({ ...P.brainchamp, id:'brainchamp', reason:'Your cognitive score suggests memory or focus support.' });
+
+  // Respiratory low → Cough X Pro
+  if ((S.respiratory ?? 100) < 70 || (R.breathHold ?? 999) < 25)
+    selected.push({ ...P.coughxpro, id:'coughxpro', reason:'Breathing scores indicate respiratory support may help.' });
+
+  // Stress low / sleep poor → Blood Storm (energy) + lifestyle
+  if ((S.stress ?? 100) < 70 || (R.sleepHours ?? 8) < 6)
+    selected.push({ ...P.bloodstorm, id:'bloodstorm', reason:'Low energy or stress scores detected.' });
+
+  // Liver / lifestyle → Livo Hayaat
+  if ((S.lifestyle ?? 100) < 65)
+    selected.push({ ...P.livohayaat, id:'livohayaat', reason:'Lifestyle scores suggest a detox and liver support.' });
+
+  // Stability / tremor low → Ortho Hayaat
+  if ((S.stability ?? 100) < 65 || (R.tremorDev ?? 0) > 30)
+    selected.push({ ...P.orthohayaat, id:'orthohayaat', reason:'Motor stability scores point to joint/nerve support.' });
+
+  // Eye health low → Musaffa Khoon (circulation/blood purifier helps eyes)
+  if ((S.eye ?? 100) < 70 || R.cbFlag || R.acuityFlag)
+    selected.push({ ...P.musaffakhoon, id:'musaffakhoon', reason:'Blood purification supports eye health and clarity.' });
+
+  // Female health
+  if (isFem && (S.hormonal ?? 100) < 75)
+    selected.push({ ...P.utrohayaat, id:'utrohayaat', reason:'Hormonal rhythm scores indicate female tonic support.' });
+
+  // Female energy/iron
+  if (isFem && (R.ironScore ?? 100) < 70)
+    selected.push({ ...P.bloodstorm, id:'bloodstorm', reason:'Iron and energy indicators suggest blood support.' });
+
+  // Male vitality
+  if (isMale && (S.stress ?? 100) < 65)
+    selected.push({ ...P.passionpulse, id:'passionpulse', reason:'Stress and energy scores may benefit from vitality support.' });
+
+  // Immunity — always show if any score below 60
+  const anyLow = Object.values(S).some(v => v != null && v < 60);
+  if (anyLow)
+    selected.push({ ...P.fevodol, id:'fevodol', reason:'Multiple low scores — immunity support recommended.' });
+
+  // Deduplicate
+  const seen = new Set();
+  const unique = selected.filter(p => { if (seen.has(p.id)) return false; seen.add(p.id); return true; });
+
+  // Always add at least Brain Champ and 1 more if nothing was selected
+  if (unique.length === 0) {
+    unique.push({ ...P.brainchamp, id:'brainchamp', reason:'General wellness maintenance.' });
+    unique.push({ ...P.fevodol,    id:'fevodol',    reason:'Strengthen your immune defences.' });
+  }
+
+  // Cap at 6 cards
+  const show = unique.slice(0, 6);
+
+  const WA = '917051056287';
+
+  return show.map(p => {
+    const waMsg = encodeURIComponent(`Hi Shah Hayaat! I completed the Wellness Lab assessment and would like to order *${p.name}* (₹${p.price}). Please help me place my order.`);
+    return `
+    <div style="background:#fff;border:1.5px solid var(--b);border-radius:var(--r);overflow:hidden;
+                box-shadow:0 2px 10px rgba(0,0,0,.05);
+                transition:transform .22s cubic-bezier(.4,0,.2,1),box-shadow .22s;display:flex;flex-direction:column"
+         onmouseenter="this.style.transform='translateY(-5px)';this.style.boxShadow='0 14px 32px rgba(0,0,0,.1)'"
+         onmouseleave="this.style.transform='none';this.style.boxShadow='0 2px 10px rgba(0,0,0,.05)'">
+      <div style="height:3px;background:${p.tagColor}"></div>
+      <div style="padding:.9rem 1rem;flex:1;display:flex;flex-direction:column;gap:.4rem">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.4rem">
+          <span style="font-size:.58rem;font-weight:700;color:${p.tagColor};background:${p.tagColor}18;
+                       padding:.2rem .55rem;border-radius:50px;white-space:nowrap">${p.tag}</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;
+                       color:var(--g);white-space:nowrap">₹${p.price}</span>
+        </div>
+        <div style="font-weight:700;font-size:.92rem;color:var(--t);line-height:1.25">${p.name}</div>
+        <div style="font-size:.74rem;color:var(--tq);line-height:1.58;flex:1">${p.desc}</div>
+        <div style="font-size:.64rem;color:var(--g);font-weight:600;margin-top:.1rem">✓ ${p.benefits.replace(/·/g,'&nbsp;&nbsp;·&nbsp;')}</div>
+        ${p.reason ? `<div style="font-size:.62rem;color:var(--am);font-style:italic;margin-top:.15rem">💡 ${p.reason}</div>` : ''}
+      </div>
+      <div style="padding:.7rem 1rem;border-top:1px solid var(--b);display:flex;gap:.5rem;flex-wrap:wrap">
+        <a href="https://wa.me/${WA}?text=${waMsg}" target="_blank" rel="noopener"
+           style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:.35rem;
+                  background:#25D366;color:#fff;border-radius:50px;padding:.45rem .7rem;
+                  font-size:.72rem;font-weight:700;text-decoration:none;white-space:nowrap;
+                  transition:opacity .18s" onmouseenter="this.style.opacity='.85'" onmouseleave="this.style.opacity='1'">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Order on WhatsApp
+        </a>
+        <a href="https://yasirhashmi02-dev.github.io/Shahhayaat02/product-detail.html?id=${p.id}"
+           target="_blank" rel="noopener"
+           style="display:inline-flex;align-items:center;padding:.45rem .7rem;
+                  background:var(--g3);color:var(--g);border-radius:50px;
+                  font-size:.72rem;font-weight:700;text-decoration:none;white-space:nowrap;
+                  transition:background .18s" onmouseenter="this.style.background='var(--g2)'" onmouseleave="this.style.background='var(--g3)'">
+          Details →
+        </a>
+      </div>
+    </div>`;
+  }).join('');
+};
+
+
+/* ─── WhatsApp Share ──────────────────────────────────── */
+LAB.whatsappShare = function () {
+  const S = LAB.scores, R = LAB.raw;
+  const allDomains = [S.cognitive, S.eye, S.respiratory, S.stress, S.stability, S.lifestyle];
+  if (LAB.gender === 'female' && S.hormonal != null) allDomains.push(S.hormonal);
+  const completed = allDomains.filter(x => x != null);
+  const overall   = completed.length ? Math.round(LAB.avg(completed)) : null;
+  const name      = (document.getElementById('pdfNameInp')?.value || '').trim();
+  const now       = new Date().toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
+
+  let msg = `*Shah Hayaat Wellness Lab — Personal Report*
+`;
+  msg += `━━━━━━━━━━━━━━━━━━━━━━━
+`;
+  if (name) msg += `👤 *Name:* ${name}
+`;
+  msg += `📅 *Date:* ${now}
+`;
+  msg += `🔬 *Tests completed:* ${completed.length} of 6 domains
+
+`;
+  msg += `*Overall Wellness Score: ${overall !== null ? overall + ' / 100' : 'Incomplete'}*
+`;
+  if (overall !== null) msg += `Rating: ${LAB.scoreLbl(overall)}
+`;
+  msg += `
+📊 *Domain Breakdown:*
+`;
+  if (S.cognitive   != null) msg += `🧠 Cognitive:     ${S.cognitive}/100
+`;
+  if (S.eye         != null) msg += `👁  Eye Health:    ${S.eye}/100
+`;
+  if (S.respiratory != null) msg += `🌬  Respiratory:   ${S.respiratory}/100
+`;
+  if (S.stress      != null) msg += `🔥 Stress/Mental: ${S.stress}/100
+`;
+  if (S.stability   != null) msg += `📱 Motor Stab.:   ${S.stability}/100
+`;
+  if (S.lifestyle   != null) msg += `⚖  Lifestyle:     ${S.lifestyle}/100
+`;
+  if (S.hormonal    != null) msg += `🌸 Hormonal:      ${S.hormonal}/100
+`;
+  msg += `
+Hi Shah Hayaat team — I would love to get your expert advice on these results and which products might help me. Please let me know when you are available for a consultation.
+`;
+  msg += `
+_Report from: Shah Hayaat Wellness Lab_
+_https://yasirhashmi02-dev.github.io/Shahhayaat02/wellness-lab.html_`;
+
+  const url = `https://wa.me/917051056287?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank', 'noopener,noreferrer');
+};
+
 LAB._buildTips = function(overall) {
   const tips=[
     {icon:'💧',text:'<strong>Drink water first thing.</strong> Starting the day with 400–500ml of water rehydrates your brain after sleep and improves morning alertness.'},
@@ -4006,8 +4181,12 @@ LAB.generatePDF = function () {
 </style>
 </head>
 <body>
-<div class="no-print">
+<div class="no-print" style="display:flex;gap:8px;flex-wrap:wrap;bottom:16px;right:16px;position:fixed;z-index:100">
   <button class="pbtn pbtn-p" onclick="window.print()">🖨 Print / Save PDF</button>
+  <button class="pbtn" style="background:#25D366;color:#fff" onclick="window.opener&&window.opener.LAB&&window.opener.LAB.whatsappShare()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="white" style="vertical-align:middle;margin-right:4px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Share on WhatsApp
+  </button>
   <button class="pbtn pbtn-g" onclick="window.close()">✕ Close</button>
 </div>
 <div class="page">
