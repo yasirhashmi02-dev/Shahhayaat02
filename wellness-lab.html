@@ -439,7 +439,7 @@ button,input,select{font-family:inherit}
       </div>
 
       <div class="btn-row">
-        <button class="btn btn--p btn--lg" onclick="LAB.goGender()">I Understand — Continue →</button>
+        <button class="btn btn--p btn--lg" onclick="LAB.goGender()">Continue</button>
         <button class="btn btn--g" onclick="LAB.goWelcome()">← Back</button>
       </div>
     </div>
@@ -509,8 +509,8 @@ button,input,select{font-family:inherit}
       <div class="demo-hint" id="demoHint"></div>
     </div>
     <div class="demo-ftr">
-      <button class="btn btn--g btn--sm" onclick="LAB.closeDemo(true)">Skip Demo</button>
-      <button class="btn btn--p btn--sm" id="demoStart" onclick="LAB.closeDemo(false)">Got it — Start! →</button>
+      <button class="btn btn--g btn--sm" onclick="LAB.closeDemo(true);LAB.skip()">Skip Activity</button>
+      <button class="btn btn--p btn--sm" id="demoStart" onclick="LAB.closeDemo(false)">Start →</button>
     </div>
   </div>
 </div>
@@ -802,7 +802,7 @@ const LAB = {
     set('demoHint',  cfg.hint || '');
 
     const ds = this.el('demoStart');
-    if (ds) ds.textContent = cfg.btnLabel || 'Got it — Start! →';
+    if (ds) ds.textContent = cfg.btnLabel || 'Start →';
 
     const dv = this.el('demoVis');
     if (dv) {
@@ -2040,7 +2040,7 @@ window.mod_co2Tolerance = function () {
     txt: 'Take a normal breath in, then breathe out slowly. Then <strong>hold your breath</strong> and tap the button when you feel you need to breathe. That\'s it!',
     hint: 'Do NOT force it — stop when it feels natural',
     voiceEN: 'Breath hold test. Take a normal breath in, breathe out, then hold. Tap the button when you feel you need to breathe again. Do not force it.',
-    btnLabel: 'Understood — Start →',
+    btnLabel: 'Start →',
     vis: `<div style="text-align:center;font-size:1.1rem">
       1. 😮‍💨 <strong>Breathe in</strong> normally<br>
       2. 💨 <strong>Breathe out</strong> slowly<br>
@@ -2168,7 +2168,7 @@ window.mod_recovery = function () {
     txt: 'Feel your heartbeat — in your chest, wrist or neck. Then <strong>tap the button once for every heartbeat</strong> for 30 seconds. This estimates your heart rate variability.',
     hint: 'Find your pulse first — then tap!',
     voiceEN: 'Recovery test. Find your pulse on your wrist or neck. Then tap the button once per heartbeat for 30 seconds.',
-    btnLabel: 'Got it — Start →',
+    btnLabel: 'Start →',
     vis: `<div style="text-align:center;font-size:.9rem;color:var(--tm);line-height:2">
       <div style="font-size:2rem">❤️</div>
       Feel your wrist or neck pulse<br>
@@ -3594,12 +3594,12 @@ LAB.showDashboard = function () {
             Talk to a Shah Hayaat Expert
           </div>
           <p style="font-size:.8rem;color:var(--tm);line-height:1.65;margin-bottom:.9rem">
-            Have questions about your results? Our wellness consultants can review your report, 
-            answer your questions, and guide you to the right products or next steps.
+            Get your PDF report reviewed by a Shah Hayaat wellness consultant.
+            They will guide you on the right products and next steps for your health.
             <strong style="color:var(--g)">Free 15-minute consultation.</strong>
           </p>
           <div style="display:flex;flex-wrap:wrap;gap:.6rem">
-            <button onclick="LAB.whatsappShare()" 
+            <button onclick="LAB.sharePDFWhatsApp()" 
                     style="display:inline-flex;align-items:center;gap:.5rem;
                            background:#25D366;color:#fff;border:none;
                            padding:.7rem 1.3rem;border-radius:50px;font-weight:700;
@@ -3608,7 +3608,7 @@ LAB.showDashboard = function () {
                     onmouseenter="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 22px rgba(37,211,102,.45)'"
                     onmouseleave="this.style.transform='none';this.style.boxShadow='0 4px 14px rgba(37,211,102,.35)'">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Share Report on WhatsApp
+              Send PDF Report on WhatsApp
             </button>
             <a href="tel:+917051056287"
                style="display:inline-flex;align-items:center;gap:.45rem;
@@ -3975,57 +3975,51 @@ LAB._buildProductCards = function () {
 
 
 /* ─── WhatsApp Share ──────────────────────────────────── */
-LAB.whatsappShare = function () {
-  const S = LAB.scores, R = LAB.raw;
-  const allDomains = [S.cognitive, S.eye, S.respiratory, S.stress, S.stability, S.lifestyle];
-  if (LAB.gender === 'female' && S.hormonal != null) allDomains.push(S.hormonal);
-  const completed = allDomains.filter(x => x != null);
+/* sharePDFWhatsApp — generate PDF then open WhatsApp */
+LAB.sharePDFWhatsApp = function () {
+  const nameEl = document.getElementById('pdfNameInp');
+  let name = (nameEl?.value || '').trim();
+
+  if (!name) {
+    const entered = prompt('Enter your name to include on the PDF (or tap Cancel to skip):');
+    if (entered === null) return;
+    name = entered.trim();
+    if (nameEl) nameEl.value = name;
+  }
+
+  const S = LAB.scores;
+  const domains = [S.cognitive, S.eye, S.respiratory, S.stress, S.stability, S.lifestyle];
+  if (LAB.gender === 'female' && S.hormonal != null) domains.push(S.hormonal);
+  const completed = domains.filter(x => x != null);
   const overall   = completed.length ? Math.round(LAB.avg(completed)) : null;
-  const name      = (document.getElementById('pdfNameInp')?.value || '').trim();
   const now       = new Date().toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
 
-  let msg = `*Shah Hayaat Wellness Lab — Personal Report*
-`;
-  msg += `━━━━━━━━━━━━━━━━━━━━━━━
-`;
-  if (name) msg += `👤 *Name:* ${name}
-`;
-  msg += `📅 *Date:* ${now}
-`;
-  msg += `🔬 *Tests completed:* ${completed.length} of 6 domains
+  const scoreParts = [
+    S.cognitive   != null && `Cognitive ${S.cognitive}`,
+    S.eye         != null && `Eye ${S.eye}`,
+    S.respiratory != null && `Respiratory ${S.respiratory}`,
+    S.stress      != null && `Stress ${S.stress}`,
+    S.stability   != null && `Stability ${S.stability}`,
+    S.lifestyle   != null && `Lifestyle ${S.lifestyle}`,
+    S.hormonal    != null && `Hormonal ${S.hormonal}`,
+  ].filter(Boolean);
 
-`;
-  msg += `*Overall Wellness Score: ${overall !== null ? overall + ' / 100' : 'Incomplete'}*
-`;
-  if (overall !== null) msg += `Rating: ${LAB.scoreLbl(overall)}
-`;
-  msg += `
-📊 *Domain Breakdown:*
-`;
-  if (S.cognitive   != null) msg += `🧠 Cognitive:     ${S.cognitive}/100
-`;
-  if (S.eye         != null) msg += `👁  Eye Health:    ${S.eye}/100
-`;
-  if (S.respiratory != null) msg += `🌬  Respiratory:   ${S.respiratory}/100
-`;
-  if (S.stress      != null) msg += `🔥 Stress/Mental: ${S.stress}/100
-`;
-  if (S.stability   != null) msg += `📱 Motor Stab.:   ${S.stability}/100
-`;
-  if (S.lifestyle   != null) msg += `⚖  Lifestyle:     ${S.lifestyle}/100
-`;
-  if (S.hormonal    != null) msg += `🌸 Hormonal:      ${S.hormonal}/100
-`;
-  msg += `
-Hi Shah Hayaat team — I would love to get your expert advice on these results and which products might help me. Please let me know when you are available for a consultation.
-`;
-  msg += `
-_Report from: Shah Hayaat Wellness Lab_
-_https://yasirhashmi02-dev.github.io/Shahhayaat02/wellness-lab.html_`;
+  let msg = 'Hi Shah Hayaat,\n\n';
+  if (name) msg += `My name is ${name}.\n`;
+  msg += `I completed the Shah Hayaat Wellness Lab on ${now} and am sharing my PDF report for a consultation.\n\n`;
+  if (overall !== null) msg += `Overall score: ${overall}/100.\n`;
+  if (scoreParts.length) msg += `Scores: ${scoreParts.join(', ')}.\n\n`;
+  msg += 'Please find my full report attached. I would love your expert guidance on which products may help me.';
 
-  const url = `https://wa.me/917051056287?text=${encodeURIComponent(msg)}`;
-  window.open(url, '_blank', 'noopener,noreferrer');
+  const waUrl = 'https://wa.me/917051056287?text=' + encodeURIComponent(msg);
+
+  LAB.generatePDF();
+  setTimeout(function () {
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+  }, 1200);
 };
+
+LAB.whatsappShare = LAB.sharePDFWhatsApp;
 
 LAB._buildTips = function(overall) {
   const tips=[
@@ -4183,7 +4177,7 @@ LAB.generatePDF = function () {
 <body>
 <div class="no-print" style="display:flex;gap:8px;flex-wrap:wrap;bottom:16px;right:16px;position:fixed;z-index:100">
   <button class="pbtn pbtn-p" onclick="window.print()">🖨 Print / Save PDF</button>
-  <button class="pbtn" style="background:#25D366;color:#fff" onclick="window.opener&&window.opener.LAB&&window.opener.LAB.whatsappShare()">
+  <button class="pbtn" style="background:#25D366;color:#fff" onclick="window.opener&&window.opener.LAB&&window.opener.LAB.sharePDFWhatsApp()">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="white" style="vertical-align:middle;margin-right:4px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     Share on WhatsApp
   </button>
