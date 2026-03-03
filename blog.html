@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-N3TB9P47');</script>
+  <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wellness Journal — Ayurvedic Tips & Health Insights | Shah Hayaat</title>
@@ -158,6 +165,10 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 </style>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N3TB9P47"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
 <header class="site-header">
   <div class="container header-inner">
@@ -361,12 +372,12 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 'use strict';
 
 const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
-const ADMIN_PIN_KEY = 'sh_admin_pin';
-const DEFAULT_PIN   = 'ShahHayaat@786';
+/* ── Auth API (your Render service URL — update after deploying) ── */
+const AUTH_API      = 'https://shahhayaat-auth.onrender.com';
+const TOKEN_KEY     = 'sh_admin_token';
 const POSTS_KEY     = 'sh_blog_posts';
 const SUBS_KEY      = 'sh_subscribers';
 const REACTS_KEY    = 'sh_reactions';
-const LOGIN_KEY     = 'sh_admin_logged_in';
 
 /* ── Static seed blogs (always shown) ── */
 const SEED_BLOGS = [
@@ -420,9 +431,9 @@ function getReactions() {
 function saveReactions(obj) {
   try { localStorage.setItem(REACTS_KEY, JSON.stringify(obj)); } catch(e) {}
 }
-function getAdminPin() {
-  return localStorage.getItem(ADMIN_PIN_KEY) || DEFAULT_PIN;
-}
+function getToken()   { return localStorage.getItem(TOKEN_KEY) || null; }
+function saveToken(t) { localStorage.setItem(TOKEN_KEY, t); }
+function clearToken() { localStorage.removeItem(TOKEN_KEY); }
 
 /* ── All posts merged ── */
 function getAllPosts() {
@@ -611,22 +622,43 @@ function openOwnerLogin() {
   document.getElementById('login-modal-bg').classList.remove('hidden');
 }
 
-function verifyLogin() {
-  const pin = document.getElementById('admin-pin').value;
-  if (pin === getAdminPin()) {
-    isOwner = true;
-    localStorage.setItem(LOGIN_KEY, '1');
-    closeModal('login-modal-bg');
-    document.getElementById('owner-bar').style.display = '';
-    showToast('Welcome back, Admin!');
-  } else {
-    document.getElementById('login-error').textContent = 'Incorrect PIN. Please try again.';
+async function verifyLogin() {
+  const pin = document.getElementById('admin-pin').value.trim();
+  const errEl = document.getElementById('login-error');
+  const btn = document.querySelector('#login-modal-bg .btn-primary');
+  if (!pin) { errEl.textContent = 'Please enter your PIN.'; return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Verifying…';
+  errEl.textContent = '';
+
+  try {
+    const res = await fetch(AUTH_API + '/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pin })
+    });
+    const data = await res.json();
+    if (data.success && data.token) {
+      saveToken(data.token);
+      isOwner = true;
+      closeModal('login-modal-bg');
+      document.getElementById('owner-bar').style.display = '';
+      showToast('Welcome back, Admin!');
+    } else {
+      errEl.textContent = data.error || 'Incorrect PIN. Please try again.';
+    }
+  } catch (e) {
+    errEl.textContent = 'Cannot reach auth server. Check your connection.';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Login';
   }
 }
 
 function ownerLogout() {
   isOwner = false;
-  localStorage.removeItem(LOGIN_KEY);
+  clearToken();
   document.getElementById('owner-bar').style.display = 'none';
   showToast('Logged out.');
 }
@@ -775,11 +807,25 @@ function checkUrlPost() {
 }
 
 /* ── Init ── */
-document.addEventListener('DOMContentLoaded', () => {
-  /* Check persistent login */
-  if (localStorage.getItem(LOGIN_KEY) === '1') {
-    isOwner = true;
-    document.getElementById('owner-bar').style.display = '';
+document.addEventListener('DOMContentLoaded', async () => {
+  /* Verify stored JWT token with server on every page load */
+  const token = getToken();
+  if (token) {
+    try {
+      const res = await fetch(AUTH_API + '/verify', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      const data = await res.json();
+      if (data.valid) {
+        isOwner = true;
+        document.getElementById('owner-bar').style.display = '';
+      } else {
+        clearToken(); // token expired or invalid
+      }
+    } catch (e) {
+      console.warn('Could not verify session with auth server.');
+    }
   }
 
   buildFilters();
