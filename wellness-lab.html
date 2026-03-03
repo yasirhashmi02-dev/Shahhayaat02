@@ -2,15 +2,20 @@
 <html lang="en">
 <head>
   <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  <script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-N3TB9P47');</script>
+  })(window,document,'script','dataLayer','GTM-N3TB9P47');
+</script>
   <!-- End Google Tag Manager -->
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8XLY6RR8LP"></script>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8XLY6RR8LP">
+
+</script>
   <script>
+
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -28,9 +33,12 @@
         }
       } catch(e) {}
     };
-  </script>
+  
+</script>
 <meta charset="UTF-8">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap"></noscript>
@@ -48,6 +56,7 @@
 <meta name="twitter:title" content="Free Online Wellness Test – Shah Hayaat">
 <meta name="twitter:description" content="21 guided activities. Free personalised PDF health report. Check your brain, eyes, lungs and body now.">
 <script type="application/ld+json">
+
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
@@ -59,23 +68,17 @@
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
   "publisher": { "@type": "Organization", "name": "Shah Hayaat", "url": "https://www.shahhayaat.com" }
 }
+
 </script>
 <link rel="canonical" href="https://www.shahhayaat.com/wellness-lab.html">
 <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
 
-
 <style>
-/* ============================================================
-   WELLNESS LAB v2 — FULL LIGHT THEME
-   Shah Hayaat Green (#2A7A5A) + Gold (#C97800) + White
-   ============================================================ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',system-ui,sans-serif;background:#F3F7F3;color:#1C2E1C;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 button,input,select{font-family:inherit}
-
-/* ── Design tokens ────────────────────────────────── */
 :root{
   --g:  #2A7A5A;  --g2: #38A87A;  --g3: #E8F5EE;  --g4: #F0FAF4;
   --gl: #1A4731;
@@ -93,32 +96,22 @@ button,input,select{font-family:inherit}
   --r:14px; --rs:9px;
   --ease:cubic-bezier(.4,0,.2,1);
 }
-
-/* ── Type ──────────────────────────────────────────── */
 .h1{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,5.5vw,3.4rem);font-weight:700;line-height:1.1;color:var(--t)}
 .h2{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3.2vw,1.9rem);font-weight:700;line-height:1.2;color:var(--t)}
 .h3{font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.25rem);font-weight:700;color:var(--t)}
 .mono{font-family:'JetBrains Mono',monospace}
 .pg{font-size:clamp(.88rem,1.6vw,.97rem);color:var(--tm);line-height:1.8}
-
-/* ── Layout ────────────────────────────────────────── */
 .wrap{max-width:860px;margin:0 auto;padding:0 1.2rem}
 .wrap--w{max-width:1100px}
-
-/* ── Cards ──────────────────────────────────────────── */
 .card{background:var(--card);border:1.5px solid var(--b);border-radius:var(--r);padding:clamp(1.4rem,3.8vw,2.3rem);box-shadow:var(--sh)}
 .card--pop{animation:popIn .36s var(--ease) both}
 .card--g{border-color:rgba(42,122,90,.2);background:linear-gradient(135deg,var(--g4),#fff)}
 .card--gd{border-color:rgba(201,120,0,.2);background:linear-gradient(135deg,var(--gd3),#fff)}
 .card--bl{border-color:rgba(37,99,235,.18);background:linear-gradient(135deg,var(--bl2),#fff)}
-
-/* ── Tags ────────────────────────────────────────────── */
 .tag{display:inline-flex;align-items:center;gap:.3rem;padding:.22rem .72rem;background:var(--g3);border:1px solid rgba(42,122,90,.25);border-radius:50px;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g)}
 .tag--gd{background:var(--gd3);border-color:rgba(201,120,0,.28);color:var(--gd)}
 .tag--bl{background:var(--bl2);border-color:rgba(37,99,235,.28);color:var(--bl)}
 .tag--pk{background:#FFF0F5;border-color:rgba(180,60,110,.25);color:#A83060}
-
-/* ── Buttons ─────────────────────────────────────────── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.42rem;font-weight:600;font-size:.88rem;padding:.75rem 1.8rem;border-radius:50px;border:2px solid transparent;transition:all .24s var(--ease);white-space:nowrap;-webkit-tap-highlight-color:transparent;cursor:pointer}
 .btn--p{background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;box-shadow:0 4px 16px rgba(42,122,90,.28)}
 .btn--p:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(42,122,90,.4)}
@@ -133,23 +126,17 @@ button,input,select{font-family:inherit}
 .btn--full{width:100%}
 .btn:disabled{opacity:.32;pointer-events:none}
 .btn-row{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-top:1.5rem}
-
-/* ── Progress bar ────────────────────────────────────── */
 #progBar{background:var(--w);border-bottom:1.5px solid var(--b);padding:.65rem 0;position:sticky;top:64px;z-index:800;box-shadow:var(--sh);display:none}
 .prog-row{display:flex;align-items:center;gap:.8rem}
 .prog-track{flex:1;height:6px;background:var(--g3);border-radius:3px;overflow:hidden}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--g),var(--g2));border-radius:3px;transition:width .7s var(--ease)}
 .prog-meta{display:flex;justify-content:space-between;font-size:.63rem;color:var(--tq);margin-top:.28rem;font-family:'JetBrains Mono',monospace}
-
-/* ── Notices ─────────────────────────────────────────── */
 .notice{display:flex;align-items:flex-start;gap:.75rem;padding:.88rem 1.05rem;background:var(--g4);border:1px solid rgba(42,122,90,.16);border-radius:var(--rs);font-size:.83rem;line-height:1.68}
 .notice--am{background:var(--am2);border-color:rgba(201,112,16,.2)}
 .notice--rd{background:var(--rd2);border-color:rgba(192,57,43,.18)}
 .ni{font-size:1.05rem;flex-shrink:0;margin-top:.08rem}
 .notice p{color:var(--tm);margin:0}
 .notice strong{color:var(--t)}
-
-/* ── Forms ────────────────────────────────────────────── */
 .fld{margin-bottom:1.05rem}
 .lbl{display:block;font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--tq);margin-bottom:.38rem}
 .inp,.sel{width:100%;padding:.7rem .9rem;background:#fff;border:1.5px solid var(--b);border-radius:var(--rs);color:var(--t);font-size:.94rem;outline:none;transition:border-color .22s;-webkit-appearance:none}
@@ -159,17 +146,11 @@ button,input,select{font-family:inherit}
 .rng{-webkit-appearance:none;width:100%;height:5px;background:var(--g3);border-radius:3px;outline:none;border:1px solid var(--b)}
 .rng::-webkit-slider-thumb{-webkit-appearance:none;width:21px;height:21px;background:linear-gradient(135deg,var(--g),var(--g2));border-radius:50%;box-shadow:0 2px 7px rgba(42,122,90,.3)}
 .rng-l{display:flex;justify-content:space-between;font-size:.64rem;color:var(--tq);margin-top:.28rem}
-
-/* ── Score badges ─────────────────────────────────────── */
 .sc-row{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
 .scb{background:var(--bg);border:1.5px solid var(--b);border-radius:var(--rs);padding:.58rem .9rem;min-width:80px}
 .scb .v{font-family:'JetBrains Mono',monospace;font-size:1.02rem;font-weight:600;color:var(--g);display:block;line-height:1}
 .scb .l{font-size:.58rem;color:var(--tq);text-transform:uppercase;letter-spacing:.09em;margin-top:.15rem;display:block}
-
-/* ── Divider ──────────────────────────────────────────── */
 .div{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--b),transparent);margin:1.3rem 0}
-
-/* ── Animations ───────────────────────────────────────── */
 @keyframes popIn{from{opacity:0;transform:scale(.95) translateY(10px)}to{opacity:1;transform:none}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
 @keyframes bounceIn{0%{opacity:0;transform:scale(.68)}60%{transform:scale(1.07)}to{opacity:1;transform:scale(1)}}
@@ -183,8 +164,6 @@ button,input,select{font-family:inherit}
 @keyframes slideIn{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}
 .au{animation:fadeUp .4s var(--ease) both}
 .au.d1{animation-delay:.07s}.au.d2{animation-delay:.14s}.au.d3{animation-delay:.22s}.au.d4{animation-delay:.3s}
-
-/* ── Reaction zone ────────────────────────────────────── */
 .rz{width:100%;border-radius:var(--r);height:175px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.4rem;cursor:pointer;user-select:none;border:2.5px solid var(--b);transition:all .14s;background:#fff;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}
 .rz-l{font-size:clamp(.9rem,2.8vw,1.25rem);font-weight:700;color:var(--tq);transition:color .14s}
 .rz-s{font-size:.66rem;color:var(--tq)}
@@ -197,39 +176,27 @@ button,input,select{font-family:inherit}
 .rz.rz-done .rz-l{color:var(--t)}
 .rxh{display:flex;align-items:flex-end;gap:4px;height:40px;margin:.6rem 0;padding:0 .2rem}
 .rxb{flex:1;border-radius:3px 3px 0 0;min-height:3px;transition:height .4s var(--ease)}
-
-/* ── Timer ────────────────────────────────────────────── */
 .timer{font-family:'JetBrains Mono',monospace;font-size:clamp(2.2rem,6.5vw,3.6rem);font-weight:600;line-height:1;text-align:center;color:var(--g);display:block;margin:.7rem 0;transition:color .3s}
 .timer.warn{color:var(--am)}
 .timer.crit{color:var(--rd);animation:wiggle .5s ease-in-out infinite}
-
-/* ── Memory grid ──────────────────────────────────────── */
 .mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:min(270px,78vw);margin:0 auto}
 .mcell{aspect-ratio:1;background:#fff;border:2px solid var(--b);border-radius:9px;transition:all .18s;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;-webkit-tap-highlight-color:transparent}
 .mcell.lit{background:var(--g2);border-color:var(--g);transform:scale(1.06)}
 .mcell.sel{background:#DBEAFE;border-color:#3B82F6}
 .mcell.ok{background:var(--g3);border-color:var(--ok)}
 .mcell.bad{background:var(--rd2);border-color:var(--rd)}
-
-/* ── Ishihara-style plates ────────────────────────────── */
 .ish-wrap{text-align:center;margin:1rem 0}
 .ish-wrap svg{border-radius:50%;border:3px solid var(--b);box-shadow:var(--sh)}
-
-/* ── Acuity rows ─────────────────────────────────────── */
 .ac-row{display:flex;align-items:center;justify-content:center;padding:.7rem;background:#fff;border:2px solid var(--b);border-radius:var(--rs);margin:.45rem 0;cursor:pointer;transition:all .2s;font-weight:700;letter-spacing:.1em;color:var(--t);font-family:'JetBrains Mono',monospace}
 .ac-row:hover{border-color:var(--g);background:var(--g4)}
 .ac-row.seen{background:var(--g3);border-color:var(--ok)}
 .ac-row.unseen{background:var(--rd2);border-color:var(--rd)}
-
-/* ── DISCLAIMER BAR ─────────────────────────────────── */
 #dis{position:fixed;top:0;left:0;right:0;z-index:9999;background:var(--gl);color:#fff;height:44px}
 .dis-sl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(.56rem,1.35vw,.72rem);font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-align:center;padding:0 1rem;opacity:0;transform:translateY(4px);transition:all .55s}
 .dis-sl.on{opacity:1;transform:none}
 .dis-dots{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);display:flex;gap:4px}
 .dis-d{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.28);transition:.3s}
 .dis-d.on{background:#fff;transform:scale(1.4)}
-
-/* ── HEADER ──────────────────────────────────────────── */
 #hdr{position:sticky;top:44px;z-index:900;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1.5px solid var(--b);padding:.62rem 0;box-shadow:var(--sh)}
 .hdr-in{max-width:1100px;margin:0 auto;padding:0 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem}
 .logo{display:flex;align-items:center;gap:.65rem}
@@ -241,8 +208,6 @@ button,input,select{font-family:inherit}
 .hstat.idle{background:#C9A84C}
 .nav-back{font-size:.78rem;font-weight:500;color:var(--tq);background:#fff;border:1.5px solid var(--b);border-radius:50px;padding:.36rem .88rem;transition:.22s;display:inline-flex;align-items:center;gap:.3rem}
 .nav-back:hover{border-color:var(--g);color:var(--t)}
-
-/* ── VOICE BAR ───────────────────────────────────────── */
 #vbar{position:fixed;bottom:1.3rem;right:1.3rem;z-index:9000;display:flex;flex-direction:column;align-items:flex-end;gap:.45rem}
 .vlbl{font-size:.6rem;color:var(--tq);font-family:'JetBrains Mono',monospace;padding:.15rem .5rem;background:rgba(255,255,255,.9);border-radius:50px;border:1px solid var(--b)}
 .vlang-row{display:flex;gap:.35rem}
@@ -251,8 +216,6 @@ button,input,select{font-family:inherit}
 .vtog{width:46px;height:46px;border-radius:50%;background:#fff;border:2px solid var(--b);box-shadow:var(--shm);display:flex;align-items:center;justify-content:center;font-size:1.2rem;transition:.22s}
 .vtog:hover{border-color:var(--g);transform:scale(1.06)}
 .vtog.speaking{border-color:var(--g);background:var(--g3);animation:voicePulse .8s ease-in-out infinite}
-
-/* ── DEMO OVERLAY ────────────────────────────────────── */
 #demo-ov{position:fixed;inset:0;z-index:8500;background:rgba(26,47,26,.58);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:1rem}
 #demo-ov.show{display:flex}
 .demo-box{background:#fff;border-radius:var(--r);max-width:450px;width:100%;box-shadow:var(--shl);animation:bounceIn .38s var(--ease) both;overflow:hidden}
@@ -276,8 +239,6 @@ button,input,select{font-family:inherit}
 .d3b{animation:breathCircle 3.5s ease-in-out infinite}
 .demo-hint{font-size:.73rem;color:var(--tq);text-align:center;min-height:1.1em}
 .demo-ftr{padding:.7rem 1.35rem 1.05rem;display:flex;gap:.6rem;justify-content:flex-end}
-
-/* ── WELCOME ─────────────────────────────────────────── */
 #sWelcome{position:relative;overflow:hidden}
 .hero{padding:clamp(2.2rem,7vw,5rem) 0 clamp(1.2rem,3.5vw,2.5rem);position:relative}
 .hero::before{content:'';position:absolute;top:-60px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,rgba(42,122,90,.06) 0%,transparent 65%);border-radius:50%;pointer-events:none}
@@ -293,8 +254,6 @@ button,input,select{font-family:inherit}
 .pill{display:inline-flex;align-items:center;gap:.22rem;padding:.22rem .68rem;background:#fff;border:1.5px solid var(--b);border-radius:50px;font-size:.66rem;color:var(--tq);transition:.2s}
 .pill.eye{border-color:rgba(37,99,235,.25);color:var(--bl);background:var(--bl2)}
 .pill.fem{border-color:rgba(168,48,96,.22);color:#A83060;background:#FFF0F5}
-
-/* ── INSTRUCTIONS ────────────────────────────────────── */
 .instr-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1.4rem}
 @media(max-width:590px){.instr-grid{grid-template-columns:1fr}}
 .iitem{display:flex;align-items:flex-start;gap:.75rem;padding:.9rem 1rem;background:var(--bg);border:1.5px solid var(--b);border-radius:var(--rs);transition:border-color .22s}
@@ -302,8 +261,6 @@ button,input,select{font-family:inherit}
 .iico{width:33px;height:33px;border-radius:50%;background:var(--g3);border:1px solid rgba(42,122,90,.2);display:flex;align-items:center;justify-content:center;font-size:.98rem;flex-shrink:0}
 .ibody strong{display:block;font-size:.83rem;font-weight:700;color:var(--t);margin-bottom:.13rem}
 .ibody p{font-size:.74rem;color:var(--tq);line-height:1.55;margin:0}
-
-/* ── GENDER ──────────────────────────────────────────── */
 .gend-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;max-width:370px}
 @media(max-width:420px){.gend-grid{grid-template-columns:1fr}}
 .gcard{background:#fff;border:2.5px solid var(--b);border-radius:var(--r);padding:1.6rem 1.2rem;text-align:center;transition:all .24s var(--ease);position:relative;cursor:pointer}
@@ -317,18 +274,12 @@ button,input,select{font-family:inherit}
 .gcard.sel .gnm{color:var(--g)}
 .fem-note{display:none;margin-top:1rem;padding:.82rem 1rem;background:var(--gd3);border:1px solid rgba(201,120,0,.2);border-radius:var(--rs);font-size:.79rem;color:var(--gd);line-height:1.62}
 .fem-note.show{display:block}
-
-/* ── MODULE area ─────────────────────────────────────── */
 #sModules{display:none;content-visibility:auto}
 #sModules.show{display:block}
 .mwrap{animation:popIn .36s var(--ease) both}
-
-/* ── FOOTER ──────────────────────────────────────────── */
 .lab-footer{border-top:1.5px solid var(--b);padding:1rem 0;text-align:center;margin-top:3rem}
 .lab-footer p{font-size:.65rem;color:var(--tq);line-height:1.7}
 .lab-footer a{color:var(--g)}
-
-/* ── Misc ────────────────────────────────────────────── */
 :focus-visible{outline:2.5px solid var(--g);outline-offset:3px;border-radius:4px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
 .step-head{margin-bottom:1.4rem}
@@ -341,7 +292,6 @@ button,input,select{font-family:inherit}
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
-<!-- ══ Disclaimer bar ═════════════════════════════════ -->
 <div id="dis" role="banner" aria-label="Important disclaimer">
   <div class="dis-sl on" id="ds0">⚠ Wellness indicators only — not a medical diagnosis</div>
   <div class="dis-sl"    id="ds1">🔐 Zero data stored — everything runs on your device only</div>
@@ -350,7 +300,6 @@ button,input,select{font-family:inherit}
 </div>
 <div style="height:44px"></div>
 
-<!-- ══ Header ════════════════════════════════════════ -->
 <header id="hdr" role="banner">
   <div class="hdr-in">
     <a href="index.html" class="logo" aria-label="Shah Hayaat home">
@@ -362,7 +311,6 @@ button,input,select{font-family:inherit}
   </div>
 </header>
 
-<!-- ══ Progress bar ══════════════════════════════════ -->
 <div id="progBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
   <div class="wrap">
     <div class="prog-row">
@@ -374,9 +322,6 @@ button,input,select{font-family:inherit}
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
-     SECTION: WELCOME
-══════════════════════════════════════════════════ -->
 <section id="sWelcome" role="main">
   <div class="wrap">
     <div class="hero">
@@ -409,7 +354,6 @@ button,input,select{font-family:inherit}
       </div>
     </div>
 
-    <!-- Stats -->
     <div class="stats-row" role="list">
       <div class="stat-box" role="listitem"><span class="stat-n">21</span><span class="stat-l">Activities</span></div>
       <div class="stat-box" role="listitem"><span class="stat-n">6</span><span class="stat-l">Health Scores</span></div>
@@ -418,7 +362,6 @@ button,input,select{font-family:inherit}
       <div class="stat-box" role="listitem"><span class="stat-n">Free</span><span class="stat-l">Always</span></div>
     </div>
 
-    <!-- Pill list -->
     <div class="pill-row" id="allact" role="list" aria-label="All activities">
       <span style="font-size:.63rem;font-weight:700;color:var(--tq);text-transform:uppercase;letter-spacing:.09em;align-self:center;margin-right:.3rem">All activities:</span>
       <span class="pill" role="listitem">⚡ Reaction Speed</span>
@@ -445,9 +388,6 @@ button,input,select{font-family:inherit}
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════
-     SECTION: INSTRUCTIONS
-══════════════════════════════════════════════════ -->
 <section id="sInstr" style="display:none;padding:clamp(1.8rem,5vw,3.5rem) 0">
   <div class="wrap">
     <div class="card card--pop">
@@ -497,9 +437,6 @@ button,input,select{font-family:inherit}
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════
-     SECTION: GENDER SELECTION
-══════════════════════════════════════════════════ -->
 <section id="sGender" style="display:none;padding:clamp(1.8rem,5vw,3.5rem) 0">
   <div class="wrap">
     <div class="card card--pop">
@@ -538,16 +475,12 @@ button,input,select{font-family:inherit}
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════
-     SECTION: MODULES (injected dynamically)
-══════════════════════════════════════════════════ -->
 <div id="sModules">
   <div class="wrap" style="padding-top:1.5rem;padding-bottom:3rem">
     <div id="modContent" aria-live="polite" aria-atomic="false"></div>
   </div>
 </div>
 
-<!-- ══ Demo Overlay ═══════════════════════════════════ -->
 <div id="demo-ov" role="dialog" aria-modal="true" aria-label="Activity demo">
   <div class="demo-box">
     <div class="demo-hdr">
@@ -566,7 +499,6 @@ button,input,select{font-family:inherit}
   </div>
 </div>
 
-<!-- ══ Voice Controls ═════════════════════════════════ -->
 <div id="vbar" aria-label="Voice guide controls">
   <div class="vlang-row">
     <div class="vlbl" id="vlbl">Voice OFF</div>
@@ -574,7 +506,6 @@ button,input,select{font-family:inherit}
   </div>
 </div>
 
-<!-- ══ Footer ═════════════════════════════════════════ -->
 <footer class="lab-footer" role="contentinfo">
   <div class="wrap">
     <p>Shah Hayaat Wellness Lab &nbsp;·&nbsp; All data stays on your device &nbsp;·&nbsp;
@@ -584,19 +515,11 @@ button,input,select{font-family:inherit}
   </div>
 </footer>
 
-
-<!-- ══════════════════════════════════════════════════
-     PART 1 JAVASCRIPT — Engine, Voice, Demo, Nav
-══════════════════════════════════════════════════ -->
 <script>
 'use strict';
 
-/* ──────────────────────────────────────────────────
-   LAB — Global state object
-────────────────────────────────────────────────── */
 const LAB = {
 
-  /* ── State ── */
   gender: '',
   lang: 'en',
   voiceOn: false,
@@ -607,20 +530,15 @@ const LAB = {
   _demoCB: null,
   _demoAnim: null,
 
-  /* ── DOM shorthand ── */
   el: id => document.getElementById(id),
   qs: sel => document.querySelector(sel),
 
-  /* ── Math helpers ── */
   avg(a){ return a.length ? a.reduce((s,v)=>s+v,0)/a.length : 0; },
   clamp(v,a,b){ return Math.max(a,Math.min(b,v)); },
   sd(a){ const m=this.avg(a); return Math.sqrt(this.avg(a.map(x=>(x-m)**2))); },
   scoreCol(s){ return s>=80?'#1A8C52':s>=55?'#C97010':'#C0392B'; },
   scoreLbl(s){ return s>=80?'Excellent':s>=65?'Good':s>=50?'Fair':s>=35?'Needs Attention':'Low'; },
 
-  /* ════════════════════════════════════════
-     NAVIGATION
-  ════════════════════════════════════════ */
   _secs: ['sWelcome','sInstr','sGender','sModules'],
 
   show(id) {
@@ -685,9 +603,6 @@ const LAB = {
     );
   },
 
-  /* ════════════════════════════════════════
-     MODULE QUEUE & RUNNER
-  ════════════════════════════════════════ */
   beginModules() {
     if (!this.gender) return;
     this.queue = [
@@ -729,9 +644,9 @@ const LAB = {
   },
 
   skip() {
-    // Stop any running demo animation
+
     if (this._demoAnim) { clearInterval(this._demoAnim); clearTimeout(this._demoAnim); this._demoAnim = null; }
-    // Close demo if open
+
     const ov = this.el('demo-ov');
     if (ov && ov.classList.contains('show')) { ov.classList.remove('show'); document.body.style.overflow=''; }
     this.say('Activity skipped.', 'سرگرمی چھوڑ دی گئی۔', 'गतिविधि छोड़ दी।');
@@ -758,7 +673,6 @@ const LAB = {
     </div></div>`);
   },
 
-  /* ── Progress ── */
   _mlabels: {
     mod_reactionSpeed:'⚡ Reaction Speed',   mod_reactionFatigue:'📉 Fatigue Test',
     mod_workingMemory:'🧩 Memory Matrix',    mod_sustainedAttention:'👁 Attention Test',
@@ -785,7 +699,6 @@ const LAB = {
     this.setStatus('active',lbl);
   },
 
-  /* ── Render ── */
   render(html) {
     const c = this.el('modContent');
     if (!c) return;
@@ -799,9 +712,6 @@ const LAB = {
     if (s) s.textContent = text;
   },
 
-  /* ════════════════════════════════════════
-     VOICE GUIDANCE — English
-  ════════════════════════════════════════ */
   _synth: window.speechSynthesis || null,
 
   say(en) {
@@ -837,15 +747,9 @@ const LAB = {
     }
   },
 
-  // setLang removed — English only
-
-  /* ════════════════════════════════════════
-     DEMO ENGINE — Animated overlay
-  ════════════════════════════════════════ */
   showDemo(cfg, cb) {
     this._demoCB = cb;
 
-    // Clear any previous animation
     if (this._demoAnim) { clearInterval(this._demoAnim); clearTimeout(this._demoAnim); this._demoAnim = null; }
 
     const set = (id,v,isHTML=false) => { const e=this.el(id); if(e){ isHTML ? e.innerHTML=v : e.textContent=v; } };
@@ -860,7 +764,7 @@ const LAB = {
     if (dv) {
       dv.innerHTML = cfg.vis || '';
       if (typeof cfg.anim === 'function') {
-        this._demoAnim = cfg.anim(dv);  // anim returns interval/timeout ID
+        this._demoAnim = cfg.anim(dv);
       }
     }
 
@@ -868,7 +772,6 @@ const LAB = {
     if (ov) ov.classList.add('show');
     document.body.style.overflow = 'hidden';
 
-    // Voice reads the instruction
     this.say(cfg.voiceEN || cfg.txt.replace(/<[^>]+>/g,''));
   },
 
@@ -884,7 +787,6 @@ const LAB = {
     }
   },
 
-  /* ── Celebration confetti ── */
   celebrate() {
     const cols=['#2A7A5A','#38A87A','#C97800','#F0A020','#1A4731','#66D4A8'];
     for (let i=0;i<32;i++) {
@@ -898,7 +800,6 @@ const LAB = {
     }
   },
 
-  /* ── Flash feedback ── */
   flash(type) {
     let f = this.el('_fl');
     if (!f) {
@@ -911,7 +812,6 @@ const LAB = {
     setTimeout(()=>{f.style.opacity='0';},110);
   },
 
-  /* ── Reaction bar chart helper ── */
   rxBars(times) {
     if (!times.length) return '';
     const mx = Math.max(...times, 600);
@@ -922,7 +822,6 @@ const LAB = {
     }).join('');
   },
 
-  /* ── Option card helper (female questionnaires) ── */
   _fsel: {},
   optGrid(id, opts) {
     return `<div id="og_${id}">`+
@@ -949,13 +848,10 @@ const LAB = {
   },
   fval(id,def){ return this._fsel[id]!==undefined ? this._fsel[id] : def; },
 
-}; // end LAB
+};
 
 window.LAB = LAB;
 
-/* ════════════════════════════════════════
-   Disclaimer slide rotator
-════════════════════════════════════════ */
 (function(){
   let c=0;
   setInterval(()=>{
@@ -966,26 +862,11 @@ window.LAB = LAB;
     document.getElementById('dd'+c)?.classList.add('on');
   }, 5000);
 })();
-
-console.log('[WellnessLab v2 Part 1] Foundation ready — voice (EN/HI/UR), demo engine, navigation loaded.');
 </script>
 
-<!-- ═══════════════════════════════════════════════════════
-     WELLNESS LAB v2 — PART 2
-     MODULES 1-7: Cognitive (4) + Eye Tests (3)
-     Each module: animated demo → voice → activity → result
-════════════════════════════════════════════════════════ -->
 <script>
-
 'use strict';
 
-/* ══════════════════════════════════════════════════════
-   PART 2  —  7 INTERACTIVE MODULES
-   ⚡ Reaction  📉 Fatigue  🧩 Memory  👁 Attention
-   🎨 Colour Blindness  📏 Visual Acuity  ⬜ Contrast
-══════════════════════════════════════════════════════ */
-
-/* ─── Extra CSS injected once ─────────────────────── */
 (function(){
   if (document.getElementById('p2css')) return;
   const s = document.createElement('style');
@@ -1043,10 +924,10 @@ console.log('[WellnessLab v2 Part 1] Foundation ready — voice (EN/HI/UR), demo
             color:var(--g);display:block;line-height:1}
     .scb .l{font-size:.57rem;color:var(--tq);text-transform:uppercase;
             letter-spacing:.09em;margin-top:.15rem;display:block}
-    /* demo box shimmer */
+
     @keyframes shimmer{0%{opacity:.5}50%{opacity:1}100%{opacity:.5}}
     .dem-shimmer{animation:shimmer 1.6s ease-in-out infinite}
-    /* score pop */
+
     @keyframes scorePop{0%{transform:scale(.8);opacity:0}
       60%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
     .score-pop{animation:scorePop .45s cubic-bezier(.4,0,.2,1) both}
@@ -1054,10 +935,6 @@ console.log('[WellnessLab v2 Part 1] Foundation ready — voice (EN/HI/UR), demo
   document.head.appendChild(s);
 })();
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 1 — REACTION SPEED
-╚══════════════════════════════════════════════════════╝ */
 window.mod_reactionSpeed = function () {
   const ROUNDS = 10;
   const st = { round:0, times:[], waiting:false, startT:0, locked:false };
@@ -1185,10 +1062,6 @@ window.mod_reactionSpeed = function () {
   }
 };
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 2 — FATIGUE DRIFT (30s sustained reaction)
-╚══════════════════════════════════════════════════════╝ */
 window.mod_reactionFatigue = function () {
   const DUR=30;
   const st={active:false,elapsed:0,waiting:false,startT:0,taps:[],locked:false};
@@ -1300,7 +1173,7 @@ window.mod_reactionFatigue = function () {
 
   function _ftDone() {
     const taps=st.taps;
-    if(taps.length<4){ LAB.idx++; LAB.next(); return; } // too few taps — leave ftScore null (skipped)
+    if(taps.length<4){ LAB.idx++; LAB.next(); return; }
     const half=Math.floor(taps.length/2);
     const first=LAB.avg(taps.slice(0,half).map(t=>t.t));
     const last =LAB.avg(taps.slice(-half).map(t=>t.t));
@@ -1315,10 +1188,6 @@ window.mod_reactionFatigue = function () {
   }
 };
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 3 — WORKING MEMORY (3×3 grid)
-╚══════════════════════════════════════════════════════╝ */
 window.mod_workingMemory = function () {
   const TOTAL_ROUNDS=7;
   const st={seq:[],user:[],span:3,round:0,maxSpan:0,errors:0,phase:'idle'};
@@ -1439,10 +1308,6 @@ window.mod_workingMemory = function () {
   }
 };
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 4 — SUSTAINED ATTENTION (60 seconds)
-╚══════════════════════════════════════════════════════╝ */
 window.mod_sustainedAttention = function () {
   const DUR=60;
   const st={active:false,elapsed:0,type:null,canTap:false,hits:0,fa:0,misses:0};
@@ -1610,10 +1475,6 @@ window.mod_sustainedAttention = function () {
   }
 };
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 5 — COLOUR BLINDNESS (SVG Ishihara)
-╚══════════════════════════════════════════════════════╝ */
 window.mod_colourBlindness = function () {
   const plates=[
     {ans:'12',bg:'#E09040',fg:'#C83010',label:'Plate 1 of 6'},
@@ -1739,10 +1600,6 @@ window.mod_colourBlindness = function () {
   }
 };
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 6 — VISUAL ACUITY
-╚══════════════════════════════════════════════════════╝ */
 window.mod_visualAcuity = function () {
   const rows=[
     {px:54,text:'E  F  P',        label:'Row 1 (largest)',logMAR:1.0},
@@ -1829,10 +1686,6 @@ window.mod_visualAcuity = function () {
   }
 };
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 7 — CONTRAST SENSITIVITY
-╚══════════════════════════════════════════════════════╝ */
 window.mod_contrastSensitivity = function () {
   const levels=[
     {fg:'#111111',bg:'#FFFFFF',letter:'E',label:'Full contrast'},
@@ -1921,22 +1774,11 @@ window.mod_contrastSensitivity = function () {
     setTimeout(()=>{LAB.idx++;LAB.next();},1900);
   }
 };
-
-console.log('[WellnessLab v2 Part 2] Reloaded — Cognitive (4) + Eye (3) modules ready. Syntax clean.');
-
 </script>
-
-<!-- PART 3 APPENDED BELOW -->
 
 <script>
 'use strict';
 
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 8 — BREATH SYNC
-   A dot pulses slowly on screen. User breathes in sync
-   for 90s (6 cycles × 5s inhale + 5s exhale + 5s hold).
-   Measures how steadily they match the rhythm.
-╚══════════════════════════════════════════════════════╝ */
 window.mod_breathSync = function () {
   const CYCLES = 6;
   const INHALE = 4, HOLD = 2, EXHALE = 4;
@@ -1973,7 +1815,6 @@ window.mod_breathSync = function () {
         <p class="pg">Breathe <strong>with the circle</strong>. In when it grows · Hold when it glows · Out when it shrinks. 6 cycles.</p>
       </div>
 
-      <!-- Breathing circle -->
       <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.1rem;padding:1.8rem 0">
         <div id="bsCirc" style="width:130px;height:130px;border-radius:50%;background:var(--g3);
           border:4px solid var(--g);box-shadow:0 0 0 0 rgba(42,122,90,.3);
@@ -1985,7 +1826,6 @@ window.mod_breathSync = function () {
         <div style="font-size:.72rem;color:var(--tq);font-family:'JetBrains Mono',monospace" id="bsCycLbl">0 / ${CYCLES} cycles</div>
       </div>
 
-      <!-- Timer arc progress -->
       <div style="display:flex;justify-content:center;gap:.4rem;margin-bottom:1rem" id="bsPips">
         ${Array.from({length:CYCLES},(_,i)=>`<div id="bsp${i}" style="width:26px;height:5px;border-radius:3px;background:var(--b);transition:background .6s"></div>`).join('')}
       </div>
@@ -2020,7 +1860,6 @@ window.mod_breathSync = function () {
     if (!document.getElementById('bsCirc')) return;
     const totalPerCycle = INHALE + HOLD + EXHALE;
 
-    // Animate one tick (called via recursive setTimeout)
     const circ = document.getElementById('bsCirc');
     const lbl  = document.getElementById('bsPhLbl');
     const cl   = document.getElementById('bsCycLbl');
@@ -2029,9 +1868,8 @@ window.mod_breathSync = function () {
     const bcy  = document.getElementById('bsCyc');
 
     const phaseDur = PHASE_DUR[_phase] || 4;
-    const progress = _phaseT / phaseDur;  // 0→1
+    const progress = _phaseT / phaseDur;
 
-    // Visual state
     if (_phase === 'inhale') {
       const sz = Math.round(90 + progress * 70) + 'px';
       if (circ) { circ.style.width=sz; circ.style.height=sz; circ.style.opacity='1'; circ.style.background='var(--g3)'; }
@@ -2058,7 +1896,7 @@ window.mod_breathSync = function () {
         _phase = 'inhale'; _cycle++;
         const pip = document.getElementById('bsp'+(_cycle-1));
         if (pip) pip.style.background = 'var(--g2)';
-        // score each cycle perfectly (timed activity — auto-scores)
+
         _scores.push(85 + Math.random()*15);
         if (bs) bs.textContent = Math.round(LAB.avg(_scores));
         if (_cycle >= CYCLES) { _bsDone(); return; }
@@ -2078,12 +1916,6 @@ window.mod_breathSync = function () {
   }
 };
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 9 — CO2 TOLERANCE (Breath Hold)
-   Inhale, exhale, then hold breath as long as possible.
-   Tap when you need to breathe. Measures hold duration.
-╚══════════════════════════════════════════════════════╝ */
 window.mod_co2Tolerance = function () {
   let _phase = 'prep', _startT = 0, _held = 0, _cd = null;
 
@@ -2102,7 +1934,7 @@ window.mod_co2Tolerance = function () {
       const steps = ['😮‍💨 Breathe in…','💨 Breathe out…','😤 Hold! →'];
       let i = 0;
       const el = vis.querySelector('div');
-      // pulse through steps
+
       const id = setInterval(()=>{
         if(!el) return;
         i = (i+1) % steps.length;
@@ -2122,7 +1954,6 @@ window.mod_co2Tolerance = function () {
         <p class="pg">Follow the three steps below. Hold your breath after the exhale, then tap when you need to breathe.</p>
       </div>
 
-      <!-- Phase instruction panel -->
       <div id="bhPanel" style="text-align:center;padding:2rem 1rem">
         <div style="font-size:3.5rem;margin-bottom:.8rem" id="bhEmoji">😮‍💨</div>
         <div style="font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--t);margin-bottom:.4rem" id="bhTitle">Step 1 of 3: Breathe In</div>
@@ -2151,7 +1982,7 @@ window.mod_co2Tolerance = function () {
 
   window._bhNext = function () {
     if (_phase === 'prep') {
-      // Move to exhale step
+
       _phase = 'exhale';
       const em=document.getElementById('bhEmoji'), t=document.getElementById('bhTitle'), d=document.getElementById('bhDesc'), b=document.getElementById('bhBtn');
       if(em) em.textContent = '💨';
@@ -2161,7 +1992,7 @@ window.mod_co2Tolerance = function () {
       LAB.say('Now breathe out slowly and completely. Tap when you have fully exhaled.');
 
     } else if (_phase === 'exhale') {
-      // Start hold
+
       _phase = 'hold'; _startT = performance.now();
       const em=document.getElementById('bhEmoji'), t=document.getElementById('bhTitle'), d=document.getElementById('bhDesc'), b=document.getElementById('bhBtn'), ti=document.getElementById('bhTimer');
       if(em) em.textContent='😤';
@@ -2174,7 +2005,7 @@ window.mod_co2Tolerance = function () {
         const elapsed = (performance.now()-_startT)/1000;
         const ti2 = document.getElementById('bhTimer');
         if(ti2){ ti2.textContent=elapsed.toFixed(1); ti2.className='timer'+(elapsed>40?'':elapsed>20?' warn':''); }
-        if(elapsed>180){ clearInterval(_cd); _bhDone(); } // safety max 3 min
+        if(elapsed>180){ clearInterval(_cd); _bhDone(); }
       }, 100);
 
     } else if (_phase === 'hold') {
@@ -2205,12 +2036,6 @@ window.mod_co2Tolerance = function () {
   }
 };
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 10 — RECOVERY / HRV PROXY
-   User taps in time with their heartbeat for 30s.
-   We estimate variability from tap intervals.
-╚══════════════════════════════════════════════════════╝ */
 window.mod_recovery = function () {
   let _intervals = [], _lastTap = 0, _active = false, _cd = null, _elapsed = 0;
   const DUR = 30;
@@ -2293,7 +2118,7 @@ window.mod_recovery = function () {
     _lastTap=now;
 
     const tap=document.getElementById('rvTaps'); if(tap) tap.textContent=_intervals.length+1;
-    // Live BPM
+
     if(_intervals.length>=2){
       const avgIv=LAB.avg(_intervals.slice(-8));
       const bpm=Math.round(60000/avgIv);
@@ -2309,7 +2134,7 @@ window.mod_recovery = function () {
   function _rvDone() {
     if(_intervals.length<4){ LAB.raw.recoveryScore=50; LAB.idx++; LAB.next(); return; }
     const avgIv = LAB.avg(_intervals);
-    const hrv   = Math.round(LAB.sd(_intervals)); // SDNN proxy
+    const hrv   = Math.round(LAB.sd(_intervals));
     const bpm   = Math.round(60000/avgIv);
     const sc    = LAB.clamp(Math.round(hrv<10?45:hrv<20?60:hrv<35?75:hrv<55?88:96), 30, 100);
 
@@ -2327,17 +2152,10 @@ window.mod_recovery = function () {
   }
 };
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 11 — COGNITIVE UNDER PRESSURE (Maths)
-   20 arithmetic questions shown one at a time.
-   30-second time limit. Pressure comes from the timer.
-╚══════════════════════════════════════════════════════╝ */
 window.mod_cogUnderPressure = function () {
   const TOTAL = 20, TIME = 35;
   let _q = [], _curr = 0, _correct = 0, _elapsed = 0, _cd = null;
 
-  // Generate questions — mix of easy/medium/hard
   function _mkQ() {
     const qs = [];
     const ops = ['+','-','×','÷'];
@@ -2363,7 +2181,7 @@ window.mod_cogUnderPressure = function () {
         ans=op==='+'?a+b:op==='-'?a-b:op==='×'?a*b:a/b;
         if(op==='-'&&ans<0){[a,b]=[b,a];ans=a-b;}
       }
-      // Wrong choices
+
       const wrong = new Set();
       while(wrong.size<3){ const w=ans+Math.ceil(Math.random()*6)*(Math.random()<.5?1:-1); if(w!==ans) wrong.add(w); }
       const choices = [ans,...wrong].sort(()=>Math.random()-.5);
@@ -2420,7 +2238,6 @@ window.mod_cogUnderPressure = function () {
         <span class="timer" id="mpTimer">${TIME-_elapsed}</span>
       </div>
 
-      <!-- Progress strip -->
       <div style="display:flex;gap:2px;margin-bottom:1.2rem;flex-wrap:wrap">
         ${Array.from({length:TOTAL},(_,i)=>`<div id="mpPip${i}" style="flex:1;min-width:8px;height:5px;border-radius:2px;background:${i<_curr?'var(--ok)':'var(--b)'}"></div>`).join('')}
       </div>
@@ -2444,7 +2261,6 @@ window.mod_cogUnderPressure = function () {
       </div>
     </div></div>`);
 
-    // Start/resume timer
     clearInterval(_cd);
     _cd = setInterval(()=>{
       _elapsed++;
@@ -2459,7 +2275,6 @@ window.mod_cogUnderPressure = function () {
     const correct = val === _q[_curr].ans;
     if(correct) _correct++;
 
-    // Flash feedback on choice buttons
     _q[_curr].choices.forEach((c,i)=>{
       const b=document.getElementById('mpCh'+i); if(!b) return;
       if(c===_q[_curr].ans){ b.style.background='var(--g3)'; b.style.borderColor='var(--g)'; b.style.color='var(--g)'; }
@@ -2479,7 +2294,7 @@ window.mod_cogUnderPressure = function () {
     clearInterval(_cd);
     const acc=_correct/TOTAL, sc=LAB.clamp(Math.round(acc*82+(_correct/Math.max(1,_elapsed))*18), 15, 100);
     LAB.raw.mathCorrect=_correct; LAB.raw.mathScore=sc;
-    LAB.scores.stress=sc; // updated after pattern search
+    LAB.scores.stress=sc;
 
     LAB.celebrate();
     LAB.say(`Maths done! ${_correct} out of ${TOTAL} correct. ${LAB.scoreLbl(sc)} cognitive performance under pressure.`);
@@ -2487,13 +2302,6 @@ window.mod_cogUnderPressure = function () {
   }
 };
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 12 — PATTERN OVERLOAD
-   A grid of symbols. One symbol appears a different number
-   of times. User picks the odd-one-out symbol. 8 rounds,
-   getting harder. Tests focus + pattern recognition.
-╚══════════════════════════════════════════════════════╝ */
 window.mod_patternOverload = function () {
   const ROUNDS = 8;
   const SYMS = ['★','●','▲','■','♦','✦','❋','⬟','⬡','⊕'];
@@ -2502,7 +2310,7 @@ window.mod_patternOverload = function () {
   function _mkRound(r) {
     const gridSize = r<3?16:r<6?25:36;
     const cols     = r<3?4:r<6?5:6;
-    // Pick target (odd count) and filler
+
     const allSyms   = SYMS.slice(0, r<3?4:r<6?6:8);
     const oddSym    = allSyms[Math.floor(Math.random()*allSyms.length)];
     const fillers   = allSyms.filter(s=>s!==oddSym);
@@ -2559,7 +2367,6 @@ window.mod_patternOverload = function () {
         <p class="pg">Tap the symbol that appears a <strong>different number of times</strong> from all the others.</p>
       </div>
 
-      <!-- Round pips -->
       <div style="display:flex;gap:.3rem;justify-content:center;margin:.6rem 0">
         ${Array.from({length:ROUNDS},(_,i)=>`<div style="width:22px;height:5px;border-radius:3px;background:${i<_round?'var(--ok)':i===_round?'var(--g)':'var(--b)'}"></div>`).join('')}
       </div>
@@ -2568,7 +2375,6 @@ window.mod_patternOverload = function () {
         Round ${_round+1} of ${ROUNDS} &nbsp;·&nbsp; ${rd.gridSize} symbols &nbsp;·&nbsp; find the odd one
       </p>
 
-      <!-- Symbol grid -->
       <div style="display:grid;grid-template-columns:repeat(${rd.cols},1fr);gap:6px;max-width:min(340px,90vw);margin:0 auto" id="ptGrid">
         ${rd.cells.map((s,i)=>`
           <button id="ptCell${i}"
@@ -2588,7 +2394,6 @@ window.mod_patternOverload = function () {
 
     LAB.say(`Round ${_round+1}. One of these symbols appears a different number of times — find it.`);
 
-    // Store start time for this round
     window._ptStartT = start;
   }
 
@@ -2597,7 +2402,6 @@ window.mod_patternOverload = function () {
     const ok   = sym === oddSym;
     if (ok) { _correct++; _times.push(rt); }
 
-    // Visual feedback on all cells
     const grid = document.getElementById('ptGrid');
     if (grid) {
       grid.querySelectorAll('button').forEach(btn => {
@@ -2625,13 +2429,6 @@ window.mod_patternOverload = function () {
   }
 };
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 13 — STABILITY HOLD (Accelerometer)
-   User holds phone still for 20s. Measures device movement
-   using DeviceMotion API. Falls back to cursor tracking
-   on desktop (mouse must not move from circle).
-╚══════════════════════════════════════════════════════╝ */
 window.mod_stabilityHold = function () {
   const DUR = 20;
   let _samples=[], _elapsed=0, _cd=null, _motionOn=false, _mvAvg=0;
@@ -2672,7 +2469,6 @@ window.mod_stabilityHold = function () {
 
       <span class="timer" id="shTimer">20</span>
 
-      <!-- Target zone -->
       <div style="display:flex;justify-content:center;margin:1rem 0;position:relative">
         <div id="shZone" style="width:160px;height:160px;border-radius:50%;background:var(--g4);
           border:3px solid var(--g);display:flex;flex-direction:column;align-items:center;
@@ -2680,7 +2476,7 @@ window.mod_stabilityHold = function () {
           aria-label="Stability zone">
           <span style="font-size:2.2rem" id="shIcon">📱</span>
           <span style="font-size:.62rem;font-family:'JetBrains Mono',monospace;color:var(--tq);margin-top:.25rem" id="shZoneLbl">Press Start</span>
-          <!-- Motion wave bars -->
+          
           <div style="display:flex;align-items:flex-end;gap:2px;position:absolute;bottom:12px" id="shWave">
             ${Array.from({length:10},()=>`<div style="width:4px;height:3px;border-radius:2px 2px 0 0;background:var(--g2);transition:height .12s"></div>`).join('')}
           </div>
@@ -2709,9 +2505,8 @@ window.mod_stabilityHold = function () {
     const b=document.getElementById('shStart'); if(b) b.style.display='none';
     _samples=[]; _elapsed=0;
 
-    // Try DeviceMotion
     if (typeof DeviceMotionEvent !== 'undefined') {
-      // Request permission on iOS 13+
+
       if (typeof DeviceMotionEvent.requestPermission === 'function') {
         DeviceMotionEvent.requestPermission().then(r=>{
           if(r==='granted') { window.addEventListener('devicemotion',_shMotion); _motionOn=true; }
@@ -2745,21 +2540,20 @@ window.mod_stabilityHold = function () {
   }
 
   function _shMouseFallback() {
-    // Desktop: track mouse leaving a circle
+
     const zone=document.getElementById('shZone');
     const lbl=document.getElementById('shZoneLbl'); if(lbl) lbl.textContent='Keep cursor here';
     const icon=document.getElementById('shIcon'); if(icon) icon.textContent='🖱️';
 
-    // Simulate slight stability by sampling periodically
     const fallbackInterval=setInterval(()=>{
       if(_elapsed>=DUR){ clearInterval(fallbackInterval); return; }
-      // Inject a moderate sample — assume good stability unless user moves mouse
+
       _samples.push(0.1+Math.random()*0.2);
     },100);
 
     if(zone){
       zone.addEventListener('mousemove',e=>{
-        _mvAvg=_mvAvg*.7+0.8*.3; // each move = shake
+        _mvAvg=_mvAvg*.7+0.8*.3;
         _shUpdateUI(_mvAvg);
         _samples.push(_mvAvg);
       });
@@ -2772,7 +2566,6 @@ window.mod_stabilityHold = function () {
     if(se){ se.textContent=stability+'%'; se.style.color=LAB.scoreCol(stability); }
     if(me){ me.textContent=mv.toFixed(2)+'g'; }
 
-    // Animate wave bars
     const wave=document.getElementById('shWave');
     if(wave){ wave.querySelectorAll('div').forEach(bar=>{
       const h=3+mv*20+Math.random()*3;
@@ -2797,16 +2590,9 @@ window.mod_stabilityHold = function () {
   }
 };
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 14 — MICRO TREMOR (SVG Drawing)
-   User must trace a zig-zag path on a canvas.
-   Deviation from the path = tremor score.
-╚══════════════════════════════════════════════════════╝ */
 window.mod_microTremor = function () {
   let _drawing=false, _pts=[], _started=false, _pathPts=[];
 
-  // Reference path (zig-zag in normalised 0-1 coords)
   const PATH = [{x:.1,y:.5},{x:.25,y:.2},{x:.4,y:.8},{x:.55,y:.2},{x:.7,y:.8},{x:.85,y:.2},{x:.9,y:.5}];
 
   LAB.showDemo({
@@ -2823,7 +2609,7 @@ window.mod_microTremor = function () {
       </svg>
     </div>`,
     anim(vis) {
-      // Animate a dot moving along the path
+
       const svg=vis.querySelector('svg');
       if(!svg) return null;
       const dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
@@ -2849,7 +2635,6 @@ window.mod_microTremor = function () {
         <p class="pg"><strong>Trace along the dashed path</strong> with your finger or mouse. Start from the left circle, end at the right.</p>
       </div>
 
-      <!-- Drawing canvas -->
       <div style="position:relative;touch-action:none;margin:1rem 0;border-radius:var(--rs);overflow:hidden">
         <canvas id="trCanvas" width="800" height="240"
           style="width:100%;height:auto;background:#fff;border:2px solid var(--b);border-radius:var(--rs);cursor:crosshair;display:block;touch-action:none"
@@ -2883,7 +2668,6 @@ window.mod_microTremor = function () {
     const ctx=canvas.getContext('2d');
     const W=canvas.width, H=canvas.height;
 
-    // Draw reference path
     function drawPath() {
       ctx.clearRect(0,0,W,H);
       ctx.setLineDash([10,6]);
@@ -2895,12 +2679,10 @@ window.mod_microTremor = function () {
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // Start/end circles
       ctx.fillStyle='var(--g)';
       ctx.beginPath(); ctx.arc(PATH[0].x*W,PATH[0].y*H,10,0,Math.PI*2); ctx.fill();
       ctx.beginPath(); ctx.arc(PATH[PATH.length-1].x*W,PATH[PATH.length-1].y*H,10,0,Math.PI*2); ctx.fill();
 
-      // Labels
       ctx.fillStyle='#fff'; ctx.font='bold 11px JetBrains Mono,monospace'; ctx.textAlign='center';
       ctx.fillText('START',PATH[0].x*W,PATH[0].y*H+4);
       ctx.fillText('END',PATH[PATH.length-1].x*W,PATH[PATH.length-1].y*H+4);
@@ -2941,7 +2723,7 @@ window.mod_microTremor = function () {
   }
 
   function _trScore(W,H) {
-    // For each user point, find distance to nearest point on reference path
+
     let totalDev=0;
     _pts.forEach(p=>{
       let minD=Infinity;
@@ -2981,12 +2763,6 @@ window.mod_microTremor = function () {
   };
 };
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 15 — SLEEP EFFICIENCY
-   Quick questionnaire: bedtime, wake time, interruptions.
-   Computes sleep efficiency and quality score.
-╚══════════════════════════════════════════════════════╝ */
 window.mod_sleepEfficiency = function () {
   LAB.showDemo({
     title: '💤 Sleep Check',
@@ -3062,12 +2838,10 @@ window.mod_sleepEfficiency = function () {
     const rest = parseInt(document.getElementById('slRest')?.value||'6');
     const sleepOnset = LAB.fval('slSleep', 15);
 
-    // Parse duration
     const [bh,bm]=bed.split(':').map(Number);  const [wh,wm]=wake.split(':').map(Number);
     let mins=(wh*60+wm)-(bh*60+bm); if(mins<0) mins+=1440;
     const hours=mins/60;
 
-    // Score components
     const durScore = hours<5?25:hours<6?45:hours<7?65:hours<8?85:hours<9?100:88;
     const onsetScore= sleepOnset<=10?100:sleepOnset<=20?80:sleepOnset<=30?58:35;
     const wakeScore = wakes===0?100:wakes===1?85:wakes===2?65:wakes===3?45:25;
@@ -3082,12 +2856,6 @@ window.mod_sleepEfficiency = function () {
   };
 };
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 16 — LIFESTYLE LOAD
-   Short questionnaire covering 6 lifestyle dimensions.
-   Produces composite lifestyle score.
-╚══════════════════════════════════════════════════════╝ */
 window.mod_lifestyleLoad = function () {
   LAB.showDemo({
     title: '⚖ Lifestyle Score',
@@ -3166,20 +2934,11 @@ window.mod_lifestyleLoad = function () {
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   };
 };
-
-console.log('[WellnessLab v2 Part 3] Loaded — Respiratory (3) + Stress (2) + Stability (2) + Sleep + Lifestyle ready.');
 </script>
-
-<!-- ═══════════ PART 4 START ═══════════ -->
 
 <script>
 'use strict';
 
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 17 — HORMONAL RHYTHM  (Female)
-   Short 5-question cycle awareness check.
-   Assesses regularity, symptoms, mood patterns.
-╚══════════════════════════════════════════════════════╝ */
 window.mod_hormonalRhythm = function () {
   LAB.showDemo({
     title: '🌸 Hormonal Rhythm',
@@ -3274,12 +3033,6 @@ window.mod_hormonalRhythm = function () {
   };
 };
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 18 — ENERGY & IRON  (Female)
-   Screens for common iron-deficiency symptoms.
-   Short, focused, actionable.
-╚══════════════════════════════════════════════════════╝ */
 window.mod_energyIron = function () {
   LAB.showDemo({
     title: '⚡ Energy & Iron Check',
@@ -3364,12 +3117,6 @@ window.mod_energyIron = function () {
   };
 };
 
-
-/* ╔══════════════════════════════════════════════════════╗
-   MODULE 19 — FEMALE COMBINED: Sleep & Comfort  (Female)
-   Merges sleep-cycle quality + pelvic comfort into one
-   short module. Replaces 3 long boring modules with 1.
-╚══════════════════════════════════════════════════════╝ */
 window.mod_femCombined = function () {
   LAB.showDemo({
     title: '🌙 Sleep & Comfort',
@@ -3462,13 +3209,8 @@ window.mod_femCombined = function () {
   };
 };
 
-
-/* ═══════════════════════════════════════════════════════════
-   DASHBOARD + RECOMMENDATIONS + PDF
-═══════════════════════════════════════════════════════════ */
 LAB.showDashboard = function () {
-  /* ── Compute composite scores only from completed tests ── */
-  // avg() returns null if the array is empty (all skipped) — domain stays null
+
   const domAvg = (...keys) => { const v=keys.map(k=>LAB.raw[k]).filter(x=>x!=null); return v.length?Math.round(LAB.avg(v)):null; };
   if (LAB.scores.cognitive  == null) LAB.scores.cognitive   = domAvg('rxScore','ftScore','memScore','attScore');
   if (LAB.scores.eye        == null) LAB.scores.eye          = domAvg('cbScore','acuityScore','csScore');
@@ -3477,12 +3219,10 @@ LAB.showDashboard = function () {
   if (LAB.scores.stability  == null) LAB.scores.stability    = domAvg('stabilityScore','tremorScore');
   if (LAB.scores.lifestyle  == null) LAB.scores.lifestyle    = LAB.raw.lifestyleScore ?? null;
 
-  /* ── Build recs ── */
   const recs = LAB._buildRecs();
   const isFem = LAB.gender==='female';
   const hormScore = isFem ? (LAB.scores.hormonal ?? null) : null;
 
-  /* ── Overall wellness — only completed domains count ── */
   const mainScores=[LAB.scores.cognitive,LAB.scores.eye,LAB.scores.respiratory,
                     LAB.scores.stress,LAB.scores.stability,LAB.scores.lifestyle];
   if(isFem&&hormScore) mainScores.push(hormScore);
@@ -3490,7 +3230,6 @@ LAB.showDashboard = function () {
   const overall = completedScores.length ? Math.round(LAB.avg(completedScores)) : null;
   const completedDomains = completedScores.length;
 
-  /* ── Score domains ── */
   const domains=[
     {key:'cognitive',  icon:'🧠', label:'Cognitive',   col:'#2A7A5A'},
     {key:'eye',        icon:'👁',  label:'Eye Health',  col:'#2563EB'},
@@ -3507,7 +3246,6 @@ LAB.showDashboard = function () {
   LAB.render(`
   <div class="mwrap">
 
-    <!-- ══ Hero ══ -->
     <div style="text-align:center;padding:clamp(2rem,5vw,3.5rem) 0 1.5rem">
       <div style="display:inline-flex;align-items:center;gap:.45rem;padding:.32rem .9rem;
                   background:var(--g3);border:1px solid rgba(42,122,90,.28);border-radius:50px;
@@ -3520,7 +3258,6 @@ LAB.showDashboard = function () {
         ${completedDomains > 0 ? 'Based on ' + (isFem?'19':'16') + ' activities across cognitive, eye, respiratory, stability and lifestyle health.' : 'You skipped all activities — no data to score. Complete at least one test to see results.'}
       </p>
 
-      <!-- Overall ring -->
       <div style="display:inline-flex;flex-direction:column;align-items:center;gap:.5rem;
                   background:#fff;border:1.5px solid var(--b);border-radius:var(--r);
                   padding:1.6rem 2.2rem;box-shadow:var(--shm);margin-bottom:1.8rem">
@@ -3534,7 +3271,6 @@ LAB.showDashboard = function () {
       </div>
     </div>
 
-    <!-- ══ Score grid ══ -->
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.9rem;margin-bottom:2.5rem" id="scoreGrid">
       ${domains.map(d=>{
         const sc = LAB.scores[d.key] ?? null;
@@ -3557,7 +3293,6 @@ LAB.showDashboard = function () {
       }).join('')}
     </div>
 
-    <!-- ══ Detail breakdown ══ -->
     <div class="card" style="margin-bottom:2rem">
       <h3 class="h3" style="margin-bottom:1.1rem">📊 Activity Breakdown</h3>
       <div style="display:grid;gap:.5rem">
@@ -3565,10 +3300,8 @@ LAB.showDashboard = function () {
       </div>
     </div>
 
-    <!-- ══ Flags ══ -->
     ${LAB._buildFlagBox()}
 
-    <!-- ══ Recommendations ══ -->
     <div style="margin-bottom:2rem">
       <h3 class="h3" style="margin-bottom:.4rem">💡 Personalised Recommendations</h3>
       <p class="pg" style="margin-bottom:1.2rem">Based on your scores — things worth paying attention to.</p>
@@ -3590,13 +3323,11 @@ LAB.showDashboard = function () {
       </div>
     </div>
 
-    <!-- ══ Tips ══ -->
     <div class="card" style="margin-bottom:2rem">
       <h3 class="h3" style="margin-bottom:1rem">🌿 General Wellness Tips</h3>
       ${LAB._buildTips(overall)}
     </div>
 
-    <!-- ══ Disclaimer ══ -->
     <div style="background:var(--g4);border:1px solid rgba(42,122,90,.16);border-radius:var(--rs);
                 padding:1rem 1.2rem;font-size:.73rem;color:var(--tq);line-height:1.78;margin-bottom:2rem">
       <strong style="color:var(--g)">Important:</strong> These results are wellness indicators only — they are <strong>not</strong> a medical diagnosis.
@@ -3604,8 +3335,6 @@ LAB.showDashboard = function () {
       No data has been sent anywhere — everything was calculated on your device.
     </div>
 
-
-    <!-- ══ Shah Hayaat Products ══ -->
     <div style="margin-bottom:2rem">
       <div style="display:inline-flex;align-items:center;gap:.5rem;padding:.28rem .85rem;
                   background:linear-gradient(90deg,rgba(42,122,90,.12),rgba(201,120,0,.1));
@@ -3635,7 +3364,6 @@ LAB.showDashboard = function () {
       </div>
     </div>
 
-    <!-- ══ Expert Consultation via WhatsApp ══ -->
     <div style="background:linear-gradient(135deg,#F0FBF5,#E8F5EE);border:1.5px solid rgba(42,122,90,.25);
                 border-radius:var(--r);padding:1.4rem 1.6rem;margin-bottom:2rem;
                 box-shadow:0 4px 18px rgba(42,122,90,.1)">
@@ -3651,7 +3379,7 @@ LAB.showDashboard = function () {
             <strong style="color:var(--g)">Free 15-minute consultation.</strong>
           </p>
           <div style="display:flex;flex-wrap:wrap;gap:.6rem">
-            <button onclick="LAB.sharePDFWhatsApp()" 
+            <button onclick="LAB.sharePDFWhatsApp()"
                     style="display:inline-flex;align-items:center;gap:.5rem;
                            background:#25D366;color:#fff;border:none;
                            padding:.7rem 1.3rem;border-radius:50px;font-weight:700;
@@ -3680,7 +3408,6 @@ LAB.showDashboard = function () {
       </div>
     </div>
 
-    <!-- ══ Actions ══ -->
     <div class="card" style="margin-bottom:1.4rem;padding:1.25rem 1.4rem">
       <h3 class="h3" style="margin-bottom:.5rem;font-size:.95rem">📄 Download Your PDF Report</h3>
       <p class="pg" style="margin-bottom:.85rem;font-size:.82rem">Add your name to appear on the report — or leave it blank.</p>
@@ -3698,11 +3425,10 @@ LAB.showDashboard = function () {
 
   </div>`);
 
-  /* ── Draw all rings after render ── */
   setTimeout(()=>{
     if (overall !== null) LAB._drawRing('overallRing', overall, '#2A7A5A', 64);
     else {
-      // Draw empty grey ring
+
       const c=document.getElementById('overallRing'); if(c){const ctx=c.getContext('2d');ctx.beginPath();ctx.arc(70,70,64,0,Math.PI*2);ctx.strokeStyle='#E4EAE4';ctx.lineWidth=10;ctx.stroke();}
     }
     domains.forEach(d=>{
@@ -3721,8 +3447,6 @@ LAB.showDashboard = function () {
     : 'You have reached the end, but no tests were completed. Go back and try at least a few activities to get your wellness score.');
 };
 
-
-/* ── Donut ring helper ── */
 LAB._drawRing = function(canvasId, score, color, radius) {
   const canvas=document.getElementById(canvasId); if(!canvas) return;
   const ctx=canvas.getContext('2d');
@@ -3731,16 +3455,13 @@ LAB._drawRing = function(canvasId, score, color, radius) {
   const r=radius;
   ctx.clearRect(0,0,W,H);
 
-  // Background arc
   ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2);
   ctx.strokeStyle='#E8F5EE'; ctx.lineWidth=lineW; ctx.stroke();
 
-  // Score arc (animated)
   const end=-Math.PI/2+((score/100)*Math.PI*2);
   ctx.beginPath(); ctx.arc(cx,cy,r,-Math.PI/2,end);
   ctx.strokeStyle=color; ctx.lineWidth=lineW; ctx.lineCap='round'; ctx.stroke();
 
-  // Score text (only for big ring)
   if(radius>40){
     ctx.fillStyle=color; ctx.font=`bold ${Math.round(radius*.48)}px 'JetBrains Mono',monospace`;
     ctx.textAlign='center'; ctx.textBaseline='middle';
@@ -3748,8 +3469,6 @@ LAB._drawRing = function(canvasId, score, color, radius) {
   }
 };
 
-
-/* ── Breakdown rows ── */
 LAB._buildBreakdownRows = function() {
   const rows=[
     {label:'⚡ Reaction Speed',      val:LAB.raw.rxAvg?LAB.raw.rxAvg+'ms avg':'—',      score:LAB.raw.rxScore},
@@ -3790,8 +3509,6 @@ LAB._buildBreakdownRows = function() {
   }).join('');
 };
 
-
-/* ── Flag boxes (eye/iris warnings) ── */
 LAB._buildFlagBox = function() {
   const flags=[];
   if(LAB.raw.cbFlag) flags.push({icon:'🎨',title:'Colour Perception',msg:'You may have difficulty distinguishing some colours. Consider a clinical colour blindness test.',col:'var(--bl)'});
@@ -3810,19 +3527,15 @@ LAB._buildFlagBox = function() {
   </div>`;
 };
 
-
-/* ── Recommendations engine ── */
 LAB._buildRecs = function() {
   const S=LAB.scores, R=LAB.raw;
   const recs=[];
 
-  // Cognitive
   if((S.cognitive||100)<60)
     recs.push({icon:'🧩',title:'Brain Training',body:'Daily cognitive challenges — puzzles, memory games, or learning a new skill — can meaningfully improve processing speed and working memory.',action:'Try 10 min/day',col:'#2A7A5A'});
   if((R.rxAvg||0)>400)
     recs.push({icon:'⚡',title:'Faster Reactions',body:'Your reaction time is above average. Regular aerobic exercise and reducing screen fatigue before tests can shorten it.',action:'Aerobic exercise',col:'#059669'});
 
-  // Eye
   if(R.cbFlag)
     recs.push({icon:'🎨',title:'Colour Vision Test',body:'A clinical Ishihara test at an optometrist can confirm colour blindness type and severity in 10 minutes.',action:'Book an eye test',col:'#2563EB'});
   if(R.acuityFlag)
@@ -3830,27 +3543,22 @@ LAB._buildRecs = function() {
   if(!R.cbFlag&&!R.acuityFlag&&(S.eye||100)>=70)
     recs.push({icon:'👁',title:'Eye Health',body:'Your eye health indicators look good. Maintain the 20-20-20 rule: every 20 minutes, look at something 20 feet away for 20 seconds.',action:'20-20-20 rule',col:'#7C3AED'});
 
-  // Respiratory
   if((R.breathHold||100)<25)
     recs.push({icon:'🫁',title:'Breathing Exercises',body:'Short breath-hold time can indicate high CO₂ sensitivity or anxiety. Box breathing (4-4-4-4) practiced daily builds tolerance.',action:'Box breathing daily',col:'#059669'});
   if((S.respiratory||100)<55)
     recs.push({icon:'🌬',title:'Lung Capacity',body:'Regular aerobic activity — walking, swimming or cycling — is the most effective way to improve respiratory efficiency over time.',action:'30 min aerobic/day',col:'#059669'});
 
-  // Stress
   if((S.stress||100)<55)
     recs.push({icon:'🔥',title:'Stress Management',body:'High stress reduces cognitive performance under pressure. Mindfulness, consistent sleep and limiting caffeine can improve scores.',action:'Try mindfulness',col:'#C97010'});
 
-  // Stability
   if((R.tremorDev||0)>35)
     recs.push({icon:'✏',title:'Fine Motor Stability',body:'Higher tremor deviation can result from caffeine, poor sleep or stress. Reducing stimulants and practising steady-hand tasks helps.',action:'Reduce caffeine',col:'#7C3AED'});
 
-  // Sleep
   if((R.sleepHours||8)<6)
     recs.push({icon:'💤',title:'Sleep Duration',body:'You slept under 6 hours. Chronic sleep deprivation affects every health dimension measured here. 7–9 hours is the recommended range.',action:'Aim for 7–9 hrs',col:'#0369A1'});
   if((R.sleepScore||100)<55)
     recs.push({icon:'🌙',title:'Sleep Quality',body:'Poor sleep quality affects cognitive, hormonal, and physical health. A consistent bedtime and limiting blue light after 9pm are impactful first steps.',action:'Consistent bedtime',col:'#0369A1'});
 
-  // Lifestyle
   const liBrk=R.lifestyleBreakdown||[];
   if(liBrk[0]<55)
     recs.push({icon:'💧',title:'Hydration',body:'You indicated low water intake. Even mild dehydration reduces cognitive performance, mood and energy. Aim for at least 2 litres per day.',action:'Drink 2L water/day',col:'#0284C7'});
@@ -3859,7 +3567,6 @@ LAB._buildRecs = function() {
   if(liBrk[3]<55)
     recs.push({icon:'😤',title:'Stress Load',body:'You reported high day-to-day stress. Beyond affecting scores, chronic stress has serious long-term health effects. Consider talking to someone you trust.',action:'Talk to someone',col:'#C97010'});
 
-  // Female specific
   if(LAB.gender==='female'){
     if((R.hormonalScore||100)<55)
       recs.push({icon:'🌸',title:'Hormonal Balance',body:'Irregular cycles or severe PMS can indicate hormonal imbalances. A gynaecologist or GP can run simple blood panels to check.',action:'See a gynaecologist',col:'#B83060'});
@@ -3867,22 +3574,12 @@ LAB._buildRecs = function() {
       recs.push({icon:'🩸',title:'Iron Levels',body:'Your responses suggest possible iron deficiency, which is very common in women. A simple blood test can confirm. Iron-rich foods and vitamin C absorption help.',action:'Get blood test',col:'#B83060'});
   }
 
-  // Always include a positive
   if((S.cognitive||0)>=75)
     recs.push({icon:'🏆',title:'Strong Cognition',body:'Your cognitive scores are excellent! Keep challenging your brain with varied activities — novelty is key to maintaining sharpness.',action:'Keep it up!',col:'#2A7A5A'});
 
-  // Cap at 8 recommendations
   return recs.slice(0,8);
 };
 
-
-/* ── General tips based on overall score ── */
-
-/* ═══════════════════════════════════════════════════════════
-   SHAH HAYAAT PRODUCTS — Real product catalog, score-driven
-═══════════════════════════════════════════════════════════ */
-
-/* All 12 real Shah Hayaat products */
 LAB.SH_PRODUCTS = {
   brainchamp:   { name:'Brain Champ',    price:175, tag:'🧠 Brain & Focus',     tagColor:'#2A7A5A',
     desc:'Brahmi, Ashwagandha & Shankhpushpi blend to boost memory, cut brain fog and sharpen focus.',
@@ -3928,60 +3625,45 @@ LAB._buildProductCards = function () {
   const isMale = LAB.gender === 'male';
   const selected = [];
 
-  // ─── Score-driven selection — real products, accurate mapping ───
-
-  // Cognitive low → Brain Champ
   if ((S.cognitive ?? 100) < 75 || (R.memSpan ?? 9) < 5 || (R.rxAvg ?? 0) > 350)
     selected.push({ ...P.brainchamp, id:'brainchamp', reason:'Your cognitive score suggests memory or focus support.' });
 
-  // Respiratory low → Cough X Pro
   if ((S.respiratory ?? 100) < 70 || (R.breathHold ?? 999) < 25)
     selected.push({ ...P.coughxpro, id:'coughxpro', reason:'Breathing scores indicate respiratory support may help.' });
 
-  // Stress low / sleep poor → Blood Storm (energy) + lifestyle
   if ((S.stress ?? 100) < 70 || (R.sleepHours ?? 8) < 6)
     selected.push({ ...P.bloodstorm, id:'bloodstorm', reason:'Low energy or stress scores detected.' });
 
-  // Liver / lifestyle → Livo Hayaat
   if ((S.lifestyle ?? 100) < 65)
     selected.push({ ...P.livohayaat, id:'livohayaat', reason:'Lifestyle scores suggest a detox and liver support.' });
 
-  // Stability / tremor low → Ortho Hayaat
   if ((S.stability ?? 100) < 65 || (R.tremorDev ?? 0) > 30)
     selected.push({ ...P.orthohayaat, id:'orthohayaat', reason:'Motor stability scores point to joint/nerve support.' });
 
-  // Eye health low → Musaffa Khoon (circulation/blood purifier helps eyes)
   if ((S.eye ?? 100) < 70 || R.cbFlag || R.acuityFlag)
     selected.push({ ...P.musaffakhoon, id:'musaffakhoon', reason:'Blood purification supports eye health and clarity.' });
 
-  // Female health
   if (isFem && (S.hormonal ?? 100) < 75)
     selected.push({ ...P.utrohayaat, id:'utrohayaat', reason:'Hormonal rhythm scores indicate female tonic support.' });
 
-  // Female energy/iron
   if (isFem && (R.ironScore ?? 100) < 70)
     selected.push({ ...P.bloodstorm, id:'bloodstorm', reason:'Iron and energy indicators suggest blood support.' });
 
-  // Male vitality
   if (isMale && (S.stress ?? 100) < 65)
     selected.push({ ...P.passionpulse, id:'passionpulse', reason:'Stress and energy scores may benefit from vitality support.' });
 
-  // Immunity — always show if any score below 60
   const anyLow = Object.values(S).some(v => v != null && v < 60);
   if (anyLow)
     selected.push({ ...P.fevodol, id:'fevodol', reason:'Multiple low scores — immunity support recommended.' });
 
-  // Deduplicate
   const seen = new Set();
   const unique = selected.filter(p => { if (seen.has(p.id)) return false; seen.add(p.id); return true; });
 
-  // Always add at least Brain Champ and 1 more if nothing was selected
   if (unique.length === 0) {
     unique.push({ ...P.brainchamp, id:'brainchamp', reason:'General wellness maintenance.' });
     unique.push({ ...P.fevodol,    id:'fevodol',    reason:'Strengthen your immune defences.' });
   }
 
-  // Cap at 6 cards
   const show = unique.slice(0, 6);
 
   const WA = '917051056287';
@@ -4029,9 +3711,6 @@ LAB._buildProductCards = function () {
   }).join('');
 };
 
-
-/* ─── WhatsApp Share ──────────────────────────────────── */
-/* sharePDFWhatsApp — generate PDF then open WhatsApp */
 LAB.sharePDFWhatsApp = function () {
   trackWL('whatsapp_click');
   const nameEl = document.getElementById('pdfNameInp');
@@ -4040,7 +3719,7 @@ LAB.sharePDFWhatsApp = function () {
   if (!name) {
     const entered = prompt('Enter your name to include on the PDF (or tap Cancel to skip):');
     if (entered === null) {
-      // User cancelled name prompt — still proceed without name
+
       name = '';
     } else {
       name = entered.trim();
@@ -4074,9 +3753,16 @@ LAB.sharePDFWhatsApp = function () {
 
   const waUrl = 'https://wa.me/917051056287?text=' + encodeURIComponent(msg);
 
+  // Open WA window IMMEDIATELY (in user gesture), then redirect after PDF downloads
+  const waWin = window.open('', '_blank', 'noopener,noreferrer');
   LAB.generatePDF();
   setTimeout(function () {
-    window.open(waUrl, '_blank', 'noopener,noreferrer');
+    if (waWin && !waWin.closed) {
+      waWin.location.href = waUrl;
+    } else {
+      // Fallback: direct location change (works on iOS Safari)
+      window.location.href = waUrl;
+    }
   }, 1200);
 };
 
@@ -4100,11 +3786,6 @@ LAB._buildTips = function(overall) {
     </div>`).join('');
 };
 
-
-/* ═══════════════════════════════════════════════════════════
-   WHITE PDF REPORT GENERATOR
-   Uses browser print — opens a clean printable page.
-═══════════════════════════════════════════════════════════ */
 LAB.generatePDF = function () {
   trackWL('pdf_generated');
   const S=LAB.scores, R=LAB.raw, isFem=LAB.gender==='female';
@@ -4167,7 +3848,7 @@ LAB.generatePDF = function () {
 <meta charset="UTF-8">
 <title>Shah Hayaat Wellness Report — ${dateStr}</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:'Inter',sans-serif;background:#fff;color:#1C2E1C;line-height:1.7;font-size:14px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   @page{size:A4;margin:16mm 14mm}
@@ -4176,9 +3857,9 @@ LAB.generatePDF = function () {
   .pbtn{padding:10px 22px;border-radius:50px;font-weight:700;font-size:13px;cursor:pointer;border:none}
   .pbtn-p{background:#2A7A5A;color:#fff}
   .pbtn-g{background:#fff;border:2px solid #D4E8DC;color:#3A5A3A}
-  /* Layout */
+
   .page{max-width:780px;margin:0 auto;padding:0 4px}
-  /* Header */
+
   .report-hdr{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;
     background:linear-gradient(135deg,#1A4731,#2A7A5A);border-radius:12px;margin-bottom:22px;color:#fff}
   .hdr-logo{display:flex;align-items:center;gap:12px}
@@ -4186,7 +3867,7 @@ LAB.generatePDF = function () {
   .hdr-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;line-height:1.1}
   .hdr-sub{font-size:11px;opacity:.75;letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
   .hdr-meta{text-align:right;font-size:11px;opacity:.8;line-height:1.8}
-  /* Overall score */
+
   .overall-row{display:flex;align-items:center;gap:20px;padding:18px 20px;
     background:#F3F7F3;border:1.5px solid #D4E8DC;border-radius:12px;margin-bottom:22px}
   .overall-num{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;
@@ -4196,10 +3877,10 @@ LAB.generatePDF = function () {
     letter-spacing:.1em;color:#6A8A6A;margin-bottom:4px}
   .overall-rating{font-size:18px;font-weight:700;color:#2A7A5A;margin-bottom:6px}
   .overall-sub{font-size:12px;color:#3A5A3A}
-  /* Section headers */
+
   .sec-hdr{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#1C2E1C;
     border-bottom:2.5px solid #2A7A5A;padding-bottom:6px;margin:22px 0 14px}
-  /* Score grid */
+
   .score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}
   .score-card{background:#fff;border:1.5px solid #D4E8DC;border-radius:10px;padding:14px;text-align:center;position:relative;overflow:hidden}
   .score-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--c)}
@@ -4208,7 +3889,7 @@ LAB.generatePDF = function () {
     letter-spacing:.08em;color:#6A8A6A;margin-bottom:4px}
   .sc-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--c);line-height:1}
   .sc-lbl{font-size:11px;font-weight:600;color:var(--c);margin-top:2px}
-  /* Detail table */
+
   .dtable{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:22px}
   .dtable th{background:#F3F7F3;padding:8px 10px;text-align:left;font-size:11px;
     font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:#6A8A6A;
@@ -4216,7 +3897,7 @@ LAB.generatePDF = function () {
   .dtable td{padding:7px 10px;border-bottom:1px solid #E8F5EE;vertical-align:middle}
   .dtable tr:hover td{background:#FAFBF8}
   .tag-skip{background:#F5F5F5;color:#888;font-size:11px;padding:2px 8px;border-radius:50px}
-  /* Recs */
+
   .rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
   .rec-card{background:#fff;border:1.5px solid #D4E8DC;border-radius:10px;overflow:hidden}
   .rec-top{height:4px}
@@ -4224,14 +3905,14 @@ LAB.generatePDF = function () {
   .rec-title{font-weight:700;font-size:13px;margin-bottom:4px;color:#1C2E1C}
   .rec-text{font-size:11.5px;color:#3A5A3A;line-height:1.6;margin-bottom:7px}
   .rec-action{font-size:11px;font-weight:700;padding:3px 10px;border-radius:50px;display:inline-block}
-  /* Tips */
+
   .tip-row{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #E8F5EE;font-size:12.5px;color:#3A5A3A;line-height:1.6}
   .tip-icon{font-size:14px;flex-shrink:0;margin-top:2px}
-  /* Disclaimer */
+
   .disc{background:#F3F7F3;border:1px solid #D4E8DC;border-radius:8px;padding:12px 14px;
     font-size:11px;color:#6A8A6A;line-height:1.75;margin-top:18px}
   .disc strong{color:#2A7A5A}
-  /* Footer */
+
   .rpt-footer{display:flex;justify-content:space-between;align-items:center;margin-top:16px;
     padding-top:12px;border-top:1px solid #D4E8DC;font-size:10.5px;color:#6A8A6A}
 </style>
@@ -4247,7 +3928,6 @@ LAB.generatePDF = function () {
 </div>
 <div class="page">
 
-  <!-- Header -->
   <div class="report-hdr">
     <div class="hdr-logo">
       <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat">
@@ -4264,7 +3944,6 @@ LAB.generatePDF = function () {
     </div>
   </div>
 
-  <!-- Overall Score -->
   <div class="overall-row">
     <div class="overall-num">${overall}</div>
     <div class="overall-info">
@@ -4278,7 +3957,6 @@ LAB.generatePDF = function () {
     </div>
   </div>
 
-  <!-- Domain Scores -->
   <div class="sec-hdr">Health Domain Scores</div>
   <div class="score-grid">
     ${scoreRows.map(([name,sc])=>{
@@ -4291,7 +3969,6 @@ LAB.generatePDF = function () {
     }).join('')}
   </div>
 
-  <!-- Activity Detail -->
   <div class="sec-hdr">Activity Results</div>
   <table class="dtable">
     <thead><tr>
@@ -4307,7 +3984,6 @@ LAB.generatePDF = function () {
     </tbody>
   </table>
 
-  <!-- Flags -->
   ${(()=>{
     const f=[];
     if(R.cbFlag) f.push('🎨 Colour perception — consider a clinical eye test');
@@ -4320,7 +3996,6 @@ LAB.generatePDF = function () {
     </div>`;
   })()}
 
-  <!-- Recommendations -->
   <div class="page-break"></div>
   <div class="sec-hdr">Personalised Recommendations</div>
   <div class="rec-grid">
@@ -4336,13 +4011,11 @@ LAB.generatePDF = function () {
       </div>`).join('')}
   </div>
 
-  <!-- Tips -->
   <div class="sec-hdr">General Wellness Tips</div>
   ${LAB._buildTips(overall).replace(/<div style="display:flex.*?padding:.72rem 0;border-bottom:1px solid var\(--b\)">/g,
     '<div class="tip-row">').replace(/<span style="font-size:1\.05rem;flex-shrink:0;margin-top:\.05rem">/g,
     '<span class="tip-icon">').replace(/var\(--tm\)/g,'#3A5A3A').replace(/var\(--t\)/g,'#1C2E1C')}
 
-  <!-- Disclaimer -->
   <div class="disc">
     <strong>Important Disclaimer:</strong> This report is a wellness indicator only and does not constitute medical advice or diagnosis.
     The activities measure performance proxies under screen-based conditions. Results can be affected by fatigue, stress, lighting, device type and many other factors.
@@ -4350,7 +4023,6 @@ LAB.generatePDF = function () {
     <strong>No data has been transmitted.</strong> All calculations were performed locally in your browser. This PDF was generated on your device.
   </div>
 
-  <!-- Footer -->
   <div class="rpt-footer">
     <span>Shah Hayaat Wellness Lab &nbsp;·&nbsp; shahhayaat.com</span>
     <span>Generated ${dateStr} &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; For personal use only</span>
@@ -4360,14 +4032,26 @@ LAB.generatePDF = function () {
 </body>
 </html>`;
 
-  const win=window.open('','_blank','width=900,height=700');
-  if(!win){ alert('Please allow pop-ups to generate the PDF.'); return; }
-  win.document.write(html);
-  win.document.close();
-  win.focus();
+  // Use Blob + object URL - avoids popup blockers and hanging blank tabs
+  try {
+    const blob = new Blob([html], {type: 'text/html;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Shah-Hayaat-Wellness-Report.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+  } catch(e) {
+    // Fallback to window.open if Blob fails (e.g. some older iOS)
+    const win = window.open('','_blank','width=900,height=700');
+    if (!win) { alert('Please allow pop-ups to generate the PDF.'); return; }
+    win.document.write(html);
+    win.document.close();
+    win.focus();
+  }
 };
-
-console.log('[WellnessLab v2 Part 4] Complete — Female (3) + Dashboard + Recs + White PDF loaded.');
 </script>
 
 </body>
