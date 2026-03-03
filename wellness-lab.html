@@ -15,6 +15,19 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-8XLY6RR8LP');
+
+    /* ── Safe event tracker (no errors if gtag blocked) ── */
+    window.trackWL = function(eventName, label) {
+      try {
+        if (typeof gtag === 'function') {
+          gtag('event', eventName, {
+            event_category: 'engagement',
+            event_label: label || 'Wellness Lab',
+            value: 1
+          });
+        }
+      } catch(e) {}
+    };
   </script>
 <meta charset="UTF-8">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,12 +36,31 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap"></noscript>
 <meta name="theme-color" content="#2A7A5A">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Wellness Intelligence Lab – Shah Hayaat</title>
-<meta name="description" content="21 fun, guided wellness activities. Check your brain, eyes, lungs and body. Free, private, voice-guided in English.">
-<meta property="og:title" content="Wellness Intelligence Lab – Shah Hayaat">
+<title>Free Online Wellness Test – Health Assessment | Shah Hayaat Wellness Lab</title>
+<meta name="description" content="Take the free Shah Hayaat Online Wellness Test. 21 guided activities covering brain, eyes, lungs, stress and more. Get a personalised PDF health report in minutes. No sign-up required.">
+<meta name="keywords" content="online wellness test, free health assessment, wellness check, brain health test, eye test online, lung health, stress test, Shah Hayaat">
+<meta property="og:title" content="Free Online Wellness Test – Shah Hayaat Wellness Lab">
+<meta property="og:description" content="21 guided activities covering brain, eyes, lungs and stress. Get your free personalised PDF health report instantly. No sign-up needed.">
 <meta property="og:image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
+<meta property="og:url" content="https://www.shahhayaat.com/wellness-lab.html">
+<meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="canonical" href="https://yasirhashmi02-dev.github.io/Shahhayaat02/wellness-lab.html">
+<meta name="twitter:title" content="Free Online Wellness Test – Shah Hayaat">
+<meta name="twitter:description" content="21 guided activities. Free personalised PDF health report. Check your brain, eyes, lungs and body now.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Shah Hayaat Wellness Lab",
+  "description": "Free online wellness assessment covering cognitive, eye, respiratory, stress, stability and lifestyle health. 21 guided activities with personalised PDF report.",
+  "url": "https://www.shahhayaat.com/wellness-lab.html",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+  "publisher": { "@type": "Organization", "name": "Shah Hayaat", "url": "https://www.shahhayaat.com" }
+}
+</script>
+<link rel="canonical" href="https://www.shahhayaat.com/wellness-lab.html">
 <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
 
 
@@ -613,6 +645,7 @@ const LAB = {
   },
 
   goInstr() {
+    trackWL('wellness_start');
     this.show('sInstr');
     this.setStatus('idle','Setup');
     this.say(
@@ -3640,6 +3673,9 @@ LAB.showDashboard = function () {
               📞 Call Expert
             </a>
           </div>
+          <p style="font-size:.72rem;color:var(--tq);margin-top:.55rem;line-height:1.55">
+            📎 <strong style="color:var(--tm)">PDF will download automatically.</strong> Please attach it in your WhatsApp chat.
+          </p>
         </div>
       </div>
     </div>
@@ -3679,6 +3715,7 @@ LAB.showDashboard = function () {
   },80);
 
   LAB.celebrate();
+  trackWL('wellness_completed');
   LAB.say(overall !== null
     ? `You have completed all the activities! Your overall wellness score is ${overall} out of a hundred — that is ${LAB.scoreLbl(overall)}. Scroll down to see your results and personalised recommendations.`
     : 'You have reached the end, but no tests were completed. Go back and try at least a few activities to get your wellness score.');
@@ -3996,14 +4033,19 @@ LAB._buildProductCards = function () {
 /* ─── WhatsApp Share ──────────────────────────────────── */
 /* sharePDFWhatsApp — generate PDF then open WhatsApp */
 LAB.sharePDFWhatsApp = function () {
+  trackWL('whatsapp_click');
   const nameEl = document.getElementById('pdfNameInp');
   let name = (nameEl?.value || '').trim();
 
   if (!name) {
     const entered = prompt('Enter your name to include on the PDF (or tap Cancel to skip):');
-    if (entered === null) return;
-    name = entered.trim();
-    if (nameEl) nameEl.value = name;
+    if (entered === null) {
+      // User cancelled name prompt — still proceed without name
+      name = '';
+    } else {
+      name = entered.trim();
+      if (nameEl) nameEl.value = name;
+    }
   }
 
   const S = LAB.scores;
@@ -4064,6 +4106,7 @@ LAB._buildTips = function(overall) {
    Uses browser print — opens a clean printable page.
 ═══════════════════════════════════════════════════════════ */
 LAB.generatePDF = function () {
+  trackWL('pdf_generated');
   const S=LAB.scores, R=LAB.raw, isFem=LAB.gender==='female';
   const mainScores=[S.cognitive,S.eye,S.respiratory,S.stress,S.stability,S.lifestyle,...(isFem&&S.hormonal?[S.hormonal]:[])].filter(x=>x!=null);
   const completedForPDF=mainScores.filter(x=>x!=null);
