@@ -881,8 +881,7 @@ function initContactForm() {
         method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }
       });
       if (res.ok) {
-        status.textContent = '✓ Message sent! We\'ll be in touch soon.';
-        status.className = 'form-status ok';
+        window.location.href = 'thank-you.html';
         form.reset();
       } else {
         status.textContent = 'Something went wrong — please try WhatsApp instead.';
@@ -1238,8 +1237,7 @@ function initContactForm() {
         method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }
       });
       if (res.ok) {
-        status.textContent = '✓ Message sent! We\'ll be in touch soon.';
-        status.className = 'form-status ok';
+        window.location.href = 'thank-you.html';
         form.reset();
       } else {
         status.textContent = 'Something went wrong — please try WhatsApp instead.';

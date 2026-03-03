@@ -163,6 +163,30 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(max-width:640px){.detail-actions{flex-direction:column}.detail-actions .btn{width:100%;justify-content:center}.rating-summary{flex-direction:column;gap:1.2rem}}
 </style>
+
+  <!-- Dynamic Product Schema — injected by JS after product loads -->
+  <script>
+  window.injectProductSchema = function(p) {
+    var s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.text = JSON.stringify({
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": p.name,
+      "image": "https://www.shahhayaat.com/" + (p.img || p.id + ".jpg"),
+      "description": p.desc || p.full || "",
+      "brand": { "@type": "Brand", "name": "Shah Hayaat" },
+      "offers": {
+        "@type": "Offer",
+        "price": p.price,
+        "priceCurrency": "INR",
+        "availability": "https://schema.org/InStock",
+        "url": "https://www.shahhayaat.com/product-detail.html?id=" + p.id
+      }
+    });
+    document.head.appendChild(s);
+  };
+  </script>
 </head>
 <body>
 
@@ -399,6 +423,7 @@ if (!p) {
   document.getElementById('pg-title').textContent = p.name + ' — Shah Hayaat';
   document.getElementById('pg-desc').content = p.full;
   document.getElementById('reviews-heading').textContent = 'Reviews for ' + p.name;
+  if (window.injectProductSchema) window.injectProductSchema(p);
 
   const waMsg = encodeURIComponent("Hi! I'd like to order " + p.name + " — ₹" + p.price);
 
