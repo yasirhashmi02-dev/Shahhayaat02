@@ -436,7 +436,9 @@ const PRODUCTS = [
     precautions:'Continue medical treatment during severe infections. This is a supportive supplement.' }
 ];
 
-/* ── Render product page ── */
+/* ── Render product page — wrapped in DOMContentLoaded for safety ── */
+document.addEventListener('DOMContentLoaded', function() {
+
 const id = new URLSearchParams(location.search).get('id');
 const p = PRODUCTS.find(x => x.id === id);
 const main = document.getElementById('product-main');
@@ -547,6 +549,8 @@ if (!p) {
   /* Reviews */
   renderReviews();
 }
+
+}); // end DOMContentLoaded
 
 /* ── Reviews System ── */
 function getReviews() {
@@ -706,8 +710,8 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2800);
 }
 
-/* ── Nav & scroll ── */
-document.addEventListener('DOMContentLoaded', () => {
+/* ── Nav & scroll (runs immediately, no DOMContentLoaded needed — script is at end of body) ── */
+(function() {
   const toggle = document.querySelector('.nav-toggle');
   if (toggle) toggle.addEventListener('click', () => document.body.classList.toggle('nav-open'));
   document.querySelectorAll('.nav-mobile a').forEach(a =>
@@ -715,4 +719,12 @@ document.addEventListener('DOMContentLoaded', () => {
   );
   const btn = document.getElementById('back-top');
   window.addEventListener('scroll', () => {
-    document.body.cl
+    document.body.classList.toggle('scrolled', window.scrollY > 55);
+    if (btn) btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive: true });
+  const yr = document.getElementById('year');
+  if (yr) yr.textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
