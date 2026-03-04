@@ -4494,6 +4494,43 @@ LAB.generatePDF = function () {
     <strong>No data has been transmitted.</strong> All calculations were performed locally in your browser. This PDF was generated on your device.
   </div>
 
+  <div style="margin:22px 0">
+    <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#1C2E1C;border-bottom:2.5px solid #2A7A5A;padding-bottom:6px;margin-bottom:14px">🌿 Products Matched to Your Results</div>
+    <p style="font-size:12px;color:#3A5A3A;margin-bottom:12px">Based on your scores, these Shah Hayaat products may support your wellness goals. WHO-GMP · ISO 9001:2015 · HACCP Certified.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px">
+      ${(()=>{
+        const S=LAB.scores,R=LAB.raw,P=LAB.SH_PRODUCTS,isFem=LAB.gender==='female',isMale=LAB.gender==='male';
+        const sel=[];
+        if((S.cognitive??100)<75||(R.memSpan??9)<5||(R.rxAvg??0)>350) sel.push({...P.brainchamp,id:'brainchamp',reason:'Cognitive / memory support'});
+        if((S.respiratory??100)<70||(R.breathHold??999)<25) sel.push({...P.coughxpro,id:'coughxpro',reason:'Respiratory support'});
+        if((S.stress??100)<70||(R.sleepHours??8)<6) sel.push({...P.bloodstorm,id:'bloodstorm',reason:'Energy & stress support'});
+        if((S.lifestyle??100)<65) sel.push({...P.livohayaat,id:'livohayaat',reason:'Liver & detox support'});
+        if((S.stability??100)<65||(R.tremorDev??0)>30) sel.push({...P.orthohayaat,id:'orthohayaat',reason:'Joint & stability support'});
+        if((S.eye??100)<70||R.cbFlag||R.acuityFlag) sel.push({...P.musaffakhoon,id:'musaffakhoon',reason:'Eye & blood health'});
+        if(isFem&&(S.hormonal??100)<75) sel.push({...P.utrohayaat,id:'utrohayaat',reason:'Female hormonal support'});
+        if(isMale&&(S.stress??100)<65) sel.push({...P.passionpulse,id:'passionpulse',reason:'Male vitality support'});
+        if(Object.values(S).some(v=>v!=null&&v<60)) sel.push({...P.fevodol,id:'fevodol',reason:'Immunity support'});
+        const seen=new Set(),unique=sel.filter(p=>{if(seen.has(p.id))return false;seen.add(p.id);return true;});
+        if(!unique.length){unique.push({...P.brainchamp,id:'brainchamp',reason:'General wellness'});unique.push({...P.fevodol,id:'fevodol',reason:'Immunity support'});}
+        return unique.slice(0,6).map(p=>`
+        <div style="background:#fff;border:1.5px solid #D4E8DC;border-radius:10px;overflow:hidden;padding:12px">
+          <div style="height:3px;background:${p.tagColor};border-radius:2px;margin-bottom:8px"></div>
+          <div style="font-size:10px;font-weight:700;color:${p.tagColor};margin-bottom:4px">${p.tag}</div>
+          <div style="font-size:13px;font-weight:700;color:#1C2E1C;margin-bottom:4px">${p.name}</div>
+          <div style="font-size:11px;color:#3D3D3D;margin-bottom:6px;line-height:1.5">${p.desc}</div>
+          <div style="font-size:10px;color:#2A7A5A;font-style:italic;margin-bottom:8px">💡 ${p.reason}</div>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:14px;font-weight:800;color:#2A7A5A">₹${p.price}</span>
+            <span style="font-size:10px;color:#888">Order on WhatsApp →</span>
+          </div>
+        </div>`).join('');
+      })()}
+    </div>
+    <div style="text-align:center;margin-top:10px;padding:8px 14px;background:#F3F7F3;border-radius:8px;font-size:11px;color:#3A5A3A">
+      📱 Order any product: WhatsApp <strong>+91 70510 56287</strong> or visit <strong>shahhayaat.com</strong>
+    </div>
+  </div>
+
   <div style="background:linear-gradient(135deg,#0d1f14,#1a3d2a);border-radius:10px;padding:16px 20px;margin:18px 0;text-align:center">
     <div style="font-size:13px;font-weight:700;color:#7ED4A8;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px">🌿 Join the Shah Hayaat Community</div>
     <div style="font-size:12px;color:rgba(255,255,255,.75);margin-bottom:10px">Get daily wellness tips, product updates &amp; connect with others on their health journey</div>
@@ -4520,7 +4557,7 @@ LAB.generatePDF = function () {
       const blob = new Blob([html], {type:'text/html;charset=utf-8'});
       const url  = URL.createObjectURL(blob);
       const a    = document.createElement('a');
-      a.href = url; a.download = 'Shah-Hayaat-Wellness-Report.html';
+      a.href = url; a.download = 'Shah-Hayaat-Wellness-Report.pdf';
       document.body.appendChild(a); a.click(); document.body.removeChild(a);
       setTimeout(()=>URL.revokeObjectURL(url), 5000);
     } catch(e) { alert('Please allow pop-ups to download your report.'); }

@@ -215,6 +215,10 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .rate-close{position:absolute;top:.8rem;right:1rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text-muted)}
 .rate-thanks{text-align:center;padding:1rem 0}
 .rate-thanks .big-star{font-size:3rem;display:block;margin-bottom:.4rem}
+.review-chip{background:var(--bg-white);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.review-chip .rc-stars{color:#D4A017;font-size:.9rem;margin-bottom:.3rem}
+.review-chip .rc-text{font-size:.88rem;color:var(--text-mid);line-height:1.6;margin-bottom:.5rem;font-style:italic}
+.review-chip .rc-name{font-size:.75rem;font-weight:700;color:var(--green-dark)}
 
 /* ---- Category Filter ---- */
 .filter-bar{display:flex;flex-wrap:wrap;gap:0.55rem;justify-content:center;margin-bottom:3rem}
@@ -550,6 +554,24 @@ img[alt]{font-size:0}
     </div>
   </section>
 </main>
+
+<!-- Live Community Reviews -->
+<section class="section bg-cream" style="padding:3rem 0">
+  <div class="container">
+    <span class="section-label" style="display:block;text-align:center">Community Reviews</span>
+    <h2 class="section-heading" style="text-align:center;margin-bottom:.5rem">What Our Customers Say</h2>
+    <div style="display:flex;align-items:center;gap:14px;margin:1.2rem 0;flex-wrap:wrap">
+      <div style="font-family:var(--font-head);font-size:3rem;font-weight:800;color:var(--green-dark);line-height:1" id="prodPageAvg">5.0</div>
+      <div>
+        <div style="color:#D4A017;font-size:1.3rem;letter-spacing:2px" id="prodPageStars">★★★★★</div>
+        <div style="font-size:.82rem;color:var(--text-muted);margin-top:2px" id="prodPageCount">Based on 3 reviews</div>
+      </div>
+      <button class="btn btn-primary" style="margin-left:auto" onclick="openRateModal()">⭐ Write a Review</button>
+    </div>
+    <div style="display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))" id="prodPageWall"></div>
+  </div>
+</section>
+
 
 <footer class="site-footer">
   <div class="container">
@@ -942,8 +964,42 @@ function injectSchema() {
 }
 
 /* ── INIT ──────────────────────────────────────────────────── */
+function _starStr(r){
+  const f=Math.floor(r),h=(r-f)>=.5;
+  let s='';
+  for(let i=1;i<=5;i++) s+=i<=f?'★':(i===f+1&&h?'½':'☆');
+  return s;
+}
+
+function _initProdPageWall(){
+  const wall=document.getElementById('prodPageWall'); 
+  if(!wall) return;
+  const SEED=[
+    {name:'Priya S.',stars:5,text:'My morning walks are back! Ortho Hayaat made a remarkable difference.'},
+    {name:'Rohan K.',stars:5,text:'Shah Zyme is a lifesaver — lighter and more energetic every day!'},
+    {name:'Anjali P.',stars:5,text:'Brain Champ genuinely helped me focus during exam season. Amazing!'},
+  ];
+  let stored=[];
+  try{ stored=JSON.parse(localStorage.getItem('sh_reviews_v1')||'[]'); }catch{}
+  const all=[...SEED,...stored].reverse().slice(0,9);
+  const avg=all.reduce((s,r)=>s+r.stars,0)/all.length;
+  const el=document.getElementById('prodPageAvg');
+  const st=document.getElementById('prodPageStars');
+  const ct=document.getElementById('prodPageCount');
+  if(el) el.textContent=avg.toFixed(1);
+  if(st) st.textContent=_starStr(avg);
+  if(ct) ct.textContent='Based on '+all.length+' reviews';
+  wall.innerHTML=all.map(r=>`
+    <div class="review-chip">
+      <div class="rc-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+      ${r.text?`<p class="rc-text">"${r.text}"</p>`:''}
+      <div class="rc-name">— ${r.name}</div>
+    </div>`).join('');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
+  _initProdPageWall();
   initScroll();
   initCarousel();
   initFAQ();

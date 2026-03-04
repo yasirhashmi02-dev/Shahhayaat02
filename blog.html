@@ -23,7 +23,8 @@
   <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"></noscript>
   <style>
 :root{--green-dark:#2A4633;--green-mid:#3B6449;--green-light:#4D7C5D;--bg-cream:#F8F6F2;--bg-white:#FFFFFF;--gold:#B8860B;--gold-light:#D4A017;--gold-pale:#FDF8E8;--text-dark:#1C1C1C;--text-mid:#3D3D3D;--text-muted:#6B6B6B;--border:#E4DDD4;--shadow-xs:0 1px 4px rgba(42,70,51,0.06);--shadow-sm:0 4px 16px rgba(42,70,51,0.08);--shadow-md:0 10px 30px rgba(42,70,51,0.12);--shadow-lg:0 20px 50px rgba(42,70,51,0.16);--radius-sm:8px;--radius:14px;--radius-lg:22px;--ease:cubic-bezier(0.4,0,0.2,1);--t:0.32s;--font-head:'Playfair Display',Georgia,serif;--font-body:'Inter',system-ui,sans-serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -865,4 +866,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   /* ESC closes modals */
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
-      ['blog-modal-bg','login-modal-bg','write-modal-bg','manage-modal-bg'].forEach(id => 
+{
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('open');
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>

@@ -116,6 +116,27 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .product-cat-tag{position:absolute;top:0.8rem;left:0.8rem;background:rgba(42,70,51,0.9);color:#fff;font-size:0.68rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:0.22rem 0.62rem;border-radius:50px}
 .product-body{padding:1.2rem;flex-grow:1;display:flex;flex-direction:column}
 .product-body h3{font-size:1rem;margin-bottom:0.4rem}
+.prod-stars{display:flex;align-items:center;gap:5px;margin:.25rem 0 .6rem}
+.prod-stars .stars{color:#D4A017;font-size:1rem;letter-spacing:1px}
+.prod-stars .count{font-size:.72rem;color:var(--text-muted)}
+.rate-fab{position:fixed;bottom:90px;right:20px;z-index:999;background:var(--green-dark);color:#fff;border:none;border-radius:50px;padding:.6rem 1rem;font-size:.82rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(42,70,51,.35);display:flex;align-items:center;gap:6px;transition:transform .2s;white-space:nowrap}
+.rate-fab:hover{transform:translateY(-2px)}
+.rate-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:1200;align-items:center;justify-content:center;padding:1rem}
+.rate-modal-bg.open{display:flex}
+.rate-modal{background:#fff;border-radius:16px;padding:2rem 1.6rem;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.22);position:relative;animation:rateIn .28s ease}
+@keyframes rateIn{from{opacity:0;transform:scale(.93) translateY(10px)}to{opacity:1;transform:none}}
+.rate-modal h3{font-size:1.2rem;color:var(--green-dark);margin-bottom:.3rem}
+.rate-modal p{font-size:.86rem;color:var(--text-muted);margin-bottom:1.2rem}
+.rate-star-row{display:flex;gap:8px;justify-content:center;margin-bottom:1.3rem}
+.rate-star-row button{background:none;border:none;font-size:2.2rem;cursor:pointer;filter:grayscale(1);opacity:.4;padding:0;transition:transform .15s}
+.rate-star-row button.lit{filter:none;opacity:1}
+.rate-star-row button:hover{transform:scale(1.18)}
+.rate-name-inp,.rate-review-inp{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:.7rem .9rem;font-size:.92rem;outline:none;color:var(--text-dark);margin-bottom:.8rem;box-sizing:border-box;font-family:var(--font-body);transition:border-color .2s}
+.rate-name-inp:focus,.rate-review-inp:focus{border-color:var(--green-mid)}
+.rate-review-inp{resize:vertical;min-height:70px}
+.rate-submit{width:100%;background:var(--green-dark);color:#fff;border:none;border-radius:8px;padding:.82rem;font-size:.97rem;font-weight:700;cursor:pointer;transition:background .2s}
+.rate-submit:hover{background:var(--green-mid)}
+.rate-close{position:absolute;top:.8rem;right:1rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text-muted)}
 .product-desc{font-size:0.86rem;color:var(--text-muted);flex-grow:1;margin-bottom:1rem;line-height:1.6}
 .product-footer{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;margin-top:auto}
 .product-price{font-size:1.25rem;font-weight:800;color:var(--green-dark)}
@@ -724,7 +745,80 @@ function showToast(msg) {
   }, { passive: true });
   const yr = document.getElementById('year');
   if (yr) yr.textContent = new Date().getFullYear();
+/* ── Site Rating + Product Stars ──────────────────────────────── */
+const _PD_BASE={brainchamp:4.8,shahzyme:4.7,bloodstorm:4.6,coughxpro:4.5,
+  musaffakhoon:4.6,panasip:4.7,livohayaat:4.8,orthohayaat:4.9,
+  diaease:4.5,utrohayaat:4.6,passionpulse:4.7,fevodol:4.5};
+
+function _pdStarStr(r){
+  const f=Math.floor(r),h=(r-f)>=.5;
+  let s='';for(let i=1;i<=5;i++) s+=i<=f?'★':(i===f+1&&h?'½':'☆');
+  return s;
+}
+function _pdInlineRating(pid){
+  let stored={};
+  try{stored=JSON.parse(localStorage.getItem('sh_prod_ratings_v1')||'{}');}catch{}
+  const base=_PD_BASE[pid]||4.5,d=stored[pid];
+  let rating=base,count=0;
+  if(d&&d.count>0){rating=Math.round(((d.total+base*10)/(d.count+10))*10)/10;count=d.count;}
+  const el=document.getElementById('inline-rating');
+  if(el) el.innerHTML='<div class="prod-stars"><span class="stars" style="color:#D4A017;font-size:1.15rem">'+_pdStarStr(rating)+'</span><span class="count" style="font-size:.8rem;color:var(--text-muted);margin-left:7px">'+rating.toFixed(1)+' '+(count>0?'('+count+' ratings)':'· Be first to rate')+'</span></div>';
+}
+
+let _sr=0;
+function openRateModal(){
+  _sr=0;
+  ['rateNameInp','rateRevInp'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  const mb=document.getElementById('rateModalBg');
+  if(mb){mb.classList.add('open');document.body.style.overflow='hidden';}
+  _srLit();
+}
+function closeRateModal(){
+  const mb=document.getElementById('rateModalBg');
+  if(mb)mb.classList.remove('open');
+  document.body.style.overflow='';
+}
+function setStar(n){_sr=n;_srLit();}
+function _srLit(){
+  document.querySelectorAll('#rateStarRow button').forEach((b,i)=>b.classList.toggle('lit',i<_sr));
+}
+document.addEventListener('click',e=>{if(e.target.id==='rateModalBg')closeRateModal();});
+function submitSiteRating(){
+  if(!_sr){alert('Please choose a star rating!');return;}
+  const name=(document.getElementById('rateNameInp').value.trim()||'Anonymous');
+  const text=document.getElementById('rateRevInp').value.trim();
+  let arr=[];
+  try{arr=JSON.parse(localStorage.getItem('sh_reviews_v1')||'[]');}catch{}
+  arr.push({name,stars:_sr,text,ts:Date.now()});
+  try{localStorage.setItem('sh_reviews_v1',JSON.stringify(arr.slice(-50)));}catch{}
+  const box=document.getElementById('rateModalBox');
+  if(box) box.innerHTML='<div style="text-align:center;padding:1.5rem 0"><div style="font-size:3rem;margin-bottom:.5rem">🌟</div><h3 style="color:var(--green-dark);margin-bottom:.4rem">Thank you, '+name+'!</h3><p style="color:var(--text-muted);font-size:.88rem">Your '+_sr+'-star rating helps our community grow.</p><button class="rate-submit" style="margin-top:1rem;width:100%" onclick="closeRateModal()">Done ✓</button></div>';
+}
+/* Call inline rating after product renders */
 })();
+// Wire up inline rating
+const _currId=new URLSearchParams(location.search).get('id');
+if(_currId) setTimeout(()=>_pdInlineRating(_currId),50);
 </script>
+
+<!-- ⭐ Rate Us FAB + Modal -->
+<button class="rate-fab" onclick="openRateModal()">⭐ Rate Us</button>
+<div class="rate-modal-bg" id="rateModalBg">
+  <div class="rate-modal" id="rateModalBox">
+    <button class="rate-close" onclick="closeRateModal()">✕</button>
+    <h3>How do we make you feel?</h3>
+    <p>Your honest feedback helps us serve you better.</p>
+    <div class="rate-star-row" id="rateStarRow">
+      <button onclick="setStar(1)" aria-label="1 star">⭐</button>
+      <button onclick="setStar(2)" aria-label="2 stars">⭐</button>
+      <button onclick="setStar(3)" aria-label="3 stars">⭐</button>
+      <button onclick="setStar(4)" aria-label="4 stars">⭐</button>
+      <button onclick="setStar(5)" aria-label="5 stars">⭐</button>
+    </div>
+    <input class="rate-name-inp" id="rateNameInp" type="text" placeholder="Your name (optional)" maxlength="40">
+    <textarea class="rate-review-inp" id="rateRevInp" placeholder="Share your experience… (optional)" maxlength="280"></textarea>
+    <button class="rate-submit" onclick="submitSiteRating()">Submit →</button>
+  </div>
+</div>
 </body>
 </html>

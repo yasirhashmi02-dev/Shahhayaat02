@@ -29,7 +29,8 @@
   <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"></noscript>
   <style>
 /* ============================================================
    SHAH HAYAAT — Premium Ayurvedic Wellness
@@ -642,7 +643,7 @@ const PRODUCTS = [
     full: 'Brain Champ is a scientifically formulated Ayurvedic supplement combining Brahmi, Shankhpushpi, Ashwagandha and other classical herbs to support optimal brain health. It helps reduce mental fatigue, improve concentration and enhance memory retention naturally.',
     benefits: ['Improves memory & recall', 'Reduces mental fatigue & brain fog', 'Manages stress & anxiety naturally', 'Enhances focus & concentration', 'Adaptogen blend for long-term brain health'],
     ingredients: 'Brahmi (Bacopa monnieri), Shankhpushpi, Ashwagandha, Jatamansi, Vacha',
-    dosage: '2 tablets twice daily with warm milk or water, preferably after meals.',
+    dosage: '10–15 ml twice daily after meals. Shake well before use.',
     precautions: 'Not recommended during pregnancy. Consult a physician if you are on existing medication.',
   },
   {
@@ -651,7 +652,7 @@ const PRODUCTS = [
     full: 'Shah Zyme is a potent herbal digestive enzyme syrup. Its unique combination of digestive herbs helps break down food efficiently, relieving uncomfortable symptoms of gas, bloating and sluggish digestion after meals.',
     benefits: ['Relieves gas & bloating', 'Improves nutrient absorption', 'Stimulates healthy appetite', 'Supports enzyme activity', 'Reduces post-meal heaviness'],
     ingredients: 'Ajwain, Saunf (Fennel), Jeera (Cumin), Pudina (Mint), Harad, Baheda, Amla',
-    dosage: '10–15 ml after meals, twice daily. Shake well before use.',
+    dosage: '10–15 ml twice daily after meals. Shake well before use.',
     precautions: 'Store in a cool, dry place. Not for children under 5 years without medical advice.',
   },
   {
@@ -660,7 +661,7 @@ const PRODUCTS = [
     full: 'Blood Storm is a premium Ayurvedic blood tonic combining iron-rich herbs with powerful rejuvenating ingredients. Formulated to naturally raise hemoglobin levels, improve circulation and restore energy to those suffering from anemia and chronic weakness.',
     benefits: ['Raises hemoglobin naturally', 'Combats iron-deficiency anemia', 'Restores energy & vitality', 'Improves blood circulation', 'Strengthens overall immunity'],
     ingredients: 'Loha Bhasma, Punarnava, Shatavari, Ashwagandha, Amla, Draksha',
-    dosage: '2 tablets twice daily with water or milk after meals.',
+    dosage: '10–15 ml twice daily after meals. Shake well before use.',
     precautions: 'Keep out of reach of children. Consult a physician before use during pregnancy.',
   },
   {
@@ -669,7 +670,7 @@ const PRODUCTS = [
     full: 'Cough X Pro is a time-tested Ayurvedic formulation that soothes the respiratory tract, reduces inflammation and provides lasting relief from acute and chronic cough. Its herbal ingredients work synergistically to clear mucus and calm irritated airways.',
     benefits: ['Soothes throat irritation', 'Reduces mucus congestion', 'Anti-inflammatory action', 'Fast & lasting relief', 'Safe for adults & children'],
     ingredients: 'Tulsi (Holy Basil), Mulethi (Licorice), Adrak (Ginger), Pippali, Vasa, Honey',
-    dosage: '10 ml three times daily. Children (5–12): 5 ml three times daily.',
+    dosage: '10–15 ml twice daily after meals. Shake well before use.',
     precautions: 'Diabetics should consult a physician due to natural honey content. Avoid overdose.',
   },
   {
@@ -678,7 +679,7 @@ const PRODUCTS = [
     full: 'Musaffa Khoon is a classical Ayurvedic blood purifier that detoxifies the blood and lymphatic system. By purifying from within it effectively addresses the root cause of skin disorders including acne, psoriasis, eczema and dull skin.',
     benefits: ['Purifies blood & lymph', 'Clears acne & pimples', 'Reduces psoriasis symptoms', 'Promotes glowing clear skin', 'Full-body natural detox'],
     ingredients: 'Neem, Manjistha, Khadir, Sarsaparilla, Giloy, Triphala',
-    dosage: '2 tablets twice daily with water before meals.',
+    dosage: '10–15 ml twice daily after meals. Shake well before use.',
     precautions: 'Results typically visible after 4–6 weeks of consistent use.',
   },
   {
@@ -687,7 +688,7 @@ const PRODUCTS = [
     full: 'PanaSip is a powerful Ayurvedic antacid syrup that neutralises excess stomach acid naturally. Its cooling and soothing herbs form a protective layer over the stomach lining, providing rapid relief from acidity, heartburn and gastric ulcers without harsh chemical side effects.',
     benefits: ['Neutralises stomach acid', 'Soothes esophageal inflammation', 'Heals peptic ulcers naturally', 'Prevents acid reflux', 'Promotes healthy gastric pH'],
     ingredients: 'Mulethi, Shatavari, Amalaki, Guduchi, Yashtimadhu, Shankha Bhasma',
-    dosage: '15 ml before meals, three times daily. Shake well before use.',
+    dosage: '10–15 ml twice daily after meals. Shake well before use.',
     precautions: 'Take on an empty stomach for best results. Refrigerate after opening.',
   },
   {
@@ -696,7 +697,7 @@ const PRODUCTS = [
     full: 'Livo Hayaat is a hepatoprotective Ayurvedic tablet that supports the liver\'s natural detoxification processes. Formulated with liver-protecting herbs, it helps regenerate liver cells, reduce fatty liver, normalise enzyme levels and improve overall hepatic function.',
     benefits: ['Protects & regenerates liver cells', 'Reduces fatty liver condition', 'Normalises liver enzyme levels', 'Supports bile production', 'Powerful antioxidant properties'],
     ingredients: 'Bhumi Amla, Kalmegh, Kutki, Punarnava, Makoy, Kasni',
-    dosage: '2 tablets twice daily with warm water before meals.',
+    dosage: '1 capsule twice daily + 7.5 ml syrup after meals.',
     precautions: 'Not for use with hepatotoxic drugs without physician advice.',
   },
   {
@@ -705,7 +706,7 @@ const PRODUCTS = [
     full: 'Dia-Ease is a specialised Ayurvedic formulation to help manage blood glucose levels naturally. Its multi-herb approach addresses insulin sensitivity, reduces glucose absorption and supports pancreatic function for comprehensive diabetic management support.',
     benefits: ['Supports healthy blood sugar', 'Improves insulin sensitivity', 'Reduces sugar cravings', 'Supports pancreatic health', 'Helps prevent diabetic complications'],
     ingredients: 'Karela (Bitter Melon), Jamun Seed, Gurmar, Vijaysar, Methi, Neem, Tulsi',
-    dosage: '2 tablets twice daily, 30 minutes before meals with warm water.',
+    dosage: '1 tablet + 5 ml syrup twice daily after meals; ½ tsp powder before lunch.',
     precautions: 'Monitor blood sugar regularly. Do not discontinue prescribed medication without physician guidance.',
   },
   {
@@ -714,7 +715,7 @@ const PRODUCTS = [
     full: 'Ortho Hayaat combines the most potent anti-inflammatory and analgesic Ayurvedic herbs for comprehensive joint care. It works to reduce inflammation, lubricate joints, strengthen bones and improve mobility — ideal for arthritis, knee pain and age-related joint degeneration.',
     benefits: ['Reduces joint inflammation', 'Relieves chronic joint pain', 'Improves mobility & flexibility', 'Strengthens bones & cartilage', 'Anti-arthritis properties'],
     ingredients: 'Shallaki (Boswellia), Guggul, Rasna, Nirgundi, Ashwagandha, Sunthi',
-    dosage: '2 tablets twice daily with warm milk or water after meals.',
+    dosage: '1 capsule + 1 tablet twice daily after meals with milk or lukewarm water. Oil may be applied externally.',
     precautions: 'Results typically noticeable within 4–6 weeks of consistent use.',
   },
   {
@@ -723,7 +724,7 @@ const PRODUCTS = [
     full: 'Utro Hayaat is a carefully formulated Ayurvedic uterine tonic addressing common female health concerns. It helps regulate menstrual cycles, relieve period pain, treat leucorrhoea and support hormonal balance using the safest classical Ayurvedic herbs.',
     benefits: ['Regulates menstrual cycles', 'Relieves painful periods', 'Treats leucorrhoea', 'Supports hormonal balance', 'Strengthens uterine health'],
     ingredients: 'Ashoka, Lodhra, Shatavari, Nagkesar, Daruharidra, Kumari (Aloe)',
-    dosage: '2 tablets twice daily after meals with milk or water.',
+    dosage: '1 tablet + 7.5 ml syrup twice daily with lukewarm water; 2 capsules once daily after lunch.',
     precautions: 'Not recommended during pregnancy or breastfeeding without medical advice.',
   },
   {
@@ -732,7 +733,7 @@ const PRODUCTS = [
     full: 'Passion Pulse is a premium Ayurvedic male vitality supplement combining powerful adaptogens and vajikarana herbs to enhance stamina, improve libido, support testosterone levels and boost overall masculine vitality naturally.',
     benefits: ['Enhances stamina & endurance', 'Improves libido & sexual health', 'Supports testosterone levels', 'Improves sperm health & motility', 'Reduces fatigue & boosts energy'],
     ingredients: 'Ashwagandha, Shilajit, Safed Musli, Kaunch Beej, Gokshura, Vidarikanda',
-    dosage: '2 tablets twice daily with milk or warm water before bedtime.',
+    dosage: '1 capsule twice daily with milk.',
     precautions: 'Not for use under 18 years. Consult physician if you have existing health conditions.',
   },
   {
@@ -741,7 +742,7 @@ const PRODUCTS = [
     full: "Fevodol is an Ayurvedic immune-strengthening formulation supporting the body's natural defence mechanisms. Its antipyretic, anti-infective and immunomodulatory herbs help reduce fever, fight infections and build long-term immunity against recurrent illness.",
     benefits: ['Reduces fever naturally', 'Fights infections', 'Strengthens immune system', 'Anti-inflammatory', 'Prevents recurrent illness'],
     ingredients: 'Giloy (Guduchi), Tulsi, Chirayata, Kutki, Sudarshan Churna',
-    dosage: '2 tablets three times daily with warm water during illness. For immunity: twice daily.',
+    dosage: '1 capsule three times daily with water after meals.',
     precautions: 'Continue medical treatment during severe infections. This is a supportive supplement.',
   },
 ];
@@ -948,4 +949,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (productPreview) renderProducts(productPreview, { limit: 6 });
 
   const blogPreview = $('#blog-preview-grid');
-  if (blogPreview) re
+  if (blogPreview) renderBlogs(blogPreview, { limit: 3 });
+});
+</script>
+</body>
+</html>
