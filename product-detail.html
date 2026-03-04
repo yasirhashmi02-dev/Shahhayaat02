@@ -232,6 +232,13 @@ body.nav-open .nav-mobile{transform:translateX(0)}
   };
   </script>
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  <meta property="og:type" content="product">
+  <meta property="og:title" id="og-title" content="Ayurvedic Product — Shah Hayaat">
+  <meta property="og:description" id="og-desc" content="Premium certified Ayurvedic product from Shah Hayaat. WHO-GMP · ISO 9001:2015 · HACCP Certified.">
+  <meta property="og:image" id="og-image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
+  <meta property="og:url" id="og-url" content="https://www.shahhayaat.com/product-detail.html">
+  <link rel="canonical" id="canonical-url" href="https://www.shahhayaat.com/product-detail.html">
+  <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -263,7 +270,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
   <li><a href="quiz.html">Health Quiz</a></li>
   <li><a href="blog.html">Blog</a></li>
   <li><a href="contact.html">Contact</a></li>
-</ul><div class="nav-mobile-cta"><a href="https://wa.me/917051056287" target="_blank" class="btn btn-primary">💬 WhatsApp Us</a></div></nav>
+</ul><div class="nav-mobile-cta"><a href="https://wa.me/917051056287" target="_blank" rel="noopener noreferrer" class="btn btn-primary">💬 WhatsApp Us</a></div></nav>
 
 <main id="product-main">
   <div id="loading-msg">Loading product details…</div>
@@ -345,7 +352,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
         <li><a href="/cdn-cgi/l/email-protection#751c1b131a35061d141d1d140c1414015b161a18"><span class="__cf_email__" data-cfemail="ea83848c85aa99828b82828b938b8b9ec4898587">[email&#160;protected]</span></a></li>
-        <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
+        <li><a href="https://wa.me/917051056287" target="_blank" rel="noopener noreferrer">+91 70510 56287</a></li>
       </ul></div>
     </div>
     <div class="footer-bottom">
@@ -355,7 +362,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 </footer>
 
 <a href="#" class="back-top" id="back-top">↑</a>
-<a href="https://wa.me/917051056287" target="_blank" class="wa-float">💬</a>
+<a href="https://wa.me/917051056287" target="_blank" rel="noopener noreferrer" class="wa-float">💬</a>
 <div class="toast" id="toast"></div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
@@ -475,6 +482,12 @@ if (!p) {
 } else {
   document.getElementById('pg-title').textContent = p.name + ' — Shah Hayaat';
   document.getElementById('pg-desc').content = p.full;
+  // Update OG + canonical tags dynamically
+  const _ogT = document.getElementById('og-title');   if(_ogT) _ogT.content = p.name + ' — Shah Hayaat | Ayurvedic ' + p.tag;
+  const _ogD = document.getElementById('og-desc');    if(_ogD) _ogD.content = p.desc;
+  const _ogI = document.getElementById('og-image');   if(_ogI) _ogI.content = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/' + (p.id) + '.jpg';
+  const _ogU = document.getElementById('og-url');     if(_ogU) _ogU.content = 'https://www.shahhayaat.com/product-detail.html?id=' + p.id;
+  const _can = document.getElementById('canonical-url'); if(_can) _can.href = 'https://www.shahhayaat.com/product-detail.html?id=' + p.id;
   document.getElementById('reviews-heading').textContent = 'Reviews for ' + p.name;
   if (window.injectProductSchema) window.injectProductSchema(p);
 

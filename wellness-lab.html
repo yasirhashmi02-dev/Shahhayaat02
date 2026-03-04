@@ -290,6 +290,7 @@ button,input,select{font-family:inherit}
 .step-head{margin-bottom:1.4rem}
 .step-head .tag{margin-bottom:.75rem}
 </style>
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -312,7 +313,11 @@ button,input,select{font-family:inherit}
       <div><div class="logo-n">Shah Hayaat</div><div class="logo-s">Wellness Lab</div></div>
     </a>
     <div class="hdr-stat"><div class="hstat idle" id="hsDot" aria-hidden="true"></div><span id="hsText">Ready</span></div>
-    <a href="index.html" class="nav-back">← Back to Site</a>
+    <div style="display:flex;align-items:center;gap:.8rem;font-size:.75rem">
+      <a href="index.html" class="nav-back">← Home</a>
+      <a href="about.html" style="color:var(--tq);text-decoration:none;transition:color .2s" onmouseenter="this.style.color='var(--g)'" onmouseleave="this.style.color='var(--tq)'">About</a>
+      <a href="contact.html" style="color:var(--tq);text-decoration:none;transition:color .2s" onmouseenter="this.style.color='var(--g)'" onmouseleave="this.style.color='var(--tq)'">Contact</a>
+    </div>
   </div>
 </header>
 
@@ -3806,7 +3811,7 @@ LAB.showDashboard = function () {
       </div>
       <div style="text-align:center;margin-top:1.2rem">
         <a href="https://yasirhashmi02-dev.github.io/Shahhayaat02/products.html"
-           target="_blank" style="display:inline-flex;align-items:center;gap:.4rem;
+           target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:.4rem;
            color:var(--g);font-weight:600;font-size:.8rem;text-decoration:none;
            padding:.45rem 1.1rem;border:1.5px solid rgba(42,122,90,.3);border-radius:50px;
            transition:.22s" onmouseenter="this.style.background='var(--g3)'" onmouseleave="this.style.background='transparent'">

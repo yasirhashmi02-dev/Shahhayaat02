@@ -450,6 +450,7 @@ body.scrolled .site-header{padding:0.45rem 0}
 img[alt]{font-size:0}
 
   </style>
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -1326,7 +1327,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Products page full grid
   const allGrid = $('#all-products-grid');
-  llGrid);
+  if (allGrid) renderProducts(allGrid);
 });
 
 window.SHAH = { PRODUCTS, BLOGS, IMG, GH, imgSrc, renderProducts, renderBlogs, $, $$ };
