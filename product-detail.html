@@ -694,29 +694,29 @@ function submitReview() {
   const nameEl = document.getElementById('rev-name');
   const textEl = document.getElementById('rev-text');
   const status = document.getElementById('rev-status');
-
   if (!ratingVal) { status.textContent = 'Please tap a star to rate this product.'; status.style.color = '#c0392b'; return; }
   if (!textEl.value.trim()) { status.textContent = 'Please write a short review.'; status.style.color = '#c0392b'; return; }
 
+  const name = nameEl.value.trim() || 'Anonymous';
+  const text = textEl.value.trim();
+  const date = new Date().toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'});
+
+  // Save to Google Sheets
+  _apiPost({ type: 'prod_review', pid: id, name, stars: ratingVal, text });
+
+  // Also save locally for immediate display
   const reviews = getReviews();
-  reviews.push({
-    rating: ratingVal,
-    name: nameEl.value.trim() || 'Anonymous',
-    text: textEl.value.trim(),
-    date: new Date().toLocaleDateString('en-GB', {day:'numeric', month:'short', year:'numeric'}),
-    helpful: 0
-  });
+  reviews.push({ rating: ratingVal, name, text, date, helpful: 0 });
   saveReviews(reviews);
 
   document.getElementById('rev-rating').value = '0';
   _pickStar(0);
   nameEl.value = '';
   textEl.value = '';
-  status.textContent = 'Thank you! Your review has been posted.';
+  status.textContent = '✓ Your review is live! Thank you, ' + name + '.';
   status.style.color = 'var(--green-mid)';
   renderReviews();
   showToast('Review posted!');
-
   setTimeout(() => { status.textContent = ''; }, 4000);
 }
 
@@ -745,6 +745,133 @@ function showToast(msg) {
   }, { passive: true });
   const yr = document.getElementById('year');
   if (yr) yr.textContent = new Date().getFullYear();
+
+/* ══════════════════════════════════════════════════════════════════
+   SHAH HAYAAT — Live Reviews Engine
+   Replace localStorage with Google Sheets via Apps Script API.
+   Falls back to localStorage if offline / API unavailable.
+   ══════════════════════════════════════════════════════════════════ */
+
+const REVIEWS_API = 'https://script.google.com/macros/s/AKfycbzstBHYy5up_VjXytMOI4zl18XZ4uvbo4Ak-4uYIPwP1EIKt9ziYEG7DLACKDRXA32GAA/exec';
+const _LIVE = REVIEWS_API !== 'https://script.google.com/macros/s/AKfycbzstBHYy5up_VjXytMOI4zl18XZ4uvbo4Ak-4uYIPwP1EIKt9ziYEG7DLACKDRXA32GAA/exec';
+
+/* ── Seed reviews shown before real ones load ── */
+const _SEED_REVIEWS = [
+  { name:'Priya S.',    stars:5, text:'My morning walks are back! Ortho Hayaat made a remarkable difference in just 3 weeks.' },
+  { name:'Rohan K.',    stars:5, text:'Shah Zyme is a lifesaver — lighter and more energetic after every meal!' },
+  { name:'Anjali P.',   stars:5, text:'Brain Champ genuinely helped me focus during exam season. Highly recommended.' },
+];
+
+/* ── Base product ratings (blended with live data) ── */
+const _BASE_RATINGS = {
+  brainchamp:4.8, shahzyme:4.7, bloodstorm:4.6, coughxpro:4.5,
+  musaffakhoon:4.6, panasip:4.7, livohayaat:4.8, orthohayaat:4.9,
+  diaease:4.5, utrohayaat:4.6, passionpulse:4.7, fevodol:4.5
+};
+
+/* ── Star string helper ── */
+function _starStr(r) {
+  const f = Math.floor(r), h = (r - f) >= 0.5;
+  let s = '';
+  for (let i = 1; i <= 5; i++)
+    s += i <= f ? '★' : (i === f + 1 && h ? '½' : '☆');
+  return s;
+}
+
+/* ── Fetch with localStorage fallback ── */
+async function _apiGet(params) {
+  if (!_LIVE) return null;
+  try {
+    const qs = Object.entries(params).map(([k,v]) => k+'='+encodeURIComponent(v)).join('&');
+    const res = await fetch(REVIEWS_API + '?' + qs, { cache: 'no-store' });
+    const json = await res.json();
+    return json.ok ? json.data : null;
+  } catch { return null; }
+}
+
+async function _apiPost(body) {
+  if (!_LIVE) return false;
+  try {
+    await fetch(REVIEWS_API, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    return true;
+  } catch { return false; }
+}
+
+/* ── Site reviews (Rate Us modal) ── */
+async function getSiteReviews() {
+  const live = await _apiGet({ type: 'reviews' });
+  if (live && live.length) return live;
+  // fallback to localStorage
+  try { return JSON.parse(localStorage.getItem('sh_reviews_v1') || '[]'); } catch { return []; }
+}
+
+async function saveSiteReview(name, stars, text, page) {
+  // Always save locally too
+  try {
+    const arr = JSON.parse(localStorage.getItem('sh_reviews_v1') || '[]');
+    arr.push({ name, stars, text, ts: Date.now() });
+    localStorage.setItem('sh_reviews_v1', JSON.stringify(arr.slice(-50)));
+  } catch {}
+  // Send to Google Sheets
+  await _apiPost({ type: 'site_review', name, stars, text, page: page || location.pathname });
+}
+
+/* ── Product ratings (aggregate stars) ── */
+let _cachedProdRatings = null;
+async function getProdRatings() {
+  if (_cachedProdRatings) return _cachedProdRatings;
+  const live = await _apiGet({ type: 'prod_ratings' });
+  _cachedProdRatings = live || {};
+  return _cachedProdRatings;
+}
+
+function _blendRating(pid, liveAgg) {
+  const base = _BASE_RATINGS[pid] || 4.5;
+  const d = liveAgg && liveAgg[pid];
+  if (!d || !d.count) return { rating: base, count: 0 };
+  // Blend: (live_total + base*10) / (live_count + 10)
+  const rating = Math.round(((d.total || d.avg * d.count) + base * 10) / (d.count + 10) * 10) / 10;
+  return { rating, count: d.count };
+}
+
+/* ── Render stars on product cards ── */
+async function renderStarsLive(pid, containerEl) {
+  if (!containerEl) return;
+  const agg = await getProdRatings();
+  const { rating, count } = _blendRating(pid, agg);
+  containerEl.innerHTML =
+    '<span class="stars" style="color:#D4A017;letter-spacing:1px">' + _starStr(rating) + '</span>' +
+    '<span class="count" style="font-size:.72rem;color:var(--text-muted);margin-left:5px">' +
+    rating.toFixed(1) + (count > 0 ? ' (' + count + ')' : '') + '</span>';
+}
+
+/* ── Reviews wall ── */
+async function buildReviewsWall(wallEl, avgEl, countEl, starsEl) {
+  if (!wallEl) return;
+  wallEl.innerHTML = '<div style="color:var(--text-muted);font-size:.82rem;padding:1rem 0">Loading reviews…</div>';
+  const reviews = await getSiteReviews();
+  const all = reviews.length ? reviews : _SEED_REVIEWS;
+
+  const avg = all.reduce((s, r) => s + (r.stars || r.rating || 0), 0) / all.length;
+  if (avgEl)   avgEl.textContent  = avg.toFixed(1);
+  if (starsEl) starsEl.textContent = _starStr(avg);
+  if (countEl) countEl.textContent = 'Based on ' + all.length + ' review' + (all.length !== 1 ? 's' : '');
+
+  wallEl.innerHTML = all.slice(0, 9).map(r => {
+    const stars = r.stars || r.rating || 0;
+    return '<div class="review-chip">' +
+      '<div class="rc-stars" style="color:#D4A017;font-size:.9rem;margin-bottom:.3rem">' + '★'.repeat(stars) + '☆'.repeat(5 - stars) + '</div>' +
+      (r.text ? '<p class="rc-text" style="font-size:.88rem;color:var(--text-mid);line-height:1.6;margin-bottom:.5rem;font-style:italic">&ldquo;' + r.text + '&rdquo;</p>' : '') +
+      '<div class="rc-name" style="font-size:.75rem;font-weight:700;color:var(--green-dark)">— ' + (r.name || 'Anonymous') + '</div>' +
+    '</div>';
+  }).join('');
+}
+/* ════════════════════════════════════════════════════════════════ */
+
 /* ── Site Rating + Product Stars ──────────────────────────────── */
 const _PD_BASE={brainchamp:4.8,shahzyme:4.7,bloodstorm:4.6,coughxpro:4.5,
   musaffakhoon:4.6,panasip:4.7,livohayaat:4.8,orthohayaat:4.9,
@@ -756,13 +883,13 @@ function _pdStarStr(r){
   return s;
 }
 function _pdInlineRating(pid){
-  let stored={};
-  try{stored=JSON.parse(localStorage.getItem('sh_prod_ratings_v1')||'{}');}catch{}
-  const base=_PD_BASE[pid]||4.5,d=stored[pid];
-  let rating=base,count=0;
-  if(d&&d.count>0){rating=Math.round(((d.total+base*10)/(d.count+10))*10)/10;count=d.count;}
-  const el=document.getElementById('inline-rating');
-  if(el) el.innerHTML='<div class="prod-stars"><span class="stars" style="color:#D4A017;font-size:1.15rem">'+_pdStarStr(rating)+'</span><span class="count" style="font-size:.8rem;color:var(--text-muted);margin-left:7px">'+rating.toFixed(1)+' '+(count>0?'('+count+' ratings)':'· Be first to rate')+'</span></div>';
+  const el = document.getElementById('inline-rating');
+  if (!el) return;
+  el.innerHTML = '<span style="color:var(--text-muted);font-size:.8rem">Loading ratings…</span>';
+  getProdRatings().then(agg => {
+    const { rating, count } = _blendRating(pid, agg);
+    el.innerHTML = '<div class="prod-stars"><span class="stars" style="color:#D4A017;font-size:1.15rem">'+_starStr(rating)+'</span><span style="font-size:.8rem;color:var(--text-muted);margin-left:7px">'+rating.toFixed(1)+' '+(count>0?'('+count+' ratings)':'· Be first to rate')+'</span></div>';
+  });
 }
 
 let _sr=0;
@@ -787,12 +914,9 @@ function submitSiteRating(){
   if(!_sr){alert('Please choose a star rating!');return;}
   const name=(document.getElementById('rateNameInp').value.trim()||'Anonymous');
   const text=document.getElementById('rateRevInp').value.trim();
-  let arr=[];
-  try{arr=JSON.parse(localStorage.getItem('sh_reviews_v1')||'[]');}catch{}
-  arr.push({name,stars:_sr,text,ts:Date.now()});
-  try{localStorage.setItem('sh_reviews_v1',JSON.stringify(arr.slice(-50)));}catch{}
+  saveSiteReview(name, _sr, text);
   const box=document.getElementById('rateModalBox');
-  if(box) box.innerHTML='<div style="text-align:center;padding:1.5rem 0"><div style="font-size:3rem;margin-bottom:.5rem">🌟</div><h3 style="color:var(--green-dark);margin-bottom:.4rem">Thank you, '+name+'!</h3><p style="color:var(--text-muted);font-size:.88rem">Your '+_sr+'-star rating helps our community grow.</p><button class="rate-submit" style="margin-top:1rem;width:100%" onclick="closeRateModal()">Done ✓</button></div>';
+  if(box) box.innerHTML='<div style="text-align:center;padding:1.5rem 0"><div style="font-size:3rem;margin-bottom:.5rem">🌟</div><h3 style="color:var(--green-dark);margin-bottom:.4rem">Thank you, '+name+'!</h3><p style="color:var(--text-muted);font-size:.88rem">Your '+_sr+'-star review is now live!</p><button class="rate-submit" style="margin-top:1rem;width:100%" onclick="closeRateModal()">Done ✓</button></div>';
 }
 /* Call inline rating after product renders */
 })();

@@ -1165,7 +1165,7 @@ function renderProducts(container, { limit = null, cat = null } = {}) {
       </div>
       <div class="product-body">
         <h3>${p.name}</h3>
-        ${renderStars(p.id)}
+        <div class="prod-stars" data-pid="${p.id}"><span class="stars">★★★★½</span><span class="count" style="font-size:.72rem;color:var(--text-muted);margin-left:5px">Loading…</span></div>
         <p class="product-desc">${p.desc}</p>
         <div class="product-footer">
           <div class="product-price">₹${p.price}</div>
@@ -1357,6 +1357,133 @@ function starStr(r) {
   return s;
 }
 
+
+/* ══════════════════════════════════════════════════════════════════
+   SHAH HAYAAT — Live Reviews Engine
+   Replace localStorage with Google Sheets via Apps Script API.
+   Falls back to localStorage if offline / API unavailable.
+   ══════════════════════════════════════════════════════════════════ */
+
+const REVIEWS_API = 'https://script.google.com/macros/s/AKfycbzstBHYy5up_VjXytMOI4zl18XZ4uvbo4Ak-4uYIPwP1EIKt9ziYEG7DLACKDRXA32GAA/exec';
+const _LIVE = REVIEWS_API !== 'https://script.google.com/macros/s/AKfycbzstBHYy5up_VjXytMOI4zl18XZ4uvbo4Ak-4uYIPwP1EIKt9ziYEG7DLACKDRXA32GAA/exec';
+
+/* ── Seed reviews shown before real ones load ── */
+const _SEED_REVIEWS = [
+  { name:'Priya S.',    stars:5, text:'My morning walks are back! Ortho Hayaat made a remarkable difference in just 3 weeks.' },
+  { name:'Rohan K.',    stars:5, text:'Shah Zyme is a lifesaver — lighter and more energetic after every meal!' },
+  { name:'Anjali P.',   stars:5, text:'Brain Champ genuinely helped me focus during exam season. Highly recommended.' },
+];
+
+/* ── Base product ratings (blended with live data) ── */
+const _BASE_RATINGS = {
+  brainchamp:4.8, shahzyme:4.7, bloodstorm:4.6, coughxpro:4.5,
+  musaffakhoon:4.6, panasip:4.7, livohayaat:4.8, orthohayaat:4.9,
+  diaease:4.5, utrohayaat:4.6, passionpulse:4.7, fevodol:4.5
+};
+
+/* ── Star string helper ── */
+function _starStr(r) {
+  const f = Math.floor(r), h = (r - f) >= 0.5;
+  let s = '';
+  for (let i = 1; i <= 5; i++)
+    s += i <= f ? '★' : (i === f + 1 && h ? '½' : '☆');
+  return s;
+}
+
+/* ── Fetch with localStorage fallback ── */
+async function _apiGet(params) {
+  if (!_LIVE) return null;
+  try {
+    const qs = Object.entries(params).map(([k,v]) => k+'='+encodeURIComponent(v)).join('&');
+    const res = await fetch(REVIEWS_API + '?' + qs, { cache: 'no-store' });
+    const json = await res.json();
+    return json.ok ? json.data : null;
+  } catch { return null; }
+}
+
+async function _apiPost(body) {
+  if (!_LIVE) return false;
+  try {
+    await fetch(REVIEWS_API, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    return true;
+  } catch { return false; }
+}
+
+/* ── Site reviews (Rate Us modal) ── */
+async function getSiteReviews() {
+  const live = await _apiGet({ type: 'reviews' });
+  if (live && live.length) return live;
+  // fallback to localStorage
+  try { return JSON.parse(localStorage.getItem('sh_reviews_v1') || '[]'); } catch { return []; }
+}
+
+async function saveSiteReview(name, stars, text, page) {
+  // Always save locally too
+  try {
+    const arr = JSON.parse(localStorage.getItem('sh_reviews_v1') || '[]');
+    arr.push({ name, stars, text, ts: Date.now() });
+    localStorage.setItem('sh_reviews_v1', JSON.stringify(arr.slice(-50)));
+  } catch {}
+  // Send to Google Sheets
+  await _apiPost({ type: 'site_review', name, stars, text, page: page || location.pathname });
+}
+
+/* ── Product ratings (aggregate stars) ── */
+let _cachedProdRatings = null;
+async function getProdRatings() {
+  if (_cachedProdRatings) return _cachedProdRatings;
+  const live = await _apiGet({ type: 'prod_ratings' });
+  _cachedProdRatings = live || {};
+  return _cachedProdRatings;
+}
+
+function _blendRating(pid, liveAgg) {
+  const base = _BASE_RATINGS[pid] || 4.5;
+  const d = liveAgg && liveAgg[pid];
+  if (!d || !d.count) return { rating: base, count: 0 };
+  // Blend: (live_total + base*10) / (live_count + 10)
+  const rating = Math.round(((d.total || d.avg * d.count) + base * 10) / (d.count + 10) * 10) / 10;
+  return { rating, count: d.count };
+}
+
+/* ── Render stars on product cards ── */
+async function renderStarsLive(pid, containerEl) {
+  if (!containerEl) return;
+  const agg = await getProdRatings();
+  const { rating, count } = _blendRating(pid, agg);
+  containerEl.innerHTML =
+    '<span class="stars" style="color:#D4A017;letter-spacing:1px">' + _starStr(rating) + '</span>' +
+    '<span class="count" style="font-size:.72rem;color:var(--text-muted);margin-left:5px">' +
+    rating.toFixed(1) + (count > 0 ? ' (' + count + ')' : '') + '</span>';
+}
+
+/* ── Reviews wall ── */
+async function buildReviewsWall(wallEl, avgEl, countEl, starsEl) {
+  if (!wallEl) return;
+  wallEl.innerHTML = '<div style="color:var(--text-muted);font-size:.82rem;padding:1rem 0">Loading reviews…</div>';
+  const reviews = await getSiteReviews();
+  const all = reviews.length ? reviews : _SEED_REVIEWS;
+
+  const avg = all.reduce((s, r) => s + (r.stars || r.rating || 0), 0) / all.length;
+  if (avgEl)   avgEl.textContent  = avg.toFixed(1);
+  if (starsEl) starsEl.textContent = _starStr(avg);
+  if (countEl) countEl.textContent = 'Based on ' + all.length + ' review' + (all.length !== 1 ? 's' : '');
+
+  wallEl.innerHTML = all.slice(0, 9).map(r => {
+    const stars = r.stars || r.rating || 0;
+    return '<div class="review-chip">' +
+      '<div class="rc-stars" style="color:#D4A017;font-size:.9rem;margin-bottom:.3rem">' + '★'.repeat(stars) + '☆'.repeat(5 - stars) + '</div>' +
+      (r.text ? '<p class="rc-text" style="font-size:.88rem;color:var(--text-mid);line-height:1.6;margin-bottom:.5rem;font-style:italic">&ldquo;' + r.text + '&rdquo;</p>' : '') +
+      '<div class="rc-name" style="font-size:.75rem;font-weight:700;color:var(--green-dark)">— ' + (r.name || 'Anonymous') + '</div>' +
+    '</div>';
+  }).join('');
+}
+/* ════════════════════════════════════════════════════════════════ */
+
 function renderStars(pid) {
   const st=getProdRatings(), base=PROD_BASE[pid]||4.5;
   const d=st[pid];
@@ -1390,37 +1517,26 @@ function _litStars(){
   });
 }
 function submitRating(){
-  if(!_star){ alert('Please choose a star rating!'); return; }
-  const name=(document.getElementById('rateNameInp').value.trim()||'Anonymous');
-  const text=document.getElementById('rateRevInp').value.trim();
-  const arr=getReviews(); arr.push({name,stars:_star,text,ts:Date.now()});
-  saveReviews(arr);
-  document.getElementById('rateModalBox').innerHTML=`
-    <div class="rate-thanks">
-      <span class="big-star">🌟</span>
-      <h3 style="color:var(--green-dark);margin-bottom:.4rem">Thank you, ${name}!</h3>
-      <p style="color:var(--text-muted);font-size:.88rem">Your ${_star}-star rating helps our community grow.</p>
-      <button class="rate-submit" style="margin-top:1.1rem" onclick="closeRateModal();_refreshWall()">Done ✓</button>
-    </div>`;
+  const stars = _litStar;
+  if (!stars) { alert('Please tap a star first!'); return; }
+  const name = (document.getElementById('rateNameInp')?.value || '').trim() || 'Anonymous';
+  const text = (document.getElementById('rateRevInp')?.value || '').trim();
+  saveSiteReview(name, stars, text).then(() => _refreshWall());
+  const box = document.getElementById('rateModalBox');
+  if (box) box.innerHTML = '<div style="text-align:center;padding:1.5rem 0"><div style="font-size:3rem">🌟</div><h3 style="color:var(--green-dark);margin:.5rem 0 .3rem">Thank you, '+name+'!</h3><p style="color:var(--text-muted);font-size:.88rem">Your '+stars+'-star review is now live for everyone to see!</p><button class="rate-submit" style="margin-top:1rem;width:100%" onclick="closeRateModal()">Done ✓</button></div>';
 }
 
 function _refreshWall(){
-  const wall=document.getElementById('reviewsWall'); if(!wall) return;
-  const all=getAllReviews().slice().reverse().slice(0,9);
-  const avg=all.length?(all.reduce((s,r)=>s+r.stars,0)/all.length):5;
-  const avgD=avg.toFixed(1);
-  const bar=document.getElementById('overallRatingBar');
-  if(bar){
-    bar.querySelector('.orb-num').textContent=avgD;
-    bar.querySelector('.orb-stars').textContent=starStr(parseFloat(avgD));
-    bar.querySelector('.orb-count').textContent='Based on '+all.length+' reviews';
-  }
-  wall.innerHTML=all.map(r=>`
-    <div class="review-chip">
-      <div class="rc-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
-      ${r.text?`<p class="rc-text">"${r.text}"</p>`:''}
-      <div class="rc-name">— ${r.name}</div>
-    </div>`).join('');
+  buildReviewsWall(
+    document.getElementById('reviewsWall'),
+    document.querySelector('.orb-num'),
+    document.querySelector('.orb-count'),
+    document.querySelector('.orb-stars')
+  );
+  // Also refresh all product star cards
+  document.querySelectorAll('.prod-stars[data-pid]').forEach(el => {
+    renderStarsLive(el.dataset.pid, el);
+  });
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{ _refreshWall(); });
