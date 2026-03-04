@@ -362,6 +362,23 @@ button,input,select{font-family:inherit}
       <div class="stat-box" role="listitem"><span class="stat-n">Free</span><span class="stat-l">Always</span></div>
     </div>
 
+
+    <div class="community-banner">
+      <div>
+        <div class="cb-title">🌿 Join Our Community</div>
+        <div class="cb-msg">Get wellness tips, product updates &amp; exclusive offers</div>
+        <div class="cb-sub">Follow along and share your wellness journey with us</div>
+      </div>
+      <div class="cb-links">
+        <a class="cb-btn cb-btn-wa" href="https://whatsapp.com/channel/0029VadgJDiJUM2VitsAVR1u" target="_blank" rel="noopener">
+          💬 WhatsApp Channel
+        </a>
+        <a class="cb-btn cb-btn-ig" href="https://www.instagram.com/shahhayaatofficial?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">
+          📸 Instagram
+        </a>
+      </div>
+    </div>
+
     <div style="padding:1.1rem 0;border-top:1px solid var(--b)">
       <div style="font-size:.63rem;font-weight:700;color:var(--tq);text-transform:uppercase;letter-spacing:.09em;margin-bottom:.7rem">What you will check:</div>
       <div style="display:flex;flex-wrap:wrap;gap:.5rem">
@@ -3842,6 +3859,23 @@ LAB.showDashboard = function () {
       </div>
     </div>
 
+
+    <div class="community-banner" style="margin-bottom:1.4rem">
+      <div>
+        <div class="cb-title">🎉 Assessment Complete — Join Our Community!</div>
+        <div class="cb-msg">Share your wellness journey &amp; get daily health tips from Shah Hayaat</div>
+        <div class="cb-sub">Connect with thousands of people on their wellness journey</div>
+      </div>
+      <div class="cb-links">
+        <a class="cb-btn cb-btn-wa" href="https://whatsapp.com/channel/0029VadgJDiJUM2VitsAVR1u" target="_blank" rel="noopener">
+          💬 Join WhatsApp Channel
+        </a>
+        <a class="cb-btn cb-btn-ig" href="https://www.instagram.com/shahhayaatofficial?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">
+          📸 Follow on Instagram
+        </a>
+      </div>
+    </div>
+
     <div class="card" style="margin-bottom:1.4rem;padding:1.25rem 1.4rem">
       <h3 class="h3" style="margin-bottom:.5rem;font-size:.95rem">📄 Download Your PDF Report</h3>
       <p class="pg" style="margin-bottom:.85rem;font-size:.82rem">Add your name to appear on the report — or leave it blank.</p>
@@ -3851,7 +3885,7 @@ LAB.showDashboard = function () {
                maxlength="60" autocomplete="name" style="font-size:1rem">
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:.75rem">
-        <button class="btn btn--p btn--lg" onclick="LAB.generatePDF()">📄 Download PDF Report</button>
+        <button class="btn btn--p btn--lg" onclick="LAB.generatePDF()">📄 Save as PDF</button>
         <button class="btn btn--g" onclick="LAB.goWelcome()">↺ New Assessment</button>
         <a href="index.html" class="btn btn--g">← Shah Hayaat Home</a>
       </div>
@@ -4460,6 +4494,15 @@ LAB.generatePDF = function () {
     <strong>No data has been transmitted.</strong> All calculations were performed locally in your browser. This PDF was generated on your device.
   </div>
 
+  <div style="background:linear-gradient(135deg,#0d1f14,#1a3d2a);border-radius:10px;padding:16px 20px;margin:18px 0;text-align:center">
+    <div style="font-size:13px;font-weight:700;color:#7ED4A8;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px">🌿 Join the Shah Hayaat Community</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.75);margin-bottom:10px">Get daily wellness tips, product updates &amp; connect with others on their health journey</div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <a href="https://whatsapp.com/channel/0029VadgJDiJUM2VitsAVR1u" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:#25D366;color:#fff;border-radius:50px;font-size:12px;font-weight:700;text-decoration:none">💬 WhatsApp Channel</a>
+      <a href="https://www.instagram.com/shahhayaatofficial" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);color:#fff;border-radius:50px;font-size:12px;font-weight:700;text-decoration:none">📸 Instagram</a>
+    </div>
+  </div>
+
   <div class="rpt-footer">
     <span>Shah Hayaat Wellness Lab &nbsp;·&nbsp; shahhayaat.com</span>
     <span>Generated ${dateStr} &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; For personal use only</span>
@@ -4469,25 +4512,30 @@ LAB.generatePDF = function () {
 </body>
 </html>`;
 
-  // Use Blob + object URL - avoids popup blockers and hanging blank tabs
-  try {
-    const blob = new Blob([html], {type: 'text/html;charset=utf-8'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'Shah-Hayaat-Wellness-Report.html';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 5000);
-  } catch(e) {
-    // Fallback to window.open if Blob fails (e.g. some older iOS)
-    const win = window.open('','_blank','width=900,height=700');
-    if (!win) { alert('Please allow pop-ups to generate the PDF.'); return; }
-    win.document.write(html);
-    win.document.close();
-    win.focus();
+  // Open report in a new tab and auto-trigger print → Save as PDF
+  const win = window.open('', '_blank', 'width=900,height=700,noopener,noreferrer');
+  if (!win) {
+    // Popup blocked — fallback: blob download as HTML
+    try {
+      const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href = url; a.download = 'Shah-Hayaat-Wellness-Report.html';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(()=>URL.revokeObjectURL(url), 5000);
+    } catch(e) { alert('Please allow pop-ups to download your report.'); }
+    return;
   }
+  win.document.open();
+  win.document.write(html);
+  win.document.close();
+  // Auto-print once fonts and images have loaded
+  win.addEventListener('load', () => {
+    setTimeout(() => {
+      win.focus();
+      win.print();
+    }, 800);
+  });
 };
 </script>
 
