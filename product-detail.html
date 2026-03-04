@@ -23,7 +23,8 @@
   <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"></noscript>
   <style>
 :root{--green-dark:#2A4633;--green-mid:#3B6449;--green-light:#4D7C5D;--bg-cream:#F8F6F2;--bg-white:#FFFFFF;--gold:#B8860B;--gold-light:#D4A017;--gold-pale:#FDF8E8;--text-dark:#1C1C1C;--text-mid:#3D3D3D;--text-muted:#6B6B6B;--border:#E4DDD4;--shadow-xs:0 1px 4px rgba(42,70,51,0.06);--shadow-sm:0 4px 16px rgba(42,70,51,0.08);--shadow-md:0 10px 30px rgba(42,70,51,0.12);--shadow-lg:0 20px 50px rgba(42,70,51,0.16);--radius-sm:8px;--radius:14px;--radius-lg:22px;--ease:cubic-bezier(0.4,0,0.2,1);--t:0.32s;--font-head:'Playfair Display',Georgia,serif;--font-body:'Inter',system-ui,sans-serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -151,10 +152,15 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .form-group label{display:block;font-size:0.82rem;font-weight:600;color:var(--text-dark);margin-bottom:0.4rem}
 .form-group input,.form-group textarea{width:100%;padding:0.75rem 1rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:0.95rem;color:var(--text-dark);background:#fff;transition:border-color 0.2s;resize:vertical;outline:none}
 .form-group input:focus,.form-group textarea:focus{border-color:var(--green-mid)}
-.star-picker{display:flex;gap:4px;flex-direction:row-reverse;justify-content:flex-end}
+.star-picker{display:flex;gap:6px;flex-direction:row;justify-content:flex-start}
 .star-picker input{display:none}
-.star-picker label{font-size:2rem;color:#ddd;cursor:pointer;transition:color 0.15s;line-height:1}
-.star-picker label:hover,.star-picker label:hover~label,.star-picker input:checked~label{color:var(--gold)}
+.star-picker label{font-size:2.2rem;color:#ddd;cursor:pointer;transition:color 0.15s,transform 0.1s;line-height:1;user-select:none}
+.star-picker label:hover{transform:scale(1.15)}
+.star-picker.s1 label:nth-child(-n+2),
+.star-picker.s2 label:nth-child(-n+4),
+.star-picker.s3 label:nth-child(-n+6),
+.star-picker.s4 label:nth-child(-n+8),
+.star-picker.s5 label{color:var(--gold)}
 /* Footer */
 .site-footer{background:var(--green-dark);color:rgba(255,255,255,0.72);padding:4rem 0 0}
 .footer-grid{display:grid;gap:2.5rem;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.09)}
@@ -171,6 +177,8 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .wa-float{position:fixed;bottom:4.5rem;right:1.5rem;z-index:489;width:48px;height:48px;background:#25D366;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 4px 18px rgba(37,211,102,0.42);text-decoration:none;transition:all 0.28s}
 .wa-float:hover{transform:scale(1.12)}
 .reveal{opacity:0;transform:translateY(22px);transition:opacity 0.55s ease,transform 0.55s ease}
+/* Product detail: all content visible immediately */
+#product-main *,.reviews-section *,.write-review-card{opacity:1!important;transform:none!important}
 .reveal.in{opacity:1;transform:translateY(0)}
 .delay-1{transition-delay:0.08s}.delay-2{transition-delay:0.16s}.delay-3{transition-delay:0.24s}
 #loading-msg{text-align:center;padding:6rem 2rem;font-size:1rem;color:var(--text-muted)}
@@ -265,17 +273,19 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 
     <div class="review-list" id="review-list"></div>
 
-    <div class="write-review-card reveal">
+    <div class="write-review-card">
       <h3>Write a Review</h3>
       <div class="form-group">
         <label>Your Rating</label>
         <div class="star-picker" id="star-picker">
-          <input type="radio" name="rating" id="s5" value="5"><label for="s5" title="5 stars">★</label>
-          <input type="radio" name="rating" id="s4" value="4"><label for="s4" title="4 stars">★</label>
-          <input type="radio" name="rating" id="s3" value="3"><label for="s3" title="3 stars">★</label>
-          <input type="radio" name="rating" id="s2" value="2"><label for="s2" title="2 stars">★</label>
-          <input type="radio" name="rating" id="s1" value="1"><label for="s1" title="1 star">★</label>
+          <span id="sp1" onclick="_pickStar(1)" title="1 star — Poor" style="font-size:2.2rem;cursor:pointer;color:#ddd;transition:color .15s,transform .1s;display:inline-block">★</span>
+          <span id="sp2" onclick="_pickStar(2)" title="2 stars — Fair" style="font-size:2.2rem;cursor:pointer;color:#ddd;transition:color .15s,transform .1s;display:inline-block">★</span>
+          <span id="sp3" onclick="_pickStar(3)" title="3 stars — Good" style="font-size:2.2rem;cursor:pointer;color:#ddd;transition:color .15s,transform .1s;display:inline-block">★</span>
+          <span id="sp4" onclick="_pickStar(4)" title="4 stars — Great" style="font-size:2.2rem;cursor:pointer;color:#ddd;transition:color .15s,transform .1s;display:inline-block">★</span>
+          <span id="sp5" onclick="_pickStar(5)" title="5 stars — Excellent" style="font-size:2.2rem;cursor:pointer;color:#ddd;transition:color .15s,transform .1s;display:inline-block">★</span>
         </div>
+        <input type="hidden" id="rev-rating" value="0">
+        <div id="star-label" style="font-size:.8rem;color:var(--text-muted);margin:.25rem 0 .5rem;min-height:1.2em"></div>
       </div>
       <div class="form-group">
         <label for="rev-name">Your Name</label>
@@ -462,13 +472,13 @@ if (!p) {
     <section class="section bg-white">
       <div class="container">
         <div class="detail-grid">
-          <div class="reveal">
+          <div>
             <div class="detail-img">
               <img src="${imgSrc(p.id)}" alt="${p.name}" loading="eager"
                    onerror="this.parentElement.innerHTML='<div class=detail-img-placeholder><span>🌿</span>${p.name}</div>'">
             </div>
           </div>
-          <div class="reveal delay-2">
+          <div>
             <div class="detail-price">₹${p.price} <sub>/ pack</sub></div>
             <div id="inline-rating" style="margin:0.5rem 0 1rem"></div>
             <div class="detail-actions">
@@ -487,20 +497,20 @@ if (!p) {
           </div>
         </div>
         <div class="info-boxes">
-          <div class="info-box reveal delay-1">
+          <div class="info-box">
             <span class="info-block-label">Key Ingredients</span>
             <p>${p.ingredients}</p>
           </div>
-          <div class="info-box reveal delay-2">
+          <div class="info-box">
             <span class="info-block-label">Dosage Instructions</span>
             <p>${p.dosage}</p>
           </div>
-          <div class="info-box reveal delay-3">
+          <div class="info-box">
             <span class="info-block-label">Precautions</span>
             <p>${p.precautions}</p>
           </div>
         </div>
-        <div class="quiz-disclaimer reveal" style="margin-top:2rem">
+        <div class="quiz-disclaimer" style="margin-top:2rem">
           <strong>Disclaimer:</strong> This is an Ayurvedic supplement. It is not intended to diagnose, treat, cure or prevent any disease. Results may vary. Please consult a qualified healthcare professional before use.
         </div>
       </div>
@@ -532,11 +542,7 @@ if (!p) {
       </div>`).join('');
   }
 
-  /* Trigger reveal animations */
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  /* Content renders immediately — no reveal animations on detail page */
 
   /* Reviews */
   renderReviews();
@@ -644,18 +650,32 @@ function markHelpful(idx) {
   }
 }
 
+let _pickedStar = 0;
+const _STAR_LABELS = ['','Poor','Fair','Good','Great','Excellent'];
+function _pickStar(n) {
+  _pickedStar = n;
+  for (let i=1;i<=5;i++) {
+    const s = document.getElementById('sp'+i);
+    if (s) { s.style.color = i <= n ? 'var(--gold)' : '#ddd'; s.style.transform = i===n ? 'scale(1.2)' : 'scale(1)'; }
+  }
+  const lbl = document.getElementById('star-label');
+  if (lbl) lbl.textContent = n ? _STAR_LABELS[n] + ' (' + n + '/5)' : '';
+  const h = document.getElementById('rev-rating');
+  if (h) h.value = n;
+}
+
 function submitReview() {
-  const ratingEl = document.querySelector('input[name="rating"]:checked');
+  const ratingVal = parseInt(document.getElementById('rev-rating')?.value || '0');
   const nameEl = document.getElementById('rev-name');
   const textEl = document.getElementById('rev-text');
   const status = document.getElementById('rev-status');
 
-  if (!ratingEl) { status.textContent = 'Please select a star rating.'; status.style.color = '#c0392b'; return; }
-  if (!textEl.value.trim()) { status.textContent = 'Please write something about your experience.'; status.style.color = '#c0392b'; return; }
+  if (!ratingVal) { status.textContent = 'Please tap a star to rate this product.'; status.style.color = '#c0392b'; return; }
+  if (!textEl.value.trim()) { status.textContent = 'Please write a short review.'; status.style.color = '#c0392b'; return; }
 
   const reviews = getReviews();
   reviews.push({
-    rating: parseInt(ratingEl.value),
+    rating: ratingVal,
     name: nameEl.value.trim() || 'Anonymous',
     text: textEl.value.trim(),
     date: new Date().toLocaleDateString('en-GB', {day:'numeric', month:'short', year:'numeric'}),
@@ -663,7 +683,8 @@ function submitReview() {
   });
   saveReviews(reviews);
 
-  ratingEl.checked = false;
+  document.getElementById('rev-rating').value = '0';
+  _pickStar(0);
   nameEl.value = '';
   textEl.value = '';
   status.textContent = 'Thank you! Your review has been posted.';
