@@ -45,10 +45,10 @@
 <meta name="theme-color" content="#2A7A5A">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Free Online Wellness Test – Health Assessment | Shah Hayaat Wellness Lab</title>
-<meta name="description" content="Take the free Shah Hayaat Online Wellness Test. 17 guided checks covering brain, eyes, breathing, stability and lifestyle. Get a personalised PDF health report in minutes. No sign-up required.">
+<meta name="description" content="Take the free Shah Hayaat Online Wellness Test. 17 core wellness checks covering brain, eyes, breathing, stability and lifestyle — plus optional women's health checks. Get a personalised PDF health report in minutes. No sign-up required.">
 <meta name="keywords" content="online wellness test, free health assessment, wellness check, brain health test, eye test online, lung health, stress test, Shah Hayaat">
 <meta property="og:title" content="Free Online Wellness Test – Shah Hayaat Wellness Lab">
-<meta property="og:description" content="17 guided checks covering brain, eyes, lungs and stress. Get your free personalised PDF health report instantly. No sign-up needed.">
+<meta property="og:description" content="17 core wellness checks covering brain, eyes, breathing and lifestyle. Free personalised PDF report. No sign-up needed.">
 <meta property="og:image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
 <meta property="og:url" content="https://www.shahhayaat.com/wellness-lab.html">
 <meta property="og:type" content="website">
@@ -332,6 +332,7 @@ button,input,select{font-family:inherit}
     <div class="hero">
       <div class="hero-ey au">
         <div class="tag">🧪 17 Smart Wellness Checks</div>
+        <div class="tag" style="background:#FFF0F5;border-color:rgba(168,48,96,.22);color:#A83060">🌸 + Women's Health Checks</div>
         <div class="tag tag--gd">✨ Free · Private · No Sign-Up</div>
       </div>
 
@@ -436,7 +437,7 @@ button,input,select{font-family:inherit}
           <div class="gck" aria-hidden="true">✓</div>
           <span class="gico">♀</span>
           <div class="gnm">Female</div>
-          <div class="gnt">17 + 2 female checks</div>
+          <div class="gnt">17 checks + 2 women's health</div>
         </div>
       </div>
 
@@ -474,8 +475,8 @@ button,input,select{font-family:inherit}
 
 <div id="vbar" aria-label="Voice guide controls">
   <div class="vlang-row">
-    <div class="vlbl" id="vlbl">Voice OFF</div>
-    <button class="vtog" id="vtog" onclick="LAB.toggleVoice()" aria-label="Toggle voice guidance" title="Toggle voice">🔇</button>
+    <div class="vlbl" id="vlbl">Voice ON</div>
+    <button class="vtog" id="vtog" onclick="LAB.toggleVoice()" aria-label="Toggle voice guidance" title="Toggle voice">🔊</button>
   </div>
 </div>
 
@@ -495,7 +496,7 @@ const LAB = {
 
   gender: '',
   lang: 'en',
-  voiceOn: false,
+  voiceOn: true,
   idx: 0,
   queue: [],
   scores: { cognitive:null, eye:null, respiratory:null, stress:null, stability:null, lifestyle:null, hormonal:null },
@@ -1483,12 +1484,16 @@ window.mod_sustainedAttention = function () {
 
 window.mod_colourBlindness = function () {
   const plates=[
-    {ans:'12',bg:'#E09040',fg:'#C83010',label:'Plate 1 of 6'},
-    {ans:'8', bg:'#70B070',fg:'#2A6020',label:'Plate 2 of 6'},
-    {ans:'6', bg:'#9090CC',fg:'#D0A020',label:'Plate 3 of 6'},
-    {ans:'29',bg:'#CC6060',fg:'#50A050',label:'Plate 4 of 6'},
-    {ans:'5', bg:'#80A8C0',fg:'#E07020',label:'Plate 5 of 6'},
-    {ans:'3', bg:'#B870B0',fg:'#70C070',label:'Plate 6 of 6'},
+    {ans:'12',bg:'#E09040',fg:'#C83010',label:'Plate 1 of 10'},
+    {ans:'8', bg:'#70B070',fg:'#2A6020',label:'Plate 2 of 10'},
+    {ans:'29',bg:'#CC6060',fg:'#50A050',label:'Plate 3 of 10'},
+    {ans:'74',bg:'#7080C0',fg:'#D04010',label:'Plate 4 of 10'},
+    {ans:'5', bg:'#80A8C0',fg:'#E07020',label:'Plate 5 of 10'},
+    {ans:'6', bg:'#9090CC',fg:'#D0A020',label:'Plate 6 of 10'},
+    {ans:'45',bg:'#A06050',fg:'#50B050',label:'Plate 7 of 10'},
+    {ans:'16',bg:'#C08080',fg:'#4080A0',label:'Plate 8 of 10'},
+    {ans:'73',bg:'#60A870',fg:'#C06020',label:'Plate 9 of 10'},
+    {ans:'2', bg:'#B870B0',fg:'#70C070',label:'Plate 10 of 10'},
   ];
   let curr=0,correct=0;
 
@@ -1524,7 +1529,7 @@ window.mod_colourBlindness = function () {
   LAB.showDemo({
     title: '🎨 Colour Blindness Check',
     txt: 'You will see a circle packed with coloured dots. <strong>A number is hidden inside</strong> — look carefully. Type the number or tap "Cannot see it".',
-    hint: '6 plates — takes about 2 minutes',
+    hint: '10 plates — takes about 3 minutes',
     voiceEN: "Eye section! First — colour vision. A circle of coloured dots has a number hidden inside. Try to spot it! Do not worry if you cannot see it — just try your best.",
     btnLabel: 'Start Colour Check →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:.3rem">
@@ -1566,7 +1571,7 @@ window.mod_colourBlindness = function () {
     const pl=plates[curr];
     LAB.render(`<div class="mwrap"><div class="card card--pop" style="border-color:rgba(37,99,235,.2);background:linear-gradient(135deg,#EEF4FF,#fff)">
       <div class="step-head">
-        <div class="tag" style="background:#EEF4FF;border-color:rgba(37,99,235,.28);color:#2563EB">👁 Eye Test · 1 of 3</div>
+        <div class="tag" style="background:#EEF4FF;border-color:rgba(37,99,235,.28);color:#2563EB">👁 Eyes · 1 of 5</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Colour Blindness Check</h2>
         <p class="pg">Look at the circle below. <strong>What number can you see inside the dots?</strong></p>
       </div>
@@ -1608,19 +1613,22 @@ window.mod_colourBlindness = function () {
 
 window.mod_visualAcuity = function () {
   const rows=[
-    {px:54,text:'E  F  P',        label:'Row 1 (largest)',logMAR:1.0},
-    {px:40,text:'F  E  L  P',     label:'Row 2',          logMAR:0.8},
-    {px:30,text:'P  E  C  F',     label:'Row 3',          logMAR:0.6},
-    {px:22,text:'E  D  F  C',     label:'Row 4',          logMAR:0.4},
-    {px:16,text:'F  L  O  P  E',  label:'Row 5',          logMAR:0.2},
-    {px:12,text:'E  F  C  L  P  O',label:'Row 6 (smallest)',logMAR:0.0},
+    {px:54,text:'E  F  P',            label:'Row 1 (largest)',  logMAR:1.0},
+    {px:40,text:'F  E  L  P',         label:'Row 2',            logMAR:0.8},
+    {px:30,text:'P  E  C  F  D',      label:'Row 3',            logMAR:0.6},
+    {px:22,text:'E  D  F  C  L',      label:'Row 4',            logMAR:0.4},
+    {px:16,text:'F  L  O  P  E  C',   label:'Row 5',            logMAR:0.2},
+    {px:11,text:'E  F  C  L  P  O  D',label:'Row 6',            logMAR:0.0},
+    {px: 9,text:'D  F  E  C  O  L  P',label:'Row 7',            logMAR:-0.1},
+    {px: 8,text:'O  L  F  E  D  P  C',label:'Row 8',            logMAR:-0.2},
+    {px: 7,text:'P  C  D  O  L  E  F  C',label:'Row 9 (finest)',logMAR:-0.3},
   ];
   let chosen=-1;
 
   LAB.showDemo({
     title: '📏 Visual Acuity',
     txt: 'Rows of letters appear, getting <strong>smaller and smaller</strong>. Tap the <strong>smallest row you can read clearly</strong> from where you are sitting.',
-    hint: 'Keep glasses on if you wear them',
+    hint: '9 rows from large to very fine — keep glasses on',
     voiceEN: "Vision check! You will see rows of letters getting smaller. Just tap the smallest row you can read clearly. Keep your glasses on if you wear them — no trick here!",
     btnLabel: 'Start Vision Test →',
     vis: `<div style="text-align:center;transform-style:preserve-3d;transform:perspective(300px) rotateX(8deg);padding:.5rem .8rem" id="acDemoWrap">
@@ -1631,7 +1639,7 @@ window.mod_visualAcuity = function () {
       </div>
     </div>`,
     anim(vis) {
-      const sizes=[[24,17,11],[21,14,9],[18,12,7]];
+      const sizes=[[24,17,11],[21,14,9],[18,12,7],[15,10,8]];
       let step=0;
       const id=setInterval(()=>{
         step=(step+1)%sizes.length;
@@ -1646,7 +1654,7 @@ window.mod_visualAcuity = function () {
   }, () => {
     LAB.render(`<div class="mwrap"><div class="card card--pop" style="border-color:rgba(37,99,235,.2);background:linear-gradient(135deg,#EEF4FF,#fff)">
       <div class="step-head">
-        <div class="tag" style="background:#EEF4FF;border-color:rgba(37,99,235,.28);color:#2563EB">👁 Eye Test · 2 of 3</div>
+        <div class="tag" style="background:#EEF4FF;border-color:rgba(37,99,235,.28);color:#2563EB">👁 Eyes · 2 of 5</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Visual Acuity</h2>
         <p class="pg">Tap the <strong>smallest row you can read clearly</strong>. Everything above is automatically marked as readable too.</p>
       </div>
@@ -1683,11 +1691,11 @@ window.mod_visualAcuity = function () {
   window._acNone=function(){chosen=-1;_acDone();};
 
   function _acDone(){
-    const scArr=[10,30,45,58,72,84,95];
+    const scArr=[5,18,32,47,60,72,82,90,96,99];
     const sc=LAB.clamp(scArr[Math.max(0,chosen+1)]??10,0,100);
-    LAB.raw.acuityRow=chosen;LAB.raw.acuityScore=sc;LAB.raw.acuityFlag=chosen<2;
+    LAB.raw.acuityRow=chosen;LAB.raw.acuityScore=sc;LAB.raw.acuityFlag=chosen<3;
     LAB.celebrate();
-    LAB.say(`Good. You could read down to row ${chosen+1}. ${LAB.scoreLbl(sc)} visual acuity.`);
+    LAB.say(`Vision check done! You could read down to row ${chosen+1} of 9 — that is ${LAB.scoreLbl(sc)} visual acuity. Great job!`);
     setTimeout(()=>{LAB.idx++;LAB.next();},1800);
   }
 };
@@ -1738,7 +1746,7 @@ window.mod_contrastSensitivity = function () {
     const lv=levels[curr];
     LAB.render(`<div class="mwrap"><div class="card card--pop" style="border-color:rgba(37,99,235,.2);background:linear-gradient(135deg,#EEF4FF,#fff)">
       <div class="step-head">
-        <div class="tag" style="background:#EEF4FF;border-color:rgba(37,99,235,.28);color:#2563EB">👁 Eye Test · 3 of 3</div>
+        <div class="tag" style="background:#EEF4FF;border-color:rgba(37,99,235,.28);color:#2563EB">👁 Eyes · 3 of 5</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Contrast Sensitivity</h2>
         <p class="pg">Can you see the letter below? Each round it gets harder to see.</p>
       </div>
@@ -3697,7 +3705,7 @@ LAB.showDashboard = function () {
       </div>
       <h2 class="h1" style="margin-bottom:.6rem">Your Wellness Results</h2>
       <p class="pg" style="max-width:400px;margin:0 auto 1.5rem">
-        ${completedDomains > 0 ? 'Based on ' + (isFem?'19':'17') + ' checks across cognitive, eye, respiratory, stability and lifestyle health.' : 'You skipped all activities — no data to score. Complete at least one test to see results.'}
+        ${completedDomains > 0 ? 'Based on ' + (isFem?'19':'17') + ' wellness checks across cognitive, eye, respiratory, stability and lifestyle health.' : 'You skipped all activities — no data to score. Complete at least one test to see results.'}
       </p>
 
       <div style="display:inline-flex;flex-direction:column;align-items:center;gap:.5rem;
@@ -3919,7 +3927,7 @@ LAB._buildBreakdownRows = function() {
     {label:'👁 Attention',            val:LAB.raw.attHits!==undefined?LAB.raw.attHits+' hits':'—', score:LAB.raw.attScore},
     {label:'🔤 Word Recall',           val:LAB.raw.wordRecallCorrect!==undefined?LAB.raw.wordRecallCorrect+' words recalled':'—', score:LAB.raw.wordRecallScore},
     {label:'🎨 Colour Blindness',     val:LAB.raw.cbCorrect!==undefined?LAB.raw.cbCorrect+'/'+LAB.raw.cbTotal+' correct':'—', score:LAB.raw.cbScore},
-    {label:'📏 Visual Acuity',        val:LAB.raw.acuityRow>=0?'Row '+(LAB.raw.acuityRow+1)+' seen':'—', score:LAB.raw.acuityScore},
+    {label:'📏 Visual Acuity',        val:LAB.raw.acuityRow>=0?'Row '+(LAB.raw.acuityRow+1)+'/9 seen':'—', score:LAB.raw.acuityScore},
     {label:'⬜ Contrast Sensitivity', val:LAB.raw.csLevel!==undefined?'Level '+LAB.raw.csLevel+'/6':'—', score:LAB.raw.csScore},
     {label:'🔍 Peripheral Vision',     val:LAB.raw.peripheralHits!==undefined?LAB.raw.peripheralHits+' hits':'—', score:LAB.raw.peripheralScore},
     {label:'👀 Eye Tracking',          val:'Accuracy check', score:LAB.raw.eyeTrackScore},
