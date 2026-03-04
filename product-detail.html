@@ -231,6 +231,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
     document.head.appendChild(s);
   };
   </script>
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -753,7 +754,7 @@ function showToast(msg) {
    ══════════════════════════════════════════════════════════════════ */
 
 const REVIEWS_API = 'https://script.google.com/macros/s/AKfycbzstBHYy5up_VjXytMOI4zl18XZ4uvbo4Ak-4uYIPwP1EIKt9ziYEG7DLACKDRXA32GAA/exec';
-const _LIVE = REVIEWS_API !== 'https://script.google.com/macros/s/AKfycbzstBHYy5up_VjXytMOI4zl18XZ4uvbo4Ak-4uYIPwP1EIKt9ziYEG7DLACKDRXA32GAA/exec';
+const _LIVE = true; // API configured
 
 /* ── Seed reviews shown before real ones load ── */
 const _SEED_REVIEWS = [

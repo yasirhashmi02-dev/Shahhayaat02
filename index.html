@@ -525,6 +525,7 @@ img[alt]{font-size:0}
     "paymentAccepted": "Cash, Online"
   }
   </script>
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -1293,7 +1294,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Products page full grid
   const allGrid = $('#all-products-grid');
-  llGrid);
+  if (allGrid) renderProducts(allGrid);
 
 });
 </script>
@@ -1365,7 +1366,7 @@ function starStr(r) {
    ══════════════════════════════════════════════════════════════════ */
 
 const REVIEWS_API = 'https://script.google.com/macros/s/AKfycbzstBHYy5up_VjXytMOI4zl18XZ4uvbo4Ak-4uYIPwP1EIKt9ziYEG7DLACKDRXA32GAA/exec';
-const _LIVE = REVIEWS_API !== 'https://script.google.com/macros/s/AKfycbzstBHYy5up_VjXytMOI4zl18XZ4uvbo4Ak-4uYIPwP1EIKt9ziYEG7DLACKDRXA32GAA/exec';
+const _LIVE = true; // API configured
 
 /* ── Seed reviews shown before real ones load ── */
 const _SEED_REVIEWS = [
@@ -1517,7 +1518,7 @@ function _litStars(){
   });
 }
 function submitRating(){
-  const stars = _litStar;
+  const stars = _star;
   if (!stars) { alert('Please tap a star first!'); return; }
   const name = (document.getElementById('rateNameInp')?.value || '').trim() || 'Anonymous';
   const text = (document.getElementById('rateRevInp')?.value || '').trim();

@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Block thank-you page from indexing (no standalone value)
+Disallow: /thank-you.html
+
+# Sitemap location
 Sitemap: https://www.shahhayaat.com/sitemap.xml
