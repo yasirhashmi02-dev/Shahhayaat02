@@ -45,7 +45,7 @@
 <meta name="theme-color" content="#2A7A5A">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Free Online Wellness Test – Health Assessment | Shah Hayaat Wellness Lab</title>
-<meta name="description" content="Take the free Shah Hayaat Online Wellness Test. 21 guided activities covering brain, eyes, lungs, stress and more. Get a personalised PDF health report in minutes. No sign-up required.">
+<meta name="description" content="Take the free Shah Hayaat Online Wellness Test. 18 guided checks covering brain, eyes, breathing, stability and lifestyle. Get a personalised PDF health report in minutes. No sign-up required.">
 <meta name="keywords" content="online wellness test, free health assessment, wellness check, brain health test, eye test online, lung health, stress test, Shah Hayaat">
 <meta property="og:title" content="Free Online Wellness Test – Shah Hayaat Wellness Lab">
 <meta property="og:description" content="21 guided activities covering brain, eyes, lungs and stress. Get your free personalised PDF health report instantly. No sign-up needed.">
@@ -158,6 +158,10 @@ button,input,select{font-family:inherit}
 @keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-5deg)}75%{transform:rotate(5deg)}}
 @keyframes confettiFall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
 @keyframes voicePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+@keyframes ctaPulse{0%,100%{box-shadow:0 4px 16px rgba(42,122,90,.28),0 0 0 0 rgba(42,122,90,.5)}60%{box-shadow:0 8px 28px rgba(42,122,90,.42),0 0 0 14px rgba(42,122,90,0)}}
+@keyframes ctaBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes arrowBob{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(5px);opacity:1}}
+.btn--cta{animation:ctaPulse 2s ease-in-out infinite,ctaBounce 2.8s ease-in-out infinite;font-size:1.05rem!important;padding:1rem 2.4rem!important;letter-spacing:.02em}
 @keyframes demoDemo{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
@@ -316,7 +320,7 @@ button,input,select{font-family:inherit}
     <div class="prog-row">
       <span class="mono" style="font-size:.62rem;color:var(--tq);white-space:nowrap" id="pStep">—</span>
       <div class="prog-track"><div class="prog-fill" id="pFill" style="width:0%"></div></div>
-      <button class="btn btn--skip" onclick="LAB.skip()" id="skipBtn" aria-label="Skip this activity">Skip ⏭</button>
+      <button class="btn btn--skip" onclick="LAB.skip()" id="skipBtn" aria-label="Skip this activity" style="opacity:0;pointer-events:none;transition:opacity .5s">Skip this one →</button>
     </div>
     <div class="prog-meta"><span id="pLbl">—</span><span id="pPct">0%</span></div>
   </div>
@@ -326,9 +330,8 @@ button,input,select{font-family:inherit}
   <div class="wrap">
     <div class="hero">
       <div class="hero-ey au">
-        <div class="tag">🧪 21 Wellness Activities</div>
-        <div class="tag tag--gd">✨ Free · Private · Voice-Guided</div>
-        <div class="tag tag--bl">👁 Includes Eye Tests</div>
+        <div class="tag">🧪 18 Smart Wellness Checks</div>
+        <div class="tag tag--gd">✨ Free · Private · No Sign-Up</div>
       </div>
 
       <h1 class="h1 au d1" style="margin-bottom:.95rem">
@@ -336,54 +339,36 @@ button,input,select{font-family:inherit}
       </h1>
 
       <p class="pg hero-desc au d2">
-        21 short, fun activities that check how your brain, eyes, lungs and body are really performing today. Voice guidance in <strong>English</strong>. Every activity has a demo first. All data stays on your phone.
+        Short, powerful checks for your brain, eyes, breathing and body. <strong>Everything is guided.</strong> Just tap and follow.
       </p>
 
-      <div class="hbadge-row au d2">
-        <div class="hbadge">🔐 Zero data stored</div>
-        <div class="hbadge">🗣 Voice-Guided English</div>
-        <div class="hbadge">🎬 Demo before every test</div>
-        <div class="hbadge">⏭ Skip anytime</div>
-        <div class="hbadge">📄 Free PDF report</div>
-        <div class="hbadge">👁 Colour blindness test included</div>
-      </div>
-
-      <div class="btn-row au d3" style="margin-top:0">
-        <button class="btn btn--p btn--lg" onclick="LAB.goInstr()">Start My Wellness Check →</button>
-        <a href="#allact" class="btn btn--g">See All Activities</a>
+      <div class="btn-row au d3" style="margin-top:1.4rem;flex-direction:column;align-items:flex-start;gap:.6rem">
+        <button class="btn btn--p btn--lg btn--cta" onclick="LAB.goInstr()" id="mainStartBtn">
+          ▶ Start My Wellness Check
+        </button>
+        <span style="font-size:.72rem;color:var(--tq);padding-left:.3rem;animation:arrowBob 1.8s ease-in-out infinite">
+          ↓ Takes about 15 minutes · Free PDF at the end
+        </span>
       </div>
     </div>
 
     <div class="stats-row" role="list">
-      <div class="stat-box" role="listitem"><span class="stat-n">21</span><span class="stat-l">Activities</span></div>
-      <div class="stat-box" role="listitem"><span class="stat-n">6</span><span class="stat-l">Health Scores</span></div>
-      <div class="stat-box" role="listitem"><span class="stat-n">~18</span><span class="stat-l">Minutes</span></div>
+      <div class="stat-box" role="listitem"><span class="stat-n">18</span><span class="stat-l">Checks</span></div>
+      <div class="stat-box" role="listitem"><span class="stat-n">5</span><span class="stat-l">Sections</span></div>
+      <div class="stat-box" role="listitem"><span class="stat-n">~15</span><span class="stat-l">Minutes</span></div>
       <div class="stat-box" role="listitem"><span class="stat-n">0</span><span class="stat-l">Data Stored</span></div>
       <div class="stat-box" role="listitem"><span class="stat-n">Free</span><span class="stat-l">Always</span></div>
     </div>
 
-    <div class="pill-row" id="allact" role="list" aria-label="All activities">
-      <span style="font-size:.63rem;font-weight:700;color:var(--tq);text-transform:uppercase;letter-spacing:.09em;align-self:center;margin-right:.3rem">All activities:</span>
-      <span class="pill" role="listitem">⚡ Reaction Speed</span>
-      <span class="pill" role="listitem">📉 Fatigue Test</span>
-      <span class="pill" role="listitem">🧩 Memory Matrix</span>
-      <span class="pill" role="listitem">👁 Attention Test</span>
-      <span class="pill eye" role="listitem">🎨 Colour Blindness</span>
-      <span class="pill eye" role="listitem">📏 Visual Acuity</span>
-      <span class="pill eye" role="listitem">⬜ Contrast Sensitivity</span>
-      <span class="pill" role="listitem">🌬 Breath Sync</span>
-      <span class="pill" role="listitem">⏱ Breath Hold</span>
-      <span class="pill" role="listitem">♻ Recovery Test</span>
-      <span class="pill" role="listitem">🔥 Maths Under Pressure</span>
-      <span class="pill" role="listitem">🔷 Pattern Search</span>
-      <span class="pill" role="listitem">📱 Steady Hand</span>
-      <span class="pill" role="listitem">✏ Tremor Drawing</span>
-      <span class="pill" role="listitem">💤 Sleep Check</span>
-      <span class="pill" role="listitem">⚖ Lifestyle Score</span>
-      <span class="pill fem" role="listitem">🌸 Hormonal Rhythm</span>
-      <span class="pill fem" role="listitem">⚡ Energy &amp; Iron</span>
-      <span class="pill fem" role="listitem">🌙 Female Sleep &amp; Comfort</span>
-      <span style="font-size:.61rem;color:var(--tq);align-self:center;padding-left:.3rem">🌸 = Female only &nbsp;·&nbsp; 👁 = Eye tests</span>
+    <div style="padding:1.1rem 0;border-top:1px solid var(--b)">
+      <div style="font-size:.63rem;font-weight:700;color:var(--tq);text-transform:uppercase;letter-spacing:.09em;margin-bottom:.7rem">What you will check:</div>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid var(--b);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">🧠 Brain <span style="color:var(--tq);font-weight:400">4 checks</span></div>
+        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid rgba(37,99,235,.2);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">👁 Eyes <span style="color:var(--tq);font-weight:400">3 checks</span></div>
+        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid var(--b);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">🌬 Breathing <span style="color:var(--tq);font-weight:400">2 checks</span></div>
+        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid var(--b);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">📱 Stability <span style="color:var(--tq);font-weight:400">2 checks</span></div>
+        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid rgba(42,122,90,.2);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">🌿 Lifestyle <span style="color:var(--tq);font-weight:400">2 checks</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -392,85 +377,69 @@ button,input,select{font-family:inherit}
   <div class="wrap">
     <div class="card card--pop">
       <div class="step-head">
-        <div class="tag">📋 Before You Start</div>
-        <h2 class="h2" style="margin-top:.75rem;margin-bottom:.45rem">How It Works</h2>
-        <p class="pg">Quick read — takes 30 seconds. Makes everything easier.</p>
+        <div style="font-size:2rem;margin-bottom:.5rem">👋</div>
+        <h2 class="h2" style="margin-top:0;margin-bottom:.35rem">3 Simple Rules — That's It!</h2>
+        <p class="pg" style="font-size:.82rem;color:var(--tq)">Everything else is guided for you. You cannot do this wrong.</p>
       </div>
 
-      <div class="instr-grid">
-        <div class="iitem au d1">
-          <div class="iico">🎬</div>
-          <div class="ibody"><strong>Watch Demo First</strong><p>Every activity shows a short animation before you start. You see exactly what to do — no guessing.</p></div>
+      <div style="display:flex;flex-direction:column;gap:.65rem;margin:1.2rem 0 1.4rem">
+        <div style="display:flex;align-items:center;gap:.9rem;padding:.9rem 1rem;background:var(--g4);border:1.5px solid rgba(42,122,90,.15);border-radius:var(--rs)">
+          <span style="font-size:1.4rem;flex-shrink:0">🎬</span>
+          <div>
+            <div style="font-weight:700;font-size:.88rem;color:var(--t)">Watch the demo — then tap Start</div>
+            <div style="font-size:.76rem;color:var(--tq);margin-top:.08rem">A quick animation shows you exactly what to do. No guessing.</div>
+          </div>
         </div>
-        <div class="iitem au d1">
-          <div class="iico">🗣</div>
-          <div class="ibody"><strong>Voice Guidance</strong><p>Tap the 🔊 button (bottom right) to turn on English voice guidance — spoken instructions before each activity.</p></div>
+        <div style="display:flex;align-items:center;gap:.9rem;padding:.9rem 1rem;background:var(--g4);border:1.5px solid rgba(42,122,90,.15);border-radius:var(--rs)">
+          <span style="font-size:1.4rem;flex-shrink:0">🟢</span>
+          <div>
+            <div style="font-weight:700;font-size:.88rem;color:var(--t)">React to green — ignore red</div>
+            <div style="font-size:.76rem;color:var(--tq);margin-top:.08rem">Most checks use simple green/red signals. Tap, breathe, or hold — the screen tells you.</div>
+          </div>
         </div>
-        <div class="iitem au d2">
-          <div class="iico">⏭</div>
-          <div class="ibody"><strong>Skip Anytime</strong><p>Don't feel like doing an activity? Press Skip. Your other scores are not affected at all.</p></div>
-        </div>
-        <div class="iitem au d2">
-          <div class="iico">👁</div>
-          <div class="ibody"><strong>Eye Tests Included</strong><p>3 new activities check colour blindness, how sharp your vision is, and contrast sensitivity.</p></div>
-        </div>
-        <div class="iitem au d3">
-          <div class="iico">📱</div>
-          <div class="ibody"><strong>Phone or Laptop</strong><p>Most tests work anywhere. The Steady Hand test uses your phone's motion sensor for best results.</p></div>
-        </div>
-        <div class="iitem au d3">
-          <div class="iico">📄</div>
-          <div class="ibody"><strong>Free PDF at the End</strong><p>Download a clean, readable report with your scores, personalised tips and wellness suggestions.</p></div>
+        <div style="display:flex;align-items:center;gap:.9rem;padding:.9rem 1rem;background:var(--g4);border:1.5px solid rgba(42,122,90,.15);border-radius:var(--rs)">
+          <span style="font-size:1.4rem;flex-shrink:0">📄</span>
+          <div>
+            <div style="font-weight:700;font-size:.88rem;color:var(--t)">Get your free report at the end</div>
+            <div style="font-size:.76rem;color:var(--tq);margin-top:.08rem">Download your personalised PDF — share on WhatsApp for expert guidance.</div>
+          </div>
         </div>
       </div>
 
-      <div class="notice">
-        <div class="ni">⚕️</div>
-        <p><strong>Important:</strong> This is a wellness check, not a medical test. It cannot diagnose diseases. <strong>All data stays on your device — nothing is sent anywhere.</strong> See a doctor for health concerns.</p>
-      </div>
+      <p style="font-size:.72rem;color:var(--tq);text-align:center;margin-bottom:1rem">🔐 All data stays on your device. Nothing is sent anywhere.</p>
 
-      <div class="btn-row">
-        <button class="btn btn--p btn--lg" onclick="LAB.goGender()">Continue</button>
-        <button class="btn btn--g" onclick="LAB.goWelcome()">← Back</button>
-      </div>
+      <button class="btn btn--p btn--lg btn--full" onclick="LAB.goGender()">I'm Ready — Let's Start! →</button>
     </div>
   </div>
 </section>
 
 <section id="sGender" style="display:none;padding:clamp(1.8rem,5vw,3.5rem) 0">
   <div class="wrap">
-    <div class="card card--pop">
-      <div class="step-head">
-        <div class="tag">👤 Quick Setup</div>
-        <h2 class="h2" style="margin-top:.75rem;margin-bottom:.45rem">Select Your Biological Sex</h2>
-        <p class="pg">Shows you the right activities. Never stored or shared.</p>
-      </div>
+    <div class="card card--pop" style="text-align:center">
+      <div style="font-size:1.8rem;margin-bottom:.4rem">👤</div>
+      <h2 class="h2" style="margin-bottom:.3rem;font-size:1.2rem">One quick question</h2>
+      <p class="pg" style="font-size:.8rem;color:var(--tq);margin-bottom:1.3rem">Select your biological sex — shows the right checks for you.</p>
 
-      <div class="gend-grid" role="group" aria-label="Select biological sex">
+      <div class="gend-grid" role="group" aria-label="Select biological sex" style="margin:0 auto 1rem">
         <div class="gcard" id="gM" role="radio" aria-checked="false" tabindex="0"
-             onclick="LAB.setGender('male')" onkeydown="if(event.key==='Enter'||event.key===' ')LAB.setGender('male')">
+             onclick="LAB.setGender('male');setTimeout(()=>LAB.beginModules(),400)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){LAB.setGender('male');setTimeout(()=>LAB.beginModules(),400)}">
           <div class="gck" aria-hidden="true">✓</div>
           <span class="gico">♂</span>
           <div class="gnm">Male</div>
-          <div class="gnt">16 activities</div>
+          <div class="gnt">15 checks</div>
         </div>
         <div class="gcard" id="gF" role="radio" aria-checked="false" tabindex="0"
-             onclick="LAB.setGender('female')" onkeydown="if(event.key==='Enter'||event.key===' ')LAB.setGender('female')">
+             onclick="LAB.setGender('female');setTimeout(()=>LAB.beginModules(),400)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){LAB.setGender('female');setTimeout(()=>LAB.beginModules(),400)}">
           <div class="gck" aria-hidden="true">✓</div>
           <span class="gico">♀</span>
           <div class="gnm">Female</div>
-          <div class="gnt">16 + 3 female activities</div>
+          <div class="gnt">15 + 3 checks</div>
         </div>
       </div>
 
-      <div class="fem-note" id="femNote">
-        🌸 <strong>3 focused female activities:</strong> Hormonal Rhythm Check, Energy &amp; Iron, and Combined Sleep &amp; Comfort — short, clear, and specific to you.
-      </div>
-
-      <div class="btn-row">
-        <button class="btn btn--p btn--lg" id="goCont" disabled onclick="LAB.beginModules()">Start Assessment →</button>
-        <button class="btn btn--g" onclick="LAB.goInstr()">← Back</button>
-      </div>
+      <p style="font-size:.68rem;color:var(--tq)">Tap to select — assessment starts immediately ✓</p>
     </div>
   </div>
 </section>
@@ -485,7 +454,7 @@ button,input,select{font-family:inherit}
   <div class="demo-box">
     <div class="demo-hdr">
       <h3 id="demoTitle">Demo</h3>
-      <span class="demo-badge">Watch first!</span>
+      <span class="demo-badge" id="demoBadge">Watch · then Start</span>
     </div>
     <div class="demo-body">
       <p class="demo-txt" id="demoTxt">Loading…</p>
@@ -493,8 +462,9 @@ button,input,select{font-family:inherit}
       <div class="demo-hint" id="demoHint"></div>
     </div>
     <div class="demo-ftr">
-      <button class="btn btn--g btn--sm" onclick="LAB.closeDemo(true);LAB.skip()">Skip Activity</button>
+      <button class="btn btn--g btn--sm" onclick="LAB.closeDemo(true);LAB.skip()">Not now →</button>
       <button class="btn btn--p btn--sm" id="demoStart" onclick="LAB.closeDemo(false)">Start →</button>
+      <span id="demoCountdown" style="font-size:.72rem;color:var(--tq);font-family:'JetBrains Mono',monospace;display:none;align-self:center;min-width:60px;text-align:right"></span>
     </div>
   </div>
 </div>
@@ -566,21 +536,13 @@ const LAB = {
     trackWL('wellness_start');
     this.show('sInstr');
     this.setStatus('idle','Setup');
-    this.say(
-      'Here is how the lab works. Each activity starts with a short demo. You can skip any activity.',
-      'لیب کس طرح کام کرتی ہے۔ ہر سرگرمی ایک ڈیمو سے شروع ہوتی ہے۔',
-      'लैब कैसे काम करती है। हर गतिविधि एक डेमो से शुरू होती है।'
-    );
+    this.say("Welcome! I'll guide you through everything. It's really simple — just watch each demo and follow the signals. Let's go!");
   },
 
   goGender() {
     this.show('sGender');
     this.setStatus('idle','Setup');
-    this.say(
-      'Please select your biological sex to activate the right activities.',
-      'براہ کرم اپنی جنس منتخب کریں۔',
-      'कृपया अपना जैविक लिंग चुनें।'
-    );
+    this.say('Almost there! Just tap Male or Female — and your wellness check will begin right away.');
   },
 
   setGender(g) {
@@ -597,7 +559,7 @@ const LAB = {
     const gc = this.el('goCont');
     if (gc) gc.disabled = false;
     this.say(
-      g==='female' ? 'Female selected. 19 activities including 3 female-specific ones.' : 'Male selected. 16 activities.',
+      g==='female' ? "Perfect! Starting your personalised check now — you've got this!" : "Great! Starting your check right now — you've got this!",
       g==='female' ? 'خاتون منتخب کی گئی۔' : 'مرد منتخب کیا گیا۔',
       g==='female' ? 'महिला चुना गया।' : 'पुरुष चुना गया।'
     );
@@ -607,24 +569,21 @@ const LAB = {
     if (!this.gender) return;
     this.queue = [
       'mod_reactionSpeed',
-      'mod_reactionFatigue',
       'mod_workingMemory',
       'mod_sustainedAttention',
+      'mod_cogUnderPressure',
       'mod_colourBlindness',
       'mod_visualAcuity',
       'mod_contrastSensitivity',
       'mod_breathSync',
       'mod_co2Tolerance',
-      'mod_recovery',
-      'mod_cogUnderPressure',
-      'mod_patternOverload',
       'mod_stabilityHold',
       'mod_microTremor',
       'mod_sleepEfficiency',
       'mod_lifestyleLoad',
     ];
     if (this.gender === 'female') {
-      this.queue.push('mod_hormonalRhythm','mod_energyIron','mod_femCombined');
+      this.queue.push('mod_hormonalRhythm','mod_energyIron');
     }
     this.idx = 0;
     this.show('sModules');
@@ -687,16 +646,46 @@ const LAB = {
     mod_femCombined:'🌙 Sleep & Comfort',
   },
 
+  _sections: {
+    mod_reactionSpeed:    {label:'🧠 Brain',  num:1, of:4},
+    mod_workingMemory:    {label:'🧠 Brain',  num:2, of:4},
+    mod_sustainedAttention:{label:'🧠 Brain', num:3, of:4},
+    mod_cogUnderPressure: {label:'🧠 Brain',  num:4, of:4},
+    mod_colourBlindness:  {label:'👁 Eyes',   num:1, of:3},
+    mod_visualAcuity:     {label:'👁 Eyes',   num:2, of:3},
+    mod_contrastSensitivity:{label:'👁 Eyes', num:3, of:3},
+    mod_breathSync:       {label:'🌬 Breathing',num:1,of:2},
+    mod_co2Tolerance:     {label:'🌬 Breathing',num:2,of:2},
+    mod_stabilityHold:    {label:'📱 Stability',num:1,of:2},
+    mod_microTremor:      {label:'📱 Stability',num:2,of:2},
+    mod_sleepEfficiency:  {label:'🌿 Lifestyle',num:1,of:3},
+    mod_lifestyleLoad:    {label:'🌿 Lifestyle',num:2,of:3},
+    mod_hormonalRhythm:   {label:'🌸 Female',  num:1,of:2},
+    mod_energyIron:       {label:'🌸 Female',  num:2,of:2},
+  },
+
   _updateProg() {
     const n=this.queue.length, i=this.idx+1, pct=Math.round(this.idx/n*100);
-    const lbl=this._mlabels[this.queue[this.idx]]||'—';
+    const modKey = this.queue[this.idx];
+    const sec = this._sections[modKey];
+    const stepLbl = sec ? `${sec.label} ${sec.num} of ${sec.of}` : `Step ${i} of ${n}`;
+    const actLbl = this._mlabels[modKey] || '—';
     const set=(id,v)=>{const e=this.el(id);if(e)e.textContent=v;};
-    set('pStep',`MODULE ${i} / ${n}`);
-    set('pLbl',lbl);
-    set('pPct',pct+'%');
+    set('pStep', stepLbl);
+    set('pLbl', actLbl);
+    set('pPct', pct+'%');
     const f=this.el('pFill');if(f)f.style.width=pct+'%';
     this.el('progBar').setAttribute('aria-valuenow',pct);
-    this.setStatus('active',lbl);
+    this.setStatus('active', actLbl);
+    // Delayed skip button reveal — encourage users to try first
+    const sb = this.el('skipBtn');
+    if (sb) {
+      sb.style.opacity = '0'; sb.style.pointerEvents = 'none';
+      clearTimeout(this._skipTimer);
+      this._skipTimer = setTimeout(() => {
+        if (sb) { sb.style.opacity = '1'; sb.style.pointerEvents = ''; }
+      }, 3000);
+    }
   },
 
   render(html) {
@@ -737,11 +726,7 @@ const LAB = {
     if (t) t.textContent = this.voiceOn ? '🔊' : '🔇';
     if (l) l.textContent = this.voiceOn ? 'Voice ON' : 'Voice OFF';
     if (this.voiceOn) {
-      this.say(
-        'Voice guidance is now on. I will guide you before each activity.',
-        'وائس گائیڈ آن ہے۔',
-        'वॉइस गाइड चालू है।'
-      );
+      this.say("Voice guidance is on! I'll cheer you on and guide you through every check. Let's do this together!");
     } else if (this._synth) {
       this._synth.cancel();
     }
@@ -773,10 +758,29 @@ const LAB = {
     document.body.style.overflow = 'hidden';
 
     this.say(cfg.voiceEN || cfg.txt.replace(/<[^>]+>/g,''));
+
+    // Auto-countdown: show "Starting in 3…2…1" then auto-close
+    const cdEl = this.el('demoCountdown');
+    if (cdEl) { cdEl.style.display = 'inline'; cdEl.textContent = 'Starting in 3…'; }
+    let cdSecs = 3;
+    clearInterval(this._cdTimer);
+    this._cdTimer = setInterval(() => {
+      cdSecs--;
+      if (cdEl) cdEl.textContent = cdSecs > 0 ? `Starting in ${cdSecs}…` : 'Starting…';
+      if (cdSecs <= 0) {
+        clearInterval(this._cdTimer);
+        this._cdTimer = null;
+        if (cdEl) { cdEl.style.display = 'none'; cdEl.textContent = ''; }
+        this.closeDemo(false);
+      }
+    }, 1000);
   },
 
   closeDemo(skip) {
     if (this._demoAnim) { clearInterval(this._demoAnim); clearTimeout(this._demoAnim); this._demoAnim = null; }
+    clearInterval(this._cdTimer); this._cdTimer = null;
+    const cdEl = this.el('demoCountdown');
+    if (cdEl) { cdEl.style.display = 'none'; cdEl.textContent = ''; }
     const ov = this.el('demo-ov');
     if (ov) ov.classList.remove('show');
     document.body.style.overflow = '';
@@ -944,7 +948,7 @@ window.mod_reactionSpeed = function () {
     title: '⚡ Reaction Speed',
     txt: 'The box turns <strong style="color:var(--am)">red → Wait</strong> then suddenly goes <strong style="color:var(--g)">green → TAP!</strong><br>Hit it the instant you see green. <strong>Do NOT tap on Wait or you lose that round.</strong>',
     hint: '10 rounds · try to beat your best each time!',
-    voiceEN: 'Here is how this works. A box will appear — red means wait, green means tap as fast as you can. Ten rounds. Ready?',
+    voiceEN: "First up — Reaction Speed! A box appears. Red means wait, green means tap as fast as you can. Simple! Ten quick rounds — let's see how sharp you are!",
     btnLabel: 'Start Reaction Test →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.8rem;padding:.6rem">
       <div id="dRxBox" class="d3p" style="width:160px;height:58px;border-radius:16px;
@@ -995,7 +999,7 @@ window.mod_reactionSpeed = function () {
         <div class="scb"><span class="v" id="rxAvg">—</span><span class="l">Average</span></div>
       </div>
     </div></div>`);
-    LAB.say('Alright, keep your finger ready. Tap as soon as you see green.');
+    LAB.say("You're doing great — keep your finger ready! Tap the moment it turns green. Go!");
     setTimeout(_rxSchedule, 900);
   });
 
@@ -1057,7 +1061,7 @@ window.mod_reactionSpeed = function () {
     const sc=LAB.clamp(Math.round((m<200?100:m<260?92:m<320?82:m<420?70:m<560?55:38) - sd/22),18,100);
     LAB.raw.rxAvg=Math.round(m); LAB.raw.rxBest=best; LAB.raw.rxSD=Math.round(sd); LAB.raw.rxScore=sc;
     LAB.celebrate();
-    LAB.say(`Nice work! Your average was ${Math.round(m)} milliseconds. That is ${LAB.scoreLbl(sc)}!`);
+    LAB.say(`Nice one! Your average reaction was ${Math.round(m)} milliseconds — that is ${LAB.scoreLbl(sc)}! Keep going, you are doing brilliantly!`);
     setTimeout(()=>{ LAB.idx++; LAB.next(); },1900);
   }
 };
@@ -1196,7 +1200,7 @@ window.mod_workingMemory = function () {
     title: '🧩 Memory Matrix',
     txt: 'Boxes light up one by one in a sequence. <strong>Remember the order</strong>, then tap them back in the same order. Each round gets a little longer!',
     hint: 'Watch carefully — then repeat the pattern',
-    voiceEN: 'Watch the grid carefully. Some boxes will light up one by one. Once they stop, tap them back in the exact same order. Each round gets a little longer.',
+    voiceEN: "Memory Matrix time! Watch the grid — boxes will light up one by one. Once they stop, tap them back in the same order. Each round gets a little longer. You can do this!",
     btnLabel: 'Start Memory Test →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.8rem;padding:.3rem">
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:114px;transform-style:preserve-3d;transform:rotateX(12deg) rotateY(-6deg)" id="dMemGrid">
@@ -1252,7 +1256,7 @@ window.mod_workingMemory = function () {
         <div class="scb"><span class="v" id="mErr">0</span><span class="l">Mistakes</span></div>
       </div>
     </div></div>`);
-    LAB.say('Watch carefully, then repeat the pattern. Here we go.');
+    LAB.say("Stay focused — watch the pattern carefully, then repeat it. You've got this!");
     setTimeout(_mRound,700);
   });
 
@@ -1303,7 +1307,7 @@ window.mod_workingMemory = function () {
     const sc=LAB.clamp(Math.round((st.maxSpan/9)*80-st.errors*2.5+18),12,100);
     LAB.raw.memSpan=st.maxSpan;LAB.raw.memErrors=st.errors;LAB.raw.memScore=sc;
     LAB.celebrate();
-    LAB.say(`Well done! Your best sequence was ${st.maxSpan} items long. That is ${LAB.scoreLbl(sc)} working memory.`);
+    LAB.say(`Excellent memory work! Your best sequence was ${st.maxSpan} items — that is ${LAB.scoreLbl(sc)} working memory. Halfway through the brain section!`);
     setTimeout(()=>{LAB.idx++;LAB.next();},1900);
   }
 };
@@ -1317,7 +1321,7 @@ window.mod_sustainedAttention = function () {
     title: '👁 Attention Test',
     txt: 'A circle appears — either <strong style="color:var(--g)">GREEN</strong> or <strong style="color:var(--rd)">RED</strong>.<br>Tap <strong>only the GREEN</strong> circle. Completely ignore red. 60 seconds.',
     hint: 'Green = tap · Red = ignore · stay sharp!',
-    voiceEN: 'This one is sixty seconds long. A circle will appear — sometimes green, sometimes red. Only tap the green one. Completely ignore red. Try to stay sharp the whole time.',
+    voiceEN: "Attention test — 60 seconds! A circle appears — green means tap it, red means ignore it completely. Stay sharp the whole time. You can totally do this!",
     btnLabel: 'Start Attention Test →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.7rem;padding:.4rem">
       <div style="display:flex;gap:14px;align-items:center">
@@ -1396,9 +1400,9 @@ window.mod_sustainedAttention = function () {
       const rem=DUR-st.elapsed;
       const te=document.getElementById('atTimer');
       if(te){te.textContent=rem;te.className='timer'+(rem<=8?' crit':rem<=18?' warn':'');}
-      if(rem===40) LAB.say('Halfway through — keep your focus!');
-      if(rem===20) LAB.say('Twenty seconds left!');
-      if(rem===5)  LAB.say('Last five!');
+      if(rem===40) LAB.say("Brilliant — keep that focus going, you are doing great!");
+      if(rem===20) LAB.say("Almost done — just 20 more seconds, stay sharp!");
+      if(rem===5)  LAB.say("Last five — finish strong!");
       if(st.elapsed>=DUR){clearInterval(_cd);clearTimeout(_st);_atDone();}
     },1000);
     _atNext();
@@ -1470,7 +1474,7 @@ window.mod_sustainedAttention = function () {
     const cogScores=[LAB.raw.rxScore,LAB.raw.ftScore,LAB.raw.memScore,sc].filter(x=>x!=null);
     LAB.scores.cognitive=cogScores.length?Math.round(LAB.avg(cogScores)):sc;
     LAB.celebrate();
-    LAB.say(`Great effort! You hit ${st.hits} green circles over sixty seconds. That is ${LAB.scoreLbl(sc)} attention.`);
+    LAB.say(`Incredible focus! You hit ${st.hits} green circles — that is ${LAB.scoreLbl(sc)} attention. Brain checks done! Now let's look at your eyes.`);
     setTimeout(()=>{LAB.idx++;LAB.next();},1900);
   }
 };
@@ -1519,7 +1523,7 @@ window.mod_colourBlindness = function () {
     title: '🎨 Colour Blindness Check',
     txt: 'You will see a circle packed with coloured dots. <strong>A number is hidden inside</strong> — look carefully. Type the number or tap "Cannot see it".',
     hint: '6 plates — takes about 2 minutes',
-    voiceEN: 'Take a look at the circle. It is packed with coloured dots, and a number is hidden somewhere inside. Try to spot it and type it in. Do not worry if you cannot see it.',
+    voiceEN: "Eye section! First — colour vision. A circle of coloured dots has a number hidden inside. Try to spot it! Do not worry if you cannot see it — just try your best.",
     btnLabel: 'Start Colour Check →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:.3rem">
       <div class="d3f" style="border-radius:50%;box-shadow:0 8px 24px rgba(0,0,0,.15),0 2px 8px rgba(0,0,0,.08)">
@@ -1579,7 +1583,7 @@ window.mod_colourBlindness = function () {
       </div>
     </div></div>`);
     setTimeout(()=>{const inp=document.getElementById('cbInp');if(inp)inp.focus();},400);
-    LAB.say(`Plate ${curr+1}. Take your time — look carefully at the dots for a hidden number.`);
+    LAB.say(`Plate ${curr+1} — look carefully at the dots. Take your time, no rush!`);
   }
 
   window._cbAnswer=function(){
@@ -1615,7 +1619,7 @@ window.mod_visualAcuity = function () {
     title: '📏 Visual Acuity',
     txt: 'Rows of letters appear, getting <strong>smaller and smaller</strong>. Tap the <strong>smallest row you can read clearly</strong> from where you are sitting.',
     hint: 'Keep glasses on if you wear them',
-    voiceEN: 'You will see rows of letters, getting smaller and smaller. Just tap the smallest row you can read clearly from where you are sitting. Keep your glasses on if you normally wear them.',
+    voiceEN: "Vision check! You will see rows of letters getting smaller. Just tap the smallest row you can read clearly. Keep your glasses on if you wear them — no trick here!",
     btnLabel: 'Start Vision Test →',
     vis: `<div style="text-align:center;transform-style:preserve-3d;transform:perspective(300px) rotateX(8deg);padding:.5rem .8rem" id="acDemoWrap">
       <div style="background:#fff;border-radius:10px;padding:.5rem .9rem;box-shadow:0 8px 24px rgba(0,0,0,.1),0 2px 6px rgba(0,0,0,.06);border:1.5px solid #D4E8DC">
@@ -1660,7 +1664,7 @@ window.mod_visualAcuity = function () {
         <button class="btn btn--g" onclick="_acNone()">Cannot read any row clearly</button>
       </div>
     </div></div>`);
-    LAB.say('Take a moment to look at the chart. Tap the smallest row you can read clearly without straining.');
+    LAB.say("Take a moment — look at the chart and tap the smallest row you can read comfortably. No squinting needed!");
   });
 
   window._acTap=function(i){
@@ -1770,7 +1774,7 @@ window.mod_contrastSensitivity = function () {
     const eyeScores=[LAB.raw.cbScore,LAB.raw.acuityScore,sc].filter(x=>x!=null);
     LAB.scores.eye=eyeScores.length?Math.round(LAB.avg(eyeScores)):sc;
     LAB.celebrate();
-    LAB.say(`All three eye tests done! You could see ${lastSeen+1} contrast levels. ${LAB.scoreLbl(sc)}.`);
+    LAB.say(`Eye checks done — well done! You could see ${lastSeen+1} contrast levels, which is ${LAB.scoreLbl(sc)}. Now let's check your breathing — this one is actually relaxing!`);
     setTimeout(()=>{LAB.idx++;LAB.next();},1900);
   }
 };
@@ -1789,7 +1793,7 @@ window.mod_breathSync = function () {
     title: '🌬 Breath Sync',
     txt: 'A circle will grow and shrink. <strong>Breathe with it</strong>: inhale when it expands, hold when it pauses, exhale when it shrinks. Just follow its rhythm naturally.',
     hint: '6 breathing cycles — find your calm',
-    voiceEN: 'Breath sync test. A circle will grow and shrink on screen. Breathe in as it grows. Hold when it pauses. Breathe out as it shrinks. Just follow its rhythm.',
+    voiceEN: "Breathing check — this one is actually calming! A circle will grow and shrink on screen. Just breathe with it — in as it grows, hold when it pauses, out as it shrinks. Follow its gentle rhythm.",
     btnLabel: 'Start Breath Sync →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
       <div id="bsDemoCirc" style="width:52px;height:52px;border-radius:50%;background:var(--g3);border:3px solid var(--g);transition:all .6s ease-in-out"></div>
@@ -1846,7 +1850,7 @@ window.mod_breathSync = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Press start and just follow the circle with your breathing. In when it grows, hold when it pauses, out when it shrinks.');
+    LAB.say("Relax your shoulders, take a comfortable breath, and just follow the circle. You're doing wonderfully!");
   });
 
   window._bsBegin = function () {
@@ -1911,7 +1915,7 @@ window.mod_breathSync = function () {
     const sc = LAB.clamp(Math.round(LAB.avg(_scores)), 40, 100);
     LAB.raw.breathSyncScore = sc;
     LAB.celebrate();
-    LAB.say(`Beautifully done. ${CYCLES} full breathing cycles. That is ${LAB.scoreLbl(sc)} breathing rhythm.`);
+    LAB.say(`Beautifully done! ${CYCLES} full breathing cycles — that is ${LAB.scoreLbl(sc)} breathing rhythm. Feel good? One more breathing check and then stability!`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   }
 };
@@ -1923,7 +1927,7 @@ window.mod_co2Tolerance = function () {
     title: '⏱ Breath Hold Test',
     txt: 'Take a normal breath in, then breathe out slowly. Then <strong>hold your breath</strong> and tap the button when you feel you need to breathe. That\'s it!',
     hint: 'Do NOT force it — stop when it feels natural',
-    voiceEN: 'Breath hold test. Take a normal breath in, breathe out, then hold. Tap the button when you feel you need to breathe again. Do not force it.',
+    voiceEN: "Breath hold test — totally safe, no pressure! Take a normal breath in, breathe out slowly, then hold as long as feels comfortable. Tap when you feel ready to breathe again.",
     btnLabel: 'Start →',
     vis: `<div style="text-align:center;font-size:1.1rem">
       1. 😮‍💨 <strong>Breathe in</strong> normally<br>
@@ -1977,7 +1981,7 @@ window.mod_co2Tolerance = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Take a slow normal breath in through your nose, then tap when ready.');
+    LAB.say("Perfect — take a slow, comfortable breath in through your nose. Nice and relaxed.");
   });
 
   window._bhNext = function () {
@@ -1989,7 +1993,7 @@ window.mod_co2Tolerance = function () {
       if(t)  t.textContent  = 'Step 2 of 3: Breathe Out';
       if(d)  d.textContent  = 'Now breathe out slowly and completely. Tap when you have fully exhaled.';
       if(b)  b.textContent  = '✓ Exhaled — Start Hold →';
-      LAB.say('Now breathe out slowly and completely. Tap when you have fully exhaled.');
+      LAB.say("Good — now breathe out slowly and fully. Take your time.");
 
     } else if (_phase === 'exhale') {
 
@@ -2000,7 +2004,7 @@ window.mod_co2Tolerance = function () {
       if(d)  d.textContent='Hold still. The timer is counting. Tap the button when you feel the urge to breathe.';
       if(b){ b.textContent='🫁 I Need to Breathe — Stop'; b.className='btn btn--gold btn--lg btn--full'; }
       if(ti){ ti.style.display='block'; }
-      LAB.say('Now hold. The timer is running. Tap the button the moment you feel you need to breathe — do not push it.');
+      LAB.say("Now hold gently — timer is running. Tap the moment you feel ready to breathe. No need to push yourself.");
       _cd = setInterval(()=>{
         const elapsed = (performance.now()-_startT)/1000;
         const ti2 = document.getElementById('bhTimer');
@@ -2031,7 +2035,7 @@ window.mod_co2Tolerance = function () {
     if(b) b.style.display='none';
 
     LAB.celebrate();
-    LAB.say(`Well done! You held your breath for ${Math.round(_held)} seconds. That is ${rating}!`);
+    LAB.say(`Fantastic! You held for ${Math.round(_held)} seconds — that is ${rating}! Breathing section complete. Now for stability — two quick motor checks!`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 2200);
   }
 };
@@ -2194,7 +2198,7 @@ window.mod_cogUnderPressure = function () {
     title: '🔥 Maths Under Pressure',
     txt: 'A maths question appears. Tap the <strong>correct answer</strong> from 4 choices. You have just <strong>35 seconds</strong> for all 20 questions — work fast!',
     hint: '20 questions · 35 seconds · all mental maths',
-    voiceEN: 'Maths under pressure. 20 arithmetic questions. 4 choices each. 35 seconds total. Tap the correct answer as fast as you can.',
+    voiceEN: "Brain challenge! Twenty quick maths questions — four choices each. Tap the right answer fast. Don't overthink it, just go with your gut. Ready? Let's test that brain!",
     btnLabel: 'Start Maths Challenge →',
     vis: `<div style="text-align:center">
       <div style="font-size:1.6rem;font-weight:700;color:var(--t);font-family:'JetBrains Mono',monospace;margin-bottom:.8rem" id="mpDemo">8 × 7 = ?</div>
@@ -2297,7 +2301,7 @@ window.mod_cogUnderPressure = function () {
     LAB.scores.stress=sc;
 
     LAB.celebrate();
-    LAB.say(`Maths done! ${_correct} out of ${TOTAL} correct. ${LAB.scoreLbl(sc)} cognitive performance under pressure.`);
+    LAB.say(`Great brain work! ${_correct} out of ${TOTAL} correct — that is ${LAB.scoreLbl(sc)} under pressure. You are making brilliant progress!`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   }
 };
@@ -2437,7 +2441,7 @@ window.mod_stabilityHold = function () {
     title: '📱 Steady Hand',
     txt: '<strong>Hold your phone as still as possible</strong> for 20 seconds. On desktop, keep your mouse cursor inside the green circle without moving.',
     hint: 'The steadier you are, the higher your score',
-    voiceEN: 'Steady hand test. Hold your phone completely still for 20 seconds. On desktop, keep your cursor inside the green circle.',
+    voiceEN: "Steady hand! This one is fun — hold your phone as still as you possibly can for 20 seconds. On desktop, keep your cursor inside the green circle. How steady are you?",
     btnLabel: 'Start Steady Hand Test →',
     vis: `<div style="text-align:center">
       <div style="font-size:2.5rem">📱</div>
@@ -2498,7 +2502,7 @@ window.mod_stabilityHold = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Press start, then hold your phone as still as you possibly can for twenty seconds. Rest your elbow on something if that helps.');
+    LAB.say("Press start, rest your elbow somewhere and hold as still as you can for 20 seconds. You are nearly at the finish line!");
   });
 
   window._shBegin = function () {
@@ -2585,7 +2589,7 @@ window.mod_stabilityHold = function () {
     }
     LAB.raw.stabilityScore=sc;
     LAB.celebrate();
-    LAB.say(`That is it! Your steadiness score is ${sc}. ${LAB.scoreLbl(sc)}.`);
+    LAB.say(`Impressive! Steadiness score ${sc} — that is ${LAB.scoreLbl(sc)}. One more motor check and then lifestyle — almost there!`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   }
 };
@@ -2599,7 +2603,7 @@ window.mod_microTremor = function () {
     title: '✏ Tremor Drawing',
     txt: 'You will see a zig-zag path on screen. <strong>Trace along it with your finger or mouse</strong> as smoothly and accurately as you can. We measure how steady your hand is.',
     hint: 'Go slowly — accuracy matters more than speed',
-    voiceEN: 'Tremor drawing test. A zig-zag path appears. Trace along it as smoothly as you can with your finger. Steady and slow.',
+    voiceEN: "Last motor check! A zig-zag path appears on screen. Trace along it slowly and smoothly with your finger. Slow and steady wins this one!",
     btnLabel: 'Start Drawing Test →',
     vis: `<div style="text-align:center">
       <svg width="200" height="70" viewBox="0 0 200 70" style="border:1.5px solid var(--b);border-radius:8px;background:#fff">
@@ -2658,7 +2662,7 @@ window.mod_microTremor = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Trace along the dotted path as smoothly as you can. Start from the green circle on the left. Slow and steady.');
+    LAB.say("Start from the green circle on the left — trace slowly and smoothly. Take your time, no rush!");
 
     setTimeout(_trSetup, 200);
   });
@@ -2751,7 +2755,7 @@ window.mod_microTremor = function () {
     const nb=document.getElementById('trNext'); if(nb) nb.style.display='flex';
 
     LAB.celebrate();
-    LAB.say(`Drawing done. Average deviation ${Math.round(avgDev)} pixels. ${LAB.scoreLbl(sc)} hand steadiness.`);
+    LAB.say(`Excellent! Drawing done — ${LAB.scoreLbl(sc)} hand steadiness. Now just two quick lifestyle questions and you are done! So close!`);
   }
 
   window._trClear = function () {
@@ -2768,7 +2772,7 @@ window.mod_sleepEfficiency = function () {
     title: '💤 Sleep Check',
     txt: 'Answer 5 quick questions about your sleep last night. We calculate a sleep quality score based on your answers.',
     hint: 'Honest answers = accurate score',
-    voiceEN: 'Sleep check. Answer 5 short questions about your sleep last night. Be honest for the most accurate result.',
+    voiceEN: "Almost done! Quick sleep check — just 5 honest questions about last night. Honest answers give you the most useful result.",
     btnLabel: 'Start Sleep Check →',
     vis: `<div style="text-align:center;font-size:2rem;margin-bottom:.5rem">💤</div>
     <div style="font-size:.82rem;color:var(--tq);text-align:center">5 quick questions<br>about last night's sleep</div>`,
@@ -2828,7 +2832,7 @@ window.mod_sleepEfficiency = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Answer the 5 sleep questions honestly.');
+    LAB.say("Just 5 quick questions — tap your honest answers. You are nearly at the finish line now!");
   });
 
   window._slCalc = function () {
@@ -2851,7 +2855,7 @@ window.mod_sleepEfficiency = function () {
     LAB.raw.sleepHours=Math.round(hours*10)/10; LAB.raw.sleepScore=sc;
 
     LAB.celebrate();
-    LAB.say(`Sleep check done. You slept about ${Math.round(hours*10)/10} hours. ${LAB.scoreLbl(sc)} sleep quality.`);
+    LAB.say(`Sleep check done — you slept about ${Math.round(hours*10)/10} hours. That is ${LAB.scoreLbl(sc)} sleep quality. One final check and your results are ready!`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   };
 };
@@ -2861,7 +2865,7 @@ window.mod_lifestyleLoad = function () {
     title: '⚖ Lifestyle Score',
     txt: 'Answer 6 quick questions about your daily habits — water intake, exercise, diet, stress, screen time and social time. Takes about 2 minutes.',
     hint: 'No wrong answers — just be honest with yourself',
-    voiceEN: 'Lifestyle score. Answer 6 questions about your daily habits. Water, exercise, diet, stress, screen time and social connections.',
+    voiceEN: "Last one! Six quick questions about your daily habits — water, exercise, diet, stress, screens, and social life. Tap your honest answers and your full report is ready!",
     btnLabel: 'Start Lifestyle Check →',
     vis: `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;max-width:180px;margin:0 auto">
       ${['💧','🏃','🥗','😤','📱','👥'].map(e=>`<div style="aspect-ratio:1;background:var(--g3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem">${e}</div>`).join('')}
@@ -2918,7 +2922,7 @@ window.mod_lifestyleLoad = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Tap your honest answer for each question.');
+    LAB.say("This is the last check — you are so close! Just tap your honest answers. Your full wellness report is almost ready!");
   });
 
   window._liCalc = function () {
@@ -2930,7 +2934,7 @@ window.mod_lifestyleLoad = function () {
     LAB.scores.lifestyle=sc;
 
     LAB.celebrate();
-    LAB.say(`Lifestyle score: ${sc} out of 100. ${LAB.scoreLbl(sc)}.`);
+    LAB.say(`Lifestyle score: ${sc} out of 100 — ${LAB.scoreLbl(sc)}. You did it! Now let's see your complete wellness results!`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   };
 };
@@ -3443,8 +3447,8 @@ LAB.showDashboard = function () {
   LAB.celebrate();
   trackWL('wellness_completed');
   LAB.say(overall !== null
-    ? `You have completed all the activities! Your overall wellness score is ${overall} out of a hundred — that is ${LAB.scoreLbl(overall)}. Scroll down to see your results and personalised recommendations.`
-    : 'You have reached the end, but no tests were completed. Go back and try at least a few activities to get your wellness score.');
+    ? `You did it! Congratulations! Your overall wellness score is ${overall} out of a hundred — that is ${LAB.scoreLbl(overall)}! Scroll down to see your full results, personalised tips, and download your free PDF report!`
+    : 'You reached the end — well done for trying! Complete at least a few checks to get your wellness score.');
 };
 
 LAB._drawRing = function(canvasId, score, color, radius) {
