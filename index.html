@@ -29,7 +29,8 @@
   <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"></noscript>
   <style>
 /* ============================================================
    SHAH HAYAAT — Premium Ayurvedic Wellness
@@ -176,9 +177,9 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 /* ---- Cards: Product ---- */
 .product-grid{display:grid;gap:1.6rem;grid-template-columns:repeat(auto-fill,minmax(265px,1fr))}
 .product-card{background:var(--bg-white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-xs);border:1px solid var(--border);display:flex;flex-direction:column;transition:all var(--t) var(--ease)}
-.product-card:hover{transform:translateY(-10px);box-shadow:var(--shadow-lg);border-color:rgba(184,134,11,0.28)}
+.product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(184,134,11,0.28);will-change:transform}
 .product-card-img{position:relative;overflow:hidden;height:240px}
-.product-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease}
+.product-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.35s ease}
 .product-card:hover .product-card-img img{transform:scale(1.06)}
 .product-cat-tag{position:absolute;top:0.8rem;left:0.8rem;background:rgba(42,70,51,0.9);color:#fff;font-size:0.68rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:0.23rem 0.65rem;border-radius:50px}
 .product-body{padding:1.35rem;flex-grow:1;display:flex;flex-direction:column}
@@ -187,6 +188,41 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .product-footer{display:flex;align-items:center;justify-content:space-between;gap:0.6rem;flex-wrap:wrap;margin-top:auto}
 .product-price{font-size:1.35rem;font-weight:800;color:var(--green-dark);line-height:1}
 .product-actions-row{display:flex;gap:0.45rem;flex-wrap:wrap}
+/* ---- Product Star Ratings ---- */
+.prod-stars{display:flex;align-items:center;gap:4px;margin:0.3rem 0 0.6rem}
+.prod-stars .stars{color:#D4A017;font-size:1rem;letter-spacing:1px;line-height:1}
+.prod-stars .count{font-size:0.72rem;color:var(--text-muted);font-weight:500}
+/* ---- Company Rating Widget ---- */
+.rate-fab{position:fixed;bottom:90px;right:20px;z-index:999;background:var(--green-dark);color:#fff;border:none;border-radius:50px;padding:0.6rem 1rem;font-size:0.82rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(42,70,51,0.35);display:flex;align-items:center;gap:6px;transition:transform 0.2s,box-shadow 0.2s;white-space:nowrap}
+.rate-fab:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(42,70,51,0.42)}
+.rate-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.52);z-index:1200;align-items:center;justify-content:center;padding:1rem}
+.rate-modal-bg.open{display:flex}
+.rate-modal{background:#fff;border-radius:16px;padding:2rem 1.6rem;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.22);position:relative;animation:rateIn .28s ease}
+@keyframes rateIn{from{opacity:0;transform:scale(.93) translateY(10px)}to{opacity:1;transform:none}}
+.rate-modal h3{font-size:1.25rem;color:var(--green-dark);margin-bottom:0.3rem;font-family:var(--font-head)}
+.rate-modal p{font-size:0.88rem;color:var(--text-muted);margin-bottom:1.3rem}
+.rate-star-row{display:flex;gap:8px;justify-content:center;margin-bottom:1.4rem}
+.rate-star-row button{background:none;border:none;font-size:2.2rem;cursor:pointer;transition:transform .15s,filter .15s;filter:grayscale(1);opacity:.4;padding:0}
+.rate-star-row button.lit{filter:none;opacity:1}
+.rate-star-row button:hover{transform:scale(1.18)}
+.rate-name-inp,.rate-review-inp{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:0.7rem 0.9rem;font-size:0.92rem;font-family:var(--font-body);outline:none;color:var(--text-dark);transition:border-color .2s;margin-bottom:0.8rem;box-sizing:border-box}
+.rate-name-inp:focus,.rate-review-inp:focus{border-color:var(--green-mid)}
+.rate-review-inp{resize:vertical;min-height:72px}
+.rate-submit{width:100%;background:var(--green-dark);color:#fff;border:none;border-radius:8px;padding:0.82rem;font-size:0.97rem;font-weight:700;cursor:pointer;transition:background .2s}
+.rate-submit:hover{background:var(--green-mid)}
+.rate-close{position:absolute;top:0.8rem;right:1rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text-muted);line-height:1}
+.rate-thanks{text-align:center;padding:1rem 0}
+.rate-thanks .big-star{font-size:3rem;display:block;margin-bottom:.5rem}
+/* ---- Reviews Wall (on index) ---- */
+.reviews-wall{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));margin-top:1.5rem}
+.review-chip{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.review-chip .rc-stars{color:#D4A017;font-size:0.9rem;margin-bottom:0.3rem}
+.review-chip .rc-text{font-size:0.88rem;color:var(--text-mid);line-height:1.6;margin-bottom:.5rem;font-style:italic}
+.review-chip .rc-name{font-size:0.75rem;font-weight:700;color:var(--green-dark)}
+.overall-rating-bar{display:flex;align-items:center;gap:12px;margin-bottom:1.2rem;flex-wrap:wrap}
+.orb-num{font-size:3rem;font-weight:800;color:var(--green-dark);line-height:1;font-family:var(--font-head)}
+.orb-stars{color:#D4A017;font-size:1.3rem;letter-spacing:2px;display:block}
+.orb-count{font-size:0.82rem;color:var(--text-muted);margin-top:2px}
 
 /* ---- Category Filter ---- */
 .filter-bar{display:flex;flex-wrap:wrap;gap:0.55rem;justify-content:center;margin-bottom:3rem}
@@ -644,6 +680,25 @@ img[alt]{font-size:0}
     </div>
   </section>
 
+  <!-- Live Reviews Wall -->
+  <section class="section bg-white" aria-labelledby="reviews-heading">
+    <div class="container">
+      <span class="section-label reveal" style="display:block;text-align:center">Community Reviews</span>
+      <h2 class="section-heading reveal delay-1" id="reviews-heading">What Our Customers Say</h2>
+      <div class="overall-rating-bar reveal delay-2" id="overallRatingBar">
+        <div>
+          <span class="orb-num">5.0</span>
+        </div>
+        <div>
+          <span class="orb-stars">★★★★★</span>
+          <div class="orb-count">Based on 3 reviews</div>
+        </div>
+        <button class="btn btn-primary" style="margin-left:auto" onclick="openRateModal()">⭐ Add Your Review</button>
+      </div>
+      <div class="reviews-wall reveal" id="reviewsWall"></div>
+    </div>
+  </section>
+
   <!-- Wellness Lab Feature Section -->
   <section class="section bg-white" aria-labelledby="lab-heading" style="overflow:hidden;position:relative">
     <!-- Subtle background accent -->
@@ -1063,9 +1118,16 @@ function initNav() {
 /* ── SCROLL ────────────────────────────────────────────────── */
 function initScroll() {
   const btn = $('.back-top');
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    document.body.classList.toggle('scrolled', window.scrollY > 55);
-    if (btn) btn.classList.toggle('show', window.scrollY > 400);
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        document.body.classList.toggle('scrolled', window.scrollY > 55);
+        if (btn) btn.classList.toggle('show', window.scrollY > 400);
+        ticking = false;
+      });
+      ticking = true;
+    }
   }, { passive: true });
   observeReveal();
 }
@@ -1103,6 +1165,7 @@ function renderProducts(container, { limit = null, cat = null } = {}) {
       </div>
       <div class="product-body">
         <h3>${p.name}</h3>
+        ${renderStars(p.id)}
         <p class="product-desc">${p.desc}</p>
         <div class="product-footer">
           <div class="product-price">₹${p.price}</div>
@@ -1230,4 +1293,138 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Products page full grid
   const allGrid = $('#all-products-grid');
-  if (allGrid) renderProducts(a
+  llGrid);
+
+});
+</script>
+
+<!-- Rate Us FAB -->
+<button class="rate-fab" onclick="openRateModal()">⭐ Rate Us</button>
+
+<!-- Rating Modal -->
+<div class="rate-modal-bg" id="rateModalBg" role="dialog" aria-modal="true" aria-label="Rate Shah Hayaat">
+  <div class="rate-modal" id="rateModalBox">
+    <button class="rate-close" onclick="closeRateModal()">✕</button>
+    <h3>How do we make you feel?</h3>
+    <p>Your honest feedback helps us serve you better.</p>
+    <div class="rate-star-row" id="rateStarRow">
+      <button data-v="1" onclick="setStar(1)" aria-label="1 star">⭐</button>
+      <button data-v="2" onclick="setStar(2)" aria-label="2 stars">⭐</button>
+      <button data-v="3" onclick="setStar(3)" aria-label="3 stars">⭐</button>
+      <button data-v="4" onclick="setStar(4)" aria-label="4 stars">⭐</button>
+      <button data-v="5" onclick="setStar(5)" aria-label="5 stars">⭐</button>
+    </div>
+    <input class="rate-name-inp" id="rateNameInp" type="text" placeholder="Your name (optional)" maxlength="40">
+    <textarea class="rate-review-inp" id="rateRevInp" placeholder="Share your experience… (optional)" maxlength="280"></textarea>
+    <button class="rate-submit" onclick="submitRating()">Submit Rating →</button>
+  </div>
+</div>
+
+<script>
+
+/* ══════════════════════════════════════════════════════
+   SHAH HAYAAT — Review & Rating Engine v1
+   localStorage-based. Zero backend. Works offline.
+══════════════════════════════════════════════════════ */
+const REV_KEY = 'sh_reviews_v1';
+const PROD_KEY = 'sh_prod_ratings_v1';
+
+function getReviews() {
+  try { return JSON.parse(localStorage.getItem(REV_KEY) || '[]'); } catch { return []; }
+}
+function saveReviews(arr) {
+  try { localStorage.setItem(REV_KEY, JSON.stringify(arr.slice(-50))); } catch {} }
+function getProdRatings() {
+  try { return JSON.parse(localStorage.getItem(PROD_KEY) || '{}'); } catch { return {}; } }
+function saveProdRatings(o) {
+  try { localStorage.setItem(PROD_KEY, JSON.stringify(o)); } catch {} }
+
+const SEED = [
+  { name:'Priya S.', stars:5, text:'My morning walks are back! Ortho Hayaat made a remarkable difference.', ts:1 },
+  { name:'Rohan K.', stars:5, text:'Shah Zyme is a lifesaver — I feel lighter and more energetic every day!', ts:2 },
+  { name:'Anjali P.', stars:5, text:'Brain Champ genuinely helped me focus during exam season. Amazing!', ts:3 },
+];
+function getAllReviews() { return [...SEED, ...getReviews()]; }
+
+const PROD_BASE = { brainchamp:4.8, shahzyme:4.7, bloodstorm:4.6, coughxpro:4.5,
+  musaffakhoon:4.6, panasip:4.7, livohayaat:4.8, orthohayaat:4.9,
+  diaease:4.5, utrohayaat:4.6, passionpulse:4.7, fevodol:4.5 };
+
+function starStr(r) {
+  const f=Math.floor(r), h=(r-f)>=0.5;
+  let s='';
+  for(let i=1;i<=5;i++) s += i<=f?'★':(i===f+1&&h?'½':'☆');
+  return s;
+}
+
+function renderStars(pid) {
+  const st=getProdRatings(), base=PROD_BASE[pid]||4.5;
+  const d=st[pid];
+  let rating=base, count=0;
+  if(d&&d.count>0){ rating=Math.round(((d.total+base*10)/(d.count+10))*10)/10; count=d.count; }
+  const disp=rating.toFixed(1);
+  return `<div class="prod-stars"><span class="stars" aria-label="${disp} stars">${starStr(rating)}</span><span class="count">${disp} ${count>0?'('+count+'&nbsp;ratings)':'· Tap to rate'}</span></div>`;
+}
+
+/* Modal */
+let _star=0;
+function openRateModal(){
+  _star=0;
+  document.getElementById('rateNameInp').value='';
+  document.getElementById('rateRevInp').value='';
+  document.getElementById('rateModalBg').classList.add('open');
+  document.body.style.overflow='hidden';
+  _litStars();
+}
+function closeRateModal(){
+  document.getElementById('rateModalBg').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('click', e=>{
+  if(e.target.id==='rateModalBg') closeRateModal();
+});
+function setStar(n){ _star=n; _litStars(); }
+function _litStars(){
+  document.querySelectorAll('#rateStarRow button').forEach((b,i)=>{
+    b.classList.toggle('lit',i<_star);
+  });
+}
+function submitRating(){
+  if(!_star){ alert('Please choose a star rating!'); return; }
+  const name=(document.getElementById('rateNameInp').value.trim()||'Anonymous');
+  const text=document.getElementById('rateRevInp').value.trim();
+  const arr=getReviews(); arr.push({name,stars:_star,text,ts:Date.now()});
+  saveReviews(arr);
+  document.getElementById('rateModalBox').innerHTML=`
+    <div class="rate-thanks">
+      <span class="big-star">🌟</span>
+      <h3 style="color:var(--green-dark);margin-bottom:.4rem">Thank you, ${name}!</h3>
+      <p style="color:var(--text-muted);font-size:.88rem">Your ${_star}-star rating helps our community grow.</p>
+      <button class="rate-submit" style="margin-top:1.1rem" onclick="closeRateModal();_refreshWall()">Done ✓</button>
+    </div>`;
+}
+
+function _refreshWall(){
+  const wall=document.getElementById('reviewsWall'); if(!wall) return;
+  const all=getAllReviews().slice().reverse().slice(0,9);
+  const avg=all.length?(all.reduce((s,r)=>s+r.stars,0)/all.length):5;
+  const avgD=avg.toFixed(1);
+  const bar=document.getElementById('overallRatingBar');
+  if(bar){
+    bar.querySelector('.orb-num').textContent=avgD;
+    bar.querySelector('.orb-stars').textContent=starStr(parseFloat(avgD));
+    bar.querySelector('.orb-count').textContent='Based on '+all.length+' reviews';
+  }
+  wall.innerHTML=all.map(r=>`
+    <div class="review-chip">
+      <div class="rc-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+      ${r.text?`<p class="rc-text">"${r.text}"</p>`:''}
+      <div class="rc-name">— ${r.name}</div>
+    </div>`).join('');
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{ _refreshWall(); });
+
+</script>
+</body>
+</html>
