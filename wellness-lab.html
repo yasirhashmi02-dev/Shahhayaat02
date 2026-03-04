@@ -761,22 +761,6 @@ const LAB = {
     document.body.style.overflow = 'hidden';
 
     this.say(cfg.voiceEN || cfg.txt.replace(/<[^>]+>/g,''));
-
-    // Auto-countdown: show "Starting in 3…2…1" then auto-close
-    const cdEl = this.el('demoCountdown');
-    if (cdEl) { cdEl.style.display = 'inline'; cdEl.textContent = 'Starting in 3…'; }
-    let cdSecs = 3;
-    clearInterval(this._cdTimer);
-    this._cdTimer = setInterval(() => {
-      cdSecs--;
-      if (cdEl) cdEl.textContent = cdSecs > 0 ? `Starting in ${cdSecs}…` : 'Starting…';
-      if (cdSecs <= 0) {
-        clearInterval(this._cdTimer);
-        this._cdTimer = null;
-        if (cdEl) { cdEl.style.display = 'none'; cdEl.textContent = ''; }
-        this.closeDemo(false);
-      }
-    }, 1000);
   },
 
   closeDemo(skip) {
@@ -4391,7 +4375,6 @@ LAB.generatePDF = function () {
       </div>
     </div>
     <div class="hdr-meta">
-      ${userName?`<div style="font-size:13px;font-weight:600;letter-spacing:.01em;margin-bottom:3px">Prepared for: ${userName}</div>`:''}
       <div>${dateStr}</div>
       <div>${isFem?'19':'16'} Activities Completed</div>
       <div style="margin-top:4px;font-size:10px;opacity:.6">Private · All data processed locally · Nothing stored</div>
@@ -4401,7 +4384,7 @@ LAB.generatePDF = function () {
   <div class="overall-row">
     <div class="overall-num">${overall}</div>
     <div class="overall-info">
-      ${userName?`<div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:#6A8A6A;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">${userName}</div>`:''}
+      ${userName?`<div style="font-size:26px;font-family:'Playfair Display',serif;font-weight:700;color:#B8860B;letter-spacing:.03em;line-height:1.2;margin-bottom:6px;text-shadow:0 1px 3px rgba(184,134,11,.18)">${userName}</div>`:''}
       <div class="overall-lbl">Overall Wellness Score</div>
       <div class="overall-rating">${LAB.scoreLbl(overall)} — ${overall}/100</div>
       <div class="overall-sub">Combined from ${isFem?'7':'6'} health domains across ${isFem?'19':'16'} wellness activities.</div>
