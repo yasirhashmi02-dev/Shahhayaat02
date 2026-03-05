@@ -46,7 +46,8 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap"></noscript>
 <meta name="theme-color" content="#2A7A5A">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; img-src 'self' https://raw.githubusercontent.com data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://www.google-analytics.com https://region1.google-analytics.com https://script.google.com https://docs.google.com; frame-src 'none';">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Free Online Wellness Test – Health Assessment | Shah Hayaat Wellness Lab</title>
 <meta name="description" content="Take the free Shah Hayaat Online Wellness Test. 17 core wellness checks covering brain, eyes, breathing, stability and lifestyle — plus optional women's health checks. Get a personalised PDF health report in minutes. No sign-up required.">
 <meta name="keywords" content="online wellness test, free health assessment, wellness check, brain health test, eye test online, lung health, stress test, Shah Hayaat">
@@ -79,7 +80,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',system-ui,sans-serif;background:#F3F7F3;color:#1C2E1C;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#F3F7F3;color:#1C2E1C;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 button,input,select{font-family:inherit}
 :root{
@@ -115,14 +116,14 @@ button,input,select{font-family:inherit}
 .tag--gd{background:var(--gd3);border-color:rgba(201,120,0,.28);color:var(--gd)}
 .tag--bl{background:var(--bl2);border-color:rgba(37,99,235,.28);color:var(--bl)}
 .tag--pk{background:#FFF0F5;border-color:rgba(180,60,110,.25);color:#A83060}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.42rem;font-weight:600;font-size:.88rem;padding:.75rem 1.8rem;border-radius:50px;border:2px solid transparent;transition:all .24s var(--ease);white-space:nowrap;-webkit-tap-highlight-color:transparent;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.42rem;font-weight:600;font-size:.88rem;padding:.75rem 1.8rem;border-radius:50px;border:2px solid transparent;transition:all .24s var(--ease);white-space:nowrap;-webkit-tap-highlight-color:transparent;cursor:pointer;min-height:44px}
 .btn--p{background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;box-shadow:0 4px 16px rgba(42,122,90,.28)}
 .btn--p:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(42,122,90,.4)}
 .btn--g{background:#fff;border-color:var(--b);color:var(--tm)}
 .btn--g:hover{border-color:var(--g);color:var(--t)}
 .btn--gd{background:linear-gradient(135deg,var(--gd),var(--gd2));color:#fff;box-shadow:0 4px 16px rgba(201,120,0,.25)}
 .btn--gd:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,120,0,.38)}
-.btn--skip{background:#fff;border-color:#DDD0C4;color:#9A887A;font-size:.75rem;padding:.4rem .95rem}
+.btn--skip{background:#fff;border-color:#DDD0C4;color:#9A887A;font-size:.75rem;padding:.4rem .95rem;min-height:44px}
 .btn--skip:hover{border-color:var(--am);color:var(--am)}
 .btn--skip-bold{background:var(--bg);border-color:var(--am)!important;color:var(--am)!important;font-weight:700!important;font-size:.76rem!important}
 .btn--lg{padding:.92rem 2.3rem;font-size:.96rem}
@@ -299,7 +300,7 @@ button,input,select{font-family:inherit}
   background:#fff;border:1.5px solid var(--b);border-radius:var(--r);
   padding:1.3rem 1.25rem;cursor:pointer;text-align:left;
   transition:all .22s var(--ease);width:100%;font-family:var(--font-body);
-  position:relative;overflow:hidden;
+  position:relative;overflow:hidden;min-height:44px;
 }
 .cat-card::before{
   content:'';position:absolute;top:0;left:0;right:0;height:3px;
@@ -338,7 +339,7 @@ button,input,select{font-family:inherit}
 
 <div id="dis" role="banner" aria-label="Important disclaimer">
   <div class="dis-sl on" id="ds0">⚠ Wellness indicators only — not a medical diagnosis</div>
-  <div class="dis-sl"    id="ds1">🔐 Zero data stored — everything runs on your device only</div>
+  <div class="dis-sl"    id="ds1">🔐 Health results stay on your device — anonymous usage analytics only</div>
   <div class="dis-sl"    id="ds2">🩺 See a doctor for health concerns </div>
   <div class="dis-dots"><div class="dis-d on" id="dd0"></div><div class="dis-d" id="dd1"></div><div class="dis-d" id="dd2"></div></div>
 </div>
@@ -431,7 +432,7 @@ button,input,select{font-family:inherit}
         <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid var(--b);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">📱 Stability <span style="color:var(--tq);font-weight:400">2 checks</span></div>
         <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid rgba(42,122,90,.2);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">🌿 Lifestyle <span style="color:var(--tq);font-weight:400">2 checks</span></div>
         <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid rgba(231,76,60,.2);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">❤️ Heart <span style="color:var(--tq);font-weight:400">1 check</span></div>
-        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid rgba(243,156,18,.2);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">🫁 Gut <span style="color:var(--tq);font-weight:400">1 check</span></div>
+        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid rgba(243,156,18,.2);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">🍽 Gut <span style="color:var(--tq);font-weight:400">1 check</span></div>
         <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid rgba(142,68,173,.2);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">👂 Hearing <span style="color:var(--tq);font-weight:400">1 check</span></div>
       </div>
     </div>
@@ -541,7 +542,7 @@ button,input,select{font-family:inherit}
     <!-- Category grid — populated by LAB.renderCategoryDashboard() -->
     <div id="catGrid" style="display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));margin-bottom:2rem"></div>
 
-    <p style="font-size:.7rem;color:var(--tq);text-align:center">🔐 No data leaves your device. All calculations happen in your browser.</p>
+    <p style="font-size:.7rem;color:var(--tq);text-align:center">🔐 Health results stay on your device. Anonymous usage analytics may be collected.</p>
   </div>
 </section>
 
@@ -627,7 +628,7 @@ const LAB = {
   _confirmExit(e) {
     /* Only intercept when a test session is active */
     const activeSection = this.el('sModules');
-    if (!activeSection || !activeSection.classList.contains('show')) return true; /* allow normal nav */
+    if (!activeSection || activeSection.style.display !== 'block') return true; /* allow normal nav */
     if (e) e.preventDefault();
     /* Show confirm modal */
     const existing = this.el('_exitModal');
@@ -726,7 +727,7 @@ const LAB = {
       scoreKey:'heart', time:'~2 min', desc:'Resting pulse rate and cardiovascular health indicator'
     },
     gut: {
-      id:'gut', name:'Gut Health', icon:'🫁', color:'#F39C12',
+      id:'gut', name:'Gut Health', icon:'🍽', color:'#F39C12',
       tests:['mod_gutHealth'],
       scoreKey:'gut', time:'~2 min', desc:'Digestive comfort, bloating and bowel health patterns'
     },
@@ -826,7 +827,7 @@ const LAB = {
     trackWL('full_lab_start');
     this.currentMode = 'full';
     /* Build queue from registry to keep it in sync automatically */
-    this.queue = Object.values(this.categories).flatMap(c => c.tests);
+    this.queue = Object.values(this.categories).flatMap(c => c.tests || []);
     if (this.gender === 'female') {
       this.queue.push('mod_hormonalRhythm','mod_energyIron');
     }
@@ -1009,7 +1010,7 @@ const LAB = {
     mod_stabilityHold:'📱 Steady Hand',      mod_microTremor:'✏ Tremor Drawing',
     mod_sleepEfficiency:'💤 Sleep Check',    mod_lifestyleLoad:'⚖ Lifestyle Score',
     mod_hormonalRhythm:'🌸 Hormonal Rhythm', mod_energyIron:'⚡ Energy & Iron',
-    mod_heartRate:'❤️ Heart Rate',           mod_gutHealth:'🫁 Gut Health',
+    mod_heartRate:'❤️ Heart Rate',           mod_gutHealth:'🍽 Gut Health',
     mod_hearingCheck:'👂 Hearing Check',
   },
 
@@ -1034,7 +1035,7 @@ const LAB = {
     mod_hormonalRhythm:     {label:'🌸 Female',   num:1, of:2},
     mod_energyIron:         {label:'🌸 Female',   num:2, of:2},
     mod_heartRate:          {label:'❤️ Heart',     num:1, of:1},
-    mod_gutHealth:          {label:'🫁 Gut',       num:1, of:1},
+    mod_gutHealth:          {label:'🍽 Gut',       num:1, of:1},
     mod_hearingCheck:       {label:'👂 Hearing',   num:1, of:1},
   },
 
@@ -4118,7 +4119,7 @@ LAB.showDashboard = function () {
     {key:'lifestyle',  icon:'⚖',  label:'Lifestyle',   col:'#C0392B'},
     ...(isFem&&hormScore?[{key:'hormonal',icon:'🌸',label:'Hormonal',col:'#B83060'}]:[]),
     ...(LAB.scores.heart    != null ? [{key:'heart',   icon:'❤️', label:'Heart',   col:'#E74C3C'}] : []),
-    ...(LAB.scores.gut      != null ? [{key:'gut',     icon:'🫁',  label:'Gut',     col:'#F39C12'}] : []),
+    ...(LAB.scores.gut      != null ? [{key:'gut',     icon:'🍽',  label:'Gut',     col:'#F39C12'}] : []),
     ...(LAB.scores.hearing  != null ? [{key:'hearing', icon:'👂',  label:'Hearing', col:'#8E44AD'}] : []),
   ];
 
@@ -4138,6 +4139,13 @@ LAB.showDashboard = function () {
     ? `${activeCat.tests.length} checks completed · ${activeCat.name} assessment`
     : (completedDomains > 0 ? 'Based on ' + (isFem?'19':'17') + ' wellness checks across cognitive, eye, respiratory, stability and lifestyle health.' : 'You skipped all activities — no data to score. Complete at least one test to see results.');
   const scoreLabel = isCategoryMode && activeCat ? activeCat.name + ' Score' : 'Overall Wellness';
+
+  /* ── Confidence: % of tests actually completed ── */
+  const totalPossible = isFem ? 19 : 17;
+  const completedTests = Object.values(LAB.scores).filter(x => x != null).length;
+  const confidencePct  = Math.round((completedTests / totalPossible) * 100);
+  const confidenceLbl  = confidencePct >= 80 ? 'High' : confidencePct >= 50 ? 'Medium' : 'Low';
+  const confidenceCol  = confidencePct >= 80 ? '#2A7A5A' : confidencePct >= 50 ? '#C97010' : '#C0392B';
 
   LAB.render(`
   <div class="mwrap">
@@ -4162,6 +4170,12 @@ LAB.showDashboard = function () {
                     letter-spacing:.1em;color:var(--tq)">${scoreLabel}</div>
         <div style="font-size:.85rem;font-weight:700;color:${overall !== null ? LAB.scoreCol(overall) : 'var(--tq)'}">
           ${overall !== null ? LAB.scoreLbl(overall) : 'No tests completed'}</div>
+        ${!isCategoryMode && overall !== null ? `
+        <div style="margin-top:.25rem;padding:.28rem .75rem;background:${confidenceCol}12;border:1px solid ${confidenceCol}33;
+                    border-radius:50px;font-size:.62rem;font-family:'JetBrains Mono',monospace;
+                    color:${confidenceCol};letter-spacing:.06em">
+          Confidence: <strong>${confidenceLbl}</strong> · ${completedTests}/${totalPossible} tests
+        </div>` : ''}
       </div>
 
       ${isCategoryMode && activeCat ? `
@@ -4354,6 +4368,74 @@ LAB.showDashboard = function () {
       </div>
     </div>
 
+    ${overall !== null ? `
+    <!-- ── Shareable Wellness Card ─────────────────────────── -->
+    <div class="card" style="margin-bottom:1.4rem;padding:1.25rem 1.4rem">
+      <h3 class="h3" style="margin-bottom:.3rem;font-size:.95rem">📤 Share Your Score</h3>
+      <p class="pg" style="margin-bottom:1rem;font-size:.82rem">Share your wellness card — or challenge a friend to beat your score!</p>
+
+      <!-- Preview card (the shareable visual) -->
+      <div id="_shareCard" style="background:linear-gradient(135deg,#0A1F14 0%,#162E1E 100%);
+           border-radius:14px;padding:1.4rem;margin-bottom:1rem;color:#fff;position:relative;overflow:hidden">
+        <!-- subtle bg ring -->
+        <div style="position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;
+                    background:rgba(56,180,140,.08);pointer-events:none"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.58rem;color:#38B48C;
+                    text-transform:uppercase;letter-spacing:.12em;margin-bottom:.6rem">
+          Shah Hayaat · Wellness Lab
+        </div>
+        <div style="display:flex;align-items:flex-end;gap:.6rem;margin-bottom:.9rem">
+          <div style="font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:700;
+                      color:#4EEDB8;line-height:1">${overall}</div>
+          <div style="margin-bottom:.35rem">
+            <div style="font-size:.72rem;color:rgba(214,234,228,.6)">/ 100</div>
+            <div style="font-size:.82rem;font-weight:700;color:#4EEDB8">${LAB.scoreLbl(overall)}</div>
+          </div>
+        </div>
+        <!-- Score breakdown pills -->
+        <div style="display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.8rem">
+          ${Object.entries(LAB.scores).filter(([k,v]) => v !== null && !['hormonal'].includes(k))
+            .slice(0,6)
+            .map(([k,v]) => {
+              const icons={cognitive:'🧠',eye:'👁',respiratory:'🌬',stress:'🔥',
+                           stability:'📱',lifestyle:'⚖',heart:'❤️',gut:'🍽',hearing:'👂'};
+              return `<div style="padding:.2rem .55rem;background:rgba(56,180,140,.14);
+                                  border:1px solid rgba(56,180,140,.25);border-radius:50px;
+                                  font-size:.62rem;font-family:'JetBrains Mono',monospace;
+                                  color:${v>=80?'#4EEDB8':v>=55?'#F0B929':'#FF8A80'}">
+                ${icons[k]||'●'} ${v}
+              </div>`;
+            }).join('')}
+        </div>
+        <div style="font-size:.6rem;color:rgba(214,234,228,.35);font-family:'JetBrains Mono',monospace">
+          shahhayaat.com/wellness-lab.html
+        </div>
+      </div>
+
+      <!-- Share buttons -->
+      <div style="display:flex;flex-wrap:wrap;gap:.6rem">
+        <button onclick="LAB._shareWellnessCard('whatsapp')"
+          style="flex:1;min-width:130px;padding:.7rem 1rem;background:#25D366;color:#fff;
+                 border:none;border-radius:10px;font-size:.84rem;font-weight:700;cursor:pointer;
+                 display:flex;align-items:center;justify-content:center;gap:.4rem">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </button>
+        <button onclick="LAB._shareWellnessCard('telegram')"
+          style="flex:1;min-width:130px;padding:.7rem 1rem;background:#229ED9;color:#fff;
+                 border:none;border-radius:10px;font-size:.84rem;font-weight:700;cursor:pointer;
+                 display:flex;align-items:center;justify-content:center;gap:.4rem">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          Telegram
+        </button>
+        <button onclick="LAB._shareWellnessCard('copy')"
+          style="flex:1;min-width:130px;padding:.7rem 1rem;background:var(--bg-cream);color:var(--t);
+                 border:1.5px solid var(--b);border-radius:10px;font-size:.84rem;font-weight:700;cursor:pointer">
+          🔗 Copy Link
+        </button>
+      </div>
+    </div>` : ''}
+
   </div>`);
 
   setTimeout(()=>{
@@ -4518,7 +4600,7 @@ LAB.SH_PRODUCTS = {
   brainchamp:   { name:'Brain Champ',    price:175, tag:'🧠 Brain & Focus',     tagColor:'#2A7A5A',
     desc:'Brahmi, Ashwagandha & Shankhpushpi blend to boost memory, cut brain fog and sharpen focus.',
     benefits:'Improves memory · Reduces mental fatigue · Manages stress' },
-  shahzyme:     { name:'Shah Zyme',      price:165, tag:'🫁 Digestion',          tagColor:'#059669',
+  shahzyme:     { name:'Shah Zyme',      price:165, tag:'🍽 Digestion',          tagColor:'#059669',
     desc:'Herbal digestive enzyme syrup for gas, bloating and sluggish digestion after meals.',
     benefits:'Relieves bloating · Improves absorption · Stimulates appetite' },
   bloodstorm:   { name:'Blood Storm',    price:165, tag:'🩸 Blood & Energy',     tagColor:'#C0392B',
@@ -4652,6 +4734,49 @@ LAB._buildProductCards = function () {
   }).join('');
 };
 
+/* ── Shareable Wellness Card ─────────────────────────────────────── */
+LAB._shareWellnessCard = function (platform) {
+  const S = LAB.scores;
+  const overall = (function() {
+    const vals = [S.cognitive, S.eye, S.respiratory, S.stress, S.stability, S.lifestyle,
+                  S.heart, S.gut, S.hearing].filter(v => v != null);
+    return vals.length ? Math.round(vals.reduce((a,b) => a+b, 0) / vals.length) : null;
+  })();
+
+  if (overall === null) { LAB.toast('Complete at least one test to share your score.'); return; }
+
+  const icons = {cognitive:'🧠',eye:'👁',respiratory:'🌬',stress:'🔥',
+                 stability:'📱',lifestyle:'⚖',heart:'❤️',gut:'🍽',hearing:'👂'};
+  const labels = {cognitive:'Brain',eye:'Eyes',respiratory:'Breathing',stress:'Stress',
+                  stability:'Balance',lifestyle:'Lifestyle',heart:'Heart',gut:'Gut',hearing:'Hearing'};
+
+  /* Build score breakdown text */
+  const breakdown = Object.entries(S)
+    .filter(([k,v]) => v !== null && icons[k])
+    .map(([k,v]) => `${icons[k]} ${labels[k]}: ${v}`)
+    .join(' · ');
+
+  const lbl = LAB.scoreLbl(overall);
+  const url  = 'https://www.shahhayaat.com/wellness-lab.html';
+  const text = `🏅 My Shah Hayaat Wellness Score: *${overall}/100* — ${lbl}\n\n${breakdown}\n\nTake your free wellness check: ${url}`;
+  const encodedText = encodeURIComponent(text);
+
+  trackWL('share_wellness_card', platform);
+
+  if (platform === 'whatsapp') {
+    window.open(`https://wa.me/?text=${encodedText}`, '_blank');
+  } else if (platform === 'telegram') {
+    window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodedText}`, '_blank');
+  } else if (platform === 'copy') {
+    const plain = text.replace(/\*/g, '');
+    navigator.clipboard.writeText(plain).then(() => {
+      LAB.toast('Score copied to clipboard! 📋');
+    }).catch(() => {
+      prompt('Copy your wellness score:', plain);
+    });
+  }
+};
+
 LAB.sharePDFWhatsApp = function () {
   trackWL('whatsapp_click');
   const nameEl = document.getElementById('pdfNameInp');
@@ -4754,7 +4879,7 @@ LAB.generatePDF = function () {
     ['⚖ Lifestyle',   S.lifestyle||'—'],
     ...(isFem&&S.hormonal?[['🌸 Hormonal',S.hormonal]]:[] ),
     ...(S.heart   != null ? [['❤️ Heart & Pulse', S.heart]]   : []),
-    ...(S.gut     != null ? [['🫁 Gut Health',    S.gut]]     : []),
+    ...(S.gut     != null ? [['🍽 Gut Health',    S.gut]]     : []),
     ...(S.hearing != null ? [['👂 Hearing',        S.hearing]] : []),
   ];
 
@@ -4781,7 +4906,7 @@ LAB.generatePDF = function () {
       ['🌙 Sleep & Comfort','Questionnaire',R.femCombinedScore],
     ]:[]),
     ...(R.heartBPM    != null ? [['❤️ Heart Rate',   R.heartBPM+'bpm (est.)',  R.heartScore]]  : []),
-    ...(R.gutScore    != null ? [['🫁 Gut Health',    '5-question assessment',  R.gutScore]]    : []),
+    ...(R.gutScore    != null ? [['🍽 Gut Health',    '5-question assessment',  R.gutScore]]    : []),
     ...(R.hearingHeard!= null ? [['👂 Hearing',        R.hearingHeard+'/4 tones', R.hearingScore]] : []),
   ];
 
@@ -5261,7 +5386,7 @@ window.mod_gutHealth = function () {
   let answers = [];
 
   LAB.showDemo({
-    title: '🫁 Gut Health Check',
+    title: '🍽 Gut Health Check',
     txt: '5 quick questions about your digestive comfort over the <strong>past month</strong>. No right or wrong answers — just pick what fits best.',
     hint: '5 questions · ~2 min · tap to answer',
     btnLabel: 'Start Gut Check →',
@@ -5284,7 +5409,7 @@ window.mod_gutHealth = function () {
 
         <!-- Header -->
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
-          <div class="cat-run-badge" style="background:#F39C1218;border:1px solid #F39C1244;color:#F39C12;margin:0">🫁 Gut Health</div>
+          <div class="cat-run-badge" style="background:#F39C1218;border:1px solid #F39C1244;color:#F39C12;margin:0">🍽 Gut Health</div>
           <div style="font-size:.7rem;color:var(--tq);font-family:'JetBrains Mono',monospace">${i + 1} / ${questions.length}</div>
         </div>
 
@@ -5341,8 +5466,8 @@ window.mod_gutHealth = function () {
     LAB.render(`
     <div class="mwrap">
       <div class="card card--pop" style="text-align:center">
-        <div class="cat-run-badge" style="background:#F39C1218;border:1px solid #F39C1244;color:#F39C12;margin:0 auto .8rem">🫁 Gut Health Result</div>
-        <div style="font-size:2.4rem;margin:.4rem 0 .2rem">🫁</div>
+        <div class="cat-run-badge" style="background:#F39C1218;border:1px solid #F39C1244;color:#F39C12;margin:0 auto .8rem">🍽 Gut Health Result</div>
+        <div style="font-size:2.4rem;margin:.4rem 0 .2rem">🍽</div>
         <div style="font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;color:#F39C12;line-height:1">${sc}</div>
         <div style="font-size:.68rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.12em;color:var(--tq);margin:.3rem 0 .5rem">Gut Health Score</div>
         <div style="font-size:.92rem;font-weight:700;color:${col};margin-bottom:1rem">${lbl}</div>
@@ -5602,7 +5727,7 @@ LAB._domainLabel = function(k) {
 LAB._domainIcon = function(k) {
   return {cognitive:'🧠',eye:'👁',respiratory:'🌬',stress:'🔥',
           stability:'📱',lifestyle:'⚖',hormonal:'🌸',
-          heart:'❤️',gut:'🫁',hearing:'👂'}[k] || '●';
+          heart:'❤️',gut:'🍽',hearing:'👂'}[k] || '●';
 };
 LAB._improvementTip = function(k) {
   return ({
@@ -5799,7 +5924,7 @@ LAB.showLeaderboard = async function(testId, unit) {
   history.pushState({ lab: true }, '');
   window.addEventListener('popstate', function(e) {
     const mod = document.getElementById('sModules');
-    if (mod && mod.classList.contains('show')) {
+    if (mod && mod.style.display === 'block') {
       /* Re-push state so back stays catchable next time */
       history.pushState({ lab: true }, '');
       LAB._confirmExit(null);
