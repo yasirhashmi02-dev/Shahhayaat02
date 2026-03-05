@@ -5587,72 +5587,240 @@ window.mod_gutHealth = function () {
 
 /* ── Hearing Check ─────────────────────────────────────────────────── */
 window.mod_hearingCheck = function () {
-  /* Dual-ear test: 4 frequencies × 2 ears = 8 tones.
-     Uses StereoPannerNode to route each tone to left or right ear. */
+  /*
+   * Adaptive Threshold Hearing Test — v3
+   * ─────────────────────────────────────
+   * Method : Modified Hughson–Westlake (simplified):
+   *   Heard  → volume −1 step  (harder)
+   *   Missed → volume +1 step  (louder)
+   *   Threshold = average volume of last 3 reversals
+   *
+   * Frequencies : 500 Hz, 1 kHz, 2 kHz, 4 kHz, 8 kHz  (both ears = 10 tests)
+   * Audio       : ChannelMerger for hard L/R routing (fixes iOS mono bug)
+   * Oscillator  : triangle wave (closer to real audiometer tones)
+   * Max steps   : 12 per freq to keep test <5 min
+   */
+
   const FREQS = [
-    { hz:1000, label:'1 kHz', note:'Low-mid — speech fundamentals' },
-    { hz:2000, label:'2 kHz', note:'Mid — speech clarity range' },
-    { hz:4000, label:'4 kHz', note:'High-mid — consonant sounds' },
-    { hz:8000, label:'8 kHz', note:'High freq — often first to decline' },
+    { hz: 500,  label: '500 Hz', note: 'Low — bass / rumble detection' },
+    { hz: 1000, label: '1 kHz',  note: 'Low-mid — speech fundamentals' },
+    { hz: 2000, label: '2 kHz',  note: 'Mid — speech clarity' },
+    { hz: 4000, label: '4 kHz',  note: 'High-mid — consonants' },
+    { hz: 8000, label: '8 kHz',  note: 'High — first to decline with age' },
   ];
   const EARS = [
-    { id:'left',  label:'Left Ear',  pan:-1, color:'#8E44AD', emoji:'👂' },
-    { id:'right', label:'Right Ear', pan: 1, color:'#2563EB', emoji:'👂' },
+    { id: 'left',  label: 'Left Ear',  ch: 0, color: '#8E44AD' },
+    { id: 'right', label: 'Right Ear', ch: 1, color: '#2563EB' },
   ];
-  /* Sequence: 4 left-ear tones then 4 right-ear tones */
-  const TESTS = [];
-  EARS.forEach(ear => FREQS.forEach(f => TESTS.push({...f, ...ear})));
 
-  let results = new Array(TESTS.length).fill(null);
+  /* Volume ladder: 0.02 – 0.60 in steps of 0.04 (15 rungs) */
+  const STEPS = Array.from({length:15}, (_,i) => 0.02 + i*0.04);
+  const START_STEP = 8;   /* start at rung 8 = 0.34 (comfortable) */
+  const MAX_STEPS  = 14;  /* max responses per freq */
+
   let _ctx = null;
+  /* thresholds[earId][freqHz] = estimated volume (lower=better hearing) */
+  let thresholds = { left: {}, right: {} };
+  /* current state */
+  let _curEar, _curFreqIdx, _curStepIdx, _reversals, _lastDir, _stepCount;
+  let _headphoneOk = false;  /* set after headphone check passes */
+
+  /* ── Audio context init (must be called from user gesture) ── */
+  function _initCtx() {
+    if (!_ctx) {
+      _ctx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (_ctx.state === 'suspended') return _ctx.resume();
+    return Promise.resolve();
+  }
+
+  /* ── Play tone through one channel only (ChannelMerger for reliability) ── */
+  function _playTone(hz, earCh, volume, duration) {
+    if (!_ctx) return;
+    try {
+      const osc    = _ctx.createOscillator();
+      const gain   = _ctx.createGain();
+      const merger = _ctx.createChannelMerger(2);
+
+      osc.type = 'triangle';  /* more realistic than pure sine */
+      osc.frequency.value = hz;
+
+      gain.gain.setValueAtTime(0,        _ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(volume, _ctx.currentTime + 0.05);
+      gain.gain.linearRampToValueAtTime(volume, _ctx.currentTime + duration - 0.1);
+      gain.gain.linearRampToValueAtTime(0,       _ctx.currentTime + duration);
+
+      /* Connect osc → gain → one channel of merger → destination */
+      osc.connect(gain);
+      gain.connect(merger, 0, earCh);  /* earCh: 0=left, 1=right */
+      merger.connect(_ctx.destination);
+
+      osc.start(_ctx.currentTime);
+      osc.stop(_ctx.currentTime + duration + 0.05);
+    } catch(e) { console.warn('Audio error:', e); }
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     DEMO → HEADPHONE CHECK → EAR INTRO → ADAPTIVE TEST → RESULTS
+     ════════════════════════════════════════════════════════════ */
 
   LAB.showDemo({
     title: '👂 Hearing Check',
-    txt: '<strong>Put on headphones or earbuds.</strong> We\'ll test your <strong>left ear</strong> then your <strong>right ear</strong> — 4 tones each. Tap whether you can hear each tone.',
-    hint: '8 tones · both ears · ~3 min · headphones required',
+    txt: '<strong>Put on headphones or earbuds</strong> — this test measures hearing <em>sensitivity</em> in each ear across 5 frequencies. Tones get quieter when you hear them, louder when you miss, to find your personal threshold.',
+    hint: '10 adaptive tones · both ears · ~4 min · headphones required',
     btnLabel: 'Start Hearing Test →',
-    voiceEN: 'Hearing check. Please put on headphones. We will test both ears across four frequencies each. Tap whether you hear each tone.',
-  }, function() { _earIntro('left', 0); });
+    voiceEN: 'Adaptive hearing test. Put on headphones. We will measure your hearing sensitivity in both ears across five frequencies. Tap yes or no for each tone.',
+  }, function () {
+    _initCtx().then(() => _headphoneCheck());
+  });
 
-  /* ── Ear intro screen ── */
-  function _earIntro(earId, startIdx) {
+  /* ── Step 0: Headphone check ── */
+  function _headphoneCheck() {
+    LAB.render(`
+    <div class="mwrap"><div class="card card--pop" style="text-align:center;padding:2rem 1.5rem">
+      <div class="cat-run-badge" style="background:#8E44AD18;border:1px solid #8E44AD44;color:#8E44AD;margin:0 auto .9rem">
+        🎧 Headphone Check
+      </div>
+      <div style="font-size:3.5rem;margin:.5rem 0">🎧</div>
+      <h2 class="h2" style="margin-bottom:.4rem">Check Stereo Routing</h2>
+      <p class="pg" style="font-size:.85rem;margin-bottom:.5rem">
+        You should hear a tone in your <strong>LEFT ear only</strong>.
+      </p>
+      <p style="font-size:.76rem;color:var(--tq);margin-bottom:1.4rem">
+        If you hear it in both ears, please use earbuds or headphones.
+      </p>
+      <button class="btn btn--p" style="min-width:200px;margin-bottom:.8rem"
+              onclick="window._htHpPlay()">🔊 Play Test Tone</button>
+      <div id="_htHpBtns" style="display:none;display:flex;flex-direction:column;gap:.6rem;margin-top:.7rem">
+        <button class="btn btn--p" style="background:#2A7A5A"
+                onclick="window._htHpOk(true)">✅ I hear it in my left ear only</button>
+        <button class="btn btn--g"
+                onclick="window._htHpOk(false)">🔀 I hear it in both ears</button>
+      </div>
+      <div style="margin-top:1rem">
+        <button class="btn btn--g" style="font-size:.74rem" onclick="LAB.skip()">Skip test →</button>
+      </div>
+    </div></div>`);
+
+    /* Auto-play after 600ms so button renders first */
+    setTimeout(() => { if (typeof window._htHpPlay === 'function') window._htHpPlay(); }, 600);
+  }
+
+  window._htHpPlay = function () {
+    _initCtx().then(() => {
+      _playTone(1000, 0, 0.35, 1.2);  /* ch 0 = left */
+      const btns = document.getElementById('_htHpBtns');
+      if (btns) { btns.style.display = 'flex'; btns.style.cssText += ';display:flex;flex-direction:column;gap:.6rem;margin-top:.7rem'; }
+    });
+  };
+
+  window._htHpOk = function (isolated) {
+    _headphoneOk = isolated;
+    if (!isolated) {
+      /* Warn but still continue — don't block the test */
+      LAB.render(`
+      <div class="mwrap"><div class="card card--pop" style="text-align:center;padding:2rem 1.5rem">
+        <div style="font-size:3rem;margin-bottom:.8rem">⚠️</div>
+        <h2 class="h2" style="margin-bottom:.4rem">Results May Vary</h2>
+        <p class="pg" style="font-size:.85rem;margin-bottom:1.4rem">
+          For best accuracy, use <strong>earbuds or headphones</strong>.<br>
+          Without them, left/right isolation won't be reliable.
+        </p>
+        <div style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap">
+          <button class="btn btn--p" style="min-width:150px" onclick="window._htStartTest()">Continue Anyway →</button>
+          <button class="btn btn--g" onclick="LAB.skip()">Skip test</button>
+        </div>
+      </div></div>`);
+    } else {
+      _htStartTest();
+    }
+  };
+
+  window._htStartTest = function () {
+    _curEar      = 'left';
+    _curFreqIdx  = 0;
+    _earIntroScreen('left');
+  };
+
+  /* ── Ear intro screens ── */
+  function _earIntroScreen(earId) {
     const ear = EARS.find(e => e.id === earId);
+    const isRight = earId === 'right';
     LAB.render(`
     <div class="mwrap"><div class="card card--pop" style="text-align:center;padding:2rem 1.5rem">
       <div class="cat-run-badge" style="background:${ear.color}18;border:1px solid ${ear.color}44;color:${ear.color};margin:0 auto .9rem">
-        👂 Hearing · ${earId==='left'?'Part 1 of 2':'Part 2 of 2'}
+        👂 Hearing · ${isRight ? 'Part 2 of 2' : 'Part 1 of 2'}
       </div>
-      <div style="font-size:4rem;margin:.6rem 0">${earId==='left'?'🫲':'🫱'}</div>
-      <h2 class="h2" style="margin-bottom:.5rem">${ear.emoji} ${ear.label}</h2>
-      <p class="pg" style="font-size:.85rem;margin-bottom:.4rem">
-        ${earId==='left'
-          ? 'Cover your <strong>right ear</strong>, or use only the <strong>left earbud</strong>.'
-          : 'Now cover your <strong>left ear</strong>, or switch to the <strong>right earbud</strong>.'}
+      <div style="font-size:4rem;margin:.6rem 0">${isRight ? '🫱' : '🫲'}</div>
+      <h2 class="h2" style="margin-bottom:.5rem">Testing ${ear.label}</h2>
+      <p class="pg" style="font-size:.86rem;margin-bottom:.4rem">
+        ${isRight
+          ? 'Cover your <strong>left ear</strong>, or use only the <strong>right earbud</strong>.'
+          : 'Cover your <strong>right ear</strong>, or use only the <strong>left earbud</strong>.'}
       </p>
-      <p style="font-size:.76rem;color:var(--tq);margin-bottom:1.6rem">4 tones will play — tap if you can hear each one</p>
-      <button class="btn btn--p" style="min-width:200px;font-size:.92rem"
-              onclick="window._htTone(${startIdx})">
-        Ready — Test ${ear.label} →
+      <p style="font-size:.76rem;color:var(--tq);margin-bottom:.8rem">
+        Tones at <strong>5 frequencies</strong> will play. They'll get quieter when you hear them<br>
+        and louder when you miss — to find your personal threshold.
+      </p>
+      <p style="font-size:.7rem;color:var(--tq);margin-bottom:1.6rem;padding:.5rem .8rem;background:var(--g3);border-radius:8px">
+        💡 Tap <strong>Yes</strong> the <em>moment</em> you hear anything — even very faint
+      </p>
+      <button class="btn btn--p" style="min-width:210px;font-size:.92rem"
+              onclick="window._htBeginEar('${earId}')">
+        Ready — Start ${ear.label} →
       </button>
-      ${earId==='right'?`<div style="margin-top:.8rem"><button class="btn btn--g" style="font-size:.76rem" onclick="LAB.skip()">Skip remaining →</button></div>`:''}
+      ${isRight ? `<div style="margin-top:.8rem"><button class="btn btn--g" style="font-size:.76rem" onclick="LAB.skip()">Skip remaining →</button></div>` : ''}
     </div></div>`);
   }
 
-  /* ── Run a single tone ── */
-  window._htTone = function(i) {
-    if (i >= TESTS.length) return _hearingDone();
-    if (i === FREQS.length) { _earIntro('right', i); return; }  /* switch to right ear */
+  window._htBeginEar = function (earId) {
+    _curEar     = earId;
+    _curFreqIdx = 0;
+    _startFreq();
+  };
 
-    const t = TESTS[i];
-    const earIdx = i < FREQS.length ? i : i - FREQS.length;  /* 0-3 within this ear */
-    const totalStep = i + 1;
+  /* ── Adaptive test per frequency ── */
+  function _startFreq() {
+    if (_curFreqIdx >= FREQS.length) {
+      /* This ear done — switch or finish */
+      if (_curEar === 'left') {
+        _earIntroScreen('right');
+      } else {
+        _hearingDone();
+      }
+      return;
+    }
+    _curStepIdx = START_STEP;
+    _reversals  = [];
+    _lastDir    = null;
+    _stepCount  = 0;
+    _showToneScreen();
+  }
 
-    /* 8 progress dots split into two ear groups */
-    const dots = TESTS.map((tt, j) => {
-      const done = results[j] !== null;
-      const active = j === i;
-      const bg = done ? (results[j] ? tt.color : '#ccc') : active ? tt.color : 'var(--b)';
-      return `<div style="width:${active?16:8}px;height:8px;border-radius:4px;background:${bg};transition:all .22s;opacity:${done||active?1:.4}"></div>`;
+  function _showToneScreen() {
+    const ear  = EARS.find(e => e.id === _curEar);
+    const freq = FREQS[_curFreqIdx];
+    const vol  = STEPS[_curStepIdx];
+    const totalFreqs = FREQS.length;
+    const earFreqNum = _curFreqIdx + 1;
+
+    /* Progress dots: 5 per ear, colour-coded */
+    const dots = FREQS.map((_, j) => {
+      const done = (thresholds[_curEar][FREQS[j].hz] !== undefined);
+      const active = j === _curFreqIdx;
+      const bg = done ? ear.color : active ? ear.color : 'var(--b)';
+      return `<div style="width:${active?18:8}px;height:8px;border-radius:4px;background:${bg};
+                          opacity:${done||active?1:.35};transition:all .25s"></div>`;
+    }).join('');
+
+    /* Volume visual — 5 bars showing relative loudness */
+    const volPct = Math.round((vol / 0.60) * 100);
+    const bars = Array.from({length:5}, (_,i) => {
+      const thr = (i+1)*20;
+      const lit  = volPct >= thr;
+      return `<div style="width:10px;height:${10+i*6}px;border-radius:3px;
+                           background:${lit ? ear.color : 'var(--b)'};opacity:${lit?.9:.3};
+                           transition:all .3s"></div>`;
     }).join('');
 
     LAB.render(`
@@ -5660,45 +5828,58 @@ window.mod_hearingCheck = function () {
 
       <!-- Header -->
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
-        <div class="cat-run-badge" style="background:${t.color}18;border:1px solid ${t.color}44;color:${t.color};margin:0">
-          ${t.emoji} ${t.label} · ${earIdx+1}/${FREQS.length}
+        <div class="cat-run-badge" style="background:${ear.color}18;border:1px solid ${ear.color}44;color:${ear.color};margin:0">
+          👂 ${ear.label} · ${earFreqNum}/${totalFreqs}
         </div>
-        <span style="font-size:.66rem;color:var(--tq);font-family:'JetBrains Mono',monospace">Tone ${totalStep}/8</span>
+        <div style="font-size:.66rem;color:var(--tq);font-family:'JetBrains Mono',monospace;text-align:right">
+          Adaptive<br>threshold
+        </div>
       </div>
 
-      <!-- Progress dots -->
-      <div style="display:flex;gap:4px;align-items:center;margin-bottom:1.3rem">${dots}</div>
+      <!-- Freq progress dots -->
+      <div style="display:flex;gap:4px;align-items:center;margin-bottom:1.2rem">${dots}</div>
 
       <!-- Tone visual -->
-      <div style="text-align:center;margin-bottom:1.3rem">
-        <div style="width:80px;height:80px;border-radius:50%;background:${t.color}18;border:2px solid ${t.color}55;
-                    display:flex;align-items:center;justify-content:center;margin:0 auto .8rem;
-                    animation:htRing 1s ease-in-out infinite" id="_htWave">
-          <span style="font-size:2rem">🔊</span>
+      <div style="text-align:center;margin-bottom:1.2rem">
+        <div style="width:86px;height:86px;border-radius:50%;background:${ear.color}18;
+                    border:2.5px solid ${ear.color}55;display:flex;align-items:center;
+                    justify-content:center;margin:0 auto .8rem;animation:htRing 1s ease-in-out infinite">
+          <span style="font-size:2.2rem">🔊</span>
         </div>
-        <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:${t.color};line-height:1">${t.label}</div>
-        <div style="font-size:.76rem;color:var(--tq);margin-top:.25rem">${t.note}</div>
-        <div style="font-size:.7rem;color:${t.color};margin-top:.2rem;font-weight:600">→ Listen in your <strong>${t.label.replace('👂 ','')}</strong></div>
+        <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;
+                    color:${ear.color};line-height:1">${freq.label}</div>
+        <div style="font-size:.75rem;color:var(--tq);margin:.3rem 0 .6rem">${freq.note}</div>
+
+        <!-- Volume bars (gives visual feedback on loudness) -->
+        <div style="display:inline-flex;align-items:flex-end;gap:3px;padding:.4rem .8rem;
+                    background:var(--bg-cream);border-radius:8px;border:1px solid var(--b)">
+          ${bars}
+          <span style="font-size:.6rem;color:var(--tq);font-family:'JetBrains Mono',monospace;
+                       margin-left:.5rem;line-height:1;align-self:center">${volPct}%</span>
+        </div>
+        <div style="font-size:.66rem;color:var(--tq);margin-top:.35rem">Tone volume</div>
       </div>
 
       <!-- Answer buttons -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.9rem">
-        <button onclick="window._htAnswer(${i}, true)"
-          style="padding:1rem .8rem;background:#2A7A5A;color:#fff;border:none;border-radius:12px;
+        <button id="_htYes"
+          onclick="window._htRespond(true)"
+          style="padding:1.1rem .8rem;background:#2A7A5A;color:#fff;border:none;border-radius:12px;
                  font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(42,122,90,.28);
-                 transition:.12s;-webkit-tap-highlight-color:transparent"
+                 transition:.12s;-webkit-tap-highlight-color:transparent;min-height:52px"
           onmouseenter="this.style.transform='scale(1.03)'" onmouseleave="this.style.transform='scale(1)'"
           ontouchstart="this.style.transform='scale(.97)'" ontouchend="this.style.transform='scale(1)'">
-          ✅ I heard it
+          ✅ Yes, I heard it
         </button>
-        <button onclick="window._htAnswer(${i}, false)"
-          style="padding:1rem .8rem;background:var(--bg-cream);color:var(--t);
+        <button id="_htNo"
+          onclick="window._htRespond(false)"
+          style="padding:1.1rem .8rem;background:var(--bg-cream);color:var(--t);
                  border:1.5px solid var(--b);border-radius:12px;
                  font-size:.9rem;font-weight:700;cursor:pointer;transition:.12s;
-                 -webkit-tap-highlight-color:transparent"
+                 -webkit-tap-highlight-color:transparent;min-height:52px"
           onmouseenter="this.style.transform='scale(1.03)'" onmouseleave="this.style.transform='scale(1)'"
           ontouchstart="this.style.transform='scale(.97)'" ontouchend="this.style.transform='scale(1)'">
-          ❌ Didn't hear it
+          ❌ No, I didn't
         </button>
       </div>
 
@@ -5707,110 +5888,223 @@ window.mod_hearingCheck = function () {
       </div>
     </div></div>`);
 
-    _playTone(t.hz, t.pan);
-  };
-
-  window._htAnswer = function(i, heard) {
-    results[i] = heard;
-    window._htTone(i + 1);
-  };
-
-  function _playTone(hz, pan) {
-    try {
-      _ctx = _ctx || new (window.AudioContext || window.webkitAudioContext)();
-      if (_ctx.state === 'suspended') _ctx.resume();
-      const osc = _ctx.createOscillator();
-      const gain = _ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.value = hz;
-      gain.gain.setValueAtTime(0, _ctx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.22, _ctx.currentTime + 0.08);
-      gain.gain.linearRampToValueAtTime(0.22, _ctx.currentTime + 1.0);
-      gain.gain.linearRampToValueAtTime(0,    _ctx.currentTime + 1.35);
-      if (_ctx.createStereoPanner) {
-        const panner = _ctx.createStereoPanner();
-        panner.pan.value = pan;
-        osc.connect(gain); gain.connect(panner); panner.connect(_ctx.destination);
-      } else {
-        osc.connect(gain); gain.connect(_ctx.destination);
-      }
-      osc.start(_ctx.currentTime);
-      osc.stop(_ctx.currentTime + 1.45);
-    } catch(e) { /* Web Audio not supported */ }
+    /* Play tone after small render delay */
+    setTimeout(() => {
+      _initCtx().then(() => _playTone(freq.hz, ear.ch, vol, 0.9));
+    }, 250);
   }
 
+  window._htRespond = function (heard) {
+    /* Flash feedback */
+    const btn = document.getElementById(heard ? '_htYes' : '_htNo');
+    if (btn) { btn.style.opacity = '.6'; setTimeout(() => btn && (btn.style.opacity = '1'), 120); }
+
+    _stepCount++;
+    const prevDir = _lastDir;
+
+    if (heard) {
+      /* Step down (quieter) */
+      const dir = 'down';
+      if (prevDir === 'up') _reversals.push(_curStepIdx);  /* reversal */
+      _lastDir = dir;
+      _curStepIdx = Math.max(0, _curStepIdx - 1);
+    } else {
+      /* Step up (louder) */
+      const dir = 'up';
+      if (prevDir === 'down') _reversals.push(_curStepIdx);  /* reversal */
+      _lastDir = dir;
+      _curStepIdx = Math.min(STEPS.length - 1, _curStepIdx + 2);  /* +2 up for faster convergence */
+    }
+
+    /* Threshold reached: 3+ reversals, or max steps exceeded */
+    const converged = _reversals.length >= 3 || _stepCount >= MAX_STEPS;
+    if (converged) {
+      /* Threshold = mean of last 3 reversals (or all if fewer) */
+      const revSlice = _reversals.slice(-3);
+      const threshold = revSlice.length
+        ? revSlice.reduce((s, r) => s + STEPS[r], 0) / revSlice.length
+        : STEPS[_curStepIdx];
+      thresholds[_curEar][FREQS[_curFreqIdx].hz] = threshold;
+      _curFreqIdx++;
+      /* Brief pause between frequencies */
+      setTimeout(() => _startFreq(), 400);
+    } else {
+      /* Continue adaptive test — brief pause then play next tone */
+      setTimeout(() => _showToneScreen(), 300);
+    }
+  };
+
+  /* ── Results ── */
   function _hearingDone() {
-    const leftR  = results.slice(0, FREQS.length);
-    const rightR = results.slice(FREQS.length);
-    const lHeard = leftR.filter(Boolean).length;
-    const rHeard = rightR.filter(Boolean).length;
+    /* Convert threshold volumes to scores.
+       Lower threshold volume = better hearing = higher score.
+       Vol 0.02 (quietest heard) → ~100pts;  Vol 0.60 (loudest) → ~0pts */
+    function volToScore(v) {
+      return Math.round(Math.max(0, Math.min(100, 100 - (v / 0.60) * 100)));
+    }
 
-    /* Weighted score — higher freqs worth more */
-    const wScore = arr => arr.reduce((s,r,i) => s + (r ? i+1 : 0), 0);
-    const maxW   = FREQS.reduce((s,_,i) => s + i+1, 0);  /* = 10 */
-    const lSc = Math.round(wScore(leftR)  / maxW * 100);
-    const rSc = Math.round(wScore(rightR) / maxW * 100);
-    const sc  = Math.round((lSc + rSc) / 2);
+    const lData = thresholds.left;
+    const rData = thresholds.right;
 
-    LAB.raw.hearingHeard      = lHeard + rHeard;
-    LAB.raw.hearingLeftScore  = lSc;
-    LAB.raw.hearingRightScore = rSc;
-    LAB.raw.hearingScore      = sc;
-    LAB.scores.hearing        = sc;
+    /* Per-frequency scores (both ears averaged for each freq) */
+    const freqScores = FREQS.map(f => {
+      const l = lData[f.hz] != null ? volToScore(lData[f.hz]) : null;
+      const r = rData[f.hz] != null ? volToScore(rData[f.hz]) : null;
+      return { hz: f.hz, label: f.label, left: l, right: r };
+    });
 
-    const diff = Math.abs(lSc - rSc);
-    const asymNote = diff > 25
-      ? `<div style="background:#FFF3CD;border:1px solid #F39C1266;border-radius:8px;padding:.55rem .8rem;
-                     font-size:.75rem;color:#856404;margin:.6rem 0">
-           ⚠ Notable difference between ears (${diff} pts) — consider an audiologist check
+    const lScores = Object.values(lData).map(volToScore);
+    const rScores = Object.values(rData).map(volToScore);
+    const lSc  = lScores.length ? Math.round(lScores.reduce((a,b)=>a+b,0)/lScores.length) : null;
+    const rSc  = rScores.length ? Math.round(rScores.reduce((a,b)=>a+b,0)/rScores.length) : null;
+    const both = [lSc, rSc].filter(x => x != null);
+    const sc   = both.length ? Math.round(both.reduce((a,b)=>a+b,0)/both.length) : 50;
+
+    LAB.raw.hearingThresholds     = thresholds;
+    LAB.raw.hearingLeftScore      = lSc;
+    LAB.raw.hearingRightScore     = rSc;
+    LAB.raw.hearingScore          = sc;
+    LAB.raw.hearingHeadphoneCheck = _headphoneOk;
+    LAB.scores.hearing            = sc;
+
+    const diff = lSc != null && rSc != null ? Math.abs(lSc - rSc) : 0;
+    const asymNote = diff > 20
+      ? `<div style="background:#FFF3CD;border:1px solid #F39C1266;border-radius:8px;
+                     padding:.55rem .8rem;font-size:.76rem;color:#856404;margin:.7rem 0 0">
+           ⚠ Noticeable difference between ears (${diff} pts) — consider an audiologist check
          </div>` : '';
 
-    const lbl = sc >= 90 ? '✅ Excellent hearing across both ears'
-              : sc >= 75 ? 'Good — minor gaps at high frequencies'
-              : sc >= 55 ? 'Moderate — some high-freq reduction'
-              : '⚠ Low — recommend a professional hearing test';
+    const lbl = sc >= 85 ? '✅ Excellent sensitivity across both ears'
+              : sc >= 70 ? 'Good — minor sensitivity gaps detected'
+              : sc >= 50 ? 'Moderate — some frequency reduction'
+              : '⚠ Low sensitivity — recommend a professional hearing test';
 
     LAB.celebrate();
-    LAB.say(`Hearing complete. Left ear ${lHeard} of 4, right ear ${rHeard} of 4. ${lbl}.`);
+    LAB.say(`Adaptive hearing complete. Left ear ${lSc ?? '—'}, right ear ${rSc ?? '—'} out of 100. ${lbl}.`);
+
+    /* ── Audiogram canvas rendering ── */
+    const audiogramId = '_htAudiogram';
 
     LAB.render(`
-    <div class="mwrap"><div class="card card--pop" style="text-align:center">
-      <div class="cat-run-badge" style="background:#8E44AD18;border:1px solid #8E44AD44;color:#8E44AD;margin:0 auto .8rem">
-        👂 Hearing Results
+    <div class="mwrap"><div class="card card--pop">
+      <div class="cat-run-badge" style="background:#8E44AD18;border:1px solid #8E44AD44;color:#8E44AD;margin:0 0 1rem">
+        👂 Adaptive Hearing Results
       </div>
 
-      <!-- Overall score -->
-      <div style="font-size:2.2rem;margin:.3rem 0 .1rem">👂</div>
-      <div style="font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;color:#8E44AD;line-height:1">${sc}</div>
-      <div style="font-size:.66rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.12em;color:var(--tq);margin:.25rem 0 .4rem">Combined Hearing Score</div>
-      <div style="font-size:.9rem;font-weight:700;color:${LAB.scoreCol(sc)};margin-bottom:.8rem">${lbl}</div>
-
-      <!-- Per-ear cards -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin:.7rem 0">
-        <div style="background:var(--bg-cream);border:1.5px solid #8E44AD33;border-radius:12px;padding:.9rem .6rem">
-          <div style="font-size:.62rem;text-transform:uppercase;letter-spacing:.09em;color:#8E44AD;font-weight:700;margin-bottom:.35rem">👂 Left</div>
-          <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--t);line-height:1">${lSc}</div>
-          <div style="font-size:.7rem;color:var(--tq);margin-top:.2rem">${lHeard}/4 tones</div>
-          <!-- mini bar -->
-          <div style="height:5px;background:var(--b);border-radius:3px;margin-top:.5rem;overflow:hidden">
-            <div style="height:100%;width:${lSc}%;background:#8E44AD;border-radius:3px;transition:width 1s ease"></div>
+      <!-- Score summary -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:1.1rem;text-align:center">
+        <div style="background:var(--bg-cream);border:1.5px solid #8E44AD33;border-radius:10px;padding:.75rem .5rem">
+          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:#8E44AD;font-weight:700;margin-bottom:.25rem">👂 Left</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:${lSc?LAB.scoreCol(lSc):'var(--tq)'};line-height:1">${lSc??'—'}</div>
+          <div style="height:4px;background:var(--b);border-radius:2px;margin-top:.4rem;overflow:hidden">
+            <div style="height:100%;width:${lSc??0}%;background:#8E44AD;transition:width 1s ease"></div>
           </div>
         </div>
-        <div style="background:var(--bg-cream);border:1.5px solid #2563EB33;border-radius:12px;padding:.9rem .6rem">
-          <div style="font-size:.62rem;text-transform:uppercase;letter-spacing:.09em;color:#2563EB;font-weight:700;margin-bottom:.35rem">👂 Right</div>
-          <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--t);line-height:1">${rSc}</div>
-          <div style="font-size:.7rem;color:var(--tq);margin-top:.2rem">${rHeard}/4 tones</div>
-          <div style="height:5px;background:var(--b);border-radius:3px;margin-top:.5rem;overflow:hidden">
-            <div style="height:100%;width:${rSc}%;background:#2563EB;border-radius:3px;transition:width 1s ease"></div>
+        <div style="background:#fff;border:2px solid var(--b);border-radius:10px;padding:.75rem .5rem">
+          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--tq);font-weight:700;margin-bottom:.25rem">Overall</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:${LAB.scoreCol(sc)};line-height:1">${sc}</div>
+          <div style="font-size:.65rem;font-weight:700;color:${LAB.scoreCol(sc)};margin-top:.2rem">${LAB.scoreLbl(sc)}</div>
+        </div>
+        <div style="background:var(--bg-cream);border:1.5px solid #2563EB33;border-radius:10px;padding:.75rem .5rem">
+          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:#2563EB;font-weight:700;margin-bottom:.25rem">👂 Right</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:${rSc?LAB.scoreCol(rSc):'var(--tq)'};line-height:1">${rSc??'—'}</div>
+          <div style="height:4px;background:var(--b);border-radius:2px;margin-top:.4rem;overflow:hidden">
+            <div style="height:100%;width:${rSc??0}%;background:#2563EB;transition:width 1s ease"></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-size:.85rem;font-weight:700;color:${LAB.scoreCol(sc)};margin-bottom:.7rem;text-align:center">${lbl}</div>
+
+      <!-- Mini audiogram -->
+      <div style="background:var(--bg-cream);border:1px solid var(--b);border-radius:10px;padding:.9rem .8rem;margin-bottom:.8rem">
+        <div style="font-size:.65rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--tq);margin-bottom:.6rem">
+          Audiogram · Sensitivity by Frequency
+        </div>
+        <canvas id="${audiogramId}" width="300" height="130" style="width:100%;max-width:320px;display:block;margin:0 auto"></canvas>
+        <div style="display:flex;align-items:center;gap:.8rem;margin-top:.5rem;justify-content:center">
+          <div style="display:flex;align-items:center;gap:.3rem;font-size:.65rem;color:var(--tq)">
+            <div style="width:14px;height:2px;background:#8E44AD;border-radius:1px"></div>Left
+          </div>
+          <div style="display:flex;align-items:center;gap:.3rem;font-size:.65rem;color:var(--tq)">
+            <div style="width:14px;height:2px;background:#2563EB;border-radius:1px;border-style:dashed"></div>Right
           </div>
         </div>
       </div>
 
       ${asymNote}
-      <p style="font-size:.68rem;color:var(--tq);margin-top:.5rem">Tone-based estimate · Use headphones for accuracy · Not a clinical test</p>
+
+      ${!_headphoneOk ? `<div style="font-size:.7rem;color:#856404;background:#FFF3CD;border-radius:6px;padding:.4rem .7rem;margin-top:.5rem">
+        ℹ️ Test run without isolated earbuds — left/right accuracy may be reduced
+      </div>` : ''}
+      <p style="font-size:.68rem;color:var(--tq);text-align:center;margin-top:.7rem">
+        Adaptive threshold estimate · Not a clinical audiogram · Consult an audiologist for medical assessment
+      </p>
     </div></div>`);
 
-    setTimeout(() => { LAB.idx++; LAB.next(); }, 3500);
+    /* Draw audiogram after render */
+    setTimeout(() => _drawAudiogram(audiogramId, freqScores), 100);
+    setTimeout(() => { LAB.idx++; LAB.next(); }, 5000);
+  }
+
+  /* ── Audiogram canvas ── */
+  function _drawAudiogram(canvasId, freqScores) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const ctx2 = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    const PAD = { top: 14, right: 16, bottom: 28, left: 32 };
+    const gW = W - PAD.left - PAD.right;
+    const gH = H - PAD.top  - PAD.bottom;
+
+    ctx2.clearRect(0, 0, W, H);
+
+    /* Grid lines + Y labels */
+    ctx2.font = '9px JetBrains Mono, monospace';
+    ctx2.fillStyle = '#9AA89A';
+    ctx2.strokeStyle = '#E4EAE4';
+    ctx2.lineWidth = 0.8;
+    [0, 25, 50, 75, 100].forEach(v => {
+      const y = PAD.top + gH - (v / 100) * gH;
+      ctx2.beginPath(); ctx2.moveTo(PAD.left, y); ctx2.lineTo(PAD.left + gW, y); ctx2.stroke();
+      ctx2.fillText(v, 2, y + 3);
+    });
+
+    /* X labels */
+    const xs = freqScores.map((f, i) => PAD.left + (i / (freqScores.length - 1)) * gW);
+    freqScores.forEach((f, i) => {
+      ctx2.fillStyle = '#9AA89A';
+      const lbl = f.hz >= 1000 ? (f.hz/1000) + 'k' : f.hz + '';
+      ctx2.fillText(lbl, xs[i] - 5, H - 6);
+    });
+
+    /* Draw lines */
+    const drawLine = (scores, color, dashed) => {
+      const pts = freqScores.map((f, i) => ({ x: xs[i], y: PAD.top + gH - ((scores[i] ?? 0) / 100) * gH, v: scores[i] }));
+      const valid = pts.filter(p => p.v != null);
+      if (valid.length < 2) return;
+      ctx2.save();
+      ctx2.strokeStyle = color;
+      ctx2.lineWidth = 2;
+      ctx2.lineCap = 'round';
+      ctx2.lineJoin = 'round';
+      if (dashed) ctx2.setLineDash([4, 4]);
+      ctx2.beginPath();
+      valid.forEach((p, i) => i === 0 ? ctx2.moveTo(p.x, p.y) : ctx2.lineTo(p.x, p.y));
+      ctx2.stroke();
+      /* Dots */
+      if (dashed) ctx2.setLineDash([]);
+      valid.forEach(p => {
+        ctx2.beginPath();
+        ctx2.arc(p.x, p.y, 3.5, 0, Math.PI*2);
+        ctx2.fillStyle = color;
+        ctx2.fill();
+      });
+      ctx2.restore();
+    };
+
+    drawLine(freqScores.map(f => f.left),  '#8E44AD', false);
+    drawLine(freqScores.map(f => f.right), '#2563EB', true);
   }
 };
 
