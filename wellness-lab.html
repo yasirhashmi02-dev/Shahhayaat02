@@ -36,9 +36,6 @@
   
 </script>
 <meta charset="UTF-8">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -292,40 +289,6 @@ button,input,select{font-family:inherit}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
 .step-head{margin-bottom:1.4rem}
 .step-head .tag{margin-bottom:.75rem}
-
-/* ── Category Dashboard v2 ─────────────────────────────── */
-.cat-card{
-  background:#fff;border:1.5px solid var(--b);border-radius:var(--r);
-  padding:1.3rem 1.25rem;cursor:pointer;text-align:left;
-  transition:all .22s var(--ease);width:100%;font-family:var(--font-body);
-  position:relative;overflow:hidden;
-}
-.cat-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:var(--cat-col,var(--g));border-radius:var(--r) var(--r) 0 0;
-}
-.cat-card:hover{
-  border-color:var(--cat-col,var(--ok));
-  box-shadow:0 4px 18px rgba(0,0,0,.09);
-  transform:translateY(-3px);
-}
-.cat-card:active{transform:translateY(-1px);}
-.cat-icon{font-size:1.9rem;display:block;margin-bottom:.55rem;line-height:1}
-.cat-name{font-size:1rem;font-weight:700;color:var(--t);margin-bottom:.22rem}
-.cat-meta{font-size:.72rem;font-family:'JetBrains Mono',monospace;
-          color:var(--cat-col,var(--ok));letter-spacing:.06em;margin-bottom:.45rem}
-.cat-desc{font-size:.8rem;color:var(--tm);line-height:1.55}
-.cat-arrow{position:absolute;bottom:1rem;right:1.1rem;font-size:1rem;
-           color:var(--cat-col,var(--ok));opacity:.6;transition:opacity .2s}
-.cat-card:hover .cat-arrow{opacity:1}
-
-/* ── Category mini-header shown during test run ─────────── */
-.cat-run-badge{
-  display:inline-flex;align-items:center;gap:.4rem;
-  padding:.2rem .7rem;border-radius:50px;font-size:.65rem;
-  font-family:'JetBrains Mono',monospace;letter-spacing:.07em;
-  text-transform:uppercase;font-weight:700;margin-bottom:.7rem;
-}
 </style>
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 </head>
@@ -373,7 +336,7 @@ button,input,select{font-family:inherit}
   <div class="wrap">
     <div class="hero">
       <div class="hero-ey au">
-        <div class="tag">🧪 20 Smart Wellness Checks</div>
+        <div class="tag">🧪 17 Smart Wellness Checks</div>
         <div class="tag" style="background:#FFF0F5;border-color:rgba(168,48,96,.22);color:#A83060">🌸 + Women's Health Checks</div>
         <div class="tag tag--gd">✨ Free · Private · No Sign-Up</div>
       </div>
@@ -397,8 +360,8 @@ button,input,select{font-family:inherit}
     </div>
 
     <div class="stats-row" role="list">
-      <div class="stat-box" role="listitem"><span class="stat-n">20</span><span class="stat-l">Checks</span></div>
-      <div class="stat-box" role="listitem"><span class="stat-n">8</span><span class="stat-l">Categories</span></div>
+      <div class="stat-box" role="listitem"><span class="stat-n">17</span><span class="stat-l">Checks</span></div>
+      <div class="stat-box" role="listitem"><span class="stat-n">5</span><span class="stat-l">Sections</span></div>
       <div class="stat-box" role="listitem"><span class="stat-n">~15</span><span class="stat-l">Minutes</span></div>
       <div class="stat-box" role="listitem"><span class="stat-n">0</span><span class="stat-l">Data Stored</span></div>
       <div class="stat-box" role="listitem"><span class="stat-n">Free</span><span class="stat-l">Always</span></div>
@@ -429,9 +392,6 @@ button,input,select{font-family:inherit}
         <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid var(--b);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">🌬 Breathing <span style="color:var(--tq);font-weight:400">3 checks</span></div>
         <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid var(--b);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">📱 Stability <span style="color:var(--tq);font-weight:400">2 checks</span></div>
         <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid rgba(42,122,90,.2);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">🌿 Lifestyle <span style="color:var(--tq);font-weight:400">2 checks</span></div>
-        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid rgba(231,76,60,.2);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">❤️ Heart <span style="color:var(--tq);font-weight:400">1 check</span></div>
-        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid rgba(243,156,18,.2);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">🫁 Gut <span style="color:var(--tq);font-weight:400">1 check</span></div>
-        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid rgba(142,68,173,.2);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">👂 Hearing <span style="color:var(--tq);font-weight:400">1 check</span></div>
       </div>
     </div>
   </div>
@@ -491,7 +451,7 @@ button,input,select{font-family:inherit}
           <div class="gck" aria-hidden="true">✓</div>
           <span class="gico">♂</span>
           <div class="gnm">Male</div>
-          <div class="gnt">20 checks</div>
+          <div class="gnt">17 checks</div>
         </div>
         <div class="gcard" id="gF" role="radio" aria-checked="false" tabindex="0"
              onclick="LAB.setGender('female')"
@@ -499,48 +459,14 @@ button,input,select{font-family:inherit}
           <div class="gck" aria-hidden="true">✓</div>
           <span class="gico">♀</span>
           <div class="gnm">Female</div>
-          <div class="gnt">20 checks + 2 women's health</div>
+          <div class="gnt">17 checks + 2 women's health</div>
         </div>
       </div>
 
       <div class="btn-row" style="justify-content:center;margin-top:.8rem">
-        <button class="btn btn--p btn--lg" id="goCont" disabled onclick="LAB.renderCategoryDashboard()">Choose My Assessment →</button>
+        <button class="btn btn--p btn--lg" id="goCont" disabled onclick="LAB.beginModules()">Start My Assessment →</button>
       </div>
     </div>
-  </div>
-</section>
-
-<section id="sCategory" style="display:none;padding:clamp(1.8rem,5vw,3.5rem) 0">
-  <div class="wrap">
-
-    <div style="text-align:center;margin-bottom:1.8rem">
-      <div style="display:inline-flex;align-items:center;gap:.45rem;padding:.3rem .9rem;
-                  background:var(--g3);border:1px solid rgba(42,122,90,.28);border-radius:50px;
-                  font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--ok);
-                  letter-spacing:.09em;text-transform:uppercase;margin-bottom:1rem">
-        🧪 Choose Your Assessment
-      </div>
-      <h2 class="h1" style="margin-bottom:.55rem">What would you like to check?</h2>
-      <p class="pg" style="max-width:420px;margin:0 auto">Run the full 17-check lab, or focus on one area — all results are private and stay on your device.</p>
-    </div>
-
-    <!-- Full Lab CTA -->
-    <button class="btn btn--p btn--lg btn--full" style="margin-bottom:1.6rem;font-size:.95rem;padding:1rem 1.5rem"
-            onclick="LAB.beginModules()">
-      ▶ Full Wellness Lab &nbsp;·&nbsp; <span style="font-weight:400;opacity:.85">All 20 checks · ~15 min · Free PDF</span>
-    </button>
-
-    <!-- Divider -->
-    <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1.4rem">
-      <div style="flex:1;height:1px;background:var(--b)"></div>
-      <span style="font-size:.72rem;color:var(--tq);font-family:'JetBrains Mono',monospace;letter-spacing:.08em">OR CHOOSE A CATEGORY</span>
-      <div style="flex:1;height:1px;background:var(--b)"></div>
-    </div>
-
-    <!-- Category grid — populated by LAB.renderCategoryDashboard() -->
-    <div id="catGrid" style="display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));margin-bottom:2rem"></div>
-
-    <p style="font-size:.7rem;color:var(--tq);text-align:center">🔐 No data leaves your device. All calculations happen in your browser.</p>
   </div>
 </section>
 
@@ -595,7 +521,7 @@ const LAB = {
   voiceOn: true,
   idx: 0,
   queue: [],
-  scores: { cognitive:null, eye:null, respiratory:null, stress:null, stability:null, lifestyle:null, hormonal:null, heart:null, gut:null, hearing:null },
+  scores: { cognitive:null, eye:null, respiratory:null, stress:null, stability:null, lifestyle:null, hormonal:null },
   raw: {},
   _demoCB: null,
   _demoAnim: null,
@@ -609,7 +535,7 @@ const LAB = {
   scoreCol(s){ return s>=80?'#1A8C52':s>=55?'#C97010':'#C0392B'; },
   scoreLbl(s){ return s>=80?'Excellent':s>=65?'Good':s>=50?'Fair':s>=35?'Needs Attention':'Low'; },
 
-  _secs: ['sWelcome','sInstr','sGender','sCategory','sModules'],
+  _secs: ['sWelcome','sInstr','sGender','sModules'],
 
   show(id) {
     this._secs.forEach(s => {
@@ -665,222 +591,31 @@ const LAB = {
     );
   },
 
-  /* ── v2: Category registry ─────────────────────────────────────────── */
-  categories: {
-    brain: {
-      id:'brain', name:'Brain & Cognitive', icon:'🧠', color:'#2A7A5A',
-      tests:['mod_reactionSpeed','mod_workingMemory','mod_sustainedAttention','mod_wordRecall','mod_cogUnderPressure'],
-      scoreKey:'cognitive', time:'~5 min', desc:'Memory, focus, reaction speed and mental agility'
-    },
-    eye: {
-      id:'eye', name:'Eye Health', icon:'👁', color:'#2563EB',
-      tests:['mod_colourBlindness','mod_visualAcuity','mod_contrastSensitivity','mod_peripheralVision','mod_eyeTracking'],
-      scoreKey:'eye', time:'~3 min', desc:'Colour perception, visual acuity, contrast and tracking'
-    },
-    breathing: {
-      id:'breathing', name:'Breathing & Lungs', icon:'🌬', color:'#059669',
-      tests:['mod_breathSync','mod_co2Tolerance','mod_calmTimer'],
-      scoreKey:'respiratory', time:'~3 min', desc:'Breath control, lung capacity and nervous system calm'
-    },
-    stability: {
-      id:'stability', name:'Motor Stability', icon:'📱', color:'#7C3AED',
-      tests:['mod_stabilityHold','mod_microTremor'],
-      scoreKey:'stability', time:'~1 min', desc:'Hand steadiness and fine motor tremor control'
-    },
-    lifestyle: {
-      id:'lifestyle', name:'Lifestyle & Recovery', icon:'🌿', color:'#C0392B',
-      tests:['mod_sleepEfficiency','mod_lifestyleLoad'],
-      scoreKey:'lifestyle', time:'~2 min', desc:'Sleep quality, daily habits and recovery patterns'
-    },
-    heart: {
-      id:'heart', name:'Heart & Pulse', icon:'❤️', color:'#E74C3C',
-      tests:['mod_heartRate'],
-      scoreKey:'heart', time:'~2 min', desc:'Resting pulse rate and cardiovascular health indicator'
-    },
-    gut: {
-      id:'gut', name:'Gut Health', icon:'🫁', color:'#F39C12',
-      tests:['mod_gutHealth'],
-      scoreKey:'gut', time:'~2 min', desc:'Digestive comfort, bloating and bowel health patterns'
-    },
-    hearing: {
-      id:'hearing', name:'Hearing Check', icon:'👂', color:'#8E44AD',
-      tests:['mod_hearingCheck'],
-      scoreKey:'hearing', time:'~2 min', desc:'High-frequency tone detection — best with headphones'
-    }
-  },
-
-  currentMode: 'full',   /* 'full' | category id | 'challenge' */
-
-  /* ── v2: Render category dashboard ────────────────────────────────── */
-  renderCategoryDashboard() {
-    if (!this.gender) return;
-    trackWL('category_dashboard_view');
-
-    const grid = this.el('catGrid');
-    if (grid) {
-      grid.innerHTML = Object.values(this.categories).map(cat => `
-        <button class="cat-card au" style="--cat-col:${cat.color}"
-                onclick="LAB.beginCategory('${cat.id}')"
-                aria-label="Start ${cat.name} assessment, ${cat.tests.length} tests, ${cat.time}">
-          <span class="cat-icon">${cat.icon}</span>
-          <div class="cat-name">${cat.name}</div>
-          <div class="cat-meta">${cat.tests.length} tests &nbsp;·&nbsp; ${cat.time}</div>
-          <div class="cat-desc">${cat.desc}</div>
-          <span class="cat-arrow">→</span>
-        </button>`).join('');
-    }
-
-    this.show('sCategory');
-    this.setStatus('idle','Choose Assessment');
-    this.say(`Choose an area to check, or run the full wellness lab for a complete picture.`);
-  },
-
-  /* ── v2: Start a specific category ────────────────────────────────── */
-  beginCategory(categoryId) {
-    const cat = this.categories[categoryId];
-    if (!cat || !this.gender) return;
-    trackWL('category_start', cat.name);
-    this.currentMode = categoryId;
-    this.queue = [...cat.tests];
-    this.idx = 0;
-    /* Reset only this category's scores so partial re-runs are clean */
-    this.scores[cat.scoreKey] = null;
-    this.show('sModules');
-    this.say(`Starting ${cat.name}. ${cat.tests.length} checks. ${cat.time}.`);
-    this.next();
-  },
-
-  /* ── v2: Full lab (enhanced — now driven from category registry) ─── */
   beginModules() {
     if (!this.gender) return;
-    trackWL('full_lab_start');
-    this.currentMode = 'full';
-    /* Build queue from registry to keep it in sync automatically */
-    this.queue = Object.values(this.categories).flatMap(c => c.tests);
+    this.queue = [
+      'mod_reactionSpeed',
+      'mod_workingMemory',
+      'mod_sustainedAttention',
+      'mod_wordRecall',
+      'mod_cogUnderPressure',
+      'mod_colourBlindness',
+      'mod_visualAcuity',
+      'mod_contrastSensitivity',
+      'mod_peripheralVision',
+      'mod_eyeTracking',
+      'mod_breathSync',
+      'mod_co2Tolerance',
+      'mod_calmTimer',
+      'mod_stabilityHold',
+      'mod_microTremor',
+      'mod_sleepEfficiency',
+      'mod_lifestyleLoad',
+    ];
     if (this.gender === 'female') {
       this.queue.push('mod_hormonalRhythm','mod_energyIron');
     }
     this.idx = 0;
-    /* Reset all scores for a fresh run */
-    Object.keys(this.scores).forEach(k => this.scores[k] = null);
-    this.show('sModules');
-    this.next();
-  },
-
-  /* ── v2: Wellness Age calculator ───────────────────────────────────── */
-  calcWellnessAge(overall, actualAge) {
-    if (overall == null) return null;
-    /* Each 5-point deviation from baseline (70) = 2 years */
-    const delta = Math.round((70 - overall) / 5) * 2;
-    if (!actualAge || actualAge < 16 || actualAge > 90) {
-      /* No age entered — return relative label only */
-      if (overall >= 80) return { label:'Functionally Younger', delta:-4, icon:'🌱' };
-      if (overall >= 65) return { label:'Age-Appropriate',      delta:0,  icon:'✅' };
-      return               { label:'Functionally Older',        delta:4,  icon:'⏳' };
-    }
-    const wellAge = Math.max(16, Math.min(90, actualAge + delta));
-    return {
-      actual: actualAge,
-      wellness: wellAge,
-      delta,
-      icon: delta < -1 ? '🌱' : delta > 1 ? '⏳' : '✅',
-      label: delta < -1 ? `Performing ${Math.abs(delta)} years younger`
-           : delta > 1  ? `Performing ${delta} years older`
-           : `Matching your age`
-    };
-  },
-
-  /* ── v2: Domain helpers for PDF ────────────────────────────────────── */
-  _domainIcon(k) {
-    return {cognitive:'🧠',eye:'👁',respiratory:'🌬',stress:'🔥',
-            stability:'📱',lifestyle:'⚖',hormonal:'🌸'}[k] || '●';
-  },
-  _domainLabel(k) {
-    return {cognitive:'Cognitive',eye:'Eye Health',respiratory:'Respiratory',
-            stress:'Stress',stability:'Stability',lifestyle:'Lifestyle',
-            hormonal:'Hormonal'}[k] || k;
-  },
-  _improvementTip(k) {
-    return ({
-      cognitive:   'Try daily brain puzzles, protect sleep quality, stay well hydrated and limit long screen sessions.',
-      eye:         'Follow the 20-20-20 rule (every 20 min look 20 ft away for 20 s), reduce glare and get a clinical eye check.',
-      respiratory: 'Practice box breathing (4-4-4-4) for 5 min daily, try pranayama, avoid smoke and strong air pollutants.',
-      stress:      'Short daily meditation, journaling, and limiting caffeine after noon can meaningfully reduce stress scores.',
-      stability:   'Yoga balance poses, grip-strength exercises and a magnesium-rich diet support steadiness.',
-      lifestyle:   'Consistent sleep/wake times, 7–9 hours per night and limiting meals within 2 hours of bedtime make a big difference.',
-      hormonal:    'Track cycle patterns, ensure adequate iron and vitamin D intake, and consult a gynaecologist for persistent symptoms.'
-    })[k] || 'Focus on rest, hydration and consistent daily routines.';
-  },
-
-  /* ── v2: Challenge URL helpers ─────────────────────────────────────── */
-  _challengeUnits: {
-    mod_reactionSpeed:'ms', mod_workingMemory:'items',
-    mod_co2Tolerance:'s',   mod_cogUnderPressure:'pts'
-  },
-  _challengeTarget: null,
-
-  createChallengeUrl(testId, score) {
-    const url = new URL(window.location.href.split('?')[0]);
-    url.searchParams.set('challenge', testId);
-    url.searchParams.set('score', Math.round(score));
-    url.searchParams.set('unit', this._challengeUnits[testId] || 'pts');
-    return url.toString();
-  },
-
-  copyChallengeLink(testId, score) {
-    const url = this.createChallengeUrl(testId, score);
-    navigator.clipboard.writeText(url).then(() => {
-      this.toast('Challenge link copied! Share it with a friend 🏆');
-    }).catch(() => {
-      /* Fallback: show the URL */
-      prompt('Copy this challenge link:', url);
-    });
-    trackWL('challenge_created', testId);
-  },
-
-  showChallengeResult(testId, myScore) {
-    const ct = this._challengeTarget;
-    if (!ct) { if(typeof LAB.showDashboard==='function') LAB.showDashboard(); return; }
-    const unit = ct.unit;
-    const lowerBetter = (unit === 'ms');
-    const iWin  = lowerBetter ? myScore < ct.score : myScore > ct.score;
-    const isTie = myScore === ct.score;
-    const emoji = isTie ? '🤝' : iWin ? '🏆' : '😅';
-    const headline = isTie ? "It's a Tie!" : iWin ? 'You Win!' : 'Close Call!';
-    const myFmt   = Math.round(myScore) + unit;
-    const theirFmt = ct.score + unit;
-    trackWL('challenge_completed', testId);
-    this.render(`
-    <div class="mwrap">
-      <div class="card card--pop" style="text-align:center;padding:2.5rem 1.5rem">
-        <div style="font-size:3.5rem;margin-bottom:.6rem">${emoji}</div>
-        <h2 class="h2" style="margin-bottom:.4rem">${headline}</h2>
-        <div style="display:flex;justify-content:center;gap:2rem;margin:1.2rem 0;flex-wrap:wrap">
-          <div style="text-align:center">
-            <div style="font-size:.65rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;color:var(--tq);letter-spacing:.08em">Your Score</div>
-            <div style="font-size:2.2rem;font-weight:800;color:${iWin?'var(--ok)':'var(--t)'}">${myFmt}</div>
-          </div>
-          <div style="text-align:center">
-            <div style="font-size:.65rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;color:var(--tq);letter-spacing:.08em">Friend's Score</div>
-            <div style="font-size:2.2rem;font-weight:800;color:var(--tm)">${theirFmt}</div>
-          </div>
-        </div>
-        <p class="pg" style="font-size:.82rem;margin-bottom:1.4rem">
-          ${lowerBetter ? 'Lower is faster for reaction speed.' : 'Higher score wins.'}
-        </p>
-        <div class="btn-row" style="justify-content:center;flex-wrap:wrap">
-          <button class="btn btn--p" onclick="LAB._rerunChallenge('${testId}')">⟳ Try Again</button>
-          <button class="btn btn--g" onclick="LAB.goWelcome()">Run Full Lab</button>
-        </div>
-      </div>
-    </div>`);
-  },
-
-  _rerunChallenge(testId) {
-    /* Re-run only the challenge test */
-    this.queue = [testId];
-    this.idx = 0;
-    this.currentMode = 'challenge';
     this.show('sModules');
     this.next();
   },
@@ -939,8 +674,6 @@ const LAB = {
     mod_stabilityHold:'📱 Steady Hand',      mod_microTremor:'✏ Tremor Drawing',
     mod_sleepEfficiency:'💤 Sleep Check',    mod_lifestyleLoad:'⚖ Lifestyle Score',
     mod_hormonalRhythm:'🌸 Hormonal Rhythm', mod_energyIron:'⚡ Energy & Iron',
-    mod_heartRate:'❤️ Heart Rate',           mod_gutHealth:'🫁 Gut Health',
-    mod_hearingCheck:'👂 Hearing Check',
   },
 
   _sections: {
@@ -963,9 +696,6 @@ const LAB = {
     mod_lifestyleLoad:      {label:'🌿 Lifestyle', num:2, of:2},
     mod_hormonalRhythm:     {label:'🌸 Female',   num:1, of:2},
     mod_energyIron:         {label:'🌸 Female',   num:2, of:2},
-    mod_heartRate:          {label:'❤️ Heart',     num:1, of:1},
-    mod_gutHealth:          {label:'🫁 Gut',       num:1, of:1},
-    mod_hearingCheck:       {label:'👂 Hearing',   num:1, of:1},
   },
 
   _updateProg() {
@@ -1026,31 +756,6 @@ const LAB = {
       this._synth.cancel();
     }
   },
-
-  /* v2: Toast notification ───────────────────────────────────────────── */
-  toast(msg, duration = 3000) {
-    let t = this.el('labToast');
-    if (!t) {
-      t = document.createElement('div');
-      t.id = 'labToast';
-      t.style.cssText = `position:fixed;bottom:5rem;left:50%;transform:translateX(-50%) translateY(20px);
-        background:#1A4731;color:#fff;padding:.65rem 1.3rem;border-radius:50px;font-size:.82rem;
-        font-weight:600;box-shadow:0 4px 18px rgba(0,0,0,.25);opacity:0;
-        transition:all .28s var(--ease);z-index:9999;pointer-events:none;white-space:nowrap`;
-      document.body.appendChild(t);
-    }
-    t.textContent = msg;
-    requestAnimationFrame(() => {
-      t.style.opacity = '1';
-      t.style.transform = 'translateX(-50%) translateY(0)';
-      clearTimeout(t._timer);
-      t._timer = setTimeout(() => {
-        t.style.opacity = '0';
-        t.style.transform = 'translateX(-50%) translateY(20px)';
-      }, duration);
-    });
-  },
-
 
   showDemo(cfg, cb) {
     this._demoCB = cb;
@@ -1366,18 +1071,7 @@ window.mod_reactionSpeed = function () {
     LAB.raw.rxAvg=Math.round(m); LAB.raw.rxBest=best; LAB.raw.rxSD=Math.round(sd); LAB.raw.rxScore=sc;
     LAB.celebrate();
     LAB.say(`Nice one! Your average reaction was ${Math.round(m)} milliseconds — that is ${LAB.scoreLbl(sc)}! Keep going, you are doing brilliantly!`);
-    /* v2: Show challenge button briefly before auto-advance */
-    const mc = LAB.el('modContent');
-    if (mc && LAB.currentMode !== 'challenge') {
-      const btn = document.createElement('div');
-      btn.style.cssText = 'text-align:center;margin-top:1rem';
-      btn.innerHTML = `<button class="btn btn--o" style="font-size:.82rem;padding:.55rem 1.2rem"
-        onclick="LAB.copyChallengeLink('mod_reactionSpeed',${Math.round(m)})">
-        🏆 Challenge a friend &nbsp;<span style="opacity:.7;font-size:.75rem">${Math.round(m)}ms</span>
-      </button>`;
-      mc.appendChild(btn);
-    }
-    setTimeout(()=>{ LAB.idx++; LAB.next(); },3500);
+    setTimeout(()=>{ LAB.idx++; LAB.next(); },1900);
   }
 };
 
@@ -1623,18 +1317,7 @@ window.mod_workingMemory = function () {
     LAB.raw.memSpan=st.maxSpan;LAB.raw.memErrors=st.errors;LAB.raw.memScore=sc;
     LAB.celebrate();
     LAB.say(`Excellent memory work! Your best sequence was ${st.maxSpan} items — that is ${LAB.scoreLbl(sc)} working memory. Halfway through the brain section!`);
-    /* v2: Challenge button */
-    const mc = LAB.el('modContent');
-    if (mc && LAB.currentMode !== 'challenge') {
-      const btn = document.createElement('div');
-      btn.style.cssText = 'text-align:center;margin-top:1rem';
-      btn.innerHTML = `<button class="btn btn--o" style="font-size:.82rem;padding:.55rem 1.2rem"
-        onclick="LAB.copyChallengeLink('mod_workingMemory',${st.maxSpan})">
-        🏆 Challenge a friend &nbsp;<span style="opacity:.7;font-size:.75rem">${st.maxSpan} items</span>
-      </button>`;
-      mc.appendChild(btn);
-    }
-    setTimeout(()=>{LAB.idx++;LAB.next();},3500);
+    setTimeout(()=>{LAB.idx++;LAB.next();},1900);
   }
 };
 
@@ -2369,18 +2052,7 @@ window.mod_co2Tolerance = function () {
 
     LAB.celebrate();
     LAB.say(`Fantastic! You held for ${Math.round(_held)} seconds — that is ${rating}! Breathing section complete. Now for stability — two quick motor checks!`);
-    /* v2: Challenge button */
-    const mc = LAB.el('modContent');
-    if (mc && LAB.currentMode !== 'challenge') {
-      const btn = document.createElement('div');
-      btn.style.cssText = 'text-align:center;margin-top:1rem';
-      btn.innerHTML = `<button class="btn btn--o" style="font-size:.82rem;padding:.55rem 1.2rem"
-        onclick="LAB.copyChallengeLink('mod_co2Tolerance',${Math.round(_held)})">
-        🏆 Challenge a friend &nbsp;<span style="opacity:.7;font-size:.75rem">${Math.round(_held)}s</span>
-      </button>`;
-      mc.appendChild(btn);
-    }
-    setTimeout(() => { LAB.idx++; LAB.next(); }, 3500);
+    setTimeout(() => { LAB.idx++; LAB.next(); }, 2200);
   }
 };
 
@@ -2646,18 +2318,7 @@ window.mod_cogUnderPressure = function () {
 
     LAB.celebrate();
     LAB.say(`Great brain work! ${_correct} out of ${TOTAL} correct — that is ${LAB.scoreLbl(sc)} under pressure. You are making brilliant progress!`);
-    /* v2: Challenge button */
-    const mc = LAB.el('modContent');
-    if (mc && LAB.currentMode !== 'challenge') {
-      const btn = document.createElement('div');
-      btn.style.cssText = 'text-align:center;margin-top:1rem';
-      btn.innerHTML = `<button class="btn btn--o" style="font-size:.82rem;padding:.55rem 1.2rem"
-        onclick="LAB.copyChallengeLink('mod_cogUnderPressure',${_correct})">
-        🏆 Challenge a friend &nbsp;<span style="opacity:.7;font-size:.75rem">${_correct}/20 pts</span>
-      </button>`;
-      mc.appendChild(btn);
-    }
-    setTimeout(() => { LAB.idx++; LAB.next(); }, 3500);
+    setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   }
 };
 
@@ -4006,9 +3667,6 @@ window.mod_calmTimer = function () {
 
 LAB.showDashboard = function () {
 
-  const isCategoryMode = this.currentMode && this.currentMode !== 'full' && this.currentMode !== 'challenge';
-  const activeCat = isCategoryMode ? this.categories[this.currentMode] : null;
-
   const domAvg = (...keys) => { const v=keys.map(k=>LAB.raw[k]).filter(x=>x!=null); return v.length?Math.round(LAB.avg(v)):null; };
   if (LAB.scores.cognitive  == null) LAB.scores.cognitive   = domAvg('rxScore','memScore','attScore','wordRecallScore','mathScore');
   if (LAB.scores.eye        == null) LAB.scores.eye          = domAvg('cbScore','acuityScore','csScore','peripheralScore','eyeTrackScore');
@@ -4016,30 +3674,19 @@ LAB.showDashboard = function () {
   if (LAB.scores.stress     == null) LAB.scores.stress       = domAvg('mathScore','patternScore');
   if (LAB.scores.stability  == null) LAB.scores.stability    = domAvg('stabilityScore','tremorScore');
   if (LAB.scores.lifestyle  == null) LAB.scores.lifestyle    = LAB.raw.lifestyleScore ?? null;
-  if (LAB.scores.heart      == null) LAB.scores.heart        = LAB.raw.heartScore    ?? null;
-  if (LAB.scores.gut        == null) LAB.scores.gut          = LAB.raw.gutScore      ?? null;
-  if (LAB.scores.hearing    == null) LAB.scores.hearing      = LAB.raw.hearingScore  ?? null;
 
   const recs = LAB._buildRecs();
   const isFem = LAB.gender==='female';
   const hormScore = isFem ? (LAB.scores.hormonal ?? null) : null;
 
-  /* For category mode: compute score only for that domain */
-  let overall, completedDomains;
-  if (isCategoryMode && activeCat) {
-    const catScore = LAB.scores[activeCat.scoreKey];
-    overall = catScore;
-    completedDomains = catScore != null ? 1 : 0;
-  } else {
-    const mainScores=[LAB.scores.cognitive,LAB.scores.eye,LAB.scores.respiratory,
-                      LAB.scores.stress,LAB.scores.stability,LAB.scores.lifestyle];
-    if(isFem&&hormScore) mainScores.push(hormScore);
-    const completedScores = mainScores.filter(x => x != null);
-    overall = completedScores.length ? Math.round(LAB.avg(completedScores)) : null;
-    completedDomains = completedScores.length;
-  }
+  const mainScores=[LAB.scores.cognitive,LAB.scores.eye,LAB.scores.respiratory,
+                    LAB.scores.stress,LAB.scores.stability,LAB.scores.lifestyle];
+  if(isFem&&hormScore) mainScores.push(hormScore);
+  const completedScores = mainScores.filter(x => x != null);
+  const overall = completedScores.length ? Math.round(LAB.avg(completedScores)) : null;
+  const completedDomains = completedScores.length;
 
-  const domains=[\
+  const domains=[
     {key:'cognitive',  icon:'🧠', label:'Cognitive',   col:'#2A7A5A'},
     {key:'eye',        icon:'👁',  label:'Eye Health',  col:'#2563EB'},
     {key:'respiratory',icon:'🌬', label:'Respiratory', col:'#059669'},
@@ -4047,27 +3694,10 @@ LAB.showDashboard = function () {
     {key:'stability',  icon:'📱', label:'Stability',   col:'#7C3AED'},
     {key:'lifestyle',  icon:'⚖',  label:'Lifestyle',   col:'#C0392B'},
     ...(isFem&&hormScore?[{key:'hormonal',icon:'🌸',label:'Hormonal',col:'#B83060'}]:[]),
-    ...(LAB.scores.heart    != null ? [{key:'heart',   icon:'❤️', label:'Heart',   col:'#E74C3C'}] : []),
-    ...(LAB.scores.gut      != null ? [{key:'gut',     icon:'🫁',  label:'Gut',     col:'#F39C12'}] : []),
-    ...(LAB.scores.hearing  != null ? [{key:'hearing', icon:'👂',  label:'Hearing', col:'#8E44AD'}] : []),
   ];
-
-  /* In category mode: only show the relevant domain card(s) */
-  const visibleDomains = isCategoryMode && activeCat
-    ? domains.filter(d => d.key === activeCat.scoreKey)
-    : domains;
 
   LAB.setStatus('idle','Results Ready');
   LAB.el('progBar').style.display='none';
-
-  /* Title / subtitle vary by mode */
-  const titleBadge = isCategoryMode && activeCat
-    ? `<span style="background:${activeCat.color}18;border-color:${activeCat.color}44;color:${activeCat.color}">${activeCat.icon} ${activeCat.name} Complete</span>`
-    : `<span>✅ Assessment Complete</span>`;
-  const subtitle = isCategoryMode && activeCat
-    ? `${activeCat.tests.length} checks completed · ${activeCat.name} assessment`
-    : (completedDomains > 0 ? 'Based on ' + (isFem?'19':'17') + ' wellness checks across cognitive, eye, respiratory, stability and lifestyle health.' : 'You skipped all activities — no data to score. Complete at least one test to see results.');
-  const scoreLabel = isCategoryMode && activeCat ? activeCat.name + ' Score' : 'Overall Wellness';
 
   LAB.render(`
   <div class="mwrap">
@@ -4077,10 +3707,12 @@ LAB.showDashboard = function () {
                   background:var(--g3);border:1px solid rgba(42,122,90,.28);border-radius:50px;
                   font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--ok);
                   letter-spacing:.09em;text-transform:uppercase;margin-bottom:1.1rem">
-        ${titleBadge}
+        ✅ Assessment Complete
       </div>
-      <h2 class="h1" style="margin-bottom:.6rem">${isCategoryMode && activeCat ? activeCat.icon + ' ' + activeCat.name + ' Results' : 'Your Wellness Results'}</h2>
-      <p class="pg" style="max-width:400px;margin:0 auto 1.5rem">${subtitle}</p>
+      <h2 class="h1" style="margin-bottom:.6rem">Your Wellness Results</h2>
+      <p class="pg" style="max-width:400px;margin:0 auto 1.5rem">
+        ${completedDomains > 0 ? 'Based on ' + (isFem?'19':'17') + ' wellness checks across cognitive, eye, respiratory, stability and lifestyle health.' : 'You skipped all activities — no data to score. Complete at least one test to see results.'}
+      </p>
 
       <div style="display:inline-flex;flex-direction:column;align-items:center;gap:.5rem;
                   background:#fff;border:1.5px solid var(--b);border-radius:var(--r);
@@ -4089,24 +3721,14 @@ LAB.showDashboard = function () {
         <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--t);line-height:1"
              id="overallNum">${overall !== null ? overall : '—'}</div>
         <div style="font-size:.65rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;
-                    letter-spacing:.1em;color:var(--tq)">${scoreLabel}</div>
+                    letter-spacing:.1em;color:var(--tq)">Overall Wellness</div>
         <div style="font-size:.85rem;font-weight:700;color:${overall !== null ? LAB.scoreCol(overall) : 'var(--tq)'}">
           ${overall !== null ? LAB.scoreLbl(overall) : 'No tests completed'}</div>
       </div>
-
-      ${isCategoryMode && activeCat ? `
-      <div style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-bottom:1.4rem">
-        <button class="btn btn--o" style="font-size:.82rem" onclick="LAB.renderCategoryDashboard()">
-          ← Try Another Category
-        </button>
-        <button class="btn btn--g" style="font-size:.82rem" onclick="LAB.beginModules()">
-          ▶ Run Full Lab
-        </button>
-      </div>` : ''}
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.9rem;margin-bottom:2.5rem" id="scoreGrid">
-      ${visibleDomains.map(d=>{
+      ${domains.map(d=>{
         const sc = LAB.scores[d.key] ?? null;
         const skipped = sc === null;
         return `<div style="background:${skipped?'var(--bg)':'#fff'};border:1.5px solid var(--b);border-radius:var(--r);
@@ -4262,17 +3884,10 @@ LAB.showDashboard = function () {
     <div class="card" style="margin-bottom:1.4rem;padding:1.25rem 1.4rem">
       <h3 class="h3" style="margin-bottom:.5rem;font-size:.95rem">📄 Download Your PDF Report</h3>
       <p class="pg" style="margin-bottom:.85rem;font-size:.82rem">Add your name to appear on the report — or leave it blank.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.85rem">
-        <div class="fld">
-          <label class="lbl" for="pdfNameInp">Your name (optional)</label>
-          <input class="inp" type="text" id="pdfNameInp" placeholder="e.g. Ahmed Khan"
-                 maxlength="60" autocomplete="name" style="font-size:1rem">
-        </div>
-        <div class="fld">
-          <label class="lbl" for="pdfAgeInp">Your age (optional)</label>
-          <input class="inp" type="number" id="pdfAgeInp" placeholder="e.g. 34" min="16" max="90"
-                 style="font-size:1rem" onchange="LAB.raw.userAge=parseInt(this.value)||null">
-        </div>
+      <div class="fld" style="margin-bottom:.85rem">
+        <label class="lbl" for="pdfNameInp">Your name (optional)</label>
+        <input class="inp" type="text" id="pdfNameInp" placeholder="e.g. Ahmed Khan"
+               maxlength="60" autocomplete="name" style="font-size:1rem">
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:.75rem">
         <button class="btn btn--p btn--lg" onclick="LAB.generatePDF()">📄 Save as PDF</button>
@@ -4284,11 +3899,12 @@ LAB.showDashboard = function () {
   </div>`);
 
   setTimeout(()=>{
-    if (overall !== null) LAB._drawRing('overallRing', overall, isCategoryMode && activeCat ? activeCat.color : '#2A7A5A', 64);
+    if (overall !== null) LAB._drawRing('overallRing', overall, '#2A7A5A', 64);
     else {
+
       const c=document.getElementById('overallRing'); if(c){const ctx=c.getContext('2d');ctx.beginPath();ctx.arc(70,70,64,0,Math.PI*2);ctx.strokeStyle='#E4EAE4';ctx.lineWidth=10;ctx.stroke();}
     }
-    visibleDomains.forEach(d=>{
+    domains.forEach(d=>{
       const sc=LAB.scores[d.key]??null;
       if(sc!==null) LAB._drawRing('ring_'+d.key, sc, d.col, 36);
       else {
@@ -4513,13 +4129,6 @@ LAB._buildProductCards = function () {
   if (isMale && (S.stress ?? 100) < 65)
     selected.push({ ...P.passionpulse, id:'passionpulse', reason:'Stress and energy scores may benefit from vitality support.' });
 
-  /* v2: New domain recommendations */
-  if ((S.heart ?? 100) < 75 || (R.heartBPM ?? 72) > 90 || (R.heartBPM ?? 72) < 55)
-    selected.push({ ...P.bloodstorm, id:'bloodstorm', reason:'Heart rate indicators suggest cardiovascular and energy support.' });
-
-  if ((S.gut ?? 100) < 65)
-    selected.push({ ...P.livohayaat, id:'livohayaat', reason:'Gut health scores suggest digestive and liver support.' });
-
   const anyLow = Object.values(S).some(v => v != null && v < 60);
   if (anyLow)
     selected.push({ ...P.fevodol, id:'fevodol', reason:'Multiple low scores — immunity support recommended.' });
@@ -4664,13 +4273,6 @@ LAB.generatePDF = function () {
   const dateStr=now.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
   const recs=LAB._buildRecs();
   const userName=(document.getElementById('pdfNameInp')?.value||'').trim();
-  LAB.raw.userAge = parseInt(document.getElementById('pdfAgeInp')?.value||'') || null;
-
-  /* v2: Category-mode PDF title */
-  const isCatMode = LAB.currentMode && LAB.currentMode !== 'full' && LAB.currentMode !== 'challenge';
-  const pdfCat = isCatMode ? LAB.categories[LAB.currentMode] : null;
-  const pdfTitle = pdfCat ? `${pdfCat.icon} ${pdfCat.name} Assessment Report` : 'Personal Wellness Intelligence Report';
-  const pdfTestCount = pdfCat ? `${pdfCat.tests.length} Activities` : (isFem?'19':'16') + ' Activities Completed';
 
   const scoreRows=[
     ['🧠 Cognitive',   S.cognitive||'—'],
@@ -4680,9 +4282,6 @@ LAB.generatePDF = function () {
     ['📱 Stability',   S.stability||'—'],
     ['⚖ Lifestyle',   S.lifestyle||'—'],
     ...(isFem&&S.hormonal?[['🌸 Hormonal',S.hormonal]]:[] ),
-    ...(S.heart   != null ? [['❤️ Heart & Pulse', S.heart]]   : []),
-    ...(S.gut     != null ? [['🫁 Gut Health',    S.gut]]     : []),
-    ...(S.hearing != null ? [['👂 Hearing',        S.hearing]] : []),
   ];
 
   const detailRows=[
@@ -4707,9 +4306,6 @@ LAB.generatePDF = function () {
       ['⚡ Energy & Iron','Questionnaire',R.ironScore],
       ['🌙 Sleep & Comfort','Questionnaire',R.femCombinedScore],
     ]:[]),
-    ...(R.heartBPM    != null ? [['❤️ Heart Rate',   R.heartBPM+'bpm (est.)',  R.heartScore]]  : []),
-    ...(R.gutScore    != null ? [['🫁 Gut Health',    '5-question assessment',  R.gutScore]]    : []),
-    ...(R.hearingHeard!= null ? [['👂 Hearing',        R.hearingHeard+'/4 tones', R.hearingScore]] : []),
   ];
 
   const barOf=(sc)=>{
@@ -4814,12 +4410,12 @@ LAB.generatePDF = function () {
       <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat">
       <div>
         <div class="hdr-title">Shah Hayaat Wellness Lab</div>
-        <div class="hdr-sub">${pdfTitle}</div>
+        <div class="hdr-sub">Personal Wellness Intelligence Report</div>
       </div>
     </div>
     <div class="hdr-meta">
       <div>${dateStr}</div>
-      <div>${pdfTestCount}</div>
+      <div>${isFem?'19':'16'} Activities Completed</div>
       <div style="margin-top:4px;font-size:10px;opacity:.6">Private · All data processed locally · Nothing stored</div>
     </div>
   </div>
@@ -4834,19 +4430,6 @@ LAB.generatePDF = function () {
       <div style="margin-top:8px;height:10px;background:#D4E8DC;border-radius:5px;overflow:hidden">
         <div style="width:${overall}%;height:100%;background:${LAB.scoreCol(overall)};border-radius:5px"></div>
       </div>
-      ${(()=>{
-        const wa = LAB.calcWellnessAge(overall, LAB.raw.userAge||null);
-        if (!wa) return '';
-        return `<div style="margin-top:10px;padding:8px 12px;background:#fff;border:1.5px solid #D4E8DC;
-                            border-radius:8px;display:flex;align-items:center;gap:10px">
-          <span style="font-size:22px">${wa.icon}</span>
-          <div>
-            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#6A8A6A;font-family:'JetBrains Mono',monospace">Wellness Age Indicator</div>
-            <div style="font-size:14px;font-weight:700;color:${LAB.scoreCol(overall)}">${wa.label}${wa.wellness?' — Wellness Age: '+wa.wellness:''}</div>
-            <div style="font-size:9.5px;color:#888;margin-top:1px">Performance indicator only — not a medical measurement</div>
-          </div>
-        </div>`;
-      })()}
     </div>
   </div>
 
@@ -4861,47 +4444,6 @@ LAB.generatePDF = function () {
       </div>`;
     }).join('')}
   </div>
-
-  ${(()=>{
-    /* v2: Strongest Areas & Areas to Improve */
-    const allDoms = [
-      {k:'cognitive',  label:'🧠 Cognitive',   v:S.cognitive},
-      {k:'eye',        label:'👁 Eye Health',   v:S.eye},
-      {k:'respiratory',label:'🌬 Respiratory',  v:S.respiratory},
-      {k:'stress',     label:'🔥 Stress',       v:S.stress},
-      {k:'stability',  label:'📱 Stability',    v:S.stability},
-      {k:'lifestyle',  label:'⚖ Lifestyle',    v:S.lifestyle},
-      ...(isFem&&S.hormonal?[{k:'hormonal',label:'🌸 Hormonal',v:S.hormonal}]:[]),
-    ].filter(d => d.v != null && d.v > 0).sort((a,b)=>b.v-a.v);
-    if (allDoms.length < 2) return '';
-    const strongest = allDoms.slice(0,2);
-    const weakest   = allDoms.slice(-2).reverse();
-    return `
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
-      <div>
-        <div class="sec-hdr" style="margin-top:0">✨ Your Strongest Areas</div>
-        <div style="display:flex;flex-direction:column;gap:8px">
-          ${strongest.map(d=>`
-          <div style="background:#E8F5EE;border:1.5px solid #A8D5B8;border-radius:10px;padding:12px">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#1A4731;margin-bottom:3px">${d.label}</div>
-            <div style="font-size:26px;font-weight:800;color:#2A7A5A;line-height:1">${d.v}</div>
-            <div style="font-size:11px;color:#2A7A5A">${LAB.scoreLbl(d.v)}</div>
-          </div>`).join('')}
-        </div>
-      </div>
-      <div>
-        <div class="sec-hdr" style="margin-top:0">🎯 Areas to Improve</div>
-        <div style="display:flex;flex-direction:column;gap:8px">
-          ${weakest.map(d=>`
-          <div style="background:#FFF8ED;border:1.5px solid #F0C860;border-radius:10px;padding:12px">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#8B4000;margin-bottom:3px">${d.label}</div>
-            <div style="font-size:26px;font-weight:800;color:#C97010;line-height:1">${d.v}</div>
-            <div style="font-size:10.5px;color:#5A3A00;margin-top:4px;line-height:1.5">${LAB._improvementTip(d.k)}</div>
-          </div>`).join('')}
-        </div>
-      </div>
-    </div>`;
-  })()}
 
   <div class="sec-hdr">Activity Results</div>
   <table class="dtable">
@@ -4972,8 +4514,6 @@ LAB.generatePDF = function () {
         if((S.eye??100)<70||R.cbFlag||R.acuityFlag) sel.push({...P.musaffakhoon,id:'musaffakhoon',reason:'Eye & blood health'});
         if(isFem&&(S.hormonal??100)<75) sel.push({...P.utrohayaat,id:'utrohayaat',reason:'Female hormonal support'});
         if(isMale&&(S.stress??100)<65) sel.push({...P.passionpulse,id:'passionpulse',reason:'Male vitality support'});
-        if((S.heart??100)<75||(R.heartBPM??72)>90) sel.push({...P.bloodstorm,id:'bloodstorm',reason:'Heart rate & cardiovascular support'});
-        if((S.gut??100)<65) sel.push({...P.livohayaat,id:'livohayaat',reason:'Digestive & gut health support'});
         if(Object.values(S).some(v=>v!=null&&v<60)) sel.push({...P.fevodol,id:'fevodol',reason:'Immunity support'});
         const seen=new Set(),unique=sel.filter(p=>{if(seen.has(p.id))return false;seen.add(p.id);return true;});
         if(!unique.length){unique.push({...P.brainchamp,id:'brainchamp',reason:'General wellness'});unique.push({...P.fevodol,id:'fevodol',reason:'Immunity support'});}
@@ -5039,482 +4579,6 @@ LAB.generatePDF = function () {
     }, 800);
   });
 };
-
-/* ══════════════════════════════════════════════════════════════════════
-   NEW TEST MODULES — Phase 4
-   ══════════════════════════════════════════════════════════════════════ */
-
-/* ── Heart Rate Estimator ──────────────────────────────────────────── */
-window.mod_heartRate = function () {
-  let _taps = [], _active = false, _cd = null;
-
-  LAB.showDemo({
-    title: '❤️ Heart Rate Check',
-    txt: 'Place your index finger gently on your chest or wrist and feel your pulse. <strong>Tap the button once for each heartbeat</strong> you feel for 30 seconds. Count every beat.',
-    hint: '30 seconds · tap with each heartbeat',
-    voiceEN: "Feel your pulse on your wrist or chest. Tap the button once for each heartbeat for thirty seconds. Ready?",
-  }, function() {
-      let elapsed = 0, rem = 30;
-      _taps = []; _active = true;
-
-      LAB.render(`
-      <div class="mwrap">
-        <div class="card card--pop" style="text-align:center">
-          <div class="cat-run-badge" style="background:#E74C3C18;border:1px solid #E74C3C44;color:#E74C3C">❤️ Heart &amp; Pulse</div>
-          <h2 class="h2" style="margin-bottom:.3rem">Tap Each Heartbeat</h2>
-          <p class="pg" style="font-size:.82rem;margin-bottom:1.4rem">Feel your pulse on your wrist or chest and tap below for every beat.</p>
-
-          <div style="font-family:'Playfair Display',serif;font-size:4rem;font-weight:700;
-                      color:#E74C3C;line-height:1;margin-bottom:.4rem" id="hrCount">0</div>
-          <div style="font-size:.7rem;font-family:'JetBrains Mono',monospace;color:var(--tq);
-                      text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.4rem">Taps</div>
-
-          <div style="width:100%;height:8px;background:var(--g3);border-radius:4px;
-                      overflow:hidden;margin-bottom:1.4rem">
-            <div id="hrBar" style="height:100%;background:#E74C3C;border-radius:4px;
-                                   width:0%;transition:width .5s linear"></div>
-          </div>
-          <div style="font-size:.82rem;color:var(--tq);margin-bottom:1.2rem">
-            <span id="hrTime">30</span>s remaining
-          </div>
-
-          <button id="hrTapBtn"
-            style="width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,#E74C3C,#C0392B);
-                   border:none;color:#fff;font-size:2.4rem;cursor:pointer;box-shadow:0 8px 28px rgba(231,76,60,.4);
-                   transition:all .1s;-webkit-tap-highlight-color:transparent"
-            onmousedown="this.style.transform='scale(.94)'"
-            onmouseup="this.style.transform='scale(1)'"
-            ontouchstart="this.style.transform='scale(.94)'"
-            ontouchend="this.style.transform='scale(1)'"
-            onclick="window._hrTap()">❤️</button>
-
-          <p style="font-size:.72rem;color:var(--tq);margin-top:1.2rem">
-            Tap automatically ends after 30 seconds
-          </p>
-          <div class="btn-row" style="justify-content:center;margin-top:1rem">
-            <button class="btn btn--g" onclick="LAB.skip()">Skip →</button>
-          </div>
-        </div>
-      </div>`);
-
-      window._hrTap = function() {
-        if (!_active) return;
-        _taps.push(Date.now());
-        const el = document.getElementById('hrCount');
-        if (el) el.textContent = _taps.length;
-        /* Brief pulse animation */
-        const btn = document.getElementById('hrTapBtn');
-        if (btn) { btn.style.transform='scale(1.12)'; setTimeout(()=>btn.style.transform='scale(1)',100); }
-        LAB.flash('hit');
-      };
-
-      _cd = setInterval(() => {
-        if (!_active) { clearInterval(_cd); return; }
-        elapsed++;
-        rem = Math.max(0, 30 - elapsed);
-        const t = document.getElementById('hrTime');
-        const b = document.getElementById('hrBar');
-        if (t) t.textContent = rem;
-        if (b) b.style.width = ((elapsed / 30) * 100) + '%';
-        if (rem <= 0) { clearInterval(_cd); _active = false; _hrDone(); }
-      }, 1000);
-  });
-
-  function _hrDone() {
-    const tapsIn30 = _taps.length;
-    /* BPM = taps in 30s × 2 */
-    const bpm = tapsIn30 * 2;
-    /* Score: ideal resting HR 60-80 bpm = 100, outside range deductions */
-    const sc = bpm === 0 ? null
-             : bpm < 40  ? 35
-             : bpm < 55  ? 65
-             : bpm < 65  ? 92
-             : bpm < 80  ? 100
-             : bpm < 95  ? 85
-             : bpm < 110 ? 65
-             : bpm < 130 ? 45
-             : 25;
-    LAB.raw.heartBPM   = bpm;
-    LAB.raw.heartScore = sc;
-    LAB.scores.heart   = sc;
-
-    const rating = bpm === 0 ? 'No data' : bpm < 60 ? 'Low — consider checking with a doctor' : bpm < 80 ? 'Healthy range' : bpm < 100 ? 'Slightly elevated' : 'Elevated — rest and recheck';
-    LAB.celebrate();
-    LAB.say(`Heart rate check complete. You recorded ${bpm} beats per minute — ${rating}.`);
-
-    const mc = LAB.el('modContent');
-    if (mc) {
-      const res = document.createElement('div');
-      res.style.cssText = 'text-align:center;padding:1.5rem 1rem';
-      res.innerHTML = `
-        <div style="font-size:3rem;margin-bottom:.5rem">❤️</div>
-        <div style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:#E74C3C">${bpm}</div>
-        <div style="font-size:.75rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--tq)">BPM (est.)</div>
-        <div style="font-size:.88rem;font-weight:600;color:${sc?LAB.scoreCol(sc):'var(--tq)'};margin-top:.5rem">${rating}</div>
-        <p style="font-size:.72rem;color:var(--tq);margin-top:.5rem;max-width:280px;margin-left:auto;margin-right:auto">
-          Tap-based estimate · Not a medical reading · For wellness indication only
-        </p>`;
-      mc.innerHTML = '';
-      mc.appendChild(res);
-    }
-    setTimeout(()=>{ LAB.idx++; LAB.next(); }, 3000);
-  }
-};
-
-/* ── Gut Health Questionnaire ─────────────────────────────────────── */
-window.mod_gutHealth = function () {
-  const questions = [
-    { q: 'How often do you experience bloating or gas after meals?',             opts:['Rarely or never','1–2 times a week','Most days','Every day'] },
-    { q: 'How would you describe your usual bowel pattern?',                      opts:['Regular (daily, comfortable)','Slightly irregular','Often constipated','Often loose/urgent'] },
-    { q: 'Do you experience stomach cramps or abdominal discomfort?',             opts:['Rarely','Occasionally','Often (3+ times a week)','Almost daily'] },
-    { q: 'How is your appetite and ability to digest different foods?',           opts:['Good — most foods are fine','Some foods cause issues','Many foods cause discomfort','Poor appetite or frequent nausea'] },
-    { q: 'Do you notice undigested food, mucus or changes in stool consistency?', opts:['Never','Occasionally','Often','Regularly'] },
-  ];
-  let answers = [];
-
-  function renderQ(i) {
-    if (i >= questions.length) return _gutDone();
-    const q = questions[i];
-    LAB.render(`
-    <div class="mwrap">
-      <div class="card card--pop">
-        <div class="cat-run-badge" style="background:#F39C1218;border:1px solid #F39C1244;color:#F39C12">🫁 Gut Health · ${i+1}/${questions.length}</div>
-        <h2 class="h2" style="margin:.6rem 0 1.2rem;font-size:1.05rem;line-height:1.45">${q.q}</h2>
-        <div style="display:flex;flex-direction:column;gap:.65rem">
-          ${q.opts.map((opt, j) => `
-          <button class="btn btn--g" style="text-align:left;padding:.85rem 1rem;font-size:.88rem;line-height:1.4"
-                  onclick="window._gutPick(${i},${j})">${opt}</button>`).join('')}
-        </div>
-        <div class="btn-row" style="justify-content:center;margin-top:1rem">
-          <button class="btn btn--g" style="font-size:.78rem" onclick="LAB.skip()">Skip test →</button>
-        </div>
-      </div>
-    </div>`);
-  }
-
-  window._gutPick = function(qi, ai) {
-    answers[qi] = ai; /* 0=best, 3=worst */
-    renderQ(qi + 1);
-  };
-
-  function _gutDone() {
-    /* Lower answer index = better gut health */
-    const total = answers.reduce((s, a) => s + a, 0);
-    const max   = questions.length * 3;
-    const sc    = Math.round(100 - (total / max) * 80);
-    LAB.raw.gutScore   = sc;
-    LAB.scores.gut     = sc;
-    LAB.raw.gutAnswers = answers;
-    LAB.celebrate();
-    const lbl = sc >= 80 ? 'Healthy gut indicators' : sc >= 60 ? 'Mild digestive concerns' : sc >= 40 ? 'Moderate digestive issues' : 'Significant gut discomfort — consider consulting a doctor';
-    LAB.say(`Gut health assessment complete. ${lbl}.`);
-    setTimeout(()=>{ LAB.idx++; LAB.next(); }, 2000);
-  }
-
-  LAB.showDemo({
-    title: '🫁 Gut Health Check',
-    txt: '5 quick questions about your digestive comfort and bowel health. There are <strong>no right or wrong answers</strong> — just pick the option that best describes your experience over the past month.',
-    hint: '5 questions · ~2 minutes',
-    voiceEN: "Five quick questions about your digestive health over the past month. Just tap the option that sounds most like you.",
-  }, function() { renderQ(0); });
-};
-
-/* ── Hearing Check ─────────────────────────────────────────────────── */
-window.mod_hearingCheck = function () {
-  /* Uses Web Audio API to generate tones at different frequencies.
-     Tests 4 frequencies: 1kHz, 2kHz, 4kHz, 8kHz — each at a fixed volume.
-     User taps if they can hear it. Score based on how many high-freq tones detected. */
-
-  const FREQS = [
-    { hz: 1000, label: '1 kHz',  note: 'Low-mid range — most people hear this clearly' },
-    { hz: 2000, label: '2 kHz',  note: 'Mid range — speech clarity range' },
-    { hz: 4000, label: '4 kHz',  note: 'High-mid — consonant clarity' },
-    { hz: 8000, label: '8 kHz',  note: 'High frequency — often first to decline with age' },
-  ];
-  let results = [], _ctx = null, _idx = 0;
-
-  LAB.showDemo({
-    title: '👂 Hearing Check',
-    txt: '<strong>Use headphones for best results.</strong> A short tone will play. Tap <strong>"I heard it"</strong> if you can hear the tone, or <strong>"I didn\'t hear it"</strong> if not. Test your left ear first, then right if possible.',
-    hint: '4 tones · ~2 min · headphones recommended',
-    voiceEN: "Hearing check. Use headphones for the best result. Listen carefully for each tone and tap whether you can hear it.",
-  }, function() { _runTone(0); });
-
-  function _runTone(i) {
-    if (i >= FREQS.length) return _hearingDone();
-    const f = FREQS[i];
-
-    LAB.render(`
-    <div class="mwrap">
-      <div class="card card--pop" style="text-align:center">
-        <div class="cat-run-badge" style="background:#8E44AD18;border:1px solid #8E44AD44;color:#8E44AD">👂 Hearing · ${i+1}/${FREQS.length}</div>
-        <h2 class="h2" style="margin:.6rem 0 .3rem">Listen for the tone</h2>
-        <p class="pg" style="margin-bottom:1.4rem;font-size:.82rem">${f.note}</p>
-
-        <div style="font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;
-                    color:#8E44AD;margin-bottom:.3rem">${f.label}</div>
-        <div style="font-size:.72rem;color:var(--tq);margin-bottom:1.6rem">Playing now…</div>
-
-        <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
-          <button class="btn btn--p" style="background:#2A7A5A;font-size:.9rem"
-                  onclick="window._hearingAnswer(${i}, true)">✅ I heard it</button>
-          <button class="btn btn--g" style="font-size:.9rem"
-                  onclick="window._hearingAnswer(${i}, false)">❌ I didn't hear it</button>
-        </div>
-
-        <div class="btn-row" style="justify-content:center;margin-top:1rem">
-          <button class="btn btn--g" style="font-size:.78rem" onclick="LAB.skip()">Skip test →</button>
-        </div>
-      </div>
-    </div>`);
-
-    /* Play the tone via Web Audio API */
-    try {
-      _ctx = _ctx || new (window.AudioContext || window.webkitAudioContext)();
-      const osc  = _ctx.createOscillator();
-      const gain = _ctx.createGain();
-      osc.connect(gain);
-      gain.connect(_ctx.destination);
-      osc.type = 'sine';
-      osc.frequency.value = f.hz;
-      gain.gain.setValueAtTime(0, _ctx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.18, _ctx.currentTime + 0.05);
-      gain.gain.linearRampToValueAtTime(0.18, _ctx.currentTime + 1.0);
-      gain.gain.linearRampToValueAtTime(0,    _ctx.currentTime + 1.3);
-      osc.start(_ctx.currentTime);
-      osc.stop(_ctx.currentTime + 1.4);
-    } catch(e) {
-      /* Web Audio not available — skip silently */
-    }
-  }
-
-  window._hearingAnswer = function(i, heard) {
-    results[i] = heard;
-    _runTone(i + 1);
-  };
-
-  function _hearingDone() {
-    const heard = results.filter(Boolean).length;
-    const total = FREQS.length;
-    /* Weight high frequencies more (index 2,3 = harder to hear = more points if heard) */
-    const weighted = results.reduce((s, r, i) => s + (r ? (i + 1) : 0), 0);
-    const maxW = FREQS.reduce((s, _, i) => s + (i + 1), 0);
-    const sc = Math.round((weighted / maxW) * 100);
-    LAB.raw.hearingHeard  = heard;
-    LAB.raw.hearingScore  = sc;
-    LAB.scores.hearing    = sc;
-
-    const lbl = heard === 4 ? 'All tones detected — excellent hearing range'
-              : heard >= 3  ? 'Good — missing some high frequencies'
-              : heard >= 2  ? 'Moderate — consider an audiologist check'
-              : 'Low detection — recommend professional hearing test';
-    LAB.celebrate();
-    LAB.say(`Hearing check complete. You detected ${heard} out of ${total} tones. ${lbl}.`);
-    setTimeout(()=>{ LAB.idx++; LAB.next(); }, 2500);
-  }
-};
-
-/* ── v2: Update _domainLabel and _domainIcon for new domains ────── */
-LAB._domainLabel = function(k) {
-  return {cognitive:'Cognitive',eye:'Eye Health',respiratory:'Respiratory',
-          stress:'Stress',stability:'Stability',lifestyle:'Lifestyle',
-          hormonal:'Hormonal',heart:'Heart & Pulse',gut:'Gut Health',
-          hearing:'Hearing'}[k] || k;
-};
-LAB._domainIcon = function(k) {
-  return {cognitive:'🧠',eye:'👁',respiratory:'🌬',stress:'🔥',
-          stability:'📱',lifestyle:'⚖',hormonal:'🌸',
-          heart:'❤️',gut:'🫁',hearing:'👂'}[k] || '●';
-};
-LAB._improvementTip = function(k) {
-  return ({
-    cognitive:   'Try daily brain puzzles, protect sleep quality, stay well hydrated and limit long screen sessions.',
-    eye:         'Follow the 20-20-20 rule (every 20 min look 20 ft away for 20 s), reduce glare and get a clinical eye check.',
-    respiratory: 'Practice box breathing (4-4-4-4) for 5 min daily, try pranayama, avoid smoke and strong air pollutants.',
-    stress:      'Short daily meditation, journaling, and limiting caffeine after noon can meaningfully reduce stress scores.',
-    stability:   'Yoga balance poses, grip-strength exercises and a magnesium-rich diet support steadiness.',
-    lifestyle:   'Consistent sleep/wake times, 7–9 hours per night and limiting meals within 2 hours of bedtime.',
-    hormonal:    'Track cycle patterns, ensure adequate iron and vitamin D intake, and consult a gynaecologist for persistent symptoms.',
-    heart:       'Regular aerobic exercise 3-4x weekly, reduce salt intake, manage stress levels and avoid smoking.',
-    gut:         'Increase dietary fibre, probiotics (yoghurt, fermented foods), stay hydrated and reduce processed foods.',
-    hearing:     'Protect ears from loud noise, limit headphone volume, and book an audiologist check if concern persists.'
-  })[k] || 'Focus on rest, hydration and consistent daily routines.';
-};
-
-/* ── v2: Add new domains to PDF scoreRows ─────────────────────────── */
-/* (handled dynamically in generatePDF via the domain loop below) */
-
-/* ── v2: Leaderboard (consent-based) ──────────────────────────────── */
-LAB.offerLeaderboard = async function(testId, score, unit) {
-  /* Show consent dialog */
-  const agreed = await new Promise(resolve => {
-    const overlay = document.createElement('div');
-    overlay.style.cssText = `position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;
-      display:flex;align-items:center;justify-content:center;padding:1rem`;
-    overlay.innerHTML = `
-      <div style="background:#fff;border-radius:var(--r);padding:1.8rem 1.6rem;max-width:340px;width:100%;
-                  box-shadow:0 12px 40px rgba(0,0,0,.2);text-align:center">
-        <div style="font-size:2rem;margin-bottom:.5rem">🏅</div>
-        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;
-                   color:var(--t);margin-bottom:.5rem">Add to Leaderboard?</h3>
-        <p style="font-size:.82rem;color:var(--tm);line-height:1.6;margin-bottom:.3rem">
-          Your score: <strong>${score}${unit}</strong>
-        </p>
-        <p style="font-size:.75rem;color:var(--tq);margin-bottom:1.3rem;line-height:1.55">
-          Only your score and timestamp will be stored publicly. No name, no device ID, no health data.
-        </p>
-        <div style="display:flex;gap:.6rem;justify-content:center">
-          <button style="padding:.6rem 1.2rem;background:var(--ok);color:#fff;border:none;
-                         border-radius:50px;font-weight:700;font-size:.85rem;cursor:pointer"
-                  id="_lbYes">Yes, share my score</button>
-          <button style="padding:.6rem 1.1rem;background:var(--bg);color:var(--tm);border:1.5px solid var(--b);
-                         border-radius:50px;font-size:.85rem;cursor:pointer"
-                  id="_lbNo">No thanks</button>
-        </div>
-      </div>`;
-    document.body.appendChild(overlay);
-    document.getElementById('_lbYes').onclick = () => { document.body.removeChild(overlay); resolve(true); };
-    document.getElementById('_lbNo').onclick  = () => { document.body.removeChild(overlay); resolve(false); };
-  });
-
-  if (!agreed) return;
-
-  try {
-    if (typeof window.storage !== 'undefined') {
-      await window.storage.set(
-        'lb:' + testId + ':' + Date.now(),
-        JSON.stringify({ score, unit, ts: Date.now() }),
-        true /* shared */
-      );
-      LAB.toast('Score added to leaderboard! 🏅');
-    } else {
-      /* storage API not available (GitHub Pages — not in artifact context) */
-      LAB.toast('Leaderboard available when running as an embedded app.');
-    }
-  } catch(e) {
-    LAB.toast('Could not save score — leaderboard unavailable right now.');
-  }
-  trackWL('leaderboard_entry', testId);
-};
-
-/* Show leaderboard for a test */
-LAB.showLeaderboard = async function(testId, unit) {
-  let entries = [];
-  try {
-    if (typeof window.storage !== 'undefined') {
-      const keys = await window.storage.list('lb:' + testId + ':', true);
-      for (const key of (keys.keys || [])) {
-        try {
-          const r = await window.storage.get(key, true);
-          if (r) entries.push(JSON.parse(r.value));
-        } catch(e) {}
-      }
-    }
-  } catch(e) {}
-
-  const lowerBetter = (unit === 'ms');
-  entries.sort((a, b) => lowerBetter ? a.score - b.score : b.score - a.score);
-  const top10 = entries.slice(0, 10);
-
-  const html = top10.length === 0
-    ? '<p style="text-align:center;color:var(--tq);padding:1rem">No scores yet — be the first!</p>'
-    : `<div style="display:flex;flex-direction:column;gap:.5rem">
-        ${top10.map((e, i) => `
-          <div style="display:flex;align-items:center;gap:.75rem;padding:.7rem .9rem;
-                      background:${i===0?'var(--g3)':'var(--bg)'};border-radius:var(--rs);
-                      border:1px solid ${i===0?'rgba(42,122,90,.2)':'var(--b)'}">
-            <span style="font-size:1.1rem;min-width:1.6rem">${['🥇','🥈','🥉'][i]||`${i+1}.`}</span>
-            <span style="flex:1;font-weight:${i<3?'700':'400'};font-size:.88rem;color:var(--t)">${e.score}${e.unit}</span>
-            <span style="font-size:.7rem;color:var(--tq)">${new Date(e.ts).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</span>
-          </div>`).join('')}
-       </div>`;
-
-  LAB.render(`
-  <div class="mwrap">
-    <div class="card card--pop">
-      <h2 class="h2" style="margin-bottom:1rem">🏅 Top Scores</h2>
-      ${html}
-      <div class="btn-row" style="justify-content:center;margin-top:1.2rem">
-        <button class="btn btn--p" onclick="LAB.idx++;LAB.next()">Continue →</button>
-      </div>
-    </div>
-  </div>`);
-};
-
-
-(function initPage() {
-  const params = new URLSearchParams(window.location.search);
-  const challengeTest  = params.get('challenge');
-  const challengeScore = params.get('score');
-  const challengeUnit  = params.get('unit') || 'pts';
-
-  if (challengeTest && challengeScore) {
-    /* Store challenge target on LAB */
-    LAB._challengeTarget = {
-      test:  challengeTest,
-      score: Number(challengeScore),
-      unit:  challengeUnit
-    };
-
-    /* Override beginModules so it runs only the one challenge test */
-    LAB._origBeginModules = LAB.beginModules.bind(LAB);
-    LAB.beginModules = function() {
-      if (!this.gender) return;
-      this.currentMode = 'challenge';
-      this.queue = [this._challengeTarget.test];
-      this.idx   = 0;
-      this.show('sModules');
-      this.next();
-    };
-
-    /* Override renderCategoryDashboard to skip straight to gender */
-    LAB.renderCategoryDashboard = function() {
-      this.beginModules();
-    };
-
-    /* Override next() completion to show challenge result */
-    const _origNext = LAB.next.bind(LAB);
-    LAB.next = function() {
-      if (this.idx >= this.queue.length && this.currentMode === 'challenge') {
-        /* Pick the right raw score for this test */
-        const rawMap = {
-          mod_reactionSpeed:    LAB.raw.rxAvg,
-          mod_workingMemory:    LAB.raw.memSpan,
-          mod_co2Tolerance:     LAB.raw.breathHold,
-          mod_cogUnderPressure: LAB.raw.mathCorrect
-        };
-        const myScore = rawMap[this._challengeTarget.test] ?? 0;
-        LAB.showChallengeResult(this._challengeTarget.test, myScore);
-        return;
-      }
-      _origNext();
-    };
-
-    /* Skip welcome — jump straight to instructions with challenge context */
-    const testLabel = {
-      mod_reactionSpeed:    'Reaction Speed',
-      mod_workingMemory:    'Memory Test',
-      mod_co2Tolerance:     'Breath Hold',
-      mod_cogUnderPressure: 'Maths Challenge'
-    }[challengeTest] || 'Wellness Test';
-
-    LAB.goInstr = (function(_orig) {
-      return function() {
-        _orig.call(LAB);
-        /* Inject challenge banner into the instructions card */
-        setTimeout(() => {
-          const card = document.querySelector('#sInstr .card');
-          if (!card) return;
-          const banner = document.createElement('div');
-          banner.style.cssText = 'background:var(--g3);border:1.5px solid rgba(42,122,90,.22);border-radius:var(--rs);padding:.85rem 1rem;margin-bottom:1rem;font-size:.83rem;color:var(--t);';
-          banner.innerHTML = `<strong>🏆 Challenge Mode!</strong><br>Your friend scored <strong>${challengeScore}${challengeUnit}</strong> on the <strong>${testLabel}</strong>. Beat them!`;
-          card.prepend(banner);
-        }, 100);
-      };
-    })(LAB.goInstr.bind(LAB));
-  }
-})();
-
 </script>
 
 </body>
