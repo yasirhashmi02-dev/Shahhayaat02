@@ -2020,7 +2020,7 @@ document.addEventListener('DOMContentLoaded', function () {
       </div>
     `);
 
-stener('click', () => { ROOT.innerHTML = ''; renderModeSelection(); });
+  ROOT.querySelector('#restartQuiz').addEventListener('click', () => { ROOT.innerHTML = ''; renderModeSelection(); });
   }
 
   /* ── KICK OFF THE QUIZ ───────────────────────────────────── */
