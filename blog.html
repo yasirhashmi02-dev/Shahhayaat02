@@ -401,7 +401,12 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 
 const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
 /* ── Auth API (your Render service URL — update after deploying) ── */
-const AUTH_API      = 'https://shahhayaat-auth.onrender.com';
+/* ── Local PIN auth — no external server needed ── */
+const ADMIN_PIN_HASH = 'b4c5ff678a3ce67a338686c9fc8d824a4c0604d42fb471008944d765cfc47eca'; // SHA-256 of ShahHayaat@2024
+async function hashPin(pin) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pin));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
 const TOKEN_KEY     = 'sh_admin_token';
 const POSTS_KEY     = 'sh_blog_posts';
 const SUBS_KEY      = 'sh_subscribers';
@@ -661,23 +666,18 @@ async function verifyLogin() {
   errEl.textContent = '';
 
   try {
-    const res = await fetch(AUTH_API + '/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ pin })
-    });
-    const data = await res.json();
-    if (data.success && data.token) {
-      saveToken(data.token);
+    const inputHash = await hashPin(pin);
+    if (inputHash === ADMIN_PIN_HASH) {
+      saveToken('local-admin-' + Date.now());
       isOwner = true;
       closeModal('login-modal-bg');
       document.getElementById('owner-bar').style.display = '';
       showToast('Welcome back, Admin!');
     } else {
-      errEl.textContent = data.error || 'Incorrect PIN. Please try again.';
+      errEl.textContent = 'Incorrect PIN. Please try again.';
     }
   } catch (e) {
-    errEl.textContent = 'Cannot reach auth server. Check your connection.';
+    errEl.textContent = 'Error verifying PIN. Please try again.';
   } finally {
     btn.disabled = false;
     btn.textContent = 'Login';
@@ -838,22 +838,17 @@ function checkUrlPost() {
 document.addEventListener('DOMContentLoaded', async () => {
   /* Verify stored JWT token with server on every page load */
   const token = getToken();
-  if (token) {
-    try {
-      const res = await fetch(AUTH_API + '/verify', {
-        method: 'POST',
-        headers: { 'Authorization': 'Bearer ' + token }
-      });
-      const data = await res.json();
-      if (data.valid) {
-        isOwner = true;
-        document.getElementById('owner-bar').style.display = '';
-      } else {
-        clearToken(); // token expired or invalid
-      }
-    } catch (e) {
-      console.warn('Could not verify session with auth server.');
+  if (token && token.startsWith('local-admin-')) {
+    // Local token valid — check it's not older than 7 days
+    const ts = parseInt(token.replace('local-admin-',''));
+    if (Date.now() - ts < 7 * 24 * 3600 * 1000) {
+      isOwner = true;
+      document.getElementById('owner-bar').style.display = '';
+    } else {
+      clearToken(); // expired
     }
+  } else if (token) {
+    clearToken(); // old server token — clear it
   }
 
   buildFilters();

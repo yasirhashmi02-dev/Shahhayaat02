@@ -1300,6 +1300,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const ROOT = document.getElementById('quizContainer');
   if (!ROOT) return;
 
+  /* ── START QUIZ immediately ─────────────────────────────── */
+  // renderModeSelection() called after all functions are defined (end of this block)
+
   /* ── CONSTANTS ──────────────────────────────────────────── */
   const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
 
@@ -2017,8 +2020,12 @@ document.addEventListener('DOMContentLoaded', function () {
       </div>
     `);
 
-stener('click', () => { ROOT.innerHTML = ''; start(); });
+stener('click', () => { ROOT.innerHTML = ''; renderModeSelection(); });
   }
+
+  /* ── KICK OFF THE QUIZ ───────────────────────────────────── */
+  renderModeSelection();
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
