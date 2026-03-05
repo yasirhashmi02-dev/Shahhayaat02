@@ -46,7 +46,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap"></noscript>
 <meta name="theme-color" content="#2A7A5A">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; img-src 'self' https://raw.githubusercontent.com data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://www.google-analytics.com https://region1.google-analytics.com https://script.google.com https://docs.google.com; frame-src 'none';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; img-src 'self' https://raw.githubusercontent.com data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://www.google-analytics.com https://region1.google-analytics.com https://script.google.com https://docs.google.com; frame-src 'self';">
   <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Free Online Wellness Test – Health Assessment | Shah Hayaat Wellness Lab</title>
 <meta name="description" content="Take the free Shah Hayaat Online Wellness Test. 17 core wellness checks covering brain, eyes, breathing, stability and lifestyle — plus optional women's health checks. Get a personalised PDF health report in minutes. No sign-up required.">
@@ -284,7 +284,7 @@ button,input,select{font-family:inherit}
 .gcard.sel .gnm{color:var(--g)}
 .fem-note{display:none;margin-top:1rem;padding:.82rem 1rem;background:var(--gd3);border:1px solid rgba(201,120,0,.2);border-radius:var(--rs);font-size:.79rem;color:var(--gd);line-height:1.62}
 .fem-note.show{display:block}
-#sModules{display:none;content-visibility:auto}
+#sModules{display:none}
 #sModules.show{display:block}
 .mwrap{animation:popIn .36s var(--ease) both}
 .lab-footer{border-top:1.5px solid var(--b);padding:1rem 0;text-align:center;margin-top:3rem}
@@ -402,7 +402,7 @@ button,input,select{font-family:inherit}
       <div class="stat-box" role="listitem"><span class="stat-n">20</span><span class="stat-l">Checks</span></div>
       <div class="stat-box" role="listitem"><span class="stat-n">8</span><span class="stat-l">Categories</span></div>
       <div class="stat-box" role="listitem"><span class="stat-n">~15</span><span class="stat-l">Minutes</span></div>
-      <div class="stat-box" role="listitem"><span class="stat-n">0</span><span class="stat-l">Data Stored</span></div>
+      <div class="stat-box" role="listitem"><span class="stat-n" style="font-size:1.1rem">🔐</span><span class="stat-l">No Health Data<br>Stored</span></div>
       <div class="stat-box" role="listitem"><span class="stat-n">Free</span><span class="stat-l">Always</span></div>
     </div>
 
@@ -472,7 +472,7 @@ button,input,select{font-family:inherit}
         </div>
       </div>
 
-      <p style="font-size:.72rem;color:var(--tq);text-align:center;margin-bottom:1rem">🔐 All data stays on your device. Nothing is sent anywhere.</p>
+      <p style="font-size:.72rem;color:var(--tq);text-align:center;margin-bottom:1rem">🔐 Your health results stay on your device. Anonymous usage analytics may be collected.</p>
 
       <button class="btn btn--p btn--lg btn--full" onclick="LAB.goGender()">I'm Ready — Let's Start! →</button>
     </div>
@@ -580,7 +580,7 @@ button,input,select{font-family:inherit}
 
 <footer class="lab-footer" role="contentinfo">
   <div class="wrap">
-    <p>Shah Hayaat Wellness Lab &nbsp;·&nbsp; All data stays on your device &nbsp;·&nbsp;
+    <p>Shah Hayaat Wellness Lab &nbsp;·&nbsp; Health results stay on your device &nbsp;·&nbsp;
        <a href="disclaimer.html">Disclaimer</a> &nbsp;·&nbsp;
        <a href="privacy.html">Privacy</a> &nbsp;·&nbsp;
        <a href="index.html">← Shah Hayaat</a></p>
@@ -589,6 +589,24 @@ button,input,select{font-family:inherit}
 
 <script>
 'use strict';
+
+/* ── Central scoring weights configuration ──────────────────────────
+   Base weights sum to exactly 1.0 (8 core domains).
+   Hormonal is NOT listed here — it is injected dynamically for
+   female users and the full set is re-normalised at runtime.
+   Adjust weights here without touching any test code. */
+const CATEGORY_WEIGHTS = {
+  cognitive:   0.25,  /* brain — highest weight */
+  eye:         0.16,
+  respiratory: 0.15,
+  stress:      0.10,
+  stability:   0.10,
+  lifestyle:   0.14,
+  heart:       0.07,
+  gut:         0.07,
+  hearing:     0.06,
+  /* hormonal: injected at 0.10 for female users, then full set re-normalised */
+};
 
 const LAB = {
 
@@ -652,6 +670,8 @@ const LAB = {
   },
 
   goWelcome() {
+    /* Clear progress on explicit "new assessment" navigation */
+    try { localStorage.removeItem('wl_progress'); } catch(e){}
     this.show('sWelcome');
     this.setStatus('idle','Ready');
     this.say(
@@ -659,6 +679,54 @@ const LAB = {
       'شاہ حیات ویلنس لیب میں خوش آمدید۔',
       'शाह हयात वेलनेस लैब में आपका स्वागत है।'
     );
+  },
+
+  /* ── v2: Check for a resumable session ──────────────────────── */
+  _checkResume() {
+    try {
+      const raw = localStorage.getItem('wl_progress');
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      /* Only offer resume if saved within the last 2 hours */
+      if (!saved || (Date.now() - saved.ts) > 7200000) { localStorage.removeItem('wl_progress'); return; }
+      const catName = saved.mode === 'full'
+        ? 'Full Wellness Lab'
+        : (this.categories[saved.mode]?.name || saved.mode);
+      /* Show resume banner on welcome screen */
+      const hero = document.querySelector('#sWelcome .hero');
+      if (!hero) return;
+      const existing = document.getElementById('_resumeBanner');
+      if (existing) existing.remove();
+      const banner = document.createElement('div');
+      banner.id = '_resumeBanner';
+      banner.style.cssText = 'background:#fff;border:1.5px solid rgba(42,122,90,.25);border-radius:var(--r);padding:.85rem 1.1rem;margin-top:1rem;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;animation:popIn .3s var(--ease) both';
+      banner.innerHTML = `
+        <div style="display:flex;align-items:center;gap:.6rem">
+          <span style="font-size:1.3rem">▶</span>
+          <div>
+            <div style="font-size:.82rem;font-weight:700;color:var(--t)">Resume: ${catName}</div>
+            <div style="font-size:.68rem;color:var(--tq)">Started recently — continue where you left off?</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn--p" style="font-size:.78rem;padding:.45rem 1rem;min-height:36px"
+                  onclick="LAB._resumeSession('${saved.mode}','${saved.gender}')">Resume →</button>
+          <button class="btn btn--g" style="font-size:.78rem;padding:.45rem .8rem;min-height:36px"
+                  onclick="document.getElementById('_resumeBanner').remove();localStorage.removeItem('wl_progress')">Dismiss</button>
+        </div>`;
+      hero.appendChild(banner);
+    } catch(e) {}
+  },
+
+  _resumeSession(mode, gender) {
+    try { localStorage.removeItem('wl_progress'); } catch(e){}
+    /* Restore gender and route to the saved mode */
+    this.gender = gender || 'male';
+    if (mode === 'full') {
+      this.beginModules();
+    } else if (this.categories[mode]) {
+      this.beginCategory(mode);
+    }
   },
 
   goInstr() {
@@ -789,16 +857,27 @@ const LAB = {
 
     const grid = this.el('catGrid');
     if (grid) {
-      grid.innerHTML = Object.values(this.categories).map(cat => `
-        <button class="cat-card au" style="--cat-col:${cat.color}"
+      grid.innerHTML = Object.values(this.categories).map(cat => {
+        const isDone = this.scores[cat.scoreKey] != null;
+        const sc     = isDone ? this.scores[cat.scoreKey] : null;
+        const scCol  = sc != null ? LAB.scoreCol(sc) : cat.color;
+        return `
+        <button class="cat-card au" style="--cat-col:${isDone ? scCol : cat.color};position:relative"
                 onclick="LAB.beginCategory('${cat.id}')"
-                aria-label="Start ${cat.name} assessment, ${cat.tests.length} tests, ${cat.time}">
+                aria-label="${isDone ? 'Retake' : 'Start'} ${cat.name} assessment, ${cat.tests.length} tests, ${cat.time}">
+          ${isDone ? `<div style="position:absolute;top:.6rem;right:.7rem;background:${scCol}18;
+                           border:1px solid ${scCol}44;border-radius:50px;padding:.15rem .5rem;
+                           font-size:.6rem;font-family:'JetBrains Mono',monospace;color:${scCol};
+                           letter-spacing:.04em;display:flex;align-items:center;gap:.25rem">
+                        ✓ Done · <strong>${sc}</strong>
+                      </div>` : ''}
           <span class="cat-icon">${cat.icon}</span>
           <div class="cat-name">${cat.name}</div>
-          <div class="cat-meta">${cat.tests.length} tests &nbsp;·&nbsp; ${cat.time}</div>
+          <div class="cat-meta">${cat.tests.length} tests &nbsp;·&nbsp; ${cat.time}${isDone ? ' &nbsp;·&nbsp; <span style="color:'+scCol+'">Retake →</span>' : ''}</div>
           <div class="cat-desc">${cat.desc}</div>
-          <span class="cat-arrow">→</span>
-        </button>`).join('');
+          ${!isDone ? '<span class="cat-arrow">→</span>' : ''}
+        </button>`;
+      }).join('');
     }
 
     this.show('sCategory');
@@ -816,6 +895,8 @@ const LAB = {
     this.idx = 0;
     /* Reset only this category's scores so partial re-runs are clean */
     this.scores[cat.scoreKey] = null;
+    /* Save minimal progress state (no health scores) */
+    try { localStorage.setItem('wl_progress', JSON.stringify({mode:categoryId, gender:this.gender, ts:Date.now()})); } catch(e){}
     this.show('sModules');
     this.say(`Starting ${cat.name}. ${cat.tests.length} checks. ${cat.time}.`);
     this.next();
@@ -827,13 +908,15 @@ const LAB = {
     trackWL('full_lab_start');
     this.currentMode = 'full';
     /* Build queue from registry to keep it in sync automatically */
-    this.queue = Object.values(this.categories).flatMap(c => c.tests || []);
+    this.queue = Object.values(this.categories).flatMap(c => (c.tests || []).filter(Boolean));
     if (this.gender === 'female') {
       this.queue.push('mod_hormonalRhythm','mod_energyIron');
     }
     this.idx = 0;
     /* Reset all scores for a fresh run */
     Object.keys(this.scores).forEach(k => this.scores[k] = null);
+    /* Save minimal progress state */
+    try { localStorage.setItem('wl_progress', JSON.stringify({mode:'full', gender:this.gender, ts:Date.now()})); } catch(e){}
     this.show('sModules');
     this.next();
   },
@@ -3373,12 +3456,12 @@ window.mod_hormonalRhythm = function () {
   LAB.showDemo({
     title: '🌸 Hormonal Rhythm',
     txt: '5 short questions about your monthly cycle. <strong>Completely private</strong> — nothing is stored anywhere. Takes under 2 minutes.',
-    hint: 'Private · not stored · just for your score',
+    hint: 'Private · Results stay on your device',
     voiceEN: 'Hormonal rhythm check. Five quick questions about your monthly cycle. All completely private.',
     btnLabel: 'Start — 2 Minutes →',
     vis: `<div style="text-align:center">
       <div id="hrDemoIcon" style="font-size:2.4rem;transition:all .5s">🌸</div>
-      <div style="font-size:.75rem;color:var(--tq);margin-top:.35rem">Private · Secure · Not Stored</div>
+      <div style="font-size:.75rem;color:var(--tq);margin-top:.35rem">Private · Results stay on your device</div>
     </div>`,
     anim(vis) {
       const icons=['🌸','🌙','💫','🌿','🌸'];
@@ -3449,7 +3532,7 @@ window.mod_hormonalRhythm = function () {
       </div>
     </div></div>`);
 
-    LAB.say('Tap your answer for each question. All data stays on your device.');
+    LAB.say('Tap your answer for each question. Health results stay on your device.');
   });
 
   window._hrCalc = function () {
@@ -4102,12 +4185,24 @@ LAB.showDashboard = function () {
     overall = catScore;
     completedDomains = catScore != null ? 1 : 0;
   } else {
-    const mainScores=[LAB.scores.cognitive,LAB.scores.eye,LAB.scores.respiratory,
-                      LAB.scores.stress,LAB.scores.stability,LAB.scores.lifestyle];
-    if(isFem&&hormScore) mainScores.push(hormScore);
-    const completedScores = mainScores.filter(x => x != null);
-    overall = completedScores.length ? Math.round(LAB.avg(completedScores)) : null;
-    completedDomains = completedScores.length;
+    /* Weighted overall score — weights are dynamically normalised to 1.0
+       so adding or removing categories never inflates/deflates the result */
+    const activeWeights = { ...CATEGORY_WEIGHTS };
+    if (isFem && hormScore != null) activeWeights.hormonal = 0.10; /* inject female weight */
+
+    const domainKeys = Object.keys(activeWeights);
+    let rawWeightSum = 0, weightedTotal = 0, completedCount = 0;
+    domainKeys.forEach(k => {
+      const sc = k === 'hormonal' ? hormScore : LAB.scores[k];
+      if (sc != null) {
+        rawWeightSum  += activeWeights[k];
+        weightedTotal += sc * activeWeights[k];
+        completedCount++;
+      }
+    });
+    /* Divide by rawWeightSum (sum of COMPLETED domains) — normalises to 0–100 */
+    overall = rawWeightSum > 0 ? Math.round(weightedTotal / rawWeightSum) : null;
+    completedDomains = completedCount;
   }
 
   const domains=[
@@ -4136,7 +4231,7 @@ LAB.showDashboard = function () {
     ? `<span style="background:${activeCat.color}18;border-color:${activeCat.color}44;color:${activeCat.color}">${activeCat.icon} ${activeCat.name} Complete</span>`
     : `<span>✅ Assessment Complete</span>`;
   const subtitle = isCategoryMode && activeCat
-    ? `${activeCat.tests.length} checks completed · ${activeCat.name} assessment`
+    ? `${activeCat.tests.length} checks completed · ${activeCat.name} assessment<span style="display:inline-flex;align-items:center;gap:.28rem;margin-left:.6rem;padding:.18rem .55rem;background:#2A7A5A12;border:1px solid #2A7A5A28;border-radius:50px;font-size:.68rem;font-family:'JetBrains Mono',monospace;color:#2A7A5A;letter-spacing:.04em">✓ Results saved</span>`
     : (completedDomains > 0 ? 'Based on ' + (isFem?'19':'17') + ' wellness checks across cognitive, eye, respiratory, stability and lifestyle health.' : 'You skipped all activities — no data to score. Complete at least one test to see results.');
   const scoreLabel = isCategoryMode && activeCat ? activeCat.name + ' Score' : 'Overall Wellness';
 
@@ -4780,7 +4875,7 @@ LAB._shareWellnessCard = function (platform) {
 LAB.sharePDFWhatsApp = function () {
   trackWL('whatsapp_click');
   const nameEl = document.getElementById('pdfNameInp');
-  let name = (nameEl?.value || '').trim();
+  let name = (nameEl?.value || '').trim().replace(/[<>&"']/g, '');
 
   if (!name) {
     const entered = prompt('Enter your name to include on the PDF (or tap Cancel to skip):');
@@ -4861,7 +4956,9 @@ LAB.generatePDF = function () {
   const now=new Date();
   const dateStr=now.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
   const recs=LAB._buildRecs();
-  const userName=(document.getElementById('pdfNameInp')?.value||'').trim();
+  const _rawName = (document.getElementById('pdfNameInp')?.value||'').trim();
+  /* Sanitize: escape HTML chars to prevent XSS in template literal */
+  const userName = _rawName.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;').slice(0,60);
   LAB.raw.userAge = parseInt(document.getElementById('pdfAgeInp')?.value||'') || null;
 
   /* v2: Category-mode PDF title */
@@ -5018,7 +5115,7 @@ LAB.generatePDF = function () {
     <div class="hdr-meta">
       <div>${dateStr}</div>
       <div>${pdfTestCount}</div>
-      <div style="margin-top:4px;font-size:10px;opacity:.6">Private · All data processed locally · Nothing stored</div>
+      <div style="margin-top:4px;font-size:10px;opacity:.6">Private · Health results stay on your device. Analytics may be collected.</div>
     </div>
   </div>
 
@@ -5152,7 +5249,7 @@ LAB.generatePDF = function () {
     <strong>Important Disclaimer:</strong> This report is a wellness indicator only and does not constitute medical advice or diagnosis.
     The activities measure performance proxies under screen-based conditions. Results can be affected by fatigue, stress, lighting, device type and many other factors.
     If any result concerns you, please consult a qualified healthcare professional.
-    <strong>No data has been transmitted.</strong> All calculations were performed locally in your browser. This PDF was generated on your device.
+    <strong>Health results stay on your device.</strong> All calculations run locally in your browser. This PDF was generated on your device. Anonymous usage analytics may be collected.
   </div>
 
   <div style="margin:22px 0">
@@ -5850,6 +5947,12 @@ LAB.showLeaderboard = async function(testId, unit) {
   const challengeTest  = params.get('challenge');
   const challengeScore = params.get('score');
   const challengeUnit  = params.get('unit') || 'pts';
+
+  /* Check for resumable session (only when not a challenge URL) */
+  if (!challengeTest) {
+    /* Small delay so DOM is ready */
+    setTimeout(() => LAB._checkResume(), 400);
+  }
 
   if (challengeTest && challengeScore) {
     /* Store challenge target on LAB */
