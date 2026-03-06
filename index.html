@@ -201,7 +201,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .prod-stars .stars{color:#D4A017;font-size:1rem;letter-spacing:1px;line-height:1}
 .prod-stars .count{font-size:0.72rem;color:var(--text-muted);font-weight:500}
 /* ---- Company Rating Widget ---- */
-.rate-fab{position:fixed;bottom:90px;right:20px;z-index:999;background:var(--green-dark);color:#fff;border:none;border-radius:50px;padding:0.6rem 1rem;font-size:0.82rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(42,70,51,0.35);display:flex;align-items:center;gap:6px;transition:transform 0.2s,box-shadow 0.2s;white-space:nowrap}
+.rate-fab{position:fixed;bottom:140px;right:16px;z-index:999;background:var(--green-dark);color:#fff;border:none;border-radius:50px;padding:0.6rem 1rem;font-size:0.82rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(42,70,51,0.35);display:flex;align-items:center;gap:6px;transition:transform 0.2s,box-shadow 0.2s,opacity 0.3s;white-space:nowrap;opacity:0;pointer-events:none}
 .rate-fab:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(42,70,51,0.42)}
 .rate-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.52);z-index:1200;align-items:center;justify-content:center;padding:1rem}
 .rate-modal-bg.open{display:flex}
@@ -431,7 +431,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .back-top{position:fixed;bottom:1.5rem;right:1.5rem;z-index:490;width:44px;height:44px;background:var(--green-dark);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:var(--shadow-md);opacity:0;visibility:hidden;transition:all 0.32s;text-decoration:none}
 .back-top.show{opacity:1;visibility:visible}
 .back-top:hover{background:var(--gold);transform:translateY(-3px)}
-.wa-float{position:fixed;bottom:4.5rem;right:1.5rem;z-index:489;width:48px;height:48px;background:#25D366;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 4px 18px rgba(37,211,102,0.42);text-decoration:none;transition:all 0.28s}
+.wa-float{position:fixed;bottom:80px;right:16px;z-index:489;width:48px;height:48px;background:#25D366;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 4px 18px rgba(37,211,102,0.42);text-decoration:none;transition:all 0.28s;opacity:0;pointer-events:none;transform:scale(0.8)}
 .wa-float:hover{transform:scale(1.12);box-shadow:0 6px 26px rgba(37,211,102,0.55)}
 
 /* ---- Reveal Animations ---- */
@@ -526,6 +526,31 @@ img[alt]{font-size:0}
 .trust-icon{font-size:1.8rem;flex-shrink:0;line-height:1}
 .trust-item strong{display:block;font-size:1rem;color:var(--green-dark);margin-bottom:0.3rem;font-family:var(--font-head)}
 .trust-item p{font-size:0.88rem;color:var(--text-muted);margin:0;line-height:1.6}
+
+/* ---- Hero trust pill (small, below buttons) ---- */
+.hero-trust-pill{display:inline-flex;align-items:center;gap:0.4rem;padding:0.32rem 0.9rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.22);border-radius:50px;color:rgba(255,255,255,0.72);font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-top:1.2rem;backdrop-filter:blur(6px)}
+
+/* ---- Hero Product Strip ---- */
+.hero-strip{background:#fff;padding:0;border-bottom:1px solid var(--border)}
+.strip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.strip-card{display:flex;flex-direction:column;align-items:center;text-align:center;padding:1.4rem 0.8rem 1.2rem;text-decoration:none;color:inherit;border-right:1px solid var(--border);transition:background 0.2s}
+.strip-card:last-child{border-right:none}
+.strip-card:hover{background:var(--bg-cream)}
+.strip-img-wrap{width:80px;height:80px;border-radius:50%;overflow:hidden;background:var(--bg-cream);border:2px solid var(--border);margin-bottom:0.7rem;flex-shrink:0}
+.strip-img-wrap img{width:100%;height:100%;object-fit:cover}
+.strip-name{font-size:0.9rem;font-weight:700;color:var(--green-dark);font-family:var(--font-head);margin-bottom:0.2rem;line-height:1.2}
+.strip-benefit{font-size:0.72rem;color:var(--text-muted);font-weight:500;letter-spacing:0.02em}
+@media(max-width:768px){
+  .strip-grid{grid-template-columns:repeat(2,1fr)}
+  .strip-card{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:1rem 0.6rem}
+  .strip-card:nth-child(2),.strip-card:nth-child(4){border-right:none}
+  .strip-card:nth-child(3),.strip-card:nth-child(4){border-bottom:none}
+  .strip-img-wrap{width:65px;height:65px}
+}
+@media(max-width:400px){
+  .strip-name{font-size:0.82rem}
+  .strip-benefit{font-size:0.68rem}
+}
 </style>
 
   <!-- Business Schema: Organization -->
@@ -653,7 +678,6 @@ img[alt]{font-size:0}
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul></nav>
-    <a href="wellness-lab.html" class="btn btn-lab-nav" aria-label="Start Shah Hayaat Lab">Start Shah Hayaat Lab</a>
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -667,18 +691,6 @@ img[alt]{font-size:0}
 </ul>
 <div class="nav-mobile-cta">
   <a href="wellness-lab.html" class="btn btn-primary" style="margin-bottom:0.8rem;display:block;text-align:center">🧪 Start Shah Hayaat Lab</a>
-  <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-outline" style="display:block;text-align:center">💬 WhatsApp Us</a>
-</div></nav>
-
-<main>
-  <li><a href="wellness-lab.html" class="nav-lab-link">🧪 Shah Hayaat Lab</a></li>
-  <li><a href="blog.html">Blog</a></li>
-  <li><a href="about.html">About</a></li>
-  <li><a href="contact.html">Contact</a></li>
-</ul>
-<div class="nav-mobile-cta">
-  <a href="wellness-lab.html" class="btn btn-primary" style="margin-bottom:0.8rem;display:block;text-align:center">🧪 Start Shah Hayaat Lab</a>
-  <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-outline" style="display:block;text-align:center">💬 WhatsApp Us</a>
 </div></nav>
 
 <main>
@@ -689,13 +701,13 @@ img[alt]{font-size:0}
 
         <!-- LEFT: Text -->
         <div class="hero-text">
-          <div class="hero-badge" role="note">🌿 WHO-GMP &nbsp;·&nbsp; ISO 9001:2015 &nbsp;·&nbsp; HACCP Certified</div>
           <h1>Premium Ayurvedic Remedies<br>for Modern Wellness</h1>
           <p class="hero-sub">Explore Shah Hayaat herbal formulations crafted with traditional Ayurvedic wisdom and modern quality standards.</p>
           <div class="hero-btns">
             <a href="products.html" class="btn btn-primary btn-lg">Explore Products</a>
-            <a href="wellness-lab.html" class="btn btn-glow btn-lg hero-lab-btn">Confused Which Remedy Fits Your Health?<br><span style="font-size:0.8em;font-weight:500;opacity:0.9">Start Shah Hayaat Lab →</span></a>
+            <a href="wellness-lab.html" class="btn btn-glow btn-lg">🧪 Start Shah Hayaat Lab</a>
           </div>
+          <div class="hero-trust-pill" role="note">🌿 WHO-GMP &nbsp;·&nbsp; ISO 9001:2015 &nbsp;·&nbsp; HACCP Certified</div>
         </div>
 
         <!-- RIGHT: Product image -->
@@ -716,7 +728,60 @@ img[alt]{font-size:0}
     </div>
     <div class="hero-scroll" aria-hidden="true">Scroll</div>
   </section>
-  <!-- Stats -->
+
+  <!-- Hero Product Strip — instant product visibility -->
+  <section class="hero-strip" aria-label="Featured products quick view">
+    <div class="container">
+      <div class="strip-grid">
+        <a href="product-detail.html?id=brainchamp" class="strip-card">
+          <div class="strip-img-wrap">
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg"
+                 alt="Brain Champ" loading="eager"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp.jpg'">
+          </div>
+          <div class="strip-body">
+            <div class="strip-name">Brain Champ</div>
+            <div class="strip-benefit">Memory & Focus Support</div>
+          </div>
+        </a>
+        <a href="product-detail.html?id=bloodstorm" class="strip-card">
+          <div class="strip-img-wrap">
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/bloodstorm1.jpg.jpg"
+                 alt="Blood Storm" loading="eager"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/bloodstorm.jpg'">
+          </div>
+          <div class="strip-body">
+            <div class="strip-name">Blood Storm</div>
+            <div class="strip-benefit">Haemoglobin & Vitality</div>
+          </div>
+        </a>
+        <a href="product-detail.html?id=livohayaat" class="strip-card">
+          <div class="strip-img-wrap">
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg.jpg"
+                 alt="Livo Hayaat" loading="eager"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/livohayaat.jpg'">
+          </div>
+          <div class="strip-body">
+            <div class="strip-name">Livo Hayaat</div>
+            <div class="strip-benefit">Liver Health Support</div>
+          </div>
+        </a>
+        <a href="product-detail.html?id=shahzyme" class="strip-card">
+          <div class="strip-img-wrap">
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/shahzyme1.jpg.jpg"
+                 alt="Shah Zyme" loading="eager"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/shahzyme.jpg'">
+          </div>
+          <div class="strip-body">
+            <div class="strip-name">Shah Zyme</div>
+            <div class="strip-benefit">Digestive Wellness</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats bar -->
   <div class="stats-bar" role="region" aria-label="Brand statistics">
     <div class="container stats-inner">
       <div class="stat-item"><span class="stat-num">12+</span><div class="stat-lbl">Herbal Products</div></div>
@@ -725,7 +790,6 @@ img[alt]{font-size:0}
       <div class="stat-item"><span class="stat-num">50000+</span><div class="stat-lbl">Happy Customers</div></div>
     </div>
   </div>
-
 
   <!-- Featured Products (Top 4) — immediately after hero -->
   <section class="section bg-cream" aria-labelledby="featured-heading">
@@ -1303,6 +1367,12 @@ function initScroll() {
       requestAnimationFrame(() => {
         document.body.classList.toggle('scrolled', window.scrollY > 55);
         if (btn) btn.classList.toggle('show', window.scrollY > 400);
+        // Show floating buttons only after scrolling past hero
+        const scrolled = window.scrollY > 300;
+        const rateFab = document.querySelector('.rate-fab');
+        const waFloat = document.querySelector('.wa-float');
+        if (rateFab) { rateFab.style.opacity = scrolled ? '1' : '0'; rateFab.style.pointerEvents = scrolled ? 'auto' : 'none'; }
+        if (waFloat) { waFloat.style.opacity = scrolled ? '1' : '0'; waFloat.style.pointerEvents = scrolled ? 'auto' : 'none'; waFloat.style.transform = scrolled ? 'scale(1)' : 'scale(0.8)'; }
         ticking = false;
       });
       ticking = true;
