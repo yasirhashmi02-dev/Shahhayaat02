@@ -702,12 +702,12 @@ img[alt]{font-size:0}
         <div class="hero-img-col" aria-hidden="true">
           <div class="hero-img-glow"></div>
           <img
-            src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp.jpg"
+            src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg"
             alt="Shah Hayaat Brain Champ Ayurvedic Product"
             class="hero-product-img"
             loading="eager"
             fetchpriority="high"
-            onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/shahzyme.jpg'"
+            onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp.jpg'"
           >
           <span class="hero-prod-label">Featured Remedy</span>
         </div>
@@ -1001,7 +1001,7 @@ img[alt]{font-size:0}
   <section class="section bg-cream" aria-labelledby="blog-heading">
     <div class="container">
       <span class="section-label reveal" style="display:block;text-align:center">Wellness Journal</span>
-      <h2 class="section-heading reveal delay-1" id="blog-heading">Learn Natural Wellness</h2>
+      <h2 class="section-heading reveal delay-1" id="blog-heading">Ayurvedic Wellness Insights</h2>
       <p class="section-sub reveal delay-2">Practical, science-backed wellness guidance from traditional Ayurvedic knowledge to help you feel your absolute best every day.</p>
       <div class="blog-grid" id="blog-preview-grid" role="list" aria-label="Recent wellness articles"></div>
       <div class="text-center mt-3 reveal">
@@ -1015,7 +1015,7 @@ img[alt]{font-size:0}
   <section class="cta-banner" aria-labelledby="final-cta-heading">
     <div class="container">
       <span class="section-label reveal" style="display:block;text-align:center;color:var(--gold-light)">Begin Today</span>
-      <h2 class="reveal delay-1" id="final-cta-heading" style="color:#fff;text-align:center;margin-bottom:1rem">Start Your Natural Wellness Journey</h2>
+      <h2 class="reveal delay-1" id="final-cta-heading" style="color:#fff;text-align:center;margin-bottom:1rem">Start Your Natural Wellness Journey Today</h2>
       <p class="reveal delay-2" style="text-align:center;max-width:500px;margin:0 auto 2rem;color:rgba(255,255,255,0.72)">Explore Shah Hayaat remedies or find the right formulation through the Shah Hayaat Lab.</p>
       <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center" class="reveal delay-3">
         <a href="products.html" class="btn btn-primary btn-lg">Explore Products</a>
@@ -1109,8 +1109,22 @@ img[alt]{font-size:0}
 
 /* ── CONSTANTS ─────────────────────────────────────────────── */
 const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/';
+const GH_ROOT = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
 
 /* Image filename map — exact filenames, case-sensitive */
+// New high-quality product images (upload these to repo ROOT, not /images/)
+const IMG_NEW = {
+  brainchamp:   'brainchamp1.jpg.jpg',
+  shahzyme:     'shahzyme1.jpg.jpg',
+  bloodstorm:   'bloodstorm1.jpg.jpg',
+  livohayaat:   'livohayaat1.jpg.jpg',
+  diaease:      'diaease1.jpg.jpg',
+  orthohayaat:  'orthohayaat1.jpg.jpg',
+  panasip:      'panasip1.jpg.jpg',
+  passionpulse: 'passionpulse1.jpg.jpg',
+  coughxpro:    'coughxpro1.jpg.jpg',
+};
+// Old fallback images (in /images/ folder — always available)
 const IMG = {
   brainchamp:   'brainchamp.jpg',
   shahzyme:     'shahzyme.jpg',
@@ -1125,14 +1139,19 @@ const IMG = {
   passionpulse: 'passionpulse.jpg',
   fevodol:      'fevodol.png',
 };
-
-function imgSrc(id) { return GH + (IMG[id] || id); }
+// Use new root image if available, fall back to old images/ image
+function imgSrc(id) {
+  if (IMG_NEW[id]) return GH_ROOT + IMG_NEW[id];
+  return GH + (IMG[id] || id + '.jpg');
+}
+// Always-available fallback for onerror handlers
+function imgFallback(id) { return GH + (IMG[id] || id + '.jpg'); }
 
 /* ── PRODUCT DATA ───────────────────────────────────────────── */
 const PRODUCTS = [
   {
     id: 'brainchamp', name: 'Brain Champ', price: 175, cat: 'brain', tag: 'Brain & Focus',
-    desc: 'Boost memory, improve concentration and reduce mental fatigue with this Ayurvedic brain tonic.',
+    desc: 'Boost memory, improve focus and reduce mental fatigue with this Ayurvedic brain tonic.',
     full: 'Brain Champ is a scientifically formulated Ayurvedic supplement combining Brahmi, Shankhpushpi, Ashwagandha and other classical herbs to support optimal brain health. It helps reduce mental fatigue, improve concentration and enhance memory retention naturally.',
     benefits: ['Improves memory & recall', 'Reduces mental fatigue & brain fog', 'Manages stress & anxiety naturally', 'Enhances focus & concentration', 'Adaptogen blend for long-term brain health'],
     ingredients: 'Brahmi (Bacopa monnieri), Shankhpushpi, Ashwagandha, Jatamansi, Vacha',
@@ -1141,7 +1160,7 @@ const PRODUCTS = [
   },
   {
     id: 'shahzyme', name: 'Shah Zyme', price: 165, cat: 'digestion', tag: 'Digestion',
-    desc: 'Supports digestion and relieves acidity, bloating and abdominal discomfort naturally.',
+    desc: 'Supports digestion and helps relieve acidity, gas and bloating naturally.',
     full: 'Shah Zyme is a potent herbal digestive enzyme syrup. Its unique combination of digestive herbs helps break down food efficiently, relieving uncomfortable symptoms of gas, bloating and sluggish digestion after meals.',
     benefits: ['Relieves gas & bloating', 'Improves nutrient absorption', 'Stimulates healthy appetite', 'Supports enzyme activity', 'Reduces post-meal heaviness'],
     ingredients: 'Ajwain, Saunf (Fennel), Jeera (Cumin), Pudina (Mint), Harad, Baheda, Amla',
@@ -1150,7 +1169,7 @@ const PRODUCTS = [
   },
   {
     id: 'bloodstorm', name: 'Blood Storm', price: 165, cat: 'blood', tag: 'Blood & Immunity',
-    desc: 'Enhances haemoglobin levels, boosts immunity and supports overall vitality.',
+    desc: 'Helps improve haemoglobin levels and supports overall vitality.',
     full: 'Blood Storm is a premium Ayurvedic blood tonic combining iron-rich herbs with powerful rejuvenating ingredients. Formulated to naturally raise hemoglobin levels, improve circulation and restore energy to those suffering from anemia and chronic weakness.',
     benefits: ['Raises hemoglobin naturally', 'Combats iron-deficiency anemia', 'Restores energy & vitality', 'Improves blood circulation', 'Strengthens overall immunity'],
     ingredients: 'Loha Bhasma, Punarnava, Shatavari, Ashwagandha, Amla, Draksha',
@@ -1158,17 +1177,8 @@ const PRODUCTS = [
     precautions: 'Keep out of reach of children. Consult a physician before use during pregnancy.',
   },
   {
-    id: 'musaffakhoon', name: 'Musaffa Khoon', price: 165, cat: 'skin', tag: 'Skin Care',
-    desc: 'Natural blood purifier that promotes healthy skin and detoxifies the body.',
-    full: 'Musaffa Khoon is a classical Ayurvedic blood purifier that detoxifies the blood and lymphatic system. By purifying from within it effectively addresses the root cause of skin disorders including acne, psoriasis, eczema and dull skin.',
-    benefits: ['Purifies blood & lymph', 'Clears acne & pimples', 'Reduces psoriasis symptoms', 'Promotes glowing clear skin', 'Full-body natural detox'],
-    ingredients: 'Neem, Manjistha, Khadir, Sarsaparilla, Giloy, Triphala',
-    dosage: '10–15 ml twice daily after meals. Shake well before use.',
-    precautions: 'Results typically visible after 4–6 weeks of consistent use.',
-  },
-  {
     id: 'livohayaat', name: 'Livo Hayaat', price: 349, cat: 'liver', tag: 'Liver Health',
-    desc: 'Supports liver detoxification, regeneration and overall hepatic health naturally.',
+    desc: 'Supports liver detoxification and promotes healthy digestion.',
     full: 'Livo Hayaat is a hepatoprotective Ayurvedic tablet that supports the liver\'s natural detoxification processes. Formulated with liver-protecting herbs, it helps regenerate liver cells, reduce fatty liver, normalise enzyme levels and improve overall hepatic function.',
     benefits: ['Protects & regenerates liver cells', 'Reduces fatty liver condition', 'Normalises liver enzyme levels', 'Supports bile production', 'Powerful antioxidant properties'],
     ingredients: 'Bhumi Amla, Kalmegh, Kutki, Punarnava, Makoy, Kasni',
@@ -1194,13 +1204,13 @@ const PRODUCTS = [
     precautions: 'Results typically noticeable within 4–6 weeks of consistent use.',
   },
   {
-    id: 'utrohayaat', name: 'Utro Hayaat', price: 625, cat: 'female', tag: 'Female Health',
-    desc: "Gentle Ayurvedic tonic for women's reproductive health and hormonal balance.",
-    full: 'Utro Hayaat is a carefully formulated Ayurvedic uterine tonic addressing common female health concerns. It helps regulate menstrual cycles, relieve period pain, treat leucorrhoea and support hormonal balance using the safest classical Ayurvedic herbs.',
-    benefits: ['Regulates menstrual cycles', 'Relieves painful periods', 'Treats leucorrhoea', 'Supports hormonal balance', 'Strengthens uterine health'],
-    ingredients: 'Ashoka, Lodhra, Shatavari, Nagkesar, Daruharidra, Kumari (Aloe)',
-    dosage: '1 tablet + 7.5 ml syrup twice daily with lukewarm water; 2 capsules once daily after lunch.',
-    precautions: 'Not recommended during pregnancy or breastfeeding without medical advice.',
+    id: 'panasip', name: 'PanaSip', price: 165, cat: 'acidity', tag: 'Acidity',
+    desc: 'Soothes acidity, hyperacidity and gastric discomfort with herbal ingredients.',
+    full: 'PanaSip is a powerful Ayurvedic antacid syrup that neutralises excess stomach acid naturally. Its cooling and soothing herbs form a protective layer over the stomach lining, providing rapid relief from acidity, heartburn and gastric ulcers without harsh chemical side effects.',
+    benefits: ['Neutralises stomach acid', 'Soothes esophageal inflammation', 'Heals peptic ulcers naturally', 'Prevents acid reflux', 'Promotes healthy gastric pH'],
+    ingredients: 'Mulethi, Shatavari, Amalaki, Guduchi, Yashtimadhu, Shankha Bhasma',
+    dosage: '10–15 ml twice daily after meals. Shake well before use.',
+    precautions: 'Take on an empty stomach for best results. Refrigerate after opening.',
   },
   {
     id: 'passionpulse', name: 'Passion Pulse', price: 599, cat: 'male', tag: 'Male Vitality',
@@ -1212,15 +1222,6 @@ const PRODUCTS = [
     precautions: 'Not for use under 18 years. Consult physician if you have existing health conditions.',
   },
   {
-    id: 'panasip', name: 'PanaSip', price: 165, cat: 'acidity', tag: 'Acidity',
-    desc: 'Soothes acidity, hyperacidity and gastric discomfort with herbal ingredients.',
-    full: 'PanaSip is a powerful Ayurvedic antacid syrup that neutralises excess stomach acid naturally. Its cooling and soothing herbs form a protective layer over the stomach lining, providing rapid relief from acidity, heartburn and gastric ulcers without harsh chemical side effects.',
-    benefits: ['Neutralises stomach acid', 'Soothes esophageal inflammation', 'Heals peptic ulcers naturally', 'Prevents acid reflux', 'Promotes healthy gastric pH'],
-    ingredients: 'Mulethi, Shatavari, Amalaki, Guduchi, Yashtimadhu, Shankha Bhasma',
-    dosage: '10–15 ml twice daily after meals. Shake well before use.',
-    precautions: 'Take on an empty stomach for best results. Refrigerate after opening.',
-  },
-  {
     id: 'coughxpro', name: 'Cough X Pro', price: 90, cat: 'respiratory', tag: 'Respiratory',
     desc: 'Relieves cough, congestion and supports clear respiratory function naturally.',
     full: 'Cough X Pro is a time-tested Ayurvedic formulation that soothes the respiratory tract, reduces inflammation and provides lasting relief from acute and chronic cough. Its herbal ingredients work synergistically to clear mucus and calm irritated airways.',
@@ -1228,6 +1229,24 @@ const PRODUCTS = [
     ingredients: 'Tulsi (Holy Basil), Mulethi (Licorice), Adrak (Ginger), Pippali, Vasa, Honey',
     dosage: '10–15 ml twice daily after meals. Shake well before use.',
     precautions: 'Diabetics should consult a physician due to natural honey content. Avoid overdose.',
+  },
+  {
+    id: 'musaffakhoon', name: 'Musaffa Khoon', price: 165, cat: 'skin', tag: 'Skin Care',
+    desc: 'Natural blood purifier that promotes healthy skin and detoxifies the body.',
+    full: 'Musaffa Khoon is a classical Ayurvedic blood purifier that detoxifies the blood and lymphatic system. By purifying from within it effectively addresses the root cause of skin disorders including acne, psoriasis, eczema and dull skin.',
+    benefits: ['Purifies blood & lymph', 'Clears acne & pimples', 'Reduces psoriasis symptoms', 'Promotes glowing clear skin', 'Full-body natural detox'],
+    ingredients: 'Neem, Manjistha, Khadir, Sarsaparilla, Giloy, Triphala',
+    dosage: '10–15 ml twice daily after meals. Shake well before use.',
+    precautions: 'Results typically visible after 4–6 weeks of consistent use.',
+  },
+  {
+    id: 'utrohayaat', name: 'Utro Hayaat', price: 625, cat: 'female', tag: 'Female Health',
+    desc: "Gentle Ayurvedic tonic for women's reproductive health and hormonal balance.",
+    full: 'Utro Hayaat is a carefully formulated Ayurvedic uterine tonic addressing common female health concerns. It helps regulate menstrual cycles, relieve period pain, treat leucorrhoea and support hormonal balance using the safest classical Ayurvedic herbs.',
+    benefits: ['Regulates menstrual cycles', 'Relieves painful periods', 'Treats leucorrhoea', 'Supports hormonal balance', 'Strengthens uterine health'],
+    ingredients: 'Ashoka, Lodhra, Shatavari, Nagkesar, Daruharidra, Kumari (Aloe)',
+    dosage: '1 tablet + 7.5 ml syrup twice daily with lukewarm water; 2 capsules once daily after lunch.',
+    precautions: 'Not recommended during pregnancy or breastfeeding without medical advice.',
   },
   {
     id: 'fevodol', name: 'Fevodol', price: 165, cat: 'immunity', tag: 'Immunity',
@@ -1320,7 +1339,7 @@ function renderProducts(container, { limit = null, cat = null } = {}) {
   container.innerHTML = list.map((p, i) => `
     <div class="product-card reveal delay-${(i % 4) + 1}" data-cat="${p.cat}">
       <div class="product-card-img">
-        <img src="${imgSrc(p.id)}" alt="${p.name}" loading="lazy">
+        <img src="${imgSrc(p.id)}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src=imgFallback(p.id)">
         <span class="product-cat-tag">${p.tag}</span>
       </div>
       <div class="product-body">
@@ -1457,7 +1476,7 @@ document.addEventListener('DOMContentLoaded', () => {
       moreGrid.innerHTML = moreList.map((p, i) => `
         <div class="product-card reveal delay-${(i % 4) + 1}" data-cat="${p.cat}">
           <div class="product-card-img">
-            <img src="${imgSrc(p.id)}" alt="${p.name}" loading="lazy">
+            <img src="${imgSrc(p.id)}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src=imgFallback(p.id)">
             <span class="product-cat-tag">${p.tag}</span>
           </div>
           <div class="product-body">
