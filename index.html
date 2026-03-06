@@ -350,6 +350,26 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 
 /* ---- CTA Banner ---- */
 .cta-banner{background:linear-gradient(138deg,var(--green-dark) 0%,#1a3326 100%);padding:clamp(3.5rem,8vw,6rem) 1.5rem;text-align:center;position:relative;overflow:hidden}
+
+/* ---- Nav Lab Link (gold highlight) ---- */
+.nav-lab-link{color:var(--gold) !important;font-weight:700 !important;background:rgba(184,134,11,0.1) !important;border:1px solid rgba(184,134,11,0.25);border-radius:50px !important;padding:0.42rem 1rem !important}
+.nav-lab-link:hover{background:rgba(184,134,11,0.22) !important;color:var(--gold-light) !important}
+.btn-lab-nav{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;font-size:0.85rem;padding:0.6rem 1.4rem;border-radius:50px;font-weight:700;white-space:nowrap;display:none;text-decoration:none;box-shadow:0 3px 12px rgba(184,134,11,0.3);transition:all 0.22s}
+.btn-lab-nav:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(184,134,11,0.42)}
+@media(min-width:960px){.btn-lab-nav{display:inline-flex;align-items:center;gap:0.4rem}}
+
+/* ---- Glow Button ---- */
+.btn-glow{background:linear-gradient(135deg,var(--gold),#e8a000);color:#fff;border:none;box-shadow:0 0 0 0 rgba(212,160,23,0.4);animation:glow-pulse 2s ease-in-out infinite alternate}
+.btn-glow:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 8px 32px rgba(212,160,23,0.55);animation:none}
+@keyframes glow-pulse{0%{box-shadow:0 4px 16px rgba(212,160,23,0.3)}100%{box-shadow:0 4px 30px rgba(212,160,23,0.7),0 0 50px rgba(212,160,23,0.18)}}
+
+/* ---- Confusion Breaker Section ---- */
+.confusion-breaker{background:linear-gradient(145deg,#1a2e22 0%,#2A4633 50%,#152018 100%);position:relative;overflow:hidden;text-align:center}
+.confusion-bg-orb{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(184,134,11,0.12) 0%,transparent 65%);pointer-events:none;border-radius:50%}
+
+/* ---- Hero Lab Button ---- */
+.hero-lab-btn{display:flex;flex-direction:column;text-align:center;line-height:1.3;padding:0.85rem 2rem}
+.hero-lab-btn br{display:block}
 .cta-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -20%,rgba(184,134,11,0.18) 0%,transparent 65%);pointer-events:none}
 .cta-banner .container{position:relative;z-index:1}
 
@@ -589,7 +609,7 @@ img[alt]{font-size:0}
 }
 </script>
 </head>
-<body>
+<body id="top">
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N3TB9P47"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -597,46 +617,44 @@ img[alt]{font-size:0}
 <header class="site-header">
   <div class="container header-inner">
     <a href="index.html" class="logo">
-      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat Logo">
+      <img loading="eager" fetchpriority="high" src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat Logo">
       <span>Shah <em>Hayaat</em></span>
     </a>
     <nav class="nav-desktop" aria-label="Main navigation"><ul>
       <li><a href="index.html" class='active'>Home</a></li>
-      <li><a href="about.html" >About</a></li>
-      <li><a href="products.html" >Products</a></li>
-      <li><a href="catalogue.html" >Catalogue</a></li>
-      <li><a href="quiz.html" >Health Quiz</a></li>
-      <li><a href="wellness-lab.html" >Wellness Lab 🧪</a></li>
-      <li><a href="blog.html" >Blog</a></li>
-      <li><a href="contact.html" >Contact</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="wellness-lab.html" class="nav-lab-link">🧪 Shah Hayaat Lab</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul></nav>
+    <a href="wellness-lab.html" class="btn btn-lab-nav" aria-label="Start Shah Hayaat Lab">Start Shah Hayaat Lab</a>
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 <nav class="nav-mobile" aria-label="Mobile navigation"><ul>
   <li><a href="index.html">Home</a></li>
-  <li><a href="about.html">About</a></li>
   <li><a href="products.html">Products</a></li>
-  <li><a href="catalogue.html">Catalogue</a></li>
-  <li><a href="quiz.html">Health Quiz</a></li>
-  <li><a href="wellness-lab.html">Wellness Lab 🧪</a></li>
+  <li><a href="wellness-lab.html" class="nav-lab-link">🧪 Shah Hayaat Lab</a></li>
   <li><a href="blog.html">Blog</a></li>
+  <li><a href="about.html">About</a></li>
   <li><a href="contact.html">Contact</a></li>
 </ul>
 <div class="nav-mobile-cta">
-  <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-primary">💬 WhatsApp Us</a>
+  <a href="wellness-lab.html" class="btn btn-primary" style="margin-bottom:0.8rem;display:block;text-align:center">🧪 Start Shah Hayaat Lab</a>
+  <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-outline" style="display:block;text-align:center">💬 WhatsApp Us</a>
 </div></nav>
 
 <main>
-  <section class="hero" aria-label="Shah Hayaat — Find Your Balance Naturally">
+  <section class="hero" aria-label="Shah Hayaat — Traditional Ayurvedic Remedies">
     <div class="hero-overlay" aria-hidden="true"></div>
     <div class="container hero-content">
       <div class="hero-badge" role="note">🌿 WHO-GMP &nbsp;·&nbsp; ISO 9001:2015 &nbsp;·&nbsp; HACCP Certified</div>
-      <h1>Find Your Balance,<br>Naturally.</h1>
-      <p class="hero-sub">Experience the timeless wisdom of Ayurveda, crafted for modern wellness. Pure, certified herbal remedies to help you feel your best — every day.</p>
+      <h1>Traditional Ayurvedic Remedies<br>for Natural Wellness</h1>
+      <p class="hero-sub">Discover Shah Hayaat herbal formulations crafted to support vitality, balance, and overall well-being through traditional wellness wisdom.</p>
       <div class="hero-btns">
-        <a href="products.html" class="btn btn-primary btn-lg">Explore Our Range</a>
-        <a href="wellness-lab.html" class="btn btn-ghost-white btn-lg">🧪 Try Wellness Lab</a>
+        <a href="products.html" class="btn btn-primary btn-lg">Browse Remedies</a>
+        <a href="wellness-lab.html" class="btn btn-ghost-white btn-lg hero-lab-btn">Confused Which Remedy Is Right for You?<br><span style="font-size:0.8em;font-weight:400;opacity:0.85">Visit Shah Hayaat Lab →</span></a>
       </div>
     </div>
     <div class="hero-scroll" aria-hidden="true">Scroll</div>
@@ -657,8 +675,8 @@ img[alt]{font-size:0}
     <div class="container">
       <div class="grid-2">
         <div class="reveal">
-          <span class="section-label">Our Story</span>
-          <h2 id="about-heading" style="margin-bottom:0.75rem">We Believe in<br>Nature's Wisdom</h2>
+      <span class="section-label reveal" style="display:block;text-align:center">Our Story</span>
+      <h2 class="reveal delay-1" id="about-heading" style="margin-bottom:0.75rem">Why People Trust<br>Shah Hayaat</h2>
           <div class="divider"></div>
           <p>Shah Hayaat started with a simple belief: the best healing comes from nature. We blend the timeless wisdom of Ayurveda with modern quality standards — creating remedies that are pure, safe and genuinely effective.</p>
           <p>For us, it's not just about selling products. It's about helping you find genuine balance and wellbeing. Our WHO-GMP, ISO 9001:2015 and HACCP certifications are your assurance that we take quality as seriously as you do.</p>
@@ -702,7 +720,9 @@ img[alt]{font-size:0}
   <section class="section bg-white" aria-labelledby="products-heading">
     <div class="container">
       <span class="section-label reveal" style="display:block;text-align:center">Herbal Remedies</span>
-      <h2 class="section-heading reveal delay-1" id="products-heading">Our Ayurvedic Range</h2>
+      <span class="section-label reveal" style="display:block;text-align:center">Our Remedies</span>
+      <h2 class="section-heading reveal delay-1" id="products-heading">Most Trusted Shah Hayaat Remedies</h2>
+      <p class="section-sub reveal delay-2">Explore our carefully crafted herbal formulations designed to support natural wellness.</p>
       <p class="section-sub reveal delay-2">Handpicked remedies crafted with the purest ingredients — each targeting a specific area of your health and wellbeing.</p>
       <div class="product-grid" id="product-preview-grid" role="list" aria-label="Featured Ayurvedic products"></div>
       <div class="text-center mt-3 reveal">
@@ -711,23 +731,37 @@ img[alt]{font-size:0}
     </div>
   </section>
 
+  <!-- Confusion Breaker — Shah Hayaat Lab -->
+  <section class="section confusion-breaker" aria-labelledby="confusion-heading">
+    <div class="confusion-bg-orb" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1;text-align:center">
+      <span class="section-label reveal" style="display:block;text-align:center;color:var(--gold-light)">Free · Takes 60 Seconds</span>
+      <h2 class="reveal delay-1" id="confusion-heading" style="color:#fff;margin-bottom:1rem">Not Sure Which Remedy<br>Fits Your Needs?</h2>
+      <p class="reveal delay-2" style="color:rgba(255,255,255,0.76);max-width:520px;margin:0 auto 2rem;font-size:1.05rem;line-height:1.72">Every wellness journey is different. Answer a few quick questions in the Shah Hayaat Lab and receive a recommendation tailored to your needs.</p>
+      <div class="reveal delay-3">
+        <a href="wellness-lab.html" class="btn btn-glow btn-lg">🧪 Start Shah Hayaat Lab</a>
+        <p style="color:rgba(255,255,255,0.45);font-size:0.8rem;margin-top:0.9rem;letter-spacing:0.04em">Takes less than 60 seconds &nbsp;·&nbsp; 100% private &nbsp;·&nbsp; No sign-up</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Testimonials -->
   <section class="section bg-cream" aria-labelledby="testi-heading">
     <div class="container">
       <span class="section-label reveal" style="display:block;text-align:center">Customer Stories</span>
-      <h2 class="section-heading reveal delay-1" id="testi-heading">Real People, Real Results</h2>
+      <h2 class="section-heading reveal delay-1" id="testi-heading">What People Say About Shah Hayaat</h2>
       <p class="section-sub reveal delay-2">Nothing means more to us than the stories of customers who've found genuine relief and balance with our products.</p>
       <div class="testi-grid">
         <article class="testi-card reveal delay-1">
           <div class="testi-mark" aria-hidden="true">"</div>
-          <p class="testi-text">My morning walks are back! After just a month of Ortho Hayaat, my knees feel so much better. The difference it's made in my daily life is honestly remarkable.</p>
+          <p class="testi-text">Shah Hayaat remedies have become an important part of my wellness routine. The quality and traditional approach make it truly special.</p>
           <div class="testi-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
           <div class="testi-name">Priya S.</div>
           <div class="testi-loc">Mumbai</div>
         </article>
         <article class="testi-card reveal delay-2">
           <div class="testi-mark" aria-hidden="true">"</div>
-          <p class="testi-text">Shah Zyme is a lifesaver. I used to feel so bloated after eating. Now I feel lighter and way more energetic every single day. I recommend it to everyone!</p>
+          <p class="testi-text">I appreciate how these herbal formulations focus on natural balance and vitality. Shah Zyme made a real difference in my daily energy levels.</p>
           <div class="testi-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
           <div class="testi-name">Rohan K.</div>
           <div class="testi-loc">Delhi</div>
@@ -913,16 +947,29 @@ img[alt]{font-size:0}
   <section class="section bg-cream" aria-labelledby="blog-heading">
     <div class="container">
       <span class="section-label reveal" style="display:block;text-align:center">Wellness Journal</span>
-      <h2 class="section-heading reveal delay-1" id="blog-heading">Ayurvedic Tips for Modern Life</h2>
-      <p class="section-sub reveal delay-2">Practical, science-backed wellness guidance to help you feel your absolute best every day.</p>
+      <h2 class="section-heading reveal delay-1" id="blog-heading">Learn Natural Wellness</h2>
+      <p class="section-sub reveal delay-2">Practical, science-backed wellness guidance from traditional Ayurvedic knowledge to help you feel your absolute best every day.</p>
       <div class="blog-grid" id="blog-preview-grid" role="list" aria-label="Recent wellness articles"></div>
       <div class="text-center mt-3 reveal">
-        <a href="blog.html" class="btn btn-outline">Read All Articles</a>
+        <a href="blog.html" class="btn btn-outline">Read More Articles</a>
       </div>
     </div>
   </section>
 
   <!-- Marketplaces -->
+  <!-- Final CTA -->
+  <section class="cta-banner" aria-labelledby="final-cta-heading">
+    <div class="container">
+      <span class="section-label reveal" style="display:block;text-align:center;color:var(--gold-light)">Begin Today</span>
+      <h2 class="reveal delay-1" id="final-cta-heading" style="color:#fff;text-align:center;margin-bottom:1rem">Start Your Natural Wellness Journey</h2>
+      <p class="reveal delay-2" style="text-align:center;max-width:520px;margin:0 auto 2rem;color:rgba(255,255,255,0.72)">Explore Shah Hayaat remedies or discover the right formulation for your needs through the Shah Hayaat Lab.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center" class="reveal delay-3">
+        <a href="products.html" class="btn btn-primary btn-lg">Browse Remedies</a>
+        <a href="wellness-lab.html" class="btn btn-ghost-white btn-lg">🧪 Start Shah Hayaat Lab</a>
+      </div>
+    </div>
+  </section>
+
   <section class="section-sm bg-white" aria-label="Available on">
     <div class="container reveal">
       <p style="text-align:center;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:1.6rem">Also Available On</p>
@@ -943,8 +990,7 @@ img[alt]{font-size:0}
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo">
-          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat Ayurvedic Brand Logo">
+        <a href=<img loading="lazy" src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat Ayurvedic Brand Logo">t="Shah Hayaat Ayurvedic Brand Logo">
           <span>Shah <em>Hayaat</em></span>
         </a>
         <p>Pure, certified Ayurvedic remedies bringing balance and vitality to modern life.</p>
@@ -957,13 +1003,14 @@ img[alt]{font-size:0}
       <div class="footer-col">
         <h4>Quick Links</h4>
         <ul>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="wellness-lab.html">🧪 Shah Hayaat Lab</a></li>
+          <li><a href="blog.html">Blog</a></li>
           <li><a href="about.html">About Us</a></li>
-          <li><a href="products.html">All Products</a></li>
-          <li><a href="catalogue.html">Catalogue</a></li>
-          <li><a href="quiz.html">Health Quiz</a></li>
-  <li><a href="wellness-lab.html">Wellness Lab 🧪</a></li>
-          <li><a href="blog.html">Wellness Blog</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -998,7 +1045,7 @@ img[alt]{font-size:0}
     </div>
   </div>
 </footer>
-<a href="#" class="back-top" aria-label="Back to top" aria-label="Back to top" aria-label="Back to top">↑</a>
+<a href="#top" class="back-top" aria-label="Back to top" aria-label="Back to top" aria-label="Back to top">↑</a>
 <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float" aria-label="Order on WhatsApp">💬</a>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
