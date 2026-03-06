@@ -155,10 +155,10 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .hero h1{color:#fff;text-shadow:0 2px 24px rgba(0,0,0,0.3);margin-bottom:1.2rem;font-size:clamp(2rem,4.5vw,3.4rem);line-height:1.12}
 .hero-sub{color:rgba(255,255,255,0.82);font-size:clamp(0.98rem,1.8vw,1.12rem);max-width:480px;margin:0 0 2.2rem;line-height:1.72}
 .hero-btns{display:flex;flex-wrap:wrap;gap:1rem;justify-content:flex-start}
-.hero-img-col{position:relative;display:flex;align-items:center;justify-content:center;min-height:420px}
+.hero-img-col{position:relative;display:flex;align-items:center;justify-content:center;min-height:420px;overflow:hidden}
 .hero-img-glow{position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(56,180,140,0.25) 0%,rgba(184,134,11,0.08) 50%,transparent 72%);border-radius:50%;animation:hero-glow-pulse 3s ease-in-out infinite alternate}
 @keyframes hero-glow-pulse{0%{transform:scale(1);opacity:0.6}100%{transform:scale(1.14);opacity:1}}
-.hero-product-img{position:relative;z-index:2;width:clamp(220px,28vw,340px);height:auto;filter:drop-shadow(0 28px 56px rgba(0,0,0,0.6)) drop-shadow(0 0 60px rgba(56,180,140,0.22));animation:hero-float 4s ease-in-out infinite;transition:opacity 0.5s ease}
+.hero-product-img{position:relative;z-index:2;width:clamp(220px,28vw,340px);height:auto;filter:drop-shadow(0 28px 56px rgba(0,0,0,0.6)) drop-shadow(0 0 60px rgba(56,180,140,0.22));animation:hero-float 4s ease-in-out infinite;transition:transform 0.55s cubic-bezier(0.4,0,0.2,1),opacity 0.55s ease;will-change:transform,opacity}
 @keyframes hero-float{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-20px) rotate(1.5deg)}}
 .hero-prod-label{position:absolute;bottom:8%;left:50%;transform:translateX(-50%);background:rgba(184,134,11,0.92);color:#fff;font-size:0.72rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:0.35rem 1rem;border-radius:50px;white-space:nowrap;z-index:3;backdrop-filter:blur(4px);transition:opacity 0.4s ease}
 .hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:0.45rem;color:rgba(255,255,255,0.4);font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;animation:hero-bob 2.2s ease-in-out infinite}
@@ -554,6 +554,12 @@ img[alt]{font-size:0}
 
 /* ---- Product badge (Bestseller / Most Popular) ---- */
 .product-badge{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,#D4A017,#B8860B);color:#fff;font-size:0.68rem;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:0.05em;text-transform:uppercase;box-shadow:0 3px 10px rgba(0,0,0,0.22);z-index:2;pointer-events:none}
+
+/* ── Hero bottle slide-in animations ── */
+@keyframes slide-in-right{from{transform:translateX(80px) rotate(-1.5deg);opacity:0}to{transform:translateX(0) rotate(-1.5deg);opacity:1}}
+@keyframes slide-in-left {from{transform:translateX(-80px) rotate(1.5deg);opacity:0}to{transform:translateX(0) rotate(1.5deg);opacity:1}}
+.hero-product-img.slide-in-right{animation:slide-in-right 0.55s cubic-bezier(0.4,0,0.2,1) forwards,hero-float 4s ease-in-out 0.55s infinite}
+.hero-product-img.slide-in-left {animation:slide-in-left  0.55s cubic-bezier(0.4,0,0.2,1) forwards,hero-float 4s ease-in-out 0.55s infinite}
 </style>
 
   <!-- Business Schema: Organization -->
@@ -1835,7 +1841,7 @@ document.addEventListener('DOMContentLoaded', ()=>{ _refreshWall(); });
 </script>
 
 <script>
-/* ── Rotating Hero Product ─────────────────────────────── */
+/* ── Rotating Hero Product — alternating left/right slide ── */
 (function(){
   const heroProducts = [
     { src: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg',   name: 'Brain Champ',   fb: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp.jpg' },
@@ -1854,29 +1860,49 @@ document.addEventListener('DOMContentLoaded', ()=>{ _refreshWall(); });
   if (!img) return;
 
   let idx = 0;
+  let slideCount = 0; // tracks odd/even to alternate direction
 
   // Preload all images silently
-  heroProducts.forEach(p => { const i = new Image(); i.src = p.src; });
+  heroProducts.forEach(function(p){ var i = new Image(); i.src = p.src; });
+
+  // Give first image its initial slide class
+  img.classList.add('slide-in-right');
 
   setInterval(function(){
+    slideCount++;
     idx = (idx + 1) % heroProducts.length;
-    const next = heroProducts[idx];
+    var next = heroProducts[idx];
 
-    // Fade out
-    img.style.opacity   = '0';
-    if (label) label.style.opacity = '0';
+    // Direction alternates: even = from right, odd = from left
+    var slideClass = (slideCount % 2 === 0) ? 'slide-in-right' : 'slide-in-left';
+    var exitDir    = (slideCount % 2 === 0) ? '80px' : '-80px';
 
+    // Step 1: slide current bottle OUT (opposite direction)
+    img.style.transition = 'transform 0.4s cubic-bezier(0.4,0,1,1), opacity 0.4s ease';
+    img.style.transform  = 'translateX(' + exitDir + ') rotate(0deg)';
+    img.style.opacity    = '0';
+    if (label) { label.style.opacity = '0'; label.style.transition = 'opacity 0.3s ease'; }
+
+    // Step 2: swap image + slide new bottle IN
     setTimeout(function(){
       img.src = next.src;
-      img.onerror = function(){ this.onerror=null; this.src = next.fb; };
+      img.onerror = function(){ this.onerror = null; this.src = next.fb; };
       if (label) label.textContent = next.name;
 
-      // Fade in
-      img.style.opacity   = '1';
-      if (label) label.style.opacity = '1';
-    }, 500);
+      // Remove inline style, let CSS class handle the animation
+      img.style.transition = '';
+      img.style.transform  = '';
+      img.style.opacity    = '';
 
-  }, 4000);
+      // Remove old slide class, force reflow, add new
+      img.classList.remove('slide-in-right', 'slide-in-left');
+      void img.offsetWidth; // trigger reflow
+      img.classList.add(slideClass);
+
+      if (label) { setTimeout(function(){ label.style.opacity = '1'; }, 150); }
+    }, 420);
+
+  }, 4500); // 4.5s between transitions — gives float animation time to breathe
 })();
 </script>
 </body>
