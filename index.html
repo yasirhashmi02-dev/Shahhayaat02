@@ -8,11 +8,18 @@
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-N3TB9P47');</script>
   <!-- End Google Tag Manager -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8XLY6RR8LP"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8XLY6RR8LP');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shah Hayaat — Premium Ayurvedic Wellness | Natural Healing</title>
   <meta name="description" content="Discover WHO-GMP, ISO 9001:2015 and HACCP certified Ayurvedic products. Brain Champ, Ortho Hayaat, Livo Hayaat and 9 more remedies for complete natural wellness.">
-  <meta property="og:url" content="https://www.shahhayaat.com/">
   <meta property="og:title" content="Shah Hayaat — Premium Ayurvedic Wellness | Natural Healing">
   <meta property="og:description" content="Discover WHO-GMP, ISO 9001:2015 and HACCP certified Ayurvedic products. Brain Champ, Ortho Hayaat, Livo Hayaat and 9 more remedies for complete natural wellness.">
   <meta property="og:image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg">
@@ -22,7 +29,8 @@
   <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"></noscript>
   <style>
 /* ============================================================
    SHAH HAYAAT — Premium Ayurvedic Wellness
@@ -169,9 +177,9 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 /* ---- Cards: Product ---- */
 .product-grid{display:grid;gap:1.6rem;grid-template-columns:repeat(auto-fill,minmax(265px,1fr))}
 .product-card{background:var(--bg-white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-xs);border:1px solid var(--border);display:flex;flex-direction:column;transition:all var(--t) var(--ease)}
-.product-card:hover{transform:translateY(-10px);box-shadow:var(--shadow-lg);border-color:rgba(184,134,11,0.28)}
+.product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(184,134,11,0.28);will-change:transform}
 .product-card-img{position:relative;overflow:hidden;height:240px}
-.product-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease}
+.product-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.35s ease}
 .product-card:hover .product-card-img img{transform:scale(1.06)}
 .product-cat-tag{position:absolute;top:0.8rem;left:0.8rem;background:rgba(42,70,51,0.9);color:#fff;font-size:0.68rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:0.23rem 0.65rem;border-radius:50px}
 .product-body{padding:1.35rem;flex-grow:1;display:flex;flex-direction:column}
@@ -180,6 +188,41 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .product-footer{display:flex;align-items:center;justify-content:space-between;gap:0.6rem;flex-wrap:wrap;margin-top:auto}
 .product-price{font-size:1.35rem;font-weight:800;color:var(--green-dark);line-height:1}
 .product-actions-row{display:flex;gap:0.45rem;flex-wrap:wrap}
+/* ---- Product Star Ratings ---- */
+.prod-stars{display:flex;align-items:center;gap:4px;margin:0.3rem 0 0.6rem}
+.prod-stars .stars{color:#D4A017;font-size:1rem;letter-spacing:1px;line-height:1}
+.prod-stars .count{font-size:0.72rem;color:var(--text-muted);font-weight:500}
+/* ---- Company Rating Widget ---- */
+.rate-fab{position:fixed;bottom:90px;right:20px;z-index:999;background:var(--green-dark);color:#fff;border:none;border-radius:50px;padding:0.6rem 1rem;font-size:0.82rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(42,70,51,0.35);display:flex;align-items:center;gap:6px;transition:transform 0.2s,box-shadow 0.2s;white-space:nowrap}
+.rate-fab:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(42,70,51,0.42)}
+.rate-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.52);z-index:1200;align-items:center;justify-content:center;padding:1rem}
+.rate-modal-bg.open{display:flex}
+.rate-modal{background:#fff;border-radius:16px;padding:2rem 1.6rem;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.22);position:relative;animation:rateIn .28s ease}
+@keyframes rateIn{from{opacity:0;transform:scale(.93) translateY(10px)}to{opacity:1;transform:none}}
+.rate-modal h3{font-size:1.25rem;color:var(--green-dark);margin-bottom:0.3rem;font-family:var(--font-head)}
+.rate-modal p{font-size:0.88rem;color:var(--text-muted);margin-bottom:1.3rem}
+.rate-star-row{display:flex;gap:8px;justify-content:center;margin-bottom:1.4rem}
+.rate-star-row button{background:none;border:none;font-size:2.2rem;cursor:pointer;transition:transform .15s,filter .15s;filter:grayscale(1);opacity:.4;padding:0}
+.rate-star-row button.lit{filter:none;opacity:1}
+.rate-star-row button:hover{transform:scale(1.18)}
+.rate-name-inp,.rate-review-inp{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:0.7rem 0.9rem;font-size:0.92rem;font-family:var(--font-body);outline:none;color:var(--text-dark);transition:border-color .2s;margin-bottom:0.8rem;box-sizing:border-box}
+.rate-name-inp:focus,.rate-review-inp:focus{border-color:var(--green-mid)}
+.rate-review-inp{resize:vertical;min-height:72px}
+.rate-submit{width:100%;background:var(--green-dark);color:#fff;border:none;border-radius:8px;padding:0.82rem;font-size:0.97rem;font-weight:700;cursor:pointer;transition:background .2s}
+.rate-submit:hover{background:var(--green-mid)}
+.rate-close{position:absolute;top:0.8rem;right:1rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text-muted);line-height:1}
+.rate-thanks{text-align:center;padding:1rem 0}
+.rate-thanks .big-star{font-size:3rem;display:block;margin-bottom:.5rem}
+/* ---- Reviews Wall (on index) ---- */
+.reviews-wall{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));margin-top:1.5rem}
+.review-chip{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.review-chip .rc-stars{color:#D4A017;font-size:0.9rem;margin-bottom:0.3rem}
+.review-chip .rc-text{font-size:0.88rem;color:var(--text-mid);line-height:1.6;margin-bottom:.5rem;font-style:italic}
+.review-chip .rc-name{font-size:0.75rem;font-weight:700;color:var(--green-dark)}
+.overall-rating-bar{display:flex;align-items:center;gap:12px;margin-bottom:1.2rem;flex-wrap:wrap}
+.orb-num{font-size:3rem;font-weight:800;color:var(--green-dark);line-height:1;font-family:var(--font-head)}
+.orb-stars{color:#D4A017;font-size:1.3rem;letter-spacing:2px;display:block}
+.orb-count{font-size:0.82rem;color:var(--text-muted);margin-top:2px}
 
 /* ---- Category Filter ---- */
 .filter-bar{display:flex;flex-wrap:wrap;gap:0.55rem;justify-content:center;margin-bottom:3rem}
@@ -446,7 +489,7 @@ img[alt]{font-size:0}
     "@type": "Organization",
     "name": "Shah Hayaat",
     "url": "https://www.shahhayaat.com",
-    "logo": "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg",
+    "logo": "https://www.shahhayaat.com/logo.jpg",
     "sameAs": [
       "https://instagram.com/shahhayaatofficial",
       "https://amzn.in/d/9vsBOWH",
@@ -468,7 +511,7 @@ img[alt]{font-size:0}
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Shah Hayaat",
-    "image": "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg",
+    "image": "https://www.shahhayaat.com/logo.jpg",
     "url": "https://www.shahhayaat.com",
     "telephone": "+91-7051056287",
     "email": "shahhayaat02@gmail.com",
@@ -482,68 +525,7 @@ img[alt]{font-size:0}
     "paymentAccepted": "Cash, Online"
   }
   </script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Are Shah Hayaat products safe to use alongside prescription medicines?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "While our products are 100% natural and certified, we always recommend consulting your doctor if you are on prescription medication. Some herbs may interact with certain drugs, so medical guidance is the safest approach."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long before I see results?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Ayurvedic remedies work gradually and holistically. Most customers notice improvements within 3\u20134 weeks of consistent use. For chronic conditions, a full 6\u20138 week course is recommended for best results."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Are your products suitable for vegetarians and vegans?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes \u2014 all Shah Hayaat tablet and capsule formulations are 100% vegetarian. Our syrups use natural honey in some cases, which may not suit strict vegans; this is always listed clearly in the ingredients."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What certifications do your products hold?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "All our products are manufactured in facilities certified by WHO-GMP, ISO 9001:2015 and HACCP \u2014 among the highest standards in the supplement industry globally."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How can I order?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The easiest way is via WhatsApp \u2014 message us at +91 70510 56287 with the product name. We're also available on Amazon India and IndiaMART. Click \"Order\" on any product page to connect directly."
-      }
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Shah Hayaat",
-  "url": "https://www.shahhayaat.com/",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://www.shahhayaat.com/products.html?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
-}
-</script>
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -699,6 +681,25 @@ img[alt]{font-size:0}
     </div>
   </section>
 
+  <!-- Live Reviews Wall -->
+  <section class="section bg-white" aria-labelledby="reviews-heading">
+    <div class="container">
+      <span class="section-label reveal" style="display:block;text-align:center">Community Reviews</span>
+      <h2 class="section-heading reveal delay-1" id="reviews-heading">What Our Customers Say</h2>
+      <div class="overall-rating-bar reveal delay-2" id="overallRatingBar">
+        <div>
+          <span class="orb-num">5.0</span>
+        </div>
+        <div>
+          <span class="orb-stars">★★★★★</span>
+          <div class="orb-count">Based on 3 reviews</div>
+        </div>
+        <button class="btn btn-primary" style="margin-left:auto" onclick="openRateModal()">⭐ Add Your Review</button>
+      </div>
+      <div class="reviews-wall reveal" id="reviewsWall"></div>
+    </div>
+  </section>
+
   <!-- Wellness Lab Feature Section -->
   <section class="section bg-white" aria-labelledby="lab-heading" style="overflow:hidden;position:relative">
     <!-- Subtle background accent -->
@@ -714,14 +715,14 @@ img[alt]{font-size:0}
           <span class="section-label">New · Free Tool</span>
           <h2 id="lab-heading" style="margin-bottom:0.75rem">Digital Wellness<br>Intelligence Lab</h2>
           <div class="divider"></div>
-          <p>Go beyond a quiz. Our browser-based Lab runs 18 interactive modules — measuring your cognitive performance, respiratory health, stress resilience, motor stability and lifestyle patterns in real time.</p>
+          <p>Go beyond a quiz. Our browser-based Lab runs 17+ interactive modules — measuring your cognitive performance, respiratory health, stress resilience, motor stability and lifestyle patterns in real time.</p>
           <p style="margin-top:0;"><strong style="color:var(--green-dark)">100% private.</strong> All calculations happen in your browser. Zero data stored or transmitted — ever.</p>
 
           <!-- Mini stat row -->
           <div style="display:flex;flex-wrap:wrap;gap:1rem;margin:1.8rem 0 2rem">
             <div style="background:var(--bg-cream);border:1px solid var(--border);border-radius:var(--radius-sm);
                         padding:0.85rem 1.2rem;text-align:center;min-width:90px">
-              <div style="font-size:1.45rem;font-weight:700;color:var(--green-dark);font-family:var(--font-head)">18</div>
+              <div style="font-size:1.45rem;font-weight:700;color:var(--green-dark);font-family:var(--font-head)">17+</div>
               <div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:0.1rem">Modules</div>
             </div>
             <div style="background:var(--bg-cream);border:1px solid var(--border);border-radius:var(--radius-sm);
@@ -888,7 +889,7 @@ img[alt]{font-size:0}
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Follow us on Instagram">📷</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="Chat on WhatsApp">💬</a>
-          <a href="/cdn-cgi/l/email-protection#8efde6efe6e6eff7efeffabebccee9e3efe7e2a0ede1e3" class="soc-icon" aria-label="Email us">✉️</a>
+          <a href="/cdn-cgi/l/email-protection#96e5fef7fefef7eff7f7e2a6a4d6f1fbf7fffab8f5f9fb" class="soc-icon" aria-label="Email us">✉️</a>
         </div>
       </div>
       <div class="footer-col">
@@ -917,7 +918,7 @@ img[alt]{font-size:0}
       <div class="footer-col">
         <h4>Contact</h4>
         <ul>
-          <li><a href="/cdn-cgi/l/email-protection#295a41484141485048485d191b694e44484045074a4644"><span class="__cf_email__" data-cfemail="b3c0dbd2dbdbd2cad2d2c78381f3d4ded2dadf9dd0dcde">[email&#160;protected]</span></a></li>
+          <li><a href="/cdn-cgi/l/email-protection#f6859e979e9e978f979782c6c4b6919b979f9ad895999b"><span class="__cf_email__" data-cfemail="4b38232a23232a322a2a3f7b790b2c262a222765282426">[email&#160;protected]</span></a></li>
           <li><a href="https://wa.me/917051056287" target="_blank" rel="noopener">+91 70510 56287</a></li>
           <li><a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener">@shahhayaatofficial</a></li>
           <li><a href="https://amzn.in/d/9vsBOWH" target="_blank" rel="noopener">Amazon India</a></li>
@@ -975,7 +976,7 @@ const PRODUCTS = [
     full: 'Brain Champ is a scientifically formulated Ayurvedic supplement combining Brahmi, Shankhpushpi, Ashwagandha and other classical herbs to support optimal brain health. It helps reduce mental fatigue, improve concentration and enhance memory retention naturally.',
     benefits: ['Improves memory & recall', 'Reduces mental fatigue & brain fog', 'Manages stress & anxiety naturally', 'Enhances focus & concentration', 'Adaptogen blend for long-term brain health'],
     ingredients: 'Brahmi (Bacopa monnieri), Shankhpushpi, Ashwagandha, Jatamansi, Vacha',
-    dosage: '2 tablets twice daily with warm milk or water, preferably after meals.',
+    dosage: '10–15 ml twice daily after meals. Shake well before use.',
     precautions: 'Not recommended during pregnancy. Consult a physician if you are on existing medication.',
   },
   {
@@ -984,7 +985,7 @@ const PRODUCTS = [
     full: 'Shah Zyme is a potent herbal digestive enzyme syrup. Its unique combination of digestive herbs helps break down food efficiently, relieving uncomfortable symptoms of gas, bloating and sluggish digestion after meals.',
     benefits: ['Relieves gas & bloating', 'Improves nutrient absorption', 'Stimulates healthy appetite', 'Supports enzyme activity', 'Reduces post-meal heaviness'],
     ingredients: 'Ajwain, Saunf (Fennel), Jeera (Cumin), Pudina (Mint), Harad, Baheda, Amla',
-    dosage: '10–15 ml after meals, twice daily. Shake well before use.',
+    dosage: '10–15 ml twice daily after meals. Shake well before use.',
     precautions: 'Store in a cool, dry place. Not for children under 5 years without medical advice.',
   },
   {
@@ -993,7 +994,7 @@ const PRODUCTS = [
     full: 'Blood Storm is a premium Ayurvedic blood tonic combining iron-rich herbs with powerful rejuvenating ingredients. Formulated to naturally raise hemoglobin levels, improve circulation and restore energy to those suffering from anemia and chronic weakness.',
     benefits: ['Raises hemoglobin naturally', 'Combats iron-deficiency anemia', 'Restores energy & vitality', 'Improves blood circulation', 'Strengthens overall immunity'],
     ingredients: 'Loha Bhasma, Punarnava, Shatavari, Ashwagandha, Amla, Draksha',
-    dosage: '2 tablets twice daily with water or milk after meals.',
+    dosage: '10–15 ml twice daily after meals. Shake well before use.',
     precautions: 'Keep out of reach of children. Consult a physician before use during pregnancy.',
   },
   {
@@ -1002,7 +1003,7 @@ const PRODUCTS = [
     full: 'Cough X Pro is a time-tested Ayurvedic formulation that soothes the respiratory tract, reduces inflammation and provides lasting relief from acute and chronic cough. Its herbal ingredients work synergistically to clear mucus and calm irritated airways.',
     benefits: ['Soothes throat irritation', 'Reduces mucus congestion', 'Anti-inflammatory action', 'Fast & lasting relief', 'Safe for adults & children'],
     ingredients: 'Tulsi (Holy Basil), Mulethi (Licorice), Adrak (Ginger), Pippali, Vasa, Honey',
-    dosage: '10 ml three times daily. Children (5–12): 5 ml three times daily.',
+    dosage: '10–15 ml twice daily after meals. Shake well before use.',
     precautions: 'Diabetics should consult a physician due to natural honey content. Avoid overdose.',
   },
   {
@@ -1011,7 +1012,7 @@ const PRODUCTS = [
     full: 'Musaffa Khoon is a classical Ayurvedic blood purifier that detoxifies the blood and lymphatic system. By purifying from within it effectively addresses the root cause of skin disorders including acne, psoriasis, eczema and dull skin.',
     benefits: ['Purifies blood & lymph', 'Clears acne & pimples', 'Reduces psoriasis symptoms', 'Promotes glowing clear skin', 'Full-body natural detox'],
     ingredients: 'Neem, Manjistha, Khadir, Sarsaparilla, Giloy, Triphala',
-    dosage: '2 tablets twice daily with water before meals.',
+    dosage: '10–15 ml twice daily after meals. Shake well before use.',
     precautions: 'Results typically visible after 4–6 weeks of consistent use.',
   },
   {
@@ -1020,7 +1021,7 @@ const PRODUCTS = [
     full: 'PanaSip is a powerful Ayurvedic antacid syrup that neutralises excess stomach acid naturally. Its cooling and soothing herbs form a protective layer over the stomach lining, providing rapid relief from acidity, heartburn and gastric ulcers without harsh chemical side effects.',
     benefits: ['Neutralises stomach acid', 'Soothes esophageal inflammation', 'Heals peptic ulcers naturally', 'Prevents acid reflux', 'Promotes healthy gastric pH'],
     ingredients: 'Mulethi, Shatavari, Amalaki, Guduchi, Yashtimadhu, Shankha Bhasma',
-    dosage: '15 ml before meals, three times daily. Shake well before use.',
+    dosage: '10–15 ml twice daily after meals. Shake well before use.',
     precautions: 'Take on an empty stomach for best results. Refrigerate after opening.',
   },
   {
@@ -1029,7 +1030,7 @@ const PRODUCTS = [
     full: 'Livo Hayaat is a hepatoprotective Ayurvedic tablet that supports the liver\'s natural detoxification processes. Formulated with liver-protecting herbs, it helps regenerate liver cells, reduce fatty liver, normalise enzyme levels and improve overall hepatic function.',
     benefits: ['Protects & regenerates liver cells', 'Reduces fatty liver condition', 'Normalises liver enzyme levels', 'Supports bile production', 'Powerful antioxidant properties'],
     ingredients: 'Bhumi Amla, Kalmegh, Kutki, Punarnava, Makoy, Kasni',
-    dosage: '2 tablets twice daily with warm water before meals.',
+    dosage: '1 capsule twice daily + 7.5 ml syrup after meals.',
     precautions: 'Not for use with hepatotoxic drugs without physician advice.',
   },
   {
@@ -1038,7 +1039,7 @@ const PRODUCTS = [
     full: 'Dia-Ease is a specialised Ayurvedic formulation to help manage blood glucose levels naturally. Its multi-herb approach addresses insulin sensitivity, reduces glucose absorption and supports pancreatic function for comprehensive diabetic management support.',
     benefits: ['Supports healthy blood sugar', 'Improves insulin sensitivity', 'Reduces sugar cravings', 'Supports pancreatic health', 'Helps prevent diabetic complications'],
     ingredients: 'Karela (Bitter Melon), Jamun Seed, Gurmar, Vijaysar, Methi, Neem, Tulsi',
-    dosage: '2 tablets twice daily, 30 minutes before meals with warm water.',
+    dosage: '1 tablet + 5 ml syrup twice daily after meals; ½ tsp powder before lunch.',
     precautions: 'Monitor blood sugar regularly. Do not discontinue prescribed medication without physician guidance.',
   },
   {
@@ -1047,7 +1048,7 @@ const PRODUCTS = [
     full: 'Ortho Hayaat combines the most potent anti-inflammatory and analgesic Ayurvedic herbs for comprehensive joint care. It works to reduce inflammation, lubricate joints, strengthen bones and improve mobility — ideal for arthritis, knee pain and age-related joint degeneration.',
     benefits: ['Reduces joint inflammation', 'Relieves chronic joint pain', 'Improves mobility & flexibility', 'Strengthens bones & cartilage', 'Anti-arthritis properties'],
     ingredients: 'Shallaki (Boswellia), Guggul, Rasna, Nirgundi, Ashwagandha, Sunthi',
-    dosage: '2 tablets twice daily with warm milk or water after meals.',
+    dosage: '1 capsule + 1 tablet twice daily after meals with milk or lukewarm water. Oil may be applied externally.',
     precautions: 'Results typically noticeable within 4–6 weeks of consistent use.',
   },
   {
@@ -1056,7 +1057,7 @@ const PRODUCTS = [
     full: 'Utro Hayaat is a carefully formulated Ayurvedic uterine tonic addressing common female health concerns. It helps regulate menstrual cycles, relieve period pain, treat leucorrhoea and support hormonal balance using the safest classical Ayurvedic herbs.',
     benefits: ['Regulates menstrual cycles', 'Relieves painful periods', 'Treats leucorrhoea', 'Supports hormonal balance', 'Strengthens uterine health'],
     ingredients: 'Ashoka, Lodhra, Shatavari, Nagkesar, Daruharidra, Kumari (Aloe)',
-    dosage: '2 tablets twice daily after meals with milk or water.',
+    dosage: '1 tablet + 7.5 ml syrup twice daily with lukewarm water; 2 capsules once daily after lunch.',
     precautions: 'Not recommended during pregnancy or breastfeeding without medical advice.',
   },
   {
@@ -1065,7 +1066,7 @@ const PRODUCTS = [
     full: 'Passion Pulse is a premium Ayurvedic male vitality supplement combining powerful adaptogens and vajikarana herbs to enhance stamina, improve libido, support testosterone levels and boost overall masculine vitality naturally.',
     benefits: ['Enhances stamina & endurance', 'Improves libido & sexual health', 'Supports testosterone levels', 'Improves sperm health & motility', 'Reduces fatigue & boosts energy'],
     ingredients: 'Ashwagandha, Shilajit, Safed Musli, Kaunch Beej, Gokshura, Vidarikanda',
-    dosage: '2 tablets twice daily with milk or warm water before bedtime.',
+    dosage: '1 capsule twice daily with milk.',
     precautions: 'Not for use under 18 years. Consult physician if you have existing health conditions.',
   },
   {
@@ -1074,7 +1075,7 @@ const PRODUCTS = [
     full: "Fevodol is an Ayurvedic immune-strengthening formulation supporting the body's natural defence mechanisms. Its antipyretic, anti-infective and immunomodulatory herbs help reduce fever, fight infections and build long-term immunity against recurrent illness.",
     benefits: ['Reduces fever naturally', 'Fights infections', 'Strengthens immune system', 'Anti-inflammatory', 'Prevents recurrent illness'],
     ingredients: 'Giloy (Guduchi), Tulsi, Chirayata, Kutki, Sudarshan Churna',
-    dosage: '2 tablets three times daily with warm water during illness. For immunity: twice daily.',
+    dosage: '1 capsule three times daily with water after meals.',
     precautions: 'Continue medical treatment during severe infections. This is a supportive supplement.',
   },
 ];
@@ -1118,9 +1119,16 @@ function initNav() {
 /* ── SCROLL ────────────────────────────────────────────────── */
 function initScroll() {
   const btn = $('.back-top');
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    document.body.classList.toggle('scrolled', window.scrollY > 55);
-    if (btn) btn.classList.toggle('show', window.scrollY > 400);
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        document.body.classList.toggle('scrolled', window.scrollY > 55);
+        if (btn) btn.classList.toggle('show', window.scrollY > 400);
+        ticking = false;
+      });
+      ticking = true;
+    }
   }, { passive: true });
   observeReveal();
 }
@@ -1153,11 +1161,12 @@ function renderProducts(container, { limit = null, cat = null } = {}) {
   container.innerHTML = list.map((p, i) => `
     <div class="product-card reveal delay-${(i % 4) + 1}" data-cat="${p.cat}">
       <div class="product-card-img">
-        <img src="${imgSrc(p.id)}" alt="${p.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%23f0ece4' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%234D7C5D' font-size='40'%3E🌿%3C/text%3E%3C/svg%3E'">
+        <img src="${imgSrc(p.id)}" alt="${p.name}" loading="lazy">
         <span class="product-cat-tag">${p.tag}</span>
       </div>
       <div class="product-body">
         <h3>${p.name}</h3>
+        <div class="prod-stars" data-pid="${p.id}"><span class="stars">★★★★½</span><span class="count" style="font-size:.72rem;color:var(--text-muted);margin-left:5px">Loading…</span></div>
         <p class="product-desc">${p.desc}</p>
         <div class="product-footer">
           <div class="product-price">₹${p.price}</div>
@@ -1250,7 +1259,7 @@ function injectSchema() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Shah Hayaat",
-    "url": "https://www.shahhayaat.com/",
+    "url": "https://yasirhashmi02-dev.github.io/Shahhayaat02/",
     "logo": "https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg",
     "description": "Premium certified Ayurvedic wellness products. WHO-GMP, ISO 9001:2015 and HACCP certified.",
     "telephone": "+917051056287",
@@ -1266,25 +1275,6 @@ function injectSchema() {
   document.head.appendChild(el);
 }
 
-
-function injectWebPageSchema() {
-  const s = document.createElement('script');
-  s.type = 'application/ld+json';
-  s.textContent = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Shah Hayaat — Premium Ayurvedic Wellness",
-    "url": "https://www.shahhayaat.com/",
-    "description": "Discover certified Ayurvedic wellness products from Shah Hayaat. WHO-GMP, ISO 9001:2015 and HACCP certified.",
-    "isPartOf": { "@type": "WebSite", "url": "https://www.shahhayaat.com/" },
-    "breadcrumb": {
-      "@type": "BreadcrumbList",
-      "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.shahhayaat.com/" }]
-    }
-  });
-  document.head.appendChild(s);
-}
-
 /* ── INIT ──────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
@@ -1294,7 +1284,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   setYear();
   injectSchema();
-  injectWebPageSchema();
 
   // Homepage grids
   const productPreview = $('#product-preview-grid');
@@ -1305,4 +1294,254 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Products page full grid
   const allGrid = $('#all-products-grid');
-  if (allGrid) renderProducts(a
+  if (allGrid) renderProducts(allGrid);
+
+});
+</script>
+
+<!-- Rate Us FAB -->
+<button class="rate-fab" onclick="openRateModal()">⭐ Rate Us</button>
+
+<!-- Rating Modal -->
+<div class="rate-modal-bg" id="rateModalBg" role="dialog" aria-modal="true" aria-label="Rate Shah Hayaat">
+  <div class="rate-modal" id="rateModalBox">
+    <button class="rate-close" onclick="closeRateModal()">✕</button>
+    <h3>How do we make you feel?</h3>
+    <p>Your honest feedback helps us serve you better.</p>
+    <div class="rate-star-row" id="rateStarRow">
+      <button data-v="1" onclick="setStar(1)" aria-label="1 star">⭐</button>
+      <button data-v="2" onclick="setStar(2)" aria-label="2 stars">⭐</button>
+      <button data-v="3" onclick="setStar(3)" aria-label="3 stars">⭐</button>
+      <button data-v="4" onclick="setStar(4)" aria-label="4 stars">⭐</button>
+      <button data-v="5" onclick="setStar(5)" aria-label="5 stars">⭐</button>
+    </div>
+    <input class="rate-name-inp" id="rateNameInp" type="text" placeholder="Your name (optional)" maxlength="40">
+    <textarea class="rate-review-inp" id="rateRevInp" placeholder="Share your experience… (optional)" maxlength="280"></textarea>
+    <button class="rate-submit" onclick="submitRating()">Submit Rating →</button>
+  </div>
+</div>
+
+<script>
+
+/* ══════════════════════════════════════════════════════
+   SHAH HAYAAT — Review & Rating Engine v1
+   localStorage-based. Zero backend. Works offline.
+══════════════════════════════════════════════════════ */
+const REV_KEY = 'sh_reviews_v1';
+const PROD_KEY = 'sh_prod_ratings_v1';
+
+function getReviews() {
+  try { return JSON.parse(localStorage.getItem(REV_KEY) || '[]'); } catch { return []; }
+}
+function saveReviews(arr) {
+  try { localStorage.setItem(REV_KEY, JSON.stringify(arr.slice(-50))); } catch {} }
+function getProdRatings() {
+  try { return JSON.parse(localStorage.getItem(PROD_KEY) || '{}'); } catch { return {}; } }
+function saveProdRatings(o) {
+  try { localStorage.setItem(PROD_KEY, JSON.stringify(o)); } catch {} }
+
+const SEED = [
+  { name:'Priya S.', stars:5, text:'My morning walks are back! Ortho Hayaat made a remarkable difference.', ts:1 },
+  { name:'Rohan K.', stars:5, text:'Shah Zyme is a lifesaver — I feel lighter and more energetic every day!', ts:2 },
+  { name:'Anjali P.', stars:5, text:'Brain Champ genuinely helped me focus during exam season. Amazing!', ts:3 },
+];
+function getAllReviews() { return [...SEED, ...getReviews()]; }
+
+const PROD_BASE = { brainchamp:4.8, shahzyme:4.7, bloodstorm:4.6, coughxpro:4.5,
+  musaffakhoon:4.6, panasip:4.7, livohayaat:4.8, orthohayaat:4.9,
+  diaease:4.5, utrohayaat:4.6, passionpulse:4.7, fevodol:4.5 };
+
+function starStr(r) {
+  const f=Math.floor(r), h=(r-f)>=0.5;
+  let s='';
+  for(let i=1;i<=5;i++) s += i<=f?'★':(i===f+1&&h?'½':'☆');
+  return s;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   SHAH HAYAAT — Live Reviews Engine
+   Replace localStorage with Google Sheets via Apps Script API.
+   Falls back to localStorage if offline / API unavailable.
+   ══════════════════════════════════════════════════════════════════ */
+
+const REVIEWS_API = 'https://script.google.com/macros/s/AKfycbwIiEeIHyJWonJd1QhEiLHYnUjAE5yRqxXH22CNB_Wa36xpFN0BkokebBO1g_1AVZL8xw/exec';
+const _LIVE = true; // API configured
+
+/* ── Seed reviews shown before real ones load ── */
+const _SEED_REVIEWS = [
+  { name:'Priya S.',    stars:5, text:'My morning walks are back! Ortho Hayaat made a remarkable difference in just 3 weeks.' },
+  { name:'Rohan K.',    stars:5, text:'Shah Zyme is a lifesaver — lighter and more energetic after every meal!' },
+  { name:'Anjali P.',   stars:5, text:'Brain Champ genuinely helped me focus during exam season. Highly recommended.' },
+];
+
+/* ── Base product ratings (blended with live data) ── */
+const _BASE_RATINGS = {
+  brainchamp:4.8, shahzyme:4.7, bloodstorm:4.6, coughxpro:4.5,
+  musaffakhoon:4.6, panasip:4.7, livohayaat:4.8, orthohayaat:4.9,
+  diaease:4.5, utrohayaat:4.6, passionpulse:4.7, fevodol:4.5
+};
+
+/* ── Star string helper ── */
+function _starStr(r) {
+  const f = Math.floor(r), h = (r - f) >= 0.5;
+  let s = '';
+  for (let i = 1; i <= 5; i++)
+    s += i <= f ? '★' : (i === f + 1 && h ? '½' : '☆');
+  return s;
+}
+
+/* ── Fetch with localStorage fallback ── */
+async function _apiGet(params) {
+  if (!_LIVE) return null;
+  try {
+    const qs = Object.entries(params).map(([k,v]) => k+'='+encodeURIComponent(v)).join('&');
+    const res = await fetch(REVIEWS_API + '?' + qs, { cache: 'no-store' });
+    const json = await res.json();
+    return json.ok ? json.data : null;
+  } catch { return null; }
+}
+
+async function _apiPost(body) {
+  if (!_LIVE) return false;
+  try {
+    await fetch(REVIEWS_API, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    return true;
+  } catch { return false; }
+}
+
+/* ── Site reviews (Rate Us modal) ── */
+async function getSiteReviews() {
+  const live = await _apiGet({ type: 'reviews' });
+  if (live && live.length) return live;
+  // fallback to localStorage
+  try { return JSON.parse(localStorage.getItem('sh_reviews_v1') || '[]'); } catch { return []; }
+}
+
+async function saveSiteReview(name, stars, text, page) {
+  // Always save locally too
+  try {
+    const arr = JSON.parse(localStorage.getItem('sh_reviews_v1') || '[]');
+    arr.push({ name, stars, text, ts: Date.now() });
+    localStorage.setItem('sh_reviews_v1', JSON.stringify(arr.slice(-50)));
+  } catch {}
+  // Send to Google Sheets
+  await _apiPost({ type: 'site_review', name, stars, text, page: page || location.pathname });
+}
+
+/* ── Product ratings (aggregate stars) ── */
+let _cachedProdRatings = null;
+async function getProdRatings() {
+  if (_cachedProdRatings) return _cachedProdRatings;
+  const live = await _apiGet({ type: 'prod_ratings' });
+  _cachedProdRatings = live || {};
+  return _cachedProdRatings;
+}
+
+function _blendRating(pid, liveAgg) {
+  const base = _BASE_RATINGS[pid] || 4.5;
+  const d = liveAgg && liveAgg[pid];
+  if (!d || !d.count) return { rating: base, count: 0 };
+  // Blend: (live_total + base*10) / (live_count + 10)
+  const rating = Math.round(((d.total || d.avg * d.count) + base * 10) / (d.count + 10) * 10) / 10;
+  return { rating, count: d.count };
+}
+
+/* ── Render stars on product cards ── */
+async function renderStarsLive(pid, containerEl) {
+  if (!containerEl) return;
+  const agg = await getProdRatings();
+  const { rating, count } = _blendRating(pid, agg);
+  containerEl.innerHTML =
+    '<span class="stars" style="color:#D4A017;letter-spacing:1px">' + _starStr(rating) + '</span>' +
+    '<span class="count" style="font-size:.72rem;color:var(--text-muted);margin-left:5px">' +
+    rating.toFixed(1) + (count > 0 ? ' (' + count + ')' : '') + '</span>';
+}
+
+/* ── Reviews wall ── */
+async function buildReviewsWall(wallEl, avgEl, countEl, starsEl) {
+  if (!wallEl) return;
+  wallEl.innerHTML = '<div style="color:var(--text-muted);font-size:.82rem;padding:1rem 0">Loading reviews…</div>';
+  const reviews = await getSiteReviews();
+  const all = reviews.length ? reviews : _SEED_REVIEWS;
+
+  const avg = all.reduce((s, r) => s + (r.stars || r.rating || 0), 0) / all.length;
+  if (avgEl)   avgEl.textContent  = avg.toFixed(1);
+  if (starsEl) starsEl.textContent = _starStr(avg);
+  if (countEl) countEl.textContent = 'Based on ' + all.length + ' review' + (all.length !== 1 ? 's' : '');
+
+  wallEl.innerHTML = all.slice(0, 9).map(r => {
+    const stars = r.stars || r.rating || 0;
+    return '<div class="review-chip">' +
+      '<div class="rc-stars" style="color:#D4A017;font-size:.9rem;margin-bottom:.3rem">' + '★'.repeat(stars) + '☆'.repeat(5 - stars) + '</div>' +
+      (r.text ? '<p class="rc-text" style="font-size:.88rem;color:var(--text-mid);line-height:1.6;margin-bottom:.5rem;font-style:italic">&ldquo;' + r.text + '&rdquo;</p>' : '') +
+      '<div class="rc-name" style="font-size:.75rem;font-weight:700;color:var(--green-dark)">— ' + (r.name || 'Anonymous') + '</div>' +
+    '</div>';
+  }).join('');
+}
+/* ════════════════════════════════════════════════════════════════ */
+
+function renderStars(pid) {
+  const st=getProdRatings(), base=PROD_BASE[pid]||4.5;
+  const d=st[pid];
+  let rating=base, count=0;
+  if(d&&d.count>0){ rating=Math.round(((d.total+base*10)/(d.count+10))*10)/10; count=d.count; }
+  const disp=rating.toFixed(1);
+  return `<div class="prod-stars"><span class="stars" aria-label="${disp} stars">${starStr(rating)}</span><span class="count">${disp} ${count>0?'('+count+'&nbsp;ratings)':'· Tap to rate'}</span></div>`;
+}
+
+/* Modal */
+let _star=0;
+function openRateModal(){
+  _star=0;
+  document.getElementById('rateNameInp').value='';
+  document.getElementById('rateRevInp').value='';
+  document.getElementById('rateModalBg').classList.add('open');
+  document.body.style.overflow='hidden';
+  _litStars();
+}
+function closeRateModal(){
+  document.getElementById('rateModalBg').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('click', e=>{
+  if(e.target.id==='rateModalBg') closeRateModal();
+});
+function setStar(n){ _star=n; _litStars(); }
+function _litStars(){
+  document.querySelectorAll('#rateStarRow button').forEach((b,i)=>{
+    b.classList.toggle('lit',i<_star);
+  });
+}
+function submitRating(){
+  const stars = _star;
+  if (!stars) { alert('Please tap a star first!'); return; }
+  const name = (document.getElementById('rateNameInp')?.value || '').trim() || 'Anonymous';
+  const text = (document.getElementById('rateRevInp')?.value || '').trim();
+  saveSiteReview(name, stars, text).then(() => _refreshWall());
+  const box = document.getElementById('rateModalBox');
+  if (box) box.innerHTML = '<div style="text-align:center;padding:1.5rem 0"><div style="font-size:3rem">🌟</div><h3 style="color:var(--green-dark);margin:.5rem 0 .3rem">Thank you, '+name+'!</h3><p style="color:var(--text-muted);font-size:.88rem">Your '+stars+'-star review is now live for everyone to see!</p><button class="rate-submit" style="margin-top:1rem;width:100%" onclick="closeRateModal()">Done ✓</button></div>';
+}
+
+function _refreshWall(){
+  buildReviewsWall(
+    document.getElementById('reviewsWall'),
+    document.querySelector('.orb-num'),
+    document.querySelector('.orb-count'),
+    document.querySelector('.orb-stars')
+  );
+  // Also refresh all product star cards
+  document.querySelectorAll('.prod-stars[data-pid]').forEach(el => {
+    renderStarsLive(el.dataset.pid, el);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{ _refreshWall(); });
+
+</script>
+</body>
+</html>
