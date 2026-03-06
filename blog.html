@@ -392,7 +392,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
   </div>
 </footer>
 
-<a href="#" class="back-top" id="back-top">↑</a>
+<a href="#" class="back-top" id="back-top" aria-label="Back to top" aria-label="Back to top">↑</a>
 <a href="https://wa.me/917051056287" target="_blank" rel="noopener noreferrer" class="wa-float">💬</a>
 <div class="toast" id="toast"></div>
 
@@ -560,7 +560,7 @@ function openPost(rid) {
   const isCustom = !post.id.startsWith('seed') && isOwner;
 
   const imgHtml = post.img
-    ? '<img src="' + escHtml(post.img) + '" alt="' + escHtml(post.title) + '" class="blog-modal-img" onerror="this.style.display=\'none\'">'
+    ? '<img src="' + escHtml(post.img) + '" alt="' + escHtml(post.title) + '" loading="lazy" class="blog-modal-img" onerror="this.style.display=\'none\'">'
     : '<div class="blog-modal-img-placeholder">' + catEmoji(post.cat) + '</div>';
 
   document.getElementById('blog-modal-content').innerHTML =
