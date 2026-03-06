@@ -1,0 +1,50 @@
+# Shah Hayaat — Cloudflare Pages / GitHub Pages cache config
+
+# HTML pages: revalidate on every request but use cache if not modified
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# XML files (sitemap): cache 1 day
+/*.xml
+  Cache-Control: public, max-age=86400
+
+# JavaScript: cache 1 year (use versioned filenames to bust)
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+# CSS: cache 1 year
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images: cache 1 year
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.jpeg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.ico
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fonts: cache 1 year
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+
+# Security headers on all pages
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()

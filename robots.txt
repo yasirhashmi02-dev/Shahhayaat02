@@ -6,3 +6,9 @@ Disallow: /thank-you.html
 
 # Sitemap location
 Sitemap: https://www.shahhayaat.com/sitemap.xml
+
+# Wellness Lab is a tool page, not a main SEO target
+Disallow: /wellness-lab.html
+
+# Catalogue is a legacy page
+Disallow: /catalogue.html
