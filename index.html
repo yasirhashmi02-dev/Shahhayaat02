@@ -158,9 +158,9 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .hero-img-col{position:relative;display:flex;align-items:center;justify-content:center;min-height:420px}
 .hero-img-glow{position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(56,180,140,0.25) 0%,rgba(184,134,11,0.08) 50%,transparent 72%);border-radius:50%;animation:hero-glow-pulse 3s ease-in-out infinite alternate}
 @keyframes hero-glow-pulse{0%{transform:scale(1);opacity:0.6}100%{transform:scale(1.14);opacity:1}}
-.hero-product-img{position:relative;z-index:2;width:clamp(220px,28vw,340px);height:auto;filter:drop-shadow(0 28px 56px rgba(0,0,0,0.6)) drop-shadow(0 0 60px rgba(56,180,140,0.22));animation:hero-float 4s ease-in-out infinite}
+.hero-product-img{position:relative;z-index:2;width:clamp(220px,28vw,340px);height:auto;filter:drop-shadow(0 28px 56px rgba(0,0,0,0.6)) drop-shadow(0 0 60px rgba(56,180,140,0.22));animation:hero-float 4s ease-in-out infinite;transition:opacity 0.5s ease}
 @keyframes hero-float{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-20px) rotate(1.5deg)}}
-.hero-prod-label{position:absolute;bottom:8%;left:50%;transform:translateX(-50%);background:rgba(184,134,11,0.92);color:#fff;font-size:0.72rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:0.35rem 1rem;border-radius:50px;white-space:nowrap;z-index:3;backdrop-filter:blur(4px)}
+.hero-prod-label{position:absolute;bottom:8%;left:50%;transform:translateX(-50%);background:rgba(184,134,11,0.92);color:#fff;font-size:0.72rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:0.35rem 1rem;border-radius:50px;white-space:nowrap;z-index:3;backdrop-filter:blur(4px);transition:opacity 0.4s ease}
 .hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:0.45rem;color:rgba(255,255,255,0.4);font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;animation:hero-bob 2.2s ease-in-out infinite}
 .hero-scroll::after{content:'';width:1px;height:38px;background:linear-gradient(to bottom,rgba(255,255,255,0.4),transparent)}
 @keyframes hero-bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
@@ -551,6 +551,9 @@ img[alt]{font-size:0}
   .strip-name{font-size:0.82rem}
   .strip-benefit{font-size:0.68rem}
 }
+
+/* ---- Product badge (Bestseller / Most Popular) ---- */
+.product-badge{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,#D4A017,#B8860B);color:#fff;font-size:0.68rem;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:0.05em;text-transform:uppercase;box-shadow:0 3px 10px rgba(0,0,0,0.22);z-index:2;pointer-events:none}
 </style>
 
   <!-- Business Schema: Organization -->
@@ -690,7 +693,7 @@ img[alt]{font-size:0}
   <li><a href="contact.html">Contact</a></li>
 </ul>
 <div class="nav-mobile-cta">
-  <a href="wellness-lab.html" class="btn btn-primary" style="margin-bottom:0.8rem;display:block;text-align:center">🧪 Start Shah Hayaat Lab</a>
+  <a href="wellness-lab.html" class="btn btn-primary" style="margin-bottom:0.8rem;display:block;text-align:center">🔍 Find Your Perfect Remedy</a>
 </div></nav>
 
 <main>
@@ -705,7 +708,7 @@ img[alt]{font-size:0}
           <p class="hero-sub">Explore Shah Hayaat herbal formulations crafted with traditional Ayurvedic wisdom and modern quality standards.</p>
           <div class="hero-btns">
             <a href="products.html" class="btn btn-primary btn-lg">Explore Products</a>
-            <a href="wellness-lab.html" class="btn btn-glow btn-lg">🧪 Start Shah Hayaat Lab</a>
+            <a href="wellness-lab.html" class="btn btn-glow btn-lg">🔍 Find Your Perfect Herbal Remedy</a>
           </div>
           <div class="hero-trust-pill" role="note">🌿 WHO-GMP &nbsp;·&nbsp; ISO 9001:2015 &nbsp;·&nbsp; HACCP Certified</div>
         </div>
@@ -714,14 +717,15 @@ img[alt]{font-size:0}
         <div class="hero-img-col" aria-hidden="true">
           <div class="hero-img-glow"></div>
           <img
+            id="hero-product"
             src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg"
-            alt="Shah Hayaat Brain Champ Ayurvedic Product"
+            alt="Shah Hayaat Ayurvedic Product"
             class="hero-product-img"
             loading="eager"
             fetchpriority="high"
-            onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp.jpg'"
+            onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp.jpg'"
           >
-          <span class="hero-prod-label">Featured Remedy</span>
+          <span class="hero-prod-label" id="hero-prod-label">Brain Champ</span>
         </div>
 
       </div>
@@ -812,7 +816,7 @@ img[alt]{font-size:0}
       <h2 class="reveal delay-1" id="confusion-heading" style="color:#fff;margin-bottom:1rem">Not Sure Which Remedy<br>You Need?</h2>
       <p class="reveal delay-2" style="color:rgba(255,255,255,0.76);max-width:520px;margin:0 auto 2rem;font-size:1.05rem;line-height:1.72">Answer a few quick questions in the Shah Hayaat Lab and get a personalised herbal remedy recommendation.</p>
       <div class="reveal delay-3">
-        <a href="wellness-lab.html" class="btn btn-glow btn-lg">🧪 Start Shah Hayaat Lab</a>
+        <a href="wellness-lab.html" class="btn btn-glow btn-lg">🔍 Find Your Perfect Herbal Remedy</a>
         <p style="color:rgba(255,255,255,0.45);font-size:0.8rem;margin-top:0.9rem;letter-spacing:0.04em">Free assessment &nbsp;·&nbsp; Takes less than 60 seconds</p>
       </div>
     </div>
@@ -1409,6 +1413,7 @@ function renderProducts(container, { limit = null, cat = null } = {}) {
   container.innerHTML = list.map((p, i) => `
     <div class="product-card reveal delay-${(i % 4) + 1}" data-cat="${p.cat}">
       <div class="product-card-img">
+        ${p.id === 'brainchamp' ? '<span class="product-badge">🔥 #1 Memory Formula</span>' : ''}
         <img src="${imgSrc(p.id)}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src=imgFallback(p.id)">
         <span class="product-cat-tag">${p.tag}</span>
       </div>
@@ -1420,8 +1425,8 @@ function renderProducts(container, { limit = null, cat = null } = {}) {
           <div class="product-price">₹${p.price}</div>
           <div class="product-actions-row">
             <a href="product-detail.html?id=${p.id}" class="btn btn-outline btn-sm">View Details</a>
-            <a href="https://wa.me/917051056287?text=${encodeURIComponent('Hi! I would like to order ' + p.name + ' — ₹' + p.price)}"
-               target="_blank" rel="noopener" class="btn btn-primary btn-sm">Order Now</a>
+            <a href="https://wa.me/917051056287?text=${encodeURIComponent('Hello Shah Hayaat, I want to order ' + p.name + '. Please guide me.')}"
+               target="_blank" rel="noopener" class="btn btn-primary btn-sm">📱 Order on WhatsApp</a>
           </div>
         </div>
       </div>
@@ -1557,8 +1562,8 @@ document.addEventListener('DOMContentLoaded', () => {
               <div class="product-price">₹${p.price}</div>
               <div class="product-actions-row">
                 <a href="product-detail.html?id=${p.id}" class="btn btn-outline btn-sm">View Details</a>
-                <a href="https://wa.me/917051056287?text=${encodeURIComponent('Hi! I would like to order ' + p.name + ' — ₹' + p.price)}"
-                   target="_blank" rel="noopener" class="btn btn-primary btn-sm">Order Now</a>
+                <a href="https://wa.me/917051056287?text=${encodeURIComponent('Hello Shah Hayaat, I want to order ' + p.name + '. Please guide me.')}"
+                   target="_blank" rel="noopener" class="btn btn-primary btn-sm">📱 Order on WhatsApp</a>
               </div>
             </div>
           </div>
@@ -1827,6 +1832,52 @@ function _refreshWall(){
 
 document.addEventListener('DOMContentLoaded', ()=>{ _refreshWall(); });
 
+</script>
+
+<script>
+/* ── Rotating Hero Product ─────────────────────────────── */
+(function(){
+  const heroProducts = [
+    { src: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg',   name: 'Brain Champ',   fb: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp.jpg' },
+    { src: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/bloodstorm1.jpg.jpg',   name: 'Blood Storm',   fb: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/bloodstorm.jpg' },
+    { src: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg.jpg',   name: 'Livo Hayaat',   fb: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/livohayaat.jpg' },
+    { src: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/shahzyme1.jpg.jpg',     name: 'Shah Zyme',     fb: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/shahzyme.jpg' },
+    { src: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg.jpg',      name: 'Dia-Ease',      fb: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/diaease.png' },
+    { src: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg.jpg',  name: 'Ortho Hayaat',  fb: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/orthohayaat.jpg' },
+    { src: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/panasip1.jpg.jpg',      name: 'PanaSip',       fb: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/panasip.jpg' },
+    { src: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/passionpulse1.jpg.jpg', name: 'Passion Pulse', fb: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/passionpulse.jpg' },
+    { src: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/coughxpro1.jpg.jpg',    name: 'Cough X Pro',   fb: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/coughxpro.jpg' }
+  ];
+
+  const img   = document.getElementById('hero-product');
+  const label = document.getElementById('hero-prod-label');
+  if (!img) return;
+
+  let idx = 0;
+
+  // Preload all images silently
+  heroProducts.forEach(p => { const i = new Image(); i.src = p.src; });
+
+  setInterval(function(){
+    idx = (idx + 1) % heroProducts.length;
+    const next = heroProducts[idx];
+
+    // Fade out
+    img.style.opacity   = '0';
+    if (label) label.style.opacity = '0';
+
+    setTimeout(function(){
+      img.src = next.src;
+      img.onerror = function(){ this.onerror=null; this.src = next.fb; };
+      if (label) label.textContent = next.name;
+
+      // Fade in
+      img.style.opacity   = '1';
+      if (label) label.style.opacity = '1';
+    }, 500);
+
+  }, 4000);
+})();
 </script>
 </body>
 </html>
