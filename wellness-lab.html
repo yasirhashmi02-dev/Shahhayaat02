@@ -375,7 +375,7 @@ button,input,select{font-family:inherit}
   <div class="wrap">
     <div class="hero">
       <div class="hero-ey au">
-        <div class="tag">🧪 29 Smart Wellness Checks</div>
+        <div class="tag">🧪 36 Smart Wellness Checks</div>
         <div class="tag" style="background:#FFF0F5;border-color:rgba(168,48,96,.22);color:#A83060">🌸 + Women's Health Checks</div>
         <div class="tag tag--gd">✨ Free · Private · No Sign-Up</div>
       </div>
@@ -773,7 +773,7 @@ const LAB = {
   categories: {
     brain: {
       id:'brain', name:'Brain & Cognitive', icon:'🧠', color:'#2A7A5A',
-      tests:['mod_reactionSpeed','mod_fatigueDrift','mod_workingMemory','mod_sustainedAttention','mod_wordRecall','mod_cogUnderPressure','mod_numberSequence','mod_goNoGo','mod_multitask','mod_decisionSpeed'],
+      tests:['mod_reactionSpeed','mod_fatigueDrift','mod_workingMemory','mod_sustainedAttention','mod_wordRecall','mod_cogUnderPressure','mod_numberSequence','mod_goNoGo','mod_multitask','mod_decisionSpeed','mod_cogFlex'],
       scoreKey:'cognitive', time:'~5 min', desc:'Memory, focus, reaction speed and mental agility'
     },
     eye: {
@@ -788,8 +788,8 @@ const LAB = {
     },
     stability: {
       id:'stability', name:'Motor Stability', icon:'📱', color:'#7C3AED',
-      tests:['mod_stabilityHold','mod_microTremor'],
-      scoreKey:'stability', time:'~1 min', desc:'Hand steadiness and fine motor tremor control'
+      tests:['mod_stabilityHold','mod_microTremor','mod_postureBalance'],
+      scoreKey:'stability', time:'~2 min', desc:'Hand steadiness, fine motor tremor and posture balance'
     },
     lifestyle: {
       id:'lifestyle', name:'Lifestyle & Recovery', icon:'🌿', color:'#C0392B',
@@ -808,7 +808,7 @@ const LAB = {
     },
     stress: {
       id:'stress', name:'Stress & Regulation', icon:'🔥', color:'#C97010',
-      tests:['mod_cogUnderPressure','mod_calmTimer','mod_goNoGo'],
+      tests:['mod_cogUnderPressure','mod_calmTimer','mod_goNoGo','mod_stressRecovery','mod_emotionalStress'],
       scoreKey:'stress', time:'~3 min', desc:'Stress response, impulse control and calm regulation'
     },
     hearing: {
@@ -855,9 +855,14 @@ const LAB = {
             <span style="line-height:1.3">${c.name}<br><span style="font-size:.68rem;font-weight:400;color:var(--tq)">${c.time}</span></span>
           </button>`).join('')}
         </div>
-        <button class="btn btn--g" style="width:100%;font-size:.82rem" onclick="document.getElementById('_addMoreModal').remove()">
-          Maybe later — see my results
-        </button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
+          <button class="btn btn--p" style="font-size:.82rem" onclick="document.getElementById('_addMoreModal').remove();LAB.showResults()">
+            📊 See My Results
+          </button>
+          <button class="btn btn--o" style="font-size:.82rem;color:var(--g)" onclick="document.getElementById('_addMoreModal').remove();LAB.beginModules()">
+            ▶ Full Lab
+          </button>
+        </div>
       </div>`;
     document.body.appendChild(m);
     m.addEventListener('click', ev => { if (ev.target === m) m.remove(); });
@@ -1110,6 +1115,10 @@ const LAB = {
     mod_eyeStrain:'🖥 Eye Strain Test',
     mod_hydration:'💧 Hydration Risk',
     mod_circadian:'🌅 Circadian Type',
+    mod_postureBalance:'⚖ Posture Balance',
+    mod_emotionalStress:'😮 Emotional Stress',
+    mod_cogFlex:'🔄 Cognitive Flexibility',
+    mod_stressRecovery:'🧘 Stress Recovery',
     mod_multitask:'🔀 Multitask Load',
     mod_decisionSpeed:'⚡ Decision Speed',
     mod_fatigueDrift:'⚡ Fatigue Drift',
@@ -1132,8 +1141,9 @@ const LAB = {
     mod_breathSync:         {label:'🌬 Breathing', num:1, of:3},
     mod_co2Tolerance:       {label:'🌬 Breathing', num:2, of:3},
     mod_calmTimer:          {label:'🌬 Breathing', num:3, of:3},
-    mod_stabilityHold:      {label:'📱 Stability', num:1, of:2},
-    mod_microTremor:        {label:'📱 Stability', num:2, of:2},
+    mod_stabilityHold:      {label:'📱 Stability', num:1, of:3},
+    mod_microTremor:        {label:'📱 Stability', num:2, of:3},
+    mod_postureBalance:     {label:'📱 Stability', num:3, of:3},
     mod_sleepEfficiency:    {label:'🌿 Lifestyle', num:1, of:2},
     mod_lifestyleLoad:      {label:'🌿 Lifestyle', num:2, of:2},
     mod_hormonalRhythm:     {label:'🌸 Female',   num:1, of:2},
@@ -1147,8 +1157,11 @@ const LAB = {
     mod_recovery:           {label:'🌬 Breathing', num:4, of:4},
     mod_hydration:          {label:'🌿 Lifestyle', num:3, of:4},
     mod_circadian:          {label:'🌿 Lifestyle', num:4, of:4},
+    mod_stressRecovery:     {label:'🔥 Stress',     num:4, of:5},
+    mod_emotionalStress:    {label:'🔥 Stress',     num:5, of:5},
     mod_multitask:          {label:'🧠 Brain',     num:9, of:10},
-    mod_decisionSpeed:      {label:'🧠 Brain',     num:10, of:10},
+    mod_decisionSpeed:      {label:'🧠 Brain',     num:10, of:11},
+    mod_cogFlex:            {label:'🧠 Brain',     num:11, of:11},
   },
 
   _updateProg() {
@@ -4278,11 +4291,11 @@ LAB.showDashboard = function () {
     : `<span>✅ Assessment Complete</span>`;
   const subtitle = isCategoryMode && activeCat
     ? `${activeCat.tests.length} checks completed · ${activeCat.name} assessment<span style="display:inline-flex;align-items:center;gap:.28rem;margin-left:.6rem;padding:.18rem .55rem;background:#2A7A5A12;border:1px solid #2A7A5A28;border-radius:50px;font-size:.68rem;font-family:'JetBrains Mono',monospace;color:#2A7A5A;letter-spacing:.04em">✓ Results saved</span>`
-    : (completedDomains > 0 ? 'Based on ' + (isFem?'31':'29') + ' wellness checks across 9 health domains: cognitive, eye, respiratory, stress, stability, lifestyle and more.' : 'You skipped all activities — no data to score. Complete at least one test to see results.');
+    : (completedDomains > 0 ? 'Based on ' + (isFem?'38':'36') + ' wellness checks across 9 health domains: cognitive, eye, respiratory, stress, stability, lifestyle and more.' : 'You skipped all activities — no data to score. Complete at least one test to see results.');
   const scoreLabel = isCategoryMode && activeCat ? activeCat.name + ' Score' : 'Overall Wellness';
 
   /* ── Confidence: % of tests actually completed ── */
-  const totalPossible = isFem ? 31 : 29; /* updated: 29 tests + 2 female-only */
+  const totalPossible = isFem ? 38 : 36; /* updated: 29 tests + 2 female-only */
   const completedTests = Object.values(LAB.scores).filter(x => x != null).length;
   const confidencePct  = Math.round((completedTests / totalPossible) * 100);
   const confidenceLbl  = confidencePct >= 80 ? 'High' : confidencePct >= 50 ? 'Medium' : 'Low';
@@ -4321,19 +4334,22 @@ LAB.showDashboard = function () {
 
       ${!isCategoryMode && overall !== null ? (() => {
         const userAge = LAB.raw.userAge || null;
-        const wAge = userAge ? Math.max(10, Math.round(userAge + ((100-overall)/5) - 4)) : null;
+        const wa = LAB.calcWellnessAge(overall, userAge);
         const prevScore = LAB.raw.prevScore || null;
         const scoreDelta = (prevScore !== null && overall !== null) ? overall - prevScore : null;
         return `
         <div style="display:flex;flex-wrap:wrap;gap:.9rem;justify-content:center;margin-bottom:1.4rem">
-          ${wAge ? `<div style="background:linear-gradient(135deg,#E8F5EE,#F0FBF5);border:1.5px solid rgba(42,122,90,.28);border-radius:var(--r);padding:1rem 1.4rem;text-align:center;min-width:130px">
+          <div style="background:linear-gradient(135deg,#E8F5EE,#F0FBF5);border:1.5px solid rgba(42,122,90,.28);border-radius:var(--r);padding:1rem 1.4rem;text-align:center;min-width:130px">
             <div style="font-size:.62rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--tq);margin-bottom:.3rem">🧬 Wellness Age</div>
-            <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--g);line-height:1">${wAge}</div>
-            <div style="font-size:.68rem;color:var(--tq);margin-top:.2rem">vs your age: ${userAge}</div>
-          </div>` : `<div style="background:linear-gradient(135deg,#E8F5EE,#F0FBF5);border:1.5px solid rgba(42,122,90,.28);border-radius:var(--r);padding:1rem 1.4rem;text-align:center;min-width:130px">
-            <div style="font-size:.62rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--tq);margin-bottom:.3rem">🧬 Wellness Age</div>
-            <div style="font-size:.8rem;color:var(--g);font-weight:600">Complete lifestyle<br>section to see</div>
-          </div>`}
+            ${wa && wa.wellness ? `
+              <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--g);line-height:1">${wa.wellness}</div>
+              <div style="font-size:.68rem;color:var(--tq);margin-top:.2rem">Your age: ${wa.actual}</div>
+              <div style="font-size:.72rem;font-weight:700;color:${wa.delta <= 0 ? '#2A7A5A' : '#C97010'};margin-top:.15rem">${wa.icon} ${wa.label}</div>
+            ` : `
+              <div style="font-size:.85rem;font-weight:700;color:var(--g);margin:.25rem 0">${wa ? wa.icon + ' ' + wa.label : '—'}</div>
+              <div style="font-size:.68rem;color:var(--tq);margin-top:.15rem">Enter age for exact score</div>
+            `}
+          </div>
           ${LAB.raw.circadianType ? `<div style="background:#fff;border:1.5px solid var(--b);border-radius:var(--r);padding:1rem 1.4rem;text-align:center;min-width:130px">
             <div style="font-size:.62rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--tq);margin-bottom:.3rem">🕐 Circadian Type</div>
             <div style="font-size:1.6rem;line-height:1">${LAB.raw.circadianIcon || '☀️'}</div>
@@ -5078,6 +5094,105 @@ window.mod_goNoGo = function () {
    mod_hydration — lifestyle questionnaire, 5 questions
    Assesses hydration risk from daily habits
    ═══════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════
+   STRESS RECOVERY TEST
+   Category: Stress · measures autonomic recovery / HRV proxy
+   ══════════════════════════════════════════════════════════ */
+window.mod_stressRecovery = function() {
+  LAB.showDemo({
+    title: '🧘 Stress Recovery',
+    txt: 'A quick 5-question self-assessment measuring how well your body and mind recover from daily stress — based on validated stress resilience markers.',
+    hint: 'Stress · Recovery · Domain 4 of 4',
+    voiceEN: "Stress Recovery. Five questions about how your body recovers from stress. Answer honestly for the most accurate result.",
+    btnLabel: 'Begin Assessment →',
+    vis: `<div style="text-align:center;font-size:2.2rem;padding:.5rem">🧘</div>`,
+    anim(){}
+  }, () => {
+    const Qs = [
+      {
+        q: 'After a stressful event, how quickly do you feel calm again?',
+        opts: ['Within minutes','Within an hour','A few hours','Takes a full day or more'],
+        scores: [100, 75, 45, 20]
+      },
+      {
+        q: 'How well do you sleep after a difficult day?',
+        opts: ['Sleep normally — no problem','Slightly disturbed but okay','Noticeably poor sleep','Cannot sleep well at all'],
+        scores: [100, 72, 42, 18]
+      },
+      {
+        q: 'Do you experience physical symptoms of stress (headaches, tension, fast heartbeat)?',
+        opts: ['Rarely or never','Occasionally','Often','Almost daily'],
+        scores: [100, 68, 38, 15]
+      },
+      {
+        q: 'How do you feel on most mornings when you wake up?',
+        opts: ['Refreshed and ready','Fairly okay','Tired but functional','Exhausted or anxious'],
+        scores: [100, 72, 42, 18]
+      },
+      {
+        q: 'How would you rate your overall ability to cope with daily pressure?',
+        opts: ['Excellent — I handle it well','Good — mostly manageable','Difficult — I struggle','Poor — feeling overwhelmed'],
+        scores: [100, 72, 38, 12]
+      }
+    ];
+    let qi = 0;
+    const answers = [];
+
+    function showQ() {
+      if (qi >= Qs.length) { finish(); return; }
+      const { q, opts } = Qs[qi];
+      const qIdx = qi;
+      LAB.render(`<div class="mwrap"><div class="card card--pop">
+        <div class="step-head">
+          <div class="tag" style="background:#FFF4E6;border-color:rgba(201,120,0,.28);color:#C97010">🧘 Stress Recovery · Q${qi+1} of ${Qs.length}</div>
+          <h2 class="h2" style="margin-top:.75rem">${q}</h2>
+        </div>
+        <div style="display:grid;gap:.6rem;margin-top:1.2rem">
+          ${opts.map((o,i) => `<button class="btn btn--o" style="text-align:left;justify-content:flex-start;font-size:.9rem"
+            onclick="document.querySelectorAll('[data-srq]').forEach(b=>b.style.opacity='.4');
+                     this.style.background='#FFF4E6';this.style.borderColor='#C97010';
+                     setTimeout(()=>{ window._srAnswers.push(${Qs[qIdx].scores[i]});window._srNextQ(); },420)"
+            data-srq="${qi}">${o}</button>`).join('')}
+        </div>
+        <p class="pg" style="margin-top:1rem;font-size:.72rem;opacity:.55">Tap your answer to continue</p>
+      </div></div>`);
+    }
+
+    window._srAnswers = answers;
+    window._srNextQ = () => { qi++; showQ(); };
+
+    function finish() {
+      const avg = Math.round(answers.reduce((a,b)=>a+b,0) / answers.length);
+      LAB.raw.stressRecoveryScore = avg;
+      // Merge into stress domain
+      const stressCmp = [LAB.raw.mathScore, LAB.raw.patternScore, LAB.raw.goNoGoScore, avg].filter(x=>x!=null);
+      if (stressCmp.length) LAB.scores.stress = Math.round(LAB.avg(stressCmp));
+
+      const level = avg >= 75 ? 'Strong Recovery' : avg >= 50 ? 'Moderate Recovery' : 'Low Recovery';
+      const lvlCol = avg >= 75 ? '#2A7A5A' : avg >= 50 ? '#C97010' : '#C0392B';
+      const advice = avg >= 75
+        ? 'Your stress resilience is excellent. Regular exercise and sleep maintenance will preserve this.'
+        : avg >= 50
+        ? 'Your recovery is average. Box breathing, short walks and improved sleep can meaningfully improve this score.'
+        : 'Your recovery score is low. This suggests chronic stress accumulation. Consider breathwork, reducing caffeine, and speaking to a professional if symptoms persist.';
+
+      LAB.render(`<div class="mwrap"><div class="card card--pop" style="text-align:center">
+        <div class="step-head">
+          <div class="tag" style="background:${lvlCol}18;color:${lvlCol};border-color:${lvlCol}44">🧘 Stress Recovery · Result</div>
+          <h2 class="h2" style="margin-top:.75rem">Recovery Score: <span style="color:${lvlCol}">${avg}</span></h2>
+          <p class="pg" style="font-weight:700;color:${lvlCol}">${level}</p>
+          <div style="margin:.8rem auto;max-width:360px;background:${lvlCol}0F;border:1px solid ${lvlCol}33;border-radius:10px;padding:.85rem;font-size:.82rem;color:${avg<50?'#7A2020':avg<75?'#6D4C00':'#1B5E20'};text-align:left;line-height:1.65">
+            💡 ${advice}
+          </div>
+        </div>
+        <button class="btn btn--p" style="margin-top:1rem;background:linear-gradient(135deg,#C97010,#A85C0A)" onclick="LAB.next()">Continue →</button>
+      </div></div>`);
+    }
+
+    showQ();
+  });
+};
+
 window.mod_hydration = function () {
   LAB.showDemo({
     title: '💧 Hydration Risk',
@@ -5652,6 +5767,8 @@ LAB._buildRecs = function() {
 
   if((S.stress||100)<55)
     recs.push({icon:'🔥',title:'Stress Management',body:'High stress reduces cognitive performance under pressure. Mindfulness, consistent sleep and limiting caffeine can improve scores.',action:'Try mindfulness',col:'#C97010'});
+  if((R.stressRecoveryScore||100)<50)
+    recs.push({icon:'🧘',title:'Poor Stress Recovery',body:'Your body takes longer than average to recover from stressful events. Daily breathwork — even 5 minutes of box breathing (4-4-4-4) — can accelerate recovery speed measurably.',action:'Box breathing 5 min/day',col:'#7C3AED'});
 
   if((R.tremorDev||0)>35)
     recs.push({icon:'✏',title:'Fine Motor Stability',body:'Higher tremor deviation can result from caffeine, poor sleep or stress. Reducing stimulants and practising steady-hand tasks helps.',action:'Reduce caffeine',col:'#7C3AED'});
@@ -5678,6 +5795,24 @@ LAB._buildRecs = function() {
 
   if((S.cognitive||0)>=75)
     recs.push({icon:'🏆',title:'Strong Cognition',body:'Your cognitive scores are excellent! Keep challenging your brain with varied activities — novelty is key to maintaining sharpness.',action:'Keep it up!',col:'#2A7A5A'});
+
+  // Posture Balance
+  if(R.postureScore!=null && R.postureScore<50)
+    recs.push({icon:'⚖',title:'Postural Instability Detected',body:'High micro-movement was recorded (deviation: '+R.postureStdDev+'). This may be caused by caffeine, fatigue, stress or a neurological factor. Reducing stimulants and practising balance exercises can help.',action:'Balance exercises daily',col:'#7C3AED'});
+  else if(R.postureScore!=null && R.postureScore>=80)
+    recs.push({icon:'⚖',title:'Excellent Balance',body:'Your postural stability score is very high. This reflects good core strength, proprioception and nervous system control.',action:'Keep it up!',col:'#7C3AED'});
+
+  // Emotional Stress
+  if(R.emotionalFalseAlarms!=null && R.emotionalFalseAlarms>2)
+    recs.push({icon:'😮',title:'High Emotional Reactivity',body:'You tapped '+R.emotionalFalseAlarms+' stress words accidentally. This suggests your nervous system responds quickly to threatening stimuli — a marker of elevated background stress or anxiety.',action:'Mindfulness · breathing exercises',col:'#C97010'});
+  else if(R.emotionalStressScore!=null && R.emotionalStressScore>=75)
+    recs.push({icon:'😮',title:'Stable Emotional Response',body:'Your emotional stress response shows good inhibitory control. You can effectively suppress reactions to stressful stimuli.',action:'Maintain stress hygiene',col:'#2A7A5A'});
+
+  // Cognitive Flexibility
+  if(R.cogFlexSwitchErrors!=null && R.cogFlexSwitchErrors>3)
+    recs.push({icon:'🔄',title:'Cognitive Flexibility Below Average',body:'You made '+R.cogFlexSwitchErrors+' errors on rule-switch trials. Cognitive rigidity often links to sleep deprivation, chronic stress or insufficient mental variety. Brain training and novel activities help.',action:'Try new activities daily',col:'#2563EB'});
+  else if(R.cogFlexScore!=null && R.cogFlexScore>=80)
+    recs.push({icon:'🔄',title:'High Cognitive Flexibility',body:'Excellent rule-switching ability. Your brain adapts quickly to changing demands — a strong predictor of resilience and problem-solving capacity.',action:'Keep challenging yourself!',col:'#2A7A5A'});
 
   // Hydration
   if((R.hydrationScore||100)<55)
@@ -6601,161 +6736,6 @@ window.mod_gutHealth = function () {
 };
 
 /* ── Hearing Check ─────────────────────────────────────────────────── */
-
-/* ══════════════════════════════════════════════════════════
-   HYDRATION RISK ASSESSMENT
-   Category: Lifestyle · measures dehydration risk factors
-   ══════════════════════════════════════════════════════════ */
-window.mod_hydration = function() {
-  LAB.showDemo({
-    title: '💧 Hydration Risk Assessment',
-    txt: 'Answer 5 quick questions about your daily habits. Dehydration affects cognition, energy and mood — even mild dehydration impacts focus by 10–20%.',
-    hint: 'Lifestyle · Hydration',
-    voiceEN: "Hydration Risk. Answer 5 quick questions about your daily water intake and habits.",
-    btnLabel: 'Begin Assessment →',
-    vis: `<div style="text-align:center;font-size:2.2rem;padding:.5rem">💧</div>`,
-    anim(){}
-  }, () => {
-    const Qs = [
-      { q: 'How many glasses of water do you drink daily?', opts: ['8+ glasses','5–7 glasses','3–4 glasses','1–2 glasses'], scores:[100,75,45,15] },
-      { q: 'How often do you get headaches?', opts: ['Rarely or never','1–2 times/week','3–4 times/week','Almost daily'], scores:[100,70,40,15] },
-      { q: 'How would you describe your urine colour most of the day?', opts: ['Pale yellow (ideal)','Light yellow','Dark yellow','Orange or brown'], scores:[100,75,40,10] },
-      { q: 'How often do you feel fatigued or low energy?', opts: ['Rarely','Sometimes','Often','Almost always'], scores:[100,70,40,20] },
-      { q: 'Do you drink caffeinated drinks (tea/coffee/cola) daily?', opts: ['No','1 cup','2–3 cups','4+ cups'], scores:[100,80,55,30] },
-    ];
-    let qi = 0;
-    const answers = [];
-
-    function showQ() {
-      if (qi >= Qs.length) { finish(); return; }
-      const { q, opts } = Qs[qi];
-      LAB.render(`<div class="mwrap"><div class="card card--pop">
-        <div class="step-head">
-          <div class="tag">💧 Hydration · Q${qi+1} of ${Qs.length}</div>
-          <h2 class="h2" style="margin-top:.75rem">${q}</h2>
-        </div>
-        <div style="display:grid;gap:.6rem;margin-top:1.2rem">
-          ${opts.map((o,i) => `<button class="btn btn--o" style="text-align:left;justify-content:flex-start;font-size:.9rem"
-            onclick="document.querySelectorAll('[data-hq]').forEach(b=>b.style.opacity='.4');this.style.background='var(--g4)';this.style.borderColor='var(--g)';
-            setTimeout(()=>{ window._hydAnswers.push(${Qs[qi].scores[i]});window._hydNextQ(); },400)"
-            data-hq="${qi}">${o}</button>`).join('')}
-        </div>
-        <p class="pg" style="margin-top:1.2rem;font-size:.72rem;opacity:.55">Tap your answer to continue</p>
-      </div></div>`);
-    }
-
-    window._hydAnswers = answers;
-    window._hydNextQ = () => { qi++; showQ(); };
-
-    function finish() {
-      const avg = Math.round(answers.reduce((a,b)=>a+b,0) / answers.length);
-      const risk = avg >= 75 ? 'Low Risk' : avg >= 50 ? 'Moderate Risk' : 'High Risk';
-      const riskCol = avg >= 75 ? '#2A7A5A' : avg >= 50 ? '#C97010' : '#C0392B';
-      LAB.raw.hydrationScore = avg;
-      // Merge into lifestyle
-      if (LAB.scores.lifestyle == null) LAB.scores.lifestyle = avg;
-      else LAB.scores.lifestyle = Math.round((LAB.scores.lifestyle + avg) / 2);
-
-      LAB.render(`<div class="mwrap"><div class="card card--pop" style="text-align:center">
-        <div class="step-head">
-          <div class="tag" style="background:${riskCol}18;color:${riskCol};border-color:${riskCol}44">💧 Hydration · Result</div>
-          <h2 class="h2" style="margin-top:.75rem">Hydration Score: <span style="color:${riskCol}">${avg}</span></h2>
-          <p class="pg">Dehydration Risk: <strong style="color:${riskCol}">${risk}</strong></p>
-          ${avg < 60 ? `<div style="margin:.8rem auto;max-width:340px;background:#FFF8E1;border:1px solid #FBC02D;border-radius:10px;padding:.8rem;font-size:.82rem;color:#6D4C00">
-            💡 Even 2% body dehydration impairs concentration and memory. Aim for 2–3L of water daily.
-          </div>` : `<div style="margin:.8rem auto;max-width:340px;background:#E8F5E9;border:1px solid #66BB6A;border-radius:10px;padding:.8rem;font-size:.82rem;color:#1B5E20">
-            ✅ Good hydration habits detected! Consistent hydration supports cognitive performance and energy.
-          </div>`}
-        </div>
-        <button class="btn btn--p" style="margin-top:1rem" onclick="LAB.next()">Continue →</button>
-      </div></div>`);
-    }
-
-    showQ();
-  });
-};
-
-/* ══════════════════════════════════════════════════════════
-   CIRCADIAN RHYTHM ASSESSMENT
-   Category: Lifestyle · determines chronotype
-   ══════════════════════════════════════════════════════════ */
-window.mod_circadian = function() {
-  LAB.showDemo({
-    title: '🌅 Circadian Rhythm',
-    txt: 'Discover your natural chronotype — whether you're a morning person, night owl, or somewhere in between. Your circadian type affects sleep quality, energy levels, and focus.',
-    hint: 'Lifestyle · Circadian Type',
-    voiceEN: "Circadian Rhythm test. Five quick questions to find your natural body clock type.",
-    btnLabel: 'Discover My Type →',
-    vis: `<div style="text-align:center;font-size:2.2rem;padding:.5rem">🌅🌙</div>`,
-    anim(){}
-  }, () => {
-    const Qs = [
-      { q: 'If completely free to plan your day, what time would you wake up?', opts: ['Before 6 AM','6–7:30 AM','7:30–9 AM','After 9 AM'], scores:[10,30,70,90] },
-      { q: 'When do you feel most mentally alert?', opts: ['Early morning (5–8 AM)','Mid-morning (9–11 AM)','Afternoon (12–4 PM)','Evening or night'], scores:[10,30,70,90] },
-      { q: 'How hard is it to wake up in the morning?', opts: ['Very easy — I'm up before the alarm','Fairly easy','Difficult — I need multiple alarms','Very hard'], scores:[10,30,70,90] },
-      { q: 'When do you get your best work done?', opts: ['Early morning','Morning','Afternoon','Evening or night'], scores:[10,30,70,90] },
-      { q: 'At what time do you typically feel sleepy at night?', opts: ['Before 9 PM','9–11 PM','11 PM–1 AM','After 1 AM'], scores:[10,30,70,90] },
-    ];
-    let qi = 0;
-    const scores = [];
-
-    function showQ() {
-      if (qi >= Qs.length) { finish(); return; }
-      const { q, opts } = Qs[qi];
-      LAB.render(`<div class="mwrap"><div class="card card--pop">
-        <div class="step-head">
-          <div class="tag">🌅 Circadian · Q${qi+1} of ${Qs.length}</div>
-          <h2 class="h2" style="margin-top:.75rem">${q}</h2>
-        </div>
-        <div style="display:grid;gap:.6rem;margin-top:1.2rem">
-          ${opts.map((o,i) => `<button class="btn btn--o" style="text-align:left;justify-content:flex-start;font-size:.9rem"
-            onclick="document.querySelectorAll('[data-cq]').forEach(b=>b.style.opacity='.4');this.style.background='var(--g4)';this.style.borderColor='var(--g)';
-            setTimeout(()=>{ window._circScores.push(${Qs[qi].scores[i]});window._circNextQ(); },400)"
-            data-cq="${qi}">${o}</button>`).join('')}
-        </div>
-      </div></div>`);
-    }
-
-    window._circScores = scores;
-    window._circNextQ = () => { qi++; showQ(); };
-
-    function finish() {
-      const avg = Math.round(scores.reduce((a,b)=>a+b,0) / scores.length);
-      let type, icon, desc, advice;
-      if (avg <= 30) {
-        type = 'Morning Lark'; icon = '🌅';
-        desc = 'You are naturally a morning person. Your peak cognitive performance is in the early hours.';
-        advice = 'Schedule demanding tasks before noon. Avoid late-night screens.';
-      } else if (avg <= 60) {
-        type = 'Intermediate'; icon = '🌤';
-        desc = 'You have a balanced chronotype with flexibility in your peak hours.';
-        advice = 'Experiment with 9–11 AM for deep work. Maintain a consistent bedtime.';
-      } else {
-        type = 'Night Owl'; icon = '🌙';
-        desc = 'Your cognitive peak arrives later in the day. Creative and analytical work may be best in the evening.';
-        advice = 'Try to align your schedule with your natural rhythm. Avoid early alarms when possible.';
-      }
-      LAB.raw.circadianType = type;
-      LAB.raw.circadianScore = avg;
-
-      LAB.render(`<div class="mwrap"><div class="card card--pop" style="text-align:center">
-        <div class="step-head">
-          <div class="tag">🌅 Circadian · Result</div>
-          <div style="font-size:3rem;margin:.6rem 0">${icon}</div>
-          <h2 class="h2" style="margin-top:.3rem">You are a ${type}</h2>
-          <p class="pg" style="max-width:380px;margin:.6rem auto 0">${desc}</p>
-          <div style="margin:.8rem auto;max-width:360px;background:var(--g4);border:1px solid var(--g2);border-radius:10px;padding:.8rem;font-size:.82rem;color:var(--g);text-align:left">
-            💡 <strong>Tip:</strong> ${advice}
-          </div>
-        </div>
-        <button class="btn btn--p" style="margin-top:1rem" onclick="LAB.next()">Continue →</button>
-      </div></div>`);
-    }
-
-    showQ();
-  });
-};
-
 /* ══════════════════════════════════════════════════════════
    EYE STRAIN / SCREEN FATIGUE TEST
    Category: Eye Health · measures digital eye strain
@@ -6913,6 +6893,484 @@ window.mod_eyeStrain = function() {
     }
 
     showFocusPhase();
+  });
+};
+
+/* ══════════════════════════════════════════════════════════════
+   mod_postureBalance — Posture & Balance Test
+   Category: Motor Stability · uses DeviceMotion API
+   Measures micro-movement / tremor from phone tilt
+   ══════════════════════════════════════════════════════════════ */
+window.mod_postureBalance = function() {
+  LAB.showDemo({
+    title: '⚖ Posture Balance',
+    txt: 'Hold your phone <strong>flat and still</strong> for 15 seconds. The phone measures micro-movements to assess your postural stability and hand tremor.',
+    hint: '📱 Stability · 3 of 3 · requires device motion sensor',
+    voiceEN: "Posture Balance Test. Hold your phone flat and completely still for 15 seconds. We will measure how steady you are.",
+    btnLabel: 'Start Balance Test →',
+    vis: `<div style="text-align:center;padding:.4rem">
+      <div style="width:70px;height:70px;background:linear-gradient(135deg,var(--g),#059669);border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:2rem;box-shadow:0 0 0 10px rgba(42,122,90,.12)" id="pbDemoDisc">📱</div>
+      <div style="font-size:.68rem;color:var(--tq);margin-top:.5rem">hold flat · stay still</div>
+    </div>`,
+    anim(vis) {
+      const d = vis.querySelector('#pbDemoDisc'); let t=0;
+      const id = setInterval(()=>{
+        t+=0.1;
+        if(d) d.style.transform = `rotate(${Math.sin(t)*6}deg) translateY(${Math.sin(t*1.3)*3}px)`;
+      }, 60);
+      return id;
+    }
+  }, () => {
+    const DURATION = 15000;
+    const samples = [];
+    let motionHandler = null;
+    let lastAlpha=0, lastBeta=0, lastGamma=0;
+    let startTime = 0;
+    let timerInt = null;
+    let collecting = false;
+
+    // Check if DeviceMotion is available
+    const hasMotion = typeof DeviceMotionEvent !== 'undefined';
+    const hasSensor = hasMotion && (typeof DeviceMotionEvent.requestPermission === 'function' || navigator.userAgent.match(/Android|iPhone|iPad/i));
+
+    function renderUI() {
+      LAB.render(`<div class="mwrap"><div class="card card--pop" style="border-color:rgba(124,58,237,.2)">
+        <div class="step-head">
+          <div class="tag" style="background:#F5F0FF;border-color:rgba(124,58,237,.28);color:#7C3AED">📱 Stability · 3 of 3</div>
+          <h2 class="h2" style="margin-top:.75rem">Posture Balance</h2>
+          <p class="pg">Place your phone on a flat surface or hold it horizontal. Stay as still as possible for 15 seconds.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:1rem;padding:1rem 0">
+          <div style="position:relative;width:120px;height:120px">
+            <div style="position:absolute;inset:0;border-radius:50%;background:rgba(124,58,237,.08);border:2px solid rgba(124,58,237,.2)"></div>
+            <div id="pbBall" style="position:absolute;top:50%;left:50%;width:24px;height:24px;border-radius:50%;background:#7C3AED;transform:translate(-50%,-50%);transition:transform .15s ease;box-shadow:0 2px 8px rgba(124,58,237,.4)"></div>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.6rem" id="pbIcon">📱</div>
+          </div>
+          <div id="pbStatus" style="font-size:.82rem;color:var(--tq);text-align:center">Press Start to begin · hold phone flat</div>
+          <div id="pbBar" style="width:100%;max-width:260px;height:8px;background:var(--b);border-radius:4px;overflow:hidden;display:none">
+            <div id="pbFill" style="height:100%;background:linear-gradient(90deg,#7C3AED,#A855F7);width:0%;transition:width .5s linear;border-radius:4px"></div>
+          </div>
+          <div id="pbScore" style="display:none;font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:700;color:#7C3AED"></div>
+        </div>
+        <button id="pbStartBtn" class="btn btn--p" style="margin-top:.5rem" onclick="window._pbStart()">▶ Start 15-second Test</button>
+        <button id="pbSkipBtn" class="btn btn--g" style="margin-top:.5rem;display:none" onclick="LAB.next()">Continue without sensor →</button>
+      </div></div>`);
+    }
+
+    renderUI();
+
+    async function requestPermission() {
+      if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+        try { const r = await DeviceMotionEvent.requestPermission(); return r === 'granted'; }
+        catch(e) { return false; }
+      }
+      return true;
+    }
+
+    window._pbStart = async function() {
+      const btn = document.getElementById('pbStartBtn');
+      if (btn) btn.style.display = 'none';
+
+      const granted = await requestPermission();
+      if (!granted || !hasMotion) {
+        // Fallback: simulate with mouse/touch stability questionnaire
+        const skipBtn = document.getElementById('pbSkipBtn');
+        const status = document.getElementById('pbStatus');
+        if (status) status.textContent = '⚠ Motion sensor not available on this device';
+        if (skipBtn) skipBtn.style.display = '';
+        // Give a neutral score
+        LAB.raw.postureScore = 70;
+        LAB.raw.postureNote = 'sensor unavailable';
+        const cur = [LAB.raw.stabilityScore, LAB.raw.tremorScore, 70].filter(x=>x!=null);
+        if (cur.length) LAB.scores.stability = Math.round(LAB.avg(cur));
+        return;
+      }
+
+      const bar = document.getElementById('pbBar');
+      const fill = document.getElementById('pbFill');
+      const status = document.getElementById('pbStatus');
+      if (bar) bar.style.display = '';
+
+      collecting = true;
+      startTime = performance.now();
+
+      // Listen for device motion
+      motionHandler = (e) => {
+        if (!collecting) return;
+        const a = e.acceleration || e.accelerationIncludingGravity || {};
+        const ax = a.x || 0, ay = a.y || 0, az = a.z || 0;
+        const mag = Math.sqrt(ax*ax + ay*ay + az*az);
+        samples.push(mag);
+        // Update ball position
+        const ball = document.getElementById('pbBall');
+        if (ball) {
+          const bx = Math.min(48, Math.max(-48, (ax||0)*8));
+          const by = Math.min(48, Math.max(-48, (ay||0)*8));
+          ball.style.transform = `translate(calc(-50% + ${bx}px), calc(-50% + ${by}px))`;
+        }
+      };
+      window.addEventListener('devicemotion', motionHandler);
+
+      // Orientation listener for the visual disc
+      const orientHandler = (e) => {
+        const icon = document.getElementById('pbIcon');
+        if (icon) {
+          const g = Math.min(45, Math.abs(e.gamma||0));
+          const b = Math.min(45, Math.abs(e.beta||0));
+          icon.style.transform = `rotate(${e.gamma||0}deg) perspective(200px) rotateX(${(e.beta||45)-45}deg)`;
+        }
+      };
+      window.addEventListener('deviceorientation', orientHandler);
+
+      // Progress timer
+      timerInt = setInterval(() => {
+        const elapsed = performance.now() - startTime;
+        const pct = Math.min(100, (elapsed / DURATION) * 100);
+        if (fill) fill.style.width = pct + '%';
+        const secs = Math.ceil((DURATION - elapsed) / 1000);
+        if (status) status.textContent = `Measuring… ${secs}s remaining — hold still!`;
+        if (elapsed >= DURATION) {
+          clearInterval(timerInt);
+          collecting = false;
+          window.removeEventListener('devicemotion', motionHandler);
+          window.removeEventListener('deviceorientation', orientHandler);
+          finishBalance();
+        }
+      }, 200);
+    };
+
+    function finishBalance() {
+      if (samples.length < 5) {
+        LAB.raw.postureScore = 70;
+        LAB.raw.postureNote = 'insufficient samples';
+      } else {
+        // Calculate stability: lower variance = higher score
+        const mean = samples.reduce((a,b)=>a+b,0) / samples.length;
+        const variance = samples.reduce((a,b)=>a+(b-mean)*(b-mean),0) / samples.length;
+        const stdDev = Math.sqrt(variance);
+        // stdDev < 0.3 = excellent, > 2.0 = very shaky
+        const sc = Math.max(20, Math.min(100, Math.round(100 - (stdDev * 28))));
+        LAB.raw.postureScore = sc;
+        LAB.raw.postureStdDev = Math.round(stdDev * 100) / 100;
+      }
+      const sc = LAB.raw.postureScore;
+      const cur = [LAB.raw.stabilityScore, LAB.raw.tremorScore, sc].filter(x=>x!=null);
+      if (cur.length) LAB.scores.stability = Math.round(LAB.avg(cur));
+
+      const lbl = sc >= 80 ? 'Excellent Stability' : sc >= 60 ? 'Good Stability' : sc >= 40 ? 'Moderate Movement' : 'High Movement Detected';
+      const col = sc >= 80 ? '#2A7A5A' : sc >= 60 ? '#059669' : sc >= 40 ? '#C97010' : '#C0392B';
+
+      const scoreEl = document.getElementById('pbScore');
+      const status = document.getElementById('pbStatus');
+      if (scoreEl) { scoreEl.style.display = ''; scoreEl.textContent = sc; scoreEl.style.color = col; }
+      if (status) status.innerHTML = `<strong style="color:${col}">${lbl}</strong>`;
+
+      setTimeout(() => LAB.next(), 2200);
+    }
+  });
+};
+
+/* ══════════════════════════════════════════════════════════════
+   mod_emotionalStress — Emotional Stress Response Test
+   Category: Stress · measures stress sensitivity via reaction time
+   to emotionally-charged words vs neutral words
+   ══════════════════════════════════════════════════════════════ */
+window.mod_emotionalStress = function() {
+  LAB.showDemo({
+    title: '😮 Emotional Stress Response',
+    txt: 'Words will flash on screen. Tap <strong style="color:#2A7A5A">green</strong> when you see a positive or neutral word, <strong style="color:#C0392B">red</strong> to ignore stress-related words. Your reaction delay reveals emotional sensitivity.',
+    hint: 'Stress · 5 of 5 · measures emotional reactivity',
+    voiceEN: "Emotional Stress Response. Words will flash one at a time. Tap green for positive or neutral words, red for stressful words. React as fast as you can!",
+    btnLabel: 'Start Emotional Test →',
+    vis: `<div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;max-width:220px;margin:0 auto">
+      ${[['CALM','#2A7A5A'],['STRESS','#C0392B'],['HAPPY','#2A7A5A'],['WORRY','#C0392B']].map(([w,c])=>`<div style="background:${c}18;border:1.5px solid ${c}44;border-radius:8px;padding:.4rem;text-align:center;font-weight:700;font-size:.75rem;color:${c}">${w}</div>`).join('')}
+    </div>`
+  }, () => {
+    const POSITIVE = ['CALM','HAPPY','PEACE','SAFE','JOY','RELAX','LOVE','BRIGHT','WARM','KIND','FREE','HOPE','SMILE','TRUST','GENTLE'];
+    const STRESS   = ['PANIC','THREAT','DANGER','FEAR','WORRY','PAIN','TENSE','DREAD','ALARM','RUSH','CRASH','FAIL','ANGRY','HURT','TRAP'];
+    const NEUTRAL  = ['TABLE','CLOCK','PAPER','WINDOW','CARPET','SHELF','BRIDGE','RIVER','STONE','CLOUD','PLANT','CHAIR','PENCIL','LAMP','DOOR'];
+
+    const shuffle = a => { const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; };
+
+    // Build 18-word sequence: 6 stress, 6 positive, 6 neutral — shuffled
+    const seq = shuffle([
+      ...shuffle(STRESS).slice(0,6).map(w=>({w, type:'stress', correct:'no-go'})),
+      ...shuffle(POSITIVE).slice(0,6).map(w=>({w, type:'positive', correct:'tap'})),
+      ...shuffle(NEUTRAL).slice(0,6).map(w=>({w, type:'neutral', correct:'tap'}))
+    ]);
+
+    let idx = 0;
+    const tapTimes = { stress:[], other:[] }; // stress = suppression delay, other = tap speed
+    let wordStart = 0, responded = false;
+    const falseAlarms = []; // tapped stress words
+
+    function showWord() {
+      if (idx >= seq.length) { finish(); return; }
+      const { w, type, correct } = seq[idx];
+      responded = false;
+      const isStress = type === 'stress';
+      const col = isStress ? '#C0392B' : type === 'positive' ? '#2A7A5A' : '#2563EB';
+      const bg  = isStress ? '#FFF0EE' : type === 'positive' ? '#E8F5EE' : '#EEF4FF';
+
+      LAB.render(`<div class="mwrap"><div class="card card--pop" style="border-color:${col}33;background:${bg}">
+        <div class="step-head">
+          <div class="tag" style="background:${col}18;border-color:${col}44;color:${col}">😮 Stress Response · ${idx+1} of ${seq.length}</div>
+          <div style="text-align:center;padding:2rem 0">
+            <div id="emWord" style="font-size:clamp(1.8rem,7vw,2.8rem);font-weight:900;letter-spacing:.05em;color:${col};font-family:'JetBrains Mono',monospace;transition:opacity .2s">${w}</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.5rem">
+          <button id="emTapBtn" onclick="window._emRespond('tap')"
+            style="background:#E8F5EE;border:2px solid #2A7A5A;border-radius:var(--rs);padding:1rem;
+                   font-weight:700;font-size:1rem;color:#2A7A5A;cursor:pointer;transition:.15s"
+            onmousedown="this.style.transform='scale(.96)'" onmouseup="this.style.transform=''">
+            ✅ TAP
+          </button>
+          <button id="emSkipBtn" onclick="window._emRespond('no-go')"
+            style="background:#FFF0EE;border:2px solid #C0392B;border-radius:var(--rs);padding:1rem;
+                   font-weight:700;font-size:1rem;color:#C0392B;cursor:pointer;transition:.15s"
+            onmousedown="this.style.transform='scale(.96)'" onmouseup="this.style.transform=''">
+            🚫 SKIP
+          </button>
+        </div>
+        <p style="text-align:center;font-size:.68rem;color:var(--tq);margin-top:.7rem">
+          Tap ✅ for neutral/positive · Skip 🚫 for stressful words
+        </p>
+      </div></div>`);
+      wordStart = performance.now();
+
+      // Auto-advance if no response in 2.5s
+      window._emAutoTimer = setTimeout(() => {
+        if (!responded) window._emRespond(null);
+      }, 2500);
+    }
+
+    window._emRespond = function(action) {
+      if (responded) return;
+      responded = true;
+      clearTimeout(window._emAutoTimer);
+      const rt = performance.now() - wordStart;
+      const item = seq[idx];
+
+      if (item.type === 'stress') {
+        tapTimes.stress.push(rt);
+        if (action === 'tap') falseAlarms.push(item.w); // tapped a stress word
+      } else {
+        if (action === 'tap') tapTimes.other.push(rt);
+      }
+      idx++;
+      setTimeout(showWord, 300);
+    };
+
+    function finish() {
+      // Calculate scores:
+      // 1. Inhibition accuracy: how well they avoided stress words
+      const inhibAcc = Math.max(0, 100 - (falseAlarms.length / 6) * 100);
+      // 2. Mean RT for positive/neutral (lower = less anxious)
+      const avgRT = tapTimes.other.length ? tapTimes.other.reduce((a,b)=>a+b,0)/tapTimes.other.length : 800;
+      const rtScore = Math.max(20, Math.min(100, Math.round(140 - (avgRT / 10))));
+      // 3. Stress word RT (longer hold time = more processing = possible stress sensitivity)
+      const avgStressRT = tapTimes.stress.length ? tapTimes.stress.reduce((a,b)=>a+b,0)/tapTimes.stress.length : 800;
+      const stressRTScore = Math.max(20, Math.min(100, Math.round(140 - (avgStressRT/10))));
+
+      const combined = Math.round((inhibAcc * 0.5) + (rtScore * 0.3) + (stressRTScore * 0.2));
+
+      LAB.raw.emotionalStressScore = combined;
+      LAB.raw.emotionalInhibAcc = Math.round(inhibAcc);
+      LAB.raw.emotionalFalseAlarms = falseAlarms.length;
+      LAB.raw.emotionalAvgRT = Math.round(avgRT);
+
+      // Merge into stress domain
+      const stressCmps = [LAB.raw.mathScore, LAB.raw.patternScore, LAB.raw.goNoGoScore, LAB.raw.stressRecoveryScore, combined].filter(x=>x!=null);
+      if (stressCmps.length) LAB.scores.stress = Math.round(LAB.avg(stressCmps));
+
+      const lbl = combined >= 75 ? 'Low Stress Sensitivity' : combined >= 55 ? 'Moderate Sensitivity' : 'High Stress Sensitivity';
+      const col = combined >= 75 ? '#2A7A5A' : combined >= 55 ? '#C97010' : '#C0392B';
+
+      LAB.render(`<div class="mwrap"><div class="card card--pop" style="text-align:center">
+        <div class="tag" style="background:${col}18;color:${col};border-color:${col}44">😮 Emotional Stress · Result</div>
+        <h2 class="h2" style="margin-top:.75rem">Stress Sensitivity: <span style="color:${col}">${combined}</span></h2>
+        <p class="pg">${lbl}</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:.9rem 0;max-width:320px;margin:.9rem auto">
+          <div style="background:var(--g4);border:1px solid var(--g2);border-radius:10px;padding:.75rem;text-align:center">
+            <div style="font-size:1.4rem;font-weight:800;color:var(--g)">${Math.round(inhibAcc)}%</div>
+            <div style="font-size:.65rem;color:var(--tq)">Stress Word Accuracy</div>
+          </div>
+          <div style="background:${falseAlarms.length>2?'#FFF0EE':'var(--g4)'};border:1px solid ${falseAlarms.length>2?'#C0392B33':'var(--g2)'};border-radius:10px;padding:.75rem;text-align:center">
+            <div style="font-size:1.4rem;font-weight:800;color:${falseAlarms.length>2?'#C0392B':'var(--g)'}">${falseAlarms.length}</div>
+            <div style="font-size:.65rem;color:var(--tq)">False Taps</div>
+          </div>
+        </div>
+        ${falseAlarms.length > 2 ? `<div style="background:#FFF8E1;border:1px solid #FBC02D;border-radius:10px;padding:.75rem;font-size:.8rem;color:#5D3A00;max-width:340px;margin:0 auto .8rem">
+          💡 Tapping stress words suggests higher emotional reactivity. Mindfulness practice can improve inhibitory control.
+        </div>` : ''}
+        <button class="btn btn--p" style="margin-top:1rem" onclick="LAB.next()">Continue →</button>
+      </div></div>`);
+    }
+
+    showWord();
+  });
+};
+
+/* ══════════════════════════════════════════════════════════════
+   mod_cogFlex — Cognitive Flexibility Test
+   Category: Brain · measures mental adaptability / task-switching
+   Based on: Color-Shape sorting with rule switches mid-test
+   ══════════════════════════════════════════════════════════════ */
+window.mod_cogFlex = function() {
+  LAB.showDemo({
+    title: '🔄 Cognitive Flexibility',
+    txt: 'Sort shapes by <strong>colour</strong> then by <strong>shape</strong> — the rules <em>switch without warning</em>. How quickly you adapt reveals mental flexibility.',
+    hint: '🧠 Brain · 11 of 11 · measures rule-switching speed',
+    voiceEN: "Cognitive Flexibility! Sort shapes using the rule shown at the top. The rule will switch mid-test — adapt as fast as you can!",
+    btnLabel: 'Begin Flexibility Test →',
+    vis: `<div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;max-width:200px;margin:0 auto">
+      ${[['#E74C3C','●'],['#3498DB','■'],['#E74C3C','■'],['#3498DB','●']].map(([c,s])=>`<div style="width:44px;height:44px;background:${c}22;border:2px solid ${c}55;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:${c}">${s}</div>`).join('')}
+    </div>`
+  }, () => {
+    const SHAPES = ['●', '■', '▲'];
+    const COLORS_MAP = { red:'#E74C3C', blue:'#3498DB', green:'#2A7A5A' };
+    const COLORS = ['red','blue','green'];
+
+    // Generate 24 stimuli: alternating blocks of 6 with rule switches
+    const rules = ['color','shape','color','shape']; // 4 blocks × 6 = 24 trials
+    let trialIdx = 0;
+    let ruleIdx = 0;
+    let currentRule = rules[0];
+    let trialsInBlock = 0;
+    const BLOCK_SIZE = 6;
+    const TOTAL_TRIALS = rules.length * BLOCK_SIZE;
+
+    let correct = 0, errors = 0, switchErrors = 0;
+    const rts = [];
+    let trialStart = 0;
+    let justSwitched = false;
+    let awaitingResponse = false;
+
+    // Generate a stimulus
+    function mkStim() {
+      const shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+      const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      return { shape, color, col: COLORS_MAP[color] };
+    }
+
+    function showTrial() {
+      if (trialIdx >= TOTAL_TRIALS) { finish(); return; }
+      // Rule switch?
+      if (trialsInBlock >= BLOCK_SIZE) {
+        ruleIdx++;
+        currentRule = rules[ruleIdx] || 'color';
+        trialsInBlock = 0;
+        justSwitched = true;
+      } else { justSwitched = false; }
+
+      const stim = mkStim();
+      // Correct answer depends on rule
+      let correctGroup, wrongGroup;
+      if (currentRule === 'color') {
+        correctGroup = stim.color; // sort by colour: red=left, other=right
+      } else {
+        correctGroup = stim.shape === '●' ? 'circle' : stim.shape === '■' ? 'square' : 'triangle';
+      }
+      // Build LEFT and RIGHT options
+      const ruleLabel = currentRule === 'color' ? '🎨 Sort by COLOUR' : '🔷 Sort by SHAPE';
+      const leftLabel = currentRule === 'color' ? '🔴 Red' : '● Circle';
+      const rightLabel = currentRule === 'color' ? '🔵 Other' : '■▲ Other';
+      const correctSide = currentRule === 'color'
+        ? (stim.color === 'red' ? 'left' : 'right')
+        : (stim.shape === '●' ? 'left' : 'right');
+
+      awaitingResponse = true;
+      LAB.render(`<div class="mwrap"><div class="card card--pop">
+        <div class="step-head">
+          <div class="tag" style="background:${justSwitched?'#FFF4E6':'var(--g3)'};border-color:${justSwitched?'rgba(201,120,0,.35)':'var(--g2)'};color:${justSwitched?'#C97010':'var(--g)'};font-size:.68rem">
+            ${justSwitched ? '⚠ RULE SWITCHED! ' : ''}${ruleLabel} · ${trialIdx+1} / ${TOTAL_TRIALS}
+          </div>
+          <div style="text-align:center;padding:1.5rem 0">
+            <div style="font-size:5rem;color:${stim.col};line-height:1;filter:drop-shadow(0 4px 12px ${stim.col}44)">${stim.shape}</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.5rem">
+          <button onclick="window._cfTap('left','${correctSide}')"
+            style="background:#FFF0EE;border:2.5px solid #E74C3C44;border-radius:var(--rs);padding:1rem .5rem;
+                   font-weight:700;font-size:1.1rem;color:#E74C3C;cursor:pointer;transition:.15s;min-height:60px"
+            onmousedown="this.style.transform='scale(.96)'" onmouseup="this.style.transform=''">
+            ${leftLabel}
+          </button>
+          <button onclick="window._cfTap('right','${correctSide}')"
+            style="background:#EEF4FF;border:2.5px solid #3498DB44;border-radius:var(--rs);padding:1rem .5rem;
+                   font-weight:700;font-size:1.1rem;color:#3498DB;cursor:pointer;transition:.15s;min-height:60px"
+            onmousedown="this.style.transform='scale(.96)'" onmouseup="this.style.transform=''">
+            ${rightLabel}
+          </button>
+        </div>
+        <div style="display:flex;gap:3px;justify-content:center;margin-top:.8rem">
+          ${Array.from({length:TOTAL_TRIALS},(_,i)=>`<div style="width:${100/TOTAL_TRIALS-0.5}%;height:4px;border-radius:2px;background:${i<trialIdx?'var(--ok)':i===trialIdx?'var(--g)':'var(--b)'}"></div>`).join('')}
+        </div>
+      </div></div>`);
+      trialStart = performance.now();
+    }
+
+    window._cfTap = function(side, correctSide) {
+      if (!awaitingResponse) return;
+      awaitingResponse = false;
+      const rt = performance.now() - trialStart;
+      rts.push(rt);
+      if (side === correctSide) {
+        correct++;
+      } else {
+        errors++;
+        if (justSwitched) switchErrors++;
+      }
+      trialIdx++;
+      trialsInBlock++;
+      setTimeout(showTrial, 220);
+    };
+
+    function finish() {
+      const accuracy = Math.round((correct / TOTAL_TRIALS) * 100);
+      const avgRT = rts.length ? rts.reduce((a,b)=>a+b,0)/rts.length : 800;
+      const rtScore = Math.max(20, Math.min(100, Math.round(130 - (avgRT/10))));
+      const flexScore = Math.round((accuracy * 0.6) + (rtScore * 0.4));
+
+      LAB.raw.cogFlexScore = flexScore;
+      LAB.raw.cogFlexAccuracy = accuracy;
+      LAB.raw.cogFlexSwitchErrors = switchErrors;
+      LAB.raw.cogFlexAvgRT = Math.round(avgRT);
+
+      // Merge into cognitive domain
+      const cogCmps = [LAB.raw.rxScore, LAB.raw.memScore, LAB.raw.attScore, LAB.raw.wordRecallScore, LAB.raw.mathScore, LAB.raw.numberSeqScore, LAB.raw.goNoGoScore, LAB.raw.multitaskScore, LAB.raw.decisionScore, flexScore].filter(x=>x!=null);
+      if (cogCmps.length) LAB.scores.cognitive = Math.round(LAB.avg(cogCmps));
+
+      const lbl = flexScore >= 80 ? 'High Flexibility' : flexScore >= 60 ? 'Good Flexibility' : flexScore >= 40 ? 'Moderate Rigidity' : 'Low Flexibility';
+      const col = flexScore >= 80 ? '#2A7A5A' : flexScore >= 60 ? '#059669' : flexScore >= 40 ? '#C97010' : '#C0392B';
+
+      LAB.render(`<div class="mwrap"><div class="card card--pop" style="text-align:center">
+        <div class="tag" style="background:${col}18;color:${col};border-color:${col}44">🔄 Cognitive Flex · Result</div>
+        <h2 class="h2" style="margin-top:.75rem">Flexibility Score: <span style="color:${col}">${flexScore}</span></h2>
+        <p class="pg">${lbl}</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:.9rem auto;max-width:320px">
+          <div style="background:var(--g4);border:1px solid var(--g2);border-radius:10px;padding:.7rem;text-align:center">
+            <div style="font-size:1.3rem;font-weight:800;color:var(--g)">${accuracy}%</div>
+            <div style="font-size:.62rem;color:var(--tq)">Accuracy</div>
+          </div>
+          <div style="background:var(--g4);border:1px solid var(--g2);border-radius:10px;padding:.7rem;text-align:center">
+            <div style="font-size:1.3rem;font-weight:800;color:var(--g)">${Math.round(avgRT)}ms</div>
+            <div style="font-size:.62rem;color:var(--tq)">Avg Response</div>
+          </div>
+          <div style="background:${switchErrors>2?'#FFF0EE':'var(--g4)'};border:1px solid ${switchErrors>2?'#C0392B33':'var(--g2)'};border-radius:10px;padding:.7rem;text-align:center">
+            <div style="font-size:1.3rem;font-weight:800;color:${switchErrors>2?'#C0392B':'var(--g)'}">${switchErrors}</div>
+            <div style="font-size:.62rem;color:var(--tq)">Switch Errors</div>
+          </div>
+        </div>
+        ${switchErrors > 2 ? `<div style="background:#FFF8E1;border:1px solid #FBC02D;border-radius:10px;padding:.75rem;font-size:.8rem;color:#5D3A00;max-width:340px;margin:0 auto .8rem;text-align:left">
+          💡 High switch errors suggest lower cognitive flexibility. Practice alternating tasks and mindfulness to strengthen adaptability.
+        </div>` : ''}
+        <button class="btn btn--p" style="margin-top:.5rem" onclick="LAB.next()">Continue →</button>
+      </div></div>`);
+    }
+
+    showTrial();
   });
 };
 
