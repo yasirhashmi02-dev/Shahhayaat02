@@ -1163,7 +1163,7 @@ const LAB = {
     mod_circadian:          {label:'🌿 Lifestyle', num:4, of:4},
     mod_stressRecovery:     {label:'🔥 Stress',     num:4, of:5},
     mod_emotionalStress:    {label:'🔥 Stress',     num:5, of:5},
-    mod_multitask:          {label:'🧠 Brain',     num:9, of:10},
+    mod_multitask:          {label:'🧠 Brain',     num:9, of:11},
     mod_decisionSpeed:      {label:'🧠 Brain',     num:10, of:11},
     mod_cogFlex:            {label:'🧠 Brain',     num:11, of:11},
   },
@@ -1887,7 +1887,7 @@ window.mod_sustainedAttention = function () {
   }, () => {
     LAB.render(`<div class="mwrap"><div class="card card--pop">
       <div class="step-head">
-        <div class="tag">👁 Cognitive · 4 of 4</div>
+        <div class="tag">👁 Brain · 4 of 11</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Attention Test</h2>
         <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.6rem">
           <span style="display:inline-flex;align-items:center;gap:.3rem;padding:.22rem .72rem;background:var(--g3);border:1px solid rgba(42,122,90,.28);border-radius:50px;font-size:.8rem;font-weight:700;color:var(--g)">🟢 Green = TAP</span>
@@ -2792,7 +2792,7 @@ window.mod_cogUnderPressure = function () {
     LAB.render(`<div class="mwrap"><div class="card card--pop">
       <div class="step-head" style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.5rem">
         <div>
-          <div class="tag">🔥 Stress · 1 of 2</div>
+          <div class="tag">🔥 Brain · 6 of 11</div>
           <h2 class="h2" style="margin-top:.75rem;margin-bottom:.2rem">Maths Under Pressure</h2>
         </div>
         <span class="timer" id="mpTimer">${TIME-_elapsed}</span>
@@ -3791,14 +3791,14 @@ window.mod_wordRecall = function () {
     'sunset','pencil','anchor','violet','castle','pepper','thunder','basket'];
   // Shuffle and pick 6 fresh words every session
   const shuffle = a => { const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; };
-  const WORDS = shuffle(WORD_POOL).slice(0,6);
+  const WORDS = shuffle(WORD_POOL).slice(0,8);
   const SHOW_SECS = 10;
   let phase = 'idle';
 
   LAB.showDemo({
     title: '🔤 Word Recall',
     txt: '<strong>8 words</strong> will appear for 10 seconds. Read them carefully, then type back as many as you can remember.',
-    hint: 'Brain 4 of 5 — tests memory recall',
+    hint: 'Brain 5 of 11 — tests memory recall',
     voiceEN: "Word Recall! Eight words will appear on screen for 10 seconds. Read them all carefully — then they disappear and you type back however many you can remember. Ready?",
     btnLabel: 'Show Me the Words →',
     vis: `<div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;padding:.4rem" id="wrDemoWords">
@@ -3865,15 +3865,23 @@ window.mod_wordRecall = function () {
     const inp = document.getElementById('wrInput');
     const typed = (inp ? inp.value.toLowerCase() : '').split(/[\s,]+/).filter(w => w.length > 1);
     const correct = WORDS.filter(w => typed.includes(w));
+    const missed  = WORDS.filter(w => !typed.includes(w));
     const sc = LAB.clamp(Math.round((correct.length / WORDS.length) * 100), 5, 100);
     LAB.raw.wordRecallCorrect = correct.length;
     LAB.raw.wordRecallScore = sc;
-    // Feed into cognitive score
     const cogScores = ['rxScore','memScore','attScore','wordRecallScore'].map(k=>LAB.raw[k]).filter(x=>x!=null);
     if (cogScores.length) LAB.scores.cognitive = Math.round(LAB.avg(cogScores));
     LAB.celebrate();
+    // Show result card with correct/missed words before advancing
+    LAB.render(`<div class="mwrap"><div class="card card--pop" style="text-align:center">
+      <div class="tag" style="background:${LAB.scoreCol(sc)}18;color:${LAB.scoreCol(sc)};border-color:${LAB.scoreCol(sc)}44">🔤 Word Recall · Result</div>
+      <h2 class="h2" style="margin-top:.75rem">${correct.length} / ${WORDS.length} Recalled</h2>
+      <p class="pg" style="margin-bottom:.8rem">${LAB.scoreLbl(sc)} memory — score: <strong>${sc}</strong></p>
+      ${correct.length ? '<div style="margin:.5rem 0"><div style="font-size:.72rem;color:#2A7A5A;font-weight:700;margin-bottom:.35rem">✅ Remembered</div><div style="display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center">' + correct.map(w=>`<span style="padding:.22rem .65rem;background:#E8F5EE;border:1px solid #2A7A5A40;border-radius:6px;font-size:.82rem;font-weight:700;color:#2A7A5A">${w}</span>`).join('') + '</div></div>' : ''}
+      ${missed.length ? '<div style="margin:.5rem 0"><div style="font-size:.72rem;color:#C05050;font-weight:700;margin-bottom:.35rem">❌ Missed</div><div style="display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center">' + missed.map(w=>`<span style="padding:.22rem .65rem;background:#FFF0F0;border:1px solid #E8808040;border-radius:6px;font-size:.82rem;font-weight:700;color:#C05050">${w}</span>`).join('') + '</div></div>' : ''}
+    </div></div>`);
     LAB.say(`Word recall done! You remembered ${correct.length} out of ${WORDS.length} words — that is ${LAB.scoreLbl(sc)}! Brilliant effort!`);
-    setTimeout(() => { LAB.idx++; LAB.next(); }, 1900);
+    setTimeout(() => { LAB.idx++; LAB.next(); }, 3200);
   };
 };
 
@@ -4988,18 +4996,22 @@ window.mod_numberSequence = function () {
         </div>
       </div>
       <div id="nsGrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-width:360px;margin:0 auto 1rem"></div>
+      <div id="nsReadyBanner" style="text-align:center;padding:.5rem;background:#EEF4FF;border-radius:8px;font-size:.78rem;color:#2563EB;font-weight:600;margin-top:-.5rem">
+        ⏱ Timer starts when you tap <strong>1</strong> — find it and go!
+      </div>
     </div></div>`);
 
-    // Render tiles
+    // Render tiles - highlight "1" so user knows where to start
     const g = document.getElementById('nsGrid');
     if(g) g.innerHTML = nums.map(n=>`
       <button onclick="_nsTap(${n})" id="ns_${n}"
-        style="background:#fff;border:2px solid var(--b);border-radius:10px;padding:.55rem .1rem;
-               font-weight:700;font-size:.9rem;color:var(--t);cursor:pointer;
+        style="background:${n===1?'#EEF4FF':'#fff'};border:2px solid ${n===1?'#2563EB':'var(--b)'};
+               border-radius:10px;padding:.55rem .1rem;
+               font-weight:700;font-size:.9rem;color:${n===1?'#2563EB':'var(--t)'};cursor:pointer;
                transition:all .15s;-webkit-tap-highlight-color:transparent;min-height:40px"
         aria-label="Number ${n}">${n}</button>`).join('');
 
-    startTime = 0; // will be set on first correct tap
+    startTime = 0; // will be set on first correct tap (tap "1")
 
     // Countdown timer (starts on first tap)
     let remSecs = TIME_LIMIT;
@@ -5011,6 +5023,7 @@ window.mod_numberSequence = function () {
       if(!el) { clearInterval(timerInt); return; }
       el.textContent = remSecs + 's';
       if(remSecs <= 10) el.style.color = '#E88080';
+      else el.style.color = 'var(--t)';
       if(remSecs <= 0) { clearInterval(timerInt); _nsDone(true); }
     }, 500);
 
@@ -5029,6 +5042,12 @@ window.mod_numberSequence = function () {
       if(!startTime) {
         startTime = performance.now();
         timeoutId = setTimeout(()=>{ if(!done) _nsDone(true); }, TIME_LIMIT * 1000 + 500);
+        // Hide ready banner
+        const rb = document.getElementById('nsReadyBanner');
+        if(rb) { rb.style.background='#E8F5EE'; rb.style.color='#2A7A5A'; rb.textContent='⏱ Timer running — find them all!'; }
+        // Reset tile 1 highlight
+        const t1 = document.getElementById('ns_1');
+        if(t1) { t1.style.background='#2A7A5A'; t1.style.borderColor='#2A7A5A'; t1.style.color='#fff'; t1.disabled=true; }
       }
       const btn = document.getElementById('ns_'+n);
       if(btn){ btn.style.background='#2A7A5A'; btn.style.borderColor='#2A7A5A'; btn.style.color='#fff'; btn.disabled=true; }
@@ -5044,7 +5063,7 @@ window.mod_numberSequence = function () {
     function _nsDone(timedOut) {
       done = true;
       clearInterval(timerInt); clearTimeout(timeoutId);
-      const elapsed = (performance.now()-startTime)/1000;
+      const elapsed = startTime ? (performance.now()-startTime)/1000 : TIME_LIMIT;
       const found = nextExpected - 1;
       let sc;
       if(timedOut) {
