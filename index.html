@@ -106,11 +106,15 @@ p{font-size:clamp(0.92rem,1.5vw,1rem);color:var(--text-mid);line-height:1.78}
 .btn-wa:hover{background:#1ea855;transform:translateY(-2px)}
 
 
-#preloader{position:fixed;inset:0;z-index:9999;background:var(--hero-bg-1);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.2rem;transition:opacity 0.6s,visibility 0.6s}
+#preloader{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:var(--hero-bg-1);transition:opacity 0.7s ease,visibility 0.7s ease}
 #preloader.out{opacity:0;visibility:hidden;pointer-events:none}
-.pre-logo{font-family:var(--font-head);font-size:1.8rem;color:#fff}.pre-logo em{color:var(--gold-light);font-style:normal}
+.pre-inner{text-align:center;display:flex;flex-direction:column;align-items:center;gap:0}
+.pre-logo{font-family:var(--font-head);font-size:1.9rem;color:#fff;margin-bottom:4px}.pre-logo em{color:var(--gold-light);font-style:normal}
+.pre-tagline{color:rgba(255,255,255,0.75);font-size:0.9rem;max-width:280px;margin:12px auto 14px;line-height:1.6;opacity:0;transform:translateY(10px);animation:taglineFade 1.2s ease forwards;animation-delay:0.4s}
+.pre-tagline strong{color:#D4A017;font-weight:600;letter-spacing:0.03em}
+@keyframes taglineFade{to{opacity:1;transform:translateY(0)}}
 .pre-line{width:140px;height:2px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;position:relative}
-.pre-line::after{content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;background:var(--gold-light);animation:preLoad 1.2s ease forwards}
+.pre-line::after{content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;background:#D4A017;animation:preLoad 1.4s ease forwards}
 @keyframes preLoad{to{left:0}}
 
 
@@ -370,82 +374,18 @@ body.nav-open{overflow:hidden}
 .review-card .r-name{font-size:0.74rem;font-weight:600;color:var(--green-mid)}
 </style>
 </head>
-  <script>
-window.addEventListener("load",function(){
-
-  const loader=document.getElementById("preloader");
-
-  setTimeout(()=>{
-    loader.classList.add("out");
-  },1200);
-
-});
-  </script>
 <body id="top">
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N3TB9P47" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
+<!-- Preloader -->
 <div id="preloader">
   <div class="pre-inner">
-.pre-inner{
-  text-align:center;
-}
-
-.pre-tagline{
-  color:rgba(255,255,255,.75);
-  font-size:.9rem;
-  max-width:280px;
-  margin:12px auto;
-  line-height:1.6;
-  opacity:0;
-  transform:translateY(10px);
-  animation:taglineFade 1.2s ease forwards;
-  animation-delay:.4s;
-}
-
-.pre-tagline strong{
-  color:#D4A017;
-  letter-spacing:.03em;
-}
-
-@keyframes taglineFade{
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-    .pre-line::after{
-  content:'';
-  position:absolute;
-  left:-100%;
-  top:0;
-  width:100%;
-  height:100%;
-  background:#D4A017;
-  animation:preLoad 1.4s ease forwards;
-}
-
-@keyframes preLoad{
-  to{
-    left:0;
-  }
-}
-    <div class="pre-logo">
-      Shah <em>Hayaat</em>
-    </div>
-
-    <p class="pre-tagline">
-      Welcome to <strong>SHAH HAYAAT</strong><br>
-      where ancient wisdom meets modern care
-    </p>
-
+    <div class="pre-logo">Shah <em>Hayaat</em></div>
+    <p class="pre-tagline">Welcome to <strong>SHAH HAYAAT</strong><br>where ancient wisdom meets modern care</p>
     <div class="pre-line"></div>
-
   </div>
 </div>
-<p class="pre-tagline">
-  Welcome to <strong>SHAH HAYAAT</strong><br>
-  where ancient wisdom meets modern care
-</p>
+
 <!-- Header -->
 <header class="site-header">
   <div class="container header-inner">
@@ -1030,4 +970,15 @@ document.addEventListener('DOMContentLoaded',buildReviewsWall);
   function next(){count++;idx=(idx+1)%products.length;advance(idx);}
   function resetTimer(){clearInterval(timer);timer=setInterval(next,5000);}
   resetTimer();
-  img.addEve
+  img.addEventListener('click',()=>{count++;idx=(idx+1)%products.length;advance(idx);resetTimer();});
+})();
+</script>
+
+<script>
+window.addEventListener('load',function(){
+  var loader=document.getElementById('preloader');
+  setTimeout(function(){ if(loader) loader.classList.add('out'); },1200);
+});
+</script>
+</body>
+</html>
