@@ -177,13 +177,24 @@ body.nav-open{overflow:hidden}
 .nav-mobile-cta{margin-top:auto}
 @media(min-width:1024px){.nav-desktop,.nav-cta{display:flex}.nav-toggle{display:none}}
 
-/* Hero */
-.hero{position:relative;min-height:100svh;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:linear-gradient(160deg,#0A1910 0%,#0F241B 40%,#142C22 70%,#0A1910 100%)}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 15% 55%,rgba(42,90,69,0.40) 0%,transparent 55%);pointer-events:none}
-.hero::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(15,36,27,0.35) 0%,transparent 35%,rgba(15,36,27,0.50) 100%);pointer-events:none;z-index:1}
-
-/* Hero inner: 2-col split */
+/* Hero — Premium Cinematic */
+.hero{
+  position:relative;
+  min-height:120vh;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 30% 50%,rgba(42,90,69,0.45),transparent 60%),
+    linear-gradient(160deg,#08140D 0%,#0F241B 40%,#142C22 70%,#08140D 100%);
+}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none}
+.hero::after{
+  content:'';position:absolute;inset:0;
+  background-image:url("https://www.transparenttextures.com/patterns/leaf.png");
+  opacity:0.04;pointer-events:none;
+}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(15,36,27,0.30) 0%,transparent 40%,rgba(15,36,27,0.45) 100%);pointer-events:none;z-index:1}
 .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:3rem;width:100%;padding:2rem 0}
 .hero-text{text-align:left}
 .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;padding:0.38rem 1.1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(198,167,94,0.20);color:rgba(198,167,94,0.65);font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.4rem}
@@ -192,16 +203,22 @@ body.nav-open{overflow:hidden}
 .hero-btns{display:flex;flex-wrap:wrap;gap:1rem;justify-content:flex-start;margin-bottom:1.4rem}
 .hero-trust-pill{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.72rem;font-weight:600;letter-spacing:0.06em;color:rgba(255,255,255,0.38);border-top:1px solid rgba(255,255,255,0.08);padding-top:1rem;margin-top:0.2rem}
 .hero-trust-pill span{color:rgba(198,167,94,0.55)}
-/* Hero product image column */
-.hero-img-col{position:relative;display:flex;align-items:center;justify-content:center;min-height:420px}
-.hero-img-glow{position:absolute;width:380px;height:380px;background:radial-gradient(circle,rgba(42,90,69,0.22) 0%,rgba(198,167,94,0.04) 50%,transparent 72%);border-radius:50%;pointer-events:none}
-.hero-product-img{position:relative;z-index:2;width:clamp(200px,26vw,320px);height:auto;filter:drop-shadow(0 24px 48px rgba(0,0,0,0.50));transition:transform 0.5s var(--r),opacity 0.5s ease;will-change:transform,opacity;cursor:pointer}
+/* Floating product container */
+.hero-img-col{position:relative;display:flex;align-items:center;justify-content:center;min-height:520px;perspective:1200px;}
+/* Animated glow behind bottle */
+.hero-img-glow{position:absolute;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(198,167,94,0.20) 0%,rgba(42,90,69,0.18) 40%,transparent 70%);filter:blur(40px);animation:heroGlow 6s ease-in-out infinite alternate;pointer-events:none;}
+@keyframes heroGlow{0%{transform:scale(0.95);opacity:.7}100%{transform:scale(1.08);opacity:1}}
+/* 3D floating bottle */
+.hero-product-img{position:relative;z-index:2;width:clamp(260px,32vw,420px);height:auto;filter:drop-shadow(0 30px 60px rgba(0,0,0,0.55));animation:floatBottle 6s ease-in-out infinite;transition:transform .5s cubic-bezier(.25,.46,.45,.94),opacity .5s ease;will-change:transform,opacity;cursor:pointer;}
+@keyframes floatBottle{0%{transform:translateY(0) rotateY(-5deg)}50%{transform:translateY(-16px) rotateY(5deg)}100%{transform:translateY(0) rotateY(-5deg)}}
+/* Cinematic slide animations */
+@keyframes cinematicRight{from{transform:translateX(140px) rotate(-2deg);opacity:0}to{transform:translateX(0) rotate(-2deg);opacity:1}}
+@keyframes cinematicLeft{from{transform:translateX(-140px) rotate(2deg);opacity:0}to{transform:translateX(0) rotate(2deg);opacity:1}}
+.hero-product-img.slide-in-right{animation:cinematicRight .75s cubic-bezier(.25,.46,.45,.94) forwards}
+.hero-product-img.slide-in-left{animation:cinematicLeft .75s cubic-bezier(.25,.46,.45,.94) forwards}
+/* Product label */
 .hero-prod-label{position:absolute;bottom:6%;left:50%;transform:translateX(-50%);background:rgba(15,36,27,0.88);border:1px solid rgba(198,167,94,0.30);color:rgba(198,167,94,0.85);font-size:0.70rem;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;padding:0.32rem 1rem;white-space:nowrap;z-index:3;transition:opacity 0.4s ease}
-/* Slide animations */
-@keyframes slide-in-right{from{transform:translateX(70px) rotate(-1.5deg);opacity:0}to{transform:translateX(0) rotate(-1.5deg);opacity:1}}
-@keyframes slide-in-left{from{transform:translateX(-70px) rotate(1.5deg);opacity:0}to{transform:translateX(0) rotate(1.5deg);opacity:1}}
-.hero-product-img.slide-in-right{animation:slide-in-right 0.55s var(--r) forwards}
-.hero-product-img.slide-in-left{animation:slide-in-left 0.55s var(--r) forwards}
+/* Scroll indicator */
 .hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:0.45rem;color:rgba(255,255,255,0.28);font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;animation:hero-bob 2.4s ease-in-out infinite}
 .hero-scroll::after{content:'';width:1px;height:36px;background:linear-gradient(to bottom,rgba(255,255,255,0.25),transparent)}
 @keyframes hero-bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
@@ -462,12 +479,12 @@ body.nav-open{overflow:hidden}
         <div class="hero-img-glow"></div>
         <img
           id="hero-product"
-          src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp.jpg"
-          alt="Brain Champ — Shah Hayaat Ayurvedic supplement for memory and concentration"
+          src="brainchamp1.jpg.jpg"
           class="hero-product-img slide-in-right"
+          alt="Shah Hayaat Herbal Product"
+          title="Tap to view next product"
           loading="eager"
           fetchpriority="high"
-          title="Click to see next product"
         >
         <span class="hero-prod-label" id="hero-prod-label">Brain Champ</span>
       </div>
@@ -483,7 +500,7 @@ body.nav-open{overflow:hidden}
     <div class="strip-grid">
       <a href="product-detail.html?id=brainchamp" class="strip-card">
         <div class="strip-img-wrap">
-          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp.jpg"
+          <img src="brainchamp1.jpg.jpg"
                alt="Brain Champ Ayurvedic supplement for memory and concentration" loading="eager">
         </div>
         <div class="strip-name">Brain Champ</div>
@@ -491,7 +508,7 @@ body.nav-open{overflow:hidden}
       </a>
       <a href="product-detail.html?id=bloodstorm" class="strip-card">
         <div class="strip-img-wrap">
-          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/bloodstorm.jpg"
+          <img src="bloodstorm1.jpg.jpg"
                alt="Blood Storm Ayurvedic blood tonic for haemoglobin and vitality" loading="eager">
         </div>
         <div class="strip-name">Blood Storm</div>
@@ -499,7 +516,7 @@ body.nav-open{overflow:hidden}
       </a>
       <a href="product-detail.html?id=livohayaat" class="strip-card">
         <div class="strip-img-wrap">
-          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/livohayaat.jpg"
+          <img src="livohayaat1.jpg.jpg"
                alt="Livo Hayaat Ayurvedic liver detox and health formulation" loading="eager">
         </div>
         <div class="strip-name">Livo Hayaat</div>
@@ -507,7 +524,7 @@ body.nav-open{overflow:hidden}
       </a>
       <a href="product-detail.html?id=shahzyme" class="strip-card">
         <div class="strip-img-wrap">
-          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/shahzyme.jpg"
+          <img src="shahzyme1.jpg.jpg"
                alt="Shah Zyme Ayurvedic digestive enzyme syrup for digestion" loading="eager">
         </div>
         <div class="strip-name">Shah Zyme</div>
@@ -812,7 +829,7 @@ body.nav-open{overflow:hidden}
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Follow Shah Hayaat on Instagram">&#128247;</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="Chat with Shah Hayaat on WhatsApp">&#128172;</a>
-          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon" aria-label="Email Shah Hayaat">&#9993;&#65039;</a>
+          <a href="/cdn-cgi/l/email-protection#53203b323b3b322a323227636113343e323a3f7d303c3e" class="soc-icon" aria-label="Email Shah Hayaat">&#9993;&#65039;</a>
           <a href="https://amzn.in/d/9vsBOWH" target="_blank" rel="noopener" class="soc-icon" aria-label="Shah Hayaat on Amazon India">&#128230;</a>
         </div>
         <div class="footer-cert-row">
@@ -839,7 +856,7 @@ body.nav-open{overflow:hidden}
         <li><a href="products.html">View All 12 &rarr;</a></li>
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
-        <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#c6b5aea7aeaea7bfa7a7b2f6f486a1aba7afaae8a5a9ab"><span class="__cf_email__" data-cfemail="d8abb0b9b0b0b9a1b9b9ace8ea98bfb5b9b1b4f6bbb7b5">[email&#160;protected]</span></a></li>
         <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
         <li><a href="https://instagram.com/shahhayaatofficial" target="_blank">@shahhayaatofficial</a></li>
         <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
@@ -894,7 +911,7 @@ body.nav-open{overflow:hidden}
 <!-- ═══════════════════════════════════════════════
      SHARED JS ENGINE — data, nav, products, blogs
 ═══════════════════════════════════════════════ -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 'use strict';
 /* ── DOM helpers ── */
 const $ = s => document.querySelector(s);
@@ -909,8 +926,8 @@ const IMG = {
   livohayaat:'livohayaat.jpg', diaease:'diaease.png', orthohayaat:'orthohayaat.jpg',
   utrohayaat:'utrohayaat.png', passionpulse:'passionpulse.jpg', fevodol:'fevodol.png'
 };
-function imgSrc(id) { return GH + (IMG[id] || id + '.jpg'); }
-function imgFallback(id) { return GH + (IMG[id] || id + '.jpg'); }
+function imgSrc(id) { return id + '1.jpg.jpg'; }
+function imgFallback(id) { return id + '1.jpg.jpg'; }
 
 /* ── PRODUCT DATA ── */
 const PRODUCTS = [
@@ -1212,76 +1229,76 @@ async function _refreshWall() {
 document.addEventListener('DOMContentLoaded', ()=>_refreshWall());
 </script>
 
-<!-- ═══════════════════════════════════
-     HERO PRODUCT SLIDER — slide ↔ slide
-     Click to advance. Auto every 4.5s.
-═══════════════════════════════════ -->
+<!-- Hero Product Slider — cinematic ↔ alternating slide -->
 <script>
 (function(){
   'use strict';
-  const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/';
+  const GH = '';
   const heroProducts = [
-    { src: GH+'brainchamp.jpg',   name:'Brain Champ',    link:'product-detail.html?id=brainchamp',   alt:'Brain Champ Ayurvedic memory and focus supplement' },
-    { src: GH+'bloodstorm.jpg',   name:'Blood Storm',    link:'product-detail.html?id=bloodstorm',   alt:'Blood Storm Ayurvedic haemoglobin tonic' },
-    { src: GH+'livohayaat.jpg',   name:'Livo Hayaat',    link:'product-detail.html?id=livohayaat',   alt:'Livo Hayaat Ayurvedic liver health formulation' },
-    { src: GH+'shahzyme.jpg',     name:'Shah Zyme',      link:'product-detail.html?id=shahzyme',     alt:'Shah Zyme Ayurvedic digestive enzyme syrup' },
-    { src: GH+'diaease.png',      name:'Dia-Ease',       link:'product-detail.html?id=diaease',      alt:'Dia-Ease Ayurvedic blood sugar support' },
-    { src: GH+'orthohayaat.jpg',  name:'Ortho Hayaat',   link:'product-detail.html?id=orthohayaat',  alt:'Ortho Hayaat Ayurvedic joint pain relief' },
-    { src: GH+'panasip.jpg',      name:'PanaSip',        link:'product-detail.html?id=panasip',      alt:'PanaSip Ayurvedic acidity relief syrup' },
-    { src: GH+'passionpulse.jpg', name:'Passion Pulse',  link:'product-detail.html?id=passionpulse', alt:'Passion Pulse Ayurvedic male vitality supplement' },
-    { src: GH+'coughxpro.jpg',    name:'Cough X Pro',    link:'product-detail.html?id=coughxpro',    alt:'Cough X Pro Ayurvedic cough relief syrup' }
+    { src:'brainchamp1.jpg.jpg',  name:'Brain Champ',   link:'product-detail.html?id=brainchamp'   },
+    { src:'bloodstorm1.jpg.jpg',  name:'Blood Storm',   link:'product-detail.html?id=bloodstorm'   },
+    { src:'livohayaat1.jpg.jpg',  name:'Livo Hayaat',   link:'product-detail.html?id=livohayaat'   },
+    { src:'shahzyme1.jpg.jpg',    name:'Shah Zyme',     link:'product-detail.html?id=shahzyme'     },
+    { src:'diaease1.jpg.jpg',     name:'Dia-Ease',      link:'product-detail.html?id=diaease'      },
+    { src:'orthohayaat1.jpg.jpg', name:'Ortho Hayaat',  link:'product-detail.html?id=orthohayaat'  },
+    { src:'panasip1.jpg.jpg',     name:'PanaSip',       link:'product-detail.html?id=panasip'      },
+    { src:'passionpulse1.jpg.jpg',name:'Passion Pulse', link:'product-detail.html?id=passionpulse' },
+    { src:'coughxpro1.jpg.jpg',   name:'Cough X Pro',   link:'product-detail.html?id=coughxpro'    }
   ];
 
   const img   = document.getElementById('hero-product');
   const label = document.getElementById('hero-prod-label');
   if (!img) return;
 
-  let idx = 0, slideCount = 0, timer;
+  let index = 0, slideCount = 0, timer;
 
-  // Preload all
+  /* Preload all images */
   heroProducts.forEach(p => { const i = new Image(); i.src = p.src; });
-  img.classList.add('slide-in-right');
 
-  function advance() {
+  function changeProduct() {
     slideCount++;
-    idx = (idx + 1) % heroProducts.length;
-    const next = heroProducts[idx];
-    const slideClass = slideCount % 2 === 0 ? 'slide-in-right' : 'slide-in-left';
-    const exitDir    = slideCount % 2 === 0 ? '70px' : '-70px';
+    index = (index + 1) % heroProducts.length;
+    const p = heroProducts[index];
+    const animation = slideCount % 2 === 0 ? 'slide-in-right' : 'slide-in-left';
 
-    // Exit current
-    img.style.transition = 'transform 0.4s cubic-bezier(0.4,0,1,1),opacity 0.4s ease';
-    img.style.transform  = 'translateX('+exitDir+') rotate(0deg)';
-    img.style.opacity    = '0';
-    if (label) { label.style.opacity='0'; label.style.transition='opacity 0.3s ease'; }
+    /* Fade out */
+    img.style.transition = 'opacity 0.35s ease';
+    img.style.opacity = '0';
+    if (label) { label.style.opacity = '0'; label.style.transition = 'opacity 0.3s'; }
 
-    // Enter next
     setTimeout(() => {
-      img.src = next.src;
-      img.alt = next.alt;
-      img.onerror = function(){ this.onerror=null; };
-      if (label) label.textContent = next.name;
+      img.src = p.src;
+      img.onerror = function(){ this.onerror = null; };
+      if (label) label.textContent = p.name;
+
+      /* Remove inline transition, let CSS animation take over */
       img.style.transition = '';
-      img.style.transform  = '';
-      img.style.opacity    = '';
-      img.classList.remove('slide-in-right','slide-in-left');
-      void img.offsetWidth;
-      img.classList.add(slideClass);
-      if (label) setTimeout(() => label.style.opacity='1', 150);
-    }, 420);
+      img.style.opacity    = '1';
+      img.classList.remove('slide-in-right', 'slide-in-left');
+      void img.offsetWidth; /* force reflow */
+      img.classList.add(animation);
+
+      if (label) setTimeout(() => label.style.opacity = '1', 150);
+    }, 380);
   }
 
-  function resetTimer() { clearInterval(timer); timer = setInterval(advance, 4500); }
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(changeProduct, 5000);
+  }
   resetTimer();
 
-  // Click to advance
-  img.addEventListener('click', () => { advance(); resetTimer(); });
+  /* Tap / click to advance */
+  img.addEventListener('click', () => { changeProduct(); resetTimer(); });
 })();
 </script>
 
 <!-- Preloader dismiss -->
 <script>
-window.addEventListener('load', () => setTimeout(() => document.getElementById('preloader').classList.add('out'), 1200));
+window.addEventListener('load', () => setTimeout(() => {
+  const p = document.getElementById('preloader');
+  if (p) p.classList.add('out');
+}, 1100));
 </script>
 <style>@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}</style>
 
