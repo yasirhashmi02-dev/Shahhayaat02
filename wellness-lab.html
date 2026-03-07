@@ -375,7 +375,7 @@ button,input,select{font-family:inherit}
   <div class="wrap">
     <div class="hero">
       <div class="hero-ey au">
-        <div class="tag">🧪 36 Smart Wellness Checks</div>
+        <div class="tag">🧪 33 Smart Wellness Checks</div>
         <div class="tag" style="background:#FFF0F5;border-color:rgba(168,48,96,.22);color:#A83060">🌸 + Women's Health Checks</div>
         <div class="tag tag--gd">✨ Free · Private · No Sign-Up</div>
       </div>
@@ -925,7 +925,10 @@ const LAB = {
     trackWL('full_lab_start');
     this.currentMode = 'full';
     /* Build queue from registry to keep it in sync automatically */
-    this.queue = Object.values(this.categories).flatMap(c => (c.tests || []).filter(Boolean));
+    /* Deduplicate so shared tests (cogUnderPressure, calmTimer, goNoGo) only run once */
+    const _seen = new Set();
+    this.queue = Object.values(this.categories).flatMap(c => (c.tests || []).filter(Boolean))
+      .filter(m => { if (_seen.has(m)) return false; _seen.add(m); return true; });
     if (this.gender === 'female') {
       this.queue.push('mod_hormonalRhythm','mod_energyIron');
     }
@@ -4291,11 +4294,11 @@ LAB.showDashboard = function () {
     : `<span>✅ Assessment Complete</span>`;
   const subtitle = isCategoryMode && activeCat
     ? `${activeCat.tests.length} checks completed · ${activeCat.name} assessment<span style="display:inline-flex;align-items:center;gap:.28rem;margin-left:.6rem;padding:.18rem .55rem;background:#2A7A5A12;border:1px solid #2A7A5A28;border-radius:50px;font-size:.68rem;font-family:'JetBrains Mono',monospace;color:#2A7A5A;letter-spacing:.04em">✓ Results saved</span>`
-    : (completedDomains > 0 ? 'Based on ' + (isFem?'38':'36') + ' wellness checks across 9 health domains: cognitive, eye, respiratory, stress, stability, lifestyle and more.' : 'You skipped all activities — no data to score. Complete at least one test to see results.');
+    : (completedDomains > 0 ? 'Based on ' + (isFem?'35':'33') + ' wellness checks across 9 health domains: cognitive, eye, respiratory, stress, stability, lifestyle and more.' : 'You skipped all activities — no data to score. Complete at least one test to see results.');
   const scoreLabel = isCategoryMode && activeCat ? activeCat.name + ' Score' : 'Overall Wellness';
 
   /* ── Confidence: % of tests actually completed ── */
-  const totalPossible = isFem ? 38 : 36; /* updated: 29 tests + 2 female-only */
+  const totalPossible = isFem ? 35 : 33; /* updated: 29 tests + 2 female-only */
   const completedTests = Object.values(LAB.scores).filter(x => x != null).length;
   const confidencePct  = Math.round((completedTests / totalPossible) * 100);
   const confidenceLbl  = confidencePct >= 80 ? 'High' : confidencePct >= 50 ? 'Medium' : 'Low';
@@ -4877,89 +4880,122 @@ window.mod_fatigueDrift = function () {
    Measures visual search speed and attention
    ═══════════════════════════════════════════════════════════════ */
 window.mod_numberSequence = function () {
-  const TOTAL=25; // 1-25 for mobile-friendly grid (faster than 1-50)
-  let nums=[], nextExpected=1, startTime=0, done=false;
+  const TOTAL = 40;          // 1–40 on a 5×8 grid — challenging but completable
+  const TIME_LIMIT = 90;     // 90 second cap so it never ends in a flash
+  let nums=[], nextExpected=1, startTime=0, done=false, timeoutId=null, timerInt=null;
 
   LAB.showDemo({
     title: '🔢 Number Sequence',
-    txt: 'Tap numbers <strong>1 → 2 → 3 …</strong> in order as fast as you can. Find and tap them all!',
-    hint: `${TOTAL} numbers · measures visual search speed`,
-    voiceEN: 'Number Sequence! Find and tap the numbers in order — 1, 2, 3 all the way up. Go as fast as you can!',
+    txt: 'Numbers <strong>1 to 40</strong> are scattered on the screen. Tap them <strong>in order</strong> as fast as you can — 1, then 2, then 3…',
+    hint: '40 numbers · 90 seconds · measures visual search speed',
+    voiceEN: 'Number Sequence! Find and tap 1, 2, 3 all the way to 40 — in order, as fast as you can. 90 seconds on the clock!',
     btnLabel: 'Start Number Test →',
-    vis: `<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:.5rem;max-width:280px;margin:0 auto">
-      ${Array.from({length:10},(_,i)=>`<div style="background:#E8F5EE;border-radius:8px;padding:.5rem;text-align:center;font-weight:700;font-size:.9rem;color:#2A7A5A">${i+1}</div>`).join('')}
+    vis: `<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:.5rem;max-width:280px;margin:0 auto">
+      ${Array.from({length:10},(_,i)=>`<div style="background:#E8F5EE;border-radius:8px;padding:.4rem;text-align:center;font-weight:700;font-size:.85rem;color:#2A7A5A">${i+1}</div>`).join('')}
     </div>`
   }, () => {
-    // Build shuffled grid
+    // Build shuffled grid 1–40
     nums = Array.from({length:TOTAL},(_,i)=>i+1);
     for(let i=nums.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[nums[i],nums[j]]=[nums[j],nums[i]];}
     nextExpected=1; done=false;
 
-    const gridCols = window.innerWidth < 420 ? 5 : 5;
     LAB.render(`<div class="mwrap"><div class="card card--pop">
       <div class="step-head">
         <div class="tag">🔢 Cognitive · Number Sequence</div>
-        <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Number Sequence</h2>
-        <p class="pg">Tap <strong>1 → 2 → 3 …</strong> in order as fast as you can.</p>
+        <h2 class="h2" style="margin-top:.75rem;margin-bottom:.35rem">Number Sequence</h2>
+        <p class="pg" style="margin-bottom:.5rem">Tap <strong>1 → 2 → 3 … → 40</strong> in order as fast as you can.</p>
       </div>
-      <div style="text-align:center;margin-bottom:.8rem">
-        <span style="font-size:.8rem;color:var(--tq)">Next: </span>
-        <span id="nsNext" style="font-size:1.1rem;font-weight:800;color:var(--g)">1</span>
-        <span id="nsTime" style="font-size:.75rem;color:var(--tq);margin-left:.8rem">0.0s</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;padding:0 .25rem">
+        <div>
+          <span style="font-size:.8rem;color:var(--tq)">Next: </span>
+          <span id="nsNext" style="font-size:1.15rem;font-weight:800;color:var(--g)">1</span>
+        </div>
+        <div style="display:flex;gap:.75rem">
+          <div style="text-align:center">
+            <div id="nsTime" style="font-size:1rem;font-weight:700;color:var(--t)">90s</div>
+            <div style="font-size:.6rem;color:var(--tq)">Time left</div>
+          </div>
+          <div style="text-align:center">
+            <div id="nsDone" style="font-size:1rem;font-weight:700;color:var(--t)">0/${TOTAL}</div>
+            <div style="font-size:.6rem;color:var(--tq)">Found</div>
+          </div>
+        </div>
       </div>
-      <div id="nsGrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:1rem;max-width:340px;margin:0 auto 1rem"></div>
-      <p style="text-align:center;font-size:.7rem;color:var(--tq)">Tap numbers in order · ${TOTAL} total</p>
+      <div id="nsGrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-width:360px;margin:0 auto 1rem"></div>
     </div></div>`);
 
     // Render tiles
-    function renderGrid() {
-      const g=document.getElementById('nsGrid'); if(!g) return;
-      g.innerHTML=nums.map(n=>`
-        <button onclick="_nsTap(${n})" id="ns_${n}"
-          style="background:#fff;border:2px solid var(--b);border-radius:10px;padding:.7rem .2rem;
-                 font-weight:700;font-size:1rem;color:var(--t);cursor:pointer;
-                 transition:all .18s;-webkit-tap-highlight-color:transparent;min-height:44px"
-          aria-label="Number ${n}">${n}</button>`).join('');
-    }
-    renderGrid();
-    startTime=performance.now();
+    const g = document.getElementById('nsGrid');
+    if(g) g.innerHTML = nums.map(n=>`
+      <button onclick="_nsTap(${n})" id="ns_${n}"
+        style="background:#fff;border:2px solid var(--b);border-radius:10px;padding:.55rem .1rem;
+               font-weight:700;font-size:.9rem;color:var(--t);cursor:pointer;
+               transition:all .15s;-webkit-tap-highlight-color:transparent;min-height:40px"
+        aria-label="Number ${n}">${n}</button>`).join('');
 
-    // Timer display
-    const timerInt=setInterval(()=>{
-      const el=document.getElementById('nsTime');
-      if(!el){clearInterval(timerInt);return;}
-      el.textContent=((performance.now()-startTime)/1000).toFixed(1)+'s';
-    },100);
+    startTime = performance.now();
+
+    // Countdown timer
+    let remSecs = TIME_LIMIT;
+    timerInt = setInterval(()=>{
+      if(done) { clearInterval(timerInt); return; }
+      remSecs = Math.max(0, TIME_LIMIT - Math.floor((performance.now()-startTime)/1000));
+      const el = document.getElementById('nsTime');
+      if(!el) { clearInterval(timerInt); return; }
+      el.textContent = remSecs + 's';
+      if(remSecs <= 10) el.style.color = '#E88080';
+      if(remSecs <= 0) { clearInterval(timerInt); _nsDone(true); }
+    }, 500);
+
+    // Hard timeout fallback
+    timeoutId = setTimeout(()=>{ if(!done) _nsDone(true); }, TIME_LIMIT * 1000 + 500);
 
     window._nsTap = function(n) {
       if(done) return;
-      if(n!==nextExpected){
-        const btn=document.getElementById('ns_'+n);
-        if(btn){btn.style.background='#FFE8E8';btn.style.borderColor='#E88080';btn.style.transform='scale(0.92)';
-          setTimeout(()=>{if(btn){btn.style.background='#fff';btn.style.borderColor='var(--b)';btn.style.transform='';}},400);}
+      if(n !== nextExpected){
+        const btn = document.getElementById('ns_'+n);
+        if(btn){ btn.style.background='#FFE8E8'; btn.style.borderColor='#E88080'; btn.style.transform='scale(0.9)';
+          setTimeout(()=>{ if(btn){ btn.style.background=''; btn.style.borderColor=''; btn.style.transform=''; }},350); }
         return;
       }
-      // Correct!
-      const btn=document.getElementById('ns_'+n);
-      if(btn){btn.style.background='#2A7A5A';btn.style.borderColor='#2A7A5A';btn.style.color='#fff';btn.disabled=true;btn.style.cursor='default';}
+      // Correct tap
+      const btn = document.getElementById('ns_'+n);
+      if(btn){ btn.style.background='#2A7A5A'; btn.style.borderColor='#2A7A5A'; btn.style.color='#fff'; btn.disabled=true; }
       nextExpected++;
-      const nx=document.getElementById('nsNext'); if(nx) nx.textContent=nextExpected<=TOTAL?nextExpected:'✓';
-      if(nextExpected>TOTAL){
-        done=true; clearInterval(timerInt);
-        const elapsed=(performance.now()-startTime)/1000;
-        // Score: under 20s=100, each extra second -2, min 20
-        const sc=Math.max(20,Math.min(100,Math.round(100-(elapsed-20)*2)));
-        LAB.raw.numberSeqScore=sc; LAB.raw.numberSeqTime=Math.round(elapsed*10)/10;
-        const cog=[LAB.raw.rxScore,LAB.raw.fatigueDriftScore,LAB.raw.memScore,LAB.raw.attScore,LAB.raw.wordRecallScore,LAB.raw.mathScore,sc].filter(x=>x!=null);
-        if(cog.length) LAB.scores.cognitive=Math.round(LAB.avg(cog));
-        LAB.raw.personalBest = LAB.raw.personalBest || {};
-        const pb=LAB.raw.personalBest;
-        const prevBest=pb.numberSeq||999;
-        if(elapsed<prevBest){pb.numberSeq=Math.round(elapsed*10)/10;}
-        const el=document.getElementById('nsTime'); if(el) el.textContent=elapsed.toFixed(1)+'s ✓';
-        setTimeout(()=>{ LAB.idx++; LAB.next(); },1800);
-      }
+      const nx = document.getElementById('nsNext');
+      if(nx) nx.textContent = nextExpected <= TOTAL ? nextExpected : '✓';
+      const dn = document.getElementById('nsDone');
+      if(dn) dn.textContent = (nextExpected-1)+'/'+TOTAL;
+      LAB.flash('hit');
+      if(nextExpected > TOTAL){ clearInterval(timerInt); clearTimeout(timeoutId); _nsDone(false); }
     };
+
+    function _nsDone(timedOut) {
+      done = true;
+      clearInterval(timerInt); clearTimeout(timeoutId);
+      const elapsed = (performance.now()-startTime)/1000;
+      const found = nextExpected - 1;
+      let sc;
+      if(timedOut) {
+        // Partial score based on how many found in TIME_LIMIT
+        sc = LAB.clamp(Math.round((found / TOTAL) * 80), 5, 80);
+      } else {
+        // Full completion: 100 at ≤30s, -1.5 per extra second, floor 25
+        sc = LAB.clamp(Math.round(100 - Math.max(0, elapsed - 30) * 1.5), 25, 100);
+      }
+      LAB.raw.numberSeqScore = sc;
+      LAB.raw.numberSeqTime = Math.round(elapsed*10)/10;
+      LAB.raw.numberSeqFound = found;
+      const cog = [LAB.raw.rxScore,LAB.raw.fatigueDriftScore,LAB.raw.memScore,LAB.raw.attScore,
+                   LAB.raw.wordRecallScore,LAB.raw.mathScore,sc].filter(x=>x!=null);
+      if(cog.length) LAB.scores.cognitive = Math.round(LAB.avg(cog));
+      LAB.celebrate();
+      const msg = timedOut
+        ? `Time's up! You found ${found} of ${TOTAL} numbers in ${TIME_LIMIT} seconds — ${LAB.scoreLbl(sc)}!`
+        : `Brilliant! All 40 numbers in ${elapsed.toFixed(1)} seconds — ${LAB.scoreLbl(sc)}!`;
+      LAB.say(msg);
+      setTimeout(()=>{ LAB.idx++; LAB.next(); }, 2000);
+    }
   });
 };
 
