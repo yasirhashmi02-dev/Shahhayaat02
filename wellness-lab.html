@@ -4863,7 +4863,7 @@ window.mod_fatigueDrift = function () {
         if(box){box.style.background='#F0FBF5';box.style.borderColor='#2A7A5A';box.style.cursor='default';}
         const lbl=document.getElementById('fdLbl'); if(lbl) lbl.textContent='✓ Done!';
         const sub=document.getElementById('fdSub'); if(sub) sub.textContent=drift>=20?'Some fatigue detected':'Good consistency!';
-        setTimeout(()=>LAB.next(),1600);
+        setTimeout(()=>{ LAB.idx++; LAB.next(); },1600);
         return;
       }
       setTimeout(_runFd, 600);
@@ -4957,7 +4957,7 @@ window.mod_numberSequence = function () {
         const prevBest=pb.numberSeq||999;
         if(elapsed<prevBest){pb.numberSeq=Math.round(elapsed*10)/10;}
         const el=document.getElementById('nsTime'); if(el) el.textContent=elapsed.toFixed(1)+'s ✓';
-        setTimeout(()=>LAB.next(),1800);
+        setTimeout(()=>{ LAB.idx++; LAB.next(); },1800);
       }
     };
   });
@@ -5081,7 +5081,7 @@ window.mod_goNoGo = function () {
       const circle=document.getElementById('gngCircle');
       if(circle){circle.style.background='#E8F5EE';circle.style.borderColor='#2A7A5A';}
       const icon=document.getElementById('gngIcon'); if(icon) icon.textContent='✓';
-      setTimeout(()=>LAB.next(),1600);
+      setTimeout(()=>{ LAB.idx++; LAB.next(); },1600);
     }
     runTrial();
   });
@@ -5185,7 +5185,7 @@ window.mod_stressRecovery = function() {
             💡 ${advice}
           </div>
         </div>
-        <button class="btn btn--p" style="margin-top:1rem;background:linear-gradient(135deg,#C97010,#A85C0A)" onclick="LAB.next()">Continue →</button>
+        <button class="btn btn--p" style="margin-top:1rem;background:linear-gradient(135deg,#C97010,#A85C0A)" onclick="LAB.idx++;LAB.next()">Continue →</button>
       </div></div>`);
     }
 
@@ -5484,7 +5484,7 @@ window.mod_multitask = function () {
       const stress = [LAB.raw.mathScore, LAB.raw.patternScore, LAB.raw.goNoGoScore, sc].filter(x=>x!=null);
       if(stress.length) LAB.scores.stress = Math.round(LAB.avg(stress));
       LAB.say(`Multitask score ${sc}! The answer was ${starCount} stars — you said ${ans >= 0 ? ans : 'did not answer'}.`);
-      setTimeout(()=>LAB.next(), 1800);
+      setTimeout(()=>{ LAB.idx++; LAB.next(); }, 1800);
     };
 
     runTrial();
@@ -5593,7 +5593,7 @@ window.mod_decisionSpeed = function () {
                    LAB.raw.numberSeqScore, LAB.raw.goNoGoScore, LAB.raw.multitaskScore, final].filter(x=>x!=null);
       if(cog.length) LAB.scores.cognitive = Math.round(LAB.avg(cog));
       LAB.say(`Decision speed: ${final} — ${correct} out of ${questions.length} correct in an average of ${avgRx} milliseconds.`);
-      setTimeout(()=>LAB.next(), 1600);
+      setTimeout(()=>{ LAB.idx++; LAB.next(); }, 1600);
     }
 
     showQ();
@@ -6887,7 +6887,7 @@ window.mod_eyeStrain = function() {
           </div>` : `<div style="margin:.8rem auto;max-width:360px;background:#E8F5E9;border:1px solid #66BB6A;border-radius:10px;padding:.8rem;font-size:.82rem;color:#1B5E20;text-align:left">
             ✅ Your eyes show good resilience. Maintain the 20-20-20 rule and keep screens at arm's length.
           </div>`}
-          <button class="btn btn--p" style="margin-top:1rem" onclick="LAB.next()">Continue →</button>
+          <button class="btn btn--p" style="margin-top:1rem" onclick="LAB.idx++;LAB.next()">Continue →</button>
         </div></div>`);
       };
     }
@@ -6953,7 +6953,7 @@ window.mod_postureBalance = function() {
           <div id="pbScore" style="display:none;font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:700;color:#7C3AED"></div>
         </div>
         <button id="pbStartBtn" class="btn btn--p" style="margin-top:.5rem" onclick="window._pbStart()">▶ Start 15-second Test</button>
-        <button id="pbSkipBtn" class="btn btn--g" style="margin-top:.5rem;display:none" onclick="LAB.next()">Continue without sensor →</button>
+        <button id="pbSkipBtn" class="btn btn--g" style="margin-top:.5rem;display:none" onclick="LAB.idx++;LAB.next()">Continue without sensor →</button>
       </div></div>`);
     }
 
@@ -7065,7 +7065,7 @@ window.mod_postureBalance = function() {
       if (scoreEl) { scoreEl.style.display = ''; scoreEl.textContent = sc; scoreEl.style.color = col; }
       if (status) status.innerHTML = `<strong style="color:${col}">${lbl}</strong>`;
 
-      setTimeout(() => LAB.next(), 2200);
+      setTimeout(() => { LAB.idx++; LAB.next(); }, 2200);
     }
   });
 };
@@ -7204,7 +7204,7 @@ window.mod_emotionalStress = function() {
         ${falseAlarms.length > 2 ? `<div style="background:#FFF8E1;border:1px solid #FBC02D;border-radius:10px;padding:.75rem;font-size:.8rem;color:#5D3A00;max-width:340px;margin:0 auto .8rem">
           💡 Tapping stress words suggests higher emotional reactivity. Mindfulness practice can improve inhibitory control.
         </div>` : ''}
-        <button class="btn btn--p" style="margin-top:1rem" onclick="LAB.next()">Continue →</button>
+        <button class="btn btn--p" style="margin-top:1rem" onclick="LAB.idx++;LAB.next()">Continue →</button>
       </div></div>`);
     }
 
@@ -7366,7 +7366,7 @@ window.mod_cogFlex = function() {
         ${switchErrors > 2 ? `<div style="background:#FFF8E1;border:1px solid #FBC02D;border-radius:10px;padding:.75rem;font-size:.8rem;color:#5D3A00;max-width:340px;margin:0 auto .8rem;text-align:left">
           💡 High switch errors suggest lower cognitive flexibility. Practice alternating tasks and mindfulness to strengthen adaptability.
         </div>` : ''}
-        <button class="btn btn--p" style="margin-top:.5rem" onclick="LAB.next()">Continue →</button>
+        <button class="btn btn--p" style="margin-top:.5rem" onclick="LAB.idx++;LAB.next()">Continue →</button>
       </div></div>`);
     }
 
