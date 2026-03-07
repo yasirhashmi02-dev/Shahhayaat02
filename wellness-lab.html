@@ -4780,7 +4780,7 @@ window.mod_fatigueDrift = function () {
 
   LAB.showDemo({
     title: '⚡ Fatigue Drift',
-    txt: 'Same as Reaction Speed — but we're watching if you <strong>slow down</strong> over 10 rounds. Tap <strong style="color:var(--g)">green</strong> instantly, ignore <strong style="color:var(--am)">red</strong>.',
+    txt: 'Same as Reaction Speed — but we\'re watching if you <strong>slow down</strong> over 10 rounds. Tap <strong style="color:var(--g)">green</strong> instantly, ignore <strong style="color:var(--am)">red</strong>.',
     hint: '10 rounds · detects mental fatigue over time',
     voiceEN: "Fatigue Drift — just like reaction speed, but we're checking if your reaction slows down. Ten rounds. Tap green as fast as you can!",
     btnLabel: 'Start Fatigue Test →',
@@ -5340,7 +5340,7 @@ window.mod_circadian = function () {
 window.mod_multitask = function () {
   LAB.showDemo({
     title: '🔀 Multitask Load',
-    txt: 'Two things at once: <strong>tap green circles</strong> AND <strong>keep a count in your head</strong> — you'll be asked to report it at the end.',
+    txt: 'Two things at once: <strong>tap green circles</strong> AND <strong>keep a count in your head</strong> — you\'ll be asked to report it at the end.',
     hint: '12 stimuli · tests divided attention',
     voiceEN: 'Multitask test! Tap every green circle AND count how many times you see a star. You will report the star count at the end!',
     btnLabel: 'Start Multitask Test →',
@@ -5410,7 +5410,7 @@ window.mod_multitask = function () {
         if(item.type === 'star'){
           disp.style.background = '#FFFBEA'; disp.style.borderColor = '#E6C619';
           if(icon) icon.textContent = '⭐';
-          if(hint) hint.textContent = 'Count it! (don't tap)';
+          if(hint) hint.textContent = "Count it! (don't tap)";
           waiting = false;
         } else if(item.go){
           disp.style.background = '#38A87A'; disp.style.borderColor = '#2A7A5A';
@@ -5420,7 +5420,7 @@ window.mod_multitask = function () {
         } else {
           disp.style.background = '#E88080'; disp.style.borderColor = '#C05050';
           if(icon) icon.textContent = '✋';
-          if(hint) hint.textContent = 'Don't tap!';
+          if(hint) hint.textContent = "Don't tap!";
           waiting = true; startT = performance.now();
         }
         const delay = item.type === 'star' ? 900 : (item.go ? 1100 : 800);
