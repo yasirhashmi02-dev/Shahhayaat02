@@ -321,14 +321,14 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 'use strict';
 
 /* ── All product data embedded — no external dependency ── */
-const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
+const GH = '';
 const IMG = {
   brainchamp:'brainchamp.jpg', shahzyme:'shahzyme.jpg', bloodstorm:'bloodstorm.jpg',
   coughxpro:'coughxpro.jpg', musaffakhoon:'musaffakhoon.jpg', panasip:'panasip.jpg',
   livohayaat:'livohayaat.jpg', diaease:'diaease.png', orthohayaat:'orthohayaat.jpg',
   utrohayaat:'utrohayaat.png', passionpulse:'passionpulse.jpg', fevodol:'fevodol.png'
 };
-function imgSrc(id){ return GH + (IMG[id] || id + '.jpg'); }
+function imgSrc(id){ return id + '1.jpg.jpg'; }
 
 const PRODUCTS = [
   { id:'brainchamp', form:'syrup', name:'Brain Champ', price:175, cat:'brain', tag:'Brain & Focus',
@@ -455,7 +455,7 @@ if (!p) {
           <div class="reveal">
             <div class="detail-img">
               <img src="${imgSrc(p.id)}" alt="${p.name}" loading="eager"
-                   onerror="this.parentElement.innerHTML='<div class=detail-img-placeholder><span>🌿</span>${p.name}</div>'">
+                   onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/'+(({'brainchamp':'brainchamp.jpg','shahzyme':'shahzyme.jpg','bloodstorm':'bloodstorm.jpg','livohayaat':'livohayaat.jpg','diaease':'diaease.png','orthohayaat':'orthohayaat.jpg','utrohayaat':'utrohayaat.png','passionpulse':'passionpulse.jpg','panasip':'panasip.jpg','coughxpro':'coughxpro.jpg','musaffakhoon':'musaffakhoon.jpg','fevodol':'fevodol.png'})[p.id]||p.id+'.jpg')">
             </div>
           </div>
           <div class="reveal delay-2">
