@@ -347,7 +347,7 @@ body.nav-open{overflow:hidden}
 <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp">&#128172;</a>
 <div class="toast" id="toast"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 'use strict';
 const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
 
@@ -423,6 +423,10 @@ function buildGrid() {
 }
 
 /* Filter buttons */
+/* Initial render */
+buildGrid();
+
+/* Filter clicks */
 document.getElementById('filter-bar').addEventListener('click', e => {
   const btn = e.target.closest('.filter-btn');
   if (!btn) return;

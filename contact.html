@@ -346,32 +346,24 @@ body.nav-open{overflow:hidden}
 </footer>
 <a href="#" class="back-top" id="back-top">&#8593;</a>
 <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float">&#128172;</a>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-"use strict";
-document.getElementById("hamburger").addEventListener("click",()=>document.body.classList.toggle("nav-open"));
-document.querySelectorAll(".nav-drawer a").forEach(a=>a.addEventListener("click",()=>setTimeout(()=>document.body.classList.remove("nav-open"),320)));
-window.addEventListener("scroll",()=>document.getElementById("back-top").classList.toggle("show",window.scrollY>500),{passive:true});
-document.getElementById("yr").textContent=new Date().getFullYear();
-const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:0.07});
-document.querySelectorAll(".reveal,.reveal-l,.reveal-r").forEach(el=>io.observe(el));
-const form=document.getElementById("contactForm");
-if(form){form.addEventListener("submit",async function(e){e.preventDefault();const st=document.getElementById("form-status"),bt=document.querySelector('[type=submit]');
-    bt.disabled=true;bt.textContent='Sending…';
-    try{
-      const fd=new FormData(form);
-      const data={name:fd.
-      const data2={name:fd.get('name'),email:fd.get('email'),phone:fd.get('phone')||'',subject:fd.get('subject'),message:fd.get('message')};
-      st.textContent='Message sent! We will reply within 24 hours.';
-      st.style.color='#2A4633';
-      form.reset();
-    }catch(err){
-      st.textContent='Something went wrong. Please WhatsApp us at +91 70510 56287.';
-      st.style.color='#c0392b';
-    }finally{
-      bt.disabled=false;bt.textContent='Send Message';
-      setTimeout(()=>st.textContent='',6000);
-    }
-  });}
+<script>
+'use strict';
+/* Nav */
+document.getElementById('hamburger').addEventListener('click', () => document.body.classList.toggle('nav-open'));
+document.querySelectorAll('.nav-drawer a').forEach(a =>
+  a.addEventListener('click', () => setTimeout(() => document.body.classList.remove('nav-open'), 320))
+);
+/* Scroll */
+window.addEventListener('scroll', () => {
+  document.getElementById('back-top').classList.toggle('show', window.scrollY > 500);
+}, {passive: true});
+/* Year */
+document.getElementById('yr').textContent = new Date().getFullYear();
+/* Reveal */
+const revIO = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); revIO.unobserve(e.target); }});
+}, {threshold: 0.08});
+document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => revIO.observe(el));
 </script>
 </body>
 </html>

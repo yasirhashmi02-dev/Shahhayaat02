@@ -469,21 +469,24 @@ body.nav-open{overflow:hidden}
 <a href="#" class="back-top" id="back-top" aria-label="Back to top">&#8593;</a>
 <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp">&#128172;</a>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 'use strict';
+/* Nav */
 document.getElementById('hamburger').addEventListener('click', () => document.body.classList.toggle('nav-open'));
 document.querySelectorAll('.nav-drawer a').forEach(a =>
-  a.addEventListener('click', () => setTimeout((  setTimeout((') => document.body.classList.remove('nav-open'), 320))
-  );
-  window.addEventListener('scroll', () => {
-    document.getElementById('back-top').classList.toggle('show', window.scrollY > 500);
-  }, {passive:true});
-  document.getElementById('yr').textContent = new Date().getFullYear();
-  const io2 = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io2.unobserve(e.target); }});
-  }, {threshold:0.08});
-  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => io2.observe(el));
-});
+  a.addEventListener('click', () => setTimeout(() => document.body.classList.remove('nav-open'), 320))
+);
+/* Scroll */
+window.addEventListener('scroll', () => {
+  document.getElementById('back-top').classList.toggle('show', window.scrollY > 500);
+}, {passive: true});
+/* Year */
+document.getElementById('yr').textContent = new Date().getFullYear();
+/* Reveal */
+const revIO = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); revIO.unobserve(e.target); }});
+}, {threshold: 0.08});
+document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => revIO.observe(el));
 </script>
 </body>
 </html>
