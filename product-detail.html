@@ -105,10 +105,10 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .page-hero h1{color:#fff}
 .page-hero p{color:rgba(255,255,255,0.65);font-size:0.95rem;margin-top:0.3rem}
 /* Product detail */
-.detail-grid{display:grid;gap:3.5rem;align-items:start}
+.detail-grid{display:grid;gap:2.5rem;align-items:start}
 @media(min-width:820px){.detail-grid{grid-template-columns:1fr 1fr}}
-.detail-img{border-radius:12px;overflow:hidden;box-shadow:var(--shadow-md);background:#fff;aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:0}
-.detail-img img{width:100%;height:100%;object-fit:contain;padding:12px}
+.detail-img{border-radius:16px;overflow:hidden;box-shadow:var(--shadow-lg);background:#fff;aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:0;min-height:320px}
+.detail-img img{width:100%;height:100%;object-fit:contain;padding:16px;transition:transform 0.4s ease}
 .detail-img-placeholder{width:100%;aspect-ratio:1;background:linear-gradient(135deg,rgba(42,70,51,0.08),rgba(184,134,11,0.08));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;color:var(--text-muted);font-size:0.9rem}
 .detail-img-placeholder span{font-size:3rem}
 .detail-price{font-family:var(--font-head);font-size:2.2rem;font-weight:700;color:var(--green-dark);margin-bottom:0.3rem;line-height:1}
@@ -203,7 +203,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 <header class="site-header">
   <div class="container header-inner">
     <a href="index.html" class="logo">
-      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat Logo">
+      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat Logo">
       <span>Shah <em>Hayaat</em></span>
     </a>
     <nav class="nav-desktop"><ul>
@@ -287,7 +287,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo">
-          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat Logo">
+          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat Logo">
           <span>Shah <em>Hayaat</em></span>
         </a>
         <p>Pure, certified Ayurvedic remedies for modern life.</p>
@@ -303,7 +303,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
         <li><a href="disclaimer.html">Medical Disclaimer</a></li>
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
-        <li><a href="/cdn-cgi/l/email-protection#01686f676e41726960696960786060752f626e6c"><span class="__cf_email__" data-cfemail="fe97909891be8d969f96969f879f9f8ad09d9193">[email&#160;protected]</span></a></li>
+        <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
         <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
       </ul></div>
     </div>
@@ -317,7 +317,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 <a href="https://wa.me/917051056287" target="_blank" class="wa-float">💬</a>
 <div class="toast" id="toast"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 'use strict';
 
 /* ── All product data embedded — no external dependency ── */
@@ -709,12 +709,7 @@ var _bObs = new MutationObserver(function(){
   var items = document.querySelectorAll('.benefit-item:not(.benefit-in)');
   if(items.length){
     items.forEach(function(el,i){ setTimeout(function(){ el.classList.add('benefit-in'); }, 200 + i*170); });
-  }
-});
-document.addEventListener('DOMContentLoaded', function(){
-  var grid = document.querySelector('.detail-grid');
-  if(grid) _bObs.observe(grid, {childList:true, subtree:true});
-  setTimeout(animateBenefits, 500);
+  });
 });
 </script>
 </body>

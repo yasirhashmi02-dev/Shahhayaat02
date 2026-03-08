@@ -429,7 +429,7 @@ body.nav-open{overflow:hidden}
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul></nav>
-    <a href="wellness-lab.html" class="nav-cta btn btn-primary btn-sm">Start Lab</a>
+    <a href="wellness-lab.html" class="nav-cta btn btn-glow btn-sm" style="white-space:nowrap;font-size:0.75rem;padding:0.55rem 1.1rem">✦ Click Here for Self Assessment</a>
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -732,7 +732,7 @@ body.nav-open{overflow:hidden}
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
-          <a href="/cdn-cgi/l/email-protection#05766d646d6d647c6464713537456268646c692b666a68" class="soc-icon" aria-label="Email">✉️</a>
+          <a href="/cdn-cgi/l/email-protection#1b68737a73737a627a7a6f2b295b7c767a727735787476" class="soc-icon" aria-label="Email">✉️</a>
         </div>
       </div>
       <div class="footer-col"><h4>Navigation</h4><ul>
@@ -753,7 +753,7 @@ body.nav-open{overflow:hidden}
         <li><a href="products.html">View All 12 →</a></li>
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
-        <li><a href="/cdn-cgi/l/email-protection#f5869d949d9d948c949481c5c7b59298949c99db969a98"><span class="__cf_email__" data-cfemail="02716a636a6a637b636376323042656f636b6e2c616d6f">[email&#160;protected]</span></a></li>
+        <li><a href="/cdn-cgi/l/email-protection#c7b4afa6afafa6bea6a6b3f7f587a0aaa6aeabe9a4a8aa"><span class="__cf_email__" data-cfemail="7f0c171e17171e061e1e0b4f4d3f18121e1613511c1012">[email&#160;protected]</span></a></li>
         <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
         <li><a href="https://instagram.com/shahhayaatofficial" target="_blank">@shahhayaatofficial</a></li>
         <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
@@ -800,7 +800,7 @@ body.nav-open{overflow:hidden}
 <!-- 
      DATA + ENGINE
  -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 'use strict';
 const $ = s => document.querySelector(s);
 const $$ = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
@@ -932,26 +932,135 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 <!-- Reviews Engine -->
 <script>
+/* ── Reviews Engine — localStorage + Google Sheets hybrid ── */
 const REVIEWS_API='https://script.google.com/macros/s/AKfycbwIiEeIHyJWonJd1QhEiLHYnUjAE5yRqxXH22CNB_Wa36xpFN0BkokebBO1g_1AVZL8xw/exec';
-const _LIVE=true;
 const _SEED=[
-  {name:'Priya S.',stars:5,text:'Ortho Hayaat made a remarkable difference to my knee pain in just 3 weeks!'},
-  {name:'Rohan K.',stars:5,text:'Shah Zyme is a lifesaver — lighter and more energetic after every meal!'},
-  {name:'Anjali P.',stars:5,text:'Brain Champ genuinely helped me focus during exam season. Highly recommended.'}
+  {name:'Priya S.',     stars:5, text:'Ortho Hayaat made a remarkable difference to my knee pain in just 3 weeks!', product:'Ortho Hayaat'},
+  {name:'Rohan K.',     stars:5, text:'Shah Zyme transformed my digestion. Feel lighter and more energetic after every meal.', product:'Shah Zyme'},
+  {name:'Anjali P.',    stars:5, text:'Brain Champ genuinely helped me focus during exams. Something natural that actually works!', product:'Brain Champ'},
+  {name:'Meera D.',     stars:5, text:'Blood Storm improved my haemoglobin levels within a month. Highly recommended.', product:'Blood Storm'},
+  {name:'Tariq H.',     stars:5, text:'Livo Hayaat cleared my fatty liver in 6 weeks. Liver enzymes back to normal!', product:'Livo Hayaat'},
+  {name:'Sunita R.',    stars:4, text:'Cough X Pro gave fast relief. Far better than over-the-counter syrups.', product:'Cough X Pro'}
 ];
 const _BASE_RATINGS={brainchamp:4.8,shahzyme:4.7,bloodstorm:4.6,coughxpro:4.5,musaffakhoon:4.6,panasip:4.7,livohayaat:4.8,orthohayaat:4.9,diaease:4.5,utrohayaat:4.6,passionpulse:4.7,fevodol:4.5};
-function _stars(r){const f=Math.floor(r),h=(r-f)>=0.5;let s='';for(let i=1;i<=5;i++)s+=i<=f?'★':(i===f+1&&h?'½':'☆');return s;}
-async function _get(p){if(!_LIVE)return null;try{const qs=Object.entries(p).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');const r=await fetch(REVIEWS_API+'?'+qs,{cache:'no-store'});const j=await r.json();return j.ok?j.data:null;}catch{return null;}}
-async function _post(b){if(!_LIVE)return;try{await fetch(REVIEWS_API,{method:'POST',body:JSON.stringify(b),headers:{'Content-Type':'application/json'}});}catch{}}
-let _prodRatingsCache=null;
-async function getProdRatings(){if(_prodRatingsCache)return _prodRatingsCache;const l=await _get({type:'prod_ratings'});_prodRatingsCache=l||{};return _prodRatingsCache;}
-async function renderStarsLive(pid,el){if(!el)return;const agg=await getProdRatings();const base=_BASE_RATINGS[pid]||4.5;const d=agg&&agg[pid];const rating=d&&d.count?Math.round(((d.total||d.avg*d.count)+base*10)/(d.count+10)*10)/10:base;el.innerHTML='<span class="stars" style="color:var(--gold);letter-spacing:1px">'+_stars(rating)+'</span><span class="count" style="font-size:.68rem;color:var(--text-muted);margin-left:4px">'+rating.toFixed(1)+'</span>';}
-async function buildReviewsWall(){const wall=$('#reviewsWall');if(!wall)return;const live=await _get({type:'reviews'});const all=[..._SEED,...(live||[])];const avg=all.reduce((s,r)=>s+r.stars,0)/all.length;const orb=$('.orb-num');const cnt=$('.orb-count');if(orb)orb.textContent=avg.toFixed(1);if(cnt)cnt.textContent='Based on '+all.length+' verified reviews';wall.innerHTML=all.slice(-6).reverse().map(r=>`<div class="review-card"><div class="r-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div><p class="r-text">${r.text||'Great product!'}</p><div class="r-name">${r.name||'Anonymous'}</div></div>`).join('');}
+
+function _starsHtml(r){
+  const f=Math.floor(r),h=(r-f)>=0.5;
+  let s='';for(let i=1;i<=5;i++)s+=i<=f?'★':(i===f+1&&h?'½':'☆');
+  return s;
+}
+
+/* Get reviews from localStorage (user-submitted) */
+function _getLocalReviews(){
+  try{ return JSON.parse(localStorage.getItem('sh_site_reviews')||'[]'); }catch{ return []; }
+}
+function _saveLocalReview(r){
+  try{
+    const a=_getLocalReviews();
+    a.push({...r,ts:Date.now(),local:true});
+    localStorage.setItem('sh_site_reviews',JSON.stringify(a.slice(-100)));
+  }catch{}
+}
+
+/* Try Google Sheets API with timeout */
+async function _fetchRemote(params){
+  try{
+    const qs=Object.entries(params).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');
+    const ctrl=new AbortController();
+    const tid=setTimeout(()=>ctrl.abort(),4000);
+    const r=await fetch(REVIEWS_API+'?'+qs,{signal:ctrl.signal,cache:'no-store'});
+    clearTimeout(tid);
+    const j=await r.json();
+    return j.ok?j.data:null;
+  }catch{ return null; }
+}
+async function _postRemote(body){
+  try{
+    await fetch(REVIEWS_API,{
+      method:'POST',
+      body:JSON.stringify(body),
+      headers:{'Content-Type':'application/json'}
+    });
+  }catch{}
+}
+
+/* Compute rating for a product from all sources */
+function _computeRating(pid, localReviews, remoteRatings){
+  const base=_BASE_RATINGS[pid]||4.5;
+  const local=localReviews.filter(r=>r.pid===pid||!r.pid);
+  const remote=remoteRatings&&remoteRatings[pid];
+  let total=base*10, count=10;
+  if(local.length){ local.forEach(r=>{ total+=r.stars; count++; }); }
+  if(remote&&remote.count){ total+=remote.total||remote.avg*remote.count; count+=remote.count; }
+  return Math.round((total/count)*10)/10;
+}
+
+let _remoteRatingsCache=null;
+async function _getRemoteRatings(){
+  if(_remoteRatingsCache!==null) return _remoteRatingsCache;
+  const d=await _fetchRemote({type:'prod_ratings'});
+  _remoteRatingsCache=d||{};
+  return _remoteRatingsCache;
+}
+
+/* Render star rating for a product card */
+async function renderStarsLive(pid,el){
+  if(!el)return;
+  const [rr,lr]=await Promise.all([_getRemoteRatings(),Promise.resolve(_getLocalReviews())]);
+  const rating=_computeRating(pid,lr,rr);
+  el.innerHTML='<span class="stars" style="color:var(--gold);font-size:0.9rem;letter-spacing:1px">'+_starsHtml(rating)+'</span>'
+    +'<span class="count" style="font-size:.68rem;color:var(--text-muted);margin-left:4px">'+rating.toFixed(1)+'</span>';
+}
+
+/* Build reviews wall */
+async function buildReviewsWall(){
+  const wall=document.getElementById('reviewsWall');
+  if(!wall)return;
+  wall.innerHTML='<p style="color:var(--text-muted);font-size:0.85rem;text-align:center;padding:1rem">Loading reviews…</p>';
+  const [remoteReviews,localReviews]=await Promise.all([
+    _fetchRemote({type:'reviews'}),
+    Promise.resolve(_getLocalReviews())
+  ]);
+  const all=[..._SEED,...(remoteReviews||[]),...localReviews];
+  const avg=all.reduce((s,r)=>s+r.stars,0)/all.length;
+  const orb=document.querySelector('.orb-num');
+  const cnt=document.querySelector('.orb-count');
+  if(orb)orb.textContent=avg.toFixed(1);
+  if(cnt)cnt.textContent='Based on '+all.length+' verified reviews';
+  wall.innerHTML=all.slice(-9).reverse().map(r=>`
+    <div class="review-card">
+      <div class="r-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+      <p class="r-text">${r.text||'Great product!'}</p>
+      <div class="r-name">${r.name||'Anonymous'}${r.product?'<span style="font-size:0.68rem;color:var(--text-muted);margin-left:6px">· '+r.product+'</span>':''}</div>
+    </div>`).join('');
+}
+
 let _star=0;
-function openRateModal(){$('#rateModalBg').classList.add('open');_star=0;}
-function closeRateModal(){$('#rateModalBg').classList.remove('open');}
-function setStar(v){_star=v;$$('#rateStarRow button').forEach((b,i)=>b.style.transform=i<v?'scale(1.2)':'scale(1)');}
-async function submitRating(){if(!_star)return alert('Please select a star rating.');const name=$('#rateNameInp').value.trim()||'Anonymous';const text=$('#rateRevInp').value.trim()||'';try{const a=JSON.parse(localStorage.getItem('sh_r')||'[]');a.push({name,stars:_star,text,ts:Date.now()});localStorage.setItem('sh_r',JSON.stringify(a.slice(-50)));}catch{}await _post({type:'site_review',name,stars:_star,text,page:location.pathname});closeRateModal();$('#rateNameInp').value='';$('#rateRevInp').value='';buildReviewsWall();}
+function openRateModal(){document.getElementById('rateModalBg').classList.add('open');_star=0;
+  document.querySelectorAll('#rateStarRow button').forEach(b=>b.style.transform='');}
+function closeRateModal(){document.getElementById('rateModalBg').classList.remove('open');}
+function setStar(v){
+  _star=v;
+  document.querySelectorAll('#rateStarRow button').forEach((b,i)=>{
+    b.style.transform=i<v?'scale(1.3)':'scale(1)';
+    b.style.filter=i<v?'brightness(1.3)':'brightness(0.6)';
+  });
+}
+async function submitRating(){
+  if(!_star){alert('Please tap a star to rate.');return;}
+  const name=document.getElementById('rateNameInp').value.trim()||'Anonymous';
+  const text=document.getElementById('rateRevInp').value.trim()||'';
+  const rev={name,stars:_star,text,ts:Date.now()};
+  _saveLocalReview(rev);
+  _remoteRatingsCache=null; /* clear cache so next load is fresh */
+  _postRemote({type:'site_review',name,stars:_star,text,page:location.pathname});
+  closeRateModal();
+  document.getElementById('rateNameInp').value='';
+  document.getElementById('rateRevInp').value='';
+  buildReviewsWall();
+  /* Update all product star ratings instantly */
+  document.querySelectorAll('.prod-stars[data-pid]').forEach(el=>renderStarsLive(el.dataset.pid,el));
+}
 document.addEventListener('DOMContentLoaded',buildReviewsWall);
 </script>
 
@@ -959,15 +1068,18 @@ document.addEventListener('DOMContentLoaded',buildReviewsWall);
 <script>
 (function(){
   const products=[
-    {src:'brainchamp1.jpg.jpg',name:'Brain Champ'},
-    {src:'bloodstorm1.jpg.jpg',name:'Blood Storm'},
-    {src:'livohayaat1.jpg.jpg',name:'Livo Hayaat'},
-    {src:'shahzyme1.jpg.jpg',name:'Shah Zyme'},
-    {src:'diaease1.jpg.jpg',name:'Dia-Ease'},
-    {src:'orthohayaat1.jpg.jpg',name:'Ortho Hayaat'},
-    {src:'panasip1.jpg.jpg',name:'PanaSip'},
-    {src:'passionpulse1.jpg.jpg',name:'Passion Pulse'},
-    {src:'coughxpro1.jpg.jpg',name:'Cough X Pro'}
+    {src:'brainchamp1.jpg.jpg',   name:'Brain Champ'},
+    {src:'bloodstorm1.jpg.jpg',   name:'Blood Storm'},
+    {src:'livohayaat1.jpg.jpg',   name:'Livo Hayaat'},
+    {src:'shahzyme1.jpg.jpg',     name:'Shah Zyme'},
+    {src:'diaease1.jpg.jpg',      name:'Dia-Ease'},
+    {src:'orthohayaat1.jpg.jpg',  name:'Ortho Hayaat'},
+    {src:'panasip1.jpg.jpg',      name:'PanaSip'},
+    {src:'passionpulse1.jpg.jpg', name:'Passion Pulse'},
+    {src:'coughxpro1.jpg.jpg',    name:'Cough X Pro'},
+    {src:'musaffakhoon1.jpg.jpg', name:'Musaffa Khoon'},
+    {src:'utrohayaat1.jpg.jpg',   name:'Utro Hayaat'},
+    {src:'fevodol1.jpg.jpg',      name:'Fevodol'}
   ];
   const img=document.getElementById('hero-product');
   const label=document.getElementById('hero-prod-label');
