@@ -391,8 +391,8 @@ function buildGrid() {
     return `
     <div class="prod-card reveal">
       <div class="prod-img-wrap">
-        <img src="${GH}${p.id}.jpg" alt="${p.name}" loading="lazy"
-             onerror="this.parentElement.style.background='linear-gradient(135deg,#f5f0eb,#ede8e2)';this.remove()">
+        <img src="${GH}images/${p.id}1.jpg.jpg" alt="${p.name}" loading="lazy"
+             onerror="this.src=GH+'images/'+p.id+'1.jpg';this.onerror=null;">
         <span class="prod-tag">${p.tag}</span>
         <div class="prod-overlay">
           <a href="product-detail.html?id=${p.id}" style="display:inline-flex;align-items:center;justify-content:center;width:100%;padding:0.82rem 1.5rem;background:var(--primary-dark);color:var(--gold);font-size:0.76rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;border:1px solid rgba(198,167,94,0.35);transition:all 0.5s;text-decoration:none" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='var(--primary-dark)'">View Details</a>
