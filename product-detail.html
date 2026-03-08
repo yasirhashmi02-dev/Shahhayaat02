@@ -116,8 +116,8 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .detail-actions{display:flex;gap:0.75rem;flex-wrap:wrap;margin:1.2rem 0 2rem}
 .info-block{margin-bottom:1.8rem}
 .info-block-label{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;display:block}
-.benefit-item{display:flex;align-items:flex-start;gap:0.6rem;padding:0.48rem 0;border-bottom:1px solid var(--border);font-size:0.9rem;color:var(--text-mid);opacity:0;transform:scale(0.94) translateX(-8px);transition:opacity 0.55s ease,transform 0.55s ease}
-.benefit-item.benefit-in{opacity:1;transform:scale(1) translateX(0)}
+.benefit-item{display:flex;align-items:flex-start;gap:0.6rem;padding:0.48rem 0;border-bottom:1px solid var(--border);font-size:0.9rem;color:var(--text-mid);opacity:1;transform:none;transition:opacity 0.55s ease,transform 0.55s ease}
+.benefit-item.benefit-in{opacity:1;transform:scale(1.02) translateX(0);color:var(--text-dark)}
 .benefit-item:last-child{border-bottom:none}
 .benefit-item::before{content:'✓';color:var(--green-mid);font-weight:800;flex-shrink:0;margin-top:0.05rem}
 .info-boxes{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:3rem}
@@ -303,7 +303,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
         <li><a href="disclaimer.html">Medical Disclaimer</a></li>
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
-        <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#bdced5dcd5d5dcc4dcdcc98d8ffddad0dcd4d193ded2d0"><span class="__cf_email__" data-cfemail="95e6fdf4fdfdf4ecf4f4e1a5a7d5f2f8f4fcf9bbf6faf8">[email&#160;protected]</span></a></li>
         <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
       </ul></div>
     </div>
@@ -317,7 +317,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 <a href="https://wa.me/917051056287" target="_blank" class="wa-float">💬</a>
 <div class="toast" id="toast"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 'use strict';
 
 /* ── All product data embedded — no external dependency ── */
@@ -471,7 +471,7 @@ if (!p) {
               <p style="color:var(--text-mid);line-height:1.8">${p.full}</p>
             </div>
             <div class="info-block">
-              <span class="info-block-label">Key Benefits</span>
+              <span class="info-block-label" style="font-size:0.78rem;color:var(--green-mid);margin-bottom:0.8rem">✦ Key Benefits</span>
               <div>${p.benefits.map((b,i) => '<div class="benefit-item" data-bi="'+i+'">'+b+'</div>').join('')}</div>
             </div>
           </div>
@@ -531,6 +531,15 @@ if (!p) {
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
+  /* Animate benefits */
+  setTimeout(function(){
+    var items = document.querySelectorAll('.benefit-item');
+    items.forEach(function(el, i){
+      setTimeout(function(){ el.classList.add('benefit-in'); }, 120 + i * 140);
+    });
+  }, 80);
+
+  /* Reveal scroll animations */
   /* Reviews */
   renderReviews();
 }
@@ -708,8 +717,12 @@ function animateBenefits(){
 var _bObs = new MutationObserver(function(){
   var items = document.querySelectorAll('.benefit-item:not(.benefit-in)');
   if(items.length){
-    items.forEach(function(el,i){ setTimeout(function(){ el.classList.add('benefit-in'); }, 200 + i*170); });
-  });
+    items.forEach(function(el,i){ setTimeout(function(){ el.classList.add('benefit-in'); }, 120 + i*140); });
+  }
+});
+document.addEventListener('DOMContentLoaded', function(){
+  var grid = document.querySelector('.detail-grid');
+  if(grid) _bObs.observe(grid, {childList:true, subtree:true});
 });
 </script>
 </body>
