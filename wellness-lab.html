@@ -1163,7 +1163,7 @@ const LAB = {
     mod_circadian:          {label:'🌿 Lifestyle', num:4, of:4},
     mod_stressRecovery:     {label:'🔥 Stress',     num:4, of:5},
     mod_emotionalStress:    {label:'🔥 Stress',     num:5, of:5},
-    mod_multitask:          {label:'🧠 Brain',     num:9, of:11},
+    mod_multitask:          {label:'🧠 Brain',     num:9, of:10},
     mod_decisionSpeed:      {label:'🧠 Brain',     num:10, of:11},
     mod_cogFlex:            {label:'🧠 Brain',     num:11, of:11},
   },
@@ -1887,7 +1887,7 @@ window.mod_sustainedAttention = function () {
   }, () => {
     LAB.render(`<div class="mwrap"><div class="card card--pop">
       <div class="step-head">
-        <div class="tag">👁 Brain · 4 of 11</div>
+        <div class="tag">👁 Cognitive · 4 of 4</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Attention Test</h2>
         <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.6rem">
           <span style="display:inline-flex;align-items:center;gap:.3rem;padding:.22rem .72rem;background:var(--g3);border:1px solid rgba(42,122,90,.28);border-radius:50px;font-size:.8rem;font-weight:700;color:var(--g)">🟢 Green = TAP</span>
@@ -2713,6 +2713,7 @@ window.mod_recovery = function () {
 };
 
 window.mod_cogUnderPressure = function () {
+  window._mpDoneFired = false; // reset guard
   const TOTAL = 20, TIME = 35;
   let _q = [], _curr = 0, _correct = 0, _elapsed = 0, _cd = null;
 
@@ -2792,7 +2793,7 @@ window.mod_cogUnderPressure = function () {
     LAB.render(`<div class="mwrap"><div class="card card--pop">
       <div class="step-head" style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.5rem">
         <div>
-          <div class="tag">🔥 Brain · 6 of 11</div>
+          <div class="tag">🔥 Stress · 1 of 2</div>
           <h2 class="h2" style="margin-top:.75rem;margin-bottom:.2rem">Maths Under Pressure</h2>
         </div>
         <span class="timer" id="mpTimer">${TIME-_elapsed}</span>
@@ -2852,6 +2853,7 @@ window.mod_cogUnderPressure = function () {
 
   function _mpDone() {
     clearInterval(_cd);
+    if(window._mpDoneFired) return; window._mpDoneFired=true; // double-call guard
     const acc=_correct/TOTAL, sc=LAB.clamp(Math.round(acc*82+(_correct/Math.max(1,_elapsed))*18), 15, 100);
     LAB.raw.mathCorrect=_correct; LAB.raw.mathScore=sc;
     LAB.scores.stress=sc;
@@ -3791,14 +3793,14 @@ window.mod_wordRecall = function () {
     'sunset','pencil','anchor','violet','castle','pepper','thunder','basket'];
   // Shuffle and pick 6 fresh words every session
   const shuffle = a => { const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; };
-  const WORDS = shuffle(WORD_POOL).slice(0,8);
+  const WORDS = shuffle(WORD_POOL).slice(0,6);
   const SHOW_SECS = 10;
   let phase = 'idle';
 
   LAB.showDemo({
     title: '🔤 Word Recall',
     txt: '<strong>8 words</strong> will appear for 10 seconds. Read them carefully, then type back as many as you can remember.',
-    hint: 'Brain 5 of 11 — tests memory recall',
+    hint: 'Brain 4 of 5 — tests memory recall',
     voiceEN: "Word Recall! Eight words will appear on screen for 10 seconds. Read them all carefully — then they disappear and you type back however many you can remember. Ready?",
     btnLabel: 'Show Me the Words →',
     vis: `<div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;padding:.4rem" id="wrDemoWords">
@@ -3865,23 +3867,15 @@ window.mod_wordRecall = function () {
     const inp = document.getElementById('wrInput');
     const typed = (inp ? inp.value.toLowerCase() : '').split(/[\s,]+/).filter(w => w.length > 1);
     const correct = WORDS.filter(w => typed.includes(w));
-    const missed  = WORDS.filter(w => !typed.includes(w));
     const sc = LAB.clamp(Math.round((correct.length / WORDS.length) * 100), 5, 100);
     LAB.raw.wordRecallCorrect = correct.length;
     LAB.raw.wordRecallScore = sc;
+    // Feed into cognitive score
     const cogScores = ['rxScore','memScore','attScore','wordRecallScore'].map(k=>LAB.raw[k]).filter(x=>x!=null);
     if (cogScores.length) LAB.scores.cognitive = Math.round(LAB.avg(cogScores));
     LAB.celebrate();
-    // Show result card with correct/missed words before advancing
-    LAB.render(`<div class="mwrap"><div class="card card--pop" style="text-align:center">
-      <div class="tag" style="background:${LAB.scoreCol(sc)}18;color:${LAB.scoreCol(sc)};border-color:${LAB.scoreCol(sc)}44">🔤 Word Recall · Result</div>
-      <h2 class="h2" style="margin-top:.75rem">${correct.length} / ${WORDS.length} Recalled</h2>
-      <p class="pg" style="margin-bottom:.8rem">${LAB.scoreLbl(sc)} memory — score: <strong>${sc}</strong></p>
-      ${correct.length ? '<div style="margin:.5rem 0"><div style="font-size:.72rem;color:#2A7A5A;font-weight:700;margin-bottom:.35rem">✅ Remembered</div><div style="display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center">' + correct.map(w=>`<span style="padding:.22rem .65rem;background:#E8F5EE;border:1px solid #2A7A5A40;border-radius:6px;font-size:.82rem;font-weight:700;color:#2A7A5A">${w}</span>`).join('') + '</div></div>' : ''}
-      ${missed.length ? '<div style="margin:.5rem 0"><div style="font-size:.72rem;color:#C05050;font-weight:700;margin-bottom:.35rem">❌ Missed</div><div style="display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center">' + missed.map(w=>`<span style="padding:.22rem .65rem;background:#FFF0F0;border:1px solid #E8808040;border-radius:6px;font-size:.82rem;font-weight:700;color:#C05050">${w}</span>`).join('') + '</div></div>' : ''}
-    </div></div>`);
     LAB.say(`Word recall done! You remembered ${correct.length} out of ${WORDS.length} words — that is ${LAB.scoreLbl(sc)}! Brilliant effort!`);
-    setTimeout(() => { LAB.idx++; LAB.next(); }, 3200);
+    setTimeout(() => { LAB.idx++; LAB.next(); }, 1900);
   };
 };
 
@@ -4954,39 +4948,70 @@ window.mod_fatigueDrift = function () {
    Measures visual search speed and attention
    ═══════════════════════════════════════════════════════════════ */
 window.mod_numberSequence = function () {
-  const TOTAL = 40;          // 1–40 on a 5×8 grid — challenging but completable
-  const TIME_LIMIT = 90;     // 90 second cap so it never ends in a flash
-  let nums=[], nextExpected=1, startTime=0, done=false, timeoutId=null, timerInt=null;
+  // Each run gets a unique session token — any stale closure is ignored
+  const SESSION = Date.now() + '_' + Math.random().toString(36).slice(2);
+  const TOTAL = 25;       // 1–25 — completable in a reasonable time on mobile
+  const TIME_LIMIT = 120; // 2 minutes cap
+  let nums = [], nextExpected = 1, startTime = 0, done = false;
+  let timerInt = null, timeoutId = null;
 
   LAB.showDemo({
     title: '🔢 Number Sequence',
-    txt: 'Numbers <strong>1 to 40</strong> are scattered on the screen. Tap them <strong>in order</strong> as fast as you can — 1, then 2, then 3…',
-    hint: '40 numbers · 90 seconds · measures visual search speed',
-    voiceEN: 'Number Sequence! Find and tap 1, 2, 3 all the way to 40 — in order, as fast as you can. 90 seconds on the clock!',
+    txt: 'Numbers <strong>1 to 25</strong> are scattered on screen. Tap them <strong>in order</strong> — 1, then 2, then 3 … up to 25. As fast as you can!',
+    hint: '25 numbers · 2 minutes · measures visual search speed',
+    voiceEN: 'Number Sequence! Find and tap 1, 2, 3 all the way to 25 — in order, as fast as you can. Two minutes on the clock!',
     btnLabel: 'Start Number Test →',
-    vis: `<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:.5rem;max-width:280px;margin:0 auto">
+    vis: `<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:.5rem;max-width:260px;margin:0 auto">
       ${Array.from({length:10},(_,i)=>`<div style="background:#E8F5EE;border-radius:8px;padding:.4rem;text-align:center;font-weight:700;font-size:.85rem;color:#2A7A5A">${i+1}</div>`).join('')}
     </div>`
   }, () => {
-    // Build shuffled grid 1–40
-    nums = Array.from({length:TOTAL},(_,i)=>i+1);
+    // Fresh state every run
+    nums = Array.from({length:TOTAL}, (_,i) => i+1);
     for(let i=nums.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[nums[i],nums[j]]=[nums[j],nums[i]];}
-    nextExpected=1; done=false;
+    nextExpected = 1;
+    startTime = 0;
+    done = false;
+    timerInt = null;
+    timeoutId = null;
 
+    // ── Phase 1: READY screen — user must tap START before seeing grid ──
+    LAB.render(`<div class="mwrap"><div class="card card--pop" style="text-align:center">
+      <div class="tag">🔢 Brain · 7 of 11</div>
+      <h2 class="h2" style="margin-top:.75rem;margin-bottom:.5rem">Number Sequence</h2>
+      <p class="pg" style="max-width:320px;margin:0 auto 1.2rem">
+        25 numbers will appear scrambled on screen.<br>
+        Tap them <strong>in order: 1 → 2 → 3 … → 25</strong>.<br>
+        Timer starts when you tap <strong>1</strong>.
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-width:240px;margin:0 auto 1.5rem;opacity:.4;pointer-events:none">
+        ${Array.from({length:10},(_,i)=>`<div style="background:#E8F5EE;border-radius:8px;padding:.45rem;text-align:center;font-weight:700;font-size:.9rem;color:#2A7A5A">${i+1}</div>`).join('')}
+        ${Array.from({length:5},(_,i)=>`<div style="background:#f0f0f0;border-radius:8px;padding:.45rem;text-align:center;font-weight:700;font-size:.9rem;color:#aaa">?</div>`).join('')}
+      </div>
+      <button class="btn btn--p btn--lg" id="nsGoBtn" onclick="window._nsGo('${SESSION}')">
+        ▶ Show the Numbers →
+      </button>
+    </div></div>`);
+    LAB.say("Number sequence — 25 numbers scattered on screen. Find and tap them in order, starting from 1. Your timer starts the moment you tap 1!");
+  });
+
+  // ── Phase 2: Show grid — called only when user deliberately taps the button ──
+  window._nsGo = function(sess) {
+    if (sess !== SESSION) return; // stale call guard
     LAB.render(`<div class="mwrap"><div class="card card--pop">
       <div class="step-head">
-        <div class="tag">🔢 Cognitive · Number Sequence</div>
+        <div class="tag">🔢 Brain · 7 of 11</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.35rem">Number Sequence</h2>
-        <p class="pg" style="margin-bottom:.5rem">Tap <strong>1 → 2 → 3 … → 40</strong> in order as fast as you can.</p>
+        <p class="pg" style="margin-bottom:.5rem">Find &amp; tap <strong>1 → 2 → 3 … → 25</strong> in order.</p>
       </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;padding:0 .25rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;padding:.6rem .5rem;background:#F0FBF5;border-radius:10px;border:1.5px solid #C6E8D5">
         <div>
-          <span style="font-size:.8rem;color:var(--tq)">Next: </span>
-          <span id="nsNext" style="font-size:1.15rem;font-weight:800;color:var(--g)">1</span>
+          <span style="font-size:.75rem;color:var(--tq)">Next: </span>
+          <span id="nsNext" style="font-size:1.3rem;font-weight:800;color:var(--g)">1</span>
+          <span style="font-size:.7rem;color:#2563EB;font-weight:600;margin-left:.5rem" id="nsStartHint">← tap this first to start timer</span>
         </div>
         <div style="display:flex;gap:.75rem">
           <div style="text-align:center">
-            <div id="nsTime" style="font-size:1rem;font-weight:700;color:var(--t)">90s</div>
+            <div id="nsTime" style="font-size:1rem;font-weight:700;color:var(--tq)">⏸ Ready</div>
             <div style="font-size:.6rem;color:var(--tq)">Time left</div>
           </div>
           <div style="text-align:center">
@@ -4995,104 +5020,128 @@ window.mod_numberSequence = function () {
           </div>
         </div>
       </div>
-      <div id="nsGrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-width:360px;margin:0 auto 1rem"></div>
-      <div id="nsReadyBanner" style="text-align:center;padding:.5rem;background:#EEF4FF;border-radius:8px;font-size:.78rem;color:#2563EB;font-weight:600;margin-top:-.5rem">
-        ⏱ Timer starts when you tap <strong>1</strong> — find it and go!
-      </div>
+      <div id="nsGrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:360px;margin:0 auto"></div>
     </div></div>`);
 
-    // Render tiles - highlight "1" so user knows where to start
+    // Build tiles
     const g = document.getElementById('nsGrid');
-    if(g) g.innerHTML = nums.map(n=>`
-      <button onclick="_nsTap(${n})" id="ns_${n}"
-        style="background:${n===1?'#EEF4FF':'#fff'};border:2px solid ${n===1?'#2563EB':'var(--b)'};
-               border-radius:10px;padding:.55rem .1rem;
-               font-weight:700;font-size:.9rem;color:${n===1?'#2563EB':'var(--t)'};cursor:pointer;
-               transition:all .15s;-webkit-tap-highlight-color:transparent;min-height:40px"
+    if (!g) return;
+    g.innerHTML = nums.map(n => `
+      <button id="ns_${n}" onclick="window._nsTap(${n},'${SESSION}')"
+        style="background:${n===1?'#EEF4FF':'#fff'};
+               border:2px solid ${n===1?'#2563EB':'var(--b)'};
+               border-radius:10px;padding:.6rem .1rem;
+               font-weight:700;font-size:.95rem;
+               color:${n===1?'#2563EB':'var(--t)'};
+               cursor:pointer;transition:background .12s,border-color .12s,transform .1s;
+               -webkit-tap-highlight-color:transparent;min-height:44px"
         aria-label="Number ${n}">${n}</button>`).join('');
 
-    startTime = 0; // will be set on first correct tap (tap "1")
+    LAB.say("Go! Find 1 and tap it to start your timer. Then 2, 3, all the way to 25!");
+  };
 
-    // Countdown timer (starts on first tap)
-    let remSecs = TIME_LIMIT;
-    timerInt = setInterval(()=>{
-      if(done) { clearInterval(timerInt); return; }
-      if(!startTime) return; // not started yet
-      remSecs = Math.max(0, TIME_LIMIT - Math.floor((performance.now()-startTime)/1000));
-      const el = document.getElementById('nsTime');
-      if(!el) { clearInterval(timerInt); return; }
-      el.textContent = remSecs + 's';
-      if(remSecs <= 10) el.style.color = '#E88080';
-      else el.style.color = 'var(--t)';
-      if(remSecs <= 0) { clearInterval(timerInt); _nsDone(true); }
-    }, 500);
+  // ── Tap handler ──
+  window._nsTap = function(n, sess) {
+    if (sess !== SESSION || done) return;
 
-    // Hard timeout starts on first correct tap (set inside _nsTap)
-    timeoutId = null;
-
-    window._nsTap = function(n) {
-      if(done) return;
-      if(n !== nextExpected){
-        const btn = document.getElementById('ns_'+n);
-        if(btn){ btn.style.background='#FFE8E8'; btn.style.borderColor='#E88080'; btn.style.transform='scale(0.9)';
-          setTimeout(()=>{ if(btn){ btn.style.background=''; btn.style.borderColor=''; btn.style.transform=''; }},350); }
-        return;
+    if (n !== nextExpected) {
+      // Wrong number — flash red briefly
+      const btn = document.getElementById('ns_' + n);
+      if (btn) {
+        btn.style.background = '#FFE8E8';
+        btn.style.borderColor = '#E88080';
+        btn.style.transform = 'scale(0.88)';
+        setTimeout(() => {
+          if (!btn) return;
+          btn.style.background = '#fff';
+          btn.style.borderColor = 'var(--b)';
+          btn.style.transform = '';
+        }, 300);
       }
-      // Correct tap — start timer on very first tap
-      if(!startTime) {
-        startTime = performance.now();
-        timeoutId = setTimeout(()=>{ if(!done) _nsDone(true); }, TIME_LIMIT * 1000 + 500);
-        // Hide ready banner
-        const rb = document.getElementById('nsReadyBanner');
-        if(rb) { rb.style.background='#E8F5EE'; rb.style.color='#2A7A5A'; rb.textContent='⏱ Timer running — find them all!'; }
-        // Reset tile 1 highlight
-        const t1 = document.getElementById('ns_1');
-        if(t1) { t1.style.background='#2A7A5A'; t1.style.borderColor='#2A7A5A'; t1.style.color='#fff'; t1.disabled=true; }
-      }
-      const btn = document.getElementById('ns_'+n);
-      if(btn){ btn.style.background='#2A7A5A'; btn.style.borderColor='#2A7A5A'; btn.style.color='#fff'; btn.disabled=true; }
-      nextExpected++;
-      const nx = document.getElementById('nsNext');
-      if(nx) nx.textContent = nextExpected <= TOTAL ? nextExpected : '✓';
-      const dn = document.getElementById('nsDone');
-      if(dn) dn.textContent = (nextExpected-1)+'/'+TOTAL;
-      LAB.flash('hit');
-      if(nextExpected > TOTAL){ clearInterval(timerInt); clearTimeout(timeoutId); _nsDone(false); }
-    };
-
-    function _nsDone(timedOut) {
-      done = true;
-      clearInterval(timerInt); clearTimeout(timeoutId);
-      const elapsed = startTime ? (performance.now()-startTime)/1000 : TIME_LIMIT;
-      const found = nextExpected - 1;
-      let sc;
-      if(timedOut) {
-        // Partial score based on how many found in TIME_LIMIT
-        sc = LAB.clamp(Math.round((found / TOTAL) * 80), 5, 80);
-      } else {
-        // Full completion: 100 at ≤30s, -1.5 per extra second, floor 25
-        sc = LAB.clamp(Math.round(100 - Math.max(0, elapsed - 30) * 1.5), 25, 100);
-      }
-      LAB.raw.numberSeqScore = sc;
-      LAB.raw.numberSeqTime = Math.round(elapsed*10)/10;
-      LAB.raw.numberSeqFound = found;
-      const cog = [LAB.raw.rxScore,LAB.raw.fatigueDriftScore,LAB.raw.memScore,LAB.raw.attScore,
-                   LAB.raw.wordRecallScore,LAB.raw.mathScore,sc].filter(x=>x!=null);
-      if(cog.length) LAB.scores.cognitive = Math.round(LAB.avg(cog));
-      LAB.celebrate();
-      const msg = timedOut
-        ? `Time's up! You found ${found} of ${TOTAL} numbers in ${TIME_LIMIT} seconds — ${LAB.scoreLbl(sc)}!`
-        : `Brilliant! All 40 numbers in ${elapsed.toFixed(1)} seconds — ${LAB.scoreLbl(sc)}!`;
-      LAB.say(msg);
-      setTimeout(()=>{ LAB.idx++; LAB.next(); }, 2000);
+      return;
     }
-  });
+
+    // ── Correct tap ──
+    // Start timer on very first correct tap (tap of "1")
+    if (!startTime) {
+      startTime = performance.now();
+      // Update "Next" label hint
+      const hint = document.getElementById('nsStartHint');
+      if (hint) hint.style.display = 'none';
+      // Start countdown display
+      timerInt = setInterval(() => {
+        if (done) { clearInterval(timerInt); return; }
+        const el = document.getElementById('nsTime');
+        if (!el) { clearInterval(timerInt); return; }
+        const rem = Math.max(0, TIME_LIMIT - Math.floor((performance.now() - startTime) / 1000));
+        el.textContent = rem + 's';
+        el.style.color = rem <= 10 ? '#E88080' : rem <= 30 ? '#C97010' : 'var(--t)';
+        if (rem <= 0) { clearInterval(timerInt); _nsDone(true, sess); }
+      }, 500);
+      // Hard stop after TIME_LIMIT
+      timeoutId = setTimeout(() => { _nsDone(true, sess); }, TIME_LIMIT * 1000 + 600);
+    }
+
+    // Mark tile done
+    const btn = document.getElementById('ns_' + n);
+    if (btn) {
+      btn.style.background = '#2A7A5A';
+      btn.style.borderColor = '#2A7A5A';
+      btn.style.color = '#fff';
+      btn.disabled = true;
+      btn.style.transform = 'scale(0.95)';
+    }
+
+    nextExpected++;
+
+    const nx = document.getElementById('nsNext');
+    if (nx) nx.textContent = nextExpected <= TOTAL ? nextExpected : '✓';
+    const dn = document.getElementById('nsDone');
+    if (dn) dn.textContent = (nextExpected - 1) + '/' + TOTAL;
+
+    LAB.flash('hit');
+
+    if (nextExpected > TOTAL) {
+      clearInterval(timerInt);
+      clearTimeout(timeoutId);
+      _nsDone(false, sess);
+    }
+  };
+
+  function _nsDone(timedOut, sess) {
+    if (sess !== SESSION || done) return; // session guard
+    done = true;
+    clearInterval(timerInt);
+    clearTimeout(timeoutId);
+
+    const elapsed = startTime ? (performance.now() - startTime) / 1000 : TIME_LIMIT;
+    const found = nextExpected - 1;
+    let sc;
+    if (timedOut) {
+      sc = LAB.clamp(Math.round((found / TOTAL) * 80), 5, 80);
+    } else {
+      // Full completion: 100 at ≤30s, -1.5/extra second, floor 25
+      sc = LAB.clamp(Math.round(100 - Math.max(0, elapsed - 30) * 1.5), 25, 100);
+    }
+
+    LAB.raw.numberSeqScore = sc;
+    LAB.raw.numberSeqTime = Math.round(elapsed * 10) / 10;
+    LAB.raw.numberSeqFound = found;
+
+    const cog = [LAB.raw.rxScore, LAB.raw.fatigueDriftScore, LAB.raw.memScore,
+                 LAB.raw.attScore, LAB.raw.wordRecallScore, LAB.raw.mathScore, sc].filter(x => x != null);
+    if (cog.length) LAB.scores.cognitive = Math.round(LAB.avg(cog));
+
+    LAB.celebrate();
+    const msg = timedOut
+      ? `Time's up! You found ${found} of ${TOTAL} numbers in ${TIME_LIMIT} seconds — ${LAB.scoreLbl(sc)}!`
+      : `Brilliant! All ${TOTAL} numbers in ${elapsed.toFixed(1)} seconds — ${LAB.scoreLbl(sc)}!`;
+    LAB.say(msg);
+    setTimeout(() => { LAB.idx++; LAB.next(); }, 2200);
+  }
 };
 
-/* ═══════════════════════════════════════════════════════════════
-   mod_goNoGo — impulse control test
-   Tap green circles only. Ignore red. 20 stimuli.
-   ═══════════════════════════════════════════════════════════════ */
+
 window.mod_goNoGo = function () {
   const TRIALS=20; const GO_PROB=0.65; // 65% green (go), 35% red (no-go)
   let trial=0, hits=0, misses=0, falseTaps=0, rxTimes=[], startT=0, waiting=false, isGo=false;

@@ -687,7 +687,14 @@ document.addEventListener('DOMContentLoaded', () => {
   );
   const btn = document.getElementById('back-top');
   window.addEventListener('scroll', () => {
-    document.body.cl
+    document.body.classList.toggle('scrolled', window.scrollY > 60);
+    if (btn) btn.classList.toggle('show', window.scrollY > 400);
+  }, {passive:true});
+  // Reveal on scroll
+  const io = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);} }), {threshold:0.07});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+});
+</script>
 
 <script>
 /* Benefits staggered zoom-in */
