@@ -33,7 +33,7 @@
 "openingHours":"Mo-Su 09:00-20:00","sameAs":["https://instagram.com/shahhayaatofficial","https://amzn.in/d/9vsBOWH"]}
 </script>
   <meta name="description" content="Get in touch with Shah Hayaat for product orders, wellness advice or any enquiry. WhatsApp is the fastest way to reach us.">
-  <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
+  <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -193,7 +193,7 @@ body.nav-open{overflow:hidden}
 <body>
 <header class="site-header">
   <div class="container header-inner">
-    <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat"><span>Shah <em>Hayaat</em></span></a>
+    <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat"><span>Shah <em>Hayaat</em></span></a>
     <nav class="nav-links"><ul>
       <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
       <li><a href="products.html">Products</a></li><li><a href="quiz.html">Health Quiz</a></li>
@@ -304,7 +304,7 @@ body.nav-open{overflow:hidden}
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat"><span>Shah <em>Hayaat</em></span></a>
+        <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat"><span>Shah <em>Hayaat</em></span></a>
         <p>Pure, certified Ayurvedic remedies that bring balance and vitality to your modern lifestyle.</p>
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc">&#128247;</a>
@@ -360,3 +360,18 @@ if(form){form.addEventListener("submit",async function(e){e.preventDefault();con
     try{
       const fd=new FormData(form);
       const data={name:fd.
+      const data2={name:fd.get('name'),email:fd.get('email'),phone:fd.get('phone')||'',subject:fd.get('subject'),message:fd.get('message')};
+      st.textContent='Message sent! We will reply within 24 hours.';
+      st.style.color='#2A4633';
+      form.reset();
+    }catch(err){
+      st.textContent='Something went wrong. Please WhatsApp us at +91 70510 56287.';
+      st.style.color='#c0392b';
+    }finally{
+      bt.disabled=false;bt.textContent='Send Message';
+      setTimeout(()=>st.textContent='',6000);
+    }
+  });}
+</script>
+</body>
+</html>

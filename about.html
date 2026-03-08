@@ -29,8 +29,8 @@
 </script>
   <meta name="description" content="Learn about Shah Hayaat's journey, Ayurvedic philosophy, WHO-GMP and ISO certifications, and commitment to pure, effective herbal wellness products.">
   <meta property="og:title" content="About Shah Hayaat — Rooted in Nature, Refined by Science">
-  <meta property="og:image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
-  <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
+  <meta property="og:image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg">
+  <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -223,7 +223,7 @@ body.nav-open{overflow:hidden}
 <header class="site-header">
   <div class="container header-inner">
     <a href="index.html" class="logo">
-      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat">
+      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat">
       <span>Shah <em>Hayaat</em></span>
     </a>
     <nav class="nav-links"><ul>
@@ -417,7 +417,7 @@ body.nav-open{overflow:hidden}
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo">
-          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat">
+          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat">
           <span>Shah <em>Hayaat</em></span>
         </a>
         <p>Pure, certified Ayurvedic remedies that bring balance and vitality to your modern lifestyle.</p>
@@ -473,4 +473,17 @@ body.nav-open{overflow:hidden}
 'use strict';
 document.getElementById('hamburger').addEventListener('click', () => document.body.classList.toggle('nav-open'));
 document.querySelectorAll('.nav-drawer a').forEach(a =>
-  a.addEventListener('click', () => setTimeout((
+  a.addEventListener('click', () => setTimeout((  setTimeout((') => document.body.classList.remove('nav-open'), 320))
+  );
+  window.addEventListener('scroll', () => {
+    document.getElementById('back-top').classList.toggle('show', window.scrollY > 500);
+  }, {passive:true});
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const io2 = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io2.unobserve(e.target); }});
+  }, {threshold:0.08});
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => io2.observe(el));
+});
+</script>
+</body>
+</html>
