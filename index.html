@@ -1149,6 +1149,13 @@ window.addEventListener('load',function(){
   var loader=document.getElementById('preloader');
   setTimeout(function(){ if(loader) loader.classList.add('out'); },3800);
 });
+
+/* Reveal fallback */
+setTimeout(function(){
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){
+    el.classList.add('in');
+  });
+}, 600);
 </script>
 </body>
 </html>

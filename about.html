@@ -216,6 +216,7 @@ body.nav-open{overflow:hidden}
 .reveal-r{opacity:0;transform:translateX(22px);transition:opacity 0.9s ease,transform 0.9s ease}
 .reveal-r.in{opacity:1;transform:none}
 .d1{transition-delay:0.1s}.d2{transition-delay:0.2s}.d3{transition-delay:0.3s}
+.page-header .reveal,.page-header .reveal-l,.page-header .reveal-r{opacity:1!important;transform:none!important}
 </style>
 </head>
 <body>
@@ -485,8 +486,15 @@ document.getElementById('yr').textContent = new Date().getFullYear();
 /* Reveal */
 const revIO = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); revIO.unobserve(e.target); }});
-}, {threshold: 0.08});
+}, {threshold: 0.01, rootMargin: "0px 0px -20px 0px"});
 document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => revIO.observe(el));
+
+/* Reveal fallback — show everything if IO doesn't trigger */
+setTimeout(function(){
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){
+    el.classList.add('in');
+  });
+}, 800);
 </script>
 </body>
 </html>
