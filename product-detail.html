@@ -12,14 +12,14 @@
   <style>
 :root{
   /* Deeper luxury greens */
-  --primary-dark:#0F241B;
-  --primary:#183D2F;
-  --primary-light:#2A5A45;
+  --primary-dark:#082f49;
+  --primary:#0c4a6e;
+  --primary-light:#075985;
   /* Forest aliases (used in HTML) map to new deeper values */
-  --forest:#0F241B;
-  --forest-mid:#183D2F;
-  --forest-lt:#2A5A45;
-  --forest-pale:rgba(15,36,27,0.05);
+  --forest:#082f49;
+  --forest-mid:#0c4a6e;
+  --forest-lt:#075985;
+  --forest-pale:rgba(7,30,51,0.05);
   /* Surfaces */
   --cream:#F4F1EA;
   --cream-dk:#EBE7DD;
@@ -34,7 +34,7 @@
   --text-mid:#3A3A3A;
   --text-muted:#6B6B6B;
   /* Borders */
-  --border:rgba(15,36,27,0.10);
+  --border:rgba(7,30,51,0.10);
   --border-gold:rgba(198,167,94,0.22);
   --border-dk:rgba(255,255,255,0.09);
   /* Transitions — slightly slower for luxury feel */
@@ -126,7 +126,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .quiz-disclaimer{background:var(--gold-pale);border:1px solid rgba(184,134,11,0.22);border-radius:1px;padding:1rem 1.2rem;font-size:0.82rem;color:var(--text-mid);line-height:1.7}
 /* Related products */
 .product-grid{display:grid;gap:1.6rem;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
-.product-card{background:var(--bg-white);border-radius:2px;overflow:hidden;box-shadow:var(--shadow-xs);border:1px solid rgba(15,36,27,0.08);display:flex;flex-direction:column;transition:all var(--t) var(--ease)}
+.product-card{background:var(--bg-white);border-radius:2px;overflow:hidden;box-shadow:var(--shadow-xs);border:1px solid rgba(7,30,51,0.08);display:flex;flex-direction:column;transition:all var(--t) var(--ease)}
 .product-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:rgba(184,134,11,0.28)}
 .product-card-img{position:relative;overflow:hidden;height:200px}
 .product-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease}
@@ -140,7 +140,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .product-actions-row{display:flex;gap:0.4rem}
 /* Reviews */
 .reviews-section{background:var(--bg-cream);padding:3.5rem 0}
-.rating-summary{display:flex;align-items:center;gap:2.5rem;padding:1.8rem;background:var(--bg-white);border-radius:2px;box-shadow:var(--shadow-xs);border:1px solid rgba(15,36,27,0.08);margin-bottom:2rem;flex-wrap:wrap}
+.rating-summary{display:flex;align-items:center;gap:2.5rem;padding:1.8rem;background:var(--bg-white);border-radius:2px;box-shadow:var(--shadow-xs);border:1px solid rgba(7,30,51,0.08);margin-bottom:2rem;flex-wrap:wrap}
 .rating-big{text-align:center;flex-shrink:0}
 .rating-big .score{font-family:var(--font-head);font-size:3.8rem;font-weight:700;color:var(--green-dark);line-height:1}
 .rating-big .out-of{font-size:0.8rem;color:var(--text-muted);margin-top:0.2rem}
@@ -154,13 +154,13 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:4px;transition:width 0.6s ease}
 .bar-count{width:24px;flex-shrink:0}
 .review-list{display:flex;flex-direction:column;gap:1.2rem;margin-bottom:2.5rem}
-.review-card{background:var(--bg-white);border-radius:2px;padding:1.4rem 1.6rem;border:1px solid rgba(15,36,27,0.08);box-shadow:var(--shadow-xs)}
+.review-card{background:var(--bg-white);border-radius:2px;padding:1.4rem 1.6rem;border:1px solid rgba(7,30,51,0.08);box-shadow:var(--shadow-xs)}
 .review-header{display:flex;align-items:flex-start;justify-content:space-between;gap:0.8rem;margin-bottom:0.6rem;flex-wrap:wrap}
 .reviewer-name{font-weight:700;font-size:0.95rem;color:var(--green-dark)}
 .review-date{font-size:0.76rem;color:var(--text-muted)}
 .review-stars{color:var(--gold);font-size:0.9rem;letter-spacing:1px;margin-bottom:0.5rem}
 .review-text{font-size:0.9rem;color:var(--text-mid);line-height:1.7}
-.review-helpful{display:inline-flex;align-items:center;gap:0.35rem;margin-top:0.7rem;font-size:0.78rem;color:var(--text-muted);cursor:pointer;border:none;background:none;padding:0.28rem 0.7rem;border-radius:1px;border:1px solid rgba(15,36,27,0.08);transition:all 0.2s}
+.review-helpful{display:inline-flex;align-items:center;gap:0.35rem;margin-top:0.7rem;font-size:0.78rem;color:var(--text-muted);cursor:pointer;border:none;background:none;padding:0.28rem 0.7rem;border-radius:1px;border:1px solid rgba(7,30,51,0.08);transition:all 0.2s}
 .review-helpful:hover{border-color:var(--green-mid);color:var(--green-mid)}
 .review-helpful.liked{background:var(--green-dark);color:#fff;border-color:var(--green-dark)}
 /* Write review */
@@ -485,7 +485,7 @@ if (!p) {
           <div class="reveal">
             <div class="detail-img">
               <img src="${imgSrc(p.id)}" alt="${p.name}" loading="eager"
-                   onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/'+p.id+'1.jpg';this.onerror=function(){this.style.display='none'};">
+                   onerror="(function(t,id){var tries=['" + GH + "'+id+'.jpg','" + GH + "'+id+'.png'];var i=0;t.onerror=function(){if(i<tries.length){t.src=tries[i++];}else{t.style.display='none';}};if(tries.length)t.src=tries[i++];})(this,p.id)">
             </div>
           </div>
           <div class="reveal delay-2">

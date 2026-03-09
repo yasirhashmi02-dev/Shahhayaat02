@@ -23,7 +23,7 @@
   <style>
   
 :root{
-  --green-dark:#2A4633;--green-mid:#3B6449;--green-light:#4D7C5D;
+  --green-dark:#0c4a6e;--green-mid:#0369a1;--green-light:#0284c7;
   --bg-cream:#F8F6F2;--bg-white:#FFFFFF;
   --gold:#B8860B;--gold-light:#D4A017;--gold-pale:#FDF8E8;
   --text-dark:#1C1C1C;--text-mid:#3D3D3D;--text-muted:#6B6B6B;
@@ -41,7 +41,7 @@ img{max-width:100%;height:auto;display:block}a{color:inherit;text-decoration:non
 .section-sm{padding:clamp(36px,5vw,56px) 0}
 .bg-white{background:var(--bg-white)}
 .bg-cream{background:var(--bg-cream)}
-.bg-forest{background:linear-gradient(160deg,#1a3326 0%,#2A4633 55%,#1a3326 100%)}
+.bg-forest{background:linear-gradient(160deg,#082f49 0%,#0c4a6e 55%,#082f49 100%)}
 .text-center{text-align:center}
 h1,h2,h3,h4{font-family:var(--font-head);line-height:1.15;letter-spacing:-0.01em}
 h1{font-size:clamp(2.2rem,5vw,3.8rem)}
@@ -56,7 +56,7 @@ p{color:var(--text-mid);font-size:0.97rem;line-height:1.8}
 .btn-wa{background:#25D366;color:#fff}.btn-wa:hover{background:#20bc5b;transform:translateY(-2px)}
 /* NAV */
 .site-header{position:fixed;top:0;left:0;right:0;z-index:900;padding:1rem 0;transition:all 0.35s var(--ease)}
-body.scrolled .site-header{background:rgba(26,51,38,0.97);backdrop-filter:blur(16px);padding:0.7rem 0;box-shadow:0 2px 20px rgba(0,0,0,0.2)}
+body.scrolled .site-header{background:rgba(7,30,51,0.97);backdrop-filter:blur(16px);padding:0.7rem 0;box-shadow:0 2px 20px rgba(0,0,0,0.2)}
 .header-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
 .logo{display:flex;align-items:center;gap:0.7rem;font-family:var(--font-head);font-size:1.2rem;font-weight:700;color:#fff;letter-spacing:0.02em}
 .logo img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid rgba(184,134,11,0.5)}
@@ -74,14 +74,14 @@ body.scrolled .site-header{background:rgba(26,51,38,0.97);backdrop-filter:blur(1
 body.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 body.nav-open .nav-toggle span:nth-child(2){opacity:0;transform:scaleX(0)}
 body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.nav-mobile{position:fixed;inset:0;z-index:950;background:linear-gradient(160deg,#1a3326 0%,#2A4633 100%);padding:5.5rem 2rem 2.5rem;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.45s cubic-bezier(0.76,0,0.24,1);overflow-y:auto}
+.nav-mobile{position:fixed;inset:0;z-index:950;background:linear-gradient(160deg,#082f49 0%,#0c4a6e 100%);padding:5.5rem 2rem 2.5rem;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.45s cubic-bezier(0.76,0,0.24,1);overflow-y:auto}
 body.nav-open .nav-mobile{transform:none}
 body.nav-open{overflow:hidden}
 .nav-mobile a{display:block;font-family:var(--font-head);font-size:1.8rem;font-style:italic;color:rgba(255,255,255,0.65);padding:0.55rem 0;border-bottom:1px solid rgba(255,255,255,0.06);transition:color 0.2s}
 .nav-mobile a:hover{color:#fff}
 .nav-mobile-footer{margin-top:auto;padding-top:2rem;display:flex;flex-direction:column;gap:0.8rem}
 /* PAGE HERO */
-.page-hero{background:linear-gradient(160deg,#1a3326 0%,#2A4633 55%,#162c1e 100%);padding:clamp(6rem,12vw,9rem) 0 clamp(3rem,6vw,5rem);position:relative;overflow:hidden}
+.page-hero{background:linear-gradient(160deg,#082f49 0%,#0c4a6e 55%,#071e33 100%);padding:clamp(6rem,12vw,9rem) 0 clamp(3rem,6vw,5rem);position:relative;overflow:hidden}
 .page-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
 .page-hero .eyebrow{color:var(--gold-light)}
 .page-hero h1{color:#fff;margin-bottom:1rem}
@@ -96,7 +96,7 @@ body.nav-open{overflow:hidden}
 .reveal-r{opacity:0;transform:translateX(24px);transition:opacity 0.7s ease,transform 0.7s ease}.reveal-r.in{opacity:1;transform:none}
 .d1{transition-delay:0.1s}.d2{transition-delay:0.2s}.d3{transition-delay:0.3s}.d4{transition-delay:0.4s}
 /* FOOTER */
-.site-footer{background:linear-gradient(160deg,#1a3326 0%,#2A4633 100%);padding:clamp(48px,7vw,80px) 0 2rem;border-top:3px solid var(--gold)}
+.site-footer{background:linear-gradient(160deg,#082f49 0%,#0c4a6e 100%);padding:clamp(48px,7vw,80px) 0 2rem;border-top:3px solid var(--gold)}
 .footer-grid{display:grid;grid-template-columns:1.8fr repeat(3,1fr);gap:3rem;margin-bottom:3rem}
 @media(max-width:800px){.footer-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
@@ -141,7 +141,7 @@ body.nav-open{overflow:hidden}
   .cond-panel.active{display:block;animation:fadePanel 0.35s var(--ease)}
   @keyframes fadePanel{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-  .cond-hero-strip{background:linear-gradient(135deg,#1a3326 0%,#2A4633 60%,#1a3326 100%);padding:2.5rem;border-radius:var(--radius-lg);display:flex;gap:2rem;align-items:flex-start;margin-bottom:2.5rem}
+  .cond-hero-strip{background:linear-gradient(135deg,#082f49 0%,#0c4a6e 60%,#082f49 100%);padding:2.5rem;border-radius:var(--radius-lg);display:flex;gap:2rem;align-items:flex-start;margin-bottom:2.5rem}
   @media(max-width:600px){.cond-hero-strip{flex-direction:column;gap:1rem;padding:1.5rem}}
   .cond-hero-icon{font-size:3.5rem;flex-shrink:0;margin-top:0.2rem}
   .cond-hero-strip .eyebrow{color:var(--gold-light)}
@@ -188,7 +188,7 @@ body.nav-open{overflow:hidden}
   .pct-price span{font-size:0.85rem;font-weight:400;color:var(--text-muted)}
   .pct-trust{display:flex;flex-direction:column;gap:0.3rem;margin-top:1.2rem;border-top:1px solid var(--border);padding-top:1rem}
   .pct-trust span{font-size:0.75rem;color:var(--text-muted)}
-  .quiz-cta-card{background:linear-gradient(135deg,#1a3326,#2A4633);border-radius:var(--radius);padding:1.5rem;text-align:center}
+  .quiz-cta-card{background:linear-gradient(135deg,#082f49,#0c4a6e);border-radius:var(--radius);padding:1.5rem;text-align:center}
   .quiz-cta-card h4{font-family:var(--font-head);font-size:0.95rem;color:#fff;margin-bottom:0.5rem}
   .quiz-cta-card p{font-size:0.8rem;color:rgba(255,255,255,0.65);line-height:1.6}
 
@@ -334,7 +334,7 @@ body.nav-open{overflow:hidden}
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Memory & Brain</div>
             <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp1.jpg.jpg" alt="Brain Champ"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp1.jpg';this.onerror=null"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp1.jpg.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Brain Champ</h3>
             <p class="pct-desc">Our flagship brain tonic combines all four Medhya Rasayana herbs in clinically appropriate doses — formulated specifically for Indian brain health needs.</p>
@@ -401,7 +401,7 @@ body.nav-open{overflow:hidden}
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Liver Health</div>
             <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/livohayaat1.jpg.jpg" alt="Livo Hayaat"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/livohayaat1.jpg';this.onerror=null"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/livohayaat1.jpg.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Livo Hayaat</h3>
             <p class="pct-desc">Livo Hayaat contains the complete Yakrit Rakshana herb complex in therapeutic doses — specifically formulated for the modern Indian liver under metabolic stress.</p>
@@ -468,7 +468,7 @@ body.nav-open{overflow:hidden}
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Digestion</div>
             <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/shahzyme1.jpg.jpg" alt="Shah Zyme"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/shahzyme1.jpg';this.onerror=null"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/shahzyme1.jpg.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Shah Zyme</h3>
             <p class="pct-desc">Shah Zyme is a comprehensive digestive enzyme syrup combining 18 enzyme complexes with traditional Ayurvedic carminatives — for complete digestive support.</p>
@@ -535,7 +535,7 @@ body.nav-open{overflow:hidden}
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Joint Pain</div>
             <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/orthohayaat1.jpg.jpg" alt="Ortho Hayaat"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/orthohayaat1.jpg';this.onerror=null"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/orthohayaat1.jpg.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Ortho Hayaat</h3>
             <p class="pct-desc">Ortho Hayaat combines Shallaki, Ashwagandha, and classical Vata-pacifying herbs in anti-inflammatory doses validated by peer-reviewed research.</p>
@@ -602,7 +602,7 @@ body.nav-open{overflow:hidden}
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Blood Sugar</div>
             <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/diaease1.jpg.jpg" alt="Dia-Ease"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/diaease1.jpg';this.onerror=null"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/diaease1.jpg.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Dia-Ease</h3>
             <p class="pct-desc">Dia-Ease is a comprehensive Ayurvedic blood sugar support formula — combining all four key anti-diabetic herb complexes in research-backed therapeutic doses.</p>
@@ -669,7 +669,7 @@ body.nav-open{overflow:hidden}
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Immunity</div>
             <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/fevodol1.jpg.jpg" alt="Fevodol"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/fevodol1.jpg';this.onerror=null"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/fevodol1.jpg.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Fevodol</h3>
             <p class="pct-desc">Fevodol combines India's most powerful immune-building herbs in the classical Rasayana tradition — formulated to rebuild Ojas from the cellular level upward.</p>
@@ -713,7 +713,7 @@ body.nav-open{overflow:hidden}
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
-          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon" aria-label="Email">✉️</a>
+          <a href="/cdn-cgi/l/email-protection#ff8c979e97979e869e9e8bcfcdbf98929e9693d19c9092" class="soc-icon" aria-label="Email">✉️</a>
         </div>
       </div>
       <div class="footer-col"><h4>Health Guides</h4><ul>
@@ -733,7 +733,7 @@ body.nav-open{overflow:hidden}
         <li><a href="ingredients.html">View All →</a></li>
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
-        <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#ed9e858c85858c948c8c99dddfad8a808c8481c38e8280"><span class="__cf_email__" data-cfemail="780b10191010190119190c484a381f15191114561b1715">[email&#160;protected]</span></a></li>
         <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
         <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
         <li><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></li>
@@ -747,7 +747,7 @@ body.nav-open{overflow:hidden}
 </footer>
 <a href="https://wa.me/917051056287" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
 <button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 'use strict';
 document.querySelector('.nav-toggle').addEventListener('click',()=>document.body.classList.toggle('nav-open'));
 document.querySelectorAll('.nav-mobile a').forEach(a=>a.addEventListener('click',()=>setTimeout(()=>document.body.classList.remove('nav-open'),320)));
@@ -774,13 +774,4 @@ function showCond(id) {
     document.querySelectorAll('#cond-' + id + ' .reveal, #cond-' + id + ' .reveal-r').forEach(el => el.classList.add('in'));
   }, 50);
 }
-// Load from URL param
-const urlC = new URLSearchParams(location.search).get('c');
-if (urlC) showCond(urlC);
-else {
-  // Trigger initial animations
-  setTimeout(() => document.querySelectorAll('#cond-memory .reveal, #cond-memory .reveal-r').forEach(el => el.classList.add('in')), 200);
-}
-</script>
-</body>
-</html>
+// Load from URL pa
