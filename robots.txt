@@ -1,14 +1,12 @@
 User-agent: *
 Allow: /
 
-# Block thank-you page from indexing (no standalone value)
-Disallow: /thank-you.html
-
-# Sitemap location
+# Sitemap
 Sitemap: https://www.shahhayaat.com/sitemap.xml
 
-# Wellness Lab is a tool page, not a main SEO target
-Disallow: /wellness-lab.html
+# Crawl-delay for respectful crawling
+Crawl-delay: 10
 
-# Catalogue is a legacy page
-Disallow: /catalogue.html
+# Disallow any admin or hidden paths
+Disallow: /cdn-cgi/
+Disallow: /*?utm_*
