@@ -389,6 +389,10 @@ body.nav-open{overflow:hidden}
 .herb-teaser-arrow{font-size:1rem;color:var(--gold);opacity:0;transform:translateX(-5px);transition:all 0.25s;align-self:center;flex-shrink:0}
 @media(max-width:600px){.herb-teaser-grid{grid-template-columns:1fr}}
 
+/* 2×2 cert grid */
+.hero-cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.45rem;margin-bottom:1.4rem;max-width:320px}
+@media(max-width:760px){.hero-cert-grid{max-width:100%;grid-template-columns:1fr 1fr}}
+
 </style>
 </head>
 <body id="top">
@@ -419,7 +423,7 @@ body.nav-open{overflow:hidden}
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul></nav>
-    <a href="wellness-lab.html" class="nav-cta btn btn-primary btn-sm">Start Lab</a>
+    <a href="wellness-lab.html" class="nav-cta btn btn-glow btn-sm" style="white-space:nowrap;font-size:0.75rem;padding:0.55rem 1.1rem">✦ Click Here for Self Assessment</a>
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -451,11 +455,11 @@ body.nav-open{overflow:hidden}
       <div class="hero-text">
         <p class="hero-welcome">Welcome to Shah Hayaat</p>
         <h1><em>Ancient Wisdom</em><br>Meets Modern Care</h1>
-        <div class="hero-badge-row">
+        <div class="hero-cert-grid">
           <span class="hero-cert cert-1">🌿 WHO-GMP</span>
           <span class="hero-cert cert-2">ISO 9001:2015</span>
-          <span class="hero-cert cert-3">HACCP Certified</span>
-          <span class="hero-cert cert-4">FSSAI Licensed</span>
+          <span class="hero-cert cert-3">✅ HACCP</span>
+          <span class="hero-cert cert-4">🇮🇳 FSSAI</span>
         </div>
         <p class="hero-sub">Certified herbal formulations for Brain, Liver, Digestion, Joints, Immunity &amp; more — crafted with traditional wisdom, modern standards.</p>
         <div class="hero-btns">
@@ -1062,7 +1066,10 @@ document.addEventListener('DOMContentLoaded',buildReviewsWall);
     {src:'orthohayaat1.jpg',name:'Ortho Hayaat'},
     {src:'panasip1.jpg',name:'PanaSip'},
     {src:'passionpulse1.jpg',name:'Passion Pulse'},
-    {src:'coughxpro1.jpg',name:'Cough X Pro'}
+    {src:'coughxpro1.jpg',name:'Cough X Pro'},
+    {src:'musaffakhoon1.jpg',name:'Musaffa Khoon'},
+    {src:'utrohayaat1.jpg',name:'Utro Hayaat'},
+    {src:'fevodol1.jpg',name:'Fevodol'}
   ];
   const img=document.getElementById('hero-product');
   const label=document.getElementById('hero-prod-label');
