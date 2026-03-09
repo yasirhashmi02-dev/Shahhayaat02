@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="pg-title">Product — Shah Hayaat</title>
   <meta name="description" id="pg-desc" content="Premium Ayurvedic product from Shah Hayaat.">
-  <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
+  <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -116,7 +116,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .detail-actions{display:flex;gap:0.75rem;flex-wrap:wrap;margin:1.2rem 0 2rem}
 .info-block{margin-bottom:1.8rem}
 .info-block-label{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;display:block}
-.benefit-item{display:flex;align-items:flex-start;gap:0.6rem;padding:0.48rem 0;border-bottom:1px solid var(--border);font-size:0.9rem;color:var(--text-mid);opacity:1;transform:none;transition:opacity 0.55s ease,transform 0.55s ease}
+.benefit-item{opacity:1 !important;transform:none !important;display:flex;align-items:flex-start;gap:0.6rem;padding:0.48rem 0;border-bottom:1px solid var(--border);font-size:0.9rem;color:var(--text-mid);opacity:1;transform:none;transition:opacity 0.55s ease,transform 0.55s ease}
 .benefit-item.benefit-in{opacity:1;transform:scale(1.02) translateX(0);color:var(--text-dark)}
 .benefit-item:last-child{border-bottom:none}
 .benefit-item::before{content:'✓';color:var(--green-mid);font-weight:800;flex-shrink:0;margin-top:0.05rem}
@@ -196,6 +196,8 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .toast{position:fixed;bottom:6rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green-dark);color:#fff;padding:0.7rem 1.4rem;border-radius:1px;font-size:0.88rem;font-weight:600;box-shadow:var(--shadow-md);opacity:0;transition:all 0.3s;z-index:9999;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(max-width:640px){.detail-actions{flex-direction:column}.detail-actions .btn{width:100%;justify-content:center}.rating-summary{flex-direction:column;gap:1.2rem}}
+.page-hero .reveal,.page-hero .reveal-l{opacity:1 !important;transform:none !important}
+.page-hero-inner{opacity:1 !important;transform:none !important}
 </style>
 <meta name="description" content="Buy Shah Hayaat certified Ayurvedic medicine online. WHO-GMP & ISO certified herbal formulations. 100% natural ingredients. Order on WhatsApp: +91 70510 56287.">
 <meta name="keywords" content="ayurvedic medicine buy online, herbal syrup india, certified ayurvedic product, shah hayaat product">
@@ -349,14 +351,14 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 'use strict';
 
 /* ── All product data embedded — no external dependency ── */
-const GH = '';
+const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/';
 const IMG = {
   brainchamp:'brainchamp.jpg', shahzyme:'shahzyme.jpg', bloodstorm:'bloodstorm.jpg',
   coughxpro:'coughxpro.jpg', musaffakhoon:'musaffakhoon.jpg', panasip:'panasip.jpg',
   livohayaat:'livohayaat.jpg', diaease:'diaease.png', orthohayaat:'orthohayaat.jpg',
   utrohayaat:'utrohayaat.png', passionpulse:'passionpulse.jpg', fevodol:'fevodol.png'
 };
-function imgSrc(id){ return id + '1.jpg.jpg'; }
+function imgSrc(id){ return 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/' + id + '1.jpg.jpg'; }
 
 const PRODUCTS = [
   { id:'brainchamp', form:'syrup', name:'Brain Champ', price:175, cat:'brain', tag:'Brain & Focus',
@@ -483,7 +485,7 @@ if (!p) {
           <div class="reveal">
             <div class="detail-img">
               <img src="${imgSrc(p.id)}" alt="${p.name}" loading="eager"
-                   onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/'+(({'brainchamp':'brainchamp.jpg','shahzyme':'shahzyme.jpg','bloodstorm':'bloodstorm.jpg','livohayaat':'livohayaat.jpg','diaease':'diaease.png','orthohayaat':'orthohayaat.jpg','utrohayaat':'utrohayaat.png','passionpulse':'passionpulse.jpg','panasip':'panasip.jpg','coughxpro':'coughxpro.jpg','musaffakhoon':'musaffakhoon.jpg','fevodol':'fevodol.png'})[p.id]||p.id+'.jpg')">
+                   onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/'+p.id+'1.jpg';this.onerror=function(){this.style.display='none'};">
             </div>
           </div>
           <div class="reveal delay-2">
@@ -535,7 +537,7 @@ if (!p) {
       <div class="product-card">
         <div class="product-card-img">
           <img src="${imgSrc(r.id)}" alt="${r.name}" loading="lazy"
-               onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect fill=%22%23eee%22 width=%22200%22 height=%22200%22/%3E%3C/svg%3E'">
+               onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/'+r.id+'1.jpg';">
           <span class="product-cat-tag">${r.tag}</span>
         </div>
         <div class="product-body">
@@ -556,7 +558,7 @@ if (!p) {
   /* Trigger reveal animations */
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.08 });
+  }, { threshold: 0.01, rootMargin: "0px 0px -10px 0px" });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
   /* Animate benefits */
@@ -717,11 +719,18 @@ function showToast(msg) {
 
 /* ── Nav & scroll ── */
 document.addEventListener('DOMContentLoaded', () => {
-  const toggle = document.querySelector('.nav-toggle');
+  /* Nav */
+  const toggle = document.querySelector('.nav-toggle') || document.getElementById('hamburger');
   if (toggle) toggle.addEventListener('click', () => document.body.classList.toggle('nav-open'));
-  document.querySelectorAll('.nav-mobile a').forEach(a =>
+  document.querySelectorAll('.nav-mobile a, .nav-drawer a').forEach(a =>
     a.addEventListener('click', () => setTimeout(() => document.body.classList.remove('nav-open'), 320))
   );
+  /* Reveal fallback for product content */
+  setTimeout(function(){
+    document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){
+      el.classList.add('in');
+    });
+  }, 400);
   const btn = document.getElementById('back-top');
   window.addEventListener('scroll', () => {
     document.body.classList.toggle('scrolled', window.scrollY > 60);
@@ -752,6 +761,13 @@ document.addEventListener('DOMContentLoaded', function(){
   var grid = document.querySelector('.detail-grid');
   if(grid) _bObs.observe(grid, {childList:true, subtree:true});
 });
+
+/* Reveal fallback — force show after 600ms */
+setTimeout(function(){
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){
+    el.classList.add('in');
+  });
+}, 600);
 </script>
 </body>
 </html>
