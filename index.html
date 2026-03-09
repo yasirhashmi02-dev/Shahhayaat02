@@ -7,10 +7,10 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-8XLY6RR8LP');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Shah Hayaat Certified Ayurvedic Medicines | Brain, Liver, Digestion & Immunity</title>
+<title>Shah Hayaat — Certified Ayurvedic Medicines | Brain, Liver, Digestion & Immunity</title>
 <meta name="description" content="WHO-GMP, ISO 9001:2015 & HACCP certified Ayurvedic medicines for brain, liver, digestion, joints, immunity, skin and more. Trusted by 50,000+ customers across India.">
 <meta name="keywords" content="Ayurvedic medicine, herbal remedies, brain supplement, liver health, digestion, Shah Hayaat, WHO-GMP certified, natural wellness">
-<meta property="og:title" content="Shah Hayaat Premium Certified Ayurvedic Medicines">
+<meta property="og:title" content="Shah Hayaat — Premium Certified Ayurvedic Medicines">
 <meta property="og:description" content="Certified herbal formulations for complete wellness. 12+ remedies. Trusted by 50,000+ customers.">
 <meta property="og:image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg">
 <meta property="og:type" content="website">
@@ -106,38 +106,16 @@ p{font-size:clamp(0.92rem,1.5vw,1rem);color:var(--text-mid);line-height:1.78}
 .btn-wa:hover{background:#1ea855;transform:translateY(-2px)}
 
 
-/* Premium Preloader */
-#preloader{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#0B0F14 0%,#11151B 100%);transition:opacity 0.9s ease,visibility 0.9s ease;overflow:hidden}
+#preloader{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:var(--hero-bg-1);transition:opacity 0.7s ease,visibility 0.7s ease}
 #preloader.out{opacity:0;visibility:hidden;pointer-events:none}
-/* Ambient light rays */
-#preloader::before{content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(ellipse,rgba(180,140,60,0.07) 0%,transparent 65%);border-radius:50%;animation:preAmbient 4s ease-in-out infinite alternate;pointer-events:none}
-#preloader::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.012'%3E%3Ccircle cx='40' cy='40' r='1'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
-@keyframes preAmbient{0%{transform:translateX(-50%) scale(0.9);opacity:0.5}100%{transform:translateX(-50%) scale(1.1);opacity:1}}
-.pre-inner{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;gap:0}
-/* Window-open curtain panels */
-.pre-curtain-left,.pre-curtain-right{position:fixed;top:0;bottom:0;width:50%;background:linear-gradient(160deg,#0B0F14 0%,#11151B 100%);z-index:1;transition:transform 1.1s cubic-bezier(0.76,0,0.24,1)}
-.pre-curtain-left{left:0;transform-origin:left}
-.pre-curtain-right{right:0;transform-origin:right}
-#preloader.out .pre-curtain-left{transform:translateX(-100%)}
-#preloader.out .pre-curtain-right{transform:translateX(100%)}
-/* Logo */
-.pre-logo{font-family:var(--font-head);font-size:2.1rem;color:#fff;margin-bottom:2px;opacity:0;animation:preLogoIn 0.9s cubic-bezier(0.22,1,0.36,1) 0.2s forwards}.pre-logo em{color:#D4A017;font-style:normal}
-@keyframes preLogoIn{from{opacity:0;transform:translateY(18px) scale(0.94)}to{opacity:1;transform:none}}
-/* Divider */
-.pre-divider{width:0;height:1px;background:linear-gradient(90deg,transparent,rgba(212,160,23,0.5),transparent);margin:14px auto 12px;animation:preDivider 1s ease 0.7s forwards}
-@keyframes preDivider{to{width:120px}}
-/* Tagline */
-.pre-welcome{font-family:var(--font-head);font-size:1rem;color:rgba(255,255,255,0.5);letter-spacing:0.14em;text-transform:uppercase;margin:10px 0 4px;opacity:0;animation:taglineFade 0.9s ease 0.8s forwards}
-.pre-tagline{color:rgba(255,255,255,0.68);font-size:0.9rem;max-width:260px;margin:0 auto 22px;line-height:1.7;letter-spacing:0.03em;opacity:0;transform:translateY(10px);animation:taglineFade 1s ease 2.6s forwards}
-.pre-tagline strong{color:#D4A017;font-weight:600;letter-spacing:0.06em}
-@keyframes taglineFade{to{opacity:1;transform:none}}
-/* Progress bar */
-.pre-line{width:160px;height:1.5px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;position:relative}
-.pre-line::after{content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;background:linear-gradient(90deg,transparent,#D4A017,#f0d070,#D4A017);animation:preLoad 1.6s cubic-bezier(0.4,0,0.2,1) 0.3s forwards}
+.pre-inner{text-align:center;display:flex;flex-direction:column;align-items:center;gap:0}
+.pre-logo{font-family:var(--font-head);font-size:1.9rem;color:#fff;margin-bottom:4px}.pre-logo em{color:var(--gold-light);font-style:normal}
+.pre-tagline{color:rgba(255,255,255,0.75);font-size:0.9rem;max-width:280px;margin:12px auto 14px;line-height:1.6;opacity:0;transform:translateY(10px);animation:taglineFade 1.2s ease forwards;animation-delay:0.4s}
+.pre-tagline strong{color:#D4A017;font-weight:600;letter-spacing:0.03em}
+@keyframes taglineFade{to{opacity:1;transform:translateY(0)}}
+.pre-line{width:140px;height:2px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;position:relative}
+.pre-line::after{content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;background:#D4A017;animation:preLoad 1.4s ease forwards}
 @keyframes preLoad{to{left:0}}
-/* Leaf accent */
-.pre-leaf{font-size:1.3rem;opacity:0;animation:preLeaf 0.7s ease 0.15s forwards;margin-bottom:8px}
-@keyframes preLeaf{from{opacity:0;transform:scale(0.6) rotate(-20deg)}to{opacity:0.7;transform:scale(1) rotate(0deg)}}
 
 
 .site-header{position:fixed;top:0;left:0;right:0;z-index:900;padding:1rem 0;transition:all 0.35s var(--ease)}
@@ -176,12 +154,11 @@ body.nav-open{overflow:hidden}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.28) 0%,transparent 65%);pointer-events:none}
 .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:3rem;padding:6rem 0 4rem}
 .hero-welcome{font-family:var(--font-head);font-size:clamp(1rem,2vw,1.2rem);color:rgba(255,255,255,0.55);font-style:italic;margin-bottom:0.6rem;letter-spacing:0.04em}
-.hero-badge-row{display:grid;grid-template-columns:1fr 1fr;gap:0.45rem;margin-bottom:1.4rem;max-width:300px}
+.hero-badge-row{display:flex;flex-wrap:wrap;gap:0.55rem;margin-bottom:1.4rem}
 .hero-cert{display:inline-flex;align-items:center;gap:0.35rem;padding:0.28rem 0.85rem;border-radius:50px;font-size:0.7rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#f0d888;border:1px solid rgba(212,160,23,0.30);background:rgba(184,134,11,0.10)}
 .cert-1{animation:certGlow 3s ease-in-out infinite 0s}
 .cert-2{animation:certGlow 3s ease-in-out infinite 1s}
 .cert-3{animation:certGlow 3s ease-in-out infinite 2s}
-.cert-4{animation:certGlow 3s ease-in-out infinite 3s}
 @keyframes certGlow{0%,66%,100%{background:rgba(184,134,11,0.10);border-color:rgba(212,160,23,0.30);color:rgba(240,216,136,0.6)}33%{background:rgba(212,160,23,0.28);border-color:rgba(212,160,23,0.90);color:#fff;box-shadow:0 0 18px rgba(212,160,23,0.45)}}
 .hero h1{color:#fff;margin-bottom:1rem;line-height:1.1}
 .hero h1 em{font-style:italic;color:var(--gold-light)}
@@ -191,10 +168,10 @@ body.nav-open{overflow:hidden}
 .hero-trust-item{display:flex;align-items:center;gap:0.4rem;font-size:0.74rem;color:rgba(255,255,255,0.45);font-weight:500}
 .hero-trust-item::before{content:'✓';color:var(--gold-light);font-weight:700}
 /* Hero image col */
-.hero-img-col{position:relative;display:flex;align-items:center;justify-content:center;min-height:520px;perspective:1200px}
-.hero-img-glow{position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(56,150,240,0.28) 0%,rgba(184,134,11,0.08) 50%,transparent 70%);border-radius:50%;filter:blur(32px);animation:heroGlow 5s ease-in-out infinite alternate}
+.hero-img-col{position:relative;display:flex;align-items:center;justify-content:center;min-height:440px;perspective:1200px}
+.hero-img-glow{position:absolute;width:380px;height:380px;background:radial-gradient(circle,rgba(56,150,240,0.28) 0%,rgba(184,134,11,0.08) 50%,transparent 70%);border-radius:50%;filter:blur(32px);animation:heroGlow 5s ease-in-out infinite alternate}
 @keyframes heroGlow{0%{transform:scale(0.92);opacity:.65}100%{transform:scale(1.1);opacity:1}}
-.hero-product-img{position:relative;z-index:2;width:clamp(280px,38vw,480px);height:auto;filter:drop-shadow(0 28px 56px rgba(0,0,0,0.55));animation:floatBottle 5s ease-in-out infinite;cursor:pointer;transition:transform 0.5s cubic-bezier(.25,.46,.45,.94),filter 0.5s}
+.hero-product-img{position:relative;z-index:2;width:clamp(220px,28vw,360px);height:auto;filter:drop-shadow(0 28px 56px rgba(0,0,0,0.55));animation:floatBottle 5s ease-in-out infinite;cursor:pointer;transition:transform 0.5s cubic-bezier(.25,.46,.45,.94),filter 0.5s}
 .hero-product-img:hover{transform:scale(1.08)!important;filter:drop-shadow(0 36px 72px rgba(0,0,0,0.65))}
 @keyframes floatBottle{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
 @keyframes slideInRight{from{transform:translateX(90px);opacity:0}to{transform:translateX(0);opacity:1}}
@@ -211,7 +188,7 @@ body.nav-open{overflow:hidden}
   .hero-sub,.hero-btns,.hero-trust{margin-left:auto;margin-right:auto;justify-content:center}
   .hero-sub{max-width:100%}
   .hero-img-col{min-height:280px;order:-1}
-  .hero-product-img{width:clamp(220px,58vw,320px)}
+  .hero-product-img{width:clamp(180px,48vw,260px)}
   .hero-img-glow{width:260px;height:260px}
   .hero-dots{bottom:0.8rem}
 }
@@ -402,14 +379,9 @@ body.nav-open{overflow:hidden}
 
 <!-- Preloader -->
 <div id="preloader">
-  <div class="pre-curtain-left"></div>
-  <div class="pre-curtain-right"></div>
   <div class="pre-inner">
-    <div class="pre-leaf">🌿</div>
     <div class="pre-logo">Shah <em>Hayaat</em></div>
-    <p class="pre-welcome">Welcome to Shah Hayaat</p>
-    <div class="pre-divider"></div>
-    <p class="pre-tagline"><em>where ancient wisdom<br>meets modern care</em></p>
+    <p class="pre-tagline">Welcome to <strong>SHAH HAYAAT</strong><br>where ancient wisdom meets modern care</p>
     <div class="pre-line"></div>
   </div>
 </div>
@@ -429,7 +401,7 @@ body.nav-open{overflow:hidden}
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul></nav>
-    <a href="wellness-lab.html" class="nav-cta btn btn-glow btn-sm" style="white-space:nowrap;font-size:0.75rem;padding:0.55rem 1.1rem">✦ Click Here for Self Assessment</a>
+    <a href="wellness-lab.html" class="nav-cta btn btn-primary btn-sm">Start Lab</a>
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -458,12 +430,12 @@ body.nav-open{overflow:hidden}
   <div class="container">
     <div class="hero-inner">
       <div class="hero-text">
-        <h1>Premium Ayurvedic<br>Medicines for<br><em>Complete Wellness</em></h1>
+        <p class="hero-welcome">Welcome to Shah Hayaat</p>
+        <h1><em>Ancient Wisdom</em><br>Meets Modern Care</h1>
         <div class="hero-badge-row">
-          <span class="hero-cert cert-1">🌿 WHO</span>
-          <span class="hero-cert cert-2">GMP</span>
-          <span class="hero-cert cert-3">ISO 9001:2015</span>
-          <span class="hero-cert cert-4">HACCP</span>
+          <span class="hero-cert cert-1">🌿 WHO-GMP</span>
+          <span class="hero-cert cert-2">ISO 9001:2015</span>
+          <span class="hero-cert cert-3">HACCP Certified</span>
         </div>
         <p class="hero-sub">Certified herbal formulations for Brain, Liver, Digestion, Joints, Immunity &amp; more — crafted with traditional wisdom, modern standards.</p>
         <div class="hero-btns">
@@ -491,7 +463,7 @@ body.nav-open{overflow:hidden}
   <div class="container stats-inner">
     <div class="stat-item"><span class="stat-num">12+</span><div class="stat-lbl">Remedies</div></div>
     <div class="stat-item"><span class="stat-num">50K+</span><div class="stat-lbl">Happy Customers</div></div>
-    <div class="stat-item"><span class="stat-num">4</span><div class="stat-lbl">Certifications</div></div>
+    <div class="stat-item"><span class="stat-num">3</span><div class="stat-lbl">Certifications</div></div>
     <div class="stat-item"><span class="stat-num">2024</span><div class="stat-lbl">Est.</div></div>
   </div>
 </div>
@@ -732,7 +704,7 @@ body.nav-open{overflow:hidden}
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
-          <a href="/cdn-cgi/l/email-protection#1b68737a73737a627a7a6f2b295b7c767a727735787476" class="soc-icon" aria-label="Email">✉️</a>
+          <a href="/cdn-cgi/l/email-protection#05766d646d6d647c6464713537456268646c692b666a68" class="soc-icon" aria-label="Email">✉️</a>
         </div>
       </div>
       <div class="footer-col"><h4>Navigation</h4><ul>
@@ -753,7 +725,7 @@ body.nav-open{overflow:hidden}
         <li><a href="products.html">View All 12 →</a></li>
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
-        <li><a href="/cdn-cgi/l/email-protection#c7b4afa6afafa6bea6a6b3f7f587a0aaa6aeabe9a4a8aa"><span class="__cf_email__" data-cfemail="7f0c171e17171e061e1e0b4f4d3f18121e1613511c1012">[email&#160;protected]</span></a></li>
+        <li><a href="/cdn-cgi/l/email-protection#f5869d949d9d948c949481c5c7b59298949c99db969a98"><span class="__cf_email__" data-cfemail="02716a636a6a637b636376323042656f636b6e2c616d6f">[email&#160;protected]</span></a></li>
         <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
         <li><a href="https://instagram.com/shahhayaatofficial" target="_blank">@shahhayaatofficial</a></li>
         <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
@@ -800,7 +772,7 @@ body.nav-open{overflow:hidden}
 <!-- 
      DATA + ENGINE
  -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 'use strict';
 const $ = s => document.querySelector(s);
 const $$ = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
@@ -932,135 +904,26 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 <!-- Reviews Engine -->
 <script>
-/* ── Reviews Engine — localStorage + Google Sheets hybrid ── */
 const REVIEWS_API='https://script.google.com/macros/s/AKfycbwIiEeIHyJWonJd1QhEiLHYnUjAE5yRqxXH22CNB_Wa36xpFN0BkokebBO1g_1AVZL8xw/exec';
+const _LIVE=true;
 const _SEED=[
-  {name:'Priya S.',     stars:5, text:'Ortho Hayaat made a remarkable difference to my knee pain in just 3 weeks!', product:'Ortho Hayaat'},
-  {name:'Rohan K.',     stars:5, text:'Shah Zyme transformed my digestion. Feel lighter and more energetic after every meal.', product:'Shah Zyme'},
-  {name:'Anjali P.',    stars:5, text:'Brain Champ genuinely helped me focus during exams. Something natural that actually works!', product:'Brain Champ'},
-  {name:'Meera D.',     stars:5, text:'Blood Storm improved my haemoglobin levels within a month. Highly recommended.', product:'Blood Storm'},
-  {name:'Tariq H.',     stars:5, text:'Livo Hayaat cleared my fatty liver in 6 weeks. Liver enzymes back to normal!', product:'Livo Hayaat'},
-  {name:'Sunita R.',    stars:4, text:'Cough X Pro gave fast relief. Far better than over-the-counter syrups.', product:'Cough X Pro'}
+  {name:'Priya S.',stars:5,text:'Ortho Hayaat made a remarkable difference to my knee pain in just 3 weeks!'},
+  {name:'Rohan K.',stars:5,text:'Shah Zyme is a lifesaver — lighter and more energetic after every meal!'},
+  {name:'Anjali P.',stars:5,text:'Brain Champ genuinely helped me focus during exam season. Highly recommended.'}
 ];
 const _BASE_RATINGS={brainchamp:4.8,shahzyme:4.7,bloodstorm:4.6,coughxpro:4.5,musaffakhoon:4.6,panasip:4.7,livohayaat:4.8,orthohayaat:4.9,diaease:4.5,utrohayaat:4.6,passionpulse:4.7,fevodol:4.5};
-
-function _starsHtml(r){
-  const f=Math.floor(r),h=(r-f)>=0.5;
-  let s='';for(let i=1;i<=5;i++)s+=i<=f?'★':(i===f+1&&h?'½':'☆');
-  return s;
-}
-
-/* Get reviews from localStorage (user-submitted) */
-function _getLocalReviews(){
-  try{ return JSON.parse(localStorage.getItem('sh_site_reviews')||'[]'); }catch{ return []; }
-}
-function _saveLocalReview(r){
-  try{
-    const a=_getLocalReviews();
-    a.push({...r,ts:Date.now(),local:true});
-    localStorage.setItem('sh_site_reviews',JSON.stringify(a.slice(-100)));
-  }catch{}
-}
-
-/* Try Google Sheets API with timeout */
-async function _fetchRemote(params){
-  try{
-    const qs=Object.entries(params).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');
-    const ctrl=new AbortController();
-    const tid=setTimeout(()=>ctrl.abort(),4000);
-    const r=await fetch(REVIEWS_API+'?'+qs,{signal:ctrl.signal,cache:'no-store'});
-    clearTimeout(tid);
-    const j=await r.json();
-    return j.ok?j.data:null;
-  }catch{ return null; }
-}
-async function _postRemote(body){
-  try{
-    await fetch(REVIEWS_API,{
-      method:'POST',
-      body:JSON.stringify(body),
-      headers:{'Content-Type':'application/json'}
-    });
-  }catch{}
-}
-
-/* Compute rating for a product from all sources */
-function _computeRating(pid, localReviews, remoteRatings){
-  const base=_BASE_RATINGS[pid]||4.5;
-  const local=localReviews.filter(r=>r.pid===pid||!r.pid);
-  const remote=remoteRatings&&remoteRatings[pid];
-  let total=base*10, count=10;
-  if(local.length){ local.forEach(r=>{ total+=r.stars; count++; }); }
-  if(remote&&remote.count){ total+=remote.total||remote.avg*remote.count; count+=remote.count; }
-  return Math.round((total/count)*10)/10;
-}
-
-let _remoteRatingsCache=null;
-async function _getRemoteRatings(){
-  if(_remoteRatingsCache!==null) return _remoteRatingsCache;
-  const d=await _fetchRemote({type:'prod_ratings'});
-  _remoteRatingsCache=d||{};
-  return _remoteRatingsCache;
-}
-
-/* Render star rating for a product card */
-async function renderStarsLive(pid,el){
-  if(!el)return;
-  const [rr,lr]=await Promise.all([_getRemoteRatings(),Promise.resolve(_getLocalReviews())]);
-  const rating=_computeRating(pid,lr,rr);
-  el.innerHTML='<span class="stars" style="color:var(--gold);font-size:0.9rem;letter-spacing:1px">'+_starsHtml(rating)+'</span>'
-    +'<span class="count" style="font-size:.68rem;color:var(--text-muted);margin-left:4px">'+rating.toFixed(1)+'</span>';
-}
-
-/* Build reviews wall */
-async function buildReviewsWall(){
-  const wall=document.getElementById('reviewsWall');
-  if(!wall)return;
-  wall.innerHTML='<p style="color:var(--text-muted);font-size:0.85rem;text-align:center;padding:1rem">Loading reviews…</p>';
-  const [remoteReviews,localReviews]=await Promise.all([
-    _fetchRemote({type:'reviews'}),
-    Promise.resolve(_getLocalReviews())
-  ]);
-  const all=[..._SEED,...(remoteReviews||[]),...localReviews];
-  const avg=all.reduce((s,r)=>s+r.stars,0)/all.length;
-  const orb=document.querySelector('.orb-num');
-  const cnt=document.querySelector('.orb-count');
-  if(orb)orb.textContent=avg.toFixed(1);
-  if(cnt)cnt.textContent='Based on '+all.length+' verified reviews';
-  wall.innerHTML=all.slice(-9).reverse().map(r=>`
-    <div class="review-card">
-      <div class="r-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
-      <p class="r-text">${r.text||'Great product!'}</p>
-      <div class="r-name">${r.name||'Anonymous'}${r.product?'<span style="font-size:0.68rem;color:var(--text-muted);margin-left:6px">· '+r.product+'</span>':''}</div>
-    </div>`).join('');
-}
-
+function _stars(r){const f=Math.floor(r),h=(r-f)>=0.5;let s='';for(let i=1;i<=5;i++)s+=i<=f?'★':(i===f+1&&h?'½':'☆');return s;}
+async function _get(p){if(!_LIVE)return null;try{const qs=Object.entries(p).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');const r=await fetch(REVIEWS_API+'?'+qs,{cache:'no-store'});const j=await r.json();return j.ok?j.data:null;}catch{return null;}}
+async function _post(b){if(!_LIVE)return;try{await fetch(REVIEWS_API,{method:'POST',body:JSON.stringify(b),headers:{'Content-Type':'application/json'}});}catch{}}
+let _prodRatingsCache=null;
+async function getProdRatings(){if(_prodRatingsCache)return _prodRatingsCache;const l=await _get({type:'prod_ratings'});_prodRatingsCache=l||{};return _prodRatingsCache;}
+async function renderStarsLive(pid,el){if(!el)return;const agg=await getProdRatings();const base=_BASE_RATINGS[pid]||4.5;const d=agg&&agg[pid];const rating=d&&d.count?Math.round(((d.total||d.avg*d.count)+base*10)/(d.count+10)*10)/10:base;el.innerHTML='<span class="stars" style="color:var(--gold);letter-spacing:1px">'+_stars(rating)+'</span><span class="count" style="font-size:.68rem;color:var(--text-muted);margin-left:4px">'+rating.toFixed(1)+'</span>';}
+async function buildReviewsWall(){const wall=$('#reviewsWall');if(!wall)return;const live=await _get({type:'reviews'});const all=[..._SEED,...(live||[])];const avg=all.reduce((s,r)=>s+r.stars,0)/all.length;const orb=$('.orb-num');const cnt=$('.orb-count');if(orb)orb.textContent=avg.toFixed(1);if(cnt)cnt.textContent='Based on '+all.length+' verified reviews';wall.innerHTML=all.slice(-6).reverse().map(r=>`<div class="review-card"><div class="r-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div><p class="r-text">${r.text||'Great product!'}</p><div class="r-name">${r.name||'Anonymous'}</div></div>`).join('');}
 let _star=0;
-function openRateModal(){document.getElementById('rateModalBg').classList.add('open');_star=0;
-  document.querySelectorAll('#rateStarRow button').forEach(b=>b.style.transform='');}
-function closeRateModal(){document.getElementById('rateModalBg').classList.remove('open');}
-function setStar(v){
-  _star=v;
-  document.querySelectorAll('#rateStarRow button').forEach((b,i)=>{
-    b.style.transform=i<v?'scale(1.3)':'scale(1)';
-    b.style.filter=i<v?'brightness(1.3)':'brightness(0.6)';
-  });
-}
-async function submitRating(){
-  if(!_star){alert('Please tap a star to rate.');return;}
-  const name=document.getElementById('rateNameInp').value.trim()||'Anonymous';
-  const text=document.getElementById('rateRevInp').value.trim()||'';
-  const rev={name,stars:_star,text,ts:Date.now()};
-  _saveLocalReview(rev);
-  _remoteRatingsCache=null; /* clear cache so next load is fresh */
-  _postRemote({type:'site_review',name,stars:_star,text,page:location.pathname});
-  closeRateModal();
-  document.getElementById('rateNameInp').value='';
-  document.getElementById('rateRevInp').value='';
-  buildReviewsWall();
-  /* Update all product star ratings instantly */
-  document.querySelectorAll('.prod-stars[data-pid]').forEach(el=>renderStarsLive(el.dataset.pid,el));
-}
+function openRateModal(){$('#rateModalBg').classList.add('open');_star=0;}
+function closeRateModal(){$('#rateModalBg').classList.remove('open');}
+function setStar(v){_star=v;$$('#rateStarRow button').forEach((b,i)=>b.style.transform=i<v?'scale(1.2)':'scale(1)');}
+async function submitRating(){if(!_star)return alert('Please select a star rating.');const name=$('#rateNameInp').value.trim()||'Anonymous';const text=$('#rateRevInp').value.trim()||'';try{const a=JSON.parse(localStorage.getItem('sh_r')||'[]');a.push({name,stars:_star,text,ts:Date.now()});localStorage.setItem('sh_r',JSON.stringify(a.slice(-50)));}catch{}await _post({type:'site_review',name,stars:_star,text,page:location.pathname});closeRateModal();$('#rateNameInp').value='';$('#rateRevInp').value='';buildReviewsWall();}
 document.addEventListener('DOMContentLoaded',buildReviewsWall);
 </script>
 
@@ -1068,18 +931,15 @@ document.addEventListener('DOMContentLoaded',buildReviewsWall);
 <script>
 (function(){
   const products=[
-    {src:'brainchamp1.jpg.jpg',   name:'Brain Champ'},
-    {src:'bloodstorm1.jpg.jpg',   name:'Blood Storm'},
-    {src:'livohayaat1.jpg.jpg',   name:'Livo Hayaat'},
-    {src:'shahzyme1.jpg.jpg',     name:'Shah Zyme'},
-    {src:'diaease1.jpg.jpg',      name:'Dia-Ease'},
-    {src:'orthohayaat1.jpg.jpg',  name:'Ortho Hayaat'},
-    {src:'panasip1.jpg.jpg',      name:'PanaSip'},
-    {src:'passionpulse1.jpg.jpg', name:'Passion Pulse'},
-    {src:'coughxpro1.jpg.jpg',    name:'Cough X Pro'},
-    {src:'musaffakhoon1.jpg.jpg', name:'Musaffa Khoon'},
-    {src:'utrohayaat1.jpg.jpg',   name:'Utro Hayaat'},
-    {src:'fevodol1.jpg.jpg',      name:'Fevodol'}
+    {src:'brainchamp1.jpg.jpg',name:'Brain Champ'},
+    {src:'bloodstorm1.jpg.jpg',name:'Blood Storm'},
+    {src:'livohayaat1.jpg.jpg',name:'Livo Hayaat'},
+    {src:'shahzyme1.jpg.jpg',name:'Shah Zyme'},
+    {src:'diaease1.jpg.jpg',name:'Dia-Ease'},
+    {src:'orthohayaat1.jpg.jpg',name:'Ortho Hayaat'},
+    {src:'panasip1.jpg.jpg',name:'PanaSip'},
+    {src:'passionpulse1.jpg.jpg',name:'Passion Pulse'},
+    {src:'coughxpro1.jpg.jpg',name:'Cough X Pro'}
   ];
   const img=document.getElementById('hero-product');
   const label=document.getElementById('hero-prod-label');
@@ -1117,7 +977,7 @@ document.addEventListener('DOMContentLoaded',buildReviewsWall);
 <script>
 window.addEventListener('load',function(){
   var loader=document.getElementById('preloader');
-  setTimeout(function(){ if(loader) loader.classList.add('out'); },3800);
+  setTimeout(function(){ if(loader) loader.classList.add('out'); },1200);
 });
 </script>
 </body>
