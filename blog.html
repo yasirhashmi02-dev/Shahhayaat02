@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wellness Journal — Ayurvedic Tips & Health Insights | Shah Hayaat</title>
   <meta name="description" content="Explore Shah Hayaat's wellness journal for practical Ayurvedic tips on digestion, stress, energy, skin and natural living.">
-  <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg">
+  <link rel="icon" href="images/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -200,61 +200,38 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 </head>
 <body>
 
-<header class="site-header" id="site-header" style="position:fixed;top:0;left:0;right:0;z-index:900;background:rgba(15,36,27,0.97);backdrop-filter:blur(20px);padding:0.9rem 0;border-bottom:1px solid rgba(198,167,94,0.2)">
-  <div class="container header-inner" style="display:flex;align-items:center;justify-content:space-between;gap:2rem">
-    <a href="index.html" style="display:flex;align-items:center;gap:0.9rem;font-family:var(--font-h);font-size:1.22rem;color:#fff;letter-spacing:0.03em;text-decoration:none">
-      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat" style="width:42px;height:42px;border-radius:50%;object-fit:cover;border:1.5px solid var(--gold)">
-      <span>Shah <em style="font-style:normal;color:var(--gold)">Hayaat</em></span>
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="images/logo.jpg" alt="Shah Hayaat Logo" width="38" height="38" loading="eager">
+      <span>Shah <em>Hayaat</em></span>
     </a>
-    <nav style="display:none" id="blog-nav-desktop"><ul style="display:flex;gap:0.2rem;list-style:none">
-      <li><a href="index.html" style="display:block;padding:0.4rem 0.85rem;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.65);text-decoration:none;transition:color 0.22s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">Home</a></li>
-      <li><a href="about.html" style="display:block;padding:0.4rem 0.85rem;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.65);text-decoration:none;transition:color 0.22s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">About</a></li>
-      <li><a href="products.html" style="display:block;padding:0.4rem 0.85rem;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.65);text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">Products</a></li>
-      <li><a href="quiz.html" style="display:block;padding:0.4rem 0.85rem;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.65);text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">Health Quiz</a></li>
-      <li><a href="blog.html" style="display:block;padding:0.4rem 0.85rem;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#fff;text-decoration:none">Blog</a></li>
-      <li><a href="contact.html" style="display:block;padding:0.4rem 0.85rem;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.65);text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">Contact</a></li>
-    </ul></nav>
-    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" style="display:none;padding:0.56rem 1.4rem;background:var(--primary-light);color:var(--gold-lt);font-size:0.74rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background 0.22s" id="blog-wa-cta">WhatsApp Us</a>
-    <button id="blog-hamburger" aria-label="Menu" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;flex-direction:column;gap:5px;z-index:1001">
-      <span style="display:block;width:24px;height:1.5px;background:#fff;transition:all 0.3s;transform-origin:center" id="ham1"></span>
-      <span style="display:block;width:24px;height:1.5px;background:#fff;transition:all 0.3s;transform-origin:center" id="ham2"></span>
-      <span style="display:block;width:24px;height:1.5px;background:#fff;transition:all 0.3s;transform-origin:center" id="ham3"></span>
-    </button>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="ingredients.html">Ingredients</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="wellness-lab.html" class="nav-cta btn btn-glow btn-sm" style="white-space:nowrap;font-size:0.75rem;padding:0.55rem 1.1rem">✦ Wellness Assessment</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
-<div id="blog-drawer" style="position:fixed;inset:0;z-index:950;background:linear-gradient(160deg,var(--primary-dark) 0%,var(--primary) 55%,var(--primary-dark) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translateX(100%);transition:transform 0.5s cubic-bezier(0.76,0,0.24,1)">
-  <ul style="text-align:center;margin-bottom:2.5rem;list-style:none">
-    <li><a href="index.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:rgba(255,255,255,0.72);font-style:italic;text-decoration:none;transition:color 0.22s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">Home</a></li>
-    <li><a href="about.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:rgba(255,255,255,0.72);font-style:italic;text-decoration:none;transition:color 0.22s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">About</a></li>
-    <li><a href="products.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:rgba(255,255,255,0.72);font-style:italic;text-decoration:none" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">Products</a></li>
-    <li><a href="quiz.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:rgba(255,255,255,0.72);font-style:italic;text-decoration:none" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">Quiz</a></li>
-    <li><a href="blog.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:var(--gold);font-style:italic;text-decoration:none">Blog</a></li>
-    <li><a href="contact.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:rgba(255,255,255,0.72);font-style:italic;text-decoration:none" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">Contact</a></li>
-  </ul>
-  <div style="display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center">
-    <a href="privacy.html" style="font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.32);text-decoration:none">Privacy</a>
-    <a href="terms.html" style="font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.32);text-decoration:none">Terms</a>
-    <a href="https://wa.me/917051056287" target="_blank" style="font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.32);text-decoration:none">+91 70510 56287</a>
+<nav class="nav-mobile" aria-label="Mobile navigation">
+  <div class="nav-mobile-links">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="ingredients.html">Ingredients</a>
+    <a href="blog.html">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
   </div>
-</div>
-
-<!-- Owner bar — hidden until logged in -->
-<div class="owner-bar" id="owner-bar" style="display:none">
-  <div class="container owner-bar-inner">
-    <p>Owner Panel — You are logged in as Shah Hayaat Admin</p>
-    <div style="display:flex;gap:0.6rem;flex-wrap:wrap">
-      <button class="btn btn-primary btn-sm" onclick="openWritePost()">+ Write New Post</button>
-      <button class="btn btn-ghost btn-sm" onclick="ownerLogout()">Log out</button>
-    </div>
+  <div class="nav-mobile-actions">
+    <a href="wellness-lab.html" class="btn btn-primary" style="justify-content:center">🔍 Wellness Assessment</a>
+    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center">💬 WhatsApp Us</a>
   </div>
-</div>
-
-<main>
-  <div class="page-hero">
-    <div class="container">
-      <nav class="breadcrumb">
-        <a href="index.html">Home</a><span class="sep">/</span><span>Wellness Journal</span>
-      </nav>
+</nav>
       <h1>Wellness Journal</h1>
       <p>Practical Ayurvedic wisdom for modern life — tips to help you feel your absolute best every day.</p>
     </div>
@@ -367,7 +344,10 @@ body.nav-open .nav-mobile{transform:translateX(0)}
   <div class="admin-modal">
     <h2>Manage Posts</h2>
     <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1.2rem">Edit or delete your published posts.</p>
+    <p style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.6rem">Your Posts</p>
     <div class="admin-blog-list" id="admin-blog-list"></div>
+    <p style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin:1rem 0 0.6rem">Built-in Posts</p>
+    <div class="admin-blog-list" id="admin-seed-list"></div>
     <div style="display:flex;gap:0.7rem;flex-wrap:wrap">
       <button class="btn btn-primary" onclick="openWritePost()">+ Write New Post</button>
       <button class="btn btn-outline" onclick="closeModal('manage-modal-bg')">Close</button>
@@ -380,7 +360,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
     <div style="display:grid;gap:3rem;grid-template-columns:2fr 1fr 1fr 1.4fr;padding-bottom:3.5rem;border-bottom:1px solid rgba(255,255,255,0.08)">
       <div>
         <a href="index.html" style="display:flex;align-items:center;gap:0.9rem;font-family:var(--font-h);font-size:1.1rem;color:#fff;margin-bottom:1rem;text-decoration:none">
-          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/logo.jpg" alt="Shah Hayaat" style="width:38px;height:38px;border-radius:50%;object-fit:cover;border:1.5px solid var(--gold)">
+          <img src="images/logo.jpg" alt="Shah Hayaat" style="width:38px;height:38px;border-radius:50%;object-fit:cover;border:1.5px solid var(--gold)">
           <span>Shah <em style="font-style:normal;color:var(--gold)">Hayaat</em></span>
         </a>
         <p style="font-size:0.84rem;color:rgba(255,255,255,0.42);line-height:1.8;max-width:260px">Certified Ayurvedic remedies that restore balance and vitality to your modern lifestyle.</p>
@@ -400,7 +380,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
         <ul style="display:flex;flex-direction:column;gap:0.65rem;list-style:none">
           <li><a href="about.html" style="font-size:0.86rem;color:rgba(255,255,255,0.42);text-decoration:none;transition:color 0.22s" onmouseover="this.style.color='var(--gold-lt)'" onmouseout="this.style.color='rgba(255,255,255,0.42)'">About Us</a></li>
           <li><a href="products.html" style="font-size:0.86rem;color:rgba(255,255,255,0.42);text-decoration:none;transition:color 0.22s" onmouseover="this.style.color='var(--gold-lt)'" onmouseout="this.style.color='rgba(255,255,255,0.42)'">All Products</a></li>
-          <li><a href="quiz.html" style="font-size:0.86rem;color:rgba(255,255,255,0.42);text-decoration:none;transition:color 0.22s" onmouseover="this.style.color='var(--gold-lt)'" onmouseout="this.style.color='rgba(255,255,255,0.42)'">Health Quiz</a></li>
+          
           <li><a href="blog.html" style="font-size:0.86rem;color:#fff;text-decoration:none">Wellness Blog</a></li>
           <li><a href="contact.html" style="font-size:0.86rem;color:rgba(255,255,255,0.42);text-decoration:none;transition:color 0.22s" onmouseover="this.style.color='var(--gold-lt)'" onmouseout="this.style.color='rgba(255,255,255,0.42)'">Contact Us</a></li>
         </ul>
@@ -558,7 +538,10 @@ function getAdminPin() {
 /* ── All posts merged ── */
 function getAllPosts() {
   const custom = getPosts();
-  return [...SEED_BLOGS, ...custom];
+  let hidden = [];
+  try{ hidden = JSON.parse(localStorage.getItem('sh_hidden_seeds') || '[]'); } catch(e){}
+  const seeds = SEED_BLOGS.filter(p => !hidden.includes(p.id));
+  return [...seeds, ...custom];
 }
 
 /* ── Emoji map for categories ── */
@@ -644,7 +627,7 @@ function openPost(rid) {
   const reacts = getReactions();
   const r = reacts[rid] || { love:0, helpful:0, leaf:0 };
   const myR = reacts['my_' + rid] || {};
-  const isCustom = !post.id.startsWith('seed') && isOwner;
+  const isCustom = isOwner; // Admin can edit/delete all posts including seeds
 
   const imgHtml = post.img
     ? '<img src="' + escHtml(post.img) + '" alt="' + escHtml(post.title) + '" class="blog-modal-img" onerror="this.style.display=\'none\'">'
@@ -796,7 +779,10 @@ function savePost() {
   const body  = document.getElementById('post-body').value.trim();
   const img   = document.getElementById('post-img').value.trim();
   const errEl = document.getElementById('write-error');
-  const editIdx = parseInt(document.getElementById('edit-post-idx').value);
+  const rawIdx = document.getElementById('edit-post-idx').value;
+  const isSeedEdit = rawIdx && rawIdx.startsWith('seed_');
+  const editIdx = isSeedEdit ? -1 : parseInt(rawIdx);
+  const seedOverrideId = isSeedEdit ? rawIdx.replace('seed_','') : null;
 
   if (!title) { errEl.textContent = 'Please add a title.'; return; }
   if (!desc)  { errEl.textContent = 'Please add a short description.'; return; }
@@ -804,10 +790,20 @@ function savePost() {
 
   const posts = getPosts();
   const now = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
-  const post = { id: editIdx >= 0 ? posts[editIdx].id : 'custom_' + Date.now(),
-    title, cat, desc, body, img: img || '', date: now, owner: true };
+  let postId;
+  if(isSeedEdit) postId = seedOverrideId;
+  else if(editIdx >= 0) postId = posts[editIdx].id;
+  else postId = 'custom_' + Date.now();
+  const post = { id: postId, title, cat, desc, body, img: img || '', date: now, owner: true };
 
-  if (editIdx >= 0) {
+  if (isSeedEdit) {
+    // Save seed override — remove seed from visible list, add as custom
+    let hidden = [];
+    try{ hidden = JSON.parse(localStorage.getItem('sh_hidden_seeds') || '[]'); } catch(e){}
+    if(!hidden.includes(seedOverrideId)) hidden.push(seedOverrideId);
+    localStorage.setItem('sh_hidden_seeds', JSON.stringify(hidden));
+    posts.push(post);
+  } else if (editIdx >= 0) {
     posts[editIdx] = post;
   } else {
     posts.push(post);
@@ -841,7 +837,7 @@ function deletePost(rid) {
 
 /* ── Manage posts modal ── */
 function openManage() {
-  const posts = getPosts();
+  const posts = getPosts(); // custom posts only (seeds are always shown separately)
   const list = document.getElementById('admin-blog-list');
   if (!posts.length) {
     list.innerHTML = '<p style="color:var(--text-muted);font-size:0.88rem">No custom posts yet. Write your first post above.</p>';
@@ -856,7 +852,49 @@ function openManage() {
       '</div>'
     ).join('');
   }
+  // Show seed posts with edit/delete for admin
+  const seedSection = document.getElementById('admin-seed-list');
+  if(seedSection){
+    seedSection.innerHTML = SEED_BLOGS.map(p =>
+      '<div class="admin-blog-item">' +
+        '<span style="font-size:0.8rem;color:var(--text-muted)">' + escHtml(p.title) + '</span>' +
+        '<div style="display:flex;gap:0.5rem">' +
+          '<button class="btn btn-outline btn-sm" onclick="editSeedPost(\'' + p.id + '\');closeModal(\'manage-modal-bg\')">Edit</button>' +
+          '<button class="btn btn-danger btn-sm" onclick="deleteSeedPost(\'' + p.id + '\')">Delete</button>' +
+        '</div>' +
+      '</div>'
+    ).join('');
+  }
   document.getElementById('manage-modal-bg').classList.remove('hidden');
+}
+
+/* Edit seed post — loads into write form with seed data */
+function editSeedPost(rid) {
+  const post = SEED_BLOGS.find(p => p.id === rid);
+  if(!post) return;
+  closeModal('manage-modal-bg');
+  document.getElementById('write-modal-title').textContent = 'Edit Post';
+  document.getElementById('edit-post-idx').value = 'seed_' + rid;
+  document.getElementById('write-error').textContent = '';
+  document.getElementById('post-title').value = post.title;
+  document.getElementById('post-cat').value = post.cat;
+  document.getElementById('post-desc').value = post.desc;
+  document.getElementById('post-body').value = post.body || '';
+  document.getElementById('post-img').value = post.img || '';
+  document.getElementById('write-modal-bg').classList.remove('hidden');
+}
+
+/* Delete seed post — moves it to a hidden list */
+function deleteSeedPost(rid) {
+  if(!confirm('Hide this built-in post? It will no longer appear on the blog.')) return;
+  let hidden = [];
+  try{ hidden = JSON.parse(localStorage.getItem('sh_hidden_seeds') || '[]'); } catch(e){}
+  if(!hidden.includes(rid)) hidden.push(rid);
+  localStorage.setItem('sh_hidden_seeds', JSON.stringify(hidden));
+  buildFilters();
+  renderGrid();
+  openManage();
+  showToast('Post hidden.');
 }
 
 /* ── Notify subscribers ── */

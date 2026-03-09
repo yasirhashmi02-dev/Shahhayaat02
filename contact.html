@@ -236,7 +236,7 @@ h4{font-family:var(--font-h);font-size:1.08rem;font-weight:600}
 p{font-size:clamp(0.93rem,1.6vw,1.04rem);line-height:1.82;margin-bottom:1rem}
 p:last-child{margin-bottom:0}
 .eyebrow{display:inline-block;font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold)}
-.eyebrow::before,.eyebrow::after{content:"\2014";opacity:0.5;padding:0 0.5em}
+
 .divider{width:32px;height:1px;background:rgba(198,167,94,0.55);margin:1.2rem 0 2rem}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.88rem 2.1rem;border-radius:2px;font-family:var(--font-b);font-weight:600;font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase;transition:all var(--t) var(--r);cursor:pointer;border:1px solid transparent;white-space:nowrap}
 .btn-gold{background:var(--navy-light);color:var(--gold-light);border-color:var(--gold)}
@@ -343,35 +343,33 @@ body.nav-open{overflow:hidden}
 <header class="site-header" id="site-header">
   <div class="container header-inner">
     <a href="index.html" class="logo">
-      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="38" height="38" loading="eager">
+      <img src="images/logo.jpg" alt="Shah Hayaat Logo" width="38" height="38" loading="eager">
       <span>Shah <em>Hayaat</em></span>
     </a>
     <nav class="nav-desktop" aria-label="Main navigation">
-      <a href="index.html" >Home</a>
-      <a href="products.html" >Products</a>
-      <a href="conditions.html" >Health Guides</a>
-      <a href="ingredients.html" >Ingredients</a>
-      <a href="blog.html" >Blog</a>
-      <a href="about.html" >About</a>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="ingredients.html">Ingredients</a>
+      <a href="blog.html">Blog</a>
+      <a href="about.html">About</a>
       <a href="contact.html" class="active">Contact</a>
     </nav>
-    <a href="symptom-checker.html" class="nav-cta-pill">✦ Symptom Checker</a>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <a href="wellness-lab.html" class="nav-cta btn btn-glow btn-sm" style="white-space:nowrap;font-size:0.75rem;padding:0.55rem 1.1rem">✦ Wellness Assessment</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
-<nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
+<nav class="nav-mobile" aria-label="Mobile navigation">
   <div class="nav-mobile-links">
-    <a href="index.html" >Home</a>
-    <a href="products.html" >Products</a>
-    <a href="conditions.html" >Health Guides</a>
-    <a href="ingredients.html" >Ingredients</a>
-    <a href="blog.html" >Blog</a>
-    <a href="about.html" >About</a>
-    <a href="contact.html" class="active">Contact</a>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="ingredients.html">Ingredients</a>
+    <a href="blog.html">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
   </div>
   <div class="nav-mobile-actions">
-    <a href="symptom-checker.html" class="btn btn-primary">✦ Symptom Checker</a>
-    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa">💬 WhatsApp Us</a>
+    <a href="wellness-lab.html" class="btn btn-primary" style="justify-content:center">🔍 Wellness Assessment</a>
+    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center">💬 WhatsApp Us</a>
   </div>
 </nav>
     <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="nav-cta btn btn-gold" style="padding:0.56rem 1.4rem;font-size:0.74rem">WhatsApp Us</a>
@@ -381,8 +379,8 @@ body.nav-open{overflow:hidden}
 <nav class="nav-drawer" id="nav-drawer">
   <ul>
     <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
-    <li><a href="products.html">Products</a></li><li><a href="quiz.html">Quiz</a></li>
-    <li><a href="conditions.html">Health Guides</a></li>
+    <li><a href="products.html">Products</a></li>
+    
       <li><a href="ingredients.html">Ingredients</a></li>
       <li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li>
         <li><a href="symptom-checker.html">Symptom Checker</a></li>
@@ -482,12 +480,12 @@ body.nav-open{overflow:hidden}
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy"><span>Shah <em>Hayaat</em></span></a>
+        <a href="index.html" class="logo"><img src="images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy"><span>Shah <em>Hayaat</em></span></a>
         <p>WHO-GMP, ISO 9001:2015 &amp; HACCP certified Ayurvedic medicines — pure herbs, modern science.</p>
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
-          <a href="/cdn-cgi/l/email-protection#ec9f848d84848d958d8d98dcdeac8b818d8580c28f8381" class="soc-icon" aria-label="Email">✉️</a>
+          <a href="/cdn-cgi/l/email-protection#9be8f3faf3f3fae2fafaefaba9dbfcf6faf2f7b5f8f4f6" class="soc-icon" aria-label="Email">✉️</a>
         </div>
       </div>
       <div class="footer-col"><h4>Health Guides</h4><ul>
@@ -507,7 +505,7 @@ body.nav-open{overflow:hidden}
         <li><a href="products.html">View All 12 →</a></li>
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
-        <li><a href="/cdn-cgi/l/email-protection#b8cbd0d9d0d0d9c1d9d9cc888af8dfd5d9d1d496dbd7d5"><span class="__cf_email__" data-cfemail="abd8c3cac3c3cad2cacadf9b99ebccc6cac2c785c8c4c6">[email&#160;protected]</span></a></li>
+        <li><a href="/cdn-cgi/l/email-protection#94e7fcf5fcfcf5edf5f5e0a4a6d4f3f9f5fdf8baf7fbf9"><span class="__cf_email__" data-cfemail="b0c3d8d1d8d8d1c9d1d1c48082f0d7ddd1d9dc9ed3dfdd">[email&#160;protected]</span></a></li>
         <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
         <li><a href="https://wa.me/919107028786" target="_blank">+91 91070 28786</a></li>
         <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
