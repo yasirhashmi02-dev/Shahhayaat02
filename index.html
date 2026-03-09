@@ -373,6 +373,22 @@ body.nav-open{overflow:hidden}
 .review-card .r-stars{color:var(--gold);font-size:0.9rem;letter-spacing:1.5px}
 .review-card .r-text{font-size:0.86rem;color:var(--text-mid);line-height:1.65;flex:1}
 .review-card .r-name{font-size:0.74rem;font-weight:600;color:var(--green-mid)}
+/* ── HERB TEASER GRID (Homepage) ── */
+.herb-teaser-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.1rem;margin:2.2rem 0 2rem}
+.herb-teaser-card{background:var(--bg-white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.3rem 1.4rem;text-decoration:none;display:flex;align-items:flex-start;gap:1rem;transition:all var(--t) var(--ease);position:relative;overflow:hidden}
+.herb-teaser-card:hover{border-color:rgba(184,134,11,0.35);transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.herb-teaser-card:hover .herb-teaser-arrow{opacity:1;transform:translateX(0)}
+.herb-teaser-icon{font-size:1.9rem;width:50px;height:50px;background:rgba(42,70,51,0.07);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1}
+.herb-teaser-body{flex:1;min-width:0}
+.herb-teaser-name{font-family:var(--font-head);font-size:1rem;font-weight:700;color:var(--text-dark);margin-bottom:0.05rem}
+.herb-teaser-latin{font-size:0.7rem;font-style:italic;color:var(--text-muted);margin-bottom:0.4rem}
+.herb-teaser-cat{display:inline-block;font-size:0.64rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-mid);background:rgba(59,100,73,0.09);border-radius:50px;padding:0.16rem 0.65rem;margin-bottom:0.55rem}
+.herb-teaser-benefits{display:flex;flex-direction:column;gap:0.2rem}
+.herb-teaser-benefits li{font-size:0.79rem;color:var(--text-muted);padding-left:1rem;position:relative;line-height:1.5}
+.herb-teaser-benefits li::before{content:'✓';position:absolute;left:0;color:var(--green-mid);font-weight:700;font-size:0.74rem}
+.herb-teaser-arrow{font-size:1rem;color:var(--gold);opacity:0;transform:translateX(-5px);transition:all 0.25s;align-self:center;flex-shrink:0}
+@media(max-width:600px){.herb-teaser-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body id="top">
@@ -397,6 +413,7 @@ body.nav-open{overflow:hidden}
     <nav class="nav-desktop" aria-label="Main navigation"><ul style="display:flex;list-style:none;gap:0">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="products.html">Products</a></li>
+      <li><a href="ingredients.html">Ingredients</a></li>
       <li><a href="wellness-lab.html" class="nav-lab-link">🧪 Lab</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="about.html">About</a></li>
@@ -412,6 +429,7 @@ body.nav-open{overflow:hidden}
   <div class="nav-mobile-links">
     <a href="index.html">Home</a>
     <a href="products.html">Products</a>
+    <a href="ingredients.html">Ingredients</a>
     <a href="wellness-lab.html" class="nav-lab-link">🧪 Shah Hayaat Lab</a>
     <a href="blog.html">Blog</a>
     <a href="about.html">About</a>
@@ -667,6 +685,102 @@ body.nav-open{overflow:hidden}
   </div>
 </section>
 
+<!-- ── INGREDIENTS TEASER  -->
+<section class="section bg-cream" aria-labelledby="ingredients-heading">
+  <div class="container">
+    <div class="text-center">
+      <div class="eyebrow reveal">Ingredient Library</div>
+      <h2 class="reveal delay-1" id="ingredients-heading">The Herbs Behind<br><em style="font-style:italic;color:var(--gold)">Every Remedy</em></h2>
+      <p class="section-sub reveal delay-2">Deep-dive profiles on the Ayurvedic herbs that power our formulations — benefits, clinical evidence, dosages and more.</p>
+    </div>
+    <div class="herb-teaser-grid reveal delay-3">
+      <a href="ingredients.html?h=brahmi" class="herb-teaser-card">
+        <div class="herb-teaser-icon">🧠</div>
+        <div class="herb-teaser-body">
+          <div class="herb-teaser-name">Brahmi</div>
+          <div class="herb-teaser-latin">Bacopa monnieri</div>
+          <div class="herb-teaser-cat">Brain &amp; Memory</div>
+          <ul class="herb-teaser-benefits"><li>Enhances memory &amp; recall</li><li>Reduces mental fatigue</li><li>Increases BDNF</li></ul>
+        </div>
+        <span class="herb-teaser-arrow">→</span>
+      </a>
+      <a href="ingredients.html?h=ashwagandha" class="herb-teaser-card">
+        <div class="herb-teaser-icon">💪</div>
+        <div class="herb-teaser-body">
+          <div class="herb-teaser-name">Ashwagandha</div>
+          <div class="herb-teaser-latin">Withania somnifera</div>
+          <div class="herb-teaser-cat">Stress &amp; Vitality</div>
+          <ul class="herb-teaser-benefits"><li>Reduces cortisol by 30%</li><li>Builds strength &amp; stamina</li><li>Calms anxiety</li></ul>
+        </div>
+        <span class="herb-teaser-arrow">→</span>
+      </a>
+      <a href="ingredients.html?h=giloy" class="herb-teaser-card">
+        <div class="herb-teaser-icon">🛡️</div>
+        <div class="herb-teaser-body">
+          <div class="herb-teaser-name">Giloy</div>
+          <div class="herb-teaser-latin">Tinospora cordifolia</div>
+          <div class="herb-teaser-cat">Immunity</div>
+          <ul class="herb-teaser-benefits"><li>Boosts white blood cells</li><li>Powerful anti-inflammatory</li><li>Fever &amp; infection defense</li></ul>
+        </div>
+        <span class="herb-teaser-arrow">→</span>
+      </a>
+      <a href="ingredients.html?h=kutki" class="herb-teaser-card">
+        <div class="herb-teaser-icon">🫀</div>
+        <div class="herb-teaser-body">
+          <div class="herb-teaser-name">Kutki</div>
+          <div class="herb-teaser-latin">Picrorhiza kurroa</div>
+          <div class="herb-teaser-cat">Liver Health</div>
+          <ul class="herb-teaser-benefits"><li>Regenerates liver cells</li><li>Reduces liver enzymes</li><li>Anti-hepatotoxic</li></ul>
+        </div>
+        <span class="herb-teaser-arrow">→</span>
+      </a>
+      <a href="ingredients.html?h=triphala" class="herb-teaser-card">
+        <div class="herb-teaser-icon">🌿</div>
+        <div class="herb-teaser-body">
+          <div class="herb-teaser-name">Triphala</div>
+          <div class="herb-teaser-latin">Three-fruit blend</div>
+          <div class="herb-teaser-cat">Digestion &amp; Detox</div>
+          <ul class="herb-teaser-benefits"><li>Relieves constipation</li><li>Gut microbiome support</li><li>Rich in antioxidants</li></ul>
+        </div>
+        <span class="herb-teaser-arrow">→</span>
+      </a>
+      <a href="ingredients.html?h=amla" class="herb-teaser-card">
+        <div class="herb-teaser-icon">✨</div>
+        <div class="herb-teaser-body">
+          <div class="herb-teaser-name">Amla</div>
+          <div class="herb-teaser-latin">Emblica officinalis</div>
+          <div class="herb-teaser-cat">Immunity &amp; Skin</div>
+          <ul class="herb-teaser-benefits"><li>20× vitamin C of orange</li><li>Powerful antioxidant</li><li>Glowing skin &amp; hair</li></ul>
+        </div>
+        <span class="herb-teaser-arrow">→</span>
+      </a>
+      <a href="ingredients.html?h=shankhpushpi" class="herb-teaser-card">
+        <div class="herb-teaser-icon">🔵</div>
+        <div class="herb-teaser-body">
+          <div class="herb-teaser-name">Shankhpushpi</div>
+          <div class="herb-teaser-latin">Convolvulus pluricaulis</div>
+          <div class="herb-teaser-cat">Calm &amp; Focus</div>
+          <ul class="herb-teaser-benefits"><li>Reduces anxiety &amp; stress</li><li>Improves concentration</li><li>Promotes restful sleep</li></ul>
+        </div>
+        <span class="herb-teaser-arrow">→</span>
+      </a>
+      <a href="ingredients.html?h=karela" class="herb-teaser-card">
+        <div class="herb-teaser-icon">🍃</div>
+        <div class="herb-teaser-body">
+          <div class="herb-teaser-name">Karela</div>
+          <div class="herb-teaser-latin">Momordica charantia</div>
+          <div class="herb-teaser-cat">Blood Sugar</div>
+          <ul class="herb-teaser-benefits"><li>Mimics insulin action</li><li>Reduces HbA1c levels</li><li>Supports pancreatic health</li></ul>
+        </div>
+        <span class="herb-teaser-arrow">→</span>
+      </a>
+    </div>
+    <div class="text-center mt-3 reveal">
+      <a href="ingredients.html" class="btn btn-outline-green">Explore Full Library →</a>
+    </div>
+  </div>
+</section>
+
 <!-- ── FINAL CTA  -->
 <section class="section cta-banner" aria-labelledby="cta-heading">
   <div class="container">
@@ -715,6 +829,7 @@ body.nav-open{overflow:hidden}
       </div>
       <div class="footer-col"><h4>Navigation</h4><ul>
         <li><a href="products.html">All Products</a></li>
+        <li><a href="ingredients.html">Ingredients</a></li>
         <li><a href="wellness-lab.html">🧪 Shah Hayaat Lab</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="about.html">About Us</a></li>
