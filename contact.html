@@ -36,45 +36,192 @@
   <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <style>
+
+/* ══════════════════════════════════════════════
+   SHAH HAYAAT BRAND SYSTEM — matches index.html
+   Dark navy + gold premium aesthetic
+   ══════════════════════════════════════════════ */
 :root{
-  /* Deeper luxury greens */
-  --primary-dark:#082f49;
-  --primary:#0c4a6e;
-  --primary-light:#075985;
-  /* Forest aliases (used in HTML) map to new deeper values */
-  --forest:#082f49;
-  --forest-mid:#0c4a6e;
-  --forest-lt:#075985;
-  --forest-pale:rgba(7,30,51,0.05);
+  /* Dark navy brand palette */
+  --navy-deep:#071e33;
+  --navy-mid:#0c4a6e;
+  --navy-light:#075985;
+  --navy-bright:#0369a1;
+  /* Gold accents */
+  --gold:#B8860B;
+  --gold-light:#D4A017;
+  --gold-pale:#FDF8E8;
   /* Surfaces */
-  --cream:#F4F1EA;
-  --cream-dk:#EBE7DD;
-  --white:#FFFFFF;
-  /* Gold — accent only */
-  --gold:#C6A75E;
-  --gold-lt:#D4B87A;
-  --gold-dk:#A08040;
-  --gold-pale:rgba(198,167,94,0.07);
+  --bg-cream:#F8F6F2;
+  --bg-white:#FFFFFF;
   /* Text */
-  --text:#1C1C1C;
-  --text-mid:#3A3A3A;
+  --text-dark:#1C1C1C;
+  --text-mid:#3D3D3D;
   --text-muted:#6B6B6B;
   /* Borders */
-  --border:rgba(7,30,51,0.10);
-  --border-gold:rgba(198,167,94,0.22);
-  --border-dk:rgba(255,255,255,0.09);
-  /* Transitions — slightly slower for luxury feel */
-  --r:cubic-bezier(0.25,0.46,0.45,0.94);
-  --t:0.5s;
-  /* Typography */
-  --font-h:"Playfair Display",Georgia,serif;
-  --font-b:"Montserrat",system-ui,sans-serif;
+  --border:#E4DDD4;
+  /* Shadows */
+  --shadow-xs:0 1px 4px rgba(7,30,51,0.08);
+  --shadow-sm:0 4px 16px rgba(7,30,51,0.12);
+  --shadow-md:0 10px 30px rgba(7,30,51,0.16);
+  --shadow-lg:0 20px 50px rgba(7,30,51,0.22);
+  /* Layout */
+  --radius-sm:8px;
+  --radius:14px;
+  --radius-lg:22px;
+  --ease:cubic-bezier(0.4,0,0.2,1);
+  --t:0.3s;
+  /* Fonts — exact match from screenshot */
+  --font-head:'Playfair Display',Georgia,serif;
+  --font-body:'DM Sans',system-ui,sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:var(--font-body);background:var(--bg-cream);color:var(--text-dark);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+.container{max-width:1160px;margin:0 auto;padding:0 clamp(16px,4vw,28px)}
+.section{padding:clamp(60px,9vw,100px) 0}
+.section-sm{padding:clamp(36px,5vw,56px) 0}
+.bg-white{background:var(--bg-white)}
+.bg-cream{background:var(--bg-cream)}
+.bg-navy{background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy-mid) 55%,var(--navy-deep) 100%)}
+.text-center{text-align:center}
+
+/* TYPOGRAPHY */
+h1,h2,h3,h4{font-family:var(--font-head);line-height:1.12;letter-spacing:-0.015em;color:var(--text-dark)}
+h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700}
+h2{font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:700}
+h3{font-size:clamp(1.1rem,2vw,1.5rem);font-weight:700}
+h4{font-size:1rem;font-weight:700}
+p{color:var(--text-mid);font-size:0.96rem;line-height:1.8}
+em.gold{font-style:italic;color:var(--gold-light)}
+.eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;display:block}
+
+/* BUTTONS — pill shaped with gold fill (matching screenshot) */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:0.45rem;padding:0.78rem 1.8rem;border-radius:50px;font-family:var(--font-body);font-weight:600;font-size:0.88rem;letter-spacing:0.02em;transition:all var(--t) var(--ease);cursor:pointer;border:2px solid transparent;white-space:nowrap;text-decoration:none}
+.btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;box-shadow:0 4px 16px rgba(184,134,11,0.30)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(184,134,11,0.45)}
+.btn-outline{background:transparent;border-color:rgba(255,255,255,0.45);color:#fff}
+.btn-outline:hover{background:rgba(255,255,255,0.1);border-color:#fff}
+.btn-outline-dark{background:transparent;border-color:var(--navy-mid);color:var(--navy-mid)}
+.btn-outline-dark:hover{background:var(--navy-mid);color:#fff}
+.btn-wa{background:#25D366;color:#fff;border-color:#25D366}
+.btn-wa:hover{background:#1ea855;transform:translateY(-2px)}
+.btn-glow{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;animation:glowPulse 2.5s ease-in-out infinite alternate;border:none}
+.btn-glow:hover{transform:translateY(-2px) scale(1.02);animation:none;box-shadow:0 8px 32px rgba(184,134,11,0.55)}
+@keyframes glowPulse{0%{box-shadow:0 4px 16px rgba(212,160,23,0.30)}100%{box-shadow:0 4px 32px rgba(212,160,23,0.75),0 0 60px rgba(212,160,23,0.20)}}
+.btn-sm{padding:0.52rem 1.2rem;font-size:0.80rem}
+.btn-lg{padding:0.95rem 2.4rem;font-size:0.94rem}
+
+/* HEADER — matching screenshot exactly */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:900;padding:1rem 0;transition:all 0.35s var(--ease)}
+body.scrolled .site-header{background:rgba(7,30,51,0.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:0.7rem 0;box-shadow:0 2px 20px rgba(0,0,0,0.25)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.logo{display:flex;align-items:center;gap:0.75rem;font-family:var(--font-head);font-size:1.15rem;color:#fff;flex-shrink:0;text-decoration:none}
+.logo img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(212,160,23,0.6)}
+.logo em{color:var(--gold-light);font-style:normal}
+.nav-desktop{display:none}
+@media(min-width:960px){.nav-desktop{display:flex;align-items:center;gap:0.15rem}}
+.nav-desktop a{padding:0.4rem 0.9rem;font-size:0.82rem;font-weight:500;color:rgba(255,255,255,0.72);border-radius:50px;transition:all 0.25s;text-decoration:none}
+.nav-desktop a:hover,.nav-desktop a.active{color:#fff;background:rgba(255,255,255,0.1)}
+.nav-cta-pill{display:none}
+@media(min-width:960px){.nav-cta-pill{display:inline-flex;align-items:center;gap:0.4rem;padding:0.52rem 1.2rem;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;border-radius:50px;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-decoration:none;white-space:nowrap;box-shadow:0 3px 12px rgba(184,134,11,0.30);transition:all 0.25s;animation:glowPulse 2.5s ease-in-out infinite alternate}}
+.nav-cta-pill:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(184,134,11,0.50);animation:none}
+.nav-toggle{background:none;border:none;cursor:pointer;padding:4px;display:flex;flex-direction:column;gap:5px;z-index:1001}
+.nav-toggle span{display:block;width:22px;height:2px;background:#fff;transition:all 0.28s;transform-origin:center}
+@media(min-width:960px){.nav-toggle{display:none}}
+body.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+body.nav-open .nav-toggle span:nth-child(2){opacity:0;transform:scaleX(0)}
+body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-mobile{position:fixed;inset:0;z-index:950;background:linear-gradient(160deg,var(--navy-deep) 0%,var(--navy-mid) 100%);padding:5.5rem 2rem 2.5rem;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.45s cubic-bezier(0.76,0,0.24,1);overflow-y:auto}
+body.nav-open .nav-mobile{transform:none}
+body.nav-open{overflow:hidden}
+.nav-mobile-links{display:flex;flex-direction:column;gap:0.2rem;margin-bottom:2.5rem}
+.nav-mobile-links a{font-family:var(--font-head);font-size:1.7rem;font-style:italic;color:rgba(255,255,255,0.65);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.06);transition:color 0.2s;text-decoration:none}
+.nav-mobile-links a:hover{color:#fff}
+.nav-mobile-links a.active{color:var(--gold-light)}
+.nav-mobile-actions{display:flex;flex-direction:column;gap:0.8rem;margin-top:auto}
+
+/* PAGE HERO — dark navy matching index style */
+.page-hero{background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy-mid) 55%,var(--navy-deep) 100%);padding:clamp(6rem,12vw,9rem) 0 clamp(3rem,5vw,5rem);position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.018'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.page-hero .eyebrow{color:var(--gold-light)}
+.page-hero h1{color:#fff;margin-bottom:0.9rem}
+.page-hero h1 em{color:var(--gold-light);font-style:italic}
+.page-hero>div>p,.page-hero .hero-sub{color:rgba(255,255,255,0.70);max-width:560px;font-size:1rem}
+.breadcrumb{display:flex;align-items:center;gap:0.5rem;font-size:0.77rem;color:rgba(255,255,255,0.38);margin-bottom:1.5rem;flex-wrap:wrap}
+.breadcrumb a{color:rgba(255,255,255,0.50);transition:color 0.2s}
+.breadcrumb a:hover{color:var(--gold-light)}
+.breadcrumb span{opacity:0.35}
+
+/* CARDS */
+.card{background:var(--bg-white);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);border:1px solid var(--border);overflow:hidden;transition:transform 0.25s var(--ease),box-shadow 0.25s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+
+/* CTA BANNER SECTIONS */
+.cta-section{background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy-mid) 55%,var(--navy-deep) 100%);padding:clamp(48px,7vw,80px) 0;position:relative;overflow:hidden;text-align:center}
+.cta-section h2{color:#fff;margin-bottom:0.8rem}
+.cta-section p{color:rgba(255,255,255,0.65);max-width:520px;margin:0 auto 2rem}
+
+/* DIVIDER */
+.gold-divider{width:48px;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:2px;margin:1rem 0 1.4rem}
+.gold-divider.center{margin-left:auto;margin-right:auto}
+
+/* SECTION LABELS */
+.section-label{font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.6rem}
+
+/* REVEAL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 0.65s ease,transform 0.65s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal-l{opacity:0;transform:translateX(-24px);transition:opacity 0.65s ease,transform 0.65s ease}
+.reveal-l.in{opacity:1;transform:none}
+.reveal-r{opacity:0;transform:translateX(24px);transition:opacity 0.65s ease,transform 0.65s ease}
+.reveal-r.in{opacity:1;transform:none}
+.d1{transition-delay:0.1s}.d2{transition-delay:0.2s}.d3{transition-delay:0.3s}.d4{transition-delay:0.4s}
+
+/* FOOTER */
+.site-footer{background:var(--navy-deep);padding:clamp(40px,6vw,72px) 0 0;border-top:3px solid var(--gold)}
+.footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1.2fr;gap:2.5rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.07)}
+@media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+.footer-brand .logo{margin-bottom:0.85rem}
+.footer-brand p{font-size:0.82rem;color:rgba(255,255,255,0.38);line-height:1.72;max-width:220px}
+.footer-socials{display:flex;gap:0.5rem;margin-top:1.2rem}
+.soc-icon{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.40);font-size:0.9rem;transition:all 0.25s;text-decoration:none}
+.soc-icon:hover{border-color:var(--gold-light);color:var(--gold-light)}
+.footer-col h4{font-family:var(--font-head);font-size:0.88rem;color:rgba(255,255,255,0.80);margin-bottom:1rem;font-weight:700;letter-spacing:0.02em}
+.footer-col ul{display:flex;flex-direction:column;gap:0.4rem}
+.footer-col a{font-size:0.80rem;color:rgba(255,255,255,0.35);transition:color 0.2s;text-decoration:none}
+.footer-col a:hover{color:var(--gold-light)}
+.footer-bottom{padding:1.4rem 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.8rem}
+.footer-bottom p{font-size:0.74rem;color:rgba(255,255,255,0.25)}
+.footer-bottom a{font-size:0.74rem;color:rgba(255,255,255,0.28);transition:color 0.2s;text-decoration:none}
+.footer-bottom a:hover{color:var(--gold-light)}
+.footer-btm-links{display:flex;gap:1.2rem}
+
+/* WHATSAPP FLOAT */
+.wa-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:800;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 20px rgba(37,211,102,0.40);animation:waPulse 2.5s ease infinite;text-decoration:none}
+@keyframes waPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.40)}50%{box-shadow:0 4px 32px rgba(37,211,102,0.70)}}
+.back-top{position:fixed;bottom:5rem;right:1.5rem;z-index:800;width:40px;height:40px;background:var(--navy-mid);color:#fff;border:none;border-radius:50%;cursor:pointer;opacity:0;transform:translateY(10px);transition:all 0.3s;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+.back-top.show{opacity:1;transform:none}
+
+/* PRODUCT MINI CARD */
+.prod-mini{background:#fff;border-radius:var(--radius);border:1px solid var(--border);padding:1rem;display:flex;align-items:center;gap:1rem;transition:all 0.25s var(--ease);text-decoration:none}
+.prod-mini:hover{border-color:var(--gold);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.prod-mini img{width:60px;height:60px;object-fit:contain;flex-shrink:0;border-radius:8px;background:var(--bg-cream);padding:4px}
+.prod-mini-name{font-family:var(--font-head);font-weight:700;font-size:0.9rem;color:var(--navy-mid);margin-bottom:0.2rem}
+.prod-mini-tag{font-size:0.70rem;color:var(--text-muted)}
+
+/* === PAGE SPECIFIC === */
+
+/* old vars removed — using brand system */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:80px;font-size:16px}
-body{font-family:var(--font-b);background:var(--cream);color:var(--text);line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-b);background:var(--bg-cream);color:var(--text-dark);line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 ul{list-style:none}
@@ -87,12 +234,12 @@ h3{font-family:var(--font-h);font-size:clamp(1.15rem,2.4vw,1.5rem);line-height:1
 h4{font-family:var(--font-h);font-size:1.08rem;font-weight:600}
 p{font-size:clamp(0.93rem,1.6vw,1.04rem);line-height:1.82;margin-bottom:1rem}
 p:last-child{margin-bottom:0}
-.eyebrow{display:inline-block;font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-dk)}
+.eyebrow{display:inline-block;font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold)}
 .eyebrow::before,.eyebrow::after{content:"\2014";opacity:0.5;padding:0 0.5em}
 .divider{width:32px;height:1px;background:rgba(198,167,94,0.55);margin:1.2rem 0 2rem}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.88rem 2.1rem;border-radius:2px;font-family:var(--font-b);font-weight:600;font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase;transition:all var(--t) var(--r);cursor:pointer;border:1px solid transparent;white-space:nowrap}
-.btn-gold{background:var(--primary-light);color:var(--gold-lt);border-color:var(--gold)}
-.btn-gold:hover{background:var(--gold-lt);transform:translateY(-1px)}
+.btn-gold{background:var(--navy-light);color:var(--gold-light);border-color:var(--gold)}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px)}
 .btn-outline-white{background:transparent;border-color:rgba(255,255,255,0.55);color:#fff}
 .btn-outline-white:hover{background:rgba(255,255,255,0.08);border-color:#fff;transform:translateY(-1px)}
 .site-header{position:fixed;top:0;left:0;right:0;z-index:900;background:rgba(14,14,14,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:0.9rem 0;border-bottom:1px solid rgba(7,30,51,0.08)}
@@ -112,7 +259,7 @@ p:last-child{margin-bottom:0}
 body.nav-open .hamburger span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 body.nav-open .hamburger span:nth-child(2){opacity:0;transform:scaleX(0)}
 body.nav-open .hamburger span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-.nav-drawer{position:fixed;inset:0;z-index:950;background:linear-gradient(160deg,var(--primary-dark) 0%,var(--primary) 55%,var(--primary-dark) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translateX(100%);transition:transform 0.5s cubic-bezier(0.76,0,0.24,1)}
+.nav-drawer{position:fixed;inset:0;z-index:950;background:linear-gradient(160deg,var(--navy-deep) 0%,var(--navy-mid) 55%,var(--navy-deep) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translateX(100%);transition:transform 0.5s cubic-bezier(0.76,0,0.24,1)}
 body.nav-open .nav-drawer{transform:none}
 body.nav-open{overflow:hidden}
 .nav-drawer ul{text-align:center;margin-bottom:2.5rem}
@@ -122,7 +269,7 @@ body.nav-open{overflow:hidden}
 .nav-drawer-sub a{font-family:var(--font-b);font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.32);transition:color 0.22s}
 .nav-drawer-sub a:hover{color:var(--gold)}
 @media(min-width:1024px){.nav-links,.nav-cta{display:block}.hamburger,.nav-drawer{display:none}}
-.page-header{background:linear-gradient(160deg,var(--primary-dark) 0%,var(--primary) 55%,var(--primary-dark) 100%);padding:9rem 0 5.5rem;position:relative;overflow:hidden;border-bottom:1px solid rgba(7,30,51,0.08)}
+.page-header{background:linear-gradient(160deg,var(--navy-deep) 0%,var(--navy-mid) 55%,var(--navy-deep) 100%);padding:9rem 0 5.5rem;position:relative;overflow:hidden;border-bottom:1px solid rgba(7,30,51,0.08)}
 .page-header::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(198,167,94,0.04) 0%,transparent 60%);pointer-events:none}
 .breadcrumb{display:flex;align-items:center;gap:0.45rem;font-size:0.74rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:1.4rem}
 .breadcrumb a{color:rgba(255,255,255,0.3);transition:color 0.2s}
@@ -135,8 +282,8 @@ body.nav-open{overflow:hidden}
 .contact-info-item{display:flex;align-items:flex-start;gap:1.1rem;padding:1.4rem 0;border-bottom:1px solid rgba(7,30,51,0.06)}
 .contact-info-item:last-child{border-bottom:none}
 .contact-icon{width:46px;height:46px;border:1px solid rgba(198,167,94,0.3);display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0;background:rgba(198,167,94,0.12)}
-.contact-info-item .ci-label{color:var(--gold-lt);margin-bottom:0.2rem;font-family:var(--font-b);font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase}
-.contact-info-item a{color:var(--gold-lt);font-size:0.96rem;transition:color 0.2s}
+.contact-info-item .ci-label{color:var(--gold-light);margin-bottom:0.2rem;font-family:var(--font-b);font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase}
+.contact-info-item a{color:var(--gold-light);font-size:0.96rem;transition:color 0.2s}
 .contact-info-item a:hover{color:#fff}
 .contact-info-item .ci-note{color:rgba(255,255,255,0.35);font-size:0.82rem;margin:0.15rem 0 0}
 .order-box{background:rgba(7,30,51,0.05);border:1px solid rgba(7,30,51,0.12);padding:1.8rem;margin-top:2rem}
@@ -146,19 +293,19 @@ body.nav-open{overflow:hidden}
 .mkt-logo{filter:brightness(0.45) grayscale(1);transition:filter 0.28s}
 .mkt-logo:hover{filter:brightness(1) grayscale(0)}
 .form-card{background:#F9F7F2;padding:clamp(1.8rem,4vw,2.8rem)}
-.form-card h3{color:var(--text);margin-bottom:1.6rem}
+.form-card h3{color:var(--text-dark);margin-bottom:1.6rem}
 .form-group{margin-bottom:1.1rem}
 .form-group label{display:block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.42rem}
-.form-group input,.form-group textarea{width:100%;padding:0.82rem 1rem;border:1px solid rgba(7,30,51,0.08);background:#fff;font-size:0.96rem;color:var(--text);border-radius:0;transition:border-color 0.2s;outline:none;resize:vertical}
-.form-group input:focus,.form-group textarea:focus{border-color:var(--primary-light);outline:none}
+.form-group input,.form-group textarea{width:100%;padding:0.82rem 1rem;border:1px solid rgba(7,30,51,0.08);background:#fff;font-size:0.96rem;color:var(--text-dark);border-radius:0;transition:border-color 0.2s;outline:none;resize:vertical}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--navy-light);outline:none}
 .form-note{font-size:0.76rem;color:var(--text-muted);text-align:center;margin-top:0.8rem}
 .form-status{margin-top:1rem;font-size:0.88rem;font-weight:600;min-height:1.2em;text-align:center}
-.cert-strip{background:linear-gradient(160deg,var(--primary) 0%,var(--primary-light) 60%,var(--primary) 100%);border-top:1px solid rgba(198,167,94,0.12);padding:3rem 0}
+.cert-strip{background:linear-gradient(160deg,var(--navy-mid) 0%,var(--navy-light) 60%,var(--navy-mid) 100%);border-top:1px solid rgba(198,167,94,0.12);padding:3rem 0}
 .cert-strip-inner{display:flex;justify-content:center;gap:3rem 5rem;flex-wrap:wrap}
 .cert-item{text-align:center}
 .cert-item .ci-icon{font-size:1.8rem;margin-bottom:0.45rem}
 .cert-item p{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin:0}
-.site-footer{background:var(--primary-dark);border-top:1px solid rgba(198,167,94,0.35);padding:5rem 0 0}
+.site-footer{background:var(--navy-deep);border-top:1px solid rgba(198,167,94,0.35);padding:5rem 0 0}
 .footer-grid{display:grid;gap:3rem;grid-template-columns:2fr 1fr 1fr 1.4fr;padding-bottom:3.5rem;border-bottom:1px solid rgba(255,255,255,0.06)}
 .footer-brand .logo{color:#fff;margin-bottom:1rem;font-size:1.1rem}
 .footer-brand p{font-size:0.84rem;color:rgba(255,255,255,0.38);line-height:1.8;max-width:260px}
@@ -168,17 +315,17 @@ body.nav-open{overflow:hidden}
 .footer-col h4{font-family:var(--font-b);font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem}
 .footer-col ul{display:flex;flex-direction:column;gap:0.65rem}
 .footer-col a{font-size:0.86rem;color:rgba(255,255,255,0.38);transition:color 0.22s}
-.footer-col a:hover{color:var(--gold-lt)}
+.footer-col a:hover{color:var(--gold-light)}
 .footer-cert{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem}
 .cert-badge{display:inline-block;padding:0.3rem 0.75rem;border:1px solid rgba(198,167,94,0.22);font-size:0.64rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(198,167,94,0.55)}
 .footer-bottom{padding:1.6rem 0;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:0.74rem;color:rgba(255,255,255,0.22)}
 .footer-bottom a{color:rgba(255,255,255,0.22);transition:color 0.2s}
-.footer-bottom a:hover{color:var(--gold-lt)}
+.footer-bottom a:hover{color:var(--gold-light)}
 @media(max-width:820px){.footer-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.footer-grid{grid-template-columns:1fr}.footer-brand p{max-width:100%}}
 .wa-float{position:fixed;bottom:2rem;right:2rem;z-index:480;width:52px;height:52px;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 16px rgba(37,211,102,0.25);transition:all 0.28s;border-radius:1px}
 .wa-float:hover{transform:scale(1.1)}
-.back-top{position:fixed;bottom:5.5rem;right:2rem;z-index:480;width:44px;height:44px;background:linear-gradient(160deg,var(--primary) 0%,var(--primary-light) 60%,var(--primary) 100%);border:1px solid rgba(198,167,94,0.25);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:1rem;opacity:0;visibility:hidden;transition:all 0.3s;border-radius:1px}
+.back-top{position:fixed;bottom:5.5rem;right:2rem;z-index:480;width:44px;height:44px;background:linear-gradient(160deg,var(--navy-mid) 0%,var(--navy-light) 60%,var(--navy-mid) 100%);border:1px solid rgba(198,167,94,0.25);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:1rem;opacity:0;visibility:hidden;transition:all 0.3s;border-radius:1px}
 .back-top.show{opacity:1;visibility:visible}
 .back-top:hover{background:rgba(198,167,94,0.15);color:var(--gold)}
 .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.9s ease,transform 0.9s ease}
@@ -192,16 +339,40 @@ body.nav-open{overflow:hidden}
 </style>
 </head>
 <body>
-<header class="site-header">
+<header class="site-header" id="site-header">
   <div class="container header-inner">
-    <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat"><span>Shah <em>Hayaat</em></span></a>
-    <nav class="nav-links"><ul>
-      <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
-      <li><a href="products.html">Products</a></li><li><a href="quiz.html">Health Quiz</a></li>
-      <li><a href="conditions.html">Health Guides</a></li>
-      <li><a href="ingredients.html">Ingredients</a></li>
-      <li><a href="blog.html">Blog</a></li><li><a href="contact.html" class="active">Contact</a></li>
-    </ul></nav>
+    <a href="index.html" class="logo">
+      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="38" height="38" loading="eager">
+      <span>Shah <em>Hayaat</em></span>
+    </a>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <a href="index.html" >Home</a>
+      <a href="products.html" >Products</a>
+      <a href="conditions.html" >Health Guides</a>
+      <a href="ingredients.html" >Ingredients</a>
+      <a href="blog.html" >Blog</a>
+      <a href="about.html" >About</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+    <a href="symptom-checker.html" class="nav-cta-pill">✦ Symptom Checker</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
+  <div class="nav-mobile-links">
+    <a href="index.html" >Home</a>
+    <a href="products.html" >Products</a>
+    <a href="conditions.html" >Health Guides</a>
+    <a href="ingredients.html" >Ingredients</a>
+    <a href="blog.html" >Blog</a>
+    <a href="about.html" >About</a>
+    <a href="contact.html" class="active">Contact</a>
+  </div>
+  <div class="nav-mobile-actions">
+    <a href="symptom-checker.html" class="btn btn-primary">✦ Symptom Checker</a>
+    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa">💬 WhatsApp Us</a>
+  </div>
+</nav>
     <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="nav-cta btn btn-gold" style="padding:0.56rem 1.4rem;font-size:0.74rem">WhatsApp Us</a>
     <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
@@ -224,7 +395,7 @@ body.nav-open{overflow:hidden}
 <div class="page-header">
   <div class="container">
     <nav class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Contact</span></nav>
-    <div class="eyebrow" style="margin-bottom:1rem;color:var(--gold-lt)">Get in Touch</div>
+    <div class="eyebrow" style="margin-bottom:1rem;color:var(--gold-light)">Get in Touch</div>
     <h1>Let's<br><em style="color:var(--gold)">Talk</em></h1>
     <p>A question, an order, or guidance on your wellness journey &#8212; we are just one message away.</p>
   </div>
@@ -232,7 +403,7 @@ body.nav-open{overflow:hidden}
 <section class="section">
   <div class="container">
     <div class="contact-grid">
-      <div class="reveal-l" style="background:linear-gradient(160deg,var(--primary-dark) 0%,var(--primary) 60%,var(--primary-dark) 100%);border-radius:18px;padding:2.5rem 2rem;border:1px solid rgba(198,167,94,0.15);box-shadow:0 8px 32px rgba(7,30,51,0.18)">
+      <div class="reveal-l" style="background:linear-gradient(160deg,var(--navy-deep) 0%,var(--navy-mid) 60%,var(--navy-deep) 100%);border-radius:18px;padding:2.5rem 2rem;border:1px solid rgba(198,167,94,0.15);box-shadow:0 8px 32px rgba(7,30,51,0.18)">
         <div class="eyebrow" style="margin-bottom:1rem">Reach Us</div>
         <h2 style="color:#fff;margin-bottom:0.5rem">We&#8217;re Here<br><em style="color:var(--gold)">to Help</em></h2>
         <div class="divider"></div>
@@ -270,7 +441,7 @@ body.nav-open{overflow:hidden}
         <div class="order-box">
           <div class="ob-title">Ready to Order?</div>
           <p>The fastest way to order is directly on WhatsApp &#8212; tell us which product you&#8217;d like and we&#8217;ll guide you through.</p>
-          <a href="https://wa.me/917051056287?text=Hi!%20I%27d%20like%20to%20place%20an%20order." target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;width:100%;padding:0.9rem 1.5rem;background:var(--primary-light);color:var(--gold);font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(198,167,94,0.35);transition:background 0.5s;text-decoration:none" onmouseover="this.style.background='var(--primary)'" onmouseout="this.style.background='var(--primary-light)'">&#128172;&#160; Order on WhatsApp</a>
+          <a href="https://wa.me/917051056287?text=Hi!%20I%27d%20like%20to%20place%20an%20order." target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;width:100%;padding:0.9rem 1.5rem;background:var(--navy-light);color:var(--gold);font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(198,167,94,0.35);transition:background 0.5s;text-decoration:none" onmouseover="this.style.background='var(--navy-mid)'" onmouseout="this.style.background='var(--navy-light)'">&#128172;&#160; Order on WhatsApp</a>
         </div>
         <div class="marketplace-row">
           <p style="font-size:0.76rem;color:rgba(255,255,255,0.28);margin:0;flex-basis:100%">Also available on:</p>
@@ -287,7 +458,7 @@ body.nav-open{overflow:hidden}
             <div class="form-group"><label for="c-phone">Phone / WhatsApp</label><input type="tel" id="c-phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel"></div>
             <div class="form-group"><label for="c-subject">Subject</label><input type="text" id="c-subject" name="subject" placeholder="e.g. Question about Brain Champ"></div>
             <div class="form-group"><label for="c-message">Message *</label><textarea id="c-message" name="message" rows="5" placeholder="Tell us how we can help you&#8230;" required></textarea></div>
-            <button type="submit" style="display:flex;align-items:center;justify-content:center;width:100%;padding:0.9rem 1.5rem;background:var(--primary-light);color:var(--gold);font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(198,167,94,0.35);transition:background 0.5s;text-decoration:none" onmouseover="this.style.background='var(--primary)'" onmouseout="this.style.background='var(--primary-light)'">Send Message &#8594;</button>
+            <button type="submit" style="display:flex;align-items:center;justify-content:center;width:100%;padding:0.9rem 1.5rem;background:var(--navy-light);color:var(--gold);font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(198,167,94,0.35);transition:background 0.5s;text-decoration:none" onmouseover="this.style.background='var(--navy-mid)'" onmouseout="this.style.background='var(--navy-light)'">Send Message &#8594;</button>
           </form>
           <div id="form-status" class="form-status"></div>
           <p class="form-note">We typically respond within 24 hours. For urgent queries, WhatsApp is fastest.</p>
@@ -310,43 +481,42 @@ body.nav-open{overflow:hidden}
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat"><span>Shah <em>Hayaat</em></span></a>
-        <p>Pure, certified Ayurvedic remedies that bring balance and vitality to your modern lifestyle.</p>
+        <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy"><span>Shah <em>Hayaat</em></span></a>
+        <p>WHO-GMP, ISO 9001:2015 &amp; HACCP certified Ayurvedic medicines — pure herbs, modern science.</p>
         <div class="footer-socials">
-          <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc">&#128247;</a>
-          <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc">&#128172;</a>
-          <a href="/cdn-cgi/l/email-protection#5122393039393028303025616311363c30383d7f323e3c"><span class="__cf_email__" data-cfemail="e5968d848d8d849c848491d5d7a58288848c89cb868a88">[email&#160;protected]</span></a>
-          <a href="https://amzn.in/d/9vsBOWH" target="_blank" rel="noopener" class="soc">&#128230;</a>
-        </div>
-        <div class="footer-cert" style="margin-top:1rem">
-          <span class="cert-badge">WHO-GMP</span><span class="cert-badge">ISO 9001:2015</span><span class="cert-badge">HACCP</span>
+          <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
+          <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
+          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon" aria-label="Email">✉️</a>
         </div>
       </div>
-      <div class="footer-col"><h4>Navigation</h4><ul>
-        <li><a href="about.html">About Us</a></li><li><a href="products.html">All Products</a></li>
-        <li><a href="quiz.html">Health Quiz</a></li><li><a href="blog.html">Wellness Blog</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
+      <div class="footer-col"><h4>Health Guides</h4><ul>
+        <li><a href="conditions.html?c=memory">Memory &amp; Brain</a></li>
+        <li><a href="conditions.html?c=liver">Liver Detox</a></li>
+        <li><a href="conditions.html?c=digestion">Digestion</a></li>
+        <li><a href="conditions.html?c=joints">Joint Pain</a></li>
+        <li><a href="conditions.html?c=diabetes">Blood Sugar</a></li>
+        <li><a href="conditions.html?c=immunity">Immunity</a></li>
       </ul></div>
       <div class="footer-col"><h4>Products</h4><ul>
         <li><a href="product-detail.html?id=brainchamp">Brain Champ</a></li>
-        <li><a href="product-detail.html?id=shahzyme">Shah Zyme</a></li>
         <li><a href="product-detail.html?id=livohayaat">Livo Hayaat</a></li>
         <li><a href="product-detail.html?id=orthohayaat">Ortho Hayaat</a></li>
-        <li><a href="products.html">View All &rarr;</a></li>
+        <li><a href="product-detail.html?id=diaease">Dia-Ease</a></li>
+        <li><a href="product-detail.html?id=shahzyme">Shah Zyme</a></li>
+        <li><a href="products.html">View All 12 →</a></li>
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
-        <li><a href="/cdn-cgi/l/email-protection#addec5ccc5c5ccd4ccccd99d9fedcac0ccc4c183cec2c0"><span class="__cf_email__" data-cfemail="7d0e151c15151c041c1c094d4f3d1a101c1411531e1210">[email&#160;protected]</span></a></li>
+        <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
         <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
-        <li><a href="https://instagram.com/shahhayaatofficial" target="_blank">@shahhayaatofficial</a></li>
+        <li><a href="https://wa.me/919107028786" target="_blank">+91 91070 28786</a></li>
         <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
         <li><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></li>
+        <li><a href="symptom-checker.html">Symptom Checker</a></li>
       </ul></div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span id="yr"></span> Shah Hayaat. All Rights Reserved.</span>
-      <div style="display:flex;gap:1.5rem;flex-wrap:wrap">
-        <a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="disclaimer.html">Medical Disclaimer</a>
-      </div>
+      <p>© <span id="yr"></span> Shah Hayaat. All Rights Reserved. · WHO-GMP · ISO 9001:2015 · HACCP</p>
+      <div class="footer-btm-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>
     </div>
   </div>
 </footer>
@@ -355,7 +525,6 @@ body.nav-open{overflow:hidden}
 <script>
 'use strict';
 /* Nav */
-document.getElementById('hamburger').addEventListener('click', () => document.body.classList.toggle('nav-open'));
 document.querySelectorAll('.nav-drawer a').forEach(a =>
   a.addEventListener('click', () => setTimeout(() => document.body.classList.remove('nav-open'), 320))
 );
