@@ -303,8 +303,8 @@ body.nav-open{overflow:hidden}
 .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem;margin-top:2.5rem}
 .blog-card{background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:all var(--t) var(--ease)}
 .blog-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm)}
-.blog-card-img{height:190px;overflow:hidden;background:var(--bg-cream)}
-.blog-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.45s var(--ease)}
+.blog-card-img{height:220px;overflow:hidden;background:var(--bg-cream)}
+.blog-card-img img{width:100%;height:100%;object-fit:contain;padding:6px;transition:transform 0.45s var(--ease)}
 .blog-card:hover .blog-card-img img{transform:scale(1.05)}
 .blog-body{padding:1.35rem;flex:1;display:flex;flex-direction:column}
 .blog-cat{font-size:0.64rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.5rem}
@@ -726,6 +726,88 @@ body.nav-open{overflow:hidden}
   </div>
 </section>
 
+
+<!-- ── KEY INGREDIENTS  -->
+<section class="section bg-cream" aria-labelledby="ingredients-heading">
+  <div class="container">
+    <div class="text-center">
+      <div class="eyebrow reveal">Nature's Best</div>
+      <h2 class="reveal delay-1" id="ingredients-heading">The Ingredients Behind Our Remedies</h2>
+      <p class="section-sub reveal delay-2">Every Shah Hayaat formulation is built on time-tested Ayurvedic herbs, verified by modern quality standards.</p>
+    </div>
+    <div class="trust-grid" style="margin-top:2.5rem">
+      <div class="trust-card reveal delay-1">
+        <div class="trust-icon">🧠</div>
+        <div><strong>Ashwagandha (Brain Champ)</strong><p>The premier adaptogen — reduces cortisol, sharpens focus and builds long-term cognitive resilience. Used in Brain Champ.</p></div>
+      </div>
+      <div class="trust-card reveal delay-2">
+        <div class="trust-icon">🌿</div>
+        <div><strong>Brahmi (Brain & Cognition)</strong><p>Classical brain tonic that enhances memory, reduces anxiety and supports nerve regeneration naturally. Found in Brain Champ.</p></div>
+      </div>
+      <div class="trust-card reveal delay-3">
+        <div class="trust-icon">🫀</div>
+        <div><strong>Bhumi Amla (Liver Health)</strong><p>Powerful hepatoprotective herb that supports liver detoxification and regeneration. Key ingredient in Livo Hayaat.</p></div>
+      </div>
+      <div class="trust-card reveal delay-4">
+        <div class="trust-icon">🦴</div>
+        <div><strong>Shallaki / Boswellia (Joints)</strong><p>Clinically proven to reduce joint inflammation comparable to NSAIDs — without side effects. Core of Ortho Hayaat.</p></div>
+      </div>
+      <div class="trust-card reveal delay-1">
+        <div class="trust-icon">✨</div>
+        <div><strong>Neem & Manjistha (Blood & Skin)</strong><p>Neem purifies the blood while Manjistha cleanses the lymphatic system — together they clear skin from within. Used in Musaffa Khoon.</p></div>
+      </div>
+      <div class="trust-card reveal delay-2">
+        <div class="trust-icon">🌸</div>
+        <div><strong>Shatavari (Women's Health)</strong><p>The foremost Ayurvedic herb for female hormonal balance and reproductive wellness. Central to Utro Hayaat.</p></div>
+      </div>
+    </div>
+    <div class="text-center mt-3 reveal"><a href="ingredients.html" class="btn btn-outline-green">Explore All Ingredients →</a></div>
+  </div>
+</section>
+
+<!-- ── HEALTH GUIDE  -->
+<section class="section bg-white" aria-labelledby="health-guide-heading">
+  <div class="container">
+    <div class="text-center">
+      <div class="eyebrow reveal">Your Wellness Roadmap</div>
+      <h2 class="reveal delay-1" id="health-guide-heading">Which Remedy Is Right for You?</h2>
+      <p class="section-sub reveal delay-2">A quick guide to help you match your health concern with the right Shah Hayaat product.</p>
+    </div>
+    <div style="display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));margin-top:2.5rem">
+      <div class="trust-card reveal delay-1" style="flex-direction:column;align-items:flex-start;gap:0.6rem">
+        <div style="display:flex;align-items:center;gap:0.7rem"><div class="trust-icon">🧠</div><strong style="color:var(--green-dark)">Poor Memory / Brain Fog</strong></div>
+        <p style="font-size:0.84rem;margin:0">Try <strong>Brain Champ</strong> — formulated with Ashwagandha, Brahmi and Shankhpushpi for cognitive performance.</p>
+        <a href="product-detail.html?id=brainchamp" class="btn btn-outline-green btn-sm" style="margin-top:0.3rem">Learn More →</a>
+      </div>
+      <div class="trust-card reveal delay-2" style="flex-direction:column;align-items:flex-start;gap:0.6rem">
+        <div style="display:flex;align-items:center;gap:0.7rem"><div class="trust-icon">🫀</div><strong style="color:var(--green-dark)">Fatty Liver / Liver Support</strong></div>
+        <p style="font-size:0.84rem;margin:0">Try <strong>Livo Hayaat</strong> — deep liver detox and regeneration with Bhumi Amla and Kutki.</p>
+        <a href="product-detail.html?id=livohayaat" class="btn btn-outline-green btn-sm" style="margin-top:0.3rem">Learn More →</a>
+      </div>
+      <div class="trust-card reveal delay-3" style="flex-direction:column;align-items:flex-start;gap:0.6rem">
+        <div style="display:flex;align-items:center;gap:0.7rem"><div class="trust-icon">🌿</div><strong style="color:var(--green-dark)">Bloating / Indigestion</strong></div>
+        <p style="font-size:0.84rem;margin:0">Try <strong>Shah Zyme</strong> — a digestive enzyme formula that relieves bloating, acidity and discomfort.</p>
+        <a href="product-detail.html?id=shahzyme" class="btn btn-outline-green btn-sm" style="margin-top:0.3rem">Learn More →</a>
+      </div>
+      <div class="trust-card reveal delay-4" style="flex-direction:column;align-items:flex-start;gap:0.6rem">
+        <div style="display:flex;align-items:center;gap:0.7rem"><div class="trust-icon">🦴</div><strong style="color:var(--green-dark)">Joint Pain / Arthritis</strong></div>
+        <p style="font-size:0.84rem;margin:0">Try <strong>Ortho Hayaat</strong> — Boswellia and Guggul reduce joint inflammation and restore mobility.</p>
+        <a href="product-detail.html?id=orthohayaat" class="btn btn-outline-green btn-sm" style="margin-top:0.3rem">Learn More →</a>
+      </div>
+      <div class="trust-card reveal delay-1" style="flex-direction:column;align-items:flex-start;gap:0.6rem">
+        <div style="display:flex;align-items:center;gap:0.7rem"><div class="trust-icon">🩺</div><strong style="color:var(--green-dark)">High Blood Sugar / Diabetes</strong></div>
+        <p style="font-size:0.84rem;margin:0">Try <strong>Dia-Ease</strong> — supports healthy insulin sensitivity and blood sugar regulation naturally.</p>
+        <a href="product-detail.html?id=diaease" class="btn btn-outline-green btn-sm" style="margin-top:0.3rem">Learn More →</a>
+      </div>
+      <div class="trust-card reveal delay-2" style="flex-direction:column;align-items:flex-start;gap:0.6rem">
+        <div style="display:flex;align-items:center;gap:0.7rem"><div class="trust-icon">✨</div><strong style="color:var(--green-dark)">Skin Issues / Acne / Dullness</strong></div>
+        <p style="font-size:0.84rem;margin:0">Try <strong>Musaffa Khoon</strong> — blood purifier that clears skin from the root cause.</p>
+        <a href="product-detail.html?id=musaffakhoon" class="btn btn-outline-green btn-sm" style="margin-top:0.3rem">Learn More →</a>
+      </div>
+    </div>
+    <div class="text-center mt-3 reveal"><a href="wellness-lab.html" class="btn btn-primary btn-lg">🔍 Take the Full Wellness Assessment</a></div>
+  </div>
+</section>
 <!-- ── FINAL CTA  -->
 <section class="section cta-banner" aria-labelledby="cta-heading">
   <div class="container">
@@ -865,9 +947,9 @@ const PRODUCTS=[
 ];
 
 const BLOGS=[
-  {title:'5 Ayurvedic Secrets for a Happy Gut',cat:'Digestion',img:'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/image(3).png',desc:"Tired of bloating after meals? Discover simple, ancient tips to improve digestion naturally."},
-  {title:"How Ashwagandha Calms Modern Stress",cat:'Wellness',img:'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/image(6).png',desc:"Learn how this powerful adaptogen helps your body manage and recover from chronic stress."},
-  {title:'Ayurvedic Tips for All-Day Energy',cat:'Energy',img:'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/image(3).png',desc:"Discover Ayurvedic techniques for sustained natural energy without the afternoon crash."}
+  {title:'5 Ayurvedic Secrets for a Happy Gut',cat:'Digestion',img:'shahzyme1.jpg.jpg',desc:"Tired of bloating after meals? Discover simple, ancient tips to improve digestion naturally."},
+  {title:"How Ashwagandha Calms Modern Stress",cat:'Wellness',img:'brainchamp1.jpg.jpg',desc:"Learn how this powerful adaptogen helps your body manage and recover from chronic stress."},
+  {title:'Ayurvedic Tips for All-Day Energy',cat:'Energy',img:'shahzyme1.jpg.jpg',desc:"Discover Ayurvedic techniques for sustained natural energy without the afternoon crash."}
 ];
 
 function renderProducts(container){

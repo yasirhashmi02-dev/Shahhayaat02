@@ -23,10 +23,10 @@
   <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@300;400;500;600&display=swap">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@300;400;500;600&display=swap"></noscript>
   <style>
-:root{--green-dark:#2A4633;--green-mid:#3B6449;--green-light:#4D7C5D;--bg-cream:#F8F6F2;--bg-white:#FFFFFF;--gold:#B8860B;--gold-light:#D4A017;--gold-pale:#FDF8E8;--text-dark:#1C1C1C;--text-mid:#3D3D3D;--text-muted:#6B6B6B;--border:#E4DDD4;--shadow-xs:0 1px 4px rgba(42,70,51,0.06);--shadow-sm:0 4px 16px rgba(42,70,51,0.08);--shadow-md:0 10px 30px rgba(42,70,51,0.12);--shadow-lg:0 20px 50px rgba(42,70,51,0.16);--radius-sm:8px;--radius:14px;--radius-lg:22px;--ease:cubic-bezier(0.4,0,0.2,1);--t:0.32s;--font-head:'Playfair Display',Georgia,serif;--font-body:'Inter',system-ui,sans-serif}
+:root{--green-dark:#2A4633;--green-mid:#3B6449;--green-light:#4D7C5D;--bg-cream:#F8F6F2;--bg-white:#FFFFFF;--gold:#B8860B;--gold-light:#D4A017;--gold-pale:#FDF8E8;--text-dark:#1C1C1C;--text-mid:#3D3D3D;--text-muted:#6B6B6B;--border:#E4DDD4;--shadow-xs:0 1px 4px rgba(42,70,51,0.06);--shadow-sm:0 4px 16px rgba(42,70,51,0.08);--shadow-md:0 10px 30px rgba(42,70,51,0.12);--shadow-lg:0 20px 50px rgba(42,70,51,0.16);--radius-sm:8px;--radius:14px;--radius-lg:22px;--ease:cubic-bezier(0.4,0,0.2,1);--t:0.32s;--font-head:'Playfair Display',Georgia,serif;--font-body:'DM Sans',system-ui,sans-serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:82px;font-size:16px}
 body{font-family:var(--font-body);background:var(--bg-cream);color:var(--text-dark);line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
@@ -93,8 +93,8 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .blog-grid{display:grid;gap:1.8rem;grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
 .blog-card{background:var(--bg-white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-xs);display:flex;flex-direction:column;transition:all var(--t) var(--ease);cursor:pointer}
 .blog-card:hover{transform:translateY(-7px);box-shadow:var(--shadow-lg)}
-.blog-card-img{height:210px;overflow:hidden;background:linear-gradient(135deg,rgba(42,70,51,0.08),rgba(184,134,11,0.08));display:flex;align-items:center;justify-content:center;font-size:3rem;flex-shrink:0}
-.blog-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease}
+.blog-card-img{height:220px;overflow:hidden;background:var(--bg-cream);display:flex;align-items:center;justify-content:center;font-size:3rem;flex-shrink:0}
+.blog-card-img img{width:100%;height:100%;object-fit:contain;padding:6px;transition:transform 0.6s ease}
 .blog-card:hover .blog-card-img img{transform:scale(1.06)}
 .blog-body{padding:1.4rem;flex-grow:1;display:flex;flex-direction:column}
 .blog-meta{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem;flex-wrap:wrap}
@@ -118,7 +118,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .blog-modal-close:hover{background:var(--green-dark);color:#fff}
 .blog-modal h2{margin-bottom:0.5rem}
 .blog-modal-cat{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
-.blog-modal-img{width:100%;height:320px;object-fit:cover;border-radius:var(--radius);margin-bottom:1.6rem}
+.blog-modal-img{width:100%;height:300px;object-fit:contain;background:var(--bg-cream);border-radius:var(--radius);margin-bottom:1.6rem;padding:8px}
 .blog-modal-img-placeholder{width:100%;height:240px;background:linear-gradient(135deg,rgba(42,70,51,0.08),rgba(184,134,11,0.08));border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:4rem;margin-bottom:1.6rem}
 .blog-modal-body{font-size:1rem;color:var(--text-mid);line-height:1.85;white-space:pre-wrap}
 .blog-modal-actions{display:flex;align-items:center;gap:0.6rem;margin-top:1.8rem;padding-top:1.5rem;border-top:1px solid var(--border);flex-wrap:wrap}
@@ -336,8 +336,41 @@ body.nav-open .nav-mobile{transform:translateX(0)}
       <textarea id="post-body" rows="10" placeholder="Write the full article here. Use blank lines between paragraphs." maxlength="8000"></textarea>
     </div>
     <div class="form-group">
-      <label>Cover Image URL (optional)</label>
-      <input type="url" id="post-img" placeholder="https://... (leave blank for default)">
+      <label>Cover Image — Choose a Product Image</label>
+      <select id="post-img-select" onchange="document.getElementById('post-img').value=this.value" style="margin-bottom:0.5rem">
+        <option value="">— Select a product image —</option>
+        <option value="brainchamp1.jpg.jpg">Brain Champ</option>
+        <option value="shahzyme1.jpg.jpg">Shah Zyme</option>
+        <option value="bloodstorm1.jpg.jpg">Blood Storm</option>
+        <option value="livohayaat1.jpg.jpg">Livo Hayaat</option>
+        <option value="diaease1.jpg.jpg">Dia-Ease</option>
+        <option value="orthohayaat1.jpg.jpg">Ortho Hayaat</option>
+        <option value="utrohayaat1.jpg.jpg">Utro Hayaat</option>
+        <option value="passionpulse1.jpg.jpg">Passion Pulse</option>
+        <option value="panasip1.jpg.jpg">PanaSip</option>
+        <option value="coughxpro1.jpg.jpg">Cough X Pro</option>
+        <option value="musaffakhoon1.jpg.jpg">Musaffa Khoon</option>
+        <option value="fevodol1.jpg.jpg">Fevodol</option>
+      </select>
+      <input type="text" id="post-img" placeholder="Or enter custom image path (leave blank for default)">
+    </div>
+    <div class="form-group">
+      <label>Related Product (shown at end of post)</label>
+      <select id="post-product">
+        <option value="">— No specific product —</option>
+        <option value="Brain Champ">Brain Champ</option>
+        <option value="Shah Zyme">Shah Zyme</option>
+        <option value="Blood Storm">Blood Storm</option>
+        <option value="Livo Hayaat">Livo Hayaat</option>
+        <option value="Dia-Ease">Dia-Ease</option>
+        <option value="Ortho Hayaat">Ortho Hayaat</option>
+        <option value="Utro Hayaat">Utro Hayaat</option>
+        <option value="Passion Pulse">Passion Pulse</option>
+        <option value="PanaSip">PanaSip</option>
+        <option value="Cough X Pro">Cough X Pro</option>
+        <option value="Musaffa Khoon">Musaffa Khoon</option>
+        <option value="Fevodol">Fevodol</option>
+      </select>
     </div>
     <div style="display:flex;gap:0.7rem;flex-wrap:wrap;margin-top:0.5rem">
       <button class="btn btn-primary" onclick="savePost()">Publish Post</button>
@@ -400,9 +433,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 'use strict';
 
 const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/';
-/* ── Auth API (your Render service URL — update after deploying) ── */
-/* ── Local PIN auth — no external server needed ── */
-const ADMIN_PIN_HASH = 'b4c5ff678a3ce67a338686c9fc8d824a4c0604d42fb471008944d765cfc47eca'; // SHA-256 of ShahHayaat@2024
+const ADMIN_PIN_HASH = 'b4c5ff678a3ce67a338686c9fc8d824a4c0604d42fb471008944d765cfc47eca';
 async function hashPin(pin) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pin));
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
@@ -414,28 +445,28 @@ const REACTS_KEY    = 'sh_reactions';
 
 /* ── Static seed blogs (always shown) ── */
 const SEED_BLOGS = [
-  { id:'seed1', title:'Feeling Bloated? 5 Ayurvedic Secrets for a Happy Gut', cat:'Digestion',
-    img: GH + 'image%283%29.png', date:'12 Jan 2025',
+  { id:'seed1', title:'Feeling Bloated? 5 Ayurvedic Secrets for a Happy Gut', cat:'Digestion', product:'Shah Zyme',
+    img: 'shahzyme1.jpg.jpg', date:'12 Jan 2025',
     desc:"Tired of that uncomfortable feeling after meals? Discover simple, ancient tips to improve your digestion naturally and feel lighter every day.",
     body:"Bloating and digestive discomfort are more common than ever, yet Ayurveda has addressed these issues for thousands of years.\n\nHere are five time-tested secrets:\n\n1. Sip warm water throughout the day. Cold water slows digestion — warm water keeps the digestive fire (Agni) active.\n\n2. Add Ajwain (carom seeds) to your meals. They are the fastest natural remedy for gas and bloating.\n\n3. Eat your largest meal at noon when digestive fire is strongest. Light dinners before sunset ease overnight digestion enormously.\n\n4. Chew slowly and thoroughly. Ayurveda says digestion begins in the mouth — rushing meals is the number one cause of bloat.\n\n5. Triphala before bed. This classical formula gently cleanses and tones the digestive tract overnight.\n\nConsistent practice of even two or three of these habits can transform how you feel after every meal.",
     owner: false },
-  { id:'seed2', title:"Can't Switch Off? How Ashwagandha Calms Modern Stress", cat:'Wellness',
-    img: GH + 'image%286%29.png', date:'28 Jan 2025',
+  { id:'seed2', title:"Can't Switch Off? How Ashwagandha Calms Modern Stress", cat:'Wellness', product:'Brain Champ',
+    img: 'brainchamp1.jpg.jpg', date:'28 Jan 2025',
     desc:"In a world that never stops, finding peace can feel impossible. Learn how this powerful adaptogen helps your body manage and recover from stress.",
     body:"Chronic stress is the defining health challenge of modern life — and Ashwagandha (Withania somnifera) is Ayurveda's most studied answer to it.\n\nAshwagandha is classified as a Rasayana — a rejuvenating herb that builds long-term resilience. Unlike stimulants that push you through stress, it works by normalising cortisol levels, the primary stress hormone.\n\nClinical studies consistently show that 300–600mg of KSM-66 Ashwagandha extract per day reduces cortisol by 20–30% within 8 weeks. Users report improved sleep depth, reduced anxiety, better focus and higher energy without the crash.\n\nThe key is consistency — it is not a quick fix. Take it daily for at least 4–8 weeks to feel the full benefit. Morning or night both work; some find it easier to sleep when taken before bed.\n\nNote: It is an adaptogen, not a sedative. It helps your nervous system find its natural balance rather than forcing a state.",
     owner: false },
-  { id:'seed3', title:'Beat the Afternoon Slump: Ayurvedic Tips for All-Day Energy', cat:'Energy',
-    img: GH + 'image%285%29.png', date:'5 Feb 2025',
+  { id:'seed3', title:'Beat the Afternoon Slump: Ayurvedic Tips for All-Day Energy', cat:'Energy', product:'Brain Champ',
+    img: 'brainchamp1.jpg.jpg', date:'5 Feb 2025',
     desc:"If you rely on coffee to get through the day, there is a better way. Discover natural Ayurvedic techniques to maintain vibrant energy from morning to night.",
     body:"The post-lunch energy crash is so universal it has its own name in multiple languages. But it is not inevitable.\n\nAccording to Ayurveda, the afternoon slump happens because of two things: poor morning routines that deplete Ojas (vital energy) and heavy midday meals that divert energy to digestion.\n\nHere is what actually works:\n\nMorning: Drink warm water with a squeeze of lemon before anything else. This activates the liver and starts metabolism gently.\n\nBreakfast: Eat before 9am. Skipping breakfast or eating late forces your body to run on stress hormones by midday.\n\nLunch: Make it your biggest meal but keep it light and digestible. Avoid fried foods, heavy curries and excess sweets at lunch.\n\nMid-afternoon: Instead of coffee, try 1 tsp of Ashwagandha or Shatavari in warm milk. The effect is slower but cleaner and lasts for hours.\n\nEvening: Finish eating by 7pm. Late dinners keep your digestive system busy when it should be resting, robbing you of morning energy.\n\nThe single highest-impact change? Consistent sleep and wake times. Every other Ayurvedic strategy works better when your circadian rhythm is stable.",
     owner: false },
-  { id:'seed4', title:'The Glow-Up from Within: Ayurvedic Secrets for Radiant Skin', cat:'Skin',
-    img: GH + 'image%284%29.png', date:'14 Feb 2025',
+  { id:'seed4', title:'The Glow-Up from Within: Ayurvedic Secrets for Radiant Skin', cat:'Skin', product:'Musaffa Khoon',
+    img: 'musaffakhoon1.jpg.jpg', date:'14 Feb 2025',
     desc:"True radiance starts from the inside. Explore the connection between your diet, digestion and achieving naturally clear, glowing skin.",
     body:"Ayurveda has always known what dermatology is only now confirming: healthy skin begins in the gut.\n\nThe skin is a mirror of the blood and digestive health. Acne, dullness, uneven tone and premature ageing all trace back to toxins (Ama) circulating in the blood and lymphatic system.\n\nThe most powerful skin foods in Ayurveda:\n\nAmla (Indian Gooseberry) — the highest natural source of Vitamin C, potent antioxidant, brightens skin from within.\n\nNeem — blood purifier that targets the bacterial and inflammatory root cause of acne directly.\n\nManjistha — the premier herb for lymphatic cleansing and reducing pigmentation.\n\nTurmeric — anti-inflammatory, anti-bacterial, and brightening when taken internally.\n\nWhat to avoid: refined sugar feeds gut dysbiosis which shows up on your face within 48 hours. Dairy also drives hormonal acne in many people — a 3-week elimination is the simplest test.\n\nFor persistent skin issues, Musaffa Khoon — our classical blood purifier — addresses these root causes directly. Results take 4–8 weeks of consistent use but are lasting.",
     owner: false },
-  { id:'seed5', title:'Managing Joint Pain Naturally with Ayurveda', cat:'Joint Care',
-    img: GH + 'image%281%29.png', date:'22 Feb 2025',
+  { id:'seed5', title:'Managing Joint Pain Naturally with Ayurveda', cat:'Joint Care', product:'Ortho Hayaat',
+    img: 'orthohayaat1.jpg.jpg', date:'22 Feb 2025',
     desc:"Do not let aches and pains hold you back. Learn about traditional Ayurvedic approaches to soothe joint discomfort and improve your mobility.",
     body:"Joint pain affects millions of people and conventional medicine often offers only painkillers or surgery. Ayurveda offers a third path — reducing the underlying inflammation without side effects.\n\nIn Ayurvedic terms, joint pain is primarily a Vata and Ama disorder. Vata (the air element) dries out the synovial fluid and causes cracking, while Ama (metabolic toxins) creates the inflammatory component seen in conditions like arthritis.\n\nThe most clinically validated Ayurvedic joint herbs:\n\nShallaki (Boswellia serrata) — reduces 5-LOX enzyme activity, directly cutting the inflammatory cascade. Its effects are comparable to NSAIDs without the gut damage.\n\nGuggul — deeply penetrating resin that reduces inflammation and improves joint lubrication.\n\nNirgundi — topically or internally, provides rapid analgesic relief for acute joint pain.\n\nSunthi (Dry Ginger) — warming herb that improves circulation to cold, stiff joints.\n\nLifestyle: Gentle yoga, especially poses that mobilise the joints without loading them, is the best complementary therapy. Warm sesame oil massage over affected joints before bathing reduces stiffness remarkably over time.\n\nAvoid: cold and raw foods, excessive physical strain, and sitting in the same position for long periods.",
     owner: false },
@@ -571,6 +602,7 @@ function openPost(rid) {
     '<h2>' + escHtml(post.title) + '</h2>' +
     imgHtml +
     '<div class="blog-modal-body">' + escHtml(post.body || post.desc) + '</div>' +
+    (post.product ? '<div style="margin-top:1.5rem;padding:1rem 1.2rem;background:var(--gold-pale);border:1.5px solid rgba(184,134,11,0.25);border-radius:var(--radius);display:flex;align-items:center;gap:0.7rem"><span style="font-size:1.1rem">🌿</span><span style="font-size:0.9rem;color:var(--green-dark)"><strong>Recommended Product:</strong> <a href="product-detail.html?id=' + post.product.toLowerCase().replace(/ /g,\'\') + '" style="color:var(--gold);font-weight:700;text-decoration:underline">' + escHtml(post.product) + '</a></span></div>' : '') +
     '<div class="blog-modal-actions">' +
       '<button class="react-btn' + (myR.love ? ' reacted' : '') + '" onclick="react(null,\'' + rid + '\',\'love\')">❤ Love &nbsp;' + (r.love || 0) + '</button>' +
       '<button class="react-btn' + (myR.helpful ? ' reacted' : '') + '" onclick="react(null,\'' + rid + '\',\'helpful\')">👍 Helpful &nbsp;' + (r.helpful || 0) + '</button>' +
@@ -708,12 +740,14 @@ function openWritePost(idx) {
     document.getElementById('post-desc').value = post.desc;
     document.getElementById('post-body').value = post.body || '';
     document.getElementById('post-img').value = post.img || '';
+    if(document.getElementById('post-product')) document.getElementById('post-product').value = post.product || '';
   } else {
     document.getElementById('post-title').value = '';
     document.getElementById('post-cat').value = 'Wellness';
     document.getElementById('post-desc').value = '';
     document.getElementById('post-body').value = '';
     document.getElementById('post-img').value = '';
+    if(document.getElementById('post-product')) document.getElementById('post-product').value = '';
   }
   document.getElementById('write-modal-bg').classList.remove('hidden');
 }
@@ -724,6 +758,7 @@ function savePost() {
   const desc  = document.getElementById('post-desc').value.trim();
   const body  = document.getElementById('post-body').value.trim();
   const img   = document.getElementById('post-img').value.trim();
+  const product = document.getElementById('post-product') ? document.getElementById('post-product').value : '';
   const errEl = document.getElementById('write-error');
   const editIdx = parseInt(document.getElementById('edit-post-idx').value);
 
@@ -734,7 +769,7 @@ function savePost() {
   const posts = getPosts();
   const now = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
   const post = { id: editIdx >= 0 ? posts[editIdx].id : 'custom_' + Date.now(),
-    title, cat, desc, body, img: img || '', date: now, owner: true };
+    title, cat, desc, body, img: img || '', date: now, owner: true, product: product || '' };
 
   if (editIdx >= 0) {
     posts[editIdx] = post;
