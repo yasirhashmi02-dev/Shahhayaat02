@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Ayurvedic Ingredient Library — Brahmi, Ashwagandha, Giloy &amp; More | Shah Hayaat</title>
-  <meta name="description" content="Complete Ayurvedic herb knowledge library — Brahmi, Ashwagandha, Giloy, Triphala, Shankhpushpi, Kutki, Amla. Benefits, science, dosage and precautions explained by Shah Hayaat.">
+  <title>Ayurvedic Ingredient Library, Brahmi, Ashwagandha, Giloy &amp; More | Shah Hayaat</title>
+  <meta name="description" content="Complete Ayurvedic herb knowledge library, Brahmi, Ashwagandha, Giloy, Triphala, Shankhpushpi, Kutki, Amla. Benefits, science, dosage and precautions explained by Shah Hayaat.">
   <meta name="keywords" content="brahmi benefits, ashwagandha benefits, giloy uses, triphala benefits, ayurvedic herbs India, shankhpushpi memory, kutki liver, amla vitamin c">
-  <meta property="og:title" content="Ayurvedic Ingredient Library — Shah Hayaat">
+  <meta property="og:title" content="Ayurvedic Ingredient Library, Shah Hayaat">
   <meta property="og:description" content="Deep-dive herb profiles: benefits, clinical evidence, dosage and the Shah Hayaat products they power.">
   <link rel="canonical" href="https://www.shahhayaat.com/ingredients.html">
     <meta charset="UTF-8">
@@ -22,21 +22,21 @@
   <style>
 
 /* ══════════════════════════════════════════════
-   SHAH HAYAAT BRAND SYSTEM — matches index.html
+   SHAH HAYAAT BRAND SYSTEM, matches index.html
    Dark navy + gold premium aesthetic
    ══════════════════════════════════════════════ */
 :root{
   /* Dark navy brand palette */
-  --navy-deep:#071e33;
-  --navy-mid:#0c4a6e;
-  --navy-light:#075985;
-  --navy-bright:#0369a1;
+  --navy-deep:#0B0F14;
+  --navy-mid:#0E1520;
+  --navy-light:#131A26;
+  --navy-bright:#1C2A3A;
   /* Gold accents */
   --gold:#B8860B;
   --gold-light:#D4A017;
   --gold-pale:#FDF8E8;
   /* Surfaces */
-  --bg-cream:#F8F6F2;
+  --bg-cream:#11151B;
   --bg-white:#FFFFFF;
   /* Text */
   --text-dark:#1C1C1C;
@@ -45,45 +45,56 @@
   /* Borders */
   --border:#E4DDD4;
   /* Shadows */
-  --shadow-xs:0 1px 4px rgba(7,30,51,0.08);
-  --shadow-sm:0 4px 16px rgba(7,30,51,0.12);
-  --shadow-md:0 10px 30px rgba(7,30,51,0.16);
-  --shadow-lg:0 20px 50px rgba(7,30,51,0.22);
+  --shadow-xs:0 1px 4px rgba(11,15,20,0.08);
+  --shadow-sm:0 4px 16px rgba(11,15,20,0.12);
+  --shadow-md:0 10px 30px rgba(11,15,20,0.16);
+  --shadow-lg:0 20px 50px rgba(11,15,20,0.22);
   /* Layout */
   --radius-sm:8px;
   --radius:14px;
   --radius-lg:22px;
   --ease:cubic-bezier(0.4,0,0.2,1);
   --t:0.3s;
-  /* Fonts — exact match from screenshot */
+  /* Fonts, exact match from screenshot */
   --font-head:'Playfair Display',Georgia,serif;
   --font-body:'DM Sans',system-ui,sans-serif;
+
+  /* DARK THEME SURFACES */
+  --bg-dark:#0B0F14;
+  --bg-surface:#11151B;
+  --bg-card:#161B24;
+  --bg-card-hover:#1C2230;
+  --border-dark:#1C2230;
+  --border-mid:#242D3D;
+  --text-primary:#E8ECF0;
+  --text-secondary:#A8B4C4;
+  --text-muted:#5A6A7E;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
-body{font-family:var(--font-body);background:var(--bg-cream);color:var(--text-dark);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-body);background:#0B0F14;color:var(--text-primary);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 ul{list-style:none}
 .container{max-width:1160px;margin:0 auto;padding:0 clamp(16px,4vw,28px)}
 .section{padding:clamp(60px,9vw,100px) 0}
 .section-sm{padding:clamp(36px,5vw,56px) 0}
-.bg-white{background:var(--bg-white)}
-.bg-cream{background:var(--bg-cream)}
-.bg-navy{background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy-mid) 55%,var(--navy-deep) 100%)}
+.bg-white{background:var(--bg-card)}
+.bg-cream{background:var(--bg-dark)}
+.bg-navy{background:linear-gradient(135deg,#0B0F14 0%,#0E1520 55%,#0B0F14 100%)}
 .text-center{text-align:center}
 
 /* TYPOGRAPHY */
-h1,h2,h3,h4{font-family:var(--font-head);line-height:1.12;letter-spacing:-0.015em;color:var(--text-dark)}
+h1,h2,h3,h4{font-family:var(--font-head);line-height:1.12;letter-spacing:-0.015em;color:var(--text-primary)}
 h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700}
 h2{font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:700}
 h3{font-size:clamp(1.1rem,2vw,1.5rem);font-weight:700}
 h4{font-size:1rem;font-weight:700}
-p{color:var(--text-mid);font-size:0.96rem;line-height:1.8}
+p{color:var(--text-secondary);font-size:0.96rem;line-height:1.8}
 em.gold{font-style:italic;color:var(--gold-light)}
 .eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;display:block}
 
-/* BUTTONS — pill shaped with gold fill (matching screenshot) */
+/* BUTTONS, pill shaped with gold fill (matching screenshot) */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:0.45rem;padding:0.78rem 1.8rem;border-radius:50px;font-family:var(--font-body);font-weight:600;font-size:0.88rem;letter-spacing:0.02em;transition:all var(--t) var(--ease);cursor:pointer;border:2px solid transparent;white-space:nowrap;text-decoration:none}
 .btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;box-shadow:0 4px 16px rgba(184,134,11,0.30)}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(184,134,11,0.45)}
@@ -99,9 +110,9 @@ em.gold{font-style:italic;color:var(--gold-light)}
 .btn-sm{padding:0.52rem 1.2rem;font-size:0.80rem}
 .btn-lg{padding:0.95rem 2.4rem;font-size:0.94rem}
 
-/* HEADER — matching screenshot exactly */
+/* HEADER, matching screenshot exactly */
 .site-header{position:fixed;top:0;left:0;right:0;z-index:900;padding:1rem 0;transition:all 0.35s var(--ease)}
-body.scrolled .site-header{background:rgba(7,30,51,0.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:0.7rem 0;box-shadow:0 2px 20px rgba(0,0,0,0.25)}
+body.scrolled .site-header{background:rgba(11,15,20,0.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:0.7rem 0;box-shadow:0 2px 20px rgba(0,0,0,0.25)}
 .header-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
 .logo{display:flex;align-items:center;gap:0.75rem;font-family:var(--font-head);font-size:1.15rem;color:#fff;flex-shrink:0;text-decoration:none}
 .logo img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(212,160,23,0.6)}
@@ -119,7 +130,7 @@ body.scrolled .site-header{background:rgba(7,30,51,0.97);backdrop-filter:blur(16
 body.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 body.nav-open .nav-toggle span:nth-child(2){opacity:0;transform:scaleX(0)}
 body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.nav-mobile{position:fixed;inset:0;z-index:950;background:linear-gradient(160deg,var(--navy-deep) 0%,var(--navy-mid) 100%);padding:5.5rem 2rem 2.5rem;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.45s cubic-bezier(0.76,0,0.24,1);overflow-y:auto}
+.nav-mobile{position:fixed;inset:0;z-index:950;background:linear-gradient(160deg,#0B0F14 0%,#0E1520 100%);padding:5.5rem 2rem 2.5rem;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.45s cubic-bezier(0.76,0,0.24,1);overflow-y:auto}
 body.nav-open .nav-mobile{transform:none}
 body.nav-open{overflow:hidden}
 .nav-mobile-links{display:flex;flex-direction:column;gap:0.2rem;margin-bottom:2.5rem}
@@ -128,8 +139,8 @@ body.nav-open{overflow:hidden}
 .nav-mobile-links a.active{color:var(--gold-light)}
 .nav-mobile-actions{display:flex;flex-direction:column;gap:0.8rem;margin-top:auto}
 
-/* PAGE HERO — dark navy matching index style */
-.page-hero{background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy-mid) 55%,var(--navy-deep) 100%);padding:clamp(6rem,12vw,9rem) 0 clamp(3rem,5vw,5rem);position:relative;overflow:hidden}
+/* PAGE HERO, dark navy matching index style */
+.page-hero{background:linear-gradient(135deg,#0B0F14 0%,#0E1520 55%,#0B0F14 100%);padding:clamp(6rem,12vw,9rem) 0 clamp(3rem,5vw,5rem);position:relative;overflow:hidden}
 .page-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.018'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
 .page-hero .eyebrow{color:var(--gold-light)}
 .page-hero h1{color:#fff;margin-bottom:0.9rem}
@@ -141,11 +152,11 @@ body.nav-open{overflow:hidden}
 .breadcrumb span{opacity:0.35}
 
 /* CARDS */
-.card{background:var(--bg-white);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);border:1px solid var(--border);overflow:hidden;transition:transform 0.25s var(--ease),box-shadow 0.25s}
+.card{background:var(--bg-card);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);border:1px solid var(--border-dark);overflow:hidden;transition:transform 0.25s var(--ease),box-shadow 0.25s}
 .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
 
 /* CTA BANNER SECTIONS */
-.cta-section{background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy-mid) 55%,var(--navy-deep) 100%);padding:clamp(48px,7vw,80px) 0;position:relative;overflow:hidden;text-align:center}
+.cta-section{background:linear-gradient(135deg,#0B0F14 0%,#0E1520 55%,#0B0F14 100%);padding:clamp(48px,7vw,80px) 0;position:relative;overflow:hidden;text-align:center}
 .cta-section h2{color:#fff;margin-bottom:0.8rem}
 .cta-section p{color:rgba(255,255,255,0.65);max-width:520px;margin:0 auto 2rem}
 
@@ -166,8 +177,8 @@ body.nav-open{overflow:hidden}
 .d1{transition-delay:0.1s}.d2{transition-delay:0.2s}.d3{transition-delay:0.3s}.d4{transition-delay:0.4s}
 
 /* FOOTER */
-.site-footer{background:var(--navy-deep);padding:clamp(40px,6vw,72px) 0 0;border-top:3px solid var(--gold)}
-.footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1.2fr;gap:2.5rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.07)}
+.site-footer{background:#0B0F14;padding:clamp(40px,6vw,72px) 0 0;border-top:3px solid var(--gold)}
+.footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1.2fr;gap:2.5rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.06)}
 @media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
 .footer-brand .logo{margin-bottom:0.85rem}
@@ -192,9 +203,9 @@ body.nav-open{overflow:hidden}
 .back-top.show{opacity:1;transform:none}
 
 /* PRODUCT MINI CARD */
-.prod-mini{background:#fff;border-radius:var(--radius);border:1px solid var(--border);padding:1rem;display:flex;align-items:center;gap:1rem;transition:all 0.25s var(--ease);text-decoration:none}
+.prod-mini{background:#fff;border-radius:var(--radius);border:1px solid var(--border-dark);padding:1rem;display:flex;align-items:center;gap:1rem;transition:all 0.25s var(--ease);text-decoration:none}
 .prod-mini:hover{border-color:var(--gold);box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.prod-mini img{width:60px;height:60px;object-fit:contain;flex-shrink:0;border-radius:8px;background:var(--bg-cream);padding:4px}
+.prod-mini img{width:60px;height:60px;object-fit:contain;flex-shrink:0;border-radius:8px;background:var(--bg-dark);padding:4px}
 .prod-mini-name{font-family:var(--font-head);font-weight:700;font-size:0.9rem;color:var(--navy-mid);margin-bottom:0.2rem}
 .prod-mini-tag{font-size:0.70rem;color:var(--text-muted)}
 
@@ -202,8 +213,8 @@ body.nav-open{overflow:hidden}
 
   
 :root{
-  --green-dark:#0c4a6e;--green-mid:#0369a1;--green-light:#0284c7;
-  --bg-cream:#F8F6F2;--bg-white:#FFFFFF;
+  --green-dark:#0E1520;--green-mid:#1C2A3A;--green-light:#0284c7;
+  --bg-cream:#11151B;--bg-white:#FFFFFF;
   --gold:#B8860B;--gold-light:#D4A017;--gold-pale:#FDF8E8;
   --text-dark:#1C1C1C;--text-mid:#3D3D3D;--text-muted:#6B6B6B;
   --border:#E4DDD4;--shadow-sm:0 4px 16px rgba(42,70,51,0.08);
@@ -213,20 +224,20 @@ body.nav-open{overflow:hidden}
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
-body{font-family:var(--font-body);background:var(--bg-cream);color:var(--text-dark);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-body);background:var(--bg-dark);color:var(--text-primary);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img{max-width:100%;height:auto;display:block}a{color:inherit;text-decoration:none}ul{list-style:none}
 .container{max-width:1160px;margin:0 auto;padding:0 20px}
 .section{padding:clamp(56px,8vw,96px) 0}
 .section-sm{padding:clamp(36px,5vw,56px) 0}
-.bg-white{background:var(--bg-white)}
-.bg-cream{background:var(--bg-cream)}
-.bg-forest{background:linear-gradient(160deg,#071e33 0%,#0c4a6e 55%,#071e33 100%)}
+.bg-white{background:var(--bg-card)}
+.bg-cream{background:var(--bg-dark)}
+.bg-forest{background:linear-gradient(160deg,#0B0F14 0%,#0E1520 55%,#0B0F14 100%)}
 .text-center{text-align:center}
 h1,h2,h3,h4{font-family:var(--font-head);line-height:1.15;letter-spacing:-0.01em}
 h1{font-size:clamp(2.2rem,5vw,3.8rem)}
 h2{font-size:clamp(1.6rem,3.5vw,2.6rem)}
 h3{font-size:clamp(1.1rem,2vw,1.55rem)}
-p{color:var(--text-mid);font-size:0.97rem;line-height:1.8}
+p{color:var(--text-secondary);font-size:0.97rem;line-height:1.8}
 .eyebrow{font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem}
 .btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.7rem 1.6rem;border-radius:50px;font-weight:700;font-size:0.88rem;letter-spacing:0.04em;transition:all 0.25s var(--ease);cursor:pointer;border:none;white-space:nowrap}
 .btn-primary{background:var(--navy-mid);color:#fff}.btn-primary:hover{background:var(--navy-light);transform:translateY(-2px);box-shadow:var(--shadow-md)}
@@ -235,7 +246,7 @@ p{color:var(--text-mid);font-size:0.97rem;line-height:1.8}
 .btn-wa{background:#25D366;color:#fff}.btn-wa:hover{background:#20bc5b;transform:translateY(-2px)}
 /* NAV */
 .site-header{position:fixed;top:0;left:0;right:0;z-index:900;padding:1rem 0;transition:all 0.35s var(--ease)}
-body.scrolled .site-header{background:rgba(7,30,51,0.97);backdrop-filter:blur(16px);padding:0.7rem 0;box-shadow:0 2px 20px rgba(0,0,0,0.2)}
+body.scrolled .site-header{background:rgba(11,15,20,0.97);backdrop-filter:blur(16px);padding:0.7rem 0;box-shadow:0 2px 20px rgba(0,0,0,0.2)}
 .header-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
 .logo{display:flex;align-items:center;gap:0.7rem;font-family:var(--font-head);font-size:1.2rem;font-weight:700;color:#fff;letter-spacing:0.02em}
 .logo img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid rgba(184,134,11,0.5)}
@@ -253,14 +264,14 @@ body.scrolled .site-header{background:rgba(7,30,51,0.97);backdrop-filter:blur(16
 body.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 body.nav-open .nav-toggle span:nth-child(2){opacity:0;transform:scaleX(0)}
 body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.nav-mobile{position:fixed;inset:0;z-index:950;background:linear-gradient(160deg,#071e33 0%,#0c4a6e 100%);padding:5.5rem 2rem 2.5rem;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.45s cubic-bezier(0.76,0,0.24,1);overflow-y:auto}
+.nav-mobile{position:fixed;inset:0;z-index:950;background:linear-gradient(160deg,#0B0F14 0%,#0E1520 100%);padding:5.5rem 2rem 2.5rem;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.45s cubic-bezier(0.76,0,0.24,1);overflow-y:auto}
 body.nav-open .nav-mobile{transform:none}
 body.nav-open{overflow:hidden}
 .nav-mobile a{display:block;font-family:var(--font-head);font-size:1.8rem;font-style:italic;color:rgba(255,255,255,0.65);padding:0.55rem 0;border-bottom:1px solid rgba(255,255,255,0.06);transition:color 0.2s}
 .nav-mobile a:hover{color:#fff}
 .nav-mobile-footer{margin-top:auto;padding-top:2rem;display:flex;flex-direction:column;gap:0.8rem}
 /* PAGE HERO */
-.page-hero{background:linear-gradient(160deg,#071e33 0%,#0c4a6e 55%,#071e33 100%);padding:clamp(6rem,12vw,9rem) 0 clamp(3rem,6vw,5rem);position:relative;overflow:hidden}
+.page-hero{background:linear-gradient(160deg,#0B0F14 0%,#0E1520 55%,#0B0F14 100%);padding:clamp(6rem,12vw,9rem) 0 clamp(3rem,6vw,5rem);position:relative;overflow:hidden}
 .page-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
 .page-hero .eyebrow{color:var(--gold-light)}
 .page-hero h1{color:#fff;margin-bottom:1rem}
@@ -275,7 +286,7 @@ body.nav-open{overflow:hidden}
 .reveal-r{opacity:0;transform:translateX(24px);transition:opacity 0.7s ease,transform 0.7s ease}.reveal-r.in{opacity:1;transform:none}
 .d1{transition-delay:0.1s}.d2{transition-delay:0.2s}.d3{transition-delay:0.3s}.d4{transition-delay:0.4s}
 /* FOOTER */
-.site-footer{background:linear-gradient(160deg,#071e33 0%,#0c4a6e 100%);padding:clamp(48px,7vw,80px) 0 2rem;border-top:3px solid var(--gold)}
+.site-footer{background:linear-gradient(160deg,#0B0F14 0%,#0E1520 100%);padding:clamp(48px,7vw,80px) 0 2rem;border-top:3px solid var(--gold)}
 .footer-grid{display:grid;grid-template-columns:1.8fr repeat(3,1fr);gap:3rem;margin-bottom:3rem}
 @media(max-width:800px){.footer-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
@@ -291,12 +302,12 @@ body.nav-open{overflow:hidden}
 .footer-bottom p{font-size:0.76rem;color:rgba(255,255,255,0.3)}
 .footer-bottom a{font-size:0.76rem;color:rgba(255,255,255,0.35);transition:color 0.2s}.footer-bottom a:hover{color:var(--gold-light)}
 /* CARDS */
-.card{background:var(--bg-white);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);border:1px solid var(--border);overflow:hidden;transition:transform 0.25s var(--ease),box-shadow 0.25s var(--ease)}
+.card{background:var(--bg-card);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);border:1px solid var(--border-dark);overflow:hidden;transition:transform 0.25s var(--ease),box-shadow 0.25s var(--ease)}
 .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
 /* PRODUCT CARDS */
-.prod-mini{background:#fff;border-radius:var(--radius);border:1px solid var(--border);padding:1.2rem;display:flex;align-items:center;gap:1rem;transition:all 0.25s var(--ease)}
+.prod-mini{background:#fff;border-radius:var(--radius);border:1px solid var(--border-dark);padding:1.2rem;display:flex;align-items:center;gap:1rem;transition:all 0.25s var(--ease)}
 .prod-mini:hover{border-color:var(--gold);box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.prod-mini img{width:64px;height:64px;object-fit:contain;flex-shrink:0;border-radius:8px;background:var(--bg-cream);padding:4px}
+.prod-mini img{width:64px;height:64px;object-fit:contain;flex-shrink:0;border-radius:8px;background:var(--bg-dark);padding:4px}
 .prod-mini-info{flex:1}.prod-mini-name{font-family:var(--font-head);font-weight:700;font-size:0.95rem;color:var(--navy-mid);margin-bottom:0.2rem}
 .prod-mini-tag{font-size:0.72rem;color:var(--text-muted)}
 /* WHATSAPP FLOAT */
@@ -311,17 +322,17 @@ body.nav-open{overflow:hidden}
   .lib-layout{display:grid;grid-template-columns:240px 1fr;gap:0;min-height:70vh}
   @media(max-width:860px){.lib-layout{grid-template-columns:1fr;grid-template-rows:auto 1fr}}
 
-  .herb-sidebar-nav{background:var(--bg-white);border-right:1px solid var(--border);position:sticky;top:64px;max-height:calc(100vh - 64px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+  .herb-sidebar-nav{background:#161B24;border-right:1px solid var(--border);position:sticky;top:64px;max-height:calc(100vh - 64px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
   @media(max-width:860px){.herb-sidebar-nav{position:relative;top:auto;max-height:none;border-right:none;border-bottom:2px solid var(--border);display:flex;overflow-x:auto;gap:0;padding:0.5rem}}
   @media(max-width:860px){.herb-sidebar-nav::-webkit-scrollbar{display:none}}
 
-  .lib-header{padding:1.2rem 1rem;border-bottom:1px solid var(--border);background:var(--bg-cream)}
+  .lib-header{padding:1.2rem 1rem;border-bottom:1px solid var(--border-dark);background:var(--bg-dark)}
   .lib-header-title{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)}
 
   .herb-tab{width:100%;display:flex;align-items:center;gap:0.8rem;padding:0.9rem 1rem;background:transparent;border:none;border-left:3px solid transparent;cursor:pointer;text-align:left;transition:all 0.2s var(--ease)}
   @media(max-width:860px){.herb-tab{flex-shrink:0;border-left:none;border-bottom:3px solid transparent;padding:0.6rem 1rem;border-radius:8px 8px 0 0}}
-  .herb-tab:hover{background:var(--bg-cream);color:var(--navy-mid)}
-  .herb-tab.active{background:var(--bg-cream);border-left-color:var(--navy-mid);color:var(--navy-mid)}
+  .herb-tab:hover{background:var(--bg-dark);color:var(--navy-mid)}
+  .herb-tab.active{background:var(--bg-dark);border-left-color:var(--navy-mid);color:var(--navy-mid)}
   @media(max-width:860px){.herb-tab.active{border-left-color:transparent;border-bottom-color:var(--navy-mid)}}
   .herb-tab-name{font-size:0.88rem;font-weight:600;color:var(--navy-mid);line-height:1.2}
   .herb-tab-cat{font-size:0.72rem;color:var(--text-muted);margin-top:0.15rem}
@@ -340,26 +351,26 @@ body.nav-open{overflow:hidden}
   @media(max-width:860px){.herb-body{grid-template-columns:1fr;padding:1.2rem}}
 
   .herb-content{display:flex;flex-direction:column;gap:0}
-  .info-block{background:var(--bg-white);border-radius:var(--radius);border:1px solid var(--border);padding:1.6rem;margin-bottom:1.2rem}
+  .info-block{background:#161B24;border-radius:var(--radius);border:1px solid var(--border-dark);padding:1.6rem;margin-bottom:1.2rem}
   .info-block h3{font-family:var(--font-head);font-size:1.05rem;color:var(--navy-mid);margin-bottom:0.9rem}
   .benefit-list{display:flex;flex-direction:column;gap:0.4rem;padding-left:0}
-  .benefit-list li{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.88rem;color:var(--text-mid);padding:0.35rem 0;border-bottom:1px solid var(--border)}
+  .benefit-list li{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.88rem;color:var(--text-secondary);padding:0.35rem 0;border-bottom:1px solid var(--border-dark)}
   .benefit-list li::before{content:'✓';color:var(--navy-light);font-weight:700;flex-shrink:0}
-  .science-text{font-size:0.88rem;color:var(--text-mid);line-height:1.8;font-style:italic;border-left:3px solid var(--gold);padding-left:1rem}
+  .science-text{font-size:0.88rem;color:var(--text-secondary);line-height:1.8;font-style:italic;border-left:3px solid var(--gold);padding-left:1rem}
   .dosage-block{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem}
   @media(max-width:500px){.dosage-block{grid-template-columns:1fr}}
-  .dosage-inner{background:var(--bg-white);border-radius:var(--radius);border:1px solid var(--border);padding:1.2rem}
+  .dosage-inner{background:#161B24;border-radius:var(--radius);border:1px solid var(--border-dark);padding:1.2rem}
   .dosage-inner.warn{border-color:#f4b8b8;background:#fff8f8}
   .dosage-title{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.5rem}
   .dosage-inner.warn .dosage-title{color:#c0392b}
-  .dosage-text{font-size:0.86rem;color:var(--text-mid);line-height:1.6}
+  .dosage-text{font-size:0.86rem;color:var(--text-secondary);line-height:1.6}
   .related-tags{display:flex;flex-wrap:wrap;gap:0.5rem}
-  .related-tag{display:inline-block;padding:0.35rem 0.9rem;background:var(--bg-cream);border:1px solid var(--border);border-radius:50px;font-size:0.78rem;color:var(--navy-mid);cursor:pointer;transition:all 0.2s}
+  .related-tag{display:inline-block;padding:0.35rem 0.9rem;background:var(--bg-dark);border:1px solid var(--border-dark);border-radius:50px;font-size:0.78rem;color:var(--navy-mid);cursor:pointer;transition:all 0.2s}
   .related-tag:hover{background:var(--navy-mid);color:#fff;border-color:var(--navy-mid)}
 
   .herb-sidebar{position:sticky;top:80px;align-self:start;display:flex;flex-direction:column;gap:0}
   @media(max-width:860px){.herb-sidebar{position:relative;top:auto}}
-  .quiz-cta-card{background:linear-gradient(135deg,#071e33,#0c4a6e);border-radius:var(--radius);padding:1.5rem;text-align:center}
+  .quiz-cta-card{background:linear-gradient(135deg,#0B0F14,#0E1520);border-radius:var(--radius);padding:1.5rem;text-align:center}
   .quiz-cta-card h4{font-family:var(--font-head);font-size:0.95rem;color:#fff;margin-bottom:0.5rem}
   .quiz-cta-card p{font-size:0.8rem;color:rgba(255,255,255,0.65);line-height:1.6}
   </style>
@@ -381,8 +392,7 @@ body.nav-open{overflow:hidden}
       <a href="about.html" >About</a>
       <a href="contact.html" >Contact</a>
     </nav>
-    <a href="symptom-checker.html" class="nav-cta-pill">✦ Symptom Checker</a>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+<button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
@@ -396,8 +406,7 @@ body.nav-open{overflow:hidden}
     <a href="contact.html" >Contact</a>
   </div>
   <div class="nav-mobile-actions">
-    <a href="symptom-checker.html" class="btn btn-primary">✦ Symptom Checker</a>
-    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa">💬 WhatsApp Us</a>
+<a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa">💬 WhatsApp Us</a>
   </div>
 </nav>
     <a href="https://wa.me/917051056287" class="nav-cta-btn" target="_blank" rel="noopener">💬 WhatsApp</a>
@@ -422,7 +431,7 @@ body.nav-open{overflow:hidden}
     <nav class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Ingredient Library</span></nav>
     <div class="eyebrow">Ayurvedic Knowledge Base</div>
     <h1>The Ingredient<br><em style="color:var(--gold-light)">Library</em></h1>
-    <p>Deep-dive herb profiles — clinical evidence, dosages, benefits and how they power Shah Hayaat formulations.</p>
+    <p>Deep-dive herb profiles, clinical evidence, dosages, benefits and how they power Shah Hayaat formulations.</p>
   </div>
 </div>
 
@@ -488,13 +497,13 @@ body.nav-open{overflow:hidden}
   </aside>
   <main class="herb-panels">
     <div class="herb-panel active" id="herb-brahmi">
-      <div class="herb-hero" style="--herb-color:#0c4a6e">
+      <div class="herb-hero" style="--herb-color:#0E1520">
         <div class="herb-hero-icon">🧠</div>
         <div>
           <div class="eyebrow" style="color:var(--gold-light)">Brain & Nervous System</div>
           <h2 style="color:#fff">Brahmi <em style="font-size:0.55em;color:rgba(255,255,255,0.5);font-style:italic">(Bacopa monnieri)</em></h2>
           <div class="herb-tagline">"The Ancient Brain Tonic"</div>
-          <p style="color:rgba(255,255,255,0.72);max-width:600px">Brahmi is Ayurveda's most celebrated brain herb — used for over 3,000 years to enhance memory, learning, and intelligence. The name itself comes from <em>Brahma</em>, the Hindu god of creation, reflecting its power to stimulate the mind.</p>
+          <p style="color:rgba(255,255,255,0.72);max-width:600px">Brahmi is Ayurveda's most celebrated brain herb, used for over 3,000 years to enhance memory, learning, and intelligence. The name itself comes from <em>Brahma</em>, the Hindu god of creation, reflecting its power to stimulate the mind.</p>
         </div>
       </div>
       <div class="herb-body">
@@ -525,7 +534,7 @@ body.nav-open{overflow:hidden}
         <div class="herb-sidebar">
           <div class="info-block reveal-r" style="margin-bottom:1.2rem">
             <h3 style="margin-bottom:1rem">🛒 Shah Hayaat Products with Brahmi</h3>
-            <div style="display:flex;flex-direction:column;gap:0.8rem"><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp1.jpg.jpg" alt="Brain Champ" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Brain Champ</div><div class="prod-mini-tag">₹175 / pack</div></div><a href="product-detail.html?id=brainchamp" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div></div>
+            <div style="display:flex;flex-direction:column;gap:0.8rem"><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg" alt="Brain Champ" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Brain Champ</div><div class="prod-mini-tag">₹175 / pack</div></div><a href="product-detail.html?id=brainchamp" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div></div>
           </div>
           <div class="quiz-cta-card reveal-r d1">
             <div style="font-size:1.8rem;margin-bottom:0.5rem">🧬</div>
@@ -543,7 +552,7 @@ body.nav-open{overflow:hidden}
           <div class="eyebrow" style="color:var(--gold-light)">Adaptogen & Stress</div>
           <h2 style="color:#fff">Ashwagandha <em style="font-size:0.55em;color:rgba(255,255,255,0.5);font-style:italic">(Withania somnifera)</em></h2>
           <div class="herb-tagline">"The King of Ayurvedic Herbs"</div>
-          <p style="color:rgba(255,255,255,0.72);max-width:600px">Ashwagandha — meaning 'smell of horse' in Sanskrit — is Ayurveda's supreme adaptogen. It helps your body adapt to physical and emotional stress, making it the most studied Ayurvedic herb in modern clinical research with over 200 published studies.</p>
+          <p style="color:rgba(255,255,255,0.72);max-width:600px">Ashwagandha, meaning 'smell of horse' in Sanskrit, is Ayurveda's supreme adaptogen. It helps your body adapt to physical and emotional stress, making it the most studied Ayurvedic herb in modern clinical research with over 200 published studies.</p>
         </div>
       </div>
       <div class="herb-body">
@@ -574,7 +583,7 @@ body.nav-open{overflow:hidden}
         <div class="herb-sidebar">
           <div class="info-block reveal-r" style="margin-bottom:1.2rem">
             <h3 style="margin-bottom:1rem">🛒 Shah Hayaat Products with Ashwagandha</h3>
-            <div style="display:flex;flex-direction:column;gap:0.8rem"><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/orthohayaat1.jpg.jpg" alt="Ortho Hayaat" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/orthohayaat1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Ortho Hayaat</div><div class="prod-mini-tag">₹649 / pack</div></div><a href="product-detail.html?id=orthohayaat" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp1.jpg.jpg" alt="Brain Champ" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Brain Champ</div><div class="prod-mini-tag">₹175 / pack</div></div><a href="product-detail.html?id=brainchamp" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div></div>
+            <div style="display:flex;flex-direction:column;gap:0.8rem"><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg.jpg" alt="Ortho Hayaat" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Ortho Hayaat</div><div class="prod-mini-tag">₹649 / pack</div></div><a href="product-detail.html?id=orthohayaat" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg" alt="Brain Champ" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Brain Champ</div><div class="prod-mini-tag">₹175 / pack</div></div><a href="product-detail.html?id=brainchamp" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div></div>
           </div>
           <div class="quiz-cta-card reveal-r d1">
             <div style="font-size:1.8rem;margin-bottom:0.5rem">🧬</div>
@@ -592,14 +601,14 @@ body.nav-open{overflow:hidden}
           <div class="eyebrow" style="color:var(--gold-light)">Immunity</div>
           <h2 style="color:#fff">Giloy <em style="font-size:0.55em;color:rgba(255,255,255,0.5);font-style:italic">(Tinospora cordifolia)</em></h2>
           <div class="herb-tagline">"The Root of Immortality"</div>
-          <p style="color:rgba(255,255,255,0.72);max-width:600px">Called <em>Amrita</em> (nectar of immortality) in Sanskrit, Giloy is Ayurveda's most powerful immunomodulator. It rose to global prominence during COVID-19 when Indian households used it widely — and clinical trials at AIIMS confirmed its efficacy.</p>
+          <p style="color:rgba(255,255,255,0.72);max-width:600px">Called <em>Amrita</em> (nectar of immortality) in Sanskrit, Giloy is Ayurveda's most powerful immunomodulator. It rose to global prominence during COVID-19 when Indian households used it widely, and clinical trials at AIIMS confirmed its efficacy.</p>
         </div>
       </div>
       <div class="herb-body">
         <div class="herb-content">
           <div class="info-block reveal">
             <h3>✅ Proven Benefits</h3>
-            <ul class="benefit-list"><li>Activates macrophages and Natural Killer cells</li><li>Reduces chronic fever and inflammatory conditions</li><li>Powerful anti-malarial and anti-dengue properties</li><li>Hepatoprotective — protects liver from toxins</li><li>Anti-arthritic — reduces joint inflammation</li><li>Regulates blood sugar via insulin-like action</li></ul>
+            <ul class="benefit-list"><li>Activates macrophages and Natural Killer cells</li><li>Reduces chronic fever and inflammatory conditions</li><li>Powerful anti-malarial and anti-dengue properties</li><li>Hepatoprotective, protects liver from toxins</li><li>Anti-arthritic, reduces joint inflammation</li><li>Regulates blood sugar via insulin-like action</li></ul>
           </div>
           <div class="info-block reveal d1">
             <h3>🔬 What Science Says</h3>
@@ -612,7 +621,7 @@ body.nav-open{overflow:hidden}
             </div>
             <div class="dosage-inner warn">
               <div class="dosage-title">⚠️ Precautions</div>
-              <div class="dosage-text">Very safe herb. May lower blood sugar — monitor if diabetic. Avoid in autoimmune diseases where immune stimulation is contraindicated.</div>
+              <div class="dosage-text">Very safe herb. May lower blood sugar, monitor if diabetic. Avoid in autoimmune diseases where immune stimulation is contraindicated.</div>
             </div>
           </div>
           <div class="info-block reveal d3">
@@ -623,7 +632,7 @@ body.nav-open{overflow:hidden}
         <div class="herb-sidebar">
           <div class="info-block reveal-r" style="margin-bottom:1.2rem">
             <h3 style="margin-bottom:1rem">🛒 Shah Hayaat Products with Giloy</h3>
-            <div style="display:flex;flex-direction:column;gap:0.8rem"><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/fevodol1.jpg.jpg" alt="Fevodol" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/fevodol1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Fevodol</div><div class="prod-mini-tag">₹165 / pack</div></div><a href="product-detail.html?id=fevodol" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/bloodstorm1.jpg.jpg" alt="Blood Storm" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/bloodstorm1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Blood Storm</div><div class="prod-mini-tag">₹165 / pack</div></div><a href="product-detail.html?id=bloodstorm" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div></div>
+            <div style="display:flex;flex-direction:column;gap:0.8rem"><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/fevodol1.jpg.jpg" alt="Fevodol" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/fevodol1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Fevodol</div><div class="prod-mini-tag">₹165 / pack</div></div><a href="product-detail.html?id=fevodol" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/bloodstorm1.jpg.jpg" alt="Blood Storm" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/bloodstorm1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Blood Storm</div><div class="prod-mini-tag">₹165 / pack</div></div><a href="product-detail.html?id=bloodstorm" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div></div>
           </div>
           <div class="quiz-cta-card reveal-r d1">
             <div style="font-size:1.8rem;margin-bottom:0.5rem">🧬</div>
@@ -641,14 +650,14 @@ body.nav-open{overflow:hidden}
           <div class="eyebrow" style="color:var(--gold-light)">Digestion & Detox</div>
           <h2 style="color:#fff">Triphala <em style="font-size:0.55em;color:rgba(255,255,255,0.5);font-style:italic">(Three-fruit formula)</em></h2>
           <div class="herb-tagline">"The Great Tri-Fruit Detoxifier"</div>
-          <p style="color:rgba(255,255,255,0.72);max-width:600px">Triphala — the combination of Amla, Haritaki, and Bibhitaki — is Ayurveda's most universal formula. Used for over 1,000 years as a daily health tonic, it simultaneously cleanses, nourishes, and tones all body systems from gut to eyes.</p>
+          <p style="color:rgba(255,255,255,0.72);max-width:600px">Triphala, the combination of Amla, Haritaki, and Bibhitaki, is Ayurveda's most universal formula. Used for over 1,000 years as a daily health tonic, it simultaneously cleanses, nourishes, and tones all body systems from gut to eyes.</p>
         </div>
       </div>
       <div class="herb-body">
         <div class="herb-content">
           <div class="info-block reveal">
             <h3>✅ Proven Benefits</h3>
-            <ul class="benefit-list"><li>Gentle, non-habit-forming bowel regulation</li><li>Detoxifies all three doshas simultaneously</li><li>Powerful antioxidant (5× more than vitamin C)</li><li>Supports eye health and vision</li><li>Antimicrobial — reduces H. pylori and pathogens</li><li>Supports weight management and fat metabolism</li></ul>
+            <ul class="benefit-list"><li>Gentle, non-habit-forming bowel regulation</li><li>Detoxifies all three doshas simultaneously</li><li>Powerful antioxidant (5× more than vitamin C)</li><li>Supports eye health and vision</li><li>Antimicrobial, reduces H. pylori and pathogens</li><li>Supports weight management and fat metabolism</li></ul>
           </div>
           <div class="info-block reveal d1">
             <h3>🔬 What Science Says</h3>
@@ -661,7 +670,7 @@ body.nav-open{overflow:hidden}
             </div>
             <div class="dosage-inner warn">
               <div class="dosage-title">⚠️ Precautions</div>
-              <div class="dosage-text">Safe for long-term use. May cause loose stools initially — reduce dose. Avoid large doses in pregnancy.</div>
+              <div class="dosage-text">Safe for long-term use. May cause loose stools initially, reduce dose. Avoid large doses in pregnancy.</div>
             </div>
           </div>
           <div class="info-block reveal d3">
@@ -672,7 +681,7 @@ body.nav-open{overflow:hidden}
         <div class="herb-sidebar">
           <div class="info-block reveal-r" style="margin-bottom:1.2rem">
             <h3 style="margin-bottom:1rem">🛒 Shah Hayaat Products with Triphala</h3>
-            <div style="display:flex;flex-direction:column;gap:0.8rem"><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/shahzyme1.jpg.jpg" alt="Shah Zyme" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/shahzyme1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Shah Zyme</div><div class="prod-mini-tag">₹165 / pack</div></div><a href="product-detail.html?id=shahzyme" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/livohayaat1.jpg.jpg" alt="Livo Hayaat" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/livohayaat1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Livo Hayaat</div><div class="prod-mini-tag">₹349 / pack</div></div><a href="product-detail.html?id=livohayaat" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div></div>
+            <div style="display:flex;flex-direction:column;gap:0.8rem"><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/shahzyme1.jpg.jpg" alt="Shah Zyme" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/shahzyme1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Shah Zyme</div><div class="prod-mini-tag">₹165 / pack</div></div><a href="product-detail.html?id=shahzyme" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg.jpg" alt="Livo Hayaat" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Livo Hayaat</div><div class="prod-mini-tag">₹349 / pack</div></div><a href="product-detail.html?id=livohayaat" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div></div>
           </div>
           <div class="quiz-cta-card reveal-r d1">
             <div style="font-size:1.8rem;margin-bottom:0.5rem">🧬</div>
@@ -690,7 +699,7 @@ body.nav-open{overflow:hidden}
           <div class="eyebrow" style="color:var(--gold-light)">Brain & Nervous System</div>
           <h2 style="color:#fff">Shankhpushpi <em style="font-size:0.55em;color:rgba(255,255,255,0.5);font-style:italic">(Convolvulus pluricaulis)</em></h2>
           <div class="herb-tagline">"The Memory Flower"</div>
-          <p style="color:rgba(255,255,255,0.72);max-width:600px">Shankhpushpi — named for its conch-shaped flowers — is Ayurveda's premier herb for calming an overactive mind. Where Brahmi builds memory, Shankhpushpi calms the nervous system, making it essential for anxiety, insomnia, and mental fatigue.</p>
+          <p style="color:rgba(255,255,255,0.72);max-width:600px">Shankhpushpi, named for its conch-shaped flowers, is Ayurveda's premier herb for calming an overactive mind. Where Brahmi builds memory, Shankhpushpi calms the nervous system, making it essential for anxiety, insomnia, and mental fatigue.</p>
         </div>
       </div>
       <div class="herb-body">
@@ -701,7 +710,7 @@ body.nav-open{overflow:hidden}
           </div>
           <div class="info-block reveal d1">
             <h3>🔬 What Science Says</h3>
-            <p class="science-text">Research in the Journal of Ethnopharmacology demonstrates Shankhpushpi's anxiolytic activity comparable to diazepam — without dependence or sedation. Studies show it increases acetylcholine levels in the brain.</p>
+            <p class="science-text">Research in the Journal of Ethnopharmacology demonstrates Shankhpushpi's anxiolytic activity comparable to diazepam, without dependence or sedation. Studies show it increases acetylcholine levels in the brain.</p>
           </div>
           <div class="dosage-block reveal d2">
             <div class="dosage-inner">
@@ -721,7 +730,7 @@ body.nav-open{overflow:hidden}
         <div class="herb-sidebar">
           <div class="info-block reveal-r" style="margin-bottom:1.2rem">
             <h3 style="margin-bottom:1rem">🛒 Shah Hayaat Products with Shankhpushpi</h3>
-            <div style="display:flex;flex-direction:column;gap:0.8rem"><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp1.jpg.jpg" alt="Brain Champ" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Brain Champ</div><div class="prod-mini-tag">₹175 / pack</div></div><a href="product-detail.html?id=brainchamp" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div></div>
+            <div style="display:flex;flex-direction:column;gap:0.8rem"><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg" alt="Brain Champ" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Brain Champ</div><div class="prod-mini-tag">₹175 / pack</div></div><a href="product-detail.html?id=brainchamp" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div></div>
           </div>
           <div class="quiz-cta-card reveal-r d1">
             <div style="font-size:1.8rem;margin-bottom:0.5rem">🧬</div>
@@ -739,18 +748,18 @@ body.nav-open{overflow:hidden}
           <div class="eyebrow" style="color:var(--gold-light)">Liver Health</div>
           <h2 style="color:#fff">Kutki <em style="font-size:0.55em;color:rgba(255,255,255,0.5);font-style:italic">(Picrorhiza kurroa)</em></h2>
           <div class="herb-tagline">"Ayurveda's Liver Guardian"</div>
-          <p style="color:rgba(255,255,255,0.72);max-width:600px">Kutki is one of Ayurveda's most potent bitter herbs, revered for its extraordinary liver-protective properties. Modern research has shown it to be as effective as silymarin (from milk thistle) — the leading pharmaceutical hepatoprotective agent — but with additional anti-inflammatory benefits.</p>
+          <p style="color:rgba(255,255,255,0.72);max-width:600px">Kutki is one of Ayurveda's most potent bitter herbs, revered for its extraordinary liver-protective properties. Modern research has shown it to be as effective as silymarin (from milk thistle), the leading pharmaceutical hepatoprotective agent, but with additional anti-inflammatory benefits.</p>
         </div>
       </div>
       <div class="herb-body">
         <div class="herb-content">
           <div class="info-block reveal">
             <h3>✅ Proven Benefits</h3>
-            <ul class="benefit-list"><li>Reduces SGPT and SGOT enzyme levels</li><li>Stimulates bile production and flow</li><li>Hepatocellular regeneration — rebuilds liver cells</li><li>Anti-inflammatory: reduces liver inflammation</li><li>Anti-malarial and anti-fever properties</li><li>Improves fat metabolism in fatty liver</li></ul>
+            <ul class="benefit-list"><li>Reduces SGPT and SGOT enzyme levels</li><li>Stimulates bile production and flow</li><li>Hepatocellular regeneration, rebuilds liver cells</li><li>Anti-inflammatory: reduces liver inflammation</li><li>Anti-malarial and anti-fever properties</li><li>Improves fat metabolism in fatty liver</li></ul>
           </div>
           <div class="info-block reveal d1">
             <h3>🔬 What Science Says</h3>
-            <p class="science-text">A comparative study in the Journal of Ethnopharmacology showed Kutki extract reduced liver enzymes in NAFLD patients at levels comparable to silymarin. Picrosides I and II — the active compounds — show potent hepatoprotective activity in vitro and in vivo.</p>
+            <p class="science-text">A comparative study in the Journal of Ethnopharmacology showed Kutki extract reduced liver enzymes in NAFLD patients at levels comparable to silymarin. Picrosides I and II, the active compounds, show potent hepatoprotective activity in vitro and in vivo.</p>
           </div>
           <div class="dosage-block reveal d2">
             <div class="dosage-inner">
@@ -759,7 +768,7 @@ body.nav-open{overflow:hidden}
             </div>
             <div class="dosage-inner warn">
               <div class="dosage-title">⚠️ Precautions</div>
-              <div class="dosage-text">Avoid in pregnancy and lactation. May lower blood sugar — monitor if diabetic. Short-term use recommended (3–6 months) then break.</div>
+              <div class="dosage-text">Avoid in pregnancy and lactation. May lower blood sugar, monitor if diabetic. Short-term use recommended (3–6 months) then break.</div>
             </div>
           </div>
           <div class="info-block reveal d3">
@@ -770,7 +779,7 @@ body.nav-open{overflow:hidden}
         <div class="herb-sidebar">
           <div class="info-block reveal-r" style="margin-bottom:1.2rem">
             <h3 style="margin-bottom:1rem">🛒 Shah Hayaat Products with Kutki</h3>
-            <div style="display:flex;flex-direction:column;gap:0.8rem"><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/livohayaat1.jpg.jpg" alt="Livo Hayaat" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/livohayaat1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Livo Hayaat</div><div class="prod-mini-tag">₹349 / pack</div></div><a href="product-detail.html?id=livohayaat" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div></div>
+            <div style="display:flex;flex-direction:column;gap:0.8rem"><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg.jpg" alt="Livo Hayaat" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Livo Hayaat</div><div class="prod-mini-tag">₹349 / pack</div></div><a href="product-detail.html?id=livohayaat" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div></div>
           </div>
           <div class="quiz-cta-card reveal-r d1">
             <div style="font-size:1.8rem;margin-bottom:0.5rem">🧬</div>
@@ -788,7 +797,7 @@ body.nav-open{overflow:hidden}
           <div class="eyebrow" style="color:var(--gold-light)">Immunity & Antioxidant</div>
           <h2 style="color:#fff">Amla <em style="font-size:0.55em;color:rgba(255,255,255,0.5);font-style:italic">(Phyllanthus emblica)</em></h2>
           <div class="herb-tagline">"Nature's Most Powerful Antioxidant"</div>
-          <p style="color:rgba(255,255,255,0.72);max-width:600px">Indian Gooseberry (Amla) is a nutritional powerhouse that Ayurveda considers the most important fruit for longevity. It contains 20× more Vitamin C than an orange — and unlike synthetic vitamin C, Amla's tannins stabilise it so it does not degrade with heat.</p>
+          <p style="color:rgba(255,255,255,0.72);max-width:600px">Indian Gooseberry (Amla) is a nutritional powerhouse that Ayurveda considers the most important fruit for longevity. It contains 20× more Vitamin C than an orange, and unlike synthetic vitamin C, Amla's tannins stabilise it so it does not degrade with heat.</p>
         </div>
       </div>
       <div class="herb-body">
@@ -808,7 +817,7 @@ body.nav-open{overflow:hidden}
             </div>
             <div class="dosage-inner warn">
               <div class="dosage-title">⚠️ Precautions</div>
-              <div class="dosage-text">Extremely safe. May thin blood in very high doses — reduce before surgery. The gold standard supplement for daily use.</div>
+              <div class="dosage-text">Extremely safe. May thin blood in very high doses, reduce before surgery. The gold standard supplement for daily use.</div>
             </div>
           </div>
           <div class="info-block reveal d3">
@@ -819,7 +828,7 @@ body.nav-open{overflow:hidden}
         <div class="herb-sidebar">
           <div class="info-block reveal-r" style="margin-bottom:1.2rem">
             <h3 style="margin-bottom:1rem">🛒 Shah Hayaat Products with Amla</h3>
-            <div style="display:flex;flex-direction:column;gap:0.8rem"><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/fevodol1.jpg.jpg" alt="Fevodol" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/fevodol1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Fevodol</div><div class="prod-mini-tag">₹165 / pack</div></div><a href="product-detail.html?id=fevodol" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/musaffakhoon1.jpg.jpg" alt="Musaffa Khoon" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/musaffakhoon1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Musaffa Khoon</div><div class="prod-mini-tag">₹165 / pack</div></div><a href="product-detail.html?id=musaffakhoon" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div></div>
+            <div style="display:flex;flex-direction:column;gap:0.8rem"><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/fevodol1.jpg.jpg" alt="Fevodol" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/fevodol1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Fevodol</div><div class="prod-mini-tag">₹165 / pack</div></div><a href="product-detail.html?id=fevodol" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/musaffakhoon1.jpg.jpg" alt="Musaffa Khoon" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/musaffakhoon1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Musaffa Khoon</div><div class="prod-mini-tag">₹165 / pack</div></div><a href="product-detail.html?id=musaffakhoon" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div></div>
           </div>
           <div class="quiz-cta-card reveal-r d1">
             <div style="font-size:1.8rem;margin-bottom:0.5rem">🧬</div>
@@ -836,8 +845,8 @@ body.nav-open{overflow:hidden}
         <div>
           <div class="eyebrow" style="color:var(--gold-light)">Blood Sugar</div>
           <h2 style="color:#fff">Karela <em style="font-size:0.55em;color:rgba(255,255,255,0.5);font-style:italic">(Momordica charantia)</em></h2>
-          <div class="herb-tagline">"Nature's Insulin — The Diabetes Fighter"</div>
-          <p style="color:rgba(255,255,255,0.72);max-width:600px">Bitter Gourd (Karela) is nature's most potent anti-diabetic food-herb. It contains three active anti-diabetic compounds — charantin, vicine, and polypeptide-P — the last of which functions almost identically to human insulin.</p>
+          <div class="herb-tagline">"Nature's Insulin, The Diabetes Fighter"</div>
+          <p style="color:rgba(255,255,255,0.72);max-width:600px">Bitter Gourd (Karela) is nature's most potent anti-diabetic food-herb. It contains three active anti-diabetic compounds, charantin, vicine, and polypeptide-P, the last of which functions almost identically to human insulin.</p>
         </div>
       </div>
       <div class="herb-body">
@@ -848,7 +857,7 @@ body.nav-open{overflow:hidden}
           </div>
           <div class="info-block reveal d1">
             <h3>🔬 What Science Says</h3>
-            <p class="science-text">A Cochrane review of 4 randomised controlled trials confirmed Karela significantly reduces fasting and post-prandial blood glucose. The BMJ reported charantin is more active than tolbutamide — a common anti-diabetic drug — in animal studies.</p>
+            <p class="science-text">A Cochrane review of 4 randomised controlled trials confirmed Karela significantly reduces fasting and post-prandial blood glucose. The BMJ reported charantin is more active than tolbutamide, a common anti-diabetic drug, in animal studies.</p>
           </div>
           <div class="dosage-block reveal d2">
             <div class="dosage-inner">
@@ -857,7 +866,7 @@ body.nav-open{overflow:hidden}
             </div>
             <div class="dosage-inner warn">
               <div class="dosage-title">⚠️ Precautions</div>
-              <div class="dosage-text">Monitor blood sugar closely — may cause hypoglycaemia in combination with medication. Avoid in pregnancy (uterine contractions). Contraindicated with G6PD deficiency.</div>
+              <div class="dosage-text">Monitor blood sugar closely, may cause hypoglycaemia in combination with medication. Avoid in pregnancy (uterine contractions). Contraindicated with G6PD deficiency.</div>
             </div>
           </div>
           <div class="info-block reveal d3">
@@ -868,7 +877,7 @@ body.nav-open{overflow:hidden}
         <div class="herb-sidebar">
           <div class="info-block reveal-r" style="margin-bottom:1.2rem">
             <h3 style="margin-bottom:1rem">🛒 Shah Hayaat Products with Karela</h3>
-            <div style="display:flex;flex-direction:column;gap:0.8rem"><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/diaease1.jpg.jpg" alt="Dia-Ease" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/diaease1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Dia-Ease</div><div class="prod-mini-tag">₹695 / pack</div></div><a href="product-detail.html?id=diaease" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div></div>
+            <div style="display:flex;flex-direction:column;gap:0.8rem"><div class="prod-mini"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg.jpg" alt="Dia-Ease" onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg.jpg';this.onerror=null" loading="lazy"><div class="prod-mini-info"><div class="prod-mini-name">Dia-Ease</div><div class="prod-mini-tag">₹695 / pack</div></div><a href="product-detail.html?id=diaease" class="btn btn-primary" style="font-size:0.76rem;padding:0.45rem 0.9rem">View →</a></div></div>
           </div>
           <div class="quiz-cta-card reveal-r d1">
             <div style="font-size:1.8rem;margin-bottom:0.5rem">🧬</div>
@@ -887,11 +896,11 @@ body.nav-open{overflow:hidden}
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy"><span>Shah <em>Hayaat</em></span></a>
-        <p>WHO-GMP, ISO 9001:2015 &amp; HACCP certified Ayurvedic medicines — pure herbs, modern science.</p>
+        <p>WHO-GMP, ISO 9001:2015 &amp; HACCP certified Ayurvedic medicines, pure herbs, modern science.</p>
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
-          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon" aria-label="Email">✉️</a>
+          <a href="/cdn-cgi/l/email-protection#16657e777e7e776f777762262456717b777f7a3875797b" class="soc-icon" aria-label="Email">✉️</a>
         </div>
       </div>
       <div class="footer-col"><h4>Health Guides</h4><ul>
@@ -911,12 +920,13 @@ body.nav-open{overflow:hidden}
         <li><a href="products.html">View All 12 →</a></li>
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
-        <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#c8bba0a9a0a0a9b1a9a9bcf8fa88afa5a9a1a4e6aba7a5"><span class="__cf_email__" data-cfemail="05766d646d6d647c6464713537456268646c692b666a68">[email&#160;protected]</span></a></li>
         <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
         <li><a href="https://wa.me/919107028786" target="_blank">+91 91070 28786</a></li>
         <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
         <li><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></li>
-        <li><a href="symptom-checker.html">Symptom Checker</a></li>
+        <li>
+</li>
       </ul></div>
     </div>
     <div class="footer-bottom">
@@ -925,7 +935,7 @@ body.nav-open{overflow:hidden}
     </div>
   </div>
 </footer>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 'use strict';
 document.querySelectorAll('.nav-mobile a').forEach(a=>a.addEventListener('click',()=>setTimeout(()=>document.body.classList.remove('nav-open'),320)));
 window.addEventListener('scroll',()=>{
@@ -952,12 +962,8 @@ function showHerb(id) {
   }
   history.replaceState(null, '', '?h=' + id);
   setTimeout(() => {
-    panel.querySelectorAll('.reveal,.reveal-r,.reveal-l').forEach(el => el.classList.add('in'));
-  }, 50);
-}
-const urlH = new URLSearchParams(location.search).get('h');
-if (urlH) showHerb(urlH);
-else setTimeout(() => document.querySelector('#herb-brahmi')?.querySelectorAll('.reveal,.reveal-r').forEach(el=>el.classList.add('in')), 300);
+    panel.querySelectorAll('.reveal,.reveal-r,.reveal-l').forEach(el 
 </script>
+
 </body>
 </html>

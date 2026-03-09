@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="pg-title">Product — Shah Hayaat</title>
+  <title id="pg-title">Product, Shah Hayaat</title>
   <meta name="description" id="pg-desc" content="Premium Ayurvedic product from Shah Hayaat.">
   <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,21 +12,21 @@
   <style>
 
 /* ══════════════════════════════════════════════
-   SHAH HAYAAT BRAND SYSTEM — matches index.html
+   SHAH HAYAAT BRAND SYSTEM, matches index.html
    Dark navy + gold premium aesthetic
    ══════════════════════════════════════════════ */
 :root{
   /* Dark navy brand palette */
-  --navy-deep:#071e33;
-  --navy-mid:#0c4a6e;
-  --navy-light:#075985;
-  --navy-bright:#0369a1;
+  --navy-deep:#0B0F14;
+  --navy-mid:#0E1520;
+  --navy-light:#131A26;
+  --navy-bright:#1C2A3A;
   /* Gold accents */
   --gold:#B8860B;
   --gold-light:#D4A017;
   --gold-pale:#FDF8E8;
   /* Surfaces */
-  --bg-cream:#F8F6F2;
+  --bg-cream:#11151B;
   --bg-white:#FFFFFF;
   /* Text */
   --text-dark:#1C1C1C;
@@ -35,45 +35,56 @@
   /* Borders */
   --border:#E4DDD4;
   /* Shadows */
-  --shadow-xs:0 1px 4px rgba(7,30,51,0.08);
-  --shadow-sm:0 4px 16px rgba(7,30,51,0.12);
-  --shadow-md:0 10px 30px rgba(7,30,51,0.16);
-  --shadow-lg:0 20px 50px rgba(7,30,51,0.22);
+  --shadow-xs:0 1px 4px rgba(11,15,20,0.08);
+  --shadow-sm:0 4px 16px rgba(11,15,20,0.12);
+  --shadow-md:0 10px 30px rgba(11,15,20,0.16);
+  --shadow-lg:0 20px 50px rgba(11,15,20,0.22);
   /* Layout */
   --radius-sm:8px;
   --radius:14px;
   --radius-lg:22px;
   --ease:cubic-bezier(0.4,0,0.2,1);
   --t:0.3s;
-  /* Fonts — exact match from screenshot */
+  /* Fonts, exact match from screenshot */
   --font-head:'Playfair Display',Georgia,serif;
   --font-body:'DM Sans',system-ui,sans-serif;
+
+  /* DARK THEME SURFACES */
+  --bg-dark:#0B0F14;
+  --bg-surface:#11151B;
+  --bg-card:#161B24;
+  --bg-card-hover:#1C2230;
+  --border-dark:#1C2230;
+  --border-mid:#242D3D;
+  --text-primary:#E8ECF0;
+  --text-secondary:#A8B4C4;
+  --text-muted:#5A6A7E;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
-body{font-family:var(--font-body);background:var(--bg-cream);color:var(--text-dark);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-body);background:#0B0F14;color:var(--text-primary);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 ul{list-style:none}
 .container{max-width:1160px;margin:0 auto;padding:0 clamp(16px,4vw,28px)}
 .section{padding:clamp(60px,9vw,100px) 0}
 .section-sm{padding:clamp(36px,5vw,56px) 0}
-.bg-white{background:var(--bg-white)}
-.bg-cream{background:var(--bg-cream)}
-.bg-navy{background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy-mid) 55%,var(--navy-deep) 100%)}
+.bg-white{background:var(--bg-card)}
+.bg-cream{background:var(--bg-dark)}
+.bg-navy{background:linear-gradient(135deg,#0B0F14 0%,#0E1520 55%,#0B0F14 100%)}
 .text-center{text-align:center}
 
 /* TYPOGRAPHY */
-h1,h2,h3,h4{font-family:var(--font-head);line-height:1.12;letter-spacing:-0.015em;color:var(--text-dark)}
+h1,h2,h3,h4{font-family:var(--font-head);line-height:1.12;letter-spacing:-0.015em;color:var(--text-primary)}
 h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700}
 h2{font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:700}
 h3{font-size:clamp(1.1rem,2vw,1.5rem);font-weight:700}
 h4{font-size:1rem;font-weight:700}
-p{color:var(--text-mid);font-size:0.96rem;line-height:1.8}
+p{color:var(--text-secondary);font-size:0.96rem;line-height:1.8}
 em.gold{font-style:italic;color:var(--gold-light)}
 .eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;display:block}
 
-/* BUTTONS — pill shaped with gold fill (matching screenshot) */
+/* BUTTONS, pill shaped with gold fill (matching screenshot) */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:0.45rem;padding:0.78rem 1.8rem;border-radius:50px;font-family:var(--font-body);font-weight:600;font-size:0.88rem;letter-spacing:0.02em;transition:all var(--t) var(--ease);cursor:pointer;border:2px solid transparent;white-space:nowrap;text-decoration:none}
 .btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;box-shadow:0 4px 16px rgba(184,134,11,0.30)}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(184,134,11,0.45)}
@@ -89,9 +100,9 @@ em.gold{font-style:italic;color:var(--gold-light)}
 .btn-sm{padding:0.52rem 1.2rem;font-size:0.80rem}
 .btn-lg{padding:0.95rem 2.4rem;font-size:0.94rem}
 
-/* HEADER — matching screenshot exactly */
+/* HEADER, matching screenshot exactly */
 .site-header{position:fixed;top:0;left:0;right:0;z-index:900;padding:1rem 0;transition:all 0.35s var(--ease)}
-body.scrolled .site-header{background:rgba(7,30,51,0.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:0.7rem 0;box-shadow:0 2px 20px rgba(0,0,0,0.25)}
+body.scrolled .site-header{background:rgba(11,15,20,0.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:0.7rem 0;box-shadow:0 2px 20px rgba(0,0,0,0.25)}
 .header-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
 .logo{display:flex;align-items:center;gap:0.75rem;font-family:var(--font-head);font-size:1.15rem;color:#fff;flex-shrink:0;text-decoration:none}
 .logo img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(212,160,23,0.6)}
@@ -109,7 +120,7 @@ body.scrolled .site-header{background:rgba(7,30,51,0.97);backdrop-filter:blur(16
 body.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 body.nav-open .nav-toggle span:nth-child(2){opacity:0;transform:scaleX(0)}
 body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.nav-mobile{position:fixed;inset:0;z-index:950;background:linear-gradient(160deg,var(--navy-deep) 0%,var(--navy-mid) 100%);padding:5.5rem 2rem 2.5rem;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.45s cubic-bezier(0.76,0,0.24,1);overflow-y:auto}
+.nav-mobile{position:fixed;inset:0;z-index:950;background:linear-gradient(160deg,#0B0F14 0%,#0E1520 100%);padding:5.5rem 2rem 2.5rem;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.45s cubic-bezier(0.76,0,0.24,1);overflow-y:auto}
 body.nav-open .nav-mobile{transform:none}
 body.nav-open{overflow:hidden}
 .nav-mobile-links{display:flex;flex-direction:column;gap:0.2rem;margin-bottom:2.5rem}
@@ -118,8 +129,8 @@ body.nav-open{overflow:hidden}
 .nav-mobile-links a.active{color:var(--gold-light)}
 .nav-mobile-actions{display:flex;flex-direction:column;gap:0.8rem;margin-top:auto}
 
-/* PAGE HERO — dark navy matching index style */
-.page-hero{background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy-mid) 55%,var(--navy-deep) 100%);padding:clamp(6rem,12vw,9rem) 0 clamp(3rem,5vw,5rem);position:relative;overflow:hidden}
+/* PAGE HERO, dark navy matching index style */
+.page-hero{background:linear-gradient(135deg,#0B0F14 0%,#0E1520 55%,#0B0F14 100%);padding:clamp(6rem,12vw,9rem) 0 clamp(3rem,5vw,5rem);position:relative;overflow:hidden}
 .page-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.018'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
 .page-hero .eyebrow{color:var(--gold-light)}
 .page-hero h1{color:#fff;margin-bottom:0.9rem}
@@ -131,11 +142,11 @@ body.nav-open{overflow:hidden}
 .breadcrumb span{opacity:0.35}
 
 /* CARDS */
-.card{background:var(--bg-white);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);border:1px solid var(--border);overflow:hidden;transition:transform 0.25s var(--ease),box-shadow 0.25s}
+.card{background:var(--bg-card);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);border:1px solid var(--border-dark);overflow:hidden;transition:transform 0.25s var(--ease),box-shadow 0.25s}
 .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
 
 /* CTA BANNER SECTIONS */
-.cta-section{background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy-mid) 55%,var(--navy-deep) 100%);padding:clamp(48px,7vw,80px) 0;position:relative;overflow:hidden;text-align:center}
+.cta-section{background:linear-gradient(135deg,#0B0F14 0%,#0E1520 55%,#0B0F14 100%);padding:clamp(48px,7vw,80px) 0;position:relative;overflow:hidden;text-align:center}
 .cta-section h2{color:#fff;margin-bottom:0.8rem}
 .cta-section p{color:rgba(255,255,255,0.65);max-width:520px;margin:0 auto 2rem}
 
@@ -156,8 +167,8 @@ body.nav-open{overflow:hidden}
 .d1{transition-delay:0.1s}.d2{transition-delay:0.2s}.d3{transition-delay:0.3s}.d4{transition-delay:0.4s}
 
 /* FOOTER */
-.site-footer{background:var(--navy-deep);padding:clamp(40px,6vw,72px) 0 0;border-top:3px solid var(--gold)}
-.footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1.2fr;gap:2.5rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.07)}
+.site-footer{background:#0B0F14;padding:clamp(40px,6vw,72px) 0 0;border-top:3px solid var(--gold)}
+.footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1.2fr;gap:2.5rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.06)}
 @media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
 .footer-brand .logo{margin-bottom:0.85rem}
@@ -182,18 +193,18 @@ body.nav-open{overflow:hidden}
 .back-top.show{opacity:1;transform:none}
 
 /* PRODUCT MINI CARD */
-.prod-mini{background:#fff;border-radius:var(--radius);border:1px solid var(--border);padding:1rem;display:flex;align-items:center;gap:1rem;transition:all 0.25s var(--ease);text-decoration:none}
+.prod-mini{background:#fff;border-radius:var(--radius);border:1px solid var(--border-dark);padding:1rem;display:flex;align-items:center;gap:1rem;transition:all 0.25s var(--ease);text-decoration:none}
 .prod-mini:hover{border-color:var(--gold);box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.prod-mini img{width:60px;height:60px;object-fit:contain;flex-shrink:0;border-radius:8px;background:var(--bg-cream);padding:4px}
+.prod-mini img{width:60px;height:60px;object-fit:contain;flex-shrink:0;border-radius:8px;background:var(--bg-dark);padding:4px}
 .prod-mini-name{font-family:var(--font-head);font-weight:700;font-size:0.9rem;color:var(--navy-mid);margin-bottom:0.2rem}
 .prod-mini-tag{font-size:0.70rem;color:var(--text-muted)}
 
 /* === PAGE SPECIFIC === */
 
-/* old vars removed — using brand system */
+/* old vars removed, using brand system */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:82px;font-size:16px}
-body{font-family:var(--font-body);background:var(--bg-cream);color:var(--text-dark);line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-body);background:var(--bg-dark);color:var(--text-primary);line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 ul{list-style:none}
@@ -208,8 +219,8 @@ p{font-size:clamp(0.92rem,1.6vw,1.02rem);color:var(--text-muted);line-height:1.7
 p:last-child{margin-bottom:0}
 .section-label{display:block;font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem}
 .divider{width:52px;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:2px;margin:0.9rem 0 1.8rem}
-.bg-white{background:var(--bg-white)}
-.bg-cream{background:var(--bg-cream)}
+.bg-white{background:var(--bg-card)}
+.bg-cream{background:var(--bg-dark)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:0.45rem;padding:0.8rem 2rem;border-radius:1px;font-weight:700;font-size:0.92rem;letter-spacing:0.02em;transition:all var(--t) var(--ease);cursor:pointer;border:2px solid transparent;white-space:nowrap}
 .btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;box-shadow:0 4px 16px rgba(184,134,11,0.25)}
 .btn-primary:hover{transform:translateY(-1px) scale(1.03);box-shadow:0 8px 28px rgba(184,134,11,0.38)}
@@ -226,14 +237,14 @@ body.scrolled .site-header{border-bottom-color:var(--border);box-shadow:var(--sh
 .logo em{font-style:normal;color:var(--gold)}
 .nav-desktop{display:none}
 .nav-desktop ul{display:flex;gap:0.2rem}
-.nav-desktop a{display:block;padding:0.42rem 0.95rem;border-radius:1px;font-weight:600;font-size:0.9rem;color:var(--text-mid);transition:all 0.22s}
+.nav-desktop a{display:block;padding:0.42rem 0.95rem;border-radius:1px;font-weight:600;font-size:0.9rem;color:var(--text-secondary);transition:all 0.22s}
 .nav-desktop a:hover,.nav-desktop a.active{color:var(--navy-mid);background:rgba(42,70,51,0.08)}
 .nav-toggle{display:flex;flex-direction:column;justify-content:space-between;width:24px;height:18px;background:none;border:none;cursor:pointer;flex-shrink:0;z-index:1001}
 .nav-toggle span{display:block;height:2px;background:var(--navy-mid);border-radius:2px;transition:all 0.3s var(--ease);transform-origin:center}
 body.nav-open .nav-toggle span:nth-child(1){transform:translateY(8px) rotate(45deg)}
 body.nav-open .nav-toggle span:nth-child(2){opacity:0;transform:scaleX(0)}
 body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
-.nav-mobile{position:fixed;inset:0;z-index:1000;background:var(--bg-cream);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translateX(100%);transition:transform 0.42s cubic-bezier(0.77,0,0.175,1)}
+.nav-mobile{position:fixed;inset:0;z-index:1000;background:var(--bg-dark);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translateX(100%);transition:transform 0.42s cubic-bezier(0.77,0,0.175,1)}
 body.nav-open{overflow:hidden}
 body.nav-open .nav-mobile{transform:translateX(0)}
 .nav-mobile ul{text-align:center}
@@ -263,17 +274,17 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .detail-actions{display:flex;gap:0.75rem;flex-wrap:wrap;margin:1.2rem 0 2rem}
 .info-block{margin-bottom:1.8rem}
 .info-block-label{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;display:block}
-.benefit-item{opacity:1 !important;transform:none !important;display:flex;align-items:flex-start;gap:0.6rem;padding:0.48rem 0;border-bottom:1px solid var(--border);font-size:0.9rem;color:var(--text-mid);opacity:1;transform:none;transition:opacity 0.55s ease,transform 0.55s ease}
-.benefit-item.benefit-in{opacity:1;transform:scale(1.02) translateX(0);color:var(--text-dark)}
+.benefit-item{opacity:1 !important;transform:none !important;display:flex;align-items:flex-start;gap:0.6rem;padding:0.48rem 0;border-bottom:1px solid var(--border-dark);font-size:0.9rem;color:var(--text-secondary);opacity:1;transform:none;transition:opacity 0.55s ease,transform 0.55s ease}
+.benefit-item.benefit-in{opacity:1;transform:scale(1.02) translateX(0);color:var(--text-primary)}
 .benefit-item:last-child{border-bottom:none}
 .benefit-item::before{content:'✓';color:var(--navy-light);font-weight:800;flex-shrink:0;margin-top:0.05rem}
 .info-boxes{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:3rem}
-.info-box{background:var(--bg-white);border:1.5px solid var(--border);border-radius:2px;padding:1.5rem;transition:box-shadow 0.22s}
+.info-box{background:#161B24;border:1.5px solid var(--border);border-radius:2px;padding:1.5rem;transition:box-shadow 0.22s}
 .info-box:hover{box-shadow:var(--shadow-sm)}
-.quiz-disclaimer{background:var(--gold-pale);border:1px solid rgba(184,134,11,0.22);border-radius:1px;padding:1rem 1.2rem;font-size:0.82rem;color:var(--text-mid);line-height:1.7}
+.quiz-disclaimer{background:var(--gold-pale);border:1px solid rgba(184,134,11,0.22);border-radius:1px;padding:1rem 1.2rem;font-size:0.82rem;color:var(--text-secondary);line-height:1.7}
 /* Related products */
 .product-grid{display:grid;gap:1.6rem;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
-.product-card{background:var(--bg-white);border-radius:2px;overflow:hidden;box-shadow:var(--shadow-xs);border:1px solid rgba(7,30,51,0.08);display:flex;flex-direction:column;transition:all var(--t) var(--ease)}
+.product-card{background:#161B24;border-radius:2px;overflow:hidden;box-shadow:var(--shadow-xs);border:1px solid rgba(11,15,20,0.08);display:flex;flex-direction:column;transition:all var(--t) var(--ease)}
 .product-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:rgba(184,134,11,0.28)}
 .product-card-img{position:relative;overflow:hidden;height:200px}
 .product-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease}
@@ -286,8 +297,8 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .product-price{font-size:1.25rem;font-weight:800;color:var(--navy-mid)}
 .product-actions-row{display:flex;gap:0.4rem}
 /* Reviews */
-.reviews-section{background:var(--bg-cream);padding:3.5rem 0}
-.rating-summary{display:flex;align-items:center;gap:2.5rem;padding:1.8rem;background:var(--bg-white);border-radius:2px;box-shadow:var(--shadow-xs);border:1px solid rgba(7,30,51,0.08);margin-bottom:2rem;flex-wrap:wrap}
+.reviews-section{background:var(--bg-dark);padding:3.5rem 0}
+.rating-summary{display:flex;align-items:center;gap:2.5rem;padding:1.8rem;background:#161B24;border-radius:2px;box-shadow:var(--shadow-xs);border:1px solid rgba(11,15,20,0.08);margin-bottom:2rem;flex-wrap:wrap}
 .rating-big{text-align:center;flex-shrink:0}
 .rating-big .score{font-family:var(--font-head);font-size:3.8rem;font-weight:700;color:var(--navy-mid);line-height:1}
 .rating-big .out-of{font-size:0.8rem;color:var(--text-muted);margin-top:0.2rem}
@@ -301,21 +312,21 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:4px;transition:width 0.6s ease}
 .bar-count{width:24px;flex-shrink:0}
 .review-list{display:flex;flex-direction:column;gap:1.2rem;margin-bottom:2.5rem}
-.review-card{background:var(--bg-white);border-radius:2px;padding:1.4rem 1.6rem;border:1px solid rgba(7,30,51,0.08);box-shadow:var(--shadow-xs)}
+.review-card{background:#161B24;border-radius:2px;padding:1.4rem 1.6rem;border:1px solid rgba(11,15,20,0.08);box-shadow:var(--shadow-xs)}
 .review-header{display:flex;align-items:flex-start;justify-content:space-between;gap:0.8rem;margin-bottom:0.6rem;flex-wrap:wrap}
 .reviewer-name{font-weight:700;font-size:0.95rem;color:var(--navy-mid)}
 .review-date{font-size:0.76rem;color:var(--text-muted)}
 .review-stars{color:var(--gold);font-size:0.9rem;letter-spacing:1px;margin-bottom:0.5rem}
-.review-text{font-size:0.9rem;color:var(--text-mid);line-height:1.7}
-.review-helpful{display:inline-flex;align-items:center;gap:0.35rem;margin-top:0.7rem;font-size:0.78rem;color:var(--text-muted);cursor:pointer;border:none;background:none;padding:0.28rem 0.7rem;border-radius:1px;border:1px solid rgba(7,30,51,0.08);transition:all 0.2s}
+.review-text{font-size:0.9rem;color:var(--text-secondary);line-height:1.7}
+.review-helpful{display:inline-flex;align-items:center;gap:0.35rem;margin-top:0.7rem;font-size:0.78rem;color:var(--text-muted);cursor:pointer;border:none;background:none;padding:0.28rem 0.7rem;border-radius:1px;border:1px solid rgba(11,15,20,0.08);transition:all 0.2s}
 .review-helpful:hover{border-color:var(--navy-light);color:var(--navy-light)}
 .review-helpful.liked{background:var(--navy-mid);color:#fff;border-color:var(--navy-mid)}
 /* Write review */
-.write-review-card{background:var(--bg-white);border-radius:2px;padding:2rem;border:1.5px solid var(--border);box-shadow:var(--shadow-xs)}
+.write-review-card{background:#161B24;border-radius:2px;padding:2rem;border:1.5px solid var(--border);box-shadow:var(--shadow-xs)}
 .write-review-card h3{margin-bottom:1.4rem}
 .form-group{margin-bottom:1.2rem}
-.form-group label{display:block;font-size:0.82rem;font-weight:600;color:var(--text-dark);margin-bottom:0.4rem}
-.form-group input,.form-group textarea{width:100%;padding:0.75rem 1rem;border:1.5px solid var(--border);border-radius:1px;font-size:0.95rem;color:var(--text-dark);background:#fff;transition:border-color 0.2s;resize:vertical;outline:none}
+.form-group label{display:block;font-size:0.82rem;font-weight:600;color:var(--text-primary);margin-bottom:0.4rem}
+.form-group input,.form-group textarea{width:100%;padding:0.75rem 1rem;border:1.5px solid var(--border);border-radius:1px;font-size:0.95rem;color:var(--text-primary);background:#11151B;transition:border-color 0.2s;resize:vertical;outline:none}
 .form-group input:focus,.form-group textarea:focus{border-color:var(--navy-light)}
 .star-picker{display:flex;gap:4px;flex-direction:row-reverse;justify-content:flex-end}
 .star-picker input{display:none}
@@ -354,11 +365,11 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 <meta property="og:site_name" content="Shah Hayaat">
 <meta property="og:title" content="Shah Hayaat Certified Ayurvedic Medicine">
 <meta property="og:description" content="WHO-GMP certified Ayurvedic herbal medicine. 100% natural. Trusted by 50,000+ customers across India.">
-<meta property="og:image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp1.jpg.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg">
 <meta property="og:url" content="https://www.shahhayaat.com/product-detail.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Shah Hayaat Certified Ayurvedic Medicine">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp1.jpg.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Product",
 "name":"Shah Hayaat Ayurvedic Medicine",
@@ -392,8 +403,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
       <a href="about.html" >About</a>
       <a href="contact.html" >Contact</a>
     </nav>
-    <a href="symptom-checker.html" class="nav-cta-pill">✦ Symptom Checker</a>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+<button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
@@ -407,8 +417,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
     <a href="contact.html" >Contact</a>
   </div>
   <div class="nav-mobile-actions">
-    <a href="symptom-checker.html" class="btn btn-primary">✦ Symptom Checker</a>
-    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa">💬 WhatsApp Us</a>
+<a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa">💬 WhatsApp Us</a>
   </div>
 </nav>
     <button class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
@@ -444,7 +453,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 
     <div class="rating-summary" id="rating-summary">
       <div class="rating-big">
-        <div class="score" id="avg-score">—</div>
+        <div class="score" id="avg-score">-</div>
         <div class="stars-display" id="avg-stars"></div>
         <div class="out-of" id="review-count">No reviews yet</div>
       </div>
@@ -484,11 +493,11 @@ body.nav-open .nav-mobile{transform:translateX(0)}
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy"><span>Shah <em>Hayaat</em></span></a>
-        <p>WHO-GMP, ISO 9001:2015 &amp; HACCP certified Ayurvedic medicines — pure herbs, modern science.</p>
+        <p>WHO-GMP, ISO 9001:2015 &amp; HACCP certified Ayurvedic medicines, pure herbs, modern science.</p>
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
-          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon" aria-label="Email">✉️</a>
+          <a href="/cdn-cgi/l/email-protection#0d7e656c65656c746c6c793d3f4d6a606c6461236e6260" class="soc-icon" aria-label="Email">✉️</a>
         </div>
       </div>
       <div class="footer-col"><h4>Health Guides</h4><ul>
@@ -508,12 +517,13 @@ body.nav-open .nav-mobile{transform:translateX(0)}
         <li><a href="products.html">View All 12 →</a></li>
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
-        <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#15667d747d7d746c7474612527557278747c793b767a78"><span class="__cf_email__" data-cfemail="7f0c171e17171e061e1e0b4f4d3f18121e1613511c1012">[email&#160;protected]</span></a></li>
         <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
         <li><a href="https://wa.me/919107028786" target="_blank">+91 91070 28786</a></li>
         <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
         <li><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></li>
-        <li><a href="symptom-checker.html">Symptom Checker</a></li>
+        <li>
+</li>
       </ul></div>
     </div>
     <div class="footer-bottom">
@@ -526,18 +536,18 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 <a href="https://wa.me/917051056287" target="_blank" class="wa-float">💬</a>
 <div class="toast" id="toast"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 'use strict';
 
-/* ── All product data embedded — no external dependency ── */
-const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/';
+/* ── All product data embedded, no external dependency ── */
+const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
 const IMG = {
   brainchamp:'brainchamp.jpg', shahzyme:'shahzyme.jpg', bloodstorm:'bloodstorm.jpg',
   coughxpro:'coughxpro.jpg', musaffakhoon:'musaffakhoon.jpg', panasip:'panasip.jpg',
   livohayaat:'livohayaat.jpg', diaease:'diaease.png', orthohayaat:'orthohayaat.jpg',
   utrohayaat:'utrohayaat.png', passionpulse:'passionpulse.jpg', fevodol:'fevodol.png'
 };
-function imgSrc(id){ return 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/' + id + '1.jpg.jpg'; }
+function imgSrc(id){ return 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/' + id + '1.jpg.jpg'; }
 
 const PRODUCTS = [
   { id:'brainchamp', form:'syrup', name:'Brain Champ', price:175, cat:'brain', tag:'Brain & Focus',
@@ -598,7 +608,7 @@ const PRODUCTS = [
     precautions:'Monitor blood sugar regularly. Do not discontinue prescribed medication without physician guidance.' },
   { id:'orthohayaat', name:'Ortho Hayaat', price:649, cat:'joint', tag:'Joint Care',
     desc:'Specialised Ayurvedic blend for joint health, pain relief and improved mobility.',
-    full:'Ortho Hayaat combines the most potent anti-inflammatory and analgesic Ayurvedic herbs for comprehensive joint care. It works to reduce inflammation, lubricate joints, strengthen bones and improve mobility — ideal for arthritis, knee pain and age-related joint degeneration.',
+    full:'Ortho Hayaat combines the most potent anti-inflammatory and analgesic Ayurvedic herbs for comprehensive joint care. It works to reduce inflammation, lubricate joints, strengthen bones and improve mobility, ideal for arthritis, knee pain and age-related joint degeneration.',
     benefits:['Reduces joint inflammation','Relieves chronic joint pain','Improves mobility & flexibility','Strengthens bones & cartilage','Anti-arthritis properties'],
     ingredients:'Shallaki (Boswellia), Guggul, Rasna, Nirgundi, Ashwagandha, Sunthi',
     dosage:'2 tablets twice daily with warm milk or water after meals.',
@@ -611,7 +621,7 @@ const PRODUCTS = [
     dosage:'10–15 ml twice daily after meals with milk or water. Shake well before use.',
     precautions:'Not recommended during pregnancy or breastfeeding without medical advice.' },
   { id:'passionpulse', name:'Passion Pulse', price:599, cat:'male', tag:'Male Vitality',
-    desc:'Natural vitality booster for men — stamina, libido and reproductive health.',
+    desc:'Natural vitality booster for men, stamina, libido and reproductive health.',
     full:'Passion Pulse is a premium Ayurvedic male vitality supplement combining powerful adaptogens and vajikarana herbs to enhance stamina, improve libido, support testosterone levels and boost overall masculine vitality naturally.',
     benefits:['Enhances stamina & endurance','Improves libido & sexual health','Supports testosterone levels','Improves sperm health & motility','Reduces fatigue & boosts energy'],
     ingredients:'Ashwagandha, Shilajit, Safed Musli, Kaunch Beej, Gokshura, Vidarikanda',
@@ -639,11 +649,11 @@ if (!p) {
     <a href="products.html" class="btn btn-primary">Browse All Products</a>
   </div>`;
 } else {
-  document.getElementById('pg-title').textContent = p.name + ' — Shah Hayaat';
+  document.getElementById('pg-title').textContent = p.name + ', Shah Hayaat';
   document.getElementById('pg-desc').content = p.full;
   document.getElementById('reviews-heading').textContent = 'Reviews for ' + p.name;
 
-  const waMsg = encodeURIComponent("Hi! I'd like to order " + p.name + " — ₹" + p.price);
+  const waMsg = encodeURIComponent("Hi! I'd like to order " + p.name + ", ₹" + p.price);
 
   main.innerHTML = `
     <div class="page-hero">
@@ -677,7 +687,7 @@ if (!p) {
             </div>
             <div class="info-block">
               <span class="info-block-label">About This Product</span>
-              <p style="color:var(--text-mid);line-height:1.8">${p.full}</p>
+              <p style="color:var(--text-secondary);line-height:1.8">${p.full}</p>
             </div>
             <div class="info-block">
               <span class="info-block-label" style="font-size:0.78rem;color:var(--navy-light);margin-bottom:0.8rem">✦ Key Benefits</span>
@@ -698,8 +708,8 @@ if (!p) {
             <span class="info-block-label">Precautions</span>
             <p>${p.precautions}</p>
           </div>
-          ${p.form==='syrup' ? `<div style="margin-top:0.8rem;padding:0.8rem 1rem;border-left:3px solid var(--gold);background:rgba(7,30,51,0.05);font-size:0.82rem;color:var(--text-muted);line-height:1.7">
-            <strong style="color:var(--text-mid)">Preservatives:</strong> Contains food-grade preservatives — Sodium Benzoate IP, MPSIP and PPS LP — used to ensure shelf stability and safety.
+          ${p.form==='syrup' ? `<div style="margin-top:0.8rem;padding:0.8rem 1rem;border-left:3px solid var(--gold);background:rgba(11,15,20,0.05);font-size:0.82rem;color:var(--text-muted);line-height:1.7">
+            <strong style="color:var(--text-secondary)">Preservatives:</strong> Contains food-grade preservatives, Sodium Benzoate IP, MPSIP and PPS LP, used to ensure shelf stability and safety.
           </div>` : ''}
         </div>
         <div class="quiz-disclaimer reveal" style="margin-top:2rem">
@@ -726,7 +736,7 @@ if (!p) {
             <div class="product-price">₹${r.price}</div>
             <div class="product-actions-row">
               <a href="product-detail.html?id=${r.id}" class="btn btn-outline btn-sm">Details</a>
-              <a href="https://wa.me/917051056287?text=${encodeURIComponent("Hi! I'd like to order " + r.name + " — ₹" + r.price)}"
+              <a href="https://wa.me/917051056287?text=${encodeURIComponent("Hi! I'd like to order " + r.name + ", ₹" + r.price)}"
                  target="_blank" rel="noopener" class="btn btn-primary btn-sm">Order</a>
             </div>
           </div>
@@ -789,8 +799,8 @@ function renderReviews() {
   const inlineRating = document.getElementById('inline-rating');
 
   if (!reviews.length) {
-    if (avgEl) avgEl.textContent = '—';
-    if (countEl) countEl.textContent = 'No reviews yet — be the first!';
+    if (avgEl) avgEl.textContent = '-';
+    if (countEl) countEl.textContent = 'No reviews yet, be the first!';
     if (avgStars) avgStars.innerHTML = starsHtml(0);
     if (barsEl) barsEl.innerHTML = '';
     if (inlineRating) inlineRating.innerHTML = '<span style="font-size:0.85rem;color:var(--text-muted)">No reviews yet</span>';
@@ -941,7 +951,7 @@ document.addEventListener('DOMContentLoaded', function(){
   if(grid) _bObs.observe(grid, {childList:true, subtree:true});
 });
 
-/* Reveal fallback — force show after 600ms */
+/* Reveal fallback, force show after 600ms */
 setTimeout(function(){
   document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){
     el.classList.add('in');
@@ -961,9 +971,8 @@ window.addEventListener('scroll',()=>{document.body.classList.toggle('scrolled',
 /* Year */
 const _yr=document.getElementById('yr');if(_yr)_yr.textContent=new Date().getFullYear();
 /* Reveal */
-const _rio=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');_rio.unobserve(e.target);}});},{threshold:0.01,rootMargin:'0px 0px -20px 0px'});
-document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>_rio.observe(el));
-setTimeout(()=>document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>el.classList.add('in')),800);
+const _rio=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');_rio.unobserve
 </script>
+
 </body>
 </html>
