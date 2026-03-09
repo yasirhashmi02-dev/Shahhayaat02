@@ -4,146 +4,167 @@
 
   <url>
     <loc>https://www.shahhayaat.com/</loc>
-    <lastmod>2026-03-08</lastmod>
+    <lastmod>2026-03-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <image:image><image:loc>https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp1.jpg.jpg</image:loc><image:title>Brain Champ — Ayurvedic Brain Supplement</image:title></image:image>
-    <image:image><image:loc>https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/livohayaat1.jpg.jpg</image:loc><image:title>Livo Hayaat — Ayurvedic Liver Health</image:title></image:image>
-    <image:image><image:loc>https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/orthohayaat1.jpg.jpg</image:loc><image:title>Ortho Hayaat — Joint Pain Relief</image:title></image:image>
-  </url>
-
-  <url>
-    <loc>https://www.shahhayaat.com/about.html</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.shahhayaat.com/products.html</loc>
-    <lastmod>2026-03-08</lastmod>
+    <lastmod>2026-03-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://www.shahhayaat.com/product-detail.html?id=brainchamp</loc>
-    <lastmod>2026-03-08</lastmod>
+    <lastmod>2026-03-06</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <image:image><image:loc>https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp1.jpg.jpg</image:loc><image:title>Brain Champ Ayurvedic Syrup for Memory and Focus</image:title></image:image>
-  </url>
-
-  <url>
-    <loc>https://www.shahhayaat.com/product-detail.html?id=livohayaat</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <image:image><image:loc>https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/livohayaat1.jpg.jpg</image:loc><image:title>Livo Hayaat Ayurvedic Liver Detox Syrup</image:title></image:image>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.shahhayaat.com/brainchamp.jpg</image:loc>
+      <image:title>Brain Champ — Ayurvedic Memory Booster</image:title>
+    </image:image>
   </url>
 
   <url>
     <loc>https://www.shahhayaat.com/product-detail.html?id=shahzyme</loc>
-    <lastmod>2026-03-08</lastmod>
+    <lastmod>2026-03-06</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://www.shahhayaat.com/product-detail.html?id=orthohayaat</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <image:image><image:loc>https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/orthohayaat1.jpg.jpg</image:loc><image:title>Ortho Hayaat Ayurvedic Joint Pain Relief</image:title></image:image>
-  </url>
-
-  <url>
-    <loc>https://www.shahhayaat.com/product-detail.html?id=diaease</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <image:image><image:loc>https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/diaease1.jpg.jpg</image:loc><image:title>Dia-Ease Ayurvedic Blood Sugar Management</image:title></image:image>
-  </url>
-
-  <url>
-    <loc>https://www.shahhayaat.com/product-detail.html?id=bloodstorm</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://www.shahhayaat.com/product-detail.html?id=panasip</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-
-  <url>
-    <loc>https://www.shahhayaat.com/product-detail.html?id=coughxpro</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-
-  <url>
-    <loc>https://www.shahhayaat.com/product-detail.html?id=passionpulse</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-
-  <url>
-    <loc>https://www.shahhayaat.com/product-detail.html?id=utrohayaat</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-
-  <url>
-    <loc>https://www.shahhayaat.com/product-detail.html?id=musaffakhoon</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-
-  <url>
-    <loc>https://www.shahhayaat.com/product-detail.html?id=fevodol</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-
-  <url>
-    <loc>https://www.shahhayaat.com/blog.html</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.shahhayaat.com/contact.html</loc>
-    <lastmod>2026-03-08</lastmod>
+    <loc>https://www.shahhayaat.com/product-detail.html?id=bloodstorm</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.shahhayaat.com/product-detail.html?id=coughxpro</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.shahhayaat.com/product-detail.html?id=musaffakhoon</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.shahhayaat.com/product-detail.html?id=panasip</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.shahhayaat.com/product-detail.html?id=livohayaat</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.shahhayaat.com/product-detail.html?id=diaease</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.shahhayaat.com/product-detail.html?id=orthohayaat</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.shahhayaat.com/product-detail.html?id=utrohayaat</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.shahhayaat.com/product-detail.html?id=passionpulse</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.shahhayaat.com/product-detail.html?id=fevodol</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.shahhayaat.com/about.html</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.shahhayaat.com/quiz.html</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.shahhayaat.com/wellness-lab.html</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.shahhayaat.com/blog.html</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.shahhayaat.com/catalogue.html</loc>
+    <lastmod>2026-03-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://www.shahhayaat.com/conditions.html</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://www.shahhayaat.com/contact.html</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
+
   <url>
-    <loc>https://www.shahhayaat.com/ingredients.html</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.shahhayaat.com/disclaimer.html</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
+
   <url>
-    <loc>https://www.shahhayaat.com/symptom-checker.html</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://www.shahhayaat.com/privacy.html</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
+
+  <url>
+    <loc>https://www.shahhayaat.com/terms.html</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
 </urlset>
