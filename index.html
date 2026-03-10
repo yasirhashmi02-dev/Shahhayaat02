@@ -186,7 +186,6 @@ body.nav-open{overflow:hidden}
 .cert-3{animation:certGlow 4s ease-in-out infinite 2s}
 .cert-4{animation:certGlow 4s ease-in-out infinite 3s}
 @keyframes certGlow{0%,66%,100%{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);color:rgba(255,255,255,0.75)}33%{background:rgba(212,160,23,0.28);border-color:rgba(212,160,23,0.90);color:#fff;box-shadow:0 0 18px rgba(212,160,23,0.45)}}
-
 .hero-cert{display:inline-flex;align-items:center;gap:0.35rem;padding:0.35rem 0.9rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:50px;font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.75);letter-spacing:0.04em;backdrop-filter:blur(8px)}
 .hero-sub{color:rgba(255,255,255,0.62);max-width:460px;font-size:0.96rem}
 .hero-btns{display:flex;flex-wrap:wrap;gap:0.9rem}
@@ -383,6 +382,9 @@ body.nav-open{overflow:hidden}
 
 .grid-2{display:grid;gap:clamp(2rem,5vw,4rem);align-items:center}
 @media(min-width:800px){.grid-2{grid-template-columns:1fr 1fr}}
+
+.nav-cta-pill{display:none;align-items:center;padding:0.52rem 1.2rem;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border-radius:50px;font-size:0.76rem;font-weight:700;letter-spacing:0.06em;text-decoration:none;white-space:nowrap;animation:glowPulse 2.5s ease-in-out infinite alternate}
+@media(min-width:960px){.nav-cta-pill{display:inline-flex}}
 </style>
 </head>
 
@@ -403,6 +405,7 @@ body.nav-open{overflow:hidden}
   </div>
 </div>
 
+<!-- HEADER -->
 <header class="site-header" id="site-header">
   <div class="container header-inner">
     <a href="index.html" class="logo">
@@ -412,13 +415,14 @@ body.nav-open{overflow:hidden}
     <nav class="nav-desktop" aria-label="Main navigation">
       <a href="index.html" class="active">Home</a>
       <a href="products.html">Products</a>
+      <a href="conditions.html">Health Guides</a>
       <a href="ingredients.html">Ingredients</a>
       <a href="wellness-lab.html">🧪 Lab</a>
       <a href="blog.html">Blog</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
     </nav>
-    <a href="wellness-lab.html" class="nav-cta-pill">✦ Click Here for Self Assessment</a>
+    <a href="wellness-lab.html" class="nav-cta-pill">✦ Self Assessment</a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -428,6 +432,7 @@ body.nav-open{overflow:hidden}
   <div class="nav-mobile-links">
     <a href="index.html" class="active">Home</a>
     <a href="products.html">Products</a>
+    <a href="conditions.html">Health Guides</a>
     <a href="ingredients.html">Ingredients</a>
     <a href="wellness-lab.html">🧪 Lab</a>
     <a href="blog.html">Blog</a>
@@ -435,10 +440,16 @@ body.nav-open{overflow:hidden}
     <a href="contact.html">Contact</a>
   </div>
   <div class="nav-mobile-actions">
-    <a href="wellness-lab.html" class="btn btn-glow" style="justify-content:center">✦ Click Here for Self Assessment</a>
-    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center">💬 WhatsApp Us</a>
+    <a href="wellness-lab.html" class="btn btn-glow" style="justify-content:center;display:flex">✦ Click Here for Self Assessment</a>
+    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center;display:flex">💬 WhatsApp Us</a>
   </div>
 </nav>
+
+
+    <a href="wellness-lab.html" class="nav-cta-pill">✦ Click Here for Self Assessment</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
 
 <!-- MOBILE NAV -->
 <nav class="nav-mobile" aria-label="Mobile navigation">
@@ -699,19 +710,17 @@ body.nav-open{overflow:hidden}
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo">
-          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy">
-          <span>Shah <em>Hayaat</em></span>
-        </a>
-        <p>WHO · GMP · ISO 9001:2015 · HACCP certified Ayurvedic medicines. Pure herbs, modern science.</p>
+        <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy"><span>Shah <em>Hayaat</em></span></a>
+        <p>WHO · GMP · ISO 9001:2015 · HACCP certified Ayurvedic medicines.</p>
         <div class="footer-socials">
-          <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
-          <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
-          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon" aria-label="Email">✉️</a>
+          <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon">📷</a>
+          <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon">💬</a>
+          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon">✉️</a>
         </div>
       </div>
       <div class="footer-col"><h4>Navigation</h4><ul>
         <li><a href="products.html">All Products</a></li>
+        <li><a href="conditions.html">Health Guides</a></li>
         <li><a href="ingredients.html">Ingredients</a></li>
         <li><a href="wellness-lab.html">Wellness Lab</a></li>
         <li><a href="blog.html">Blog</a></li>
@@ -736,9 +745,7 @@ body.nav-open{overflow:hidden}
     </div>
     <div class="footer-bottom">
       <p>© <span id="year"></span> Shah Hayaat. All Rights Reserved. &nbsp;·&nbsp; WHO · GMP · ISO 9001:2015 · HACCP</p>
-      <div style="display:flex;gap:1rem;flex-wrap:wrap">
-        <a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a>
-      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>
     </div>
   </div>
 </footer>
@@ -990,5 +997,26 @@ window.addEventListener('load',function(){
 });
 </script>
 
+<script>
+(function(){
+  var t=document.getElementById('nav-toggle'), m=document.getElementById('nav-mobile');
+  if(t && m){
+    t.addEventListener('click',function(){
+      var o=document.body.classList.toggle('nav-open');
+      t.setAttribute('aria-expanded',String(o));
+    });
+    m.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){
+        setTimeout(function(){document.body.classList.remove('nav-open');t.setAttribute('aria-expanded','false');},300);
+      });
+    });
+  }
+  window.addEventListener('scroll',function(){
+    document.body.classList.toggle('scrolled',window.scrollY>60);
+    var bt=document.getElementById('back-top'); if(bt) bt.classList.toggle('show',window.scrollY>400);
+    var wa=document.getElementById('wa-float'); if(wa) wa.classList.toggle('show',window.scrollY>300);
+  },{passive:true});
+})();
+</script>
 </body>
 </html>

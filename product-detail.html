@@ -398,23 +398,24 @@ body.nav-open .nav-mobile{transform:translateX(0)}
     <nav class="nav-desktop" aria-label="Main navigation">
       <a href="index.html">Home</a>
       <a href="products.html" class="active">Products</a>
+      <a href="conditions.html">Health Guides</a>
       <a href="ingredients.html">Ingredients</a>
       <a href="wellness-lab.html">🧪 Lab</a>
       <a href="blog.html">Blog</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
     </nav>
-    <a href="wellness-lab.html" class="nav-cta-pill">✦ Click Here for Self Assessment</a>
+    <a href="wellness-lab.html" class="nav-cta-pill">✦ Self Assessment</a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
-
 <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
   <div class="nav-mobile-links">
     <a href="index.html">Home</a>
     <a href="products.html" class="active">Products</a>
+    <a href="conditions.html">Health Guides</a>
     <a href="ingredients.html">Ingredients</a>
     <a href="wellness-lab.html">🧪 Lab</a>
     <a href="blog.html">Blog</a>
@@ -422,8 +423,8 @@ body.nav-open .nav-mobile{transform:translateX(0)}
     <a href="contact.html">Contact</a>
   </div>
   <div class="nav-mobile-actions">
-    <a href="wellness-lab.html" class="btn btn-glow" style="justify-content:center">✦ Click Here for Self Assessment</a>
-    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center">💬 WhatsApp Us</a>
+    <a href="wellness-lab.html" class="btn btn-glow" style="justify-content:center;display:flex">✦ Click Here for Self Assessment</a>
+    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center;display:flex">💬 WhatsApp Us</a>
   </div>
 </nav>
 
@@ -491,7 +492,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
           <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy">
           <span>Shah <em>Hayaat</em></span>
         </a>
-        <p>WHO · GMP · ISO 9001:2015 · HACCP certified Ayurvedic medicines. Pure herbs, modern science. Est. 2024.</p>
+        <p>WHO · GMP · ISO 9001:2015 · HACCP certified Ayurvedic medicines. Pure herbs, modern science.</p>
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
@@ -500,6 +501,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
       </div>
       <div class="footer-col"><h4>Navigation</h4><ul>
         <li><a href="products.html">All Products</a></li>
+        <li><a href="conditions.html">Health Guides</a></li>
         <li><a href="ingredients.html">Ingredients</a></li>
         <li><a href="wellness-lab.html">Wellness Lab</a></li>
         <li><a href="blog.html">Blog</a></li>
@@ -530,437 +532,12 @@ body.nav-open .nav-mobile{transform:translateX(0)}
     </div>
   </div>
 </footer>
-<a href="#" class="back-top" id="back-top" aria-label="Back to top">↑</a>
-<a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float" id="wa-float" aria-label="WhatsApp">💬</a>
-
 <div class="toast" id="toast"></div>
 
 
 
 
-<script>
-(function(){
-  /* Year */
-  ['yr','year','yr-footer'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.textContent=new Date().getFullYear();
-  });
-  /* Nav toggle */
-  var toggle=document.getElementById('nav-toggle');
-  var mobile=document.getElementById('nav-mobile');
-  if(toggle) toggle.addEventListener('click',function(){
-    var open=document.body.classList.toggle('nav-open');
-    toggle.setAttribute('aria-expanded',String(open));
-  });
-  if(mobile) mobile.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click',function(){
-      setTimeout(function(){
-        document.body.classList.remove('nav-open');
-        if(toggle) toggle.setAttribute('aria-expanded','false');
-      },300);
-    });
-  });
-  /* Scroll: scrolled class + back-top */
-  var bt=document.getElementById('back-top');
-  window.addEventListener('scroll',function(){
-    document.body.classList.toggle('scrolled',window.scrollY>60);
-    if(bt) bt.classList.toggle('show',window.scrollY>400);
-  },{passive:true});
-  /* Reveal */
-  var rio=new IntersectionObserver(function(entries){
-<script>
-'use strict';
 
-/* ── All product data embedded, no external dependency ── */
-const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
-const IMG = {
-  brainchamp:'brainchamp.jpg', shahzyme:'shahzyme.jpg', bloodstorm:'bloodstorm.jpg',
-  coughxpro:'coughxpro.jpg', musaffakhoon:'musaffakhoon.jpg', panasip:'panasip.jpg',
-  livohayaat:'livohayaat.jpg', diaease:'diaease.png', orthohayaat:'orthohayaat.jpg',
-  utrohayaat:'utrohayaat.png', passionpulse:'passionpulse.jpg', fevodol:'fevodol.png'
-};
-function imgSrc(id){ return 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/' + id + '1.jpg'; }
-
-const PRODUCTS = [
-  { id:'brainchamp', form:'syrup', name:'Brain Champ', price:175, cat:'brain', tag:'Brain & Focus',
-    desc:'Enhances memory, focus and cognitive function with powerful Ayurvedic herbs.',
-    full:'Brain Champ is a scientifically formulated Ayurvedic syrup combining Brahmi, Shankhpushpi, Ashwagandha and other classical herbs to support optimal brain health. It helps reduce mental fatigue, improve concentration and enhance memory retention naturally.',
-    benefits:['Improves memory & recall','Reduces mental fatigue & brain fog','Manages stress & anxiety naturally','Enhances focus & concentration','Adaptogen blend for long-term brain health'],
-    ingredients:'Brahmi (Bacopa monnieri), Shankhpushpi, Ashwagandha, Jatamansi, Vacha',
-    dosage:'10–15 ml twice daily with warm milk or water, preferably after meals. Shake well before use.',
-    precautions:'Not recommended during pregnancy. Consult a physician if you are on existing medication.' },
-  { id:'shahzyme', name:'Shah Zyme', price:165, cat:'digestion', tag:'Digestion',
-    desc:'Effective digestive enzyme syrup for relief from gas, bloating and indigestion.',
-    full:'Shah Zyme is a potent herbal digestive enzyme syrup. Its unique combination of digestive herbs helps break down food efficiently, relieving uncomfortable symptoms of gas, bloating and sluggish digestion after meals.',
-    benefits:['Relieves gas & bloating','Improves nutrient absorption','Stimulates healthy appetite','Supports enzyme activity','Reduces post-meal heaviness'],
-    ingredients:'Ajwain, Saunf (Fennel), Jeera (Cumin), Pudina (Mint), Harad, Baheda, Amla',
-    dosage:'10–15 ml after meals, twice daily. Shake well before use.',
-    precautions:'Store in a cool, dry place. Not for children under 5 years without medical advice.' },
-  { id:'bloodstorm', form:'syrup', name:'Blood Storm', price:165, cat:'blood', tag:'Blood & Energy',
-    desc:'Revitalizing blood tonic to combat anemia, weakness and low hemoglobin.',
-    full:'Blood Storm is a premium Ayurvedic blood-tonic syrup combining iron-rich herbs with powerful rejuvenating ingredients. Formulated to naturally raise hemoglobin levels, improve circulation and restore energy to those suffering from anemia and chronic weakness.',
-    benefits:['Raises hemoglobin naturally','Combats iron-deficiency anemia','Restores energy & vitality','Improves blood circulation','Strengthens overall immunity'],
-    ingredients:'Loha Bhasma, Punarnava, Shatavari, Ashwagandha, Amla, Draksha',
-    dosage:'10–15 ml twice daily with water or milk after meals. Shake well before use.',
-    precautions:'Keep out of reach of children. Consult a physician before use during pregnancy.' },
-  { id:'coughxpro', name:'Cough X Pro', price:90, cat:'respiratory', tag:'Respiratory',
-    desc:'Soothing herbal cough syrup for fast, lasting relief from chronic cough.',
-    full:'Cough X Pro is a time-tested Ayurvedic formulation that soothes the respiratory tract, reduces inflammation and provides lasting relief from acute and chronic cough. Its herbal ingredients work synergistically to clear mucus and calm irritated airways.',
-    benefits:['Soothes throat irritation','Reduces mucus congestion','Anti-inflammatory action','Fast & lasting relief','Safe for adults & children'],
-    ingredients:'Tulsi (Holy Basil), Mulethi (Licorice), Adrak (Ginger), Pippali, Vasa, Honey',
-    dosage:'10 ml three times daily. Children (5–12): 5 ml three times daily.',
-    precautions:'Diabetics should consult a physician due to natural honey content. Avoid overdose.' },
-  { id:'musaffakhoon', form:'syrup', name:'Musaffa Khoon', price:165, cat:'skin', tag:'Skin Care',
-    desc:'Traditional blood purifier for clear, glowing skin free from acne and disorders.',
-    full:'Musaffa Khoon is a classical Ayurvedic blood-purifier syrup that detoxifies the blood and lymphatic system. By purifying from within it effectively addresses the root cause of skin disorders including acne, psoriasis, eczema and dull skin.',
-    benefits:['Purifies blood & lymph','Clears acne & pimples','Reduces psoriasis symptoms','Promotes glowing clear skin','Full-body natural detox'],
-    ingredients:'Neem, Manjistha, Khadir, Sarsaparilla, Giloy, Triphala',
-    dosage:'10–15 ml twice daily with water before meals. Shake well before use.',
-    precautions:'Results typically visible after 4–6 weeks of consistent use.' },
-  { id:'panasip', name:'PanaSip', price:165, cat:'acidity', tag:'Acidity',
-    desc:'Fast-acting Ayurvedic relief from acidity, heartburn and peptic ulcers.',
-    full:'PanaSip is a powerful Ayurvedic antacid syrup that neutralises excess stomach acid naturally. Its cooling and soothing herbs form a protective layer over the stomach lining, providing rapid relief from acidity, heartburn and gastric ulcers without harsh chemical side effects.',
-    benefits:['Neutralises stomach acid','Soothes esophageal inflammation','Heals peptic ulcers naturally','Prevents acid reflux','Promotes healthy gastric pH'],
-    ingredients:'Mulethi, Shatavari, Amalaki, Guduchi, Yashtimadhu, Shankha Bhasma',
-    dosage:'15 ml before meals, three times daily. Shake well before use.',
-    precautions:'Take on an empty stomach for best results. Refrigerate after opening.' },
-  { id:'livohayaat', name:'Livo Hayaat', price:349, cat:'liver', tag:'Liver Health',
-    desc:'Premium Ayurvedic formulation for optimal liver health and detoxification.',
-    full:"Livo Hayaat is a hepatoprotective Ayurvedic tablet that supports the liver's natural detoxification processes. Formulated with liver-protecting herbs, it helps regenerate liver cells, reduce fatty liver, normalise enzyme levels and improve overall hepatic function.",
-    benefits:['Protects & regenerates liver cells','Reduces fatty liver condition','Normalises liver enzyme levels','Supports bile production','Powerful antioxidant properties'],
-    ingredients:'Bhumi Amla, Kalmegh, Kutki, Punarnava, Makoy, Kasni',
-    dosage:'2 tablets twice daily with warm water before meals.',
-    precautions:'Not for use with hepatotoxic drugs without physician advice.' },
-  { id:'diaease', name:'Dia-Ease', price:695, cat:'diabetes', tag:'Diabetes Care',
-    desc:'Advanced Ayurvedic support for maintaining healthy blood sugar balance.',
-    full:'Dia-Ease is a specialised Ayurvedic formulation to help manage blood glucose levels naturally. Its multi-herb approach addresses insulin sensitivity, reduces glucose absorption and supports pancreatic function for comprehensive diabetic management support.',
-    benefits:['Supports healthy blood sugar','Improves insulin sensitivity','Reduces sugar cravings','Supports pancreatic health','Helps prevent diabetic complications'],
-    ingredients:'Karela (Bitter Melon), Jamun Seed, Gurmar, Vijaysar, Methi, Neem, Tulsi',
-    dosage:'2 tablets twice daily, 30 minutes before meals with warm water.',
-    precautions:'Monitor blood sugar regularly. Do not discontinue prescribed medication without physician guidance.' },
-  { id:'orthohayaat', name:'Ortho Hayaat', price:649, cat:'joint', tag:'Joint Care',
-    desc:'Specialised Ayurvedic blend for joint health, pain relief and improved mobility.',
-    full:'Ortho Hayaat combines the most potent anti-inflammatory and analgesic Ayurvedic herbs for comprehensive joint care. It works to reduce inflammation, lubricate joints, strengthen bones and improve mobility, ideal for arthritis, knee pain and age-related joint degeneration.',
-    benefits:['Reduces joint inflammation','Relieves chronic joint pain','Improves mobility & flexibility','Strengthens bones & cartilage','Anti-arthritis properties'],
-    ingredients:'Shallaki (Boswellia), Guggul, Rasna, Nirgundi, Ashwagandha, Sunthi',
-    dosage:'2 tablets twice daily with warm milk or water after meals.',
-    precautions:'Results typically noticeable within 4–6 weeks of consistent use.' },
-  { id:'utrohayaat', form:'syrup', name:'Utro Hayaat', price:625, cat:'female', tag:'Female Health',
-    desc:"Gentle Ayurvedic tonic for women's reproductive health and hormonal balance.",
-    full:"Utro Hayaat is a carefully formulated Ayurvedic uterine-tonic syrup addressing common female health concerns. It helps regulate menstrual cycles, relieve period pain, treat leucorrhoea and support hormonal balance using the safest classical Ayurvedic herbs.",
-    benefits:['Regulates menstrual cycles','Relieves painful periods','Treats leucorrhoea','Supports hormonal balance','Strengthens uterine health'],
-    ingredients:'Ashoka, Lodhra, Shatavari, Nagkesar, Daruharidra, Kumari (Aloe)',
-    dosage:'10–15 ml twice daily after meals with milk or water. Shake well before use.',
-    precautions:'Not recommended during pregnancy or breastfeeding without medical advice.' },
-  { id:'passionpulse', name:'Passion Pulse', price:599, cat:'male', tag:'Male Vitality',
-    desc:'Natural vitality booster for men, stamina, libido and reproductive health.',
-    full:'Passion Pulse is a premium Ayurvedic male vitality supplement combining powerful adaptogens and vajikarana herbs to enhance stamina, improve libido, support testosterone levels and boost overall masculine vitality naturally.',
-    benefits:['Enhances stamina & endurance','Improves libido & sexual health','Supports testosterone levels','Improves sperm health & motility','Reduces fatigue & boosts energy'],
-    ingredients:'Ashwagandha, Shilajit, Safed Musli, Kaunch Beej, Gokshura, Vidarikanda',
-    dosage:'2 tablets twice daily with milk or warm water before bedtime.',
-    precautions:'Not for use under 18 years. Consult physician if you have existing health conditions.' },
-  { id:'fevodol', name:'Fevodol', price:165, cat:'immunity', tag:'Immunity',
-    desc:'Powerful immunity booster to defend against fever, infections and illness.',
-    full:"Fevodol is an Ayurvedic immune-strengthening formulation supporting the body's natural defence mechanisms. Its antipyretic, anti-infective and immunomodulatory herbs help reduce fever, fight infections and build long-term immunity against recurrent illness.",
-    benefits:['Reduces fever naturally','Fights infections','Strengthens immune system','Anti-inflammatory','Prevents recurrent illness'],
-    ingredients:'Giloy (Guduchi), Tulsi, Chirayata, Kutki, Sudarshan Churna',
-    dosage:'2 tablets three times daily with warm water during illness. For immunity: twice daily.',
-    precautions:'Continue medical treatment during severe infections. This is a supportive supplement.' }
-];
-
-/* ── Render product page ── */
-const id = new URLSearchParams(location.search).get('id');
-const p = PRODUCTS.find(x => x.id === id);
-const main = document.getElementById('product-main');
-
-if (!p) {
-  main.innerHTML = `<div style="text-align:center;padding:6rem 2rem">
-    <div style="font-size:3.5rem;margin-bottom:1rem">🌿</div>
-    <h2 style="color:var(--navy-mid);margin-bottom:0.6rem">Product Not Found</h2>
-    <p style="margin-bottom:1.6rem">We could not find that product. Please browse our full range.</p>
-    <a href="products.html" class="btn btn-primary">Browse All Products</a>
-  </div>`;
-} else {
-  document.getElementById('pg-title').textContent = p.name + ', Shah Hayaat';
-  document.getElementById('pg-desc').content = p.full;
-  document.getElementById('reviews-heading').textContent = 'Reviews for ' + p.name;
-
-  const waMsg = encodeURIComponent("Hi! I'd like to order " + p.name + ", ₹" + p.price);
-
-  main.innerHTML = `
-    <div class="page-hero">
-      <div class="container page-hero-inner">
-        <nav class="breadcrumb">
-          <a href="index.html">Home</a><span class="sep">/</span>
-          <a href="products.html">Products</a><span class="sep">/</span>
-          <span>${p.name}</span>
-        </nav>
-        <h1 style="font-size:clamp(1.75rem,4vw,2.6rem)">${p.name}</h1>
-        <p>${p.tag}</p>
-      </div>
-    </div>
-
-    <section class="section bg-white">
-      <div class="container">
-        <div class="detail-grid">
-          <div class="reveal">
-            <div class="detail-img">
-              <img src="${imgSrc(p.id)}" alt="${p.name}" loading="eager"
-                   onerror="(function(t,id){var tries=['" + GH + "'+id+'.jpg','" + GH + "'+id+'.png'];var i=0;t.onerror=function(){if(i<tries.length){t.src=tries[i++];}else{t.style.display='none';}};if(tries.length)t.src=tries[i++];})(this,p.id)">
-            </div>
-          </div>
-          <div class="reveal delay-2">
-            <div class="detail-price">₹${p.price} <sub>/ pack</sub></div>
-            <div id="inline-rating" style="margin:0.5rem 0 1rem"></div>
-            <div class="detail-actions">
-              <a href="https://wa.me/917051056287?text=${waMsg}"
-                 target="_blank" rel="noopener" class="btn btn-primary btn-lg">💬 Order on WhatsApp</a>
-              <a href="products.html" class="btn btn-outline">← All Products</a>
-            </div>
-            <div class="info-block">
-              <span class="info-block-label">About This Product</span>
-              <p style="color:var(--text-secondary);line-height:1.8">${p.full}</p>
-            </div>
-            <div class="info-block">
-              <span class="info-block-label" style="font-size:0.78rem;color:var(--navy-light);margin-bottom:0.8rem">✦ Key Benefits</span>
-              <div>${p.benefits.map((b,i) => '<div class="benefit-item" data-bi="'+i+'">'+b+'</div>').join('')}</div>
-            </div>
-          </div>
-        </div>
-        <div class="info-boxes">
-          <div class="info-box reveal delay-1">
-            <span class="info-block-label">Key Ingredients</span>
-            <p>${p.ingredients}</p>
-          </div>
-          <div class="info-box reveal delay-2">
-            <span class="info-block-label">Dosage Instructions</span>
-            <p>${p.dosage}</p>
-          </div>
-          <div class="info-box reveal delay-3">
-            <span class="info-block-label">Precautions</span>
-            <p>${p.precautions}</p>
-          </div>
-          ${p.form==='syrup' ? `<div style="margin-top:0.8rem;padding:0.8rem 1rem;border-left:3px solid var(--gold);background:rgba(11,15,20,0.05);font-size:0.82rem;color:var(--text-muted);line-height:1.7">
-            <strong style="color:var(--text-secondary)">Preservatives:</strong> Contains food-grade preservatives, Sodium Benzoate IP, MPSIP and PPS LP, used to ensure shelf stability and safety.
-          </div>` : ''}
-        </div>
-        <div class="quiz-disclaimer reveal" style="margin-top:2rem">
-          <strong>Disclaimer:</strong> This is an Ayurvedic supplement. It is not intended to diagnose, treat, cure or prevent any disease. Results may vary. Please consult a qualified healthcare professional before use.
-        </div>
-      </div>
-    </section>`;
-
-  /* Related products */
-  const related = PRODUCTS.filter(x => x.cat === p.cat && x.id !== p.id).slice(0, 3);
-  if (related.length) {
-    document.getElementById('related-wrap').style.display = '';
-    document.getElementById('related-grid').innerHTML = related.map(r => `
-      <div class="product-card">
-        <div class="product-card-img">
-          <img src="${imgSrc(r.id)}" alt="${r.name}" loading="lazy"
-               onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/'+r.id+'1.jpg';">
-          <span class="product-cat-tag">${r.tag}</span>
-        </div>
-        <div class="product-body">
-          <h3>${r.name}</h3>
-          <p class="product-desc">${r.desc}</p>
-          <div class="product-footer">
-            <div class="product-price">₹${r.price}</div>
-            <div class="product-actions-row">
-              <a href="product-detail.html?id=${r.id}" class="btn btn-outline btn-sm">Details</a>
-              <a href="https://wa.me/917051056287?text=${encodeURIComponent("Hi! I'd like to order " + r.name + ", ₹" + r.price)}"
-                 target="_blank" rel="noopener" class="btn btn-primary btn-sm">Order</a>
-            </div>
-          </div>
-        </div>
-      </div>`).join('');
-  }
-
-  /* Trigger reveal animations */
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.01, rootMargin: "0px 0px -10px 0px" });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  /* Animate benefits */
-  setTimeout(function(){
-    var items = document.querySelectorAll('.benefit-item');
-    items.forEach(function(el, i){
-      setTimeout(function(){ el.classList.add('benefit-in'); }, 120 + i * 140);
-    });
-  }, 80);
-
-  /* Reveal scroll animations */
-  /* Reviews */
-  renderReviews();
-}
-
-/* ── Reviews System ── */
-function getReviews() {
-  try { return JSON.parse(localStorage.getItem('sh_reviews_' + id) || '[]'); }
-  catch(e) { return []; }
-}
-function saveReviews(arr) {
-  try { localStorage.setItem('sh_reviews_' + id, JSON.stringify(arr)); } catch(e) {}
-}
-function getHelpful() {
-  try { return JSON.parse(localStorage.getItem('sh_helpful_' + id) || '{}'); }
-  catch(e) { return {}; }
-}
-function saveHelpful(obj) {
-  try { localStorage.setItem('sh_helpful_' + id, JSON.stringify(obj)); } catch(e) {}
-}
-
-function starsHtml(n, size) {
-  const s = size || '1rem';
-  let h = '';
-  for (let i = 1; i <= 5; i++) {
-    h += '<span style="color:' + (i <= n ? 'var(--gold)' : '#ddd') + ';font-size:' + s + '">★</span>';
-  }
-  return h;
-}
-
-function renderReviews() {
-  const reviews = getReviews();
-  const helpful = getHelpful();
-  const list = document.getElementById('review-list');
-  const avgEl = document.getElementById('avg-score');
-  const avgStars = document.getElementById('avg-stars');
-  const countEl = document.getElementById('review-count');
-  const barsEl = document.getElementById('rating-bars');
-  const inlineRating = document.getElementById('inline-rating');
-
-  if (!reviews.length) {
-    if (avgEl) avgEl.textContent = '-';
-    if (countEl) countEl.textContent = 'No reviews yet, be the first!';
-    if (avgStars) avgStars.innerHTML = starsHtml(0);
-    if (barsEl) barsEl.innerHTML = '';
-    if (inlineRating) inlineRating.innerHTML = '<span style="font-size:0.85rem;color:var(--text-muted)">No reviews yet</span>';
-    if (list) list.innerHTML = '';
-    return;
-  }
-
-  const avg = reviews.reduce((a, r) => a + r.rating, 0) / reviews.length;
-  const rounded = Math.round(avg * 10) / 10;
-  const counts = [0, 0, 0, 0, 0];
-  reviews.forEach(r => counts[r.rating - 1]++);
-
-  if (avgEl) avgEl.textContent = rounded.toFixed(1);
-  if (avgStars) avgStars.innerHTML = starsHtml(Math.round(avg));
-  if (countEl) countEl.textContent = reviews.length + ' review' + (reviews.length !== 1 ? 's' : '');
-  if (inlineRating) inlineRating.innerHTML = starsHtml(Math.round(avg), '1.1rem') +
-    ' <span style="font-size:0.82rem;color:var(--text-muted);margin-left:4px">' + rounded.toFixed(1) + ' / 5 (' + reviews.length + ')</span>';
-
-  if (barsEl) {
-    barsEl.innerHTML = [5,4,3,2,1].map(star => {
-      const cnt = counts[star - 1];
-      const pct = reviews.length ? Math.round(cnt / reviews.length * 100) : 0;
-      return '<div class="bar-row"><span class="label">' + star + ' ★</span>' +
-        '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%"></div></div>' +
-        '<span class="bar-count">' + cnt + '</span></div>';
-    }).join('');
-  }
-
-  if (list) {
-    list.innerHTML = [...reviews].reverse().map((r, idx) => {
-      const rid = reviews.length - 1 - idx;
-      const hCount = r.helpful || 0;
-      const didHelp = helpful[rid];
-      return '<div class="review-card">' +
-        '<div class="review-header">' +
-          '<div>' +
-            '<div class="reviewer-name">' + escHtml(r.name || 'Anonymous') + '</div>' +
-            '<div class="review-stars">' + starsHtml(r.rating) + '</div>' +
-          '</div>' +
-          '<div class="review-date">' + r.date + '</div>' +
-        '</div>' +
-        '<div class="review-text">' + escHtml(r.text) + '</div>' +
-        '<button class="review-helpful' + (didHelp ? ' liked' : '') + '" onclick="markHelpful(' + rid + ')">' +
-          (didHelp ? '✓ Helpful' : '👍 Helpful') + (hCount ? ' (' + hCount + ')' : '') +
-        '</button>' +
-      '</div>';
-    }).join('');
-  }
-}
-
-function markHelpful(idx) {
-  const reviews = getReviews();
-  const helpful = getHelpful();
-  if (helpful[idx]) return;
-  if (reviews[idx]) {
-    reviews[idx].helpful = (reviews[idx].helpful || 0) + 1;
-    saveReviews(reviews);
-    helpful[idx] = true;
-    saveHelpful(helpful);
-    renderReviews();
-    showToast('Thanks for your feedback!');
-  }
-}
-
-function submitReview() {
-  const ratingEl = document.querySelector('input[name="rating"]:checked');
-  const nameEl = document.getElementById('rev-name');
-  const textEl = document.getElementById('rev-text');
-  const status = document.getElementById('rev-status');
-
-  if (!ratingEl) { status.textContent = 'Please select a star rating.'; status.style.color = '#c0392b'; return; }
-  if (!textEl.value.trim()) { status.textContent = 'Please write something about your experience.'; status.style.color = '#c0392b'; return; }
-
-  const reviews = getReviews();
-  reviews.push({
-    rating: parseInt(ratingEl.value),
-    name: nameEl.value.trim() || 'Anonymous',
-    text: textEl.value.trim(),
-    date: new Date().toLocaleDateString('en-GB', {day:'numeric', month:'short', year:'numeric'}),
-    helpful: 0
-  });
-  saveReviews(reviews);
-
-  ratingEl.checked = false;
-  nameEl.value = '';
-  textEl.value = '';
-  status.textContent = 'Thank you! Your review has been posted.';
-  status.style.color = 'var(--navy-light)';
-  renderReviews();
-  showToast('Review posted!');
-
-  setTimeout(() => { status.textContent = ''; }, 4000);
-}
-
-function escHtml(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
-}
-
-/* ── Nav & scroll ── */
-document.addEventListener('DOMContentLoaded', () => {
-  /* Nav */
-  const toggle = document.querySelector('.nav-toggle') || document.getElementById('hamburger');
-  if (toggle) toggle.addEventListener('click', () => document.body.classList.toggle('nav-open'));
-  document.querySelectorAll('.nav-mobile a, .nav-drawer a').forEach(a =>
-    a.addEventListener('click', () => setTimeout(() => document.body.classList.remove('nav-open'), 320))
-  );
-  /* Reveal fallback for product content */
-  setTimeout(function(){
-    document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){
-      el.classList.add('in');
-    });
-  }, 400);
-  const btn = document.getElementById('back-top');
-  window.addEventListener('scroll', () => {
-    document.body.classList.toggle('scrolled', window.scrollY > 60);
-    if (btn) btn.classList.toggle('show', window.scrollY > 400);
-  }, {passive:true});
-  // Reveal on scroll
-  const io = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);} }), {threshold:0.07});
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-});
-</script>
 <script>
 (function(){
   document.querySelectorAll('#yr,#year,#yr-footer').forEach(function(el){ el.textContent = new Date().getFullYear(); });
@@ -983,9 +560,42 @@ document.addEventListener('DOMContentLoaded', () => {
     var wa = document.getElementById('wa-float'); if(wa) wa.classList.toggle('show', window.scrollY > 300);
   }, {passive:true});
   var rio = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); } });
-  }, {threshold:0.06, rootMargin:'0px 0px -20px 0px'});
-  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){ rio.observe(el); });
+    entries
+
+<script>
+(function(){
+  /* Year spans */
+  ['yr','year','yr-footer'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.textContent=new Date().getFullYear();
+  });
+  /* Nav toggle */
+  var toggle=document.getElementById('nav-toggle');
+  var mobile=document.getElementById('nav-mobile');
+  if(toggle && mobile){
+    toggle.addEventListener('click',function(){
+      var open=document.body.classList.toggle('nav-open');
+      toggle.setAttribute('aria-expanded',String(open));
+    });
+    mobile.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){
+        setTimeout(function(){
+          document.body.classList.remove('nav-open');
+          toggle.setAttribute('aria-expanded','false');
+        },300);
+      });
+    });
+  }
+  /* Scroll: header bg + back-to-top + WhatsApp float */
+  window.addEventListener('scroll',function(){
+    document.body.classList.toggle('scrolled',window.scrollY>60);
+    var bt=document.getElementById('back-top'); if(bt) bt.classList.toggle('show',window.scrollY>400);
+    var wa=document.getElementById('wa-float'); if(wa) wa.classList.toggle('show',window.scrollY>300);
+  },{passive:true});
+  /* Reveal on scroll */
+  var rio=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}});
+  },{threshold:0.06,rootMargin:'0px 0px -20px 0px'});
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){rio.observe(el);});
 })();
 </script>
 </body>

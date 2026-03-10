@@ -218,6 +218,35 @@ body.nav-open{overflow:hidden}
 .toast{position:fixed;bottom:7rem;left:50%;transform:translateX(-50%) translateY(10px);background:var(--green-dark);color:#fff;padding:0.7rem 1.5rem;border-radius:50px;font-size:0.84rem;font-weight:600;box-shadow:0 10px 30px rgba(42,70,51,0.3);opacity:0;pointer-events:none;transition:all 0.3s;z-index:9999;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 img[src*="1.jpg"]{background:var(--bg-cream);min-height:60px}
+
+/* ── Canonical nav/header CSS ── */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:900;padding:1rem 0;transition:all 0.35s ease}
+body.scrolled .site-header{background:rgba(7,24,48,0.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:0.7rem 0;box-shadow:0 2px 20px rgba(0,0,0,0.25)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.logo{display:flex;align-items:center;gap:0.75rem;font-family:var(--font-head,'Playfair Display',serif);font-size:1.15rem;color:#fff;flex-shrink:0;text-decoration:none}
+.logo img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(212,160,23,0.6)}
+.logo em{color:#D4A017;font-style:normal}
+.nav-desktop{display:none}
+@media(min-width:960px){.nav-desktop{display:flex;align-items:center;gap:0.1rem}}
+.nav-desktop a{padding:0.4rem 0.9rem;font-size:0.82rem;font-weight:500;color:rgba(255,255,255,0.72);border-radius:50px;transition:all 0.25s;text-decoration:none}
+.nav-desktop a:hover,.nav-desktop a.active{color:#fff;background:rgba(255,255,255,0.1)}
+.nav-cta-pill{display:none;align-items:center;padding:0.52rem 1.2rem;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border-radius:50px;font-size:0.76rem;font-weight:700;letter-spacing:0.06em;text-decoration:none;white-space:nowrap;animation:glowPulse 2.5s ease-in-out infinite alternate}
+@media(min-width:960px){.nav-cta-pill{display:inline-flex}}
+.nav-toggle{background:none;border:none;cursor:pointer;padding:6px;display:flex;flex-direction:column;gap:5px;z-index:1001;flex-shrink:0}
+.nav-toggle span{display:block;width:22px;height:2px;background:#fff;transition:all 0.28s;transform-origin:center}
+@media(min-width:960px){.nav-toggle{display:none}}
+body.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+body.nav-open .nav-toggle span:nth-child(2){opacity:0;transform:scaleX(0)}
+body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-mobile{position:fixed;inset:0;z-index:950;background:linear-gradient(160deg,#071830 0%,#0a2040 100%);padding:5.5rem 2rem 2.5rem;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.45s cubic-bezier(0.76,0,0.24,1);overflow-y:auto}
+body.nav-open .nav-mobile{transform:none}
+body.nav-open{overflow:hidden}
+.nav-mobile-links{display:flex;flex-direction:column;gap:0.2rem;margin-bottom:2.5rem}
+.nav-mobile-links a{font-family:var(--font-head,'Playfair Display',serif);font-size:1.7rem;font-style:italic;color:rgba(255,255,255,0.65);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.06);transition:color 0.2s;text-decoration:none;display:block}
+.nav-mobile-links a:hover,.nav-mobile-links a.active{color:#fff}
+.nav-mobile-actions{display:flex;flex-direction:column;gap:0.8rem;margin-top:auto}
+@keyframes glowPulse{0%{box-shadow:0 4px 16px rgba(212,160,23,0.30)}100%{box-shadow:0 4px 32px rgba(212,160,23,0.75),0 0 60px rgba(212,160,23,0.20)}}
+
 </style>
 </head>
 <body>
@@ -225,33 +254,39 @@ img[src*="1.jpg"]{background:var(--bg-cream);min-height:60px}
 <header class="site-header" id="site-header">
   <div class="container header-inner">
     <a href="index.html" class="logo">
-      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="38" height="38" loading="eager">
+      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="38" height="38" loading="eager" fetchpriority="high">
       <span>Shah <em>Hayaat</em></span>
     </a>
     <nav class="nav-desktop" aria-label="Main navigation">
-      <a href="index.html" >Home</a>
+      <a href="index.html">Home</a>
       <a href="products.html" class="active">Products</a>
-      <a href="conditions.html" >Health Guides</a>
-      <a href="ingredients.html" >Ingredients</a>
-      <a href="blog.html" >Blog</a>
-      <a href="about.html" >About</a>
-      <a href="contact.html" >Contact</a>
+      <a href="conditions.html">Health Guides</a>
+      <a href="ingredients.html">Ingredients</a>
+      <a href="wellness-lab.html">🧪 Lab</a>
+      <a href="blog.html">Blog</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
     </nav>
-<button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <a href="wellness-lab.html" class="nav-cta-pill">✦ Self Assessment</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
   <div class="nav-mobile-links">
-    <a href="index.html" >Home</a>
+    <a href="index.html">Home</a>
     <a href="products.html" class="active">Products</a>
-    <a href="conditions.html" >Health Guides</a>
-    <a href="ingredients.html" >Ingredients</a>
-    <a href="blog.html" >Blog</a>
-    <a href="about.html" >About</a>
-    <a href="contact.html" >Contact</a>
+    <a href="conditions.html">Health Guides</a>
+    <a href="ingredients.html">Ingredients</a>
+    <a href="wellness-lab.html">🧪 Lab</a>
+    <a href="blog.html">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
   </div>
   <div class="nav-mobile-actions">
-<a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa">💬 WhatsApp Us</a>
+    <a href="wellness-lab.html" class="btn btn-glow" style="justify-content:center;display:flex">✦ Click Here for Self Assessment</a>
+    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center;display:flex">💬 WhatsApp Us</a>
   </div>
 </nav>
 
@@ -307,52 +342,52 @@ img[src*="1.jpg"]{background:var(--bg-cream);min-height:60px}
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy"><span>Shah <em>Hayaat</em></span></a>
-        <p>WHO-GMP, ISO 9001:2015, HACCP &amp; FSSAI certified Ayurvedic medicines, pure herbs, modern science.</p>
+        <a href="index.html" class="logo">
+          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy">
+          <span>Shah <em>Hayaat</em></span>
+        </a>
+        <p>WHO · GMP · ISO 9001:2015 · HACCP certified Ayurvedic medicines. Pure herbs, modern science.</p>
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
-          <a href="/cdn-cgi/l/email-protection#53203b323b3b322a323227636113343e323a3f7d303c3e" class="soc-icon" aria-label="Email">✉️</a>
+          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon" aria-label="Email">✉️</a>
         </div>
       </div>
-      <div class="footer-col"><h4>Health Guides</h4><ul>
-        <li><a href="conditions.html?c=memory">Memory &amp; Brain</a></li>
-        <li><a href="conditions.html?c=liver">Liver Detox</a></li>
-        <li><a href="conditions.html?c=digestion">Digestion</a></li>
-        <li><a href="conditions.html?c=joints">Joint Pain</a></li>
-        <li><a href="conditions.html?c=diabetes">Blood Sugar</a></li>
-        <li><a href="conditions.html?c=immunity">Immunity</a></li>
+      <div class="footer-col"><h4>Navigation</h4><ul>
+        <li><a href="products.html">All Products</a></li>
+        <li><a href="conditions.html">Health Guides</a></li>
+        <li><a href="ingredients.html">Ingredients</a></li>
+        <li><a href="wellness-lab.html">Wellness Lab</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul></div>
       <div class="footer-col"><h4>Products</h4><ul>
         <li><a href="product-detail.html?id=brainchamp">Brain Champ</a></li>
+        <li><a href="product-detail.html?id=shahzyme">Shah Zyme</a></li>
         <li><a href="product-detail.html?id=livohayaat">Livo Hayaat</a></li>
         <li><a href="product-detail.html?id=orthohayaat">Ortho Hayaat</a></li>
         <li><a href="product-detail.html?id=diaease">Dia-Ease</a></li>
-        <li><a href="product-detail.html?id=shahzyme">Shah Zyme</a></li>
         <li><a href="products.html">View All 12 →</a></li>
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
-        <li><a href="/cdn-cgi/l/email-protection#b8cbd0d9d0d0d9c1d9d9cc888af8dfd5d9d1d496dbd7d5"><span class="__cf_email__" data-cfemail="deadb6bfb6b6bfa7bfbfaaeeec9eb9b3bfb7b2f0bdb1b3">[email&#160;protected]</span></a></li>
-        <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287 (Primary)</a></li>
-        <li><a href="tel:+919107028786">+91 91070 28786</a></li>
-        <li><a href="tel:+916006866325">+91 60068 66325</a></li>
+        <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
+        <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
         <li><a href="https://wa.me/919107028786" target="_blank">+91 91070 28786</a></li>
+        <li><a href="https://wa.me/916006866325" target="_blank">+91 60068 66325</a></li>
         <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
-        <li><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></li>
-        <li>
-</li>
       </ul></div>
     </div>
     <div class="footer-bottom">
-      <p>© <span id="yr"></span> Shah Hayaat. All Rights Reserved. · WHO-GMP · ISO 9001:2015 · HACCP · FSSAI</p>
-      <div class="footer-btm-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>
+      <p>© <span id="yr"></span> Shah Hayaat. All Rights Reserved. &nbsp;·&nbsp; WHO · GMP · ISO 9001:2015 · HACCP</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a>
+      </div>
     </div>
   </div>
 </footer>
-<a href="#" class="back-top" id="back-top" aria-label="Back to top">&#8593;</a>
 <div class="toast" id="toast"></div>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 'use strict';
 const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
 
@@ -463,22 +498,41 @@ setTimeout(function(){
     el.classList.add('in');
   });
 }, 800);
+</script><script>
+(function(){
+  /* Year spans */
+  ['yr','year','yr-footer'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.textContent=new Date().getFullYear();
+  });
+  /* Nav toggle */
+  var toggle=document.getElementById('nav-toggle');
+  var mobile=document.getElementById('nav-mobile');
+  if(toggle && mobile){
+    toggle.addEventListener('click',function(){
+      var open=document.body.classList.toggle('nav-open');
+      toggle.setAttribute('aria-expanded',String(open));
+    });
+    mobile.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){
+        setTimeout(function(){
+          document.body.classList.remove('nav-open');
+          toggle.setAttribute('aria-expanded','false');
+        },300);
+      });
+    });
+  }
+  /* Scroll: header bg + back-to-top + WhatsApp float */
+  window.addEventListener('scroll',function(){
+    document.body.classList.toggle('scrolled',window.scrollY>60);
+    var bt=document.getElementById('back-top'); if(bt) bt.classList.toggle('show',window.scrollY>400);
+    var wa=document.getElementById('wa-float'); if(wa) wa.classList.toggle('show',window.scrollY>300);
+  },{passive:true});
+  /* Reveal on scroll */
+  var rio=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}});
+  },{threshold:0.06,rootMargin:'0px 0px -20px 0px'});
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){rio.observe(el);});
+})();
 </script>
-<script>
-'use strict';
-/* Nav */
-const _nt=document.getElementById('nav-toggle');
-const _nm=document.getElementById('nav-mobile');
-if(_nt)_nt.addEventListener('click',()=>{document.body.classList.toggle('nav-open');_nt.setAttribute('aria-expanded',document.body.classList.contains('nav-open'));});
-if(_nm)_nm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setTimeout(()=>{document.body.classList.remove('nav-open');if(_nt)_nt.setAttribute('aria-expanded','false');},320)));
-/* Scroll */
-const _bt=document.getElementById('back-top');
-window.addEventListener('scroll',()=>{document.body.classList.toggle('scrolled',window.scrollY>60);if(_bt)_bt.classList.toggle('show',window.scrollY>400);},{passive:true});
-/* Year */
-const _yr=document.getElementById('yr');if(_yr)_yr.textContent=new Date().getFullYear();
-/* Reveal */
-const _rio=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');_rio.unobserve
-</script>
-
 </body>
 </html>
