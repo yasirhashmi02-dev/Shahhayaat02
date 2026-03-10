@@ -379,6 +379,39 @@ body.nav-open .nav-mobile{transform:translateX(0)}
   #blog-wa-cta{display:inline-block !important;}
   #blog-hamburger{display:none !important;}
 }
+
+/* ══════════════════════════════════════════
+   LIGHT CREAM THEME OVERRIDE
+   ══════════════════════════════════════════ */
+:root {
+  --text-primary: #1C1C1C !important;
+  --text-secondary: #3D3D3D !important;
+}
+body { background: #F8F6F2 !important; color: #1C1C1C !important; }
+h1,h2,h3,h4,h5,h6 { color: #1C1C1C !important; }
+p { color: #3D3D3D !important; }
+.blog-card, .article-card, .post-card, .card,
+.featured-post, .blog-item {
+  background: #FFFFFF !important;
+  color: #1C1C1C !important;
+  border-color: rgba(0,0,0,0.08) !important;
+}
+.blog-card h2, .blog-card h3, .article-card h2, .article-card h3,
+.post-card h2, .post-card h3, .featured-post h2 { color: #1C1C1C !important; }
+.blog-card p, .article-card p, .post-card p, .featured-post p { color: #3D3D3D !important; }
+.blog-meta, .post-meta, .article-meta { color: #6B6B6B !important; }
+.tag, .category-tag { background: #F0EDE8 !important; color: #2A4633 !important; }
+.bg-dark, .bg-navy, .section-dark { background: #F8F6F2 !important; }
+.bg-white, .bg-light, .section-light { background: #FFFFFF !important; }
+.section-cream, .bg-cream { background: #F8F6F2 !important; }
+/* Keep header + footer intentionally dark */
+.site-header, .site-footer, .page-hero, .page-header,
+.cta-section, .nav-mobile { /* intentionally dark - not overriding */ }
+
+
+.nav-toggle { position:relative !important; z-index:1001 !important; pointer-events:auto !important; cursor:pointer !important; }
+.site-header { z-index:1000 !important; }
+
 </style>
 </head>
 <body>
@@ -582,7 +615,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy"><span>Shah <em>Hayaat</em></span></a>
-        <p>WHO-GMP, ISO 9001:2015, HACCP &amp; FSSAI certified Ayurvedic medicines, pure herbs, modern science.</p>
+        <p>WHO-GMP, ISO 9001:2015, HACCP certified Ayurvedic medicines, pure herbs, modern science.</p>
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
@@ -617,7 +650,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
       </ul></div>
     </div>
     <div class="footer-bottom">
-      <p>© <span id="yr"></span> Shah Hayaat. All Rights Reserved. · WHO-GMP · ISO 9001:2015 · HACCP · FSSAI</p>
+      <p>© <span id="yr"></span> Shah Hayaat. All Rights Reserved. · WHO-GMP · ISO 9001:2015 · HACCP</p>
       <div class="footer-btm-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>
     </div>
   </div>
@@ -626,7 +659,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 <a href="https://wa.me/917051056287" target="_blank" class="wa-float">💬</a>
 <div class="toast" id="toast"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" data-cfasync="false">
 'use strict';
 
 const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
@@ -1293,20 +1326,38 @@ document.querySelectorAll('#blog-drawer a').forEach(a => {
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeBlogNav(); });
 
 </script>
-<script>
-'use strict';
-/* Nav */
-const _nt=document.getElementById('nav-toggle');
-const _nm=document.getElementById('nav-mobile');
-if(_nt)_nt.addEventListener('click',()=>{document.body.classList.toggle('nav-open');_nt.setAttribute('aria-expanded',document.body.classList.contains('nav-open'));});
-if(_nm)_nm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setTimeout(()=>{document.body.classList.remove('nav-open');if(_nt)_nt.setAttribute('aria-expanded','false');},320)));
-/* Scroll */
-const _bt=document.getElementById('back-top');
-window.addEventListener('scroll',()=>{document.body.classList.toggle('scrolled',window.scrollY>60);if(_bt)_bt.classList.toggle('show',window.scrollY>400);},{passive:true});
-/* Year */
-const _yr=document.getElementById('yr');if(_yr)_yr.textContent=new Date().getFullYear();
-/* Reveal */
-const _rio=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');_rio.unobserve
+<script type="text/javascript" data-cfasync="false">
+document.addEventListener('DOMContentLoaded', function() {
+  var t = document.getElementById('nav-toggle');
+  var m = document.getElementById('nav-mobile');
+  if (t && m) {
+    t.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var open = document.body.classList.toggle('nav-open');
+      t.setAttribute('aria-expanded', String(open));
+    });
+    m.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        setTimeout(function() { document.body.classList.remove('nav-open'); t.setAttribute('aria-expanded','false'); }, 300);
+      });
+    });
+    document.addEventListener('click', function(e) {
+      if (document.body.classList.contains('nav-open') && !m.contains(e.target) && !t.contains(e.target)) {
+        document.body.classList.remove('nav-open'); t.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+  window.addEventListener('scroll', function() {
+    document.body.classList.toggle('scrolled', window.scrollY > 60);
+    var bt = document.getElementById('back-top'); if (bt) bt.classList.toggle('show', window.scrollY > 400);
+    var wa = document.getElementById('wa-float'); if (wa) wa.classList.toggle('show', window.scrollY > 300);
+  }, {passive: true});
+  var rio = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); } });
+  }, {threshold: 0.06, rootMargin: '0px 0px -20px 0px'});
+  document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(function(el) { rio.observe(el); });
+  ['yr','year','yr-footer'].forEach(function(id) { var el = document.getElementById(id); if (el) el.textContent = new Date().getFullYear(); });
+});
 </script>
 
 </body>

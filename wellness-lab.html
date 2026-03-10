@@ -328,6 +328,21 @@ button,input,select{font-family:inherit}
   font-family:'JetBrains Mono',monospace;letter-spacing:.07em;
   text-transform:uppercase;font-weight:700;margin-bottom:.7rem;
 }
+
+/* ══ LIGHT CREAM THEME OVERRIDE ══ */
+:root { --text-primary:#1C1C1C !important; --text-secondary:#3D3D3D !important; }
+body { background:#F8F6F2 !important; color:#1C1C1C !important; }
+h1,h2,h3,h4,h5,h6 { color:#1C1C1C !important; }
+p { color:#3D3D3D !important; }
+.card,.section-card,.content-card,.info-card,.legal-card,.policy-section,
+.prose,.legal-body { background:#FFFFFF !important; color:#1C1C1C !important; border-color:rgba(0,0,0,0.08) !important; }
+.bg-white,.bg-light,.section-light { background:#FFFFFF !important; }
+.bg-cream,.section-cream { background:#F8F6F2 !important; }
+.nav-toggle { position:relative !important; z-index:1001 !important; pointer-events:auto !important; cursor:pointer !important; }
+.site-header { z-index:1000 !important; }
+.nav-cta-pill{display:none;align-items:center;gap:6px;padding:0.38rem 1rem;border-radius:20px;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;font-size:0.78rem;font-weight:700;text-decoration:none;letter-spacing:0.04em}
+@media(min-width:960px){.nav-cta-pill{display:inline-flex}}
+
 </style>
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 </head>
@@ -594,7 +609,7 @@ button,input,select{font-family:inherit}
   </div>
 </footer>
 
-<script>
+<script type="text/javascript" data-cfasync="false">
 'use strict';
 
 /* ── Central scoring weights configuration ──────────────────────────
@@ -1375,7 +1390,7 @@ window.LAB = LAB;
 })();
 </script>
 
-<script>
+<script type="text/javascript" data-cfasync="false">
 'use strict';
 
 (function(){
@@ -2325,7 +2340,7 @@ window.mod_contrastSensitivity = function () {
 };
 </script>
 
-<script>
+<script type="text/javascript" data-cfasync="false">
 'use strict';
 
 window.mod_breathSync = function () {
@@ -3509,7 +3524,7 @@ window.mod_lifestyleLoad = function () {
 };
 </script>
 
-<script>
+<script type="text/javascript" data-cfasync="false">
 'use strict';
 
 window.mod_hormonalRhythm = function () {
@@ -6631,6 +6646,39 @@ LAB.generatePDF = function () {
   </div>
 
 </div>
+<script type="text/javascript" data-cfasync="false">
+document.addEventListener('DOMContentLoaded', function() {
+  var t = document.getElementById('nav-toggle');
+  var m = document.getElementById('nav-mobile');
+  if (t && m) {
+    t.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var open = document.body.classList.toggle('nav-open');
+      t.setAttribute('aria-expanded', String(open));
+    });
+    m.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        setTimeout(function() { document.body.classList.remove('nav-open'); t.setAttribute('aria-expanded','false'); }, 300);
+      });
+    });
+    document.addEventListener('click', function(e) {
+      if (document.body.classList.contains('nav-open') && !m.contains(e.target) && !t.contains(e.target)) {
+        document.body.classList.remove('nav-open'); t.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+  window.addEventListener('scroll', function() {
+    document.body.classList.toggle('scrolled', window.scrollY > 60);
+    var bt = document.getElementById('back-top'); if (bt) bt.classList.toggle('show', window.scrollY > 400);
+    var wa = document.getElementById('wa-float'); if (wa) wa.classList.toggle('show', window.scrollY > 300);
+  }, {passive: true});
+  var rio = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); } });
+  }, {threshold: 0.06, rootMargin: '0px 0px -20px 0px'});
+  document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(function(el) { rio.observe(el); });
+  ['yr','year','yr-footer'].forEach(function(id) { var el = document.getElementById(id); if (el) el.textContent = new Date().getFullYear(); });
+});
+</script>
 </body>
 </html>`;
 
@@ -8294,5 +8342,38 @@ LAB.showLeaderboard = async function(testId, unit) {
 
 </script>
 
+<script type="text/javascript" data-cfasync="false">
+document.addEventListener('DOMContentLoaded', function() {
+  var t = document.getElementById('nav-toggle');
+  var m = document.getElementById('nav-mobile');
+  if (t && m) {
+    t.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var open = document.body.classList.toggle('nav-open');
+      t.setAttribute('aria-expanded', String(open));
+    });
+    m.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        setTimeout(function() { document.body.classList.remove('nav-open'); t.setAttribute('aria-expanded','false'); }, 300);
+      });
+    });
+    document.addEventListener('click', function(e) {
+      if (document.body.classList.contains('nav-open') && !m.contains(e.target) && !t.contains(e.target)) {
+        document.body.classList.remove('nav-open'); t.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+  window.addEventListener('scroll', function() {
+    document.body.classList.toggle('scrolled', window.scrollY > 60);
+    var bt = document.getElementById('back-top'); if (bt) bt.classList.toggle('show', window.scrollY > 400);
+    var wa = document.getElementById('wa-float'); if (wa) wa.classList.toggle('show', window.scrollY > 300);
+  }, {passive: true});
+  var rio = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); } });
+  }, {threshold: 0.06, rootMargin: '0px 0px -20px 0px'});
+  document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(function(el) { rio.observe(el); });
+  ['yr','year','yr-footer'].forEach(function(id) { var el = document.getElementById(id); if (el) el.textContent = new Date().getFullYear(); });
+});
+</script>
 </body>
 </html>

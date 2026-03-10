@@ -451,7 +451,22 @@ body.scrolled .site-header{padding:0.45rem 0}
 /* Alt text visible for SEO crawlers but not users */
 img[alt]{font-size:0}
 
-  </style>
+  
+/* ══ LIGHT CREAM THEME OVERRIDE ══ */
+:root { --text-primary:#1C1C1C !important; --text-secondary:#3D3D3D !important; }
+body { background:#F8F6F2 !important; color:#1C1C1C !important; }
+h1,h2,h3,h4,h5,h6 { color:#1C1C1C !important; }
+p { color:#3D3D3D !important; }
+.card,.section-card,.content-card,.info-card,.legal-card,.policy-section,
+.prose,.legal-body { background:#FFFFFF !important; color:#1C1C1C !important; border-color:rgba(0,0,0,0.08) !important; }
+.bg-white,.bg-light,.section-light { background:#FFFFFF !important; }
+.bg-cream,.section-cream { background:#F8F6F2 !important; }
+.nav-toggle { position:relative !important; z-index:1001 !important; pointer-events:auto !important; cursor:pointer !important; }
+.site-header { z-index:1000 !important; }
+.nav-cta-pill{display:none;align-items:center;gap:6px;padding:0.38rem 1rem;border-radius:20px;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;font-size:0.78rem;font-weight:700;text-decoration:none;letter-spacing:0.04em}
+@media(min-width:960px){.nav-cta-pill{display:inline-flex}}
+
+</style>
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 <script type="application/ld+json">
 {
@@ -476,37 +491,44 @@ img[alt]{font-size:0}
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N3TB9P47"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
-<header class="site-header">
+<header class="site-header" id="site-header">
   <div class="container header-inner">
     <a href="index.html" class="logo">
-      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat Logo">
+      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="38" height="38" loading="eager">
       <span>Shah <em>Hayaat</em></span>
     </a>
-    <nav class="nav-desktop" aria-label="Main navigation"><ul>
-      <li><a href="index.html" >Home</a></li>
-      <li><a href="about.html" >About</a></li>
-      <li><a href="products.html" >Products</a></li>
-      <li><a href="catalogue.html" >Catalogue</a></li>
-      <li><a href="quiz.html" >Health Quiz</a></li>
-      <li><a href="blog.html" >Blog</a></li>
-      <li><a href="contact.html" >Contact</a></li>
-    </ul></nav>
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="conditions.html">Health Guides</a>
+      <a href="ingredients.html">Ingredients</a>
+      <a href="wellness-lab.html">🧪 Lab</a>
+      <a href="blog.html">Blog</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="wellness-lab.html" class="nav-cta-pill">✦ Self Assessment</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
-<nav class="nav-mobile" aria-label="Mobile navigation"><ul>
-  <li><a href="index.html">Home</a></li>
-  <li><a href="about.html">About</a></li>
-  <li><a href="products.html">Products</a></li>
-  <li><a href="catalogue.html">Catalogue</a></li>
-  <li><a href="quiz.html">Health Quiz</a></li>
-      <li><a href="wellness-lab.html">Wellness Lab 🧪</a></li>
-  <li><a href="blog.html">Blog</a></li>
-  <li><a href="contact.html">Contact</a></li>
-</ul>
-<div class="nav-mobile-cta">
-  <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-primary">💬 WhatsApp Us</a>
-</div></nav>
+<nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
+  <div class="nav-mobile-links">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="conditions.html">Health Guides</a>
+    <a href="ingredients.html">Ingredients</a>
+    <a href="wellness-lab.html">🧪 Lab</a>
+    <a href="blog.html">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-mobile-actions">
+    <a href="wellness-lab.html" class="btn btn-glow" style="justify-content:center;display:flex">✦ Click Here for Self Assessment</a>
+    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center;display:flex">💬 WhatsApp Us</a>
+  </div>
+</nav>
 
 <main>
   <div class="page-hero">
@@ -627,7 +649,7 @@ img[alt]{font-size:0}
 <a href="#" class="back-top" aria-label="Back to top" aria-label="Back to top" aria-label="Back to top">↑</a>
 <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float" aria-label="Order on WhatsApp">💬</a>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" data-cfasync="false">
 /* ============================================================
    SHAH HAYAAT — main.js  v2.0
    All shared data + UI: nav, scroll, carousel, animations,

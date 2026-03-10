@@ -494,6 +494,13 @@ body.nav-open{overflow:hidden}
     <h2 style="margin-bottom:0.5rem" id="reviews-heading">Reviews</h2>
     <div class="divider"></div>
 
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.2rem">
+      <p style="color:#6B6B6B;font-size:0.9rem;margin:0">All reviews are from real customers. Open to everyone — no account needed.</p>
+      <a href="https://g.page/r/CXsr4edSqOKSEBM/review" target="_blank" rel="noopener"
+         style="display:inline-flex;align-items:center;gap:8px;padding:0.6rem 1.3rem;background:#4285F4;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.88rem;white-space:nowrap">
+        ⭐ Rate on Google
+      </a>
+    </div>
     <div class="rating-summary" id="rating-summary">
       <div class="rating-big">
         <div class="score" id="avg-score">-</div>
@@ -507,6 +514,7 @@ body.nav-open{overflow:hidden}
 
     <div class="write-review-card reveal">
       <h3>Write a Review</h3>
+      <p style="font-size:0.82rem;color:#6B6B6B;margin:-0.3rem 0 1rem">Your review is visible to everyone. No account needed.</p>
       <div class="form-group">
         <label>Your Rating</label>
         <div class="star-picker" id="star-picker">
@@ -680,193 +688,233 @@ const PRODUCTS = [
     precautions:'Continue medical treatment during severe infections. This is a supportive supplement.' }
 ];
 
-/* ── Render product page ── */
-const id = new URLSearchParams(location.search).get('id');
-const p = PRODUCTS.find(x => x.id === id);
-const main = document.getElementById('product-main');
 
-if (!p) {
-  main.innerHTML = `<div style="text-align:center;padding:6rem 2rem">
-    <div style="font-size:3.5rem;margin-bottom:1rem">🌿</div>
-    <h2 style="color:var(--navy-mid);margin-bottom:0.6rem">Product Not Found</h2>
-    <p style="margin-bottom:1.6rem">We could not find that product. Please browse our full range.</p>
-    <a href="products.html" class="btn btn-primary">Browse All Products</a>
-  </div>`;
-} else {
-  document.getElementById('pg-title').textContent = p.name + ', Shah Hayaat';
-  document.getElementById('pg-desc').content = p.full;
-  document.getElementById('reviews-heading').textContent = 'Reviews for ' + p.name;
+/* ── Page init ── */
+document.addEventListener('DOMContentLoaded', function() {
 
-  const waMsg = encodeURIComponent("Hi! I'd like to order " + p.name + ", ₹" + p.price);
+  /* ── Render product page ── */
+  var id = new URLSearchParams(location.search).get('id');
+  var p = PRODUCTS.find(function(x){ return x.id === id; });
+  var mainEl = document.getElementById('product-main');
 
-  main.innerHTML = `
-    <div class="page-hero">
-      <div class="container page-hero-inner">
-        <nav class="breadcrumb">
-          <a href="index.html">Home</a><span class="sep">/</span>
-          <a href="products.html">Products</a><span class="sep">/</span>
-          <span>${p.name}</span>
-        </nav>
-        <h1 style="font-size:clamp(1.75rem,4vw,2.6rem)">${p.name}</h1>
-        <p>${p.tag}</p>
-      </div>
-    </div>
+  if (!mainEl) return;
 
-    <section class="section bg-white">
-      <div class="container">
-        <div class="detail-grid">
-          <div class="reveal">
-            <div class="detail-img">
-              <img src="${imgSrc(p.id)}" alt="${p.name}" loading="eager"
-                   onerror="(function(t,id){var tries=['" + GH + "'+id+'.jpg','" + GH + "'+id+'.png'];var i=0;t.onerror=function(){if(i<tries.length){t.src=tries[i++];}else{t.style.display='none';}};if(tries.length)t.src=tries[i++];})(this,p.id)">
-            </div>
-          </div>
-          <div class="reveal delay-2">
-            <div class="detail-price">₹${p.price} <sub>/ pack</sub></div>
-            <div id="inline-rating" style="margin:0.5rem 0 1rem"></div>
-            <div class="detail-actions">
-              <a href="https://wa.me/917051056287?text=${waMsg}"
-                 target="_blank" rel="noopener" class="btn btn-primary btn-lg">💬 Order on WhatsApp</a>
-              <a href="products.html" class="btn btn-outline">← All Products</a>
-            </div>
-            <div class="info-block">
-              <span class="info-block-label">About This Product</span>
-              <p style="color:var(--text-secondary);line-height:1.8">${p.full}</p>
-            </div>
-            <div class="info-block">
-              <span class="info-block-label" style="font-size:0.78rem;color:var(--navy-light);margin-bottom:0.8rem">✦ Key Benefits</span>
-              <div>${p.benefits.map((b,i) => '<div class="benefit-item" data-bi="'+i+'">'+b+'</div>').join('')}</div>
-            </div>
-          </div>
-        </div>
-        <div class="info-boxes">
-          <div class="info-box reveal delay-1">
-            <span class="info-block-label">Key Ingredients</span>
-            <p>${p.ingredients}</p>
-          </div>
-          <div class="info-box reveal delay-2">
-            <span class="info-block-label">Dosage Instructions</span>
-            <p>${p.dosage}</p>
-          </div>
-          <div class="info-box reveal delay-3">
-            <span class="info-block-label">Precautions</span>
-            <p>${p.precautions}</p>
-          </div>
-          ${p.form==='syrup' ? `<div style="margin-top:0.8rem;padding:0.8rem 1rem;border-left:3px solid var(--gold);background:rgba(11,15,20,0.05);font-size:0.82rem;color:var(--text-muted);line-height:1.7">
-            <strong style="color:var(--text-secondary)">Preservatives:</strong> Contains food-grade preservatives, Sodium Benzoate IP, MPSIP and PPS LP, used to ensure shelf stability and safety.
-          </div>` : ''}
-        </div>
-        <div class="quiz-disclaimer reveal" style="margin-top:2rem">
-          <strong>Disclaimer:</strong> This is an Ayurvedic supplement. It is not intended to diagnose, treat, cure or prevent any disease. Results may vary. Please consult a qualified healthcare professional before use.
-        </div>
-      </div>
-    </section>`;
-
-  /* Related products */
-  const related = PRODUCTS.filter(x => x.cat === p.cat && x.id !== p.id).slice(0, 3);
-  if (related.length) {
-    document.getElementById('related-wrap').style.display = '';
-    document.getElementById('related-grid').innerHTML = related.map(r => `
-      <div class="product-card">
-        <div class="product-card-img">
-          <img src="${imgSrc(r.id)}" alt="${r.name}" loading="lazy"
-               onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/'+r.id+'1.jpg';">
-          <span class="product-cat-tag">${r.tag}</span>
-        </div>
-        <div class="product-body">
-          <h3>${r.name}</h3>
-          <p class="product-desc">${r.desc}</p>
-          <div class="product-footer">
-            <div class="product-price">₹${r.price}</div>
-            <div class="product-actions-row">
-              <a href="product-detail.html?id=${r.id}" class="btn btn-outline btn-sm">Details</a>
-              <a href="https://wa.me/917051056287?text=${encodeURIComponent("Hi! I'd like to order " + r.name + ", ₹" + r.price)}"
-                 target="_blank" rel="noopener" class="btn btn-primary btn-sm">Order</a>
-            </div>
-          </div>
-        </div>
-      </div>`).join('');
+  if (!p) {
+    mainEl.innerHTML = '<div style="text-align:center;padding:6rem 2rem">' +
+      '<div style="font-size:3.5rem;margin-bottom:1rem">🌿</div>' +
+      '<h2 style="color:var(--navy-mid);margin-bottom:0.6rem">Product Not Found</h2>' +
+      '<p style="margin-bottom:1.6rem">We could not find that product. Please browse our full range.</p>' +
+      '<a href="products.html" class="btn btn-primary">Browse All Products</a>' +
+      '</div>';
+    return;
   }
 
-  /* Trigger reveal animations */
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.01, rootMargin: "0px 0px -10px 0px" });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  var pgTitle = document.getElementById('pg-title');
+  var pgDesc  = document.getElementById('pg-desc');
+  var revHead = document.getElementById('reviews-heading');
+  if (pgTitle) pgTitle.textContent = p.name + ', Shah Hayaat';
+  if (pgDesc)  pgDesc.content = p.full;
+  if (revHead) revHead.textContent = 'Reviews for ' + p.name;
 
-  /* Animate benefits */
+  var waMsg = encodeURIComponent("Hi! I'd like to order " + p.name + ", ₹" + p.price);
+
+  mainEl.innerHTML =
+    '<div class="page-hero">' +
+      '<div class="container page-hero-inner">' +
+        '<nav class="breadcrumb">' +
+          '<a href="index.html">Home</a><span class="sep">/</span>' +
+          '<a href="products.html">Products</a><span class="sep">/</span>' +
+          '<span>' + p.name + '</span>' +
+        '</nav>' +
+        '<h1 style="font-size:clamp(1.75rem,4vw,2.6rem)">' + p.name + '</h1>' +
+        '<p>' + p.tag + '</p>' +
+      '</div>' +
+    '</div>' +
+    '<section class="section bg-white">' +
+      '<div class="container">' +
+        '<div class="detail-grid">' +
+          '<div class="reveal">' +
+            '<div class="detail-img">' +
+              '<img src="' + imgSrc(p.id) + '" alt="' + p.name + '" loading="eager">' +
+            '</div>' +
+          '</div>' +
+          '<div class="reveal delay-2">' +
+            '<div class="detail-price">₹' + p.price + ' <sub>/ pack</sub></div>' +
+            '<div id="inline-rating" style="margin:0.5rem 0 1rem"></div>' +
+            '<div class="detail-actions">' +
+              '<a href="https://wa.me/917051056287?text=' + waMsg + '" target="_blank" rel="noopener" class="btn btn-primary btn-lg">💬 Order on WhatsApp</a>' +
+              '<a href="products.html" class="btn btn-outline">← All Products</a>' +
+            '</div>' +
+            '<div class="info-block">' +
+              '<span class="info-block-label">About This Product</span>' +
+              '<p style="line-height:1.8">' + p.full + '</p>' +
+            '</div>' +
+            '<div class="info-block">' +
+              '<span class="info-block-label" style="font-size:0.78rem;margin-bottom:0.8rem">✦ Key Benefits</span>' +
+              '<div>' + p.benefits.map(function(b,i){ return '<div class="benefit-item" data-bi="'+i+'">'+b+'</div>'; }).join('') + '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="info-boxes">' +
+          '<div class="info-box reveal delay-1"><span class="info-block-label">Key Ingredients</span><p>' + p.ingredients + '</p></div>' +
+          '<div class="info-box reveal delay-2"><span class="info-block-label">Dosage Instructions</span><p>' + p.dosage + '</p></div>' +
+          '<div class="info-box reveal delay-3"><span class="info-block-label">Precautions</span><p>' + p.precautions + '</p></div>' +
+        '</div>' +
+        '<div class="quiz-disclaimer reveal" style="margin-top:2rem">' +
+          '<strong>Disclaimer:</strong> This is an Ayurvedic supplement. It is not intended to diagnose, treat, cure or prevent any disease. Results may vary. Please consult a qualified healthcare professional before use.' +
+        '</div>' +
+      '</div>' +
+    '</section>';
+
+  /* Related products */
+  var related = PRODUCTS.filter(function(x){ return x.cat === p.cat && x.id !== p.id; }).slice(0,3);
+  if (related.length) {
+    var relWrap = document.getElementById('related-wrap');
+    var relGrid = document.getElementById('related-grid');
+    if (relWrap) relWrap.style.display = '';
+    if (relGrid) relGrid.innerHTML = related.map(function(r) {
+      var rMsg = encodeURIComponent("Hi! I'd like to order " + r.name + ", ₹" + r.price);
+      return '<div class="product-card">' +
+        '<div class="product-card-img">' +
+          '<img src="' + imgSrc(r.id) + '" alt="' + r.name + '" loading="lazy">' +
+          '<span class="product-cat-tag">' + r.tag + '</span>' +
+        '</div>' +
+        '<div class="product-body">' +
+          '<h3>' + r.name + '</h3>' +
+          '<p class="product-desc">' + r.desc + '</p>' +
+          '<div class="product-footer">' +
+            '<div class="product-price">₹' + r.price + '</div>' +
+            '<div class="product-actions-row">' +
+              '<a href="product-detail.html?id=' + r.id + '" class="btn btn-outline btn-sm">Details</a>' +
+              '<a href="https://wa.me/917051056287?text=' + rMsg + '" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Order</a>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  /* Benefit animations */
   setTimeout(function(){
-    var items = document.querySelectorAll('.benefit-item');
-    items.forEach(function(el, i){
+    document.querySelectorAll('.benefit-item').forEach(function(el, i){
       setTimeout(function(){ el.classList.add('benefit-in'); }, 120 + i * 140);
     });
   }, 80);
 
-  /* Reveal scroll animations */
   /* Reviews */
   renderReviews();
-}
 
-/* ── Reviews System ── */
+  /* Scroll & reveal */
+  var btn = document.getElementById('back-top');
+  window.addEventListener('scroll', function(){
+    document.body.classList.toggle('scrolled', window.scrollY > 60);
+    if (btn) btn.classList.toggle('show', window.scrollY > 400);
+    var wa = document.getElementById('wa-float');
+    if (wa) wa.classList.toggle('show', window.scrollY > 300);
+  }, {passive:true});
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);} });
+  }, {threshold:0.01, rootMargin:'0px 0px -10px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  /* Nav */
+  var t = document.getElementById('nav-toggle');
+  var m = document.getElementById('nav-mobile');
+  if (t && m) {
+    t.addEventListener('click', function(e){
+      e.stopPropagation();
+      var open = document.body.classList.toggle('nav-open');
+      t.setAttribute('aria-expanded', String(open));
+    });
+    m.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        setTimeout(function(){ document.body.classList.remove('nav-open'); t.setAttribute('aria-expanded','false'); }, 300);
+      });
+    });
+    document.addEventListener('click', function(e){
+      if (document.body.classList.contains('nav-open') && !m.contains(e.target) && !t.contains(e.target)){
+        document.body.classList.remove('nav-open'); t.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+  /* Year */
+  ['yr','year','yr-footer'].forEach(function(id){
+    var el = document.getElementById(id); if(el) el.textContent = new Date().getFullYear();
+  });
+
+}); /* end DOMContentLoaded */
+
+/* ── Reviews System (localStorage — per-user, open to all) ── */
 function getReviews() {
+  var id = new URLSearchParams(location.search).get('id') || 'unknown';
   try { return JSON.parse(localStorage.getItem('sh_reviews_' + id) || '[]'); }
   catch(e) { return []; }
 }
 function saveReviews(arr) {
+  var id = new URLSearchParams(location.search).get('id') || 'unknown';
   try { localStorage.setItem('sh_reviews_' + id, JSON.stringify(arr)); } catch(e) {}
 }
 function getHelpful() {
+  var id = new URLSearchParams(location.search).get('id') || 'unknown';
   try { return JSON.parse(localStorage.getItem('sh_helpful_' + id) || '{}'); }
   catch(e) { return {}; }
 }
 function saveHelpful(obj) {
+  var id = new URLSearchParams(location.search).get('id') || 'unknown';
   try { localStorage.setItem('sh_helpful_' + id, JSON.stringify(obj)); } catch(e) {}
 }
 
 function starsHtml(n, size) {
-  const s = size || '1rem';
-  let h = '';
-  for (let i = 1; i <= 5; i++) {
-    h += '<span style="color:' + (i <= n ? 'var(--gold)' : '#ddd') + ';font-size:' + s + '">★</span>';
+  var s = size || '1rem', h = '';
+  for (var i = 1; i <= 5; i++) {
+    h += '<span style="color:' + (i <= n ? '#B8860B' : '#ddd') + ';font-size:' + s + '">★</span>';
   }
   return h;
 }
 
 function renderReviews() {
-  const reviews = getReviews();
-  const helpful = getHelpful();
-  const list = document.getElementById('review-list');
-  const avgEl = document.getElementById('avg-score');
-  const avgStars = document.getElementById('avg-stars');
-  const countEl = document.getElementById('review-count');
-  const barsEl = document.getElementById('rating-bars');
-  const inlineRating = document.getElementById('inline-rating');
+  var reviews = getReviews();
+  var helpful = getHelpful();
+  var list      = document.getElementById('review-list');
+  var avgEl     = document.getElementById('avg-score');
+  var avgStars  = document.getElementById('avg-stars');
+  var countEl   = document.getElementById('review-count');
+  var barsEl    = document.getElementById('rating-bars');
+  var inlineRating = document.getElementById('inline-rating');
 
   if (!reviews.length) {
-    if (avgEl) avgEl.textContent = '-';
-    if (countEl) countEl.textContent = 'No reviews yet, be the first!';
+    if (avgEl)    avgEl.textContent = '-';
+    if (countEl)  countEl.textContent = 'No reviews yet — be the first!';
     if (avgStars) avgStars.innerHTML = starsHtml(0);
-    if (barsEl) barsEl.innerHTML = '';
-    if (inlineRating) inlineRating.innerHTML = '<span style="font-size:0.85rem;color:var(--text-muted)">No reviews yet</span>';
-    if (list) list.innerHTML = '';
+    if (barsEl)   barsEl.innerHTML = '';
+    if (inlineRating) inlineRating.innerHTML = '<span style="font-size:0.85rem;color:#6B6B6B">No reviews yet</span>';
+    if (list) list.innerHTML =
+      '<div style="text-align:center;padding:2rem 0;color:#6B6B6B">' +
+      '<p style="margin-bottom:1rem">No reviews yet. Be the first to share your experience!</p>' +
+      '<a href="https://g.page/r/CXsr4edSqOKSEBM/review" target="_blank" rel="noopener" ' +
+        'style="display:inline-flex;align-items:center;gap:8px;padding:0.6rem 1.2rem;background:#4285F4;color:#fff;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.9rem">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>' +
+        'Rate on Google' +
+      '</a>' +
+      '</div>';
     return;
   }
 
-  const avg = reviews.reduce((a, r) => a + r.rating, 0) / reviews.length;
-  const rounded = Math.round(avg * 10) / 10;
-  const counts = [0, 0, 0, 0, 0];
-  reviews.forEach(r => counts[r.rating - 1]++);
+  var avg = reviews.reduce(function(a,r){ return a + r.rating; }, 0) / reviews.length;
+  var rounded = Math.round(avg * 10) / 10;
+  var counts = [0,0,0,0,0];
+  reviews.forEach(function(r){ counts[r.rating - 1]++; });
 
-  if (avgEl) avgEl.textContent = rounded.toFixed(1);
+  if (avgEl)   avgEl.textContent = rounded.toFixed(1);
   if (avgStars) avgStars.innerHTML = starsHtml(Math.round(avg));
   if (countEl) countEl.textContent = reviews.length + ' review' + (reviews.length !== 1 ? 's' : '');
   if (inlineRating) inlineRating.innerHTML = starsHtml(Math.round(avg), '1.1rem') +
-    ' <span style="font-size:0.82rem;color:var(--text-muted);margin-left:4px">' + rounded.toFixed(1) + ' / 5 (' + reviews.length + ')</span>';
+    ' <span style="font-size:0.82rem;color:#6B6B6B;margin-left:4px">' + rounded.toFixed(1) + ' / 5 (' + reviews.length + ')</span>';
 
   if (barsEl) {
-    barsEl.innerHTML = [5,4,3,2,1].map(star => {
-      const cnt = counts[star - 1];
-      const pct = reviews.length ? Math.round(cnt / reviews.length * 100) : 0;
+    barsEl.innerHTML = [5,4,3,2,1].map(function(star) {
+      var cnt = counts[star - 1];
+      var pct = reviews.length ? Math.round(cnt / reviews.length * 100) : 0;
       return '<div class="bar-row"><span class="label">' + star + ' ★</span>' +
         '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%"></div></div>' +
         '<span class="bar-count">' + cnt + '</span></div>';
@@ -874,10 +922,10 @@ function renderReviews() {
   }
 
   if (list) {
-    list.innerHTML = [...reviews].reverse().map((r, idx) => {
-      const rid = reviews.length - 1 - idx;
-      const hCount = r.helpful || 0;
-      const didHelp = helpful[rid];
+    list.innerHTML = [].concat(reviews).reverse().map(function(r, idx) {
+      var rid = reviews.length - 1 - idx;
+      var hCount = r.helpful || 0;
+      var didHelp = helpful[rid];
       return '<div class="review-card">' +
         '<div class="review-header">' +
           '<div>' +
@@ -891,13 +939,19 @@ function renderReviews() {
           (didHelp ? '✓ Helpful' : '👍 Helpful') + (hCount ? ' (' + hCount + ')' : '') +
         '</button>' +
       '</div>';
-    }).join('');
+    }).join('') +
+    '<div style="margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid #eee;text-align:center">' +
+      '<a href="https://g.page/r/CXsr4edSqOKSEBM/review" target="_blank" rel="noopener" ' +
+        'style="display:inline-flex;align-items:center;gap:8px;padding:0.65rem 1.4rem;background:#4285F4;color:#fff;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.9rem">' +
+        '⭐ Rate Shah Hayaat on Google' +
+      '</a>' +
+    '</div>';
   }
 }
 
 function markHelpful(idx) {
-  const reviews = getReviews();
-  const helpful = getHelpful();
+  var reviews = getReviews();
+  var helpful = getHelpful();
   if (helpful[idx]) return;
   if (reviews[idx]) {
     reviews[idx].helpful = (reviews[idx].helpful || 0) + 1;
@@ -910,15 +964,15 @@ function markHelpful(idx) {
 }
 
 function submitReview() {
-  const ratingEl = document.querySelector('input[name="rating"]:checked');
-  const nameEl = document.getElementById('rev-name');
-  const textEl = document.getElementById('rev-text');
-  const status = document.getElementById('rev-status');
+  var ratingEl = document.querySelector('input[name="rating"]:checked');
+  var nameEl   = document.getElementById('rev-name');
+  var textEl   = document.getElementById('rev-text');
+  var status   = document.getElementById('rev-status');
 
   if (!ratingEl) { status.textContent = 'Please select a star rating.'; status.style.color = '#c0392b'; return; }
   if (!textEl.value.trim()) { status.textContent = 'Please write something about your experience.'; status.style.color = '#c0392b'; return; }
 
-  const reviews = getReviews();
+  var reviews = getReviews();
   reviews.push({
     rating: parseInt(ratingEl.value),
     name: nameEl.value.trim() || 'Anonymous',
@@ -928,39 +982,27 @@ function submitReview() {
   });
   saveReviews(reviews);
 
-  ratingEl.checked = false;
+  document.querySelectorAll('input[name="rating"]').forEach(function(r){ r.checked = false; });
   nameEl.value = '';
   textEl.value = '';
-  status.textContent = 'Thank you! Your review has been posted.';
-  status.style.color = 'var(--navy-light)';
+  status.textContent = '✓ Thank you! Your review has been posted.';
+  status.style.color = '#2A6049';
   renderReviews();
   showToast('Review posted!');
-
-  setTimeout(() => { status.textContent = ''; }, 4000);
+  setTimeout(function(){ status.textContent = ''; }, 4000);
 }
 
 function escHtml(str) {
   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-
 function showToast(msg) {
-  const t = document.getElementById('toast');
+  var t = document.getElementById('toast');
+  if (!t) return;
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
+  setTimeout(function(){ t.classList.remove('show'); }, 2800);
 }
 
-/* ── Nav & scroll ── */
-  }, 400);
-  const btn = document.getElementById('back-top');
-  window.addEventListener('scroll', () => {
-    document.body.classList.toggle('scrolled', window.scrollY > 60);
-    if (btn) btn.classList.toggle('show', window.scrollY > 400);
-  }, {passive:true});
-  // Reveal on scroll
-  const io = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);} }), {threshold:0.07});
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-});
 </script>
 
 <script type="text/javascript" data-cfasync="false">

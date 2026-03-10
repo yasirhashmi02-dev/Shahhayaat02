@@ -461,6 +461,7 @@ body.nav-open{overflow:hidden}
 .nav-mobile-actions{display:flex;flex-direction:column;gap:.8rem;margin-top:auto}
 
 /* Light theme text overrides for ingredients */
+body { background: #F8F6F2 !important; color: #1C1C1C !important; }
 :root { --text-primary:#1C1C1C !important; --text-secondary:#3D3D3D !important; }
 body { color:#1C1C1C !important; }
 .herb-body, .herb-body p, .herb-body li { color:#3D3D3D !important; }
@@ -624,6 +625,7 @@ body { color:#1C1C1C !important; }
           
       </div>
     </div>
+  </div>
 <div class="herb-panel " id="herb-ashwagandha">
       <div class="herb-hero" style="--herb-color:#5C3D1E">
         <div class="herb-hero-icon">💪</div>
@@ -667,6 +669,7 @@ body { color:#1C1C1C !important; }
           
       </div>
     </div>
+  </div>
 <div class="herb-panel " id="herb-giloy">
       <div class="herb-hero" style="--herb-color:#1a5c30">
         <div class="herb-hero-icon">🛡️</div>
@@ -710,6 +713,7 @@ body { color:#1C1C1C !important; }
           
       </div>
     </div>
+  </div>
 <div class="herb-panel " id="herb-triphala">
       <div class="herb-hero" style="--herb-color:#8B5E3C">
         <div class="herb-hero-icon">🌿</div>
@@ -753,6 +757,7 @@ body { color:#1C1C1C !important; }
           
       </div>
     </div>
+  </div>
 <div class="herb-panel " id="herb-shankhpushpi">
       <div class="herb-hero" style="--herb-color:#2b4a7a">
         <div class="herb-hero-icon">🔵</div>
@@ -796,6 +801,7 @@ body { color:#1C1C1C !important; }
           
       </div>
     </div>
+  </div>
 <div class="herb-panel " id="herb-kutki">
       <div class="herb-hero" style="--herb-color:#5C3D1E">
         <div class="herb-hero-icon">🫀</div>
@@ -839,6 +845,7 @@ body { color:#1C1C1C !important; }
           
       </div>
     </div>
+  </div>
 <div class="herb-panel " id="herb-amla">
       <div class="herb-hero" style="--herb-color:#2d7a2d">
         <div class="herb-hero-icon">🟢</div>
@@ -882,6 +889,7 @@ body { color:#1C1C1C !important; }
           
       </div>
     </div>
+  </div>
 <div class="herb-panel " id="herb-karela">
       <div class="herb-hero" style="--herb-color:#2A5C2A">
         <div class="herb-hero-icon">🍃</div>
@@ -925,7 +933,8 @@ body { color:#1C1C1C !important; }
           
       </div>
     </div>
-  </main>
+    </div>
+</main>
 </div>
 
 <footer class="site-footer">
@@ -979,43 +988,27 @@ body { color:#1C1C1C !important; }
 <a href="#" class="back-top" id="back-top" aria-label="Back to top">↑</a>
 <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float" id="wa-float" aria-label="WhatsApp">💬</a>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" data-cfasync="false">
-document.getElementById('year').textContent = new Date().getFullYear();
-// Nav toggle
-const navToggle = document.querySelector('.nav-toggle');
-if(navToggle) navToggle.addEventListener('click',()=>{
-  const open = document.body.classList.toggle('nav-open');
-  navToggle.setAttribute('aria-expanded',String(open));
-});
-document.querySelectorAll('.nav-mobile a').forEach(a=>a.addEventListener('click',()=>setTimeout(()=>{document.body.classList.remove('nav-open');},320)));
-// Scroll
-window.addEventListener('scroll',()=>{
-  document.body.classList.toggle('scrolled',window.scrollY>60);
-  const bt=document.getElementById('back-top');
-  if(bt)bt.classList.toggle('show',window.scrollY>400);
-  const wa=document.getElementById('wa-float');
-  if(wa)wa.classList.toggle('show',window.scrollY>300);
-},{passive:true});
-// Reveal
-const io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobconst io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{threshold:0.07});
-document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>io.observe(el));
-// showHerb function
-function showHerb(id){
-  document.querySelectorAll('.herb-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.herb-tab').forEach(t=>t.classList.remove('active'));
-  const panel=document.getElementById('herb-'+id);
-  const tab=document.querySelector('.herb-tab[data-id="'+id+'"]');
-  if(panel){panel.classList.add('active');}
-  if(tab){tab.classList.add('active');tab.scrollIntoView({behavior:'smooth',block:'nearest'});}
-  // Re-observe reveals inside newly shown panel
-  if(panel){
-    panel.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>{
-      el.classList.remove('in');
-      setTimeout(()=>el.classList.add('in'),80);
-    });
+function showHerb(id) {
+  document.querySelectorAll('.herb-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.herb-tab').forEach(function(t) { t.classList.remove('active'); });
+  var panel = document.getElementById('herb-' + id);
+  var tab   = document.querySelector('.herb-tab[data-id="' + id + '"]');
+  if (panel) { panel.classList.add('active'); }
+  if (tab)   { tab.classList.add('active'); tab.scrollIntoView({behavior:'smooth', block:'nearest'}); }
+  if (panel) {
+    panel.scrollIntoView({behavior:'smooth', block:'start'});
   }
-  history.replaceState(null,'','?h='+id);
+  // Update URL hash
+  if (history.pushState) { history.pushState(null, null, '#' + id); }
 }
-// On load - check URL param
+// Open herb from URL hash on page load
+window.addEventListener('load', function() {
+  var hash = location.hash.replace('#','');
+  var validHerbs = ['brahmi','ashwagandha','giloy','triphala','shankhpushpi','kutki','amla','karela'];
+  if (hash && validHerbs.indexOf(hash) >= 0) {
+    showHerb(hash);
+  }
+});
 </script>
 <script type="text/javascript" data-cfasync="false">
 document.addEventListener('DOMContentLoaded',function(){
