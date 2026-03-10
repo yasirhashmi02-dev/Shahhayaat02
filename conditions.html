@@ -28,16 +28,16 @@
    ══════════════════════════════════════════════ */
 :root{
   /* Dark navy brand palette */
-  --navy-deep:#071830;
-  --navy-mid:#071830;
-  --navy-light:#0a1f3c;
-  --navy-bright:#1C2A3A;
+  --navy-deep:#1C1C1C;
+  --navy-mid:#B8860B;
+  --navy-light:#3B6449;
+  --navy-bright:#5A6A7E;
   /* Gold accents */
   --gold:#B8860B;
   --gold-light:#D4A017;
   --gold-pale:#FDF8E8;
   /* Surfaces */
-  --bg-cream:#0a1f3c;
+  --bg-cream:#F8F6F2;
   --bg-white:#FFFFFF;
   /* Text */
   --text-dark:#1C1C1C;
@@ -61,37 +61,37 @@
   --font-body:'DM Sans',system-ui,sans-serif;
 
   /* DARK THEME SURFACES */
-  --bg-dark:#071830;
-  --bg-surface:#0a1f3c;
-  --bg-card:#0e2448;
-  --bg-card-hover:#0e2d54;
-  --border-dark:rgba(255,255,255,0.08);
+  --bg-dark:#F8F6F2;
+  --bg-surface:#FFFFFF;
+  --bg-card:#FFFFFF;
+  --bg-card-hover:#F0EDE8;
+  --border-dark:rgba(0,0,0,0.1);
   --border-mid:#242D3D;
-  --text-primary:#E8ECF0;
-  --text-secondary:#A8B4C4;
+  --text-primary:#1C1C1C;
+  --text-secondary:#3D3D3D;
   --text-muted:#5A6A7E;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
-body{font-family:var(--font-body);background:#071830;color:var(--text-primary);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-body);background:#F8F6F2;color:#1C1C1C;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 ul{list-style:none}
 .container{max-width:1160px;margin:0 auto;padding:0 clamp(16px,4vw,28px)}
 .section{padding:clamp(60px,9vw,100px) 0}
 .section-sm{padding:clamp(36px,5vw,56px) 0}
-.bg-white{background:#0e2448}
-.bg-cream{background:var(--bg-dark)}
+.bg-white{background:#FFFFFF}
+.bg-cream{background:#F8F6F2}
 .bg-navy{background:linear-gradient(135deg,#071830 0%,#071830 55%,#071830 100%)}
 .text-center{text-align:center}
 
 /* TYPOGRAPHY */
-h1,h2,h3,h4{font-family:var(--font-head);line-height:1.12;letter-spacing:-0.015em;color:var(--text-primary)}
+h1,h2,h3,h4{font-family:var(--font-head);line-height:1.12;letter-spacing:-0.015em;color:#1C1C1C}
 h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700}
 h2{font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:700}
 h3{font-size:clamp(1.1rem,2vw,1.5rem);font-weight:700}
 h4{font-size:1rem;font-weight:700}
-p{color:var(--text-secondary);font-size:0.96rem;line-height:1.8}
+p{color:#3D3D3D;font-size:0.96rem;line-height:1.8}
 em.gold{font-style:italic;color:var(--gold-light)}
 .eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;display:block}
 
@@ -153,11 +153,11 @@ body.nav-open{overflow:hidden}
 .breadcrumb span{opacity:0.35}
 
 /* CARDS */
-.card{background:#0e2448;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);border:1px solid var(--border-dark);overflow:hidden;transition:transform 0.25s var(--ease),box-shadow 0.25s}
+.card{background:#FFFFFF;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.1);overflow:hidden;transition:transform 0.25s var(--ease),box-shadow 0.25s}
 .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
 
 /* CTA BANNER SECTIONS */
-.cta-section{background:linear-gradient(135deg,#071830 0%,#071830 55%,#071830 100%);padding:clamp(48px,7vw,80px) 0;position:relative;overflow:hidden;text-align:center}
+.cta-section{background:linear-gradient(135deg,#2A4633 0%,#3B6449 100%);padding:clamp(48px,7vw,80px) 0;position:relative}
 .cta-section h2{color:#fff;margin-bottom:0.8rem}
 .cta-section p{color:rgba(255,255,255,0.65);max-width:520px;margin:0 auto 2rem}
 
@@ -178,7 +178,7 @@ body.nav-open{overflow:hidden}
 .d1{transition-delay:0.1s}.d2{transition-delay:0.2s}.d3{transition-delay:0.3s}.d4{transition-delay:0.4s}
 
 /* FOOTER */
-.site-footer{background:#071830;padding:clamp(40px,6vw,72px) 0 0;border-top:3px solid var(--gold)}
+.site-footer{background:#F8F6F2;padding:clamp(40px,6vw,72px) 0 0;border-top:3px solid var(--gold)}
 .footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1.2fr;gap:2.5rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.06)}
 @media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
@@ -204,9 +204,9 @@ body.nav-open{overflow:hidden}
 .back-top.show{opacity:1;transform:none}
 
 /* PRODUCT MINI CARD */
-.prod-mini{background:#fff;border-radius:var(--radius);border:1px solid var(--border-dark);padding:1rem;display:flex;align-items:center;gap:1rem;transition:all 0.25s var(--ease);text-decoration:none}
+.prod-mini{background:#fff;border-radius:var(--radius);border:1px solid rgba(0,0,0,0.1);padding:1rem;display:flex;align-items:center;gap:1rem;transition:all 0.25s var(--ease);text-decoration:none}
 .prod-mini:hover{border-color:var(--gold);box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.prod-mini img{width:60px;height:60px;object-fit:contain;flex-shrink:0;border-radius:8px;background:var(--bg-dark);padding:4px}
+.prod-mini img{width:60px;height:60px;object-fit:contain;flex-shrink:0;border-radius:8px;background:#F8F6F2;padding:4px}
 .prod-mini-name{font-family:var(--font-head);font-weight:700;font-size:0.9rem;color:var(--navy-mid);margin-bottom:0.2rem}
 .prod-mini-tag{font-size:0.70rem;color:var(--text-muted)}
 
@@ -215,7 +215,7 @@ body.nav-open{overflow:hidden}
   
 :root{
   --green-dark:#071830;--green-mid:#1C2A3A;--green-light:#0284c7;
-  --bg-cream:#0a1f3c;--bg-white:#FFFFFF;
+  --bg-cream:#F8F6F2;--bg-white:#FFFFFF;
   --gold:#B8860B;--gold-light:#D4A017;--gold-pale:#FDF8E8;
   --text-dark:#1C1C1C;--text-mid:#3D3D3D;--text-muted:#6B6B6B;
   --border:#E4DDD4;--shadow-sm:0 4px 16px rgba(42,70,51,0.08);
@@ -225,20 +225,20 @@ body.nav-open{overflow:hidden}
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
-body{font-family:var(--font-body);background:var(--bg-dark);color:var(--text-primary);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-body);background:#F8F6F2;color:#1C1C1C;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img{max-width:100%;height:auto;display:block}a{color:inherit;text-decoration:none}ul{list-style:none}
 .container{max-width:1160px;margin:0 auto;padding:0 20px}
 .section{padding:clamp(56px,8vw,96px) 0}
 .section-sm{padding:clamp(36px,5vw,56px) 0}
-.bg-white{background:#0e2448}
-.bg-cream{background:var(--bg-dark)}
-.bg-forest{background:linear-gradient(160deg,#071830 0%,#071830 55%,#071830 100%)}
+.bg-white{background:#FFFFFF}
+.bg-cream{background:#F8F6F2}
+.bg-forest{background:linear-gradient(160deg,#2A4633 0%,#3B6449 100%)}
 .text-center{text-align:center}
 h1,h2,h3,h4{font-family:var(--font-head);line-height:1.15;letter-spacing:-0.01em}
 h1{font-size:clamp(2.2rem,5vw,3.8rem)}
 h2{font-size:clamp(1.6rem,3.5vw,2.6rem)}
 h3{font-size:clamp(1.1rem,2vw,1.55rem)}
-p{color:var(--text-secondary);font-size:0.97rem;line-height:1.8}
+p{color:#3D3D3D;font-size:0.97rem;line-height:1.8}
 .eyebrow{font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem}
 .btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.7rem 1.6rem;border-radius:50px;font-weight:700;font-size:0.88rem;letter-spacing:0.04em;transition:all 0.25s var(--ease);cursor:pointer;border:none;white-space:nowrap}
 .btn-primary{background:var(--navy-mid);color:#fff}.btn-primary:hover{background:var(--navy-light);transform:translateY(-2px);box-shadow:var(--shadow-md)}
@@ -287,7 +287,7 @@ body.nav-open{overflow:hidden}
 .reveal-r{opacity:0;transform:translateX(24px);transition:opacity 0.7s ease,transform 0.7s ease}.reveal-r.in{opacity:1;transform:none}
 .d1{transition-delay:0.1s}.d2{transition-delay:0.2s}.d3{transition-delay:0.3s}.d4{transition-delay:0.4s}
 /* FOOTER */
-.site-footer{background:linear-gradient(160deg,#071830 0%,#071830 100%);padding:clamp(48px,7vw,80px) 0 2rem;border-top:3px solid var(--gold)}
+.site-footer{background:#2A4633;padding:clamp(40px,6vw,72px) 0 0;border-top:3px solid var(--gold)}
 .footer-grid{display:grid;grid-template-columns:1.8fr repeat(3,1fr);gap:3rem;margin-bottom:3rem}
 @media(max-width:800px){.footer-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
@@ -303,12 +303,12 @@ body.nav-open{overflow:hidden}
 .footer-bottom p{font-size:0.76rem;color:rgba(255,255,255,0.3)}
 .footer-bottom a{font-size:0.76rem;color:rgba(255,255,255,0.35);transition:color 0.2s}.footer-bottom a:hover{color:var(--gold-light)}
 /* CARDS */
-.card{background:#0e2448;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);border:1px solid var(--border-dark);overflow:hidden;transition:transform 0.25s var(--ease),box-shadow 0.25s var(--ease)}
+.card{background:#FFFFFF;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.1);overflow:hidden;transition:transform 0.25s var(--ease),box-shadow 0.25s var(--ease)}
 .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
 /* PRODUCT CARDS */
-.prod-mini{background:#fff;border-radius:var(--radius);border:1px solid var(--border-dark);padding:1.2rem;display:flex;align-items:center;gap:1rem;transition:all 0.25s var(--ease)}
+.prod-mini{background:#fff;border-radius:var(--radius);border:1px solid rgba(0,0,0,0.1);padding:1.2rem;display:flex;align-items:center;gap:1rem;transition:all 0.25s var(--ease)}
 .prod-mini:hover{border-color:var(--gold);box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.prod-mini img{width:64px;height:64px;object-fit:contain;flex-shrink:0;border-radius:8px;background:var(--bg-dark);padding:4px}
+.prod-mini img{width:64px;height:64px;object-fit:contain;flex-shrink:0;border-radius:8px;background:#F8F6F2;padding:4px}
 .prod-mini-info{flex:1}.prod-mini-name{font-family:var(--font-head);font-weight:700;font-size:0.95rem;color:var(--navy-mid);margin-bottom:0.2rem}
 .prod-mini-tag{font-size:0.72rem;color:var(--text-muted)}
 /* WHATSAPP FLOAT */
@@ -320,19 +320,19 @@ body.nav-open{overflow:hidden}
 
 
   /* ── CONDITION PAGE SPECIFIC ── */
-  .cond-tabs-wrap{padding:1.5rem 0 0;background:#0e2448;border-bottom:2px solid var(--border);position:sticky;top:64px;z-index:100}
+  .cond-tabs-wrap{padding:1.5rem 0 0;background:#FFFFFF;border-bottom:2px solid var(--border);position:sticky;top:64px;z-index:100}
   .cond-tabs{display:flex;gap:0.5rem;overflow-x:auto;padding-bottom:0;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .cond-tabs::-webkit-scrollbar{display:none}
   .cond-tab{flex-shrink:0;display:flex;align-items:center;gap:0.5rem;padding:0.65rem 1.2rem;border-radius:8px 8px 0 0;background:transparent;border:none;border-bottom:3px solid transparent;cursor:pointer;font-family:var(--font-body);font-size:0.82rem;font-weight:600;color:var(--text-muted);transition:all 0.22s var(--ease);scroll-snap-align:start;margin-bottom:-2px}
-  .cond-tab:hover{color:var(--navy-mid);background:var(--bg-dark)}
-  .cond-tab.active{color:var(--navy-mid);border-bottom-color:var(--navy-mid);background:var(--bg-dark)}
+  .cond-tab:hover{color:var(--navy-mid);background:#F8F6F2}
+  .cond-tab.active{color:var(--navy-mid);border-bottom-color:#B8860B;background:#F8F6F2}
   .cond-tab-icon{font-size:1.1rem}
 
   .cond-panel{display:none}
   .cond-panel.active{display:block;animation:fadePanel 0.35s var(--ease)}
   @keyframes fadePanel{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-  .cond-hero-strip{background:linear-gradient(135deg,#071830 0%,#071830 60%,#071830 100%);padding:2.5rem;border-radius:var(--radius-lg);display:flex;gap:2rem;align-items:flex-start;margin-bottom:2.5rem}
+  .cond-hero-strip{background:linear-gradient(135deg,#F5F0E8 0%,#FDF8EE 100%);padding:2.5rem;border-radius:var(--radius-lg);display:flex;gap:2rem;align-items:flex-start;margin-bottom:2.5rem}
   @media(max-width:600px){.cond-hero-strip{flex-direction:column;gap:1rem;padding:1.5rem}}
   .cond-hero-icon{font-size:3.5rem;flex-shrink:0;margin-top:0.2rem}
   .cond-hero-strip .eyebrow{color:var(--gold-light)}
@@ -343,25 +343,25 @@ body.nav-open{overflow:hidden}
   @media(max-width:900px){.cond-body{grid-template-columns:1fr}}
   @media(max-width:900px){.cond-right{order:-1}}
 
-  .info-block{background:#0e2448;border-radius:var(--radius);border:1px solid var(--border-dark);padding:1.8rem;margin-bottom:1.2rem}
+  .info-block{background:#FFFFFF;border-radius:var(--radius);border:1px solid rgba(0,0,0,0.1);padding:1.8rem;margin-bottom:1.2rem}
   .info-block h3{font-family:var(--font-head);font-size:1.1rem;color:var(--navy-mid);margin-bottom:1rem}
   .check-list{display:flex;flex-direction:column;gap:0.5rem;padding-left:0}
-  .check-list li{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.9rem;color:var(--text-secondary);padding:0.3rem 0;border-bottom:1px solid var(--border-dark)}
+  .check-list li{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.9rem;color:#3D3D3D;padding:0.3rem 0;border-bottom:1px solid var(--border-dark)}
   .check-list li::before{content:'●';color:var(--navy-light);font-size:0.5rem;margin-top:0.35rem;flex-shrink:0}
   .check-list.causes li::before{color:#c0392b}
   .herb-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
   @media(max-width:500px){.herb-grid{grid-template-columns:1fr}}
-  .herb-card{display:flex;align-items:flex-start;gap:0.7rem;background:var(--bg-dark);border-radius:10px;padding:0.9rem;border:1px solid var(--border-dark)}
+  .herb-card{display:flex;align-items:flex-start;gap:0.7rem;background:#F8F6F2;border-radius:10px;padding:0.9rem;border:1px solid rgba(0,0,0,0.1)}
   .herb-icon{font-size:1.2rem;flex-shrink:0}
   .herb-card strong{display:block;font-size:0.88rem;color:var(--navy-mid);margin-bottom:0.25rem}
   .herb-card p{font-size:0.8rem;color:var(--text-muted);margin:0;line-height:1.5}
   .tip-list{display:flex;flex-direction:column;gap:0.5rem}
-  .tip-list li{display:flex;align-items:flex-start;gap:0.7rem;font-size:0.88rem;color:var(--text-secondary);padding:0.4rem 0;border-bottom:1px solid var(--border-dark)}
+  .tip-list li{display:flex;align-items:flex-start;gap:0.7rem;font-size:0.88rem;color:#3D3D3D;padding:0.4rem 0;border-bottom:1px solid var(--border-dark)}
   .tip-list li::before{content:'✦';color:var(--gold);font-size:0.65rem;margin-top:0.3rem;flex-shrink:0}
 
   .faq-list{display:flex;flex-direction:column;gap:0.5rem}
-  .faq-item{border:1px solid var(--border-dark);border-radius:10px;overflow:hidden}
-  .faq-q{width:100%;text-align:left;background:var(--bg-dark);border:none;padding:1rem 1.2rem;cursor:pointer;font-size:0.88rem;font-weight:600;color:var(--navy-mid);display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.2s}
+  .faq-item{border:1px solid rgba(0,0,0,0.1);border-radius:10px;overflow:hidden}
+  .faq-q{width:100%;text-align:left;background:#F8F6F2;border:none;padding:1rem 1.2rem;cursor:pointer;font-size:0.88rem;font-weight:600;color:var(--navy-mid);display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.2s}
   .faq-q:hover{background:#eee8e0}
   .faq-arr{font-size:0.8rem;transition:transform 0.3s;flex-shrink:0}
   .faq-item.open .faq-arr{transform:rotate(180deg)}
@@ -370,65 +370,32 @@ body.nav-open{overflow:hidden}
   .faq-a p{padding:1rem 1.2rem;font-size:0.86rem}
 
   /* Right sidebar cards */
-  .product-cta-card{background:#0e2448;border-radius:var(--radius-lg);border:2px solid var(--border);padding:1.8rem;text-align:center;position:sticky;top:130px;margin-bottom:1.2rem}
+  .product-cta-card{background:#FFFFFF;border-radius:var(--radius-lg);border:2px solid var(--border);padding:1.8rem;text-align:center;position:sticky;top:130px;margin-bottom:1.2rem}
   .pct-badge{display:inline-block;background:var(--gold-pale);color:var(--gold);font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:50px;border:1px solid rgba(184,134,11,0.2);margin-bottom:1rem}
-  .product-cta-card img{width:160px;height:160px;object-fit:contain;margin:0 auto 1rem;border-radius:12px;background:var(--bg-dark);padding:8px}
+  .product-cta-card img{width:160px;height:160px;object-fit:contain;margin:0 auto 1rem;border-radius:12px;background:#F8F6F2;padding:8px}
   .product-cta-card h3{font-size:1.2rem;color:var(--navy-mid);margin-bottom:0.5rem}
   .pct-desc{font-size:0.82rem;color:var(--text-muted);margin-bottom:1rem;line-height:1.6}
   .pct-price{font-family:var(--font-head);font-size:1.6rem;font-weight:700;color:var(--navy-mid);margin-bottom:1rem}
   .pct-price span{font-size:0.85rem;font-weight:400;color:var(--text-muted)}
   .pct-trust{display:flex;flex-direction:column;gap:0.3rem;margin-top:1.2rem;border-top:1px solid var(--border);padding-top:1rem}
   .pct-trust span{font-size:0.75rem;color:var(--text-muted)}
-  .quiz-cta-card{background:linear-gradient(135deg,#071830,#071830);border-radius:var(--radius);padding:1.5rem;text-align:center}
+  .quiz-cta-card{background:linear-gradient(135deg,#2A4633,#3B6449);border-radius:var(--radius);padding:1.5rem;text-align:center}
   .quiz-cta-card h4{font-family:var(--font-head);font-size:0.95rem;color:#fff;margin-bottom:0.5rem}
   .quiz-cta-card p{font-size:0.8rem;color:rgba(255,255,255,0.65);line-height:1.6}
 
   /* INTRO SECTION */
   .intro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:2rem}
-  .intro-stat{text-align:center;background:#0e2448;border-radius:var(--radius);border:1px solid var(--border-dark);padding:1.5rem}
-  .intro-stat-n{font-family:var(--font-head);font-size:2rem;font-weight:700;color:var(--navy-mid)}
-  .intro-stat-l{font-size:0.78rem;color:var(--text-muted);margin-top:0.3rem}
-  
-/* ── Canonical nav/header CSS ── */
-.site-header{position:fixed;top:0;left:0;right:0;z-index:900;padding:1rem 0;transition:all 0.35s ease}
-body.scrolled .site-header{background:rgba(7,24,48,0.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:0.7rem 0;box-shadow:0 2px 20px rgba(0,0,0,0.25)}
-.header-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.logo{display:flex;align-items:center;gap:0.75rem;font-family:var(--font-head,'Playfair Display',serif);font-size:1.15rem;color:#fff;flex-shrink:0;text-decoration:none}
-.logo img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(212,160,23,0.6)}
-.logo em{color:#D4A017;font-style:normal}
-.nav-desktop{display:none}
-@media(min-width:960px){.nav-desktop{display:flex;align-items:center;gap:0.1rem}}
-.nav-desktop a{padding:0.4rem 0.9rem;font-size:0.82rem;font-weight:500;color:rgba(255,255,255,0.72);border-radius:50px;transition:all 0.25s;text-decoration:none}
-.nav-desktop a:hover,.nav-desktop a.active{color:#fff;background:rgba(255,255,255,0.1)}
-.nav-cta-pill{display:none;align-items:center;padding:0.52rem 1.2rem;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border-radius:50px;font-size:0.76rem;font-weight:700;letter-spacing:0.06em;text-decoration:none;white-space:nowrap;animation:glowPulse 2.5s ease-in-out infinite alternate}
-@media(min-width:960px){.nav-cta-pill{display:inline-flex}}
-.nav-toggle{background:none;border:none;cursor:pointer;padding:6px;display:flex;flex-direction:column;gap:5px;z-index:1001;flex-shrink:0}
-.nav-toggle span{display:block;width:22px;height:2px;background:#fff;transition:all 0.28s;transform-origin:center}
-@media(min-width:960px){.nav-toggle{display:none}}
-body.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-body.nav-open .nav-toggle span:nth-child(2){opacity:0;transform:scaleX(0)}
-body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.nav-mobile{position:fixed;inset:0;z-index:950;background:linear-gradient(160deg,#071830 0%,#0a2040 100%);padding:5.5rem 2rem 2.5rem;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.45s cubic-bezier(0.76,0,0.24,1);overflow-y:auto}
-body.nav-open .nav-mobile{transform:none}
-body.nav-open{overflow:hidden}
-.nav-mobile-links{display:flex;flex-direction:column;gap:0.2rem;margin-bottom:2.5rem}
-.nav-mobile-links a{font-family:var(--font-head,'Playfair Display',serif);font-size:1.7rem;font-style:italic;color:rgba(255,255,255,0.65);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.06);transition:color 0.2s;text-decoration:none;display:block}
-.nav-mobile-links a:hover,.nav-mobile-links a.active{color:#fff}
-.nav-mobile-actions{display:flex;flex-direction:column;gap:0.8rem;margin-top:auto}
-.back-top{position:fixed;bottom:5.5rem;right:1.8rem;z-index:480;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;opacity:0;visibility:hidden;transition:all 0.3s;cursor:pointer;text-decoration:none}
-.back-top.show{opacity:1;visibility:visible}
-.wa-float{position:fixed;bottom:1.8rem;right:1.8rem;z-index:480;width:52px;height:52px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 20px rgba(37,211,102,0.35);opacity:0;pointer-events:none;text-decoration:none;transition:all 0.3s}
-.wa-float.show{opacity:1;pointer-events:auto}
-@keyframes glowPulse{0%{box-shadow:0 4px 16px rgba(212,160,23,0.30)}100%{box-shadow:0 4px 32px rgba(212,160,23,0.75),0 0 60px rgba(212,160,23,0.20)}}
-
-</style>
+  .intro-stat{text-align:center;background:#FFFFFF;border-radius:12px;border:1px solid rgba(0,0,0,0.08);padding:1.5rem 1rem;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+  .intro-stat-n{font-family:var(--font-head);font-size:2.5rem;font-weight:700;color:#B8860B;line-height:1}
+  .intro-stat-l{font-size:0.82rem;font-weight:600;color:#3D3D3D;margin-top:0.4rem;text-transform:uppercase;letter-spacing:0.05em}
+  </style>
 </head>
 <body>
 
 <header class="site-header" id="site-header">
   <div class="container header-inner">
     <a href="index.html" class="logo">
-      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="38" height="38" loading="eager" fetchpriority="high">
+      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="38" height="38" loading="eager">
       <span>Shah <em>Hayaat</em></span>
     </a>
     <nav class="nav-desktop" aria-label="Main navigation">
@@ -463,7 +430,6 @@ body.nav-open{overflow:hidden}
     <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center;display:flex">💬 WhatsApp Us</a>
   </div>
 </nav>
-
 <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -509,7 +475,7 @@ body.nav-open{overflow:hidden}
 </div>
 
 <!-- STATS BAR -->
-<div style="background:#0e2448;border-bottom:1px solid var(--border-dark);padding:1.2rem 0">
+<div style="background:#FFFFFF;border-bottom:1px solid var(--border-dark);padding:1.2rem 0">
   <div class="container">
     <div class="intro-grid">
       <div class="intro-stat"><div class="intro-stat-n">6</div><div class="intro-stat-l">Conditions Covered</div></div>
@@ -578,7 +544,7 @@ body.nav-open{overflow:hidden}
           </div>
           <div class="info-block reveal d2">
             <h3>🕉️ Ayurvedic Perspective</h3>
-            <p style="color:var(--text-secondary)">In Ayurvedic medicine, the brain is nourished through <strong>Medhya Rasayana</strong>, a class of herbs specifically formulated to enhance intellect (<em>Medha</em>), memory (<em>Smriti</em>), and concentration (<em>Dharana</em>). These adaptogens reduce cortisol, increase acetylcholine activity, and promote neurogenesis, all validated by modern research.</p>
+            <p style="color:#3D3D3D">In Ayurvedic medicine, the brain is nourished through <strong>Medhya Rasayana</strong>, a class of herbs specifically formulated to enhance intellect (<em>Medha</em>), memory (<em>Smriti</em>), and concentration (<em>Dharana</em>). These adaptogens reduce cortisol, increase acetylcholine activity, and promote neurogenesis, all validated by modern research.</p>
           </div>
           <div class="info-block reveal d3">
             <h3>🌿 Key Herbs Used</h3>
@@ -598,8 +564,8 @@ body.nav-open{overflow:hidden}
         <div class="cond-right">
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Memory & Brain</div>
-            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg" alt="Brain Champ"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg';this.onerror=null"
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg" alt="Brain Champ"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Brain Champ</h3>
             <p class="pct-desc">Our flagship brain tonic combines all four Medhya Rasayana herbs in clinically appropriate doses, formulated specifically for Indian brain health needs.</p>
@@ -645,7 +611,7 @@ body.nav-open{overflow:hidden}
           </div>
           <div class="info-block reveal d2">
             <h3>🕉️ Ayurvedic Perspective</h3>
-            <p style="color:var(--text-secondary)">Ayurveda's approach to liver healing is called <strong>Yakrit Rakshana</strong>, liver protection. Bitter herbs like Kutki, Bhumi Amla, and Punarnava work by stimulating bile production, reducing liver inflammation, and promoting hepatocyte regeneration. This is backed by extensive clinical research including trials published in the Journal of Ethnopharmacology.</p>
+            <p style="color:#3D3D3D">Ayurveda's approach to liver healing is called <strong>Yakrit Rakshana</strong>, liver protection. Bitter herbs like Kutki, Bhumi Amla, and Punarnava work by stimulating bile production, reducing liver inflammation, and promoting hepatocyte regeneration. This is backed by extensive clinical research including trials published in the Journal of Ethnopharmacology.</p>
           </div>
           <div class="info-block reveal d3">
             <h3>🌿 Key Herbs Used</h3>
@@ -665,8 +631,8 @@ body.nav-open{overflow:hidden}
         <div class="cond-right">
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Liver Health</div>
-            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg" alt="Livo Hayaat"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg';this.onerror=null"
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg.jpg" alt="Livo Hayaat"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Livo Hayaat</h3>
             <p class="pct-desc">Livo Hayaat contains the complete Yakrit Rakshana herb complex in therapeutic doses, specifically formulated for the modern Indian liver under metabolic stress.</p>
@@ -712,7 +678,7 @@ body.nav-open{overflow:hidden}
           </div>
           <div class="info-block reveal d2">
             <h3>🕉️ Ayurvedic Perspective</h3>
-            <p style="color:var(--text-secondary)">Ayurveda treats poor digestion by rebuilding <strong>Agni</strong>, the digestive fire. Digestive enzymes (<em>Pachaka Pitta</em>) are restored using carminative herbs that reduce gas, bitters that stimulate enzyme production, and probiotics that restore the <em>Srotas</em> (gut channels).</p>
+            <p style="color:#3D3D3D">Ayurveda treats poor digestion by rebuilding <strong>Agni</strong>, the digestive fire. Digestive enzymes (<em>Pachaka Pitta</em>) are restored using carminative herbs that reduce gas, bitters that stimulate enzyme production, and probiotics that restore the <em>Srotas</em> (gut channels).</p>
           </div>
           <div class="info-block reveal d3">
             <h3>🌿 Key Herbs Used</h3>
@@ -732,8 +698,8 @@ body.nav-open{overflow:hidden}
         <div class="cond-right">
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Digestion</div>
-            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/shahzyme1.jpg" alt="Shah Zyme"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/shahzyme1.jpg';this.onerror=null"
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/shahzyme1.jpg.jpg" alt="Shah Zyme"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/shahzyme1.jpg.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Shah Zyme</h3>
             <p class="pct-desc">Shah Zyme is a comprehensive digestive enzyme syrup combining 18 enzyme complexes with traditional Ayurvedic carminatives, for complete digestive support.</p>
@@ -779,7 +745,7 @@ body.nav-open{overflow:hidden}
           </div>
           <div class="info-block reveal d2">
             <h3>🕉️ Ayurvedic Perspective</h3>
-            <p style="color:var(--text-secondary)">Ayurveda's approach to arthritis (<em>Amavata</em>) focuses on two stages: <strong>Ama Pachana</strong> (toxin digestion) using digestive herbs, and <strong>Vata Shamana</strong> (anti-inflammatory action) using warming, lubricating herbs. Modern studies confirm Boswellia's anti-inflammatory action equals ibuprofen, without gastric damage.</p>
+            <p style="color:#3D3D3D">Ayurveda's approach to arthritis (<em>Amavata</em>) focuses on two stages: <strong>Ama Pachana</strong> (toxin digestion) using digestive herbs, and <strong>Vata Shamana</strong> (anti-inflammatory action) using warming, lubricating herbs. Modern studies confirm Boswellia's anti-inflammatory action equals ibuprofen, without gastric damage.</p>
           </div>
           <div class="info-block reveal d3">
             <h3>🌿 Key Herbs Used</h3>
@@ -799,8 +765,8 @@ body.nav-open{overflow:hidden}
         <div class="cond-right">
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Joint Pain</div>
-            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg" alt="Ortho Hayaat"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg';this.onerror=null"
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg.jpg" alt="Ortho Hayaat"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Ortho Hayaat</h3>
             <p class="pct-desc">Ortho Hayaat combines Shallaki, Ashwagandha, and classical Vata-pacifying herbs in anti-inflammatory doses validated by peer-reviewed research.</p>
@@ -846,7 +812,7 @@ body.nav-open{overflow:hidden}
           </div>
           <div class="info-block reveal d2">
             <h3>🕉️ Ayurvedic Perspective</h3>
-            <p style="color:var(--text-secondary)">Ayurveda addresses Madhumeha through <strong>Tikta Rasa Dravya</strong> (bitter herbs) that enhance insulin sensitivity, <strong>Kapha-pacifying</strong> treatments that reduce obesity, and specific herbs shown to stimulate pancreatic beta cell regeneration, a mechanism now being studied in clinical trials.</p>
+            <p style="color:#3D3D3D">Ayurveda addresses Madhumeha through <strong>Tikta Rasa Dravya</strong> (bitter herbs) that enhance insulin sensitivity, <strong>Kapha-pacifying</strong> treatments that reduce obesity, and specific herbs shown to stimulate pancreatic beta cell regeneration, a mechanism now being studied in clinical trials.</p>
           </div>
           <div class="info-block reveal d3">
             <h3>🌿 Key Herbs Used</h3>
@@ -866,8 +832,8 @@ body.nav-open{overflow:hidden}
         <div class="cond-right">
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Blood Sugar</div>
-            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg" alt="Dia-Ease"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg';this.onerror=null"
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg.jpg" alt="Dia-Ease"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Dia-Ease</h3>
             <p class="pct-desc">Dia-Ease is a comprehensive Ayurvedic blood sugar support formula, combining all four key anti-diabetic herb complexes in research-backed therapeutic doses.</p>
@@ -913,7 +879,7 @@ body.nav-open{overflow:hidden}
           </div>
           <div class="info-block reveal d2">
             <h3>🕉️ Ayurvedic Perspective</h3>
-            <p style="color:var(--text-secondary)">Ayurveda builds immunity through <strong>Rasayana therapy</strong>, a rejuvenation branch that strengthens all seven Dhatus (body tissues) systematically. Adaptogenic herbs regulate cortisol, polysaccharides stimulate Natural Killer cell activity, and antioxidant-rich herbs protect cells from free radical damage.</p>
+            <p style="color:#3D3D3D">Ayurveda builds immunity through <strong>Rasayana therapy</strong>, a rejuvenation branch that strengthens all seven Dhatus (body tissues) systematically. Adaptogenic herbs regulate cortisol, polysaccharides stimulate Natural Killer cell activity, and antioxidant-rich herbs protect cells from free radical damage.</p>
           </div>
           <div class="info-block reveal d3">
             <h3>🌿 Key Herbs Used</h3>
@@ -933,8 +899,8 @@ body.nav-open{overflow:hidden}
         <div class="cond-right">
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Immunity</div>
-            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/fevodol1.jpg" alt="Fevodol"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/fevodol1.jpg';this.onerror=null"
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/fevodol1.jpg.jpg" alt="Fevodol"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/fevodol1.jpg.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Fevodol</h3>
             <p class="pct-desc">Fevodol combines India's most powerful immune-building herbs in the classical Rasayana tradition, formulated to rebuild Ojas from the cellular level upward.</p>
@@ -973,15 +939,12 @@ body.nav-open{overflow:hidden}
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo">
-          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy">
-          <span>Shah <em>Hayaat</em></span>
-        </a>
-        <p>WHO · GMP · ISO 9001:2015 · HACCP certified Ayurvedic medicines. Pure herbs, modern science.</p>
+        <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy"><span>Shah <em>Hayaat</em></span></a>
+        <p>WHO · GMP · ISO 9001:2015 · HACCP certified Ayurvedic medicines.</p>
         <div class="footer-socials">
-          <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
-          <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
-          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon" aria-label="Email">✉️</a>
+          <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon">📷</a>
+          <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon">💬</a>
+          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon">✉️</a>
         </div>
       </div>
       <div class="footer-col"><h4>Navigation</h4><ul>
@@ -1010,55 +973,47 @@ body.nav-open{overflow:hidden}
       </ul></div>
     </div>
     <div class="footer-bottom">
-      <p>© <span id="yr"></span> Shah Hayaat. All Rights Reserved. &nbsp;·&nbsp; WHO · GMP · ISO 9001:2015 · HACCP</p>
-      <div style="display:flex;gap:1rem;flex-wrap:wrap">
-        <a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a>
-      </div>
+      <p>© <span id="yr"></span> Shah Hayaat. All rights reserved. · WHO · GMP · ISO 9001:2015 · HACCP</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>
     </div>
   </div>
 </footer>
 
 <script>
 function showCond(id) {
-  document.querySelectorAll('.cond-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.cond-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('cond-' + id).classList.add('active');
-  document.querySelector('[data-id="' + id + '"]').classList.add('active');
-  // Update URL without reload
+  document.querySelectorAll('.cond-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.cond-tab').forEach(function(t){ t.classList.remove('active'); });
+  var panel = document.getElementById('cond-' + id);
+  var tab   = document.querySelector('[data-id="' + id + '"]');
+  if(panel){ panel.classList.add('active'); }
+  if(tab){   tab.classList.add('active'); }
   history.replaceState(null, '', '?c=' + id);
-  // Trigger reveal animations
-  setTimeout(() => {
-    document.querySelectorAll('#cond-' + id + ' .reveal, #cond-' + id + ' .reveal-r').forEach(el => el.classList.add('in'));
+  setTimeout(function(){
+    document.querySelectorAll('#cond-' + id + ' .reveal, #cond-' + id + ' .reveal-r')
+      .forEach(function(el){ el.classList.add('in'); });
+  }, 80);
+}
+// Check URL on load
+(function(){
+  var p = new URLSearchParams(location.search).get('c');
+  if(p) showCond(p);
+})();
 </script>
 <script>
 (function(){
-  ['yr','year','yr-footer'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.textContent=new Date().getFullYear();
-  });
-  var toggle=document.getElementById('nav-toggle');
-  var mobile=document.getElementById('nav-mobile');
-  if(toggle && mobile){
-    toggle.addEventListener('click',function(){
-      var open=document.body.classList.toggle('nav-open');
-      toggle.setAttribute('aria-expanded',String(open));
-    });
-    mobile.querySelectorAll('a').forEach(function(a){
-      a.addEventListener('click',function(){
-        setTimeout(function(){
-          document.body.classList.remove('nav-open');
-          toggle.setAttribute('aria-expanded','false');
-        },300);
-      });
-    });
+  ['yr','year'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=new Date().getFullYear();});
+  var t=document.getElementById('nav-toggle');
+  var m=document.getElementById('nav-mobile');
+  if(t&&m){
+    t.addEventListener('click',function(){var o=document.body.classList.toggle('nav-open');t.setAttribute('aria-expanded',String(o));});
+    m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setTimeout(function(){document.body.classList.remove('nav-open');t.setAttribute('aria-expanded','false');},300);});});
   }
   window.addEventListener('scroll',function(){
     document.body.classList.toggle('scrolled',window.scrollY>60);
-    var bt=document.getElementById('back-top'); if(bt) bt.classList.toggle('show',window.scrollY>400);
-    var wa=document.getElementById('wa-float'); if(wa) wa.classList.toggle('show',window.scrollY>300);
+    var bt=document.getElementById('back-top');if(bt)bt.classList.toggle('show',window.scrollY>400);
+    var wa=document.getElementById('wa-float');if(wa)wa.classList.toggle('show',window.scrollY>300);
   },{passive:true});
-  var rio=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}});
-  },{threshold:0.06,rootMargin:'0px 0px -20px 0px'});
+  var rio=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}});},{threshold:.06,rootMargin:'0px 0px -20px 0px'});
   document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){rio.observe(el);});
 })();
 </script>
