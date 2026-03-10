@@ -388,7 +388,19 @@ body.nav-open{overflow:hidden}
   .intro-stat{text-align:center;background:#FFFFFF;border-radius:12px;border:1px solid rgba(0,0,0,0.08);padding:1.5rem 1rem;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
   .intro-stat-n{font-family:var(--font-head);font-size:2.5rem;font-weight:700;color:#B8860B;line-height:1}
   .intro-stat-l{font-size:0.82rem;font-weight:600;color:#3D3D3D;margin-top:0.4rem;text-transform:uppercase;letter-spacing:0.05em}
-  </style>
+  
+/* ── Nav toggle bulletproof ── */
+.nav-toggle {
+  position: relative !important;
+  z-index: 1001 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+.site-header {
+  z-index: 1000 !important;
+}
+
+</style>
 </head>
 <body>
 
@@ -450,7 +462,7 @@ body.nav-open{overflow:hidden}
       <div class="intro-stat"><div class="intro-stat-n">6</div><div class="intro-stat-l">Conditions Covered</div></div>
       <div class="intro-stat"><div class="intro-stat-n">12+</div><div class="intro-stat-l">Ayurvedic Herbs Explained</div></div>
       <div class="intro-stat"><div class="intro-stat-n">2,500</div><div class="intro-stat-l">Years of Ayurvedic Knowledge</div></div>
-      <div class="intro-stat"><div class="intro-stat-n">WHO-GMP</div><div class="intro-stat-l">Certified Formulations</div></div>
+      <div class="intro-stat"><div class="intro-stat-n">WHO · GMP</div><div class="intro-stat-l">Certified Formulations</div></div>
     </div>
   </div>
 </div>
@@ -533,8 +545,8 @@ body.nav-open{overflow:hidden}
         <div class="cond-right">
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Memory & Brain</div>
-            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg" alt="Brain Champ"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg.jpg';this.onerror=null"
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg" alt="Brain Champ"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Brain Champ</h3>
             <p class="pct-desc">Our flagship brain tonic combines all four Medhya Rasayana herbs in clinically appropriate doses, formulated specifically for Indian brain health needs.</p>
@@ -542,7 +554,7 @@ body.nav-open{overflow:hidden}
             <a href="https://wa.me/917051056287?text={}" onclick="this.href='https://wa.me/917051056287?text='+encodeURIComponent('Hi! I want to order Brain Champ for Memory & Brain, ₹175')" class="btn btn-wa" style="width:100%;justify-content:center">💬 Order on WhatsApp</a>
             <a href="product-detail.html?id=brainchamp" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:0.7rem">View Full Details →</a>
             <div class="pct-trust">
-              <span>✓ WHO-GMP Certified</span>
+              <span>✓ WHO · GMP Certified</span>
               <span>✓ 100% Natural</span>
               <span>✓ No Side Effects</span>
             </div>
@@ -600,8 +612,8 @@ body.nav-open{overflow:hidden}
         <div class="cond-right">
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Liver Health</div>
-            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg.jpg" alt="Livo Hayaat"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg.jpg';this.onerror=null"
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg" alt="Livo Hayaat"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Livo Hayaat</h3>
             <p class="pct-desc">Livo Hayaat contains the complete Yakrit Rakshana herb complex in therapeutic doses, specifically formulated for the modern Indian liver under metabolic stress.</p>
@@ -609,7 +621,7 @@ body.nav-open{overflow:hidden}
             <a href="https://wa.me/917051056287?text={}" onclick="this.href='https://wa.me/917051056287?text='+encodeURIComponent('Hi! I want to order Livo Hayaat for Liver Health, ₹349')" class="btn btn-wa" style="width:100%;justify-content:center">💬 Order on WhatsApp</a>
             <a href="product-detail.html?id=livohayaat" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:0.7rem">View Full Details →</a>
             <div class="pct-trust">
-              <span>✓ WHO-GMP Certified</span>
+              <span>✓ WHO · GMP Certified</span>
               <span>✓ 100% Natural</span>
               <span>✓ No Side Effects</span>
             </div>
@@ -667,8 +679,8 @@ body.nav-open{overflow:hidden}
         <div class="cond-right">
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Digestion</div>
-            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/shahzyme1.jpg.jpg" alt="Shah Zyme"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/shahzyme1.jpg.jpg';this.onerror=null"
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/shahzyme1.jpg" alt="Shah Zyme"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/shahzyme1.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Shah Zyme</h3>
             <p class="pct-desc">Shah Zyme is a comprehensive digestive enzyme syrup combining 18 enzyme complexes with traditional Ayurvedic carminatives, for complete digestive support.</p>
@@ -676,7 +688,7 @@ body.nav-open{overflow:hidden}
             <a href="https://wa.me/917051056287?text={}" onclick="this.href='https://wa.me/917051056287?text='+encodeURIComponent('Hi! I want to order Shah Zyme for Digestion, ₹165')" class="btn btn-wa" style="width:100%;justify-content:center">💬 Order on WhatsApp</a>
             <a href="product-detail.html?id=shahzyme" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:0.7rem">View Full Details →</a>
             <div class="pct-trust">
-              <span>✓ WHO-GMP Certified</span>
+              <span>✓ WHO · GMP Certified</span>
               <span>✓ 100% Natural</span>
               <span>✓ No Side Effects</span>
             </div>
@@ -734,8 +746,8 @@ body.nav-open{overflow:hidden}
         <div class="cond-right">
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Joint Pain</div>
-            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg.jpg" alt="Ortho Hayaat"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg.jpg';this.onerror=null"
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg" alt="Ortho Hayaat"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Ortho Hayaat</h3>
             <p class="pct-desc">Ortho Hayaat combines Shallaki, Ashwagandha, and classical Vata-pacifying herbs in anti-inflammatory doses validated by peer-reviewed research.</p>
@@ -743,7 +755,7 @@ body.nav-open{overflow:hidden}
             <a href="https://wa.me/917051056287?text={}" onclick="this.href='https://wa.me/917051056287?text='+encodeURIComponent('Hi! I want to order Ortho Hayaat for Joint Pain, ₹649')" class="btn btn-wa" style="width:100%;justify-content:center">💬 Order on WhatsApp</a>
             <a href="product-detail.html?id=orthohayaat" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:0.7rem">View Full Details →</a>
             <div class="pct-trust">
-              <span>✓ WHO-GMP Certified</span>
+              <span>✓ WHO · GMP Certified</span>
               <span>✓ 100% Natural</span>
               <span>✓ No Side Effects</span>
             </div>
@@ -801,8 +813,8 @@ body.nav-open{overflow:hidden}
         <div class="cond-right">
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Blood Sugar</div>
-            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg.jpg" alt="Dia-Ease"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg.jpg';this.onerror=null"
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg" alt="Dia-Ease"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Dia-Ease</h3>
             <p class="pct-desc">Dia-Ease is a comprehensive Ayurvedic blood sugar support formula, combining all four key anti-diabetic herb complexes in research-backed therapeutic doses.</p>
@@ -810,7 +822,7 @@ body.nav-open{overflow:hidden}
             <a href="https://wa.me/917051056287?text={}" onclick="this.href='https://wa.me/917051056287?text='+encodeURIComponent('Hi! I want to order Dia-Ease for Blood Sugar, ₹695')" class="btn btn-wa" style="width:100%;justify-content:center">💬 Order on WhatsApp</a>
             <a href="product-detail.html?id=diaease" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:0.7rem">View Full Details →</a>
             <div class="pct-trust">
-              <span>✓ WHO-GMP Certified</span>
+              <span>✓ WHO · GMP Certified</span>
               <span>✓ 100% Natural</span>
               <span>✓ No Side Effects</span>
             </div>
@@ -868,8 +880,8 @@ body.nav-open{overflow:hidden}
         <div class="cond-right">
           <div class="product-cta-card reveal-r">
             <div class="pct-badge">Recommended for Immunity</div>
-            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/fevodol1.jpg.jpg" alt="Fevodol"
-                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/fevodol1.jpg.jpg';this.onerror=null"
+            <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/fevodol1.jpg" alt="Fevodol"
+                 onerror="this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/fevodol1.jpg';this.onerror=null"
                  loading="lazy">
             <h3>Fevodol</h3>
             <p class="pct-desc">Fevodol combines India's most powerful immune-building herbs in the classical Rasayana tradition, formulated to rebuild Ojas from the cellular level upward.</p>
@@ -877,7 +889,7 @@ body.nav-open{overflow:hidden}
             <a href="https://wa.me/917051056287?text={}" onclick="this.href='https://wa.me/917051056287?text='+encodeURIComponent('Hi! I want to order Fevodol for Immunity, ₹165')" class="btn btn-wa" style="width:100%;justify-content:center">💬 Order on WhatsApp</a>
             <a href="product-detail.html?id=fevodol" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:0.7rem">View Full Details →</a>
             <div class="pct-trust">
-              <span>✓ WHO-GMP Certified</span>
+              <span>✓ WHO · GMP Certified</span>
               <span>✓ 100% Natural</span>
               <span>✓ No Side Effects</span>
             </div>
@@ -899,7 +911,7 @@ body.nav-open{overflow:hidden}
   <div class="container text-center">
     <div class="eyebrow" style="color:var(--gold-light)">Full Product Range</div>
     <h2 style="color:#fff;margin:0.7rem auto 1rem">Browse All 12 Shah Hayaat Products</h2>
-    <p style="color:rgba(255,255,255,0.65);max-width:500px;margin:0 auto 1.8rem">Every product is WHO-GMP certified, 100% natural, and formulated by certified Ayurvedic physicians.</p>
+    <p style="color:rgba(255,255,255,0.65);max-width:500px;margin:0 auto 1.8rem">Every product is WHO & GMP certified, 100% natural, and formulated by certified Ayurvedic physicians.</p>
     <a href="products.html" class="btn btn-gold">View All Products →</a>
   </div>
 </div>
@@ -969,22 +981,55 @@ function showCond(id) {
 })();
 </script>
 <script>
-(function(){
-  ['yr','year'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=new Date().getFullYear();});
-  var t=document.getElementById('nav-toggle');
-  var m=document.getElementById('nav-mobile');
-  if(t&&m){
-    t.addEventListener('click',function(){var o=document.body.classList.toggle('nav-open');t.setAttribute('aria-expanded',String(o));});
-    m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setTimeout(function(){document.body.classList.remove('nav-open');t.setAttribute('aria-expanded','false');},300);});});
+document.addEventListener('DOMContentLoaded', function() {
+  var t = document.getElementById('nav-toggle');
+  var m = document.getElementById('nav-mobile');
+  if (t && m) {
+    t.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var open = document.body.classList.toggle('nav-open');
+      t.setAttribute('aria-expanded', String(open));
+    });
+    m.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        setTimeout(function() {
+          document.body.classList.remove('nav-open');
+          t.setAttribute('aria-expanded', 'false');
+        }, 300);
+      });
+    });
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (document.body.classList.contains('nav-open') &&
+          !m.contains(e.target) && !t.contains(e.target)) {
+        document.body.classList.remove('nav-open');
+        t.setAttribute('aria-expanded', 'false');
+      }
+    });
   }
-  window.addEventListener('scroll',function(){
-    document.body.classList.toggle('scrolled',window.scrollY>60);
-    var bt=document.getElementById('back-top');if(bt)bt.classList.toggle('show',window.scrollY>400);
-    var wa=document.getElementById('wa-float');if(wa)wa.classList.toggle('show',window.scrollY>300);
-  },{passive:true});
-  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}});},{threshold:.06,rootMargin:'0px 0px -20px 0px'});
-  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){rio.observe(el);});
-})();
+  // Scroll behaviors
+  window.addEventListener('scroll', function() {
+    document.body.classList.toggle('scrolled', window.scrollY > 60);
+    var bt = document.getElementById('back-top');
+    if (bt) bt.classList.toggle('show', window.scrollY > 400);
+    var wa = document.getElementById('wa-float');
+    if (wa) wa.classList.toggle('show', window.scrollY > 300);
+  }, {passive: true});
+  // Reveal on scroll
+  var rio = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); }
+    });
+  }, {threshold: 0.06, rootMargin: '0px 0px -20px 0px'});
+  document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(function(el) {
+    rio.observe(el);
+  });
+  // Year spans
+  ['yr','year','yr-footer'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = new Date().getFullYear();
+  });
+});
 </script>
 </body>
 </html>

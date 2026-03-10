@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>All Ayurvedic Medicines, Brain, Liver, Joints, Digestion | Shah Hayaat</title>
-<meta name="description" content="Shop 12+ WHO-GMP & ISO certified Ayurvedic medicines: Brain Champ, Livo Hayaat, Ortho Hayaat, Shah Zyme, Dia-Ease and more. 100% herbal, safe & effective. Order on WhatsApp.">
+<meta name="description" content="Shop 12+ WHO · GMP & ISO certified Ayurvedic medicines: Brain Champ, Livo Hayaat, Ortho Hayaat, Shah Zyme, Dia-Ease and more. 100% herbal, safe & effective. Order on WhatsApp.">
 <meta name="keywords" content="ayurvedic medicine online India, herbal syrup, liver ayurvedic medicine, brain booster ayurveda, joint pain ayurvedic, blood purifier, digestion syrup">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://www.shahhayaat.com/products.html">
@@ -246,6 +246,18 @@ body.nav-open{overflow:hidden}
 .nav-mobile-links a:hover,.nav-mobile-links a.active{color:#fff}
 .nav-mobile-actions{display:flex;flex-direction:column;gap:0.8rem;margin-top:auto}
 @keyframes glowPulse{0%{box-shadow:0 4px 16px rgba(212,160,23,0.30)}100%{box-shadow:0 4px 32px rgba(212,160,23,0.75),0 0 60px rgba(212,160,23,0.20)}}
+
+
+/* ── Nav toggle bulletproof ── */
+.nav-toggle {
+  position: relative !important;
+  z-index: 1001 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+.site-header {
+  z-index: 1000 !important;
+}
 
 </style>
 </head>
@@ -499,38 +511,55 @@ setTimeout(function(){
   });
 }, 800);
 </script><script>
-(function(){
-  /* Year spans */
-  ['yr','year','yr-footer'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.textContent=new Date().getFullYear();
-  });
-  /* Nav toggle */
-  var toggle=document.getElementById('nav-toggle');
-  var mobile=document.getElementById('nav-mobile');
-  if(toggle && mobile){
-    toggle.addEventListener('click',function(){
-      var open=document.body.classList.toggle('nav-open');
-      toggle.setAttribute('aria-expanded',String(open));
+document.addEventListener('DOMContentLoaded', function() {
+  var t = document.getElementById('nav-toggle');
+  var m = document.getElementById('nav-mobile');
+  if (t && m) {
+    t.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var open = document.body.classList.toggle('nav-open');
+      t.setAttribute('aria-expanded', String(open));
     });
-    mobile.querySelectorAll('a').forEach(function(a){
-      a.addEventListener('click',function(){
-        setTimeout(function(){
+    m.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        setTimeout(function() {
           document.body.classList.remove('nav-open');
-          toggle.setAttribute('aria-expanded','false');
-        },300);
+          t.setAttribute('aria-expanded', 'false');
+        }, 300);
       });
     });
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (document.body.classList.contains('nav-open') &&
+          !m.contains(e.target) && !t.contains(e.target)) {
+        document.body.classList.remove('nav-open');
+        t.setAttribute('aria-expanded', 'false');
+      }
+    });
   }
-  /* Scroll: header bg + back-to-top + WhatsApp float */
-  window.addEventListener('scroll',function(){
-    document.body.classList.toggle('scrolled',window.scrollY>60);
-    var bt=document.getElementById('back-top'); if(bt) bt.classList.toggle('show',window.scrollY>400);
-    var wa=document.getElementById('wa-float'); if(wa) wa.classList.toggle('show',window.scrollY>300);
-  },{passive:true});
-  /* Reveal on scroll */
-  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}});},{threshold:.06,rootMargin:'0px 0px -20px 0px'});
-  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){rio.observe(el);});
-})();
+  // Scroll behaviors
+  window.addEventListener('scroll', function() {
+    document.body.classList.toggle('scrolled', window.scrollY > 60);
+    var bt = document.getElementById('back-top');
+    if (bt) bt.classList.toggle('show', window.scrollY > 400);
+    var wa = document.getElementById('wa-float');
+    if (wa) wa.classList.toggle('show', window.scrollY > 300);
+  }, {passive: true});
+  // Reveal on scroll
+  var rio = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); }
+    });
+  }, {threshold: 0.06, rootMargin: '0px 0px -20px 0px'});
+  document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(function(el) {
+    rio.observe(el);
+  });
+  // Year spans
+  ['yr','year','yr-footer'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = new Date().getFullYear();
+  });
+});
 </script>
 </body>
 </html>
