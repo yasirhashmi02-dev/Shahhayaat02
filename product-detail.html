@@ -496,7 +496,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
-          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon" aria-label="Email">✉️</a>
+          <a href="/cdn-cgi/l/email-protection#6a19020b02020b130b0b1e5a582a0d070b030644090507" class="soc-icon" aria-label="Email">✉️</a>
         </div>
       </div>
       <div class="footer-col"><h4>Navigation</h4><ul>
@@ -517,7 +517,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
         <li><a href="products.html">View All 12 →</a></li>
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
-        <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#81f2e9e0e9e9e0f8e0e0f5b1b3c1e6ece0e8edafe2eeec"><span class="__cf_email__" data-cfemail="d0a3b8b1b8b8b1a9b1b1a4e0e290b7bdb1b9bcfeb3bfbd">[email&#160;protected]</span></a></li>
         <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
         <li><a href="https://wa.me/919107028786" target="_blank">+91 91070 28786</a></li>
         <li><a href="https://wa.me/916006866325" target="_blank">+91 60068 66325</a></li>
@@ -538,7 +538,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 
 
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
   document.querySelectorAll('#yr,#year,#yr-footer').forEach(function(el){ el.textContent = new Date().getFullYear(); });
   var toggle = document.getElementById('nav-toggle');
@@ -562,6 +562,10 @@ body.nav-open .nav-mobile{transform:translateX(0)}
   var rio = new IntersectionObserver(function(entries){
     entries
 
+entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}});},{threshold:.06,rootMargin:'0px 0px -20px 0px'});
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){rio.observe(el);});
+})();
+</script>
 <script>
 (function(){
   /* Year spans */
@@ -592,9 +596,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
     var wa=document.getElementById('wa-float'); if(wa) wa.classList.toggle('show',window.scrollY>300);
   },{passive:true});
   /* Reveal on scroll */
-  var rio=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}});
-  },{threshold:0.06,rootMargin:'0px 0px -20px 0px'});
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}});},{threshold:.06,rootMargin:'0px 0px -20px 0px'});
   document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){rio.observe(el);});
 })();
 </script>

@@ -206,9 +206,24 @@ body.nav-open{overflow:hidden}
 .herb-tab.active .herb-tab-name,.herb-tab.active .herb-tab-cat{color:#fff}
 .herb-tab-cat{font-size:.7rem;color:var(--text-muted,#6B6B6B);margin-top:.1rem}
 .herb-tab-icon{font-size:1.6rem;flex-shrink:0}
-.herb-panels{overflow:hidden;min-height:400px}
+.herb-panels{overflow:visible;min-height:400px}
 .herb-panel{display:none}
 .herb-panel.active{display:block}
+
+/* ── Herb hero banner inside each panel ── */
+.herb-hero{
+  background:linear-gradient(135deg, var(--herb-color, #2A4633) 0%, color-mix(in srgb, var(--herb-color, #2A4633) 70%, #000) 100%);
+  padding:1.6rem 1.8rem;
+  display:flex;
+  align-items:center;
+  gap:1.2rem;
+  border-radius:var(--radius) var(--radius) 0 0;
+}
+.herb-hero-icon{font-size:2.8rem;flex-shrink:0;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+.herb-hero h2{color:#fff;margin:0;font-size:1.6rem}
+.herb-hero h2 em{opacity:.7;font-size:.5em}
+.herb-tagline{color:rgba(255,255,255,.75);font-size:.85rem;margin-top:.3rem;font-style:italic}
+
 </style>
 </head>
 <body>
@@ -251,40 +266,8 @@ body.nav-open{overflow:hidden}
     <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center;display:flex">💬 WhatsApp Us</a>
   </div>
 </nav>
-    <a href="wellness-lab.html" class="nav-cta btn btn-glow btn-sm" style="white-space:nowrap;font-size:0.75rem;padding:0.55rem 1.1rem">✦ Wellness Assessment</a>
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-  </div>
-</header>
-<nav class="nav-mobile" aria-label="Mobile navigation">
-  <div class="nav-mobile-links">
-    <a href="index.html">Home</a>
-    <a href="products.html">Products</a>
-    <a href="ingredients.html">Ingredients</a>
-    <a href="blog.html">Blog</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </div>
-  <div class="nav-mobile-actions">
-    <a href="wellness-lab.html" class="btn btn-primary" style="justify-content:center">🔍 Wellness Assessment</a>
-    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center">💬 WhatsApp Us</a>
-  </div>
-</nav>
-    <a href="https://wa.me/917051056287" class="nav-cta-btn" target="_blank" rel="noopener">💬 WhatsApp</a>
-    <button class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
-  </div>
-</header>
-<nav class="nav-mobile" aria-label="Mobile navigation">
-  <a href="index.html">Home</a>
-  <a href="products.html">Products</a>
-  
-  <a href="ingredients.html">Ingredients</a>
-  <a href="blog.html">Blog</a>
-  <a href="about.html">About</a>
-  <a href="contact.html">Contact</a>
-  <div class="nav-mobile-footer">
-    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center">💬 WhatsApp Us</a>
-  </div>
-</nav>
+
+
 
 <div class="page-hero">
   <div class="container">
@@ -713,7 +696,7 @@ body.nav-open{overflow:hidden}
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon">📷</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon">💬</a>
-          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon">✉️</a>
+          <a href="/cdn-cgi/l/email-protection#54273c353c3c352d3535206466143339353d387a373b39" class="soc-icon">✉️</a>
         </div>
       </div>
       <div class="footer-col"><h4>Navigation</h4><ul>
@@ -734,7 +717,7 @@ body.nav-open{overflow:hidden}
         <li><a href="products.html">View All 12 →</a></li>
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
-        <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#bccfd4ddd4d4ddc5ddddc88c8efcdbd1ddd5d092dfd3d1"><span class="__cf_email__" data-cfemail="15667d747d7d746c7474612527557278747c793b767a78">[email&#160;protected]</span></a></li>
         <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
         <li><a href="https://wa.me/919107028786" target="_blank">+91 91070 28786</a></li>
         <li><a href="https://wa.me/916006866325" target="_blank">+91 60068 66325</a></li>
@@ -747,7 +730,7 @@ body.nav-open{overflow:hidden}
     </div>
   </div>
 </footer>
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 function showHerb(id){
   document.querySelectorAll('.herb-panel').forEach(function(p){ p.classList.remove('active'); });
   document.querySelectorAll('.herb-tab').forEach(function(t){ t.classList.remove('active'); });
@@ -783,7 +766,7 @@ function showHerb(id){
     var bt=document.getElementById('back-top');if(bt)bt.classList.toggle('show',window.scrollY>400);
     var wa=document.getElementById('wa-float');if(wa)wa.classList.toggle('show',window.scrollY>300);
   },{passive:true});
-  var rio=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}});},{threshold:.06,rootMargin:'0px 0px -20px 0px'});
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}});},{threshold:.06,rootMargin:'0px 0px -20px 0px'});
   document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){rio.observe(el);});
 })();
 </script>

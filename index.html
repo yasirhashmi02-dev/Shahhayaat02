@@ -178,14 +178,6 @@ body.nav-open{overflow:hidden}
 .hero-text h1 em{color:var(--gold-light);font-style:italic}
 .hero-badge-row{display:flex;flex-wrap:wrap;gap:0.55rem}
 @media(max-width:800px){.hero-badge-row{justify-content:center}}
-
-.hero-cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.45rem;margin-bottom:1.4rem;max-width:300px}
-@media(max-width:800px){.hero-cert-grid{max-width:100%}}
-.cert-1{animation:certGlow 4s ease-in-out infinite 0s}
-.cert-2{animation:certGlow 4s ease-in-out infinite 1s}
-.cert-3{animation:certGlow 4s ease-in-out infinite 2s}
-.cert-4{animation:certGlow 4s ease-in-out infinite 3s}
-@keyframes certGlow{0%,66%,100%{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);color:rgba(255,255,255,0.75)}33%{background:rgba(212,160,23,0.28);border-color:rgba(212,160,23,0.90);color:#fff;box-shadow:0 0 18px rgba(212,160,23,0.45)}}
 .hero-cert{display:inline-flex;align-items:center;gap:0.35rem;padding:0.35rem 0.9rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:50px;font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.75);letter-spacing:0.04em;backdrop-filter:blur(8px)}
 .hero-sub{color:rgba(255,255,255,0.62);max-width:460px;font-size:0.96rem}
 .hero-btns{display:flex;flex-wrap:wrap;gap:0.9rem}
@@ -383,8 +375,19 @@ body.nav-open{overflow:hidden}
 .grid-2{display:grid;gap:clamp(2rem,5vw,4rem);align-items:center}
 @media(min-width:800px){.grid-2{grid-template-columns:1fr 1fr}}
 
-.nav-cta-pill{display:none;align-items:center;padding:0.52rem 1.2rem;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border-radius:50px;font-size:0.76rem;font-weight:700;letter-spacing:0.06em;text-decoration:none;white-space:nowrap;animation:glowPulse 2.5s ease-in-out infinite alternate}
+/* ── Cert grid ── */
+.hero-cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-bottom:1.4rem;max-width:300px}
+@media(max-width:800px){.hero-cert-grid{max-width:100%}}
+.hero-cert{padding:.4rem .7rem;border-radius:6px;font-size:.72rem;font-weight:600;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);text-align:center}
+.cert-1{animation:certGlow 4s ease-in-out infinite 0s}
+.cert-2{animation:certGlow 4s ease-in-out infinite 1s}
+.cert-3{animation:certGlow 4s ease-in-out infinite 2s}
+.cert-4{animation:certGlow 4s ease-in-out infinite 3s}
+@keyframes certGlow{0%,66%,100%{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.75)}33%{background:rgba(212,160,23,.28);border-color:rgba(212,160,23,.90);color:#fff;box-shadow:0 0 18px rgba(212,160,23,.45)}}
+/* ── Nav CTA pill ── */
+.nav-cta-pill{display:none;align-items:center;padding:.52rem 1.2rem;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border-radius:50px;font-size:.76rem;font-weight:700;letter-spacing:.06em;text-decoration:none;white-space:nowrap;animation:glowPulse 2.5s ease-in-out infinite alternate}
 @media(min-width:960px){.nav-cta-pill{display:inline-flex}}
+@keyframes glowPulse{0%{box-shadow:0 4px 16px rgba(212,160,23,.30)}100%{box-shadow:0 4px 32px rgba(212,160,23,.75)}}
 </style>
 </head>
 
@@ -446,27 +449,6 @@ body.nav-open{overflow:hidden}
 </nav>
 
 
-    <a href="wellness-lab.html" class="nav-cta-pill">✦ Click Here for Self Assessment</a>
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-  </div>
-</header>
-
-<!-- MOBILE NAV -->
-<nav class="nav-mobile" aria-label="Mobile navigation">
-  <div class="nav-mobile-links">
-    <a href="index.html">Home</a>
-    <a href="products.html">Products</a>
-    <a href="conditions.html">Health Guides</a>
-    <a href="ingredients.html">Ingredients</a>
-    <a href="blog.html">Blog</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </div>
-  <div class="nav-mobile-actions">
-    <a href="wellness-lab.html" class="btn btn-primary" style="justify-content:center">✦ Click Here for Self Assessment</a>
-    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center">💬 WhatsApp Us</a>
-  </div>
-</nav>
 
 <main>
 
@@ -477,7 +459,7 @@ body.nav-open{overflow:hidden}
     <div class="hero-inner">
       <div class="hero-text">
         <div class="eyebrow">WHO · GMP · ISO 9001:2015 · HACCP</div>
-        <h1>Premium <em>Ayurvedic</em><br>Medicines for<br>Complete Wellness</h1>
+        <h1>Premium Ayurvedic<br>Medicines for<br><em>Complete Wellness</em></h1>
         <div class="hero-cert-grid">
           <span class="hero-cert cert-1">🌿 WHO</span>
           <span class="hero-cert cert-2">✅ GMP</span>
@@ -710,19 +692,22 @@ body.nav-open{overflow:hidden}
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo"><img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy"><span>Shah <em>Hayaat</em></span></a>
-        <p>WHO · GMP · ISO 9001:2015 · HACCP certified Ayurvedic medicines.</p>
+        <a href="index.html" class="logo">
+          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy">
+          <span>Shah <em>Hayaat</em></span>
+        </a>
+        <p>WHO-GMP, ISO 9001:2015 and HACCP certified Ayurvedic medicines for complete wellness. Est. 2024.</p>
         <div class="footer-socials">
-          <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon">📷</a>
-          <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon">💬</a>
-          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon">✉️</a>
+          <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
+          <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
+          <a href="/cdn-cgi/l/email-protection#afdcc7cec7c7ced6cecedb9f9defc8c2cec6c381ccc0c2" class="soc-icon" aria-label="Email">✉️</a>
         </div>
       </div>
       <div class="footer-col"><h4>Navigation</h4><ul>
         <li><a href="products.html">All Products</a></li>
         <li><a href="conditions.html">Health Guides</a></li>
         <li><a href="ingredients.html">Ingredients</a></li>
-        <li><a href="wellness-lab.html">Wellness Lab</a></li>
+        <li><a href="wellness-lab.html">Symptom Checker</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -736,21 +721,22 @@ body.nav-open{overflow:hidden}
         <li><a href="products.html">View All 12 →</a></li>
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
-        <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#aad9c2cbc2c2cbd3cbcbde9a98eacdc7cbc3c684c9c5c7"><span class="__cf_email__" data-cfemail="c1b2a9a0a9a9a0b8a0a0b5f1f381a6aca0a8adefa2aeac">[email&#160;protected]</span></a></li>
         <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
         <li><a href="https://wa.me/919107028786" target="_blank">+91 91070 28786</a></li>
-        <li><a href="https://wa.me/916006866325" target="_blank">+91 60068 66325</a></li>
         <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
+        <li><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></li>
+        <li><a href="https://g.page/r/CXsr4edSqOKSEBM/review" target="_blank">Google Review</a></li>
       </ul></div>
     </div>
     <div class="footer-bottom">
-      <p>© <span id="year"></span> Shah Hayaat. All Rights Reserved. &nbsp;·&nbsp; WHO · GMP · ISO 9001:2015 · HACCP</p>
-      <div style="display:flex;gap:1rem;flex-wrap:wrap"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>
+      <p>© <span id="year"></span> Shah Hayaat. All Rights Reserved. · WHO · GMP · ISO 9001:2015 · HACCP</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a>
+      </div>
     </div>
   </div>
 </footer>
-<a href="#" class="back-top" id="back-top">↑</a>
-<a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float" id="wa-float">💬</a>
 
 <!-- FLOATING BUTTONS -->
 <a href="#top" class="back-top" id="back-top" aria-label="Back to top">↑</a>
@@ -859,15 +845,18 @@ function renderBlogs(container){
 }
 
 function initNav(){
-  const toggle=$('.nav-toggle');
-  if(!toggle)return;
-  toggle.addEventListener('click',()=>{
-    const open=document.body.classList.toggle('nav-open');
-    toggle.setAttribute('aria-expanded',String(open));
-  });
-  $$('.nav-mobile a').forEach(a=>a.addEventListener('click',()=>setTimeout(()=>{document.body.classList.remove('nav-open');toggle.setAttribute('aria-expanded','false');},300)));
-}
-
+    const toggle=document.getElementById('nav-toggle');
+    const mobile=document.getElementById('nav-mobile');
+    if(!toggle||!mobile)return;
+    toggle.addEventListener('click',()=>{
+      const open=document.body.classList.toggle('nav-open');
+      toggle.setAttribute('aria-expanded',String(open));
+    });
+    $$('.nav-mobile a').forEach(a=>a.addEventListener('click',()=>setTimeout(()=>{
+      document.body.classList.remove('nav-open');
+      toggle.setAttribute('aria-expanded','false');
+    },320)));
+  }
 function initScroll(){
   const backTop=document.getElementById('back-top');
   const waFloat=document.getElementById('wa-float');
@@ -997,26 +986,5 @@ window.addEventListener('load',function(){
 });
 </script>
 
-<script>
-(function(){
-  var t=document.getElementById('nav-toggle'), m=document.getElementById('nav-mobile');
-  if(t && m){
-    t.addEventListener('click',function(){
-      var o=document.body.classList.toggle('nav-open');
-      t.setAttribute('aria-expanded',String(o));
-    });
-    m.querySelectorAll('a').forEach(function(a){
-      a.addEventListener('click',function(){
-        setTimeout(function(){document.body.classList.remove('nav-open');t.setAttribute('aria-expanded','false');},300);
-      });
-    });
-  }
-  window.addEventListener('scroll',function(){
-    document.body.classList.toggle('scrolled',window.scrollY>60);
-    var bt=document.getElementById('back-top'); if(bt) bt.classList.toggle('show',window.scrollY>400);
-    var wa=document.getElementById('wa-float'); if(wa) wa.classList.toggle('show',window.scrollY>300);
-  },{passive:true});
-})();
-</script>
 </body>
 </html>
