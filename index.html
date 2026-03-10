@@ -178,6 +178,15 @@ body.nav-open{overflow:hidden}
 .hero-text h1 em{color:var(--gold-light);font-style:italic}
 .hero-badge-row{display:flex;flex-wrap:wrap;gap:0.55rem}
 @media(max-width:800px){.hero-badge-row{justify-content:center}}
+
+.hero-cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.45rem;margin-bottom:1.4rem;max-width:300px}
+@media(max-width:800px){.hero-cert-grid{max-width:100%}}
+.cert-1{animation:certGlow 4s ease-in-out infinite 0s}
+.cert-2{animation:certGlow 4s ease-in-out infinite 1s}
+.cert-3{animation:certGlow 4s ease-in-out infinite 2s}
+.cert-4{animation:certGlow 4s ease-in-out infinite 3s}
+@keyframes certGlow{0%,66%,100%{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);color:rgba(255,255,255,0.75)}33%{background:rgba(212,160,23,0.28);border-color:rgba(212,160,23,0.90);color:#fff;box-shadow:0 0 18px rgba(212,160,23,0.45)}}
+
 .hero-cert{display:inline-flex;align-items:center;gap:0.35rem;padding:0.35rem 0.9rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:50px;font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.75);letter-spacing:0.04em;backdrop-filter:blur(8px)}
 .hero-sub{color:rgba(255,255,255,0.62);max-width:460px;font-size:0.96rem}
 .hero-btns{display:flex;flex-wrap:wrap;gap:0.9rem}
@@ -404,28 +413,46 @@ body.nav-open{overflow:hidden}
       <a href="index.html" class="active">Home</a>
       <a href="products.html">Products</a>
       <a href="ingredients.html">Ingredients</a>
-      <a href="wellness-lab.html" class="nav-lab-link">🧪 Lab</a>
+      <a href="wellness-lab.html">🧪 Lab</a>
       <a href="blog.html">Blog</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
     </nav>
     <a href="wellness-lab.html" class="nav-cta-pill">✦ Click Here for Self Assessment</a>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
-
 <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
   <div class="nav-mobile-links">
     <a href="index.html" class="active">Home</a>
     <a href="products.html">Products</a>
     <a href="ingredients.html">Ingredients</a>
-    <a href="wellness-lab.html" class="nav-lab-link">🧪 Lab</a>
+    <a href="wellness-lab.html">🧪 Lab</a>
     <a href="blog.html">Blog</a>
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
   </div>
   <div class="nav-mobile-actions">
     <a href="wellness-lab.html" class="btn btn-glow" style="justify-content:center">✦ Click Here for Self Assessment</a>
+    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center">💬 WhatsApp Us</a>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<nav class="nav-mobile" aria-label="Mobile navigation">
+  <div class="nav-mobile-links">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="conditions.html">Health Guides</a>
+    <a href="ingredients.html">Ingredients</a>
+    <a href="blog.html">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-mobile-actions">
+    <a href="wellness-lab.html" class="btn btn-primary" style="justify-content:center">✦ Click Here for Self Assessment</a>
     <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center">💬 WhatsApp Us</a>
   </div>
 </nav>
@@ -438,24 +465,23 @@ body.nav-open{overflow:hidden}
   <div class="container">
     <div class="hero-inner">
       <div class="hero-text">
-        <div class="eyebrow">WHO-GMP · ISO 9001:2015 · HACCP</div>
-        <h1><em>Ancient Wisdom,</em><br>Modern Care for<br>Complete Wellness</h1>
+        <div class="eyebrow">WHO · GMP · ISO 9001:2015 · HACCP</div>
+        <h1>Premium <em>Ayurvedic</em><br>Medicines for<br>Complete Wellness</h1>
         <div class="hero-cert-grid">
-          <span class="hero-cert cert-1">🌿 WHO-GMP</span>
-          <span class="hero-cert cert-2">ISO 9001:2015</span>
-          <span class="hero-cert cert-3">✅ HACCP</span>
-          <span class="hero-cert cert-4">🇮🇳 FSSAI</span>
+          <span class="hero-cert cert-1">🌿 WHO</span>
+          <span class="hero-cert cert-2">✅ GMP</span>
+          <span class="hero-cert cert-3">🏆 ISO</span>
+          <span class="hero-cert cert-4">🛡️ HACCP</span>
         </div>
         <p class="hero-sub">Certified herbal formulations for Brain, Liver, Digestion, Joints, Immunity and more. Crafted with traditional wisdom, modern standards.</p>
         <div class="hero-btns">
           <a href="products.html" class="btn btn-primary btn-lg">Explore Products</a>
-          <a href="wellness-lab.html" class="btn btn-glow btn-lg">✦ Find Your Remedy</a>
+          <a href="wellness-lab.html" class="btn btn-glow btn-lg">✦ Click Here for Self Assessment</a>
         </div>
         <div class="hero-trust">
           <span class="hero-trust-item">50,000+ Customers</span>
           <span class="hero-trust-item">12 Remedies</span>
           <span class="hero-trust-item">Est. 2024</span>
-          <span class="hero-trust-item">FSSAI Licensed</span>
         </div>
       </div>
       <div class="hero-img-col" aria-hidden="true">
@@ -525,7 +551,7 @@ body.nav-open{overflow:hidden}
     <h2 class="reveal delay-1" id="assess-heading">Not Sure Which<br>Remedy Is Right for You?</h2>
     <p class="reveal delay-2">Answer a few quick questions about your symptoms and body type. Get a personalised Shah Hayaat herbal recommendation instantly.</p>
     <div class="reveal delay-3">
-      <a href="wellness-lab.html" class="btn btn-glow btn-lg">✦ Start Symptom Checker</a>
+      <a href="wellness-lab.html" class="btn btn-glow btn-lg">✦ Click Here for Self Assessment</a>
     </div>
     <div class="assessment-icons reveal delay-4">
       <div class="assess-icon"><div class="assess-icon-emoji">🧪</div><div class="assess-icon-label">16 Symptoms</div></div>
@@ -646,7 +672,7 @@ body.nav-open{overflow:hidden}
     <p class="reveal delay-2">Explore all 12 Shah Hayaat remedies or find the perfect formulation with our free symptom checker.</p>
     <div class="cta-btn-row reveal delay-3">
       <a href="products.html" class="btn btn-primary btn-lg">Browse All Remedies</a>
-      <a href="wellness-lab.html" class="btn btn-outline-white btn-lg">✦ Symptom Checker</a>
+      <a href="wellness-lab.html" class="btn btn-outline-white btn-lg">✦ Click Here for Self Assessment</a>
     </div>
   </div>
 </section>
@@ -677,7 +703,7 @@ body.nav-open{overflow:hidden}
           <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy">
           <span>Shah <em>Hayaat</em></span>
         </a>
-        <p>WHO-GMP · ISO 9001:2015 · HACCP · FSSAI certified Ayurvedic medicines. Pure herbs, modern science.</p>
+        <p>WHO · GMP · ISO 9001:2015 · HACCP certified Ayurvedic medicines. Pure herbs, modern science.</p>
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
@@ -706,17 +732,18 @@ body.nav-open{overflow:hidden}
         <li><a href="https://wa.me/919107028786" target="_blank">+91 91070 28786</a></li>
         <li><a href="https://wa.me/916006866325" target="_blank">+91 60068 66325</a></li>
         <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
-        <li><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></li>
       </ul></div>
     </div>
     <div class="footer-bottom">
-      <p>© <span id="yr-footer"></span> Shah Hayaat. All Rights Reserved. &nbsp;·&nbsp; WHO-GMP · ISO 9001:2015 · HACCP · FSSAI</p>
+      <p>© <span id="yr"></span> Shah Hayaat. All Rights Reserved. &nbsp;·&nbsp; WHO · GMP · ISO 9001:2015 · HACCP</p>
       <div style="display:flex;gap:1rem;flex-wrap:wrap">
         <a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a>
       </div>
     </div>
   </div>
 </footer>
+<a href="#" class="back-top" id="back-top">↑</a>
+<a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float" id="wa-float">💬</a>
 
 <!-- FLOATING BUTTONS -->
 <a href="#top" class="back-top" id="back-top" aria-label="Back to top">↑</a>
@@ -747,7 +774,16 @@ body.nav-open{overflow:hidden}
 </div>
 
 <!-- ENGINE -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+
+
+
+<!-- Reviews Engine -->
+
+
+<!-- Hero Slider -->
+
+
+<!-- Preloader dismiss -->
 <script>
 'use strict';
 const $ = s => document.querySelector(s);
@@ -879,33 +915,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   renderBlogs($('#blog-preview-grid'));
 });
 </script>
-
-<!-- Reviews Engine -->
-<script>
-const REVIEWS_API='https://script.google.com/macros/s/AKfycbwIiEeIHyJWonJd1QhEiLHYnUjAE5yRqxXH22CNB_Wa36xpFN0BkokebBO1g_1AVZL8xw/exec';
-const _LIVE=true;
-const _SEED=[
-  {name:'Priya S.',stars:5,text:'Ortho Hayaat made a remarkable difference to my knee pain in just 3 weeks!'},
-  {name:'Rohan K.',stars:5,text:'Shah Zyme is a lifesaver. Lighter and more energetic after every meal!'},
-  {name:'Anjali P.',stars:5,text:'Brain Champ genuinely helped me focus during exam season. Highly recommended.'}
-];
-const _BASE_RATINGS={brainchamp:4.8,shahzyme:4.7,bloodstorm:4.6,coughxpro:4.5,musaffakhoon:4.6,panasip:4.7,livohayaat:4.8,orthohayaat:4.9,diaease:4.5,utrohayaat:4.6,passionpulse:4.7,fevodol:4.5};
-function _stars(r){const f=Math.floor(r),h=(r-f)>=0.5;let s='';for(let i=1;i<=5;i++)s+=i<=f?'★':(i===f+1&&h?'½':'☆');return s;}
-async function _get(p){if(!_LIVE)return null;try{const qs=Object.entries(p).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');const r=await fetch(REVIEWS_API+'?'+qs,{cache:'no-store'});const j=await r.json();return j.ok?j.data:null;}catch{return null;}}
-async function _post(b){if(!_LIVE)return;try{await fetch(REVIEWS_API,{method:'POST',body:JSON.stringify(b),headers:{'Content-Type':'application/json'}});}catch{}}
-let _prodRatingsCache=null;
-async function getProdRatings(){if(_prodRatingsCache)return _prodRatingsCache;const l=await _get({type:'prod_ratings'});_prodRatingsCache=l||{};return _prodRatingsCache;}
-async function renderStarsLive(pid,el){if(!el)return;const agg=await getProdRatings();const base=_BASE_RATINGS[pid]||4.5;const d=agg&&agg[pid];const rating=d&&d.count?Math.round(((d.total||d.avg*d.count)+base*10)/(d.count+10)*10)/10:base;el.innerHTML='<span class="stars" style="color:var(--gold);letter-spacing:1px">'+_stars(rating)+'</span><span class="count" style="font-size:.68rem;color:var(--text-muted);margin-left:4px">'+rating.toFixed(1)+'</span>';}
-async function buildReviewsWall(){const wall=$('#reviewsWall');if(!wall)return;const live=await _get({type:'reviews'});const all=[..._SEED,...(live||[])];const avg=all.reduce((s,r)=>s+r.stars,0)/all.length;const orb=$('.orb-num');const cnt=$('.orb-count');if(orb)orb.textContent=avg.toFixed(1);if(cnt)cnt.textContent='Based on '+all.length+' verified reviews';wall.innerHTML=all.slice(-6).reverse().map(r=>`<div class="review-card"><div class="r-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div><p class="r-text">${r.text||'Great product!'}</p><div class="r-name">${r.name||'Anonymous'}</div></div>`).join('');}
-let _star=0;
-function openRateModal(){$('#rateModalBg').classList.add('open');_star=0;}
-function closeRateModal(){$('#rateModalBg').classList.remove('open');}
-function setStar(v){_star=v;$$('#rateStarRow button').forEach((b,i)=>b.style.transform=i<v?'scale(1.2)':'scale(1)');}
-async function submitRating(){if(!_star)return alert('Please select a star rating.');const name=$('#rateNameInp').value.trim()||'Anonymous';const text=$('#rateRevInp').value.trim()||'';try{const a=JSON.parse(localStorage.getItem('sh_r')||'[]');a.push({name,stars:_star,text,ts:Date.now()});localStorage.setItem('sh_r',JSON.stringify(a.slice(-50)));}catch{}await _post({type:'site_review',name,stars:_star,text,page:location.pathname});closeRateModal();$('#rateNameInp').value='';$('#rateRevInp').value='';buildReviewsWall();}
-document.addEventListener('DOMContentLoaded',buildReviewsWall);
-</script>
-
-<!-- Hero Slider -->
 <script>
 (function(){
   const GH='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
@@ -954,47 +963,31 @@ document.addEventListener('DOMContentLoaded',buildReviewsWall);
   img.addEventListener('click',()=>{count++;idx=(idx+1)%products.length;advance(idx);resetTimer();});
 })();
 </script>
-
-<!-- Preloader dismiss -->
-<script>
-window.addEventListener('load',function(){
-  var loader=document.getElementById('preloader');
-  setTimeout(function(){if(loader)loader.classList.add('out');},3800);
-});
-</script>
-
 <script>
 (function(){
-  /* Year */
-  ['yr','year','yr-footer'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.textContent=new Date().getFullYear();
-  });
-  /* Nav toggle */
-  var toggle=document.getElementById('nav-toggle');
-  var mobile=document.getElementById('nav-mobile');
-  if(toggle) toggle.addEventListener('click',function(){
-    var open=document.body.classList.toggle('nav-open');
-    toggle.setAttribute('aria-expanded',String(open));
-  });
-  if(mobile) mobile.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click',function(){
-      setTimeout(function(){
-        document.body.classList.remove('nav-open');
-        if(toggle) toggle.setAttribute('aria-expanded','false');
-      },300);
+  document.querySelectorAll('#yr,#year').forEach(function(el){ el.textContent = new Date().getFullYear(); });
+  var toggle = document.getElementById('nav-toggle');
+  var mobile = document.getElementById('nav-mobile');
+  if(toggle && mobile){
+    toggle.addEventListener('click', function(){
+      var open = document.body.classList.toggle('nav-open');
+      toggle.setAttribute('aria-expanded', String(open));
     });
-  });
-  /* Scroll: scrolled class + back-top */
-  var bt=document.getElementById('back-top');
-  window.addEventListener('scroll',function(){
-    document.body.classList.toggle('scrolled',window.scrollY>60);
-    if(bt) bt.classList.toggle('show',window.scrollY>400);
-  },{passive:true});
-  /* Reveal */
-  var rio=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}});
-  },{threshold:0.05,rootMargin:'0px 0px -20px 0px'});
-  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){rio.observe(el);});
+    mobile.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        setTimeout(function(){ document.body.classList.remove('nav-open'); toggle.setAttribute('aria-expanded','false'); }, 300);
+      });
+    });
+  }
+  window.addEventListener('scroll', function(){
+    document.body.classList.toggle('scrolled', window.scrollY > 60);
+    var bt = document.getElementById('back-top'); if(bt) bt.classList.toggle('show', window.scrollY > 400);
+    var wa = document.getElementById('wa-float'); if(wa) wa.classList.toggle('show', window.scrollY > 300);
+  }, {passive:true});
+  var rio = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); } });
+  }, {threshold:0.06});
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){ rio.observe(el); });
 })();
 </script>
 </body>

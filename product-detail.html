@@ -399,13 +399,15 @@ body.nav-open .nav-mobile{transform:translateX(0)}
       <a href="index.html">Home</a>
       <a href="products.html" class="active">Products</a>
       <a href="ingredients.html">Ingredients</a>
-      <a href="wellness-lab.html" class="nav-lab-link">🧪 Lab</a>
+      <a href="wellness-lab.html">🧪 Lab</a>
       <a href="blog.html">Blog</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
     </nav>
     <a href="wellness-lab.html" class="nav-cta-pill">✦ Click Here for Self Assessment</a>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 
@@ -414,7 +416,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
     <a href="index.html">Home</a>
     <a href="products.html" class="active">Products</a>
     <a href="ingredients.html">Ingredients</a>
-    <a href="wellness-lab.html" class="nav-lab-link">🧪 Lab</a>
+    <a href="wellness-lab.html">🧪 Lab</a>
     <a href="blog.html">Blog</a>
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
@@ -489,7 +491,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
           <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy">
           <span>Shah <em>Hayaat</em></span>
         </a>
-        <p>WHO-GMP · ISO 9001:2015 · HACCP · FSSAI certified Ayurvedic medicines. Pure herbs, modern science.</p>
+        <p>WHO · GMP · ISO 9001:2015 · HACCP certified Ayurvedic medicines. Pure herbs, modern science. Est. 2024.</p>
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
@@ -518,21 +520,53 @@ body.nav-open .nav-mobile{transform:translateX(0)}
         <li><a href="https://wa.me/919107028786" target="_blank">+91 91070 28786</a></li>
         <li><a href="https://wa.me/916006866325" target="_blank">+91 60068 66325</a></li>
         <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
-        <li><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></li>
       </ul></div>
     </div>
     <div class="footer-bottom">
-      <p>© <span id="yr-footer"></span> Shah Hayaat. All Rights Reserved. &nbsp;·&nbsp; WHO-GMP · ISO 9001:2015 · HACCP · FSSAI</p>
+      <p>© <span id="yr"></span> Shah Hayaat. All Rights Reserved. &nbsp;·&nbsp; WHO · GMP · ISO 9001:2015 · HACCP</p>
       <div style="display:flex;gap:1rem;flex-wrap:wrap">
         <a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a>
       </div>
     </div>
   </div>
 </footer>
-<a href="#" class="back-top" id="back-top">↑</a>
-<a href="https://wa.me/917051056287" target="_blank" class="wa-float">💬</a>
+<a href="#" class="back-top" id="back-top" aria-label="Back to top">↑</a>
+<a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float" id="wa-float" aria-label="WhatsApp">💬</a>
+
 <div class="toast" id="toast"></div>
 
+
+
+
+<script>
+(function(){
+  /* Year */
+  ['yr','year','yr-footer'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.textContent=new Date().getFullYear();
+  });
+  /* Nav toggle */
+  var toggle=document.getElementById('nav-toggle');
+  var mobile=document.getElementById('nav-mobile');
+  if(toggle) toggle.addEventListener('click',function(){
+    var open=document.body.classList.toggle('nav-open');
+    toggle.setAttribute('aria-expanded',String(open));
+  });
+  if(mobile) mobile.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      setTimeout(function(){
+        document.body.classList.remove('nav-open');
+        if(toggle) toggle.setAttribute('aria-expanded','false');
+      },300);
+    });
+  });
+  /* Scroll: scrolled class + back-top */
+  var bt=document.getElementById('back-top');
+  window.addEventListener('scroll',function(){
+    document.body.classList.toggle('scrolled',window.scrollY>60);
+    if(bt) bt.classList.toggle('show',window.scrollY>400);
+  },{passive:true});
+  /* Reveal */
+  var rio=new IntersectionObserver(function(entries){
 <script>
 'use strict';
 
@@ -927,66 +961,31 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 });
 </script>
-
-<script>
-/* Benefits staggered zoom-in */
-function animateBenefits(){
-  var items = document.querySelectorAll('.benefit-item');
-  if(!items.length) return;
-  items.forEach(function(el,i){
-    setTimeout(function(){ el.classList.add('benefit-in'); }, 200 + i * 170);
-  });
-}
-var _bObs = new MutationObserver(function(){
-  var items = document.querySelectorAll('.benefit-item:not(.benefit-in)');
-  if(items.length){
-    items.forEach(function(el,i){ setTimeout(function(){ el.classList.add('benefit-in'); }, 120 + i*140); });
-  }
-});
-document.addEventListener('DOMContentLoaded', function(){
-  var grid = document.querySelector('.detail-grid');
-  if(grid) _bObs.observe(grid, {childList:true, subtree:true});
-});
-
-/* Reveal fallback, force show after 600ms */
-setTimeout(function(){
-  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){
-    el.classList.add('in');
-  });
-}, 600);
-</script>
 <script>
 (function(){
-  /* Year */
-  ['yr','year','yr-footer'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.textContent=new Date().getFullYear();
-  });
-  /* Nav toggle */
-  var toggle=document.getElementById('nav-toggle');
-  var mobile=document.getElementById('nav-mobile');
-  if(toggle) toggle.addEventListener('click',function(){
-    var open=document.body.classList.toggle('nav-open');
-    toggle.setAttribute('aria-expanded',String(open));
-  });
-  if(mobile) mobile.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click',function(){
-      setTimeout(function(){
-        document.body.classList.remove('nav-open');
-        if(toggle) toggle.setAttribute('aria-expanded','false');
-      },300);
+  document.querySelectorAll('#yr,#year,#yr-footer').forEach(function(el){ el.textContent = new Date().getFullYear(); });
+  var toggle = document.getElementById('nav-toggle');
+  var mobile = document.getElementById('nav-mobile');
+  if(toggle && mobile){
+    toggle.addEventListener('click', function(){
+      var open = document.body.classList.toggle('nav-open');
+      toggle.setAttribute('aria-expanded', String(open));
     });
-  });
-  /* Scroll: scrolled class + back-top */
-  var bt=document.getElementById('back-top');
-  window.addEventListener('scroll',function(){
-    document.body.classList.toggle('scrolled',window.scrollY>60);
-    if(bt) bt.classList.toggle('show',window.scrollY>400);
-  },{passive:true});
-  /* Reveal */
-  var rio=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');rio.unobserve(e.target);}});
-  },{threshold:0.05,rootMargin:'0px 0px -20px 0px'});
-  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){rio.observe(el);});
+    mobile.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        setTimeout(function(){ document.body.classList.remove('nav-open'); toggle.setAttribute('aria-expanded','false'); }, 300);
+      });
+    });
+  }
+  window.addEventListener('scroll', function(){
+    document.body.classList.toggle('scrolled', window.scrollY > 60);
+    var bt = document.getElementById('back-top'); if(bt) bt.classList.toggle('show', window.scrollY > 400);
+    var wa = document.getElementById('wa-float'); if(wa) wa.classList.toggle('show', window.scrollY > 300);
+  }, {passive:true});
+  var rio = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); } });
+  }, {threshold:0.06, rootMargin:'0px 0px -20px 0px'});
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){ rio.observe(el); });
 })();
 </script>
 </body>
