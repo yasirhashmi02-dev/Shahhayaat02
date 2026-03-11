@@ -63,7 +63,7 @@ body.nav-open{overflow:hidden}
 @keyframes glowPulse{0%{box-shadow:0 4px 16px rgba(212,160,23,.30)}100%{box-shadow:0 4px 32px rgba(212,160,23,.75)}}
 
 /* ── HERO ── */
-.ex-hero{padding:clamp(105px,14vw,145px) 0 clamp(60px,8vw,80px);background:linear-gradient(135deg,#061428 0%,#0a1f3c 50%,#0e3060 100%);position:relative;overflow:hidden}
+.ex-hero{padding:clamp(90px,12vw,145px) 0 clamp(40px,6vw,70px);background:linear-gradient(135deg,#061428 0%,#0a1f3c 50%,#0e3060 100%);position:relative;overflow:hidden}
 .ex-hero::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(ellipse,rgba(180,134,20,.07) 0%,transparent 65%);pointer-events:none;border-radius:50%}
 .ex-hero-inner{position:relative;z-index:1;text-align:center}
 .ex-hero h1{font-family:var(--font-h);font-size:clamp(2rem,5vw,3.2rem);color:#fff;line-height:1.15;margin-bottom:.9rem}
@@ -92,7 +92,7 @@ body.nav-open{overflow:hidden}
 .filter-btn.active{background:var(--gold);border-color:var(--gold);color:#fff}
 
 /* ── EXERCISE GRID ── */
-.ex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.3rem}
+.ex-grid{display:grid;grid-template-columns:1fr;gap:1rem}@media(min-width:520px){.ex-grid{grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}}
 
 /* ── CARD ── */
 .ex-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;transition:all .28s var(--ease);position:relative}
@@ -135,17 +135,19 @@ body.nav-open{overflow:hidden}
 @keyframes voicePulse{from{box-shadow:0 0 0 0 rgba(212,160,23,.3)}to{box-shadow:0 0 0 8px rgba(212,160,23,0)}}
 
 /* ── TIMER OVERLAY ── */
-.timer-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.78);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:1.2rem}
+.timer-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);align-items:flex-end;justify-content:center;padding:0}
 .timer-overlay.open{display:flex}
-.timer-box{background:var(--bg3);border:1px solid var(--border-m);border-radius:var(--r-lg);padding:0;max-width:760px;width:100%;text-align:center;box-shadow:var(--sh-lg);position:relative;animation:popIn .3s var(--ease);overflow:hidden;display:flex;flex-direction:column}
-/* cartoon panel sits on top, controls below */
-.t-cartoon-panel{position:relative;width:100%;height:230px;overflow:hidden;background:#061428;flex-shrink:0;transition:background 1s ease}
-#cartoonCanvas{display:block;width:100%;height:230px}
-.t-cartoon-label{position:absolute;bottom:.6rem;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.55);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:.22rem .9rem;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#D4A017;white-space:nowrap;pointer-events:none}
-.t-cartoon-step-pill{position:absolute;top:.65rem;left:.7rem;background:rgba(212,160,23,.18);border:1px solid rgba(212,160,23,.35);border-radius:50px;padding:.2rem .7rem;font-size:.6rem;font-weight:800;color:#D4A017;letter-spacing:.08em}
-.t-controls{padding:1.3rem 1.5rem 1.4rem;display:flex;flex-direction:column;gap:.75rem}
-@media(min-width:600px){.t-cartoon-panel{height:260px}#cartoonCanvas{height:260px}}
-/* compact the controls area */
+@media(min-width:600px){.timer-overlay{align-items:center;padding:1rem}}
+.timer-box{background:var(--bg3);border:1px solid var(--border-m);border-top-left-radius:22px;border-top-right-radius:22px;border-bottom-left-radius:0;border-bottom-right-radius:0;padding:0;width:100%;max-width:600px;max-height:95dvh;text-align:center;box-shadow:0 -8px 40px rgba(0,0,0,.6);position:relative;animation:sheetUp .35s cubic-bezier(.2,1,.4,1) forwards;overflow:hidden;display:flex;flex-direction:column}
+@media(min-width:600px){.timer-box{border-radius:22px;max-height:90dvh;animation:popIn .3s var(--ease) forwards}}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+/* cartoon panel */
+.t-cartoon-panel{position:relative;width:100%;height:180px;overflow:hidden;background:#061428;flex-shrink:0;transition:background 1.2s ease}
+#cartoonCanvas{display:block;width:100%;height:100%}
+.t-cartoon-label{position:absolute;bottom:.45rem;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:.18rem .75rem;font-size:.6rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#D4A017;white-space:nowrap;pointer-events:none;max-width:85%;overflow:hidden;text-overflow:ellipsis}
+.t-cartoon-step-pill{position:absolute;top:.5rem;left:.6rem;background:rgba(212,160,23,.18);border:1px solid rgba(212,160,23,.35);border-radius:50px;padding:.15rem .55rem;font-size:.55rem;font-weight:800;color:#D4A017;letter-spacing:.06em}
+.t-controls{padding:.85rem 1rem 1.1rem;display:flex;flex-direction:column;gap:.55rem;overflow-y:auto}
+@media(min-width:600px){.t-cartoon-panel{height:240px}}
 @keyframes popIn{from{opacity:0;transform:scale(.93) translateY(14px)}to{opacity:1;transform:none}}
 .t-close{position:absolute;top:.9rem;right:.9rem;background:none;border:none;font-size:1.1rem;color:var(--text-mu);transition:color .2s}
 .t-close:hover{color:var(--text)}
@@ -153,15 +155,15 @@ body.nav-open{overflow:hidden}
 .t-title{font-family:var(--font-h);font-size:1.25rem;color:var(--text);margin-bottom:.3rem}
 .t-sub{font-size:.82rem;color:var(--text-m);margin-bottom:1.3rem;line-height:1.62;max-height:100px;overflow:hidden}
 /* ring */
-.ring-wrap{position:relative;width:150px;height:150px;margin:0 auto 1.3rem}
-.t-ring{transform:rotate(-90deg);width:150px;height:150px}
+.ring-wrap{position:relative;width:58px;height:58px;flex-shrink:0}
+.t-ring{transform:rotate(-90deg);width:58px;height:58px}
 .t-ring-bg{fill:none;stroke:var(--border-m);stroke-width:9}
 .t-ring-fill{fill:none;stroke:url(#tGrad);stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset .95s linear;stroke-dasharray:408;stroke-dashoffset:0}
-.t-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-h);font-size:2.4rem;font-weight:700;color:var(--gold-l);flex-direction:column;gap:0}
-.t-phase{font-size:.60rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-mu);margin-top:.15rem}
-.t-step-lbl{font-size:.86rem;color:var(--text-m);margin-bottom:1.2rem;min-height:2.6rem;line-height:1.65;padding:0 .5rem}
-.t-btns{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap}
-.t-btn{padding:.62rem 1.4rem;border-radius:50px;font-size:.83rem;font-weight:700;border:none;transition:all .25s}
+.t-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-h);font-size:1.15rem;font-weight:700;color:var(--gold-l);flex-direction:column;gap:0}
+.t-phase{font-size:.36rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mu);margin-top:.08rem;display:none}
+.t-step-lbl{font-size:.79rem;color:var(--text-m);margin-bottom:.4rem;line-height:1.6;padding:0}
+.t-btns{display:flex;gap:.45rem;justify-content:center;flex-wrap:wrap}
+.t-btn{padding:.52rem .95rem;border-radius:50px;font-size:.76rem;font-weight:700;border:none;transition:all .25s}
 .t-btn-start{background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff}
 .t-btn-start:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(184,134,11,.45)}
 .t-btn-voice{background:var(--bg4);color:var(--text-m);border:1.5px solid var(--border-m)}
@@ -173,13 +175,13 @@ body.nav-open{overflow:hidden}
 .wg-wrap{display:none;flex-direction:column;align-items:center;gap:.7rem}
 .wg-wrap.active{display:flex}
 .wg-prompt{font-size:.9rem;color:var(--text-m);font-weight:600;letter-spacing:.04em}
-.wg-count{font-family:var(--font-h);font-size:4rem;color:var(--gold-l);line-height:1}
+.wg-count{font-family:var(--font-h);font-size:3rem;color:var(--gold-l);line-height:1}
 .wg-timer-ring{position:relative;width:80px;height:80px;margin:.2rem auto}
 .wg-tr{transform:rotate(-90deg);width:80px;height:80px}
 .wg-tr-bg{fill:none;stroke:var(--border-m);stroke-width:7}
 .wg-tr-fill{fill:none;stroke:#ef4444;stroke-width:7;stroke-linecap:round;stroke-dasharray:220;stroke-dashoffset:0;transition:stroke-dashoffset .9s linear}
 .wg-tr-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-h);font-size:1.3rem;font-weight:700;color:#fca5a5}
-.wg-tap-btn{width:105px;height:105px;border-radius:50%;background:linear-gradient(135deg,#ef4444,#f97316);color:#fff;font-size:2.2rem;border:none;box-shadow:0 6px 24px rgba(239,68,68,.4);transition:transform .1s}
+.wg-tap-btn{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#ef4444,#f97316);color:#fff;font-size:1.9rem;border:none;box-shadow:0 6px 24px rgba(239,68,68,.4);transition:transform .1s}
 .wg-tap-btn:active{transform:scale(.86)}
 .wg-tap-btn:disabled{opacity:.45;transform:none}
 .wg-bar{width:100%;height:7px;background:var(--border);border-radius:4px;overflow:hidden}
@@ -378,15 +380,15 @@ body.nav-open{overflow:hidden}
 
     <!-- CONTROLS AREA -->
     <div class="t-controls">
-      <div style="display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;justify-content:center">
+      <div style="display:flex;align-items:center;gap:.65rem;flex-wrap:nowrap;justify-content:flex-start;overflow:hidden">
         <span class="t-emoji" id="tEmoji" style="font-size:1.6rem;line-height:1">🧠</span>
         <div style="flex:1;min-width:160px;text-align:left">
           <div class="t-title" id="tTitle" style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.15rem">Exercise</div>
-          <div class="t-sub" id="tSub" style="font-size:.72rem;color:var(--text-m);line-height:1.5;max-height:56px;overflow:hidden"></div>
+          <div class="t-sub" id="tSub" style="font-size:.70rem;color:var(--text-m);line-height:1.45;max-height:38px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical"></div>
         </div>
         <!-- mini ring -->
-        <div class="ring-wrap" style="width:70px;height:70px;flex-shrink:0">
-          <svg class="t-ring" viewBox="0 0 150 150" style="width:70px;height:70px">
+        <div class="ring-wrap" style="width:58px;height:58px;flex-shrink:0">
+          <svg class="t-ring" viewBox="0 0 150 150" style="width:58px;height:58px">
             <defs>
               <linearGradient id="tGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" style="stop-color:#B8860B"/>
@@ -396,7 +398,7 @@ body.nav-open{overflow:hidden}
             <circle class="t-ring-bg" cx="75" cy="75" r="65"/>
             <circle class="t-ring-fill" id="tRingFill" cx="75" cy="75" r="65"/>
           </svg>
-          <div class="t-num" style="font-size:1.4rem">
+          <div class="t-num" style="font-size:1.1rem">
             <span id="tNum">0</span>
             <span class="t-phase" id="tPhase" style="font-size:.42rem"></span>
           </div>
@@ -1321,8 +1323,7 @@ function drawParticles(ctx){
    Character is in left 280px zone; right 280..760 is step text
    t = 0..1 animation progress within pose cycle
 ══ */
-const CX=140, // character centre x
-      GY=230; // ground y
+let CX=140, GY=225; // updated dynamically
 
 function bgScene(ctx,cw,ch,bgCol,t){
   // gradient bg
@@ -2143,7 +2144,11 @@ function setBg(col){ _targetBg=col; _bgLerp=0; }
 
 function cartoonFrame(){
   if(!_canvas||!_ctx){ _raf=requestAnimationFrame(cartoonFrame); return; }
-  const cw=_canvas.width, ch=_canvas.height;
+  const dpr=window.devicePixelRatio||1;
+  const cw=(window._CW_dyn||320);
+  const ch=(window._CH_dyn||180);
+  // sync CX to canvas width
+  CX=Math.round(cw*.22); GY=Math.round(ch*.87);
   // lerp bg
   _bgLerp=Math.min(_bgLerp+0.04,1);
   _curBg=lerpColor(_curBg,_targetBg,_bgLerp);
@@ -2155,12 +2160,14 @@ function cartoonFrame(){
   _ctx.fillStyle=grd; _ctx.fillRect(0,0,cw,ch);
 
   // floor
-  _ctx.beginPath();_ctx.moveTo(0,232);_ctx.lineTo(280,232);
+  _ctx.beginPath();_ctx.moveTo(0,GY+5);_ctx.lineTo(cw*.5,GY+5);
   _ctx.strokeStyle='rgba(255,255,255,.05)';_ctx.lineWidth=1;_ctx.stroke();
 
-  // divider
-  _ctx.beginPath();_ctx.moveTo(282,10);_ctx.lineTo(282,ch-10);
-  _ctx.strokeStyle='rgba(255,255,255,.06)';_ctx.lineWidth=1;_ctx.stroke();
+  // divider — only on wide canvases
+  if(cw>400){
+    _ctx.beginPath();_ctx.moveTo(cw*.45,10);_ctx.lineTo(cw*.45,ch-10);
+    _ctx.strokeStyle='rgba(255,255,255,.06)';_ctx.lineWidth=1;_ctx.stroke();
+  }
 
   // --- POSE ---
   const scene = _currentScenes[_sceneIdx] || _currentScenes[0];
@@ -2182,7 +2189,7 @@ function cartoonFrame(){
     _particleTick=(_particleTick+1)%22;
 
     // step text panel
-    stepText(_ctx, cw, ch, _stepInstructions, _stepCount, _totalSteps, _curPhaseLabel);
+    if(cw>380) stepText(_ctx, cw, ch, _stepInstructions, _stepCount, _totalSteps, _curPhaseLabel);
   }
 
   _frameTick++;
@@ -2201,7 +2208,23 @@ window.CartoonAnim = {
     _canvas=document.getElementById('cartoonCanvas');
     if(!_canvas) return;
     _ctx=_canvas.getContext('2d');
-    _canvas.width=760; _canvas.height=260;
+    function resize(){
+      const panel=_canvas.parentElement;
+      const dpr=window.devicePixelRatio||1;
+      const w=panel.offsetWidth||320;
+      const h=panel.offsetHeight||180;
+      _canvas.width=w*dpr;
+      _canvas.height=h*dpr;
+      _canvas.style.width=w+'px';
+      _canvas.style.height=h+'px';
+      _ctx.scale(dpr,dpr);
+      // update CX for centering: use 35% of width as character center
+      window._CX_dyn=Math.round(w*.22);
+      window._CW_dyn=w;
+      window._CH_dyn=h;
+    }
+    resize();
+    window.addEventListener('resize',()=>{resize();});
     _raf=requestAnimationFrame(cartoonFrame);
   },
   setExercise(exId, phases, steps){

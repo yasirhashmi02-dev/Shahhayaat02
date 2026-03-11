@@ -192,14 +192,28 @@ body.nav-open{overflow:hidden}
 @keyframes heroGlow{0%{transform:scale(0.9);opacity:0.6}100%{transform:scale(1.1);opacity:1}}
 .hero-product-img{position:relative;z-index:1;max-height:480px;width:auto;object-fit:contain;filter:drop-shadow(0 20px 50px rgba(0,0,0,0.60));transition:opacity 0.3s;cursor:pointer}
 @media(max-width:800px){.hero-product-img{max-height:300px}}
-.hero-prod-label{position:absolute;bottom:0;left:50%;transform:translateX(-50%);background:rgba(11,15,20,0.85);border:1px solid rgba(212,160,23,0.25);color:rgba(255,255,255,0.80);font-size:0.72rem;font-weight:600;letter-spacing:0.08em;padding:0.4rem 1rem;border-radius:50px;white-space:nowrap;backdrop-filter:blur(8px);z-index:2;transition:opacity 0.3s}
+/* hero-prod-label moved to slideshow CSS above */
 .hero-dots{position:absolute;bottom:-1.8rem;left:50%;transform:translateX(-50%);display:flex;gap:0.45rem;z-index:3}
 .hero-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.20);transition:all 0.3s;cursor:pointer}
 .hero-dot.active{background:var(--gold-light);width:18px;border-radius:4px}
-@keyframes slideInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
-@keyframes slideInLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
-.slide-in-right{animation:slideInRight 0.55s var(--ease) forwards}
-.slide-in-left{animation:slideInLeft 0.55s var(--ease) forwards}
+@keyframes slideInRight{from{opacity:0;transform:translateX(60px) scale(.94)}to{opacity:1;transform:none}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-60px) scale(.94)}to{opacity:1;transform:none}}
+@keyframes slideInUp{from{opacity:0;transform:translateY(40px) scale(.95)}to{opacity:1;transform:none}}
+@keyframes zoomIn{from{opacity:0;transform:scale(.80)}to{opacity:1;transform:scale(1)}}
+.slide-in-right{animation:slideInRight 0.6s cubic-bezier(.22,1,.36,1) forwards}
+.slide-in-left{animation:slideInLeft 0.6s cubic-bezier(.22,1,.36,1) forwards}
+.slide-in-up{animation:slideInUp 0.55s cubic-bezier(.22,1,.36,1) forwards}
+.slide-zoom-in{animation:zoomIn 0.55s cubic-bezier(.22,1,.36,1) forwards}
+/* hero nav arrows */
+.hero-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(0,0,0,.38);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(8px);color:rgba(255,255,255,.85);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:.95rem;cursor:pointer;transition:all .22s;user-select:none;-webkit-user-select:none}
+.hero-arrow:hover{background:rgba(184,134,11,.55);border-color:rgba(212,160,23,.6)}
+.hero-arrow-prev{left:.4rem}
+.hero-arrow-next{right:.4rem}
+@media(min-width:600px){.hero-arrow{width:42px;height:42px;font-size:1.1rem}.hero-arrow-prev{left:.8rem}.hero-arrow-next{right:.8rem}}
+/* product name badge */
+.hero-prod-label{position:absolute;bottom:.5rem;left:50%;transform:translateX(-50%);background:rgba(7,24,48,.88);border:1px solid rgba(212,160,23,.3);color:rgba(255,255,255,.85);font-size:.72rem;font-weight:700;letter-spacing:.1em;padding:.38rem 1rem;border-radius:50px;white-space:nowrap;backdrop-filter:blur(10px);z-index:4;transition:opacity .3s;text-transform:uppercase}
+/* product counter */
+.hero-prod-counter{position:absolute;top:.6rem;right:.6rem;background:rgba(0,0,0,.42);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:.62rem;font-weight:700;padding:.2rem .55rem;border-radius:50px;backdrop-filter:blur(6px);letter-spacing:.08em;z-index:4}
 
 /* STATS BAR */
 .stats-bar{background:rgba(22,27,36,0.95);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
@@ -493,6 +507,8 @@ body.nav-open{overflow:hidden}
       </div>
       <div class="hero-img-col" aria-hidden="true">
         <div class="hero-img-glow"></div>
+        <button class="hero-arrow hero-arrow-prev" id="heroPrev" aria-label="Previous product">&#8592;</button>
+        <button class="hero-arrow hero-arrow-next" id="heroNext" aria-label="Next product">&#8594;</button>
         <img id="hero-product"
              src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg"
              alt="Shah Hayaat Herbal Product"
@@ -501,6 +517,7 @@ body.nav-open{overflow:hidden}
              title="Tap to view next product"
              onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/brainchamp1.jpg'">
         <span class="hero-prod-label" id="hero-prod-label">Brain Champ</span>
+        <span class="hero-prod-counter" id="heroProdCounter">1 / 12</span>
         <div class="hero-dots" id="hero-dots"></div>
       </div>
     </div>
@@ -938,46 +955,126 @@ function setStar(v){_star=v;$$('#rateStarRow button').forEach((b,i)=>b.style.tra
 async function submitRating(){if(!_star)return alert('Please select a star rating.');const name=$('#rateNameInp').value.trim()||'Anonymous';const text=$('#rateRevInp').value.trim()||'';try{const a=JSON.parse(localStorage.getItem('sh_r')||'[]');a.push({name,stars:_star,text,ts:Date.now()});localStorage.setItem('sh_r',JSON.stringify(a.slice(-50)));}catch{}await _post({type:'site_review',name,stars:_star,text,page:location.pathname});closeRateModal();$('#rateNameInp').value='';$('#rateRevInp').value='';buildReviewsWall();}
 document.addEventListener('DOMContentLoaded',function(){buildReviewsWall();});
 </script>
-<!-- Hero Slideshow IIFE -->
+<!-- Hero Slideshow — all 12 products, 4s, rich transitions -->
 <script type="text/javascript" data-cfasync="false">
 document.addEventListener('DOMContentLoaded',function(){
-  var _GH='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
-  var heroImgs=[
-    {src:_GH+'brainchamp1.jpg',name:'Brain Champ'},
-    {src:_GH+'livohayaat1.jpg',name:'Livo Hayaat'},
-    {src:_GH+'orthohayaat1.jpg',name:'Ortho Hayaat'},
-    {src:_GH+'shahzyme1.jpg',name:'Shah Zyme'},
-    {src:_GH+'bloodstorm1.jpg',name:'Blood Storm'},
-    {src:_GH+'diaease1.jpg',name:'Dia-Ease'}
+  var GH='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
+  var slides=[
+    {id:'brainchamp',   name:'Brain Champ',     tag:'Brain & Focus',    price:'175'},
+    {id:'shahzyme',     name:'Shah Zyme',        tag:'Digestion',        price:'165'},
+    {id:'bloodstorm',   name:'Blood Storm',      tag:'Blood & Immunity', price:'165'},
+    {id:'livohayaat',   name:'Livo Hayaat',      tag:'Liver Health',     price:'349'},
+    {id:'diaease',      name:'Dia-Ease',         tag:'Diabetes Care',    price:'695'},
+    {id:'orthohayaat',  name:'Ortho Hayaat',     tag:'Joint Care',       price:'649'},
+    {id:'utrohayaat',   name:'Utro Hayaat',      tag:'Female Health',    price:'625'},
+    {id:'passionpulse', name:'Passion Pulse',    tag:'Male Vitality',    price:'599'},
+    {id:'panasip',      name:'PanaSip',          tag:'Acidity',          price:'165'},
+    {id:'coughxpro',    name:'Cough X Pro',      tag:'Respiratory',      price:'90'},
+    {id:'musaffakhoon', name:'Musaffa Khoon',    tag:'Skin Care',        price:'165'},
+    {id:'fevodol',      name:'Fevodol',          tag:'Immunity',         price:'165'}
   ];
+  var TOTAL=slides.length;
   var img=document.getElementById('hero-product');
   var label=document.getElementById('hero-prod-label');
   var dotsEl=document.getElementById('hero-dots');
+  var counter=document.getElementById('heroProdCounter');
+  var btnPrev=document.getElementById('heroPrev');
+  var btnNext=document.getElementById('heroNext');
   if(!img)return;
-  var idx=0,count=0,timer=null;
-  if(dotsEl){dotsEl.innerHTML=heroImgs.map(function(_,i){return '<div class="hero-dot'+(i===0?' active':'')+'" onclick="heroGoto('+i+')"></div>';}).join('');}
-  window.heroGoto=function(n){count++;idx=n;advance(n);}
-  function advance(toIdx){
-    var p=heroImgs[toIdx];
-    const anim=count%2===0?'slide-in-right':'slide-in-left';
-    img.style.opacity='0';img.style.transition='opacity 0.3s';
-    if(label)label.style.opacity='0';
-    setTimeout(()=>{
-      img.src=p.src;
-      img.onerror=function(){this.onerror=null;this.src=p.src.replace(_GH,_GH+'images/');};
-      if(label)label.textContent=p.name;
-      img.style.transition='';img.style.opacity='1';
-      img.classList.remove('slide-in-right','slide-in-left');
-      void img.offsetWidth;
-      img.classList.add(anim);
-      if(label)setTimeout(()=>label.style.opacity='1',150);
-      if(dotsEl)Array.from(dotsEl.querySelectorAll('.hero-dot')).forEach((d,i)=>d.classList.toggle('active',i===toIdx));
-    },320);
+
+  var idx=0, dir=1, timer=null, busy=false;
+
+  // Build dots (one per product)
+  if(dotsEl){
+    dotsEl.innerHTML=slides.map(function(_,i){
+      return '<div class="hero-dot'+(i===0?' active':'')+'" onclick="heroGoto('+i+')" title="'+slides[i].name+'"></div>';
+    }).join('');
   }
-  function next(){count++;idx=(idx+1)%heroImgs.length;advance(idx);}
-  function resetTimer(){clearInterval(timer);timer=setInterval(next,5000);}
+
+  window.heroGoto=function(n){ dir=n>=idx?1:-1; go(n); resetTimer(); };
+
+  function imgSrc(id){ return GH+id+'1.jpg'; }
+  function imgFb(id){ return GH+'images/'+id+'1.jpg'; }
+
+  function updateDots(n){
+    if(!dotsEl)return;
+    Array.from(dotsEl.querySelectorAll('.hero-dot')).forEach(function(d,i){
+      d.classList.toggle('active', i===n);
+    });
+  }
+
+  function go(toIdx){
+    if(busy)return;
+    busy=true;
+    var p=slides[toIdx];
+
+    // Slide out
+    var outX = dir>=0 ? '-45px' : '45px';
+    img.style.transition='opacity .22s ease, transform .22s ease';
+    img.style.opacity='0';
+    img.style.transform='translateX('+outX+') scale(.93)';
+    if(label){ label.style.transition='opacity .18s'; label.style.opacity='0'; }
+    if(counter){ counter.style.transition='opacity .18s'; counter.style.opacity='0'; }
+
+    setTimeout(function(){
+      // Swap image
+      img.src=imgSrc(p.id);
+      img.onerror=function(){ this.onerror=null; this.src=imgFb(p.id); };
+      if(label) label.textContent=p.name+' · '+p.tag;
+      if(counter) counter.textContent=(toIdx+1)+' / '+TOTAL;
+
+      // Prepare slide-in position
+      var inX = dir>=0 ? '55px' : '-55px';
+      img.style.transition='none';
+      img.style.opacity='0';
+      img.style.transform='translateX('+inX+') scale(.93)';
+      void img.offsetWidth; // force reflow
+
+      // Animate in
+      img.style.transition='opacity .58s cubic-bezier(.22,1,.36,1), transform .58s cubic-bezier(.22,1,.36,1)';
+      img.style.opacity='1';
+      img.style.transform='none';
+      if(label) setTimeout(function(){ label.style.opacity='1'; }, 130);
+      if(counter) setTimeout(function(){ counter.style.opacity='1'; }, 130);
+
+      updateDots(toIdx);
+      idx=toIdx;
+      // Preload next
+      (new Image()).src=imgSrc(slides[(toIdx+1)%TOTAL].id);
+      setTimeout(function(){ busy=false; }, 620);
+    }, 240);
+  }
+
+  function next(){ dir=1;  go((idx+1)%TOTAL); resetTimer(); }
+  function prev(){ dir=-1; go((idx-1+TOTAL)%TOTAL); resetTimer(); }
+  function resetTimer(){ clearInterval(timer); timer=setInterval(next, 4000); }
+
+  // Swipe on mobile
+  var tx=0, ty=0;
+  img.addEventListener('touchstart', function(e){ tx=e.changedTouches[0].clientX; ty=e.changedTouches[0].clientY; },{passive:true});
+  img.addEventListener('touchend', function(e){
+    var dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+    if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>28){ dx<0?next():prev(); }
+  },{passive:true});
+
+  // Click to advance
+  img.addEventListener('click', next);
+
+  // Arrow buttons
+  if(btnPrev) btnPrev.addEventListener('click', function(e){ e.stopPropagation(); prev(); });
+  if(btnNext) btnNext.addEventListener('click', function(e){ e.stopPropagation(); next(); });
+
+  // Pause on hover (desktop)
+  var col=img.closest('.hero-img-col');
+  if(col){
+    col.addEventListener('mouseenter', function(){ clearInterval(timer); });
+    col.addEventListener('mouseleave', function(){ resetTimer(); });
+  }
+
+  if(counter) counter.textContent='1 / '+TOTAL;
   resetTimer();
-  img.addEventListener('click',function(){count++;idx=(idx+1)%heroImgs.length;advance(idx);resetTimer();});
+  // Preload first few
+  [1,2,3].forEach(function(i){ (new Image()).src=imgSrc(slides[i%TOTAL].id); });
 });
 </script>
 
