@@ -137,7 +137,15 @@ body.nav-open{overflow:hidden}
 /* ── TIMER OVERLAY ── */
 .timer-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.78);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:1.2rem}
 .timer-overlay.open{display:flex}
-.timer-box{background:var(--bg3);border:1px solid var(--border-m);border-radius:var(--r-lg);padding:2.2rem 2rem 2rem;max-width:430px;width:100%;text-align:center;box-shadow:var(--sh-lg);position:relative;animation:popIn .3s var(--ease)}
+.timer-box{background:var(--bg3);border:1px solid var(--border-m);border-radius:var(--r-lg);padding:0;max-width:760px;width:100%;text-align:center;box-shadow:var(--sh-lg);position:relative;animation:popIn .3s var(--ease);overflow:hidden;display:flex;flex-direction:column}
+/* cartoon panel sits on top, controls below */
+.t-cartoon-panel{position:relative;width:100%;height:230px;overflow:hidden;background:#061428;flex-shrink:0;transition:background 1s ease}
+#cartoonCanvas{display:block;width:100%;height:230px}
+.t-cartoon-label{position:absolute;bottom:.6rem;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.55);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:.22rem .9rem;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#D4A017;white-space:nowrap;pointer-events:none}
+.t-cartoon-step-pill{position:absolute;top:.65rem;left:.7rem;background:rgba(212,160,23,.18);border:1px solid rgba(212,160,23,.35);border-radius:50px;padding:.2rem .7rem;font-size:.6rem;font-weight:800;color:#D4A017;letter-spacing:.08em}
+.t-controls{padding:1.3rem 1.5rem 1.4rem;display:flex;flex-direction:column;gap:.75rem}
+@media(min-width:600px){.t-cartoon-panel{height:260px}#cartoonCanvas{height:260px}}
+/* compact the controls area */
 @keyframes popIn{from{opacity:0;transform:scale(.93) translateY(14px)}to{opacity:1;transform:none}}
 .t-close{position:absolute;top:.9rem;right:.9rem;background:none;border:none;font-size:1.1rem;color:var(--text-mu);transition:color .2s}
 .t-close:hover{color:var(--text)}
@@ -360,61 +368,76 @@ body.nav-open{overflow:hidden}
 <!-- TIMER OVERLAY -->
 <div class="timer-overlay" id="timerOverlay" role="dialog" aria-modal="true">
   <div class="timer-box">
-    <button class="t-close" id="tClose">✕</button>
-    <span class="t-emoji" id="tEmoji">🧠</span>
-    <div class="t-title" id="tTitle">Exercise</div>
-    <div class="t-sub" id="tSub"></div>
+    <!-- CARTOON PANEL -->
+    <div class="t-cartoon-panel" id="tCartoonPanel">
+      <canvas id="cartoonCanvas" width="760" height="260"></canvas>
+      <div class="t-cartoon-step-pill" id="tCartoonPill">Step 1</div>
+      <div class="t-cartoon-label" id="tCartoonLabel">Get Ready</div>
+      <button class="t-close" id="tClose" style="top:.7rem;right:.7rem;background:rgba(0,0,0,.45);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center">✕</button>
+    </div>
 
-    <!-- Normal timer -->
-    <div id="normalTimer">
-      <div class="ring-wrap">
-        <svg class="t-ring" viewBox="0 0 150 150">
-          <defs>
-            <linearGradient id="tGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" style="stop-color:#B8860B"/>
-              <stop offset="100%" style="stop-color:#D4A017"/>
-            </linearGradient>
-          </defs>
-          <circle class="t-ring-bg" cx="75" cy="75" r="65"/>
-          <circle class="t-ring-fill" id="tRingFill" cx="75" cy="75" r="65"/>
-        </svg>
-        <div class="t-num">
-          <span id="tNum">0</span>
-          <span class="t-phase" id="tPhase"></span>
+    <!-- CONTROLS AREA -->
+    <div class="t-controls">
+      <div style="display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;justify-content:center">
+        <span class="t-emoji" id="tEmoji" style="font-size:1.6rem;line-height:1">🧠</span>
+        <div style="flex:1;min-width:160px;text-align:left">
+          <div class="t-title" id="tTitle" style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.15rem">Exercise</div>
+          <div class="t-sub" id="tSub" style="font-size:.72rem;color:var(--text-m);line-height:1.5;max-height:56px;overflow:hidden"></div>
+        </div>
+        <!-- mini ring -->
+        <div class="ring-wrap" style="width:70px;height:70px;flex-shrink:0">
+          <svg class="t-ring" viewBox="0 0 150 150" style="width:70px;height:70px">
+            <defs>
+              <linearGradient id="tGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#B8860B"/>
+                <stop offset="100%" style="stop-color:#D4A017"/>
+              </linearGradient>
+            </defs>
+            <circle class="t-ring-bg" cx="75" cy="75" r="65"/>
+            <circle class="t-ring-fill" id="tRingFill" cx="75" cy="75" r="65"/>
+          </svg>
+          <div class="t-num" style="font-size:1.4rem">
+            <span id="tNum">0</span>
+            <span class="t-phase" id="tPhase" style="font-size:.42rem"></span>
+          </div>
         </div>
       </div>
-      <div class="t-step-lbl" id="tStepLbl"></div>
-      <div class="t-btns">
-        <button class="t-btn t-btn-start" id="tStartBtn" onclick="timerStart()">▶ Start</button>
-        <button class="t-btn t-btn-voice" id="tVoiceBtn" onclick="toggleVoice()">🔇 Voice Off</button>
-        <button class="t-btn t-btn-stop" onclick="timerClose()">✕ Close</button>
-      </div>
-    </div>
 
-    <!-- Wake-up game -->
-    <div class="wg-wrap" id="wgWrap">
-      <div class="wg-prompt" id="wgPrompt">Ready? Hit Start to begin the challenge!</div>
-      <div class="wg-count" id="wgCount">0</div>
-      <div class="wg-timer-ring">
-        <svg class="wg-tr" viewBox="0 0 80 80">
-          <circle class="wg-tr-bg" cx="40" cy="40" r="35"/>
-          <circle class="wg-tr-fill" id="wgRing" cx="40" cy="40" r="35"/>
-        </svg>
-        <div class="wg-tr-num" id="wgSecs">15</div>
+      <!-- Normal timer step label -->
+      <div id="normalTimer">
+        <div class="t-step-lbl" id="tStepLbl" style="font-size:.82rem;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:.65rem .9rem;text-align:left;line-height:1.6;color:var(--text-m)"></div>
+        <div class="t-btns">
+          <button class="t-btn t-btn-start" id="tStartBtn" onclick="timerStart()">▶ Start</button>
+          <button class="t-btn t-btn-voice" id="tVoiceBtn" onclick="toggleVoice()">🔇 Voice Off</button>
+          <button class="t-btn t-btn-stop" onclick="timerClose()">✕ Close</button>
+        </div>
       </div>
-      <button class="wg-tap-btn" id="wgTapBtn" onclick="wgTap()" disabled>⚡</button>
-      <div class="wg-bar"><div class="wg-fill" id="wgFill" style="width:0"></div></div>
-      <div class="wg-result" id="wgResult"></div>
-      <div class="t-btns" style="margin-top:.8rem">
-        <button class="t-btn t-btn-start" id="wgStartBtn" onclick="wgStart()">▶ Start Challenge</button>
-        <button class="t-btn t-btn-voice" id="wgVoiceBtn" onclick="toggleVoice()">🔇 Voice Off</button>
-        <button class="t-btn t-btn-stop" onclick="timerClose()">✕ Close</button>
-      </div>
-    </div>
 
-    <!-- Colour breathing animation -->
-    <div id="breathAnim" style="display:none;margin:-.3rem 0 1rem">
-      <canvas id="breathCanvas" width="150" height="150" style="display:block;margin:0 auto"></canvas>
+      <!-- Wake-up game -->
+      <div class="wg-wrap" id="wgWrap">
+        <div class="wg-prompt" id="wgPrompt">Ready? Hit Start to begin the challenge!</div>
+        <div class="wg-count" id="wgCount">0</div>
+        <div class="wg-timer-ring">
+          <svg class="wg-tr" viewBox="0 0 80 80">
+            <circle class="wg-tr-bg" cx="40" cy="40" r="35"/>
+            <circle class="wg-tr-fill" id="wgRing" cx="40" cy="40" r="35"/>
+          </svg>
+          <div class="wg-tr-num" id="wgSecs">15</div>
+        </div>
+        <button class="wg-tap-btn" id="wgTapBtn" onclick="wgTap()" disabled>⚡</button>
+        <div class="wg-bar"><div class="wg-fill" id="wgFill" style="width:0"></div></div>
+        <div class="wg-result" id="wgResult"></div>
+        <div class="t-btns" style="margin-top:.5rem">
+          <button class="t-btn t-btn-start" id="wgStartBtn" onclick="wgStart()">▶ Start Challenge</button>
+          <button class="t-btn t-btn-voice" id="wgVoiceBtn" onclick="toggleVoice()">🔇 Voice Off</button>
+          <button class="t-btn t-btn-stop" onclick="timerClose()">✕ Close</button>
+        </div>
+      </div>
+
+      <!-- breath canvas kept for breathing bg circle (hidden, cartoon replaces it visually) -->
+      <div id="breathAnim" style="display:none">
+        <canvas id="breathCanvas" width="1" height="1"></canvas>
+      </div>
     </div>
   </div>
 </div>
@@ -855,6 +878,13 @@ function openExercise(id){
 
   document.getElementById('timerOverlay').classList.add('open');
 
+  // Init cartoon
+  if(window.CartoonAnim){
+    const phases=_ex.phases?_ex.phases.map(p=>p.label):[];
+    CartoonAnim.setExercise(_ex.id, phases, _ex.steps||[]);
+    CartoonAnim.start();
+  }
+
   // Speak intro after short delay
   setTimeout(() => speak(_ex.voiceIntro || _ex.desc), 400);
   if(_ex.isBreath) startBreathAnim();
@@ -907,6 +937,7 @@ function tick(){
     document.getElementById('tPhase').textContent = nextPh.label + ' — Round ' + _round + '/' + _ex.rounds;
     document.getElementById('tStepLbl').textContent = _ex.steps[Math.min(_phaseIdx, _ex.steps.length-1)] || '';
     document.getElementById('tRingFill').style.strokeDashoffset = '0';
+    if(window.CartoonAnim) CartoonAnim.setPhase(_phaseIdx, Math.min(_phaseIdx,(_ex.steps||[]).length-1), nextPh.label);
   } else {
     document.getElementById('tPhase').textContent = ph.label + ' — Round ' + _round + '/' + _ex.rounds;
   }
@@ -915,6 +946,7 @@ function tick(){
 function timerClose(){
   clearInterval(_timer); _running = false; _sec = 0; _phaseIdx = 0; _round = 1;
   stopSpeech(); cancelBreathAnim();
+  if(window.CartoonAnim) CartoonAnim.stop();
   document.getElementById('timerOverlay').classList.remove('open');
 }
 
@@ -1082,5 +1114,1131 @@ loadLabData();
 renderCards();
 observeReveal();
 </script>
+
+/* ══════════════════════════════════════════════════════════════════
+   CARTOON ANIMATION ENGINE — pure canvas stick-figure character
+   Canvas logical: 760×260 (scaled by CSS)
+   Character fits in left ~280px; right side shows step instruction
+══════════════════════════════════════════════════════════════════ */
+(function(){
+'use strict';
+
+/* ── palette ── */
+const SK='#FBBF7A',HR='#3D2A1A',OL='#1a1a2e',SH='#2A7A5A',PT='#1e3a5f',SH2='#1A5A3A',
+      EW='#fff',EY='#1a1a2e',MO='#c07050',CK='rgba(255,150,100,.42)',SHO='#3D2A1A';
+
+/* ── math helpers ── */
+const π=Math.PI, lerp=(a,b,t)=>a+(b-a)*t, clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const easeInOut=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const sin=t=>Math.sin(t), cos=t=>Math.cos(t);
+
+/* ── drawing helpers ── */
+function limb(ctx,x1,y1,x2,y2,w,col){
+  ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+  ctx.strokeStyle=col; ctx.lineWidth=w; ctx.lineCap='round'; ctx.stroke();
+  ctx.beginPath(); ctx.arc(x2,y2,w/2,0,2*π); ctx.fillStyle=col; ctx.fill();
+}
+function joint(ctx,x,y,r,col){
+  ctx.beginPath();ctx.arc(x,y,r,0,2*π);ctx.fillStyle=col;ctx.fill();
+}
+function roundRect(ctx,x,y,w,h,r,col,scol,sw=0){
+  ctx.beginPath(); ctx.roundRect(x,y,w,h,r);
+  ctx.fillStyle=col; ctx.fill();
+  if(sw){ctx.strokeStyle=scol;ctx.lineWidth=sw;ctx.stroke();}
+}
+
+/* ══ HEAD ══ */
+function head(ctx,cx,cy,r,{tiltX=0,tiltY=0,eyeX=0,blink=1,mouth='smile',sweat=false,exclaim=false}={}){
+  ctx.save(); ctx.translate(cx+tiltX,cy+tiltY);
+  // skull
+  ctx.beginPath(); ctx.ellipse(0,0,r,r*1.06,0,0,2*π);
+  ctx.fillStyle=SK; ctx.fill(); ctx.strokeStyle=OL; ctx.lineWidth=2.4; ctx.stroke();
+  // hair tuft
+  ctx.beginPath(); ctx.moveTo(-r*.8,-r*.2);
+  ctx.quadraticCurveTo(-r*.5,-r*1.1, 0,-r*.85);
+  ctx.quadraticCurveTo(r*.5,-r*1.1, r*.8,-r*.2);
+  ctx.fillStyle=HR; ctx.fill();
+  // cheeks
+  [[-.42,.15],[.42,.15]].forEach(([ex,ey])=>{
+    ctx.beginPath();ctx.ellipse(ex*r,ey*r,r*.2,r*.14,0,0,2*π);
+    ctx.fillStyle=CK;ctx.fill();
+  });
+  // eyes
+  const ex=r*.3, ey=-r*.04, bh=clamp(blink,0.05,1);
+  [[eyeX*r*.25,0],[-eyeX*r*.25,0]].forEach(([ox],i)=>{
+    const px=(i===0?ex:-ex)+ox, py=ey;
+    // white
+    ctx.beginPath();ctx.ellipse(px,py,r*.19,r*.19*bh,0,0,2*π);
+    ctx.fillStyle=EW;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=1.6;ctx.stroke();
+    if(bh>.12){
+      ctx.beginPath();ctx.arc(px,py,r*.1,0,2*π);ctx.fillStyle=EY;ctx.fill();
+      ctx.beginPath();ctx.arc(px+r*.04,py-r*.04,r*.03,0,2*π);ctx.fillStyle='#fff';ctx.fill();
+    } else {
+      ctx.beginPath();ctx.moveTo(px-r*.19,py);ctx.lineTo(px+r*.19,py);
+      ctx.strokeStyle=OL;ctx.lineWidth=2.2;ctx.stroke();
+    }
+  });
+  // eyebrows
+  const bry=ey-r*.28;
+  if(exclaim){
+    ctx.beginPath();ctx.moveTo(-ex-r*.15,bry-r*.1);ctx.quadraticCurveTo(-ex,bry-r*.2,-ex+r*.15,bry-r*.1);
+    ctx.moveTo(ex-r*.15,bry-r*.1);ctx.quadraticCurveTo(ex,bry-r*.2,ex+r*.15,bry-r*.1);
+  } else {
+    ctx.beginPath();ctx.moveTo(-ex-r*.18,bry);ctx.lineTo(-ex+r*.16,bry-r*.06);
+    ctx.moveTo(ex-r*.16,bry-r*.06);ctx.lineTo(ex+r*.18,bry);
+  }
+  ctx.strokeStyle=HR;ctx.lineWidth=2.2;ctx.stroke();
+  // mouth
+  if(mouth==='smile'){
+    ctx.beginPath();ctx.arc(0,r*.44,r*.22,0.1,π-0.1);
+    ctx.strokeStyle=MO;ctx.lineWidth=2.2;ctx.stroke();
+  } else if(mouth==='open'){
+    ctx.beginPath();ctx.ellipse(0,r*.44,r*.18,r*.12,0,0,π);
+    ctx.fillStyle=HR;ctx.fill();
+  } else if(mouth==='flat'){
+    ctx.beginPath();ctx.moveTo(-r*.18,r*.44);ctx.lineTo(r*.18,r*.44);
+    ctx.strokeStyle=MO;ctx.lineWidth=2;ctx.stroke();
+  } else if(mouth==='big'){
+    ctx.beginPath();ctx.ellipse(0,r*.42,r*.26,r*.2,0,0,π);
+    ctx.fillStyle=HR;ctx.fill();
+    ctx.beginPath();ctx.arc(0,r*.42,r*.26,0,π);
+    ctx.strokeStyle=MO;ctx.lineWidth=2.2;ctx.stroke();
+  }
+  // sweat drop
+  if(sweat){
+    ctx.beginPath();ctx.moveTo(r*.75,r*.0);ctx.quadraticCurveTo(r*.95,r*.25,r*.75,r*.45);
+    ctx.quadraticCurveTo(r*.55,r*.25,r*.75,r*.0);
+    ctx.fillStyle='rgba(130,200,255,.85)';ctx.fill();
+  }
+  // exclamation
+  if(exclaim){
+    ctx.font=`bold ${r*.7}px sans-serif`;ctx.fillStyle='#ef4444';
+    ctx.fillText('!',r*.9,-r*.4);
+  }
+  ctx.restore();
+}
+
+/* ══ PARTICLE SYSTEM ══ */
+let particles=[];
+function spawnParticles(type,bx,by){
+  particles=[];
+  if(type==='dots-up'){
+    for(let i=0;i<8;i++) particles.push({x:bx+(-40+i*10),y:by,vy:-1.5-Math.random()*1.5,vx:(Math.random()-.5)*.5,life:1,size:3+Math.random()*4,col:'rgba(130,200,255,A)'});
+  } else if(type==='dots-down'){
+    for(let i=0;i<8;i++) particles.push({x:bx+(-40+i*10),y:by-20,vy:1.5+Math.random()*1.5,vx:(Math.random()-.5)*.5,life:1,size:3+Math.random()*4,col:'rgba(100,160,220,A)'});
+  } else if(type==='sparkle'){
+    for(let i=0;i<12;i++){
+      const a=(i/12)*2*π;
+      particles.push({x:bx+cos(a)*35,y:by+sin(a)*35,vx:cos(a)*.4,vy:sin(a)*.4,life:1,size:2+Math.random()*3,col:'rgba(212,160,23,A)',shape:'star'});
+    }
+  } else if(type==='energy-burst'){
+    for(let i=0;i<14;i++){
+      const a=(i/14)*2*π;
+      particles.push({x:bx,y:by,vx:cos(a)*(2+Math.random()*2.5),vy:sin(a)*(2+Math.random()*2.5),life:1,size:3+Math.random()*4,col:'rgba(251,146,60,A)'});
+    }
+  } else if(type==='water-splash'){
+    for(let i=0;i<12;i++){
+      const a=-(π*.2)+(i/12)*π*1.4;
+      particles.push({x:bx+cos(a)*10,y:by,vx:cos(a)*(1.5+Math.random()*2),vy:sin(a)*(1.5+Math.random()*2)-1,life:1,size:4+Math.random()*4,col:'rgba(96,165,250,A)'});
+    }
+  } else if(type==='water-drip'){
+    for(let i=0;i<6;i++) particles.push({x:bx+(-20+i*8),y:by,vy:1.2+Math.random()*1.2,vx:(Math.random()-.5)*.3,life:1,size:4+Math.random()*3,col:'rgba(96,165,250,A)',teardrop:true});
+  } else if(type==='pulse'){
+    for(let i=0;i<5;i++) particles.push({x:bx,y:by-i*6,vx:(Math.random()-.5)*.6,vy:-0.8-i*.3,life:1,size:3+i*.5,col:'rgba(212,160,23,A)'});
+  } else if(type==='warmth'){
+    for(let i=0;i<6;i++){
+      const a=(-π*.3)+i*(π*.6/5);
+      particles.push({x:bx+cos(a)*25,y:by+sin(a)*20,vx:cos(a)*.4,vy:-1-Math.random()*.8,life:1,size:3+Math.random()*3,col:'rgba(253,186,116,A)'});
+    }
+  } else if(type==='stars'){
+    for(let i=0;i<10;i++){
+      const a=Math.random()*2*π, dist=20+Math.random()*50;
+      particles.push({x:bx+cos(a)*dist,y:by+sin(a)*dist,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,life:1,size:2+Math.random()*3,col:'rgba(212,160,23,A)',twinkle:true});
+    }
+  } else if(type==='numbers'){
+    const nums=['7','14','21','3','200'];
+    for(let i=0;i<5;i++) particles.push({x:bx+(-50+i*25),y:by,vy:-1.2-Math.random()*1,vx:(Math.random()-.5)*1.2,life:1,text:nums[i],col:'rgba(167,243,208,A)'});
+  } else if(type==='thought-bubble'){
+    for(let i=0;i<6;i++) particles.push({x:bx+10+i*12,y:by-20-i*10,vx:.1,vy:-.4-i*.15,life:1,size:4+i*2,col:'rgba(200,200,255,A)'});
+  } else if(type==='glow-low'||type==='glow-mid'||type==='glow-arms'||type==='glow-head'){
+    const gy={'glow-low':240,'glow-mid':195,'glow-arms':175,'glow-head':155}[type];
+    for(let i=0;i<8;i++) particles.push({x:60+i*15,y:gy,vx:(Math.random()-.5)*.5,vy:-.5-Math.random()*.8,life:1,size:3+Math.random()*4,col:'rgba(212,160,23,A)'});
+  } else if(type==='tense-pulse'){
+    for(let i=0;i<6;i++){const a=(i/6)*2*π; particles.push({x:bx+cos(a)*30,y:by+sin(a)*20,vx:cos(a)*.8,vy:sin(a)*.8,life:1,size:4,col:'rgba(239,68,68,A)'});}
+  } else if(type==='figure8-trail'){
+    for(let i=0;i<10;i++){const a=(i/10)*2*π; particles.push({x:bx+cos(a)*30,y:by+sin(a)*18,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,life:1,size:3,col:'rgba(99,102,241,A)'});}
+  } else if(type==='eye-trail'){
+    for(let i=0;i<6;i++) particles.push({x:bx+(-15+i*6),y:by,vx:(Math.random()-.5)*.8,vy:-1-Math.random(),life:1,size:3+Math.random()*3,col:'rgba(96,165,250,A)'});
+  } else if(type==='spin-trail'){
+    for(let i=0;i<8;i++){const a=(i/8)*2*π; particles.push({x:bx+cos(a)*30,y:by+sin(a)*25,vx:cos(a)*.6,vy:sin(a)*.6,life:1,size:3+Math.random()*3,col:'rgba(212,160,23,A)'});}
+  } else if(type==='eye-circle-cw'||type==='eye-circle-ccw'){
+    for(let i=0;i<8;i++){const a=(i/8)*2*π*(type==='eye-circle-cw'?1:-1); particles.push({x:bx+cos(a)*22,y:by+sin(a)*22,vx:cos(a+π/2)*.6,vy:sin(a+π/2)*.6,life:1,size:3,col:'rgba(96,165,250,A)'});}
+  } else if(type==='gaze-far'){
+    for(let i=0;i<6;i++) particles.push({x:bx+30+i*18,y:by+(-15+Math.random()*30),vx:1.5+Math.random()*1.5,vy:(Math.random()-.5)*.4,life:1,size:3,col:'rgba(147,197,253,A)'});
+  } else if(type==='gaze-near'){
+    for(let i=0;i<5;i++) particles.push({x:bx+5+i*10,y:by+(-8+Math.random()*16),vx:.5,vy:(Math.random()-.5)*.4,life:1,size:4,col:'rgba(167,243,208,A)'});
+  }
+}
+
+function tickParticles(){
+  particles.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy; p.life-=0.022;
+    if(p.twinkle) p.life-=0.005;
+  });
+  particles=particles.filter(p=>p.life>0);
+}
+
+function drawParticles(ctx){
+  particles.forEach(p=>{
+    const al=clamp(p.life,0,1);
+    const col=p.col.replace('A',al.toFixed(2));
+    ctx.save(); ctx.globalAlpha=al;
+    if(p.text){
+      ctx.font=`bold 13px monospace`;ctx.fillStyle=col.replace('A',String(al.toFixed(2)));
+      ctx.fillText(p.text,p.x,p.y);
+    } else if(p.shape==='star'){
+      ctx.beginPath();
+      for(let i=0;i<5;i++){
+        const a=(i*4*π/5)-π/2, r=p.size;
+        if(i===0) ctx.moveTo(p.x+cos(a)*r,p.y+sin(a)*r);
+        else ctx.lineTo(p.x+cos(a)*r,p.y+sin(a)*r);
+      }
+      ctx.closePath(); ctx.fillStyle=col; ctx.fill();
+    } else if(p.teardrop){
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.size*.7,0,π); ctx.moveTo(p.x-p.size*.7,p.y); ctx.lineTo(p.x,p.y+p.size*1.4); ctx.lineTo(p.x+p.size*.7,p.y);
+      ctx.fillStyle=col; ctx.fill();
+    } else {
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,2*π); ctx.fillStyle=col; ctx.fill();
+    }
+    ctx.restore();
+  });
+}
+
+/* ══ POSE LIBRARY ══
+   Each pose function: (ctx, cw, ch, t, phase)
+   cw=canvas logical width (760), ch=height (260)
+   Character rendered at logical coords then canvas scales
+   Character is in left 280px zone; right 280..760 is step text
+   t = 0..1 animation progress within pose cycle
+══ */
+const CX=140, // character centre x
+      GY=230; // ground y
+
+function bgScene(ctx,cw,ch,bgCol,t){
+  // gradient bg
+  const g=ctx.createLinearGradient(0,0,0,ch);
+  g.addColorStop(0,bgCol);
+  g.addColorStop(1,'#020810');
+  ctx.fillStyle=g; ctx.fillRect(0,0,cw,ch);
+  // floor line
+  ctx.beginPath(); ctx.moveTo(0,GY+2); ctx.lineTo(280,GY+2);
+  ctx.strokeStyle='rgba(255,255,255,.06)'; ctx.lineWidth=1.5; ctx.stroke();
+}
+
+function stepText(ctx,cw,ch,lines,stepN,totalSteps,phaseLabel){
+  // right panel
+  const rx=296, ry=18, rw=cw-rx-10;
+  // step counter badge
+  roundRect(ctx,rx,ry,rw,ch-ry*2,14,'rgba(255,255,255,.04)','rgba(255,255,255,.08)',1);
+  // step pill
+  roundRect(ctx,rx+12,ry+12,90,22,11,'rgba(212,160,23,.18)','rgba(212,160,23,.35)',1);
+  ctx.font='bold 10px "DM Sans",sans-serif'; ctx.fillStyle='#D4A017'; ctx.textAlign='left';
+  ctx.fillText(`Step ${stepN} of ${totalSteps}`,rx+20,ry+27);
+  // phase label
+  ctx.font='bold 14px "Playfair Display",serif'; ctx.fillStyle='#E8ECF0';
+  ctx.fillText(phaseLabel,rx+12,ry+60);
+  // instruction lines
+  ctx.font='13px "DM Sans",sans-serif'; ctx.fillStyle='rgba(200,215,230,.85)';
+  lines.forEach((line,i)=>{
+    if(!line) return;
+    // bullet dot
+    ctx.beginPath(); ctx.arc(rx+22, ry+82+i*26, 3, 0, 2*π);
+    ctx.fillStyle='rgba(212,160,23,.7)'; ctx.fill();
+    ctx.fillStyle='rgba(200,215,230,.85)';
+    // word-wrap to ~rw-40 chars
+    const words=line.split(' '); let row='', rows=[];
+    words.forEach(w=>{ const test=row+w+' '; if(ctx.measureText(test).width>rw-40&&row){rows.push(row.trim());row=w+' ';}else row=test; });
+    if(row.trim()) rows.push(row.trim());
+    rows.slice(0,2).forEach((r2,ri)=>ctx.fillText(r2,rx+32,ry+82+i*26+ri*15));
+  });
+}
+
+/* ── SITTING NEUTRAL ── */
+function poseSittingNeutral(ctx,t,opts={}){
+  const bob=sin(t*2*π)*.8;
+  // legs
+  limb(ctx,CX-8,150,CX-32,160+bob,13,PT); limb(ctx,CX-32,160+bob,CX-34,195+bob,11,PT);
+  limb(ctx,CX+8,150,CX+32,160+bob,13,PT); limb(ctx,CX+32,160+bob,CX+34,195+bob,11,PT);
+  // shoes
+  ctx.beginPath();ctx.ellipse(CX-34,202+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(CX+34,202+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  // torso
+  roundRect(ctx,CX-14,108+bob,28,55,8,SH,OL,2.2);
+  // arms resting
+  limb(ctx,CX-14,120+bob,CX-42,145+bob,11,SH); limb(ctx,CX-42,145+bob,CX-44,175+bob,9,SK);
+  limb(ctx,CX+14,120+bob,CX+42,145+bob,11,SH); limb(ctx,CX+42,145+bob,CX+44,175+bob,9,SK);
+  head(ctx,CX,100+bob,27,{mouth:opts.mouth||'smile',...opts});
+}
+
+/* ── SITTING INHALE (chest expanding) ── */
+function poseSittingInhale(ctx,t,stage=0){
+  const bob=sin(t*2*π)*.5, expand=stage*.18;
+  const ch=58+expand*20;
+  limb(ctx,CX-8,150,CX-32,162+bob,13,PT);limb(ctx,CX-32,162+bob,CX-34,196+bob,11,PT);
+  limb(ctx,CX+8,150,CX+32,162+bob,13,PT);limb(ctx,CX+32,162+bob,CX+34,196+bob,11,PT);
+  ctx.beginPath();ctx.ellipse(CX-34,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(CX+34,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  // torso wider on inhale
+  roundRect(ctx,CX-14-expand*4,108+bob,28+expand*8,ch,8,SH,OL,2.2);
+  // arms lift on inhale
+  const liftA=-expand*.8;
+  limb(ctx,CX-14-expand*4,120+bob,CX-45+expand*2,140+bob-expand*20+liftA*15,11,SH);
+  limb(ctx,CX-45+expand*2,140+bob-expand*20+liftA*15,CX-48+expand*4,168+bob-expand*18,9,SK);
+  limb(ctx,CX+14+expand*4,120+bob,CX+45-expand*2,140+bob-expand*20+liftA*15,11,SH);
+  limb(ctx,CX+45-expand*2,140+bob-expand*20+liftA*15,CX+48-expand*4,168+bob-expand*18,9,SK);
+  head(ctx,CX,100+bob-expand*2,27,{mouth:'flat',eyeX:.3*stage});
+}
+
+/* ── SITTING EXHALE ── */
+function poseSittingExhale(ctx,t,stage=0){
+  const bob=sin(t*2*π)*.4, shrink=stage*.15;
+  const ch=55-shrink*14;
+  limb(ctx,CX-8,150,CX-30,162+bob,13,PT);limb(ctx,CX-30,162+bob,CX-32,196+bob,11,PT);
+  limb(ctx,CX+8,150,CX+30,162+bob,13,PT);limb(ctx,CX+30,162+bob,CX+32,196+bob,11,PT);
+  ctx.beginPath();ctx.ellipse(CX-32,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(CX+32,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  roundRect(ctx,CX-12+shrink*3,108+bob,28-shrink*6,ch,8,SH,OL,2.2);
+  limb(ctx,CX-12+shrink*3,120+bob,CX-40,148+bob+shrink*10,11,SH);
+  limb(ctx,CX-40,148+bob+shrink*10,CX-38,180+bob+shrink*8,9,SK);
+  limb(ctx,CX+12-shrink*3,120+bob,CX+40,148+bob+shrink*10,11,SH);
+  limb(ctx,CX+40,148+bob+shrink*10,CX+38,180+bob+shrink*8,9,SK);
+  head(ctx,CX,100+bob+shrink,27,{mouth:'open',eyeX:-.2*stage});
+}
+
+/* ── STANDING NEUTRAL ── */
+function poseStandingNeutral(ctx,t,opts={}){
+  const bob=sin(t*2*π)*.8;
+  limb(ctx,CX-7,155+bob,CX-10,200+bob,12,PT);limb(ctx,CX-10,200+bob,CX-10,235+bob,10,PT);
+  limb(ctx,CX+7,155+bob,CX+10,200+bob,12,PT);limb(ctx,CX+10,200+bob,CX+10,235+bob,10,PT);
+  ctx.beginPath();ctx.ellipse(CX-10,240+bob,13,6,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(CX+10,240+bob,13,6,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  roundRect(ctx,CX-14,100+bob,28,58,8,SH,OL,2.2);
+  limb(ctx,CX-14,115+bob,CX-45,145+bob,11,SH);limb(ctx,CX-45,145+bob,CX-46,178+bob,9,SK);
+  limb(ctx,CX+14,115+bob,CX+45,145+bob,11,SH);limb(ctx,CX+45,145+bob,CX+46,178+bob,9,SK);
+  head(ctx,CX,92+bob,27,{...opts});
+}
+
+/* ── MARCHING ── */
+function poseMarch(ctx,t,side=0){
+  const swing=sin(t*2*π)*22;
+  const kL=side===0?25+swing:-25+swing, kR=side===0?-25-swing:25-swing;
+  // legs alternate lift
+  const lLiftY=side===0?-18:0, rLiftY=side===0?0:-18;
+  limb(ctx,CX-7,155,CX-7+kL*.4,200+lLiftY,12,PT);
+  limb(ctx,CX-7+kL*.4,200+lLiftY,CX-7+kL*.6,235+lLiftY,10,PT);
+  limb(ctx,CX+7,155,CX+7+kR*.4,200+rLiftY,12,PT);
+  limb(ctx,CX+7+kR*.4,200+rLiftY,CX+7+kR*.6,235+rLiftY,10,PT);
+  ctx.beginPath();ctx.ellipse(CX-7+kL*.6,241+lLiftY,13,6,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(CX+7+kR*.6,241+rLiftY,13,6,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  roundRect(ctx,CX-14,100,28,58,8,SH,OL,2.2);
+  // arms swing opposite to legs
+  limb(ctx,CX-14,115,CX-45-kR*.5,140,11,SH);limb(ctx,CX-45-kR*.5,140,CX-46-kR*.4,168,9,SK);
+  limb(ctx,CX+14,115,CX+45-kL*.5,140,11,SH);limb(ctx,CX+45-kL*.5,140,CX+46-kL*.4,168,9,SK);
+  head(ctx,CX,92,27,{tiltX:sin(t*π)*3,mouth:'open',exclaim:true});
+}
+
+/* ── JUMPING JACK ── */
+function poseJumpingJack(ctx,t,open=true){
+  const spread=open?1:0.1, bob=open?-10:0;
+  // legs spread
+  limb(ctx,CX-7,152+bob,CX-35*spread,200+bob,12,PT);limb(ctx,CX-35*spread,200+bob,CX-38*spread,235+bob,10,PT);
+  limb(ctx,CX+7,152+bob,CX+35*spread,200+bob,12,PT);limb(ctx,CX+35*spread,200+bob,CX+38*spread,235+bob,10,PT);
+  ctx.beginPath();ctx.ellipse(CX-38*spread,241+bob,13,6,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(CX+38*spread,241+bob,13,6,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  roundRect(ctx,CX-14,100+bob,28,55,8,SH,OL,2.2);
+  // arms up when open
+  const armY=open?60:140;
+  limb(ctx,CX-14,115+bob,CX-50*spread,armY+bob,11,SH);
+  limb(ctx,CX-50*spread,armY+bob,CX-55*spread,armY+25+bob,9,SK);
+  limb(ctx,CX+14,115+bob,CX+50*spread,armY+bob,11,SH);
+  limb(ctx,CX+50*spread,armY+bob,CX+55*spread,armY+25+bob,9,SK);
+  head(ctx,CX,92+bob,27,{mouth:'big',exclaim:open});
+}
+
+/* ── HIGH KNEE ── */
+function poseHighKnee(ctx,t,side=0){
+  const bob=sin(t*4*π)*2;
+  // standing leg
+  limb(ctx,CX+7,155+bob,CX+8,202+bob,12,PT);limb(ctx,CX+8,202+bob,CX+9,238+bob,10,PT);
+  ctx.beginPath();ctx.ellipse(CX+9,243+bob,13,6,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  // raised knee
+  if(side===0){
+    limb(ctx,CX-7,155+bob,CX-15,175+bob,12,PT);limb(ctx,CX-15,175+bob,CX-12,200+bob,10,PT);
+    ctx.beginPath();ctx.ellipse(CX-12,205+bob,11,5,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  } else {
+    limb(ctx,CX+7,155+bob,CX+15,175+bob,12,PT);limb(ctx,CX+15,175+bob,CX+12,200+bob,10,PT);
+    ctx.beginPath();ctx.ellipse(CX+12,205+bob,11,5,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+    limb(ctx,CX-7,155+bob,CX-8,202+bob,12,PT);limb(ctx,CX-8,202+bob,CX-9,238+bob,10,PT);
+    ctx.beginPath();ctx.ellipse(CX-9,243+bob,13,6,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  }
+  roundRect(ctx,CX-14,100+bob,28,57,8,SH,OL,2.2);
+  limb(ctx,CX-14,115+bob,CX-45,140+bob,11,SH);limb(ctx,CX-45,140+bob,CX-46,170+bob,9,SK);
+  limb(ctx,CX+14,115+bob,CX+45,140+bob,11,SH);limb(ctx,CX+45,140+bob,CX+46,170+bob,9,SK);
+  head(ctx,CX,92+bob,27,{mouth:'open',exclaim:true});
+}
+
+/* ── STRETCH UP ── */
+function poseStretchUp(ctx,t){
+  const stretch=0.7+sin(t*π)*.3;
+  limb(ctx,CX-7,155,CX-9,202,12,PT);limb(ctx,CX-9,202,CX-9,236,10,PT);
+  limb(ctx,CX+7,155,CX+9,202,12,PT);limb(ctx,CX+9,202,CX+9,236,10,PT);
+  ctx.beginPath();ctx.ellipse(CX-9,241,13,6,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(CX+9,241,13,6,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  roundRect(ctx,CX-14,100,28,58,8,SH,OL,2.2);
+  // arms straight up
+  const armH=65-stretch*35;
+  limb(ctx,CX-14,115,CX-28,armH+20,11,SH);limb(ctx,CX-28,armH+20,CX-26,armH,9,SK);
+  limb(ctx,CX+14,115,CX+28,armH+20,11,SH);limb(ctx,CX+28,armH+20,CX+26,armH,9,SK);
+  head(ctx,CX,92,27,{tiltY:stretch*-4,mouth:'smile'});
+}
+
+/* ── SQUAT ── */
+function poseSquat(ctx,t,depth=0){
+  const d=depth, bob=sin(t*2*π)*.4;
+  const hipY=155+d*40, kneeY=200+d*10, ankY=235-d*15;
+  limb(ctx,CX-7,hipY,CX-25,kneeY,12,PT);limb(ctx,CX-25,kneeY,CX-14,ankY,10,PT);
+  limb(ctx,CX+7,hipY,CX+25,kneeY,12,PT);limb(ctx,CX+25,kneeY,CX+14,ankY,10,PT);
+  ctx.beginPath();ctx.ellipse(CX-14,ankY+5,13,6,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(CX+14,ankY+5,13,6,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  roundRect(ctx,CX-14,100+d*35,28,58-d*15,8,SH,OL,2.2);
+  limb(ctx,CX-14,115+d*35,CX-20,145+d*30,11,SH);limb(ctx,CX-20,145+d*30,CX-22,175+d*20,9,SK);
+  limb(ctx,CX+14,115+d*35,CX+20,145+d*30,11,SH);limb(ctx,CX+20,145+d*30,CX+22,175+d*20,9,SK);
+  head(ctx,CX,92+d*35,27,{mouth:d>.5?'open':'smile'});
+}
+
+/* ── CALF RAISE ── */
+function poseCalfRaise(ctx,t,raised=false){
+  const ry=raised?-18:0;
+  limb(ctx,CX-7,155,CX-9,200+ry,12,PT);limb(ctx,CX-9,200+ry,CX-9,234+ry,10,PT);
+  limb(ctx,CX+7,155,CX+9,200+ry,12,PT);limb(ctx,CX+9,200+ry,CX+9,234+ry,10,PT);
+  ctx.beginPath();ctx.ellipse(CX-9,239+ry,13,raised?4:6,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(CX+9,239+ry,13,raised?4:6,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  roundRect(ctx,CX-14,100,28,58,8,SH,OL,2.2);
+  limb(ctx,CX-14,115,CX-45,145,11,SH);limb(ctx,CX-45,145,CX-46,175,9,SK);
+  limb(ctx,CX+14,115,CX+45,145,11,SH);limb(ctx,CX+45,145,CX+46,175,9,SK);
+  head(ctx,CX,92,27,{tiltY:ry*.15,mouth:'smile'});
+}
+
+/* ── CROSS CRAWL ── */
+function poseCrossCrawl(ctx,t,side=0){
+  // left knee + right elbow, or vice versa
+  const bob=sin(t*2*π)*2;
+  limb(ctx,CX-7,155+bob,CX-8,202+bob,12,PT);limb(ctx,CX-8,202+bob,CX-9,237+bob,10,PT);
+  ctx.beginPath();ctx.ellipse(CX-9,242+bob,13,6,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  // raised leg
+  if(side===0){
+    limb(ctx,CX+7,155+bob,CX+20,172+bob,12,PT);limb(ctx,CX+20,172+bob,CX+18,195+bob,10,PT);
+  } else {
+    limb(ctx,CX+7,155+bob,CX+8,202+bob,12,PT);limb(ctx,CX+8,202+bob,CX+9,237+bob,10,PT);
+    ctx.beginPath();ctx.ellipse(CX+9,242+bob,13,6,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+    limb(ctx,CX-7,155+bob,CX-20,172+bob,12,PT);limb(ctx,CX-20,172+bob,CX-18,195+bob,10,PT);
+  }
+  roundRect(ctx,CX-14,100+bob,28,57,8,SH,OL,2.2);
+  // cross arm touches opposite knee
+  if(side===0){
+    limb(ctx,CX-14,115+bob,CX-40,138+bob,11,SH);limb(ctx,CX-40,138+bob,CX-42,168+bob,9,SK);
+    limb(ctx,CX+14,115+bob,CX+8,148+bob,11,SH);limb(ctx,CX+8,148+bob,CX+18,175+bob,9,SK);
+  } else {
+    limb(ctx,CX+14,115+bob,CX+40,138+bob,11,SH);limb(ctx,CX+40,138+bob,CX+42,168+bob,9,SK);
+    limb(ctx,CX-14,115+bob,CX-8,148+bob,11,SH);limb(ctx,CX-8,148+bob,CX-18,175+bob,9,SK);
+  }
+  head(ctx,CX,92+bob,27,{mouth:'smile'});
+}
+
+/* ── EYE CLOSE-UP (face only, centered) ── */
+function poseEyeCloseup(ctx,t,gazeX=0,gazeY=0,blink=1){
+  // big face for eye exercises
+  const cx=140,cy=130,r=60;
+  ctx.beginPath();ctx.ellipse(cx,cy,r,r*1.06,0,0,2*π);
+  ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=3.5;ctx.stroke();
+  // hair
+  ctx.beginPath();ctx.moveTo(cx-r*.8,cy-r*.2);
+  ctx.quadraticCurveTo(cx-r*.5,cy-r*1.1,cx,cy-r*.85);
+  ctx.quadraticCurveTo(cx+r*.5,cy-r*1.1,cx+r*.8,cy-r*.2);
+  ctx.fillStyle=HR;ctx.fill();
+  // cheeks
+  ctx.beginPath();ctx.ellipse(cx-r*.42,cy+r*.1,r*.2,r*.14,0,0,2*π);ctx.fillStyle=CK;ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx+r*.42,cy+r*.1,r*.2,r*.14,0,0,2*π);ctx.fillStyle=CK;ctx.fill();
+  // BIG eyes
+  const bh=clamp(blink,0.05,1);
+  [[cx-r*.35,cy-r*.05],[cx+r*.35,cy-r*.05]].forEach(([ex,ey])=>{
+    ctx.beginPath();ctx.ellipse(ex+gazeX*r*.3,ey+gazeY*r*.2,r*.23,r*.23*bh,0,0,2*π);
+    ctx.fillStyle=EW;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=2.5;ctx.stroke();
+    if(bh>.1){
+      ctx.beginPath();ctx.arc(ex+gazeX*r*.3,ey+gazeY*r*.2,r*.13,0,2*π);ctx.fillStyle='#4A90D9';ctx.fill();
+      ctx.beginPath();ctx.arc(ex+gazeX*r*.3+r*.05,ey+gazeY*r*.2-r*.05,r*.05,0,2*π);ctx.fillStyle=EW;ctx.fill();
+    } else {
+      ctx.beginPath();ctx.moveTo(ex-r*.23,ey);ctx.lineTo(ex+r*.23,ey);
+      ctx.strokeStyle=OL;ctx.lineWidth=3;ctx.stroke();
+    }
+  });
+  // eyebrows
+  const bry=cy-r*.3;
+  ctx.beginPath();ctx.moveTo(cx-r*.58,bry);ctx.lineTo(cx-r*.14,bry-r*.08);
+  ctx.moveTo(cx+r*.14,bry-r*.08);ctx.lineTo(cx+r*.58,bry);
+  ctx.strokeStyle=HR;ctx.lineWidth=3;ctx.stroke();
+  // direction arrow
+  if(Math.abs(gazeX)+Math.abs(gazeY)>.1){
+    ctx.beginPath();
+    const ax=cx+gazeX*r*.65,ay=cy+gazeY*r*.55;
+    ctx.arc(ax,ay,r*.1,0,2*π);
+    ctx.fillStyle='rgba(212,160,23,.5)';ctx.fill();
+  }
+  // nose
+  ctx.beginPath();ctx.moveTo(cx,cy+r*.15);ctx.quadraticCurveTo(cx+r*.08,cy+r*.3,cx,cy+r*.35);
+  ctx.strokeStyle='rgba(200,140,100,.6)';ctx.lineWidth=2;ctx.stroke();
+  // mouth
+  ctx.beginPath();ctx.arc(cx,cy+r*.52,r*.2,0.1,π-0.1);
+  ctx.strokeStyle=MO;ctx.lineWidth=2.5;ctx.stroke();
+}
+
+/* ── PALMING ── */
+function posePalming(ctx,t){
+  const bob=sin(t*2*π)*.5, warm=(sin(t*2*π)+1)*.5;
+  // sitting
+  limb(ctx,CX-8,150+bob,CX-32,162+bob,13,PT);limb(ctx,CX-32,162+bob,CX-34,196+bob,11,PT);
+  limb(ctx,CX+8,150+bob,CX+32,162+bob,13,PT);limb(ctx,CX+32,162+bob,CX+34,196+bob,11,PT);
+  ctx.beginPath();ctx.ellipse(CX-34,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(CX+34,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  roundRect(ctx,CX-14,108+bob,28,55,8,SH,OL,2.2);
+  // both hands cover face
+  limb(ctx,CX-14,120+bob,CX-8,85+bob,11,SH);limb(ctx,CX-8,85+bob,CX-5,75+bob,9,SK);
+  limb(ctx,CX+14,120+bob,CX+8,85+bob,11,SH);limb(ctx,CX+8,85+bob,CX+5,75+bob,9,SK);
+  // palms over face
+  roundRect(ctx,CX-30,72+bob,28,24,8,`rgba(251,191,122,${0.7+warm*.3})`,OL,2);
+  roundRect(ctx,CX+2,72+bob,28,24,8,`rgba(251,191,122,${0.7+warm*.3})`,OL,2);
+  // warmth glow
+  const g=ctx.createRadialGradient(CX,80+bob,5,CX,80+bob,40);
+  g.addColorStop(0,`rgba(253,186,116,${warm*.4})`);g.addColorStop(1,'rgba(253,186,116,0)');
+  ctx.beginPath();ctx.arc(CX,80+bob,40,0,2*π);ctx.fillStyle=g;ctx.fill();
+}
+
+/* ── NECK TILT ── */
+function poseNeckTilt(ctx,t,dir=0){
+  // dir: -1=left, 0=center, 1=right
+  const bob=sin(t*2*π)*.4;
+  limb(ctx,CX-8,150+bob,CX-32,162+bob,13,PT);limb(ctx,CX-32,162+bob,CX-34,196+bob,11,PT);
+  limb(ctx,CX+8,150+bob,CX+32,162+bob,13,PT);limb(ctx,CX+32,162+bob,CX+34,196+bob,11,PT);
+  ctx.beginPath();ctx.ellipse(CX-34,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(CX+34,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  roundRect(ctx,CX-14,108+bob,28,55,8,SH,OL,2.2);
+  limb(ctx,CX-14,120+bob,CX-42,145+bob,11,SH);limb(ctx,CX-42,145+bob,CX-44,175+bob,9,SK);
+  limb(ctx,CX+14,120+bob,CX+42,145+bob,11,SH);limb(ctx,CX+42,145+bob,CX+44,175+bob,9,SK);
+  // head tilted
+  const tX=dir*18, tY=dir!==0?8:0;
+  head(ctx,CX+tX,100+bob,27,{tiltX:tX*.2,tiltY:tY*.3,mouth:'flat'});
+  // stretch line
+  if(dir!==0){
+    const sx=dir>0?CX-20:CX+20;
+    ctx.beginPath();ctx.setLineDash([4,4]);
+    ctx.moveTo(CX,110+bob);ctx.lineTo(CX+tX*1.2,100+bob+tY*2);
+    ctx.strokeStyle='rgba(212,160,23,.6)';ctx.lineWidth=2;ctx.stroke();ctx.setLineDash([]);
+  }
+}
+
+/* ── ACUPRESSURE PRESS ── */
+function pressPose(ctx,t,zone='forehead'){
+  const bob=sin(t*4*π)*1.5;
+  // sitting
+  limb(ctx,CX-8,150+bob,CX-32,162+bob,13,PT);limb(ctx,CX-32,162+bob,CX-34,196+bob,11,PT);
+  limb(ctx,CX+8,150+bob,CX+32,162+bob,13,PT);limb(ctx,CX+32,162+bob,CX+34,196+bob,11,PT);
+  ctx.beginPath();ctx.ellipse(CX-34,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(CX+34,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  roundRect(ctx,CX-14,108+bob,28,55,8,SH,OL,2.2);
+  const pts={
+    forehead:[CX,76], temples:null, nose:[CX,104], ears:null,
+    head:[CX,82], hand:[CX-25,172]
+  };
+  const zones={
+    forehead:()=>{
+      limb(ctx,CX-14,120+bob,CX+4,92+bob,11,SH);limb(ctx,CX+4,92+bob,CX+2,80+bob,9,SK);
+      limb(ctx,CX+14,120+bob,CX+42,145+bob,11,SH);limb(ctx,CX+42,145+bob,CX+44,175+bob,9,SK);
+      // finger on forehead point
+      ctx.beginPath();ctx.arc(CX+2,78+bob,5,0,2*π);ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=1.5;ctx.stroke();
+    },
+    temples:()=>{
+      limb(ctx,CX-14,120+bob,CX-40,90+bob,11,SH);limb(ctx,CX-40,90+bob,CX-45,78+bob,9,SK);
+      limb(ctx,CX+14,120+bob,CX+40,90+bob,11,SH);limb(ctx,CX+40,90+bob,CX+45,78+bob,9,SK);
+      ctx.beginPath();ctx.arc(CX-45,76+bob,5,0,2*π);ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=1.5;ctx.stroke();
+      ctx.beginPath();ctx.arc(CX+45,76+bob,5,0,2*π);ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=1.5;ctx.stroke();
+    },
+    nose:()=>{
+      limb(ctx,CX-14,120+bob,CX+5,102+bob,11,SH);limb(ctx,CX+5,102+bob,CX+3,93+bob,9,SK);
+      limb(ctx,CX+14,120+bob,CX+42,145+bob,11,SH);limb(ctx,CX+42,145+bob,CX+44,175+bob,9,SK);
+      ctx.beginPath();ctx.arc(CX+3,91+bob,5,0,2*π);ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=1.5;ctx.stroke();
+    },
+    ears:()=>{
+      limb(ctx,CX-14,120+bob,CX-45,95+bob,11,SH);limb(ctx,CX-45,95+bob,CX-50,88+bob,9,SK);
+      limb(ctx,CX+14,120+bob,CX+45,95+bob,11,SH);limb(ctx,CX+45,95+bob,CX+50,88+bob,9,SK);
+    },
+    head:()=>{
+      // tap head
+      limb(ctx,CX-14,120+bob,CX-8,82+bob,11,SH);limb(ctx,CX-8,82+bob,CX-5,72+bob,9,SK);
+      limb(ctx,CX+14,120+bob,CX+8,82+bob,11,SH);limb(ctx,CX+8,82+bob,CX+5,72+bob,9,SK);
+    },
+    hand:()=>{
+      limb(ctx,CX-14,120+bob,CX-38,148+bob,11,SH);limb(ctx,CX-38,148+bob,CX-35,172+bob,9,SK);
+      limb(ctx,CX+14,120+bob,CX-20,155+bob,11,SH);limb(ctx,CX-20,155+bob,CX-18,172+bob,9,SK);
+      // big hand closeup hint
+      ctx.beginPath();ctx.roundRect(CX-48,160+bob,40,28,8);ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=2;ctx.stroke();
+    }
+  };
+  if(zones[zone]) zones[zone]();
+  else { limb(ctx,CX-14,120+bob,CX+42,145+bob,11,SH);limb(ctx,CX+42,145+bob,CX+44,175+bob,9,SK);limb(ctx,CX-14,120+bob,CX-42,145+bob,11,SH);limb(ctx,CX-42,145+bob,CX-44,175+bob,9,SK); }
+  head(ctx,CX,100+bob,27,{mouth:'flat'});
+  // pulse rings
+  const pulseR=8+sin(t*4*π)*6;
+  if(pts[zone]){
+    ctx.beginPath();ctx.arc(pts[zone][0],pts[zone][1]+bob,pulseR,0,2*π);
+    ctx.strokeStyle=`rgba(212,160,23,${clamp(1-pulseR/20,0,1)})`;ctx.lineWidth=2;ctx.stroke();
+  }
+}
+
+/* ── THINKING ── */
+function poseThinking(ctx,t,stage=0){
+  const bob=sin(t*2*π)*.6, idx=sin(t*2*π)*.3;
+  limb(ctx,CX-8,150+bob,CX-32,162+bob,13,PT);limb(ctx,CX-32,162+bob,CX-34,196+bob,11,PT);
+  limb(ctx,CX+8,150+bob,CX+32,162+bob,13,PT);limb(ctx,CX+32,162+bob,CX+34,196+bob,11,PT);
+  ctx.beginPath();ctx.ellipse(CX-34,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(CX+34,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  roundRect(ctx,CX-14,108+bob,28,55,8,SH,OL,2.2);
+  if(stage===2){
+    // pointing
+    limb(ctx,CX-14,120+bob,CX-38,140+bob,11,SH);limb(ctx,CX-38,140+bob,CX-40,168+bob,9,SK);
+    limb(ctx,CX+14,120+bob,CX+50,105+bob,11,SH);limb(ctx,CX+50,105+bob,CX+68,92+bob,9,SK);
+    ctx.beginPath();ctx.arc(CX+68,90+bob,5,0,2*π);ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=1.5;ctx.stroke();
+  } else {
+    // hand on chin
+    limb(ctx,CX+14,120+bob,CX+40,118+bob,11,SH);limb(ctx,CX+40,118+bob,CX+38,105+bob,9,SK);
+    limb(ctx,CX-14,120+bob,CX-42,145+bob,11,SH);limb(ctx,CX-42,145+bob,CX-44,175+bob,9,SK);
+  }
+  // thought cloud
+  if(stage===0||stage===1){
+    [[CX+45,78+bob],[CX+58,68+bob],[CX+48,60+bob],[CX+35,68+bob],[CX+30,58+bob],[CX+45,52+bob],[CX+60,56+bob],[CX+68,68+bob],[CX+58,56+bob]].forEach(([cx2,cy2],i,arr)=>{
+      if(i===0){ctx.beginPath();ctx.moveTo(cx2,cy2);}else ctx.lineTo(cx2,cy2);
+    });
+    ctx.closePath();ctx.fillStyle='rgba(200,210,255,.18)';ctx.fill();ctx.strokeStyle='rgba(200,210,255,.4)';ctx.lineWidth=1.5;ctx.stroke();
+    // dots inside bubble
+    if(stage===1){
+      '💡'.split('').forEach((_,i)=>{ctx.font='16px serif';ctx.fillText('💡',CX+36,70+bob);});
+    } else {
+      ctx.font='11px serif';ctx.fillText('?',CX+45,66+bob);
+    }
+  }
+  const tX=stage===2?-4:4;
+  head(ctx,CX,100+bob,27,{tiltX:tX,tiltY:-3,mouth:stage===2?'smile':'flat',eyeX:stage===2?.5:.2});
+}
+
+/* ── LYING DOWN / BODY SCAN ── */
+function poseLying(ctx,t,opts={}){
+  const {glowZone=null,tense=false}=opts;
+  const gentle=sin(t*1.5*π)*.3;
+  const base=175;
+  // ground/mat hint
+  roundRect(ctx,20,base+62,220,14,4,'rgba(42,122,90,.12)','rgba(42,122,90,.18)',1);
+  // body
+  limb(ctx,40,base+5,175,base+5,32,SH); // torso horizontal
+  // legs
+  limb(ctx,40,base+8,18,base+55,12,PT);limb(ctx,18,base+55,12,base+72,10,PT);
+  limb(ctx,55,base+8,70,base+55,12,PT);limb(ctx,70,base+55,78,base+72,10,PT);
+  ctx.beginPath();ctx.ellipse(10,base+76,10,5,.3,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(80,base+76,10,5,-.3,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  // arms alongside
+  limb(ctx,55,base+18,58,base+58,10,SK);limb(ctx,58,base+58,56,base+72,9,SK);
+  limb(ctx,145,base+18,142,base+58,10,SK);limb(ctx,142,base+58,144,base+72,9,SK);
+  // head
+  head(ctx,182,base-2,22,{tiltX:0,tiltY:0,blink:0.05+sin(t*π)*.05,mouth:'smile'});
+  // glow scan highlight
+  if(glowZone){
+    const gy={'low':base+55,'mid':base+15,'arms':base+45,'head':base+5}[glowZone]||base+35;
+    const gx={'low':50,'mid':105,'arms':150,'head':182}[glowZone]||105;
+    const gr=ctx.createRadialGradient(gx,gy,3,gx,gy,tense?32:40);
+    const col=tense?'rgba(239,68,68,':'rgba(212,160,23,';
+    gr.addColorStop(0,col+'.55)');gr.addColorStop(1,col+'0)');
+    ctx.beginPath();ctx.ellipse(gx,gy,tense?30:42,tense?18:22,0,0,2*π);ctx.fillStyle=gr;ctx.fill();
+  }
+}
+
+/* ── NADI SHODHANA (nostril) ── */
+function poseNadi(ctx,t,nostril='left'){
+  const bob=sin(t*2*π)*.5;
+  limb(ctx,CX-8,150+bob,CX-32,162+bob,13,PT);limb(ctx,CX-32,162+bob,CX-34,196+bob,11,PT);
+  limb(ctx,CX+8,150+bob,CX+32,162+bob,13,PT);limb(ctx,CX+32,162+bob,CX+34,196+bob,11,PT);
+  ctx.beginPath();ctx.ellipse(CX-34,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(CX+34,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  roundRect(ctx,CX-14,108+bob,28,55,8,SH,OL,2.2);
+  // right hand up to nose
+  limb(ctx,CX+14,120+bob,CX+38,98+bob,11,SH);limb(ctx,CX+38,98+bob,CX+36,84+bob,9,SK);
+  // thumb or ring finger on nose
+  const thumbX=nostril==='right'?CX+22:CX+28, ringX=nostril==='left'?CX+22:CX+28;
+  ctx.beginPath();ctx.arc(thumbX,82+bob,5,0,2*π);ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=1.5;ctx.stroke();
+  // left hand on knee
+  limb(ctx,CX-14,120+bob,CX-42,148+bob,11,SH);limb(ctx,CX-42,148+bob,CX-44,170+bob,9,SK);
+  // breath arrow
+  const col=nostril==='left'?'rgba(96,165,250,.8)':'rgba(167,243,208,.8)';
+  const arrowX=nostril==='left'?CX-22:CX+22;
+  ctx.beginPath();ctx.moveTo(arrowX,95+bob);ctx.lineTo(arrowX,60+bob);
+  ctx.strokeStyle=col;ctx.lineWidth=3;ctx.lineDash=[4,3];ctx.stroke();ctx.setLineDash([]);
+  ctx.beginPath();ctx.moveTo(arrowX-6,65+bob);ctx.lineTo(arrowX,58+bob);ctx.lineTo(arrowX+6,65+bob);
+  ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.stroke();
+  head(ctx,CX,100+bob,27,{mouth:'flat',eyeX:.3});
+}
+
+/* ── WATER WRIST ── */
+function poseWristWater(ctx,t){
+  const bob=sin(t*2*π)*.4, flow=(t%1);
+  poseStandingNeutral(ctx,t,{mouth:'open',exclaim:true});
+  // tap waves
+  ctx.beginPath();ctx.arc(CX-46,180+bob,18,0,2*π);ctx.strokeStyle='rgba(96,165,250,.3)';ctx.lineWidth=2;ctx.stroke();
+  ctx.beginPath();ctx.arc(CX+46,180+bob,18,0,2*π);ctx.strokeStyle='rgba(96,165,250,.3)';ctx.lineWidth=2;ctx.stroke();
+  // water drips
+  for(let i=0;i<4;i++){
+    const dx=(-1.5+i)*10, dy=flow*30;
+    ctx.beginPath();ctx.arc(CX-46+dx,180+bob+dy,3,0,2*π);
+    ctx.fillStyle=`rgba(96,165,250,${1-flow})`;ctx.fill();
+  }
+}
+
+/* ── FIGURE 8 HAND ── */
+function poseFigure8(ctx,t,hand='right'){
+  const bob=sin(t*2*π)*.3;
+  poseSittingNeutral(ctx,t,{mouth:'smile'});
+  // draw figure-8 trail
+  const hx=hand==='right'?CX+50:CX-50, hy=120;
+  const cx2=hx+(hand==='right'?20:-20), trail=[];
+  for(let i=0;i<20;i++){
+    const a=(i/20)*4*π;
+    trail.push([cx2+cos(a)*30,hy+sin(a*0.5)*20]);
+  }
+  ctx.beginPath();
+  trail.forEach(([x,y],i)=>i===0?ctx.moveTo(x,y+bob):ctx.lineTo(x,y+bob));
+  ctx.strokeStyle='rgba(99,102,241,.5)';ctx.lineWidth=2.5;ctx.setLineDash([5,4]);ctx.stroke();ctx.setLineDash([]);
+  // hand dot at current position
+  const a=(t*4*π)%(4*π);
+  ctx.beginPath();ctx.arc(cx2+cos(a)*30,hy+sin(a*.5)*20+bob,6,0,2*π);
+  ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=1.5;ctx.stroke();
+}
+
+/* ── HIP CIRCLE ── */
+function poseHipCircle(ctx,t,stage=0){
+  const a=(stage/3)*2*π, hip=8*sin(a);
+  poseStandingNeutral(ctx,t,{tiltX:hip*.5,mouth:'smile'});
+  // hip circle indicator
+  ctx.beginPath();ctx.arc(CX+hip*.5,155,15,0,2*π);
+  ctx.strokeStyle='rgba(212,160,23,.4)';ctx.lineWidth=2;ctx.setLineDash([4,4]);ctx.stroke();ctx.setLineDash([]);
+}
+
+/* ── SHOULDER ROLL ── */
+function poseShoulder(ctx,t,stage=0){
+  const a=(stage/3)*2*π, sh=15*sin(a);
+  const bob=sin(t*2*π)*.4;
+  limb(ctx,CX-8,150+bob,CX-32,162+bob,13,PT);limb(ctx,CX-32,162+bob,CX-34,196+bob,11,PT);
+  limb(ctx,CX+8,150+bob,CX+32,162+bob,13,PT);limb(ctx,CX+32,162+bob,CX+34,196+bob,11,PT);
+  ctx.beginPath();ctx.ellipse(CX-34,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(CX+34,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  roundRect(ctx,CX-14,108+bob,28,55,8,SH,OL,2.2);
+  limb(ctx,CX-14-sh,120+bob,CX-45-sh,128+bob+sh,11,SH);limb(ctx,CX-45-sh,128+bob+sh,CX-46-sh,158+bob+sh*.5,9,SK);
+  limb(ctx,CX+14+sh,120+bob,CX+45+sh,128+bob-sh,11,SH);limb(ctx,CX+45+sh,128+bob-sh,CX+46+sh,158+bob-sh*.5,9,SK);
+  head(ctx,CX,100+bob-sh*.1,27,{mouth:'smile'});
+}
+
+/* ── CHEST OPENER ── */
+function poseChestOpen(ctx,t){
+  const bob=sin(t*2*π)*.4, open=.8;
+  limb(ctx,CX-8,150+bob,CX-32,162+bob,13,PT);limb(ctx,CX-32,162+bob,CX-34,196+bob,11,PT);
+  limb(ctx,CX+8,150+bob,CX+32,162+bob,13,PT);limb(ctx,CX+32,162+bob,CX+34,196+bob,11,PT);
+  ctx.beginPath();ctx.ellipse(CX-34,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  ctx.beginPath();ctx.ellipse(CX+34,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
+  roundRect(ctx,CX-14,108+bob,28,55,8,SH,OL,2.2);
+  // arms pulled way back
+  limb(ctx,CX-14,120+bob,CX-60,125+bob,11,SH);limb(ctx,CX-60,125+bob,CX-65,155+bob,9,SK);
+  limb(ctx,CX+14,120+bob,CX+60,125+bob,11,SH);limb(ctx,CX+60,125+bob,CX+65,155+bob,9,SK);
+  // hands interlaced hint behind back
+  ctx.beginPath();ctx.moveTo(CX-35,145+bob);ctx.quadraticCurveTo(CX,178+bob,CX+35,145+bob);
+  ctx.strokeStyle='rgba(251,191,122,.5)';ctx.lineWidth=2;ctx.setLineDash([4,4]);ctx.stroke();ctx.setLineDash([]);
+  head(ctx,CX,100+bob,27,{tiltY:-6,mouth:'smile'});
+}
+
+/* ══ POSE DISPATCH TABLE ══ */
+const POSES = {
+  // sitting
+  'sitting-neutral': (ctx,t)=>poseSittingNeutral(ctx,t),
+  'sitting-inhale':  (ctx,t)=>poseSittingInhale(ctx,t,0),
+  'sitting-inhale2': (ctx,t)=>poseSittingInhale(ctx,t,.5),
+  'sitting-inhale3': (ctx,t)=>poseSittingInhale(ctx,t,1),
+  'sitting-exhale':  (ctx,t)=>poseSittingExhale(ctx,t,0),
+  'sitting-exhale2': (ctx,t)=>poseSittingExhale(ctx,t,.5),
+  'sitting-exhale3': (ctx,t)=>poseSittingExhale(ctx,t,1),
+  'sitting-hold-full':(ctx,t)=>poseSittingInhale(ctx,t,.9),
+  'sitting-hold-empty':(ctx,t)=>poseSittingExhale(ctx,t,.9),
+  'hold-empty':      (ctx,t)=>poseSittingExhale(ctx,t,1),
+  'hold-full-wide':  (ctx,t)=>poseSittingInhale(ctx,t,1),
+  'power-breathe1':  (ctx,t)=>poseSittingInhale(ctx,t,0),
+  'power-breathe2':  (ctx,t)=>poseSittingInhale(ctx,t,.7),
+  'power-breathe3':  (ctx,t)=>poseSittingExhale(ctx,t,.7),
+  'deep-inhale':     (ctx,t)=>poseSittingInhale(ctx,t,1),
+  // standing
+  'standing-neutral':(ctx,t)=>poseStandingNeutral(ctx,t),
+  'standing-breathe':(ctx,t)=>poseStandingNeutral(ctx,t,{mouth:'flat'}),
+  'stretch-up':      (ctx,t)=>poseStretchUp(ctx,t),
+  'shake-hands':     (ctx,t)=>poseStandingNeutral(ctx,t,{mouth:'smile'}),
+  // wake-up actions
+  'march1': (ctx,t)=>poseMarch(ctx,t,0),
+  'march2': (ctx,t)=>poseStandingNeutral(ctx,t,{mouth:'open'}),
+  'march3': (ctx,t)=>poseMarch(ctx,t,1),
+  'jack-open': (ctx,t)=>poseJumpingJack(ctx,t,true),
+  'jack-close':(ctx,t)=>poseJumpingJack(ctx,t,false),
+  'knee-left': (ctx,t)=>poseHighKnee(ctx,t,0),
+  'knee-right':(ctx,t)=>poseHighKnee(ctx,t,1),
+  'squat-down':(ctx,t)=>poseSquat(ctx,t,0),
+  'squat-mid': (ctx,t)=>poseSquat(ctx,t,.5),
+  'squat-up':  (ctx,t)=>poseSquat(ctx,t,1),
+  'calf-raise':(ctx,t)=>poseCalfRaise(ctx,t,true),
+  'arm-circle1':(ctx,t)=>poseShoulder(ctx,t,0),
+  'arm-circle2':(ctx,t)=>poseShoulder(ctx,t,1),
+  'arm-circle3':(ctx,t)=>poseShoulder(ctx,t,2),
+  // eye
+  'eye-center': (ctx,t)=>poseEyeCloseup(ctx,t,0,0),
+  'eye-up':     (ctx,t)=>poseEyeCloseup(ctx,t,0,-1),
+  'eye-down':   (ctx,t)=>poseEyeCloseup(ctx,t,0,1),
+  'eye-left':   (ctx,t)=>poseEyeCloseup(ctx,t,-1,0),
+  'eye-right':  (ctx,t)=>poseEyeCloseup(ctx,t,1,0),
+  'eye-upleft': (ctx,t)=>poseEyeCloseup(ctx,t,-.8,-.8),
+  'eye-downright':(ctx,t)=>poseEyeCloseup(ctx,t,.8,.8),
+  'eye-upright':(ctx,t)=>poseEyeCloseup(ctx,t,.8,-.8),
+  'eye-downleft':(ctx,t)=>poseEyeCloseup(ctx,t,-.8,.8),
+  'look-far':   (ctx,t)=>poseEyeCloseup(ctx,t,.4,-.2),
+  'look-near':  (ctx,t)=>poseEyeCloseup(ctx,t,0,.3),
+  'blink-open': (ctx,t)=>poseEyeCloseup(ctx,t,0,0,1),
+  'blink-half': (ctx,t)=>poseEyeCloseup(ctx,t,0,0,.45),
+  'blink-closed':(ctx,t)=>poseEyeCloseup(ctx,t,0,0,.05),
+  'eye-splash1':(ctx,t)=>poseEyeCloseup(ctx,t,0,0,.05),
+  'eye-splash2':(ctx,t)=>poseEyeCloseup(ctx,t,0,0,1),
+  'wide-eyes':  (ctx,t)=>poseEyeCloseup(ctx,t,0,-.1,1+sin(t*2*π)*.1),
+  'palming':    (ctx,t)=>posePalming(ctx,t),
+  // brain
+  'think1': (ctx,t)=>poseThinking(ctx,t,0),
+  'think2': (ctx,t)=>poseThinking(ctx,t,1),
+  'think3': (ctx,t)=>poseThinking(ctx,t,0),
+  'think-point':(ctx,t)=>poseThinking(ctx,t,2),
+  'tap-knee1':(ctx,t)=>poseSittingNeutral(ctx,t,{mouth:'flat'}),
+  'tap-knee2':(ctx,t)=>poseSittingNeutral(ctx,t,{mouth:'flat'}),
+  // cross crawl
+  'cross1': (ctx,t)=>poseCrossCrawl(ctx,t,0),
+  'cross2': (ctx,t)=>poseCrossCrawl(ctx,t,1),
+  'fig8-right1':(ctx,t)=>poseFigure8(ctx,t,'right'),
+  'fig8-right2':(ctx,t)=>poseFigure8(ctx,t,'right'),
+  'fig8-right3':(ctx,t)=>poseFigure8(ctx,t,'right'),
+  'fig8-left1': (ctx,t)=>poseFigure8(ctx,t,'left'),
+  'fig8-left2': (ctx,t)=>poseFigure8(ctx,t,'left'),
+  'fig8-left3': (ctx,t)=>poseFigure8(ctx,t,'left'),
+  'hookup': (ctx,t)=>poseSittingNeutral(ctx,t,{mouth:'smile'}),
+  // neck/body
+  'neck-left':    (ctx,t)=>poseNeckTilt(ctx,t,-1),
+  'neck-right':   (ctx,t)=>poseNeckTilt(ctx,t,1),
+  'chin-chest':   (ctx,t)=>poseNeckTilt(ctx,t,0),
+  'shoulder-roll1':(ctx,t)=>poseShoulder(ctx,t,0),
+  'shoulder-roll2':(ctx,t)=>poseShoulder(ctx,t,1),
+  'shoulder-roll3':(ctx,t)=>poseShoulder(ctx,t,2),
+  'hip-circle1':  (ctx,t)=>poseHipCircle(ctx,t,0),
+  'hip-circle2':  (ctx,t)=>poseHipCircle(ctx,t,1),
+  'hip-circle3':  (ctx,t)=>poseHipCircle(ctx,t,2),
+  'chest-open':   (ctx,t)=>poseChestOpen(ctx,t),
+  // acupressure
+  'press-forehead':(ctx,t)=>pressPose(ctx,t,'forehead'),
+  'press-temples': (ctx,t)=>pressPose(ctx,t,'temples'),
+  'press-nose':    (ctx,t)=>pressPose(ctx,t,'nose'),
+  'press-ears':    (ctx,t)=>pressPose(ctx,t,'ears'),
+  'tap-head1':     (ctx,t)=>pressPose(ctx,t,'head'),
+  'tap-head2':     (ctx,t)=>pressPose(ctx,t,'head'),
+  'press-hand':    (ctx,t)=>pressPose(ctx,t,'hand'),
+  'tap-face1':     (ctx,t)=>pressPose(ctx,t,'forehead'),
+  'tap-face2':     (ctx,t)=>pressPose(ctx,t,'nose'),
+  'rub-forehead':  (ctx,t)=>pressPose(ctx,t,'forehead'),
+  // water
+  'wrist-water':   (ctx,t)=>poseWristWater(ctx,t),
+  'splash1':(ctx,t)=>poseEyeCloseup(ctx,t,0,0,.05),
+  'splash2':(ctx,t)=>poseEyeCloseup(ctx,t,0,0,1),
+  'splash3':(ctx,t)=>poseEyeCloseup(ctx,t,0,0,.3),
+  'behind-ears':(ctx,t)=>pressPose(ctx,t,'ears'),
+  // nadi shodhana
+  'nadi-left-in':  (ctx,t)=>poseNadi(ctx,t,'left'),
+  'nadi-left-out': (ctx,t)=>poseNadi(ctx,t,'left'),
+  'nadi-right-in': (ctx,t)=>poseNadi(ctx,t,'right'),
+  'nadi-right-out':(ctx,t)=>poseNadi(ctx,t,'right'),
+  'nadi-hold':     (ctx,t)=>poseNadi(ctx,t,'both'),
+  // lying down
+  'lying-rest':       (ctx,t)=>poseLying(ctx,t,{}),
+  'lying-scan-low':   (ctx,t)=>poseLying(ctx,t,{glowZone:'low'}),
+  'lying-scan-mid':   (ctx,t)=>poseLying(ctx,t,{glowZone:'mid'}),
+  'lying-scan-arms':  (ctx,t)=>poseLying(ctx,t,{glowZone:'arms'}),
+  'lying-scan-head':  (ctx,t)=>poseLying(ctx,t,{glowZone:'head'}),
+  'lying-tense-low':  (ctx,t)=>poseLying(ctx,t,{glowZone:'low',tense:true}),
+  'lying-tense-mid':  (ctx,t)=>poseLying(ctx,t,{glowZone:'mid',tense:true}),
+  'lying-tense-abs':  (ctx,t)=>poseLying(ctx,t,{glowZone:'mid',tense:true}),
+  'lying-tense-arms': (ctx,t)=>poseLying(ctx,t,{glowZone:'arms',tense:true}),
+  'lying-tense-face': (ctx,t)=>poseLying(ctx,t,{glowZone:'head',tense:true}),
+};
+
+/* ══ SCENE DATA SAME AS BEFORE ══ */
+const SCENES = {
+  'box-breathing':[
+    {bg:'#041828',label:'Inhale…',poses:['sitting-inhale','sitting-inhale2','sitting-inhale3','sitting-inhale2'],particles:'dots-up'},
+    {bg:'#041828',label:'Hold Full',poses:['sitting-hold-full','sitting-hold-full'],particles:'sparkle'},
+    {bg:'#041828',label:'Exhale…',poses:['sitting-exhale','sitting-exhale2','sitting-exhale3','sitting-exhale2'],particles:'dots-down'},
+    {bg:'#041828',label:'Hold Empty',poses:['sitting-hold-empty','sitting-hold-empty'],particles:'none'},
+  ],
+  '478-breath':[
+    {bg:'#0d0d24',label:'Exhale Reset',poses:['sitting-exhale3'],particles:'dots-down'},
+    {bg:'#041828',label:'Inhale 4',poses:['sitting-inhale','sitting-inhale2','sitting-inhale3'],particles:'dots-up'},
+    {bg:'#031a10',label:'Hold 7 sec',poses:['sitting-hold-full','sitting-hold-full'],particles:'sparkle'},
+    {bg:'#0d0d24',label:'Exhale 8 sec',poses:['sitting-exhale','sitting-exhale2','sitting-exhale3'],particles:'dots-down'},
+  ],
+  'nadi-shodhana':[
+    {bg:'#0d0d24',label:'Left Nostril Inhale',poses:['nadi-left-in'],particles:'dots-up'},
+    {bg:'#031a10',label:'Hold Both Closed',poses:['nadi-hold'],particles:'sparkle'},
+    {bg:'#0d0d24',label:'Right Nostril Exhale',poses:['nadi-right-out'],particles:'dots-down'},
+    {bg:'#041828',label:'Right Nostril Inhale',poses:['nadi-right-in'],particles:'dots-up'},
+    {bg:'#031a10',label:'Hold Both Closed',poses:['nadi-hold'],particles:'sparkle'},
+    {bg:'#0d0d24',label:'Left Nostril Exhale',poses:['nadi-left-out'],particles:'dots-down'},
+  ],
+  'eye-yoga':[
+    {bg:'#041828',label:'Look Up & Down',poses:['eye-up','eye-center','eye-down','eye-center'],particles:'eye-trail'},
+    {bg:'#041828',label:'Look Left & Right',poses:['eye-left','eye-center','eye-right','eye-center'],particles:'eye-trail'},
+    {bg:'#041828',label:'Diagonal ↗↙',poses:['eye-upleft','eye-center','eye-downright','eye-center'],particles:'eye-trail'},
+    {bg:'#041828',label:'Diagonal ↘↖',poses:['eye-upright','eye-center','eye-downleft','eye-center'],particles:'eye-trail'},
+    {bg:'#041828',label:'Clockwise Circles',poses:['eye-up','eye-right','eye-down','eye-left'],particles:'eye-circle-cw'},
+    {bg:'#041828',label:'Anti-Clockwise',poses:['eye-up','eye-left','eye-down','eye-right'],particles:'eye-circle-ccw'},
+    {bg:'#031a10',label:'Palm & Rest',poses:['palming'],particles:'warmth'},
+  ],
+  'palming-2020':[
+    {bg:'#041828',label:'Look Far Away (20ft)',poses:['look-far'],particles:'gaze-far'},
+    {bg:'#041828',label:'Look Near (30cm)',poses:['look-near'],particles:'gaze-near'},
+    {bg:'#031a10',label:'Palming — Eyes Rest',poses:['palming'],particles:'warmth'},
+    {bg:'#041828',label:'Blink Slowly × 10',poses:['blink-open','blink-half','blink-closed','blink-half'],particles:'none'},
+  ],
+  'wakeup-power-breath':[
+    {bg:'#1a0808',label:'30 Power Breaths!',poses:['power-breathe1','power-breathe2','power-breathe3','power-breathe2'],particles:'energy-burst'},
+    {bg:'#080814',label:'Hold Empty Lungs',poses:['hold-empty'],particles:'stars'},
+    {bg:'#081a08',label:'Deep Full Inhale',poses:['deep-inhale'],particles:'dots-up'},
+    {bg:'#081a08',label:'Hold Full',poses:['sitting-hold-full'],particles:'sparkle'},
+    {bg:'#1a0808',label:'Exhale — Feel Alert!',poses:['sitting-exhale2'],particles:'dots-down'},
+  ],
+  'wakeup-cold-water':[
+    {bg:'#001428',label:'Wrists in Cold Water',poses:['wrist-water'],particles:'water-drip'},
+    {bg:'#001428',label:'Splash Face × 10!',poses:['splash1','splash2','splash3','splash2'],particles:'water-splash'},
+    {bg:'#001428',label:'Behind Ears & Neck',poses:['behind-ears'],particles:'water-drip'},
+    {bg:'#000c18',label:'Breathe & Reset',poses:['standing-breathe'],particles:'dots-up'},
+  ],
+  'wakeup-jumping':[
+    {bg:'#180c00',label:'March in Place!',poses:['march1','march2','march3','march2'],particles:'energy-burst'},
+    {bg:'#180c00',label:'Jumping Jacks!',poses:['jack-open','jack-close','jack-open','jack-close'],particles:'energy-burst'},
+    {bg:'#180c00',label:'High Knees!',poses:['knee-left','knee-right','knee-left','knee-right'],particles:'energy-burst'},
+    {bg:'#000c18',label:'Rest & Breathe',poses:['standing-breathe'],particles:'dots-up'},
+    {bg:'#180c00',label:'Arm Circles',poses:['arm-circle1','arm-circle2','arm-circle3','arm-circle2'],particles:'spin-trail'},
+    {bg:'#001408',label:'Cool Down',poses:['stretch-up'],particles:'sparkle'},
+  ],
+  'wakeup-acupressure':[
+    {bg:'#180e00',label:'Between Eyebrows',poses:['press-forehead'],particles:'pulse'},
+    {bg:'#180e00',label:'Press Temples',poses:['press-temples'],particles:'pulse'},
+    {bg:'#180e00',label:'Under Nose',poses:['press-nose'],particles:'pulse'},
+    {bg:'#180e00',label:'Squeeze Earlobes',poses:['press-ears'],particles:'pulse'},
+    {bg:'#180e00',label:'Tap All Over Scalp',poses:['tap-head1','tap-head2','tap-head1','tap-head2'],particles:'pulse'},
+    {bg:'#180e00',label:'Hand Web Point',poses:['press-hand'],particles:'pulse'},
+  ],
+  'wakeup-eye-splash':[
+    {bg:'#000c18',label:'Blink 20× Rapidly',poses:['blink-open','blink-half','blink-closed','blink-half'],particles:'none'},
+    {bg:'#001428',label:'Cold Eye Splash',poses:['eye-splash1','eye-splash2','eye-splash1'],particles:'water-splash'},
+    {bg:'#180e00',label:'Tap Face Firmly',poses:['tap-face1','tap-face2','tap-face1','tap-face2'],particles:'pulse'},
+    {bg:'#180e00',label:'Rub Forehead',poses:['rub-forehead'],particles:'warmth'},
+    {bg:'#000c18',label:'Open Eyes Wide!',poses:['wide-eyes'],particles:'sparkle'},
+  ],
+  'wakeup-tap':[
+    {bg:'#180400',label:'Sit Up Straight!',poses:['sitting-neutral'],particles:'energy-burst'},
+    {bg:'#180400',label:'Deep Breaths First',poses:['sitting-inhale2'],particles:'dots-up'},
+    {bg:'#180400',label:'TAP AS FAST AS YOU CAN!',poses:['sitting-neutral'],particles:'energy-burst'},
+    {bg:'#001408',label:'Cold Water on Face!',poses:['splash2'],particles:'water-splash'},
+  ],
+  'memory-palace':[
+    {bg:'#080820',label:'Picture Your Palace',poses:['think1','think2','think1'],particles:'thought-bubble'},
+    {bg:'#080820',label:'Place the 5 Items',poses:['think-point','think1','think-point'],particles:'stars'},
+    {bg:'#080820',label:'Walk Through It',poses:['think1','think2','think3','think2'],particles:'sparkle'},
+    {bg:'#080820',label:'Recall Without Peeking!',poses:['think-point'],particles:'stars'},
+  ],
+  'cross-crawl':[
+    {bg:'#081408',label:'Left Knee + Right Elbow',poses:['cross1','cross2','cross1','cross2'],particles:'energy-burst'},
+    {bg:'#081408',label:'Figure-8 Right Hand',poses:['fig8-right1','fig8-right2','fig8-right3','fig8-right2'],particles:'figure8-trail'},
+    {bg:'#081408',label:'Figure-8 Left Hand',poses:['fig8-left1','fig8-left2','fig8-left3','fig8-left2'],particles:'figure8-trail'},
+    {bg:'#080820',label:'Hook-Ups Pose',poses:['hookup'],particles:'sparkle'},
+    {bg:'#041828',label:'Deep Breathe',poses:['sitting-inhale2'],particles:'dots-up'},
+  ],
+  'backward-counting':[
+    {bg:'#080820',label:'Count Back by 7s',poses:['think-point'],particles:'numbers'},
+    {bg:'#080820',label:'Tap + Keep Counting',poses:['tap-knee1','tap-knee2','tap-knee1'],particles:'numbers'},
+    {bg:'#080820',label:'Spell a Word Backwards',poses:['think1','think-point'],particles:'thought-bubble'},
+    {bg:'#080820',label:'Draw Your Home in Mind',poses:['think2','think3'],particles:'thought-bubble'},
+  ],
+  'neck-shoulder':[
+    {bg:'#001810',label:'Tilt Head Left',poses:['neck-left'],particles:'warmth'},
+    {bg:'#001810',label:'Tilt Head Right',poses:['neck-right'],particles:'warmth'},
+    {bg:'#001810',label:'Chin to Chest',poses:['chin-chest'],particles:'warmth'},
+    {bg:'#001810',label:'Roll Shoulders',poses:['shoulder-roll1','shoulder-roll2','shoulder-roll3','shoulder-roll2'],particles:'spin-trail'},
+    {bg:'#001810',label:'Turn Head Side to Side',poses:['neck-left','sitting-neutral','neck-right','sitting-neutral'],particles:'none'},
+    {bg:'#001810',label:'Chest Opener',poses:['chest-open'],particles:'sparkle'},
+  ],
+  'desk-reset':[
+    {bg:'#0a1400',label:'Reach Arms Up!',poses:['stretch-up'],particles:'sparkle'},
+    {bg:'#160800',label:'10 Squats!',poses:['squat-up','squat-mid','squat-down','squat-mid'],particles:'energy-burst'},
+    {bg:'#160800',label:'20 Calf Raises',poses:['calf-raise','standing-neutral','calf-raise','standing-neutral'],particles:'energy-burst'},
+    {bg:'#160800',label:'Hip Circles',poses:['hip-circle1','hip-circle2','hip-circle3','hip-circle2'],particles:'spin-trail'},
+    {bg:'#160800',label:'March in Place!',poses:['march1','march2','march3','march2'],particles:'energy-burst'},
+    {bg:'#001408',label:'Shake Out & Breathe',poses:['shake-hands','standing-breathe'],particles:'sparkle'},
+  ],
+  'body-scan':[
+    {bg:'#020810',label:'Feet & Legs Release',poses:['lying-scan-low'],particles:'glow-low'},
+    {bg:'#020810',label:'Abdomen & Chest',poses:['lying-scan-mid'],particles:'glow-mid'},
+    {bg:'#020810',label:'Hands & Arms',poses:['lying-scan-arms'],particles:'glow-arms'},
+    {bg:'#020810',label:'Head & Face',poses:['lying-scan-head'],particles:'glow-head'},
+    {bg:'#020810',label:'Rest in Stillness',poses:['lying-rest'],particles:'stars'},
+  ],
+  'prog-relaxation':[
+    {bg:'#020810',label:'Tense Feet & Calves',poses:['lying-tense-low'],particles:'tense-pulse'},
+    {bg:'#020810',label:'Tense Thighs',poses:['lying-tense-mid'],particles:'tense-pulse'},
+    {bg:'#020810',label:'Tense Abdomen',poses:['lying-tense-abs'],particles:'tense-pulse'},
+    {bg:'#020810',label:'Tense Arms & Fists',poses:['lying-tense-arms'],particles:'tense-pulse'},
+    {bg:'#020810',label:'Tense Face & Jaw',poses:['lying-tense-face'],particles:'tense-pulse'},
+    {bg:'#020810',label:'Total Release',poses:['lying-rest'],particles:'sparkle'},
+  ],
+};
+
+/* ══ ANIMATION LOOP STATE ══ */
+let _canvas=null, _ctx=null, _raf=null;
+let _currentScenes=[], _sceneIdx=0, _poseIdx=0;
+let _frameTick=0, _poseFrames=28, _particleTick=0;
+let _curBg='#061428', _targetBg='#061428';
+let _stepInstructions=[], _stepCount=1, _totalSteps=1;
+let _curPhaseLabel='';
+
+function hexToRgb(h){
+  const r=parseInt(h.slice(1,3),16),g=parseInt(h.slice(3,5),16),b=parseInt(h.slice(5,7),16);
+  return [r,g,b];
+}
+function lerpColor(a,b,t){
+  const [ar,ag,ab]=hexToRgb(a),[br,bg2,bb]=hexToRgb(b);
+  return `rgb(${Math.round(lerp(ar,br,t))},${Math.round(lerp(ag,bg2,t))},${Math.round(lerp(ab,bb,t))})`;
+}
+
+let _bgLerp=1;
+function setBg(col){ _targetBg=col; _bgLerp=0; }
+
+function cartoonFrame(){
+  if(!_canvas||!_ctx){ _raf=requestAnimationFrame(cartoonFrame); return; }
+  const cw=_canvas.width, ch=_canvas.height;
+  // lerp bg
+  _bgLerp=Math.min(_bgLerp+0.04,1);
+  _curBg=lerpColor(_curBg,_targetBg,_bgLerp);
+
+  _ctx.clearRect(0,0,cw,ch);
+  // bg gradient
+  const grd=_ctx.createLinearGradient(0,0,0,ch);
+  grd.addColorStop(0,_curBg); grd.addColorStop(1,'#020810');
+  _ctx.fillStyle=grd; _ctx.fillRect(0,0,cw,ch);
+
+  // floor
+  _ctx.beginPath();_ctx.moveTo(0,232);_ctx.lineTo(280,232);
+  _ctx.strokeStyle='rgba(255,255,255,.05)';_ctx.lineWidth=1;_ctx.stroke();
+
+  // divider
+  _ctx.beginPath();_ctx.moveTo(282,10);_ctx.lineTo(282,ch-10);
+  _ctx.strokeStyle='rgba(255,255,255,.06)';_ctx.lineWidth=1;_ctx.stroke();
+
+  // --- POSE ---
+  const scene = _currentScenes[_sceneIdx] || _currentScenes[0];
+  if(scene){
+    const poses = scene.poses||['sitting-neutral'];
+    const poseKey = poses[_poseIdx % poses.length];
+    const t = (_frameTick % _poseFrames)/_poseFrames;
+    const poseFn = POSES[poseKey];
+    if(poseFn){
+      _ctx.save();
+      try{ poseFn(_ctx, t); } catch(e){}
+      _ctx.restore();
+    }
+
+    // particles
+    tickParticles();
+    if(_particleTick===0) spawnParticles(scene.particles||'sparkle', CX, 120);
+    drawParticles(_ctx);
+    _particleTick=(_particleTick+1)%22;
+
+    // step text panel
+    stepText(_ctx, cw, ch, _stepInstructions, _stepCount, _totalSteps, _curPhaseLabel);
+  }
+
+  _frameTick++;
+  if(_frameTick % _poseFrames === 0){
+    _poseIdx++;
+    const poses = (scene&&scene.poses)||['sitting-neutral'];
+    if(_poseIdx >= poses.length){ _poseIdx=0; }
+  }
+
+  _raf=requestAnimationFrame(cartoonFrame);
+}
+
+/* ══ PUBLIC API ══ */
+window.CartoonAnim = {
+  init(){
+    _canvas=document.getElementById('cartoonCanvas');
+    if(!_canvas) return;
+    _ctx=_canvas.getContext('2d');
+    _canvas.width=760; _canvas.height=260;
+    _raf=requestAnimationFrame(cartoonFrame);
+  },
+  setExercise(exId, phases, steps){
+    _currentScenes = SCENES[exId] || phases.map((_,i)=>({
+      bg:'#041828', label:phases[i]||'Exercise', poses:['sitting-neutral'], particles:'sparkle'
+    }));
+    _stepInstructions = steps||[];
+    _totalSteps = steps ? steps.length : 1;
+    _sceneIdx=0; _poseIdx=0; _frameTick=0; _particleTick=0;
+    if(_currentScenes[0]) setBg(_currentScenes[0].bg);
+    const lbl=document.getElementById('tCartoonLabel');
+    if(lbl) lbl.textContent=_currentScenes[0]&&_currentScenes[0].label||'Get Ready';
+    const pill=document.getElementById('tCartoonPill');
+    if(pill) pill.textContent='Step 1 of '+(steps?steps.length:1);
+  },
+  setPhase(phaseIdx, stepIdx, label){
+    _sceneIdx = Math.min(phaseIdx, _currentScenes.length-1);
+    _poseIdx=0; _frameTick=0; _particleTick=0; _stepCount=stepIdx+1;
+    _curPhaseLabel=label||'';
+    const scene=_currentScenes[_sceneIdx];
+    if(scene) setBg(scene.bg);
+    const lbl=document.getElementById('tCartoonLabel');
+    if(lbl) lbl.textContent=scene&&scene.label||label||'';
+    const pill=document.getElementById('tCartoonPill');
+    if(pill) pill.textContent='Step '+(_stepCount)+' of '+_totalSteps;
+  },
+  stop(){
+    if(_raf){ cancelAnimationFrame(_raf); _raf=null; }
+  },
+  start(){
+    if(!_raf) _raf=requestAnimationFrame(cartoonFrame);
+  },
+};
+
+// Auto-init
+document.addEventListener('DOMContentLoaded',()=>{ window.CartoonAnim.init(); });
+})();
+
 </body>
 </html>
