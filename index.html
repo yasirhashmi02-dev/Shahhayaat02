@@ -434,6 +434,7 @@ body.nav-open{overflow:hidden}
       <a href="products.html">Products</a>
       <a href="conditions.html">Health Guides</a>
       <a href="ingredients.html">Ingredients</a>
+      <a href="exercises.html">Exercises</a>
       <a href="wellness-lab.html">🧪 Lab</a>
       <a href="blog.html">Blog</a>
       <a href="about.html">About</a>
@@ -451,6 +452,7 @@ body.nav-open{overflow:hidden}
     <a href="products.html">Products</a>
     <a href="conditions.html">Health Guides</a>
     <a href="ingredients.html">Ingredients</a>
+    <a href="exercises.html">Exercises</a>
     <a href="wellness-lab.html">🧪 Lab</a>
     <a href="blog.html">Blog</a>
     <a href="about.html">About</a>
@@ -481,7 +483,7 @@ body.nav-open{overflow:hidden}
         <p class="hero-sub">Certified herbal formulations for Brain, Liver, Digestion, Joints, Immunity and more. Crafted with traditional wisdom, modern standards.</p>
         <div class="hero-btns">
           <a href="products.html" class="btn btn-primary btn-lg">Explore Products</a>
-          <a href="symptom-checker.html" class="btn btn-glow btn-lg">✦ Find Your Remedy</a>
+          <a href="wellness-lab.html" class="btn btn-glow btn-lg">✦ Find Your Remedy</a>
         </div>
         <div class="hero-trust">
           <span class="hero-trust-item">50,000+ Customers</span>
@@ -556,7 +558,7 @@ body.nav-open{overflow:hidden}
     <h2 class="reveal delay-1" id="assess-heading">Not Sure Which<br>Remedy Is Right for You?</h2>
     <p class="reveal delay-2">Answer a few quick questions about your symptoms and body type. Get a personalised Shah Hayaat herbal recommendation instantly.</p>
     <div class="reveal delay-3">
-      <a href="symptom-checker.html" class="btn btn-glow btn-lg">✦ Start Symptom Checker</a>
+      <a href="wellness-lab.html" class="btn btn-glow btn-lg">✦ Start Symptom Checker</a>
     </div>
     <div class="assessment-icons reveal delay-4">
       <div class="assess-icon"><div class="assess-icon-emoji">🧪</div><div class="assess-icon-label">16 Symptoms</div></div>
@@ -677,7 +679,7 @@ body.nav-open{overflow:hidden}
     <p class="reveal delay-2">Explore all 12 Shah Hayaat remedies or find the perfect formulation with our free symptom checker.</p>
     <div class="cta-btn-row reveal delay-3">
       <a href="products.html" class="btn btn-primary btn-lg">Browse All Remedies</a>
-      <a href="symptom-checker.html" class="btn btn-outline-white btn-lg">✦ Symptom Checker</a>
+      <a href="wellness-lab.html" class="btn btn-outline-white btn-lg">✦ Symptom Checker</a>
     </div>
   </div>
 </section>
@@ -719,7 +721,7 @@ body.nav-open{overflow:hidden}
         <li><a href="products.html">All Products</a></li>
         <li><a href="conditions.html">Health Guides</a></li>
         <li><a href="ingredients.html">Ingredients</a></li>
-        <li><a href="symptom-checker.html">Symptom Checker</a></li>
+        <li><a href="wellness-lab.html">Symptom Checker</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -934,10 +936,28 @@ function openRateModal(){$('#rateModalBg').classList.add('open');_star=0;}
 function closeRateModal(){$('#rateModalBg').classList.remove('open');}
 function setStar(v){_star=v;$$('#rateStarRow button').forEach((b,i)=>b.style.transform=i<v?'scale(1.2)':'scale(1)');}
 async function submitRating(){if(!_star)return alert('Please select a star rating.');const name=$('#rateNameInp').value.trim()||'Anonymous';const text=$('#rateRevInp').value.trim()||'';try{const a=JSON.parse(localStorage.getItem('sh_r')||'[]');a.push({name,stars:_star,text,ts:Date.now()});localStorage.setItem('sh_r',JSON.stringify(a.slice(-50)));}catch{}await _post({type:'site_review',name,stars:_star,text,page:location.pathname});closeRateModal();$('#rateNameInp').value='';$('#rateRevInp').value='';buildReviewsWall();}
+document.addEventListener('DOMContentLoaded',function(){buildReviewsWall();});
+</script>
+<!-- Hero Slideshow IIFE -->
+<script type="text/javascript" data-cfasync="false">
+(function(){
+  var heroImgs=[
+    {src:GH+'brainchamp1.jpg',name:'Brain Champ'},
+    {src:GH+'livohayaat1.jpg',name:'Livo Hayaat'},
+    {src:GH+'orthohayaat1.jpg',name:'Ortho Hayaat'},
+    {src:GH+'shahzyme1.jpg',name:'Shah Zyme'},
+    {src:GH+'bloodstorm1.jpg',name:'Blood Storm'},
+    {src:GH+'diaease1.jpg',name:'Dia-Ease'}
+  ];
+  var img=document.getElementById('hero-product');
+  var label=document.getElementById('hero-prod-label');
+  var dotsEl=document.getElementById('hero-dots');
+  if(!img)return;
+  var idx=0,count=0,timer=null;
   if(dotsEl){dotsEl.innerHTML=products.map((_,i)=>`<div class="hero-dot${i===0?' active':''}" onclick="heroGoto(${i})"></div>`).join('');}
   window.heroGoto=function(n){count++;idx=n;advance(n);}
   function advance(toIdx){
-    const p=products[toIdx];
+    var p=heroImgs[toIdx];
     const anim=count%2===0?'slide-in-right':'slide-in-left';
     img.style.opacity='0';img.style.transition='opacity 0.3s';
     if(label)label.style.opacity='0';
@@ -953,10 +973,10 @@ async function submitRating(){if(!_star)return alert('Please select a star ratin
       if(dotsEl)Array.from(dotsEl.querySelectorAll('.hero-dot')).forEach((d,i)=>d.classList.toggle('active',i===toIdx));
     },320);
   }
-  function next(){count++;idx=(idx+1)%products.length;advance(idx);}
+  function next(){count++;idx=(idx+1)%heroImgs.length;advance(idx);}
   function resetTimer(){clearInterval(timer);timer=setInterval(next,5000);}
   resetTimer();
-  img.addEventListener('click',()=>{count++;idx=(idx+1)%products.length;advance(idx);resetTimer();});
+  img.addEventListener('click',function(){count++;idx=(idx+1)%heroImgs.length;advance(idx);resetTimer();});
 })();
 </script>
 

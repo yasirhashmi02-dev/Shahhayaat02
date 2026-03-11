@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wellness Exercises & Activities | Shah Hayaat</title>
+<meta name="description" content="Free guided wellness exercises for brain, eyes, breathing, body and calming. Includes a Wake-Up Booster to fight drowsiness while reading or studying.">
+<link rel="canonical" href="https://shahhayaat.com/exercises.html">
+<link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#071830;--bg2:#0a1f3c;--bg3:#0e2448;--bg4:#0e2d54;
+  --gold:#B8860B;--gold-l:#D4A017;--gold-pale:rgba(180,134,20,.10);
+  --text:#E8ECF0;--text-m:#A8B4C4;--text-mu:#5A6A7E;
+  --border:rgba(255,255,255,.08);--border-m:rgba(255,255,255,.12);
+  --r:14px;--r-lg:22px;--ease:cubic-bezier(.4,0,.2,1);--t:.3s;
+  --font-h:'Playfair Display',Georgia,serif;--font-b:'DM Sans',system-ui,sans-serif;
+  --shadow-md:0 10px 30px rgba(0,0,0,.40);--shadow-lg:0 20px 50px rgba(0,0,0,.50);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:var(--font-b);background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{cursor:pointer;font-family:var(--font-b)}
+
+.container{max-width:1180px;margin:0 auto;padding:0 20px}
+.section{padding:clamp(60px,8vw,100px) 0}
+.eyebrow{display:inline-block;font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.65rem}
+.text-center{text-align:center}
+
+/* HEADER */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 0;transition:all .35s var(--ease)}
+body.scrolled .site-header{background:rgba(7,24,48,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:.65rem 0;box-shadow:0 1px 0 var(--border),0 4px 24px rgba(0,0,0,.4)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.logo{display:flex;align-items:center;gap:.75rem;font-family:var(--font-h);font-size:1.15rem;color:#fff;flex-shrink:0}
+.logo img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(212,160,23,.5)}
+.logo em{color:var(--gold-l);font-style:normal}
+.nav-desktop{display:none}
+@media(min-width:960px){.nav-desktop{display:flex;align-items:center;gap:.1rem}}
+.nav-desktop a{padding:.4rem .85rem;font-size:.80rem;font-weight:500;color:rgba(255,255,255,.60);border-radius:50px;transition:all .25s}
+.nav-desktop a:hover,.nav-desktop a.active{color:#fff;background:rgba(255,255,255,.08)}
+.nav-cta-pill{display:none}
+@media(min-width:960px){.nav-cta-pill{display:inline-flex;align-items:center;gap:.35rem;padding:.5rem 1.15rem;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;border-radius:50px;font-size:.76rem;font-weight:700;letter-spacing:.05em;box-shadow:0 2px 12px rgba(184,134,11,.28);transition:all .25s;white-space:nowrap}}
+.nav-cta-pill:hover{transform:translateY(-1px);box-shadow:0 5px 20px rgba(184,134,11,.50)}
+.nav-toggle{background:none;border:none;padding:4px;display:flex;flex-direction:column;gap:5px;z-index:1001}
+.nav-toggle span{display:block;width:22px;height:2px;background:#fff;transition:all .28s;transform-origin:center}
+@media(min-width:960px){.nav-toggle{display:none}}
+body.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+body.nav-open .nav-toggle span:nth-child(2){opacity:0;transform:scaleX(0)}
+body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-mobile{position:fixed;inset:0;z-index:999;background:linear-gradient(160deg,#061428 0%,#0a2040 100%);padding:5.5rem 2rem 2.5rem;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);overflow-y:auto}
+body.nav-open .nav-mobile{transform:translateX(0)}
+body.nav-open{overflow:hidden}
+.nav-mobile-links{display:flex;flex-direction:column;gap:.2rem;margin-bottom:2.5rem}
+.nav-mobile-links a{font-family:var(--font-h);font-size:1.5rem;font-style:italic;color:rgba(255,255,255,.7);padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);transition:color .2s}
+.nav-mobile-links a:hover,.nav-mobile-links a.active{color:var(--gold-l)}
+.nav-mobile-actions{display:flex;flex-direction:column;gap:.8rem;margin-top:auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;padding:.78rem 1.8rem;border-radius:50px;font-weight:600;font-size:.88rem;letter-spacing:.02em;transition:all var(--t) var(--ease);border:2px solid transparent;white-space:nowrap}
+.btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;box-shadow:0 4px 16px rgba(184,134,11,.28)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(184,134,11,.45)}
+.btn-glow{background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;animation:glowPulse 2.5s ease-in-out infinite alternate;border:none}
+.btn-wa{background:#25D366;color:#fff;border:none}
+.btn-wa:hover{background:#1ea855}
+@keyframes glowPulse{0%{box-shadow:0 4px 16px rgba(212,160,23,.30)}100%{box-shadow:0 4px 32px rgba(212,160,23,.75),0 0 60px rgba(212,160,23,.20)}}
+
+/* HERO */
+.ex-hero{padding:clamp(100px,14vw,140px) 0 clamp(60px,8vw,80px);background:linear-gradient(135deg,#061428 0%,#0a1f3c 50%,#0e3060 100%);position:relative;overflow:hidden}
+.ex-hero::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(ellipse,rgba(180,134,20,.07) 0%,transparent 65%);pointer-events:none;border-radius:50%}
+.ex-hero-inner{position:relative;z-index:1;text-align:center}
+.ex-hero h1{font-family:var(--font-h);font-size:clamp(2rem,5vw,3.2rem);color:#fff;line-height:1.15;margin-bottom:1rem}
+.ex-hero h1 em{color:var(--gold-l);font-style:italic}
+.ex-hero p{color:rgba(255,255,255,.60);max-width:560px;margin:0 auto 2rem;font-size:.97rem}
+.hero-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:.55rem;margin-bottom:2rem}
+.hero-chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .9rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:50px;font-size:.72rem;font-weight:600;color:rgba(255,255,255,.75)}
+
+/* FILTER TABS */
+.filter-bar{display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center;margin-bottom:2.5rem}
+.filter-btn{padding:.5rem 1.2rem;border-radius:50px;font-size:.78rem;font-weight:600;background:var(--bg3);border:1.5px solid var(--border);color:var(--text-m);transition:all .25s;letter-spacing:.03em}
+.filter-btn.active,.filter-btn:hover{background:var(--gold);border-color:var(--gold);color:#fff}
+
+/* EXERCISE GRID */
+.ex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.3rem}
+
+/* EXERCISE CARD */
+.ex-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;transition:all .28s var(--ease);position:relative}
+.ex-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--border-m)}
+.ex-card-head{padding:1.4rem 1.4rem 0;display:flex;align-items:flex-start;gap:1rem}
+.ex-emoji{font-size:2.2rem;line-height:1;flex-shrink:0;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+.ex-card-meta{flex:1}
+.ex-tag{display:inline-block;font-size:.60rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.2rem .65rem;border-radius:50px;margin-bottom:.4rem}
+.tag-brain{background:rgba(99,102,241,.20);color:#a5b4fc;border:1px solid rgba(99,102,241,.25)}
+.tag-eyes{background:rgba(14,165,233,.20);color:#7dd3fc;border:1px solid rgba(14,165,233,.25)}
+.tag-breath{background:rgba(16,185,129,.20);color:#6ee7b7;border:1px solid rgba(16,185,129,.25)}
+.tag-body{background:rgba(245,158,11,.20);color:#fcd34d;border:1px solid rgba(245,158,11,.25)}
+.tag-calm{background:rgba(167,139,250,.20);color:#c4b5fd;border:1px solid rgba(167,139,250,.25)}
+.tag-wake{background:rgba(239,68,68,.20);color:#fca5a5;border:1px solid rgba(239,68,68,.30)}
+.ex-card-meta h3{font-family:var(--font-h);font-size:1.05rem;color:var(--text);line-height:1.3;margin-bottom:.2rem}
+.ex-duration{font-size:.70rem;color:var(--text-mu);font-weight:600;letter-spacing:.06em}
+.ex-card-body{padding:.9rem 1.4rem 1.2rem;flex:1;display:flex;flex-direction:column;gap:.75rem}
+.ex-desc{font-size:.85rem;color:var(--text-m);line-height:1.68}
+.ex-steps{display:flex;flex-direction:column;gap:.4rem}
+.ex-step{display:flex;align-items:flex-start;gap:.6rem;font-size:.82rem;color:var(--text-m);line-height:1.5}
+.ex-step-num{width:20px;height:20px;border-radius:50%;background:var(--gold-pale);border:1px solid rgba(212,160,23,.3);display:flex;align-items:center;justify-content:center;font-size:.60rem;font-weight:700;color:var(--gold-l);flex-shrink:0;margin-top:1px}
+.ex-card-footer{padding:.9rem 1.4rem 1.2rem 1.4rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap}
+.ex-benefit{font-size:.74rem;color:var(--text-mu);font-weight:500}
+.ex-benefit strong{color:var(--gold-l)}
+
+/* START BUTTON */
+.start-btn{padding:.6rem 1.4rem;border-radius:50px;font-size:.80rem;font-weight:700;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;border:none;transition:all .25s;flex-shrink:0}
+.start-btn:hover{transform:translateY(-1px);box-shadow:0 4px 18px rgba(184,134,11,.45)}
+
+/* WAKE-UP CARD - SPECIAL */
+.ex-card.wake-up-card{border:1.5px solid rgba(239,68,68,.30);background:linear-gradient(135deg,var(--bg3) 0%,rgba(239,68,68,.06) 100%)}
+.ex-card.wake-up-card:hover{border-color:rgba(239,68,68,.50);box-shadow:0 20px 50px rgba(239,68,68,.15)}
+.wake-label{position:absolute;top:1rem;right:1rem;background:rgba(239,68,68,.85);color:#fff;font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.22rem .65rem;border-radius:50px}
+
+/* TIMER OVERLAY */
+.timer-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1.5rem}
+.timer-overlay.open{display:flex}
+.timer-box{background:var(--bg3);border:1px solid var(--border-m);border-radius:var(--r-lg);padding:2.5rem 2rem;max-width:420px;width:100%;text-align:center;box-shadow:var(--shadow-lg);position:relative;animation:timerIn .3s ease}
+@keyframes timerIn{from{opacity:0;transform:scale(.93) translateY(12px)}to{opacity:1;transform:none}}
+.timer-box-emoji{font-size:3rem;margin-bottom:.6rem;display:block}
+.timer-box-title{font-family:var(--font-h);font-size:1.35rem;color:var(--text);margin-bottom:.4rem}
+.timer-box-sub{font-size:.84rem;color:var(--text-m);margin-bottom:1.5rem;line-height:1.65}
+.timer-ring-wrap{position:relative;width:160px;height:160px;margin:0 auto 1.5rem}
+.timer-ring{transform:rotate(-90deg);width:160px;height:160px}
+.timer-ring-bg{fill:none;stroke:var(--border-m);stroke-width:8}
+.timer-ring-fill{fill:none;stroke:url(#timerGrad);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset .9s linear;stroke-dasharray:439;stroke-dashoffset:0}
+.timer-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-h);font-size:2.6rem;font-weight:700;color:var(--gold-l)}
+.timer-phase{position:absolute;bottom:12px;left:0;right:0;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-mu)}
+.timer-step-label{font-size:.88rem;color:var(--text-m);margin-bottom:1.3rem;min-height:2.4rem;line-height:1.6}
+.timer-btns{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+.timer-btn{padding:.65rem 1.5rem;border-radius:50px;font-size:.84rem;font-weight:700;border:none;transition:all .25s}
+.timer-btn-start{background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff}
+.timer-btn-start:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(184,134,11,.45)}
+.timer-btn-stop{background:var(--bg4);color:var(--text-m);border:1.5px solid var(--border-m)}
+.timer-btn-stop:hover{background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.4);color:#fca5a5}
+.timer-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.1rem;color:var(--text-mu);transition:color .2s}
+.timer-close:hover{color:var(--text)}
+
+/* WAKE-UP GAME */
+.wakeup-game{display:none}
+.wakeup-game.active{display:block}
+.wg-prompt{font-size:1.1rem;color:var(--text);margin-bottom:1rem;font-weight:600}
+.wg-count{font-family:var(--font-h);font-size:3.5rem;color:var(--gold-l);line-height:1;margin-bottom:.5rem}
+.wg-target{font-size:1.5rem;margin-bottom:1rem;color:var(--text-m);font-size:.9rem}
+.wg-tap-btn{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;font-size:2rem;border:none;transition:transform .12s,box-shadow .12s;box-shadow:0 6px 24px rgba(184,134,11,.4)}
+.wg-tap-btn:active{transform:scale(.88)}
+.wg-score-bar{width:100%;height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin:1rem 0 .5rem}
+.wg-score-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-l));border-radius:4px;transition:width .3s}
+.wg-result{font-size:.9rem;color:var(--text-m)}
+.wg-result strong{color:var(--gold-l)}
+
+/* SECTION TITLE */
+.section-title-wrap{text-align:center;margin-bottom:2.2rem}
+.section-title-wrap h2{font-family:var(--font-h);font-size:clamp(1.8rem,3.5vw,2.6rem);color:var(--text)}
+.section-title-wrap p{font-size:.94rem;color:var(--text-m);margin-top:.5rem}
+
+/* FOOTER */
+.site-footer{background:var(--bg);padding:3.5rem 0 0;border-top:1px solid var(--border)}
+.footer-grid{display:grid;gap:2.5rem;grid-template-columns:1.8fr 1fr 1fr 1.2fr;padding-bottom:3rem;border-bottom:1px solid var(--border)}
+@media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+.footer-brand .logo{margin-bottom:.85rem}
+.footer-brand p{font-size:.82rem;color:rgba(255,255,255,.28);line-height:1.72;max-width:220px}
+.footer-socials{display:flex;gap:.5rem;margin-top:1.2rem}
+.soc-icon{width:34px;height:34px;border-radius:50%;border:1px solid var(--border-m);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.30);font-size:.9rem;transition:all .25s}
+.soc-icon:hover{border-color:var(--gold-l);color:var(--gold-l)}
+.footer-col h4{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-l);margin-bottom:1.1rem}
+.footer-col ul{display:flex;flex-direction:column;gap:.55rem}
+.footer-col a{font-size:.82rem;color:rgba(255,255,255,.28);transition:color .2s}
+.footer-col a:hover{color:rgba(255,255,255,.70)}
+.footer-bottom{padding:1.2rem 0;display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;font-size:.72rem;color:rgba(255,255,255,.18)}
+.footer-bottom a{color:rgba(255,255,255,.18);transition:color .2s}
+.footer-bottom a:hover{color:rgba(255,255,255,.50)}
+
+/* BACK TO TOP */
+.back-top{position:fixed;bottom:5.5rem;right:1.8rem;z-index:480;width:40px;height:40px;border-radius:50%;background:var(--bg4);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 4px 16px rgba(0,0,0,.35);opacity:0;visibility:hidden;transition:all .3s;border:1px solid var(--border-m)}
+.back-top.show{opacity:1;visibility:visible}
+.back-top:hover{background:var(--gold);border-color:var(--gold);transform:translateY(-2px)}
+.wa-float{position:fixed;bottom:1.8rem;right:1.8rem;z-index:480;width:52px;height:52px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 20px rgba(37,211,102,.35);transition:all .3s;opacity:0;pointer-events:none}
+.wa-float.show{opacity:1;pointer-events:auto}
+.wa-float:hover{transform:scale(1.08)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .75s ease,transform .75s ease}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body id="top">
+
+<!-- HEADER -->
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="38" height="38" loading="eager">
+      <span>Shah <em>Hayaat</em></span>
+    </a>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="conditions.html">Health Guides</a>
+      <a href="exercises.html" class="active">Exercises</a>
+      <a href="wellness-lab.html">🧪 Lab</a>
+      <a href="blog.html">Blog</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="wellness-lab.html" class="nav-cta-pill">✦ Self Assessment</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
+  <div class="nav-mobile-links">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="conditions.html">Health Guides</a>
+    <a href="exercises.html" class="active">Exercises</a>
+    <a href="wellness-lab.html">🧪 Lab</a>
+    <a href="blog.html">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-mobile-actions">
+    <a href="wellness-lab.html" class="btn btn-glow" style="justify-content:center;display:flex">✦ Self Assessment</a>
+    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center;display:flex">💬 WhatsApp Us</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="ex-hero">
+  <div class="container ex-hero-inner">
+    <div class="eyebrow">Free · Guided · No Equipment</div>
+    <h1>Wellness Exercises &<br><em>Mind–Body Activities</em></h1>
+    <p>Guided exercises for your brain, eyes, breath and body. Each activity takes just minutes and can be done anywhere — even at your desk.</p>
+    <div class="hero-chips">
+      <span class="hero-chip">🧠 Brain</span>
+      <span class="hero-chip">👁️ Eyes</span>
+      <span class="hero-chip">🌬️ Breath</span>
+      <span class="hero-chip">🤸 Body</span>
+      <span class="hero-chip">🧘 Calm</span>
+      <span class="hero-chip">⚡ Wake-Up</span>
+    </div>
+  </div>
+</section>
+
+<!-- EXERCISES SECTION -->
+<section class="section" style="background:var(--bg2)">
+  <div class="container">
+
+    <!-- FILTER -->
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="all">All Activities</button>
+      <button class="filter-btn" data-filter="brain">🧠 Brain</button>
+      <button class="filter-btn" data-filter="eyes">👁️ Eyes</button>
+      <button class="filter-btn" data-filter="breath">🌬️ Breath</button>
+      <button class="filter-btn" data-filter="body">🤸 Body</button>
+      <button class="filter-btn" data-filter="calm">🧘 Calm</button>
+      <button class="filter-btn" data-filter="wake">⚡ Wake-Up</button>
+    </div>
+
+    <!-- GRID -->
+    <div class="ex-grid" id="exGrid"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy">
+          <span>Shah <em>Hayaat</em></span>
+        </a>
+        <p>WHO-GMP, ISO 9001:2015 and HACCP certified Ayurvedic medicines for complete wellness. Est. 2024.</p>
+        <div class="footer-socials">
+          <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
+          <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Navigation</h4><ul>
+        <li><a href="products.html">All Products</a></li>
+        <li><a href="exercises.html">Exercises</a></li>
+        <li><a href="wellness-lab.html">Wellness Lab</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Products</h4><ul>
+        <li><a href="product-detail.html?id=brainchamp">Brain Champ</a></li>
+        <li><a href="product-detail.html?id=shahzyme">Shah Zyme</a></li>
+        <li><a href="product-detail.html?id=livohayaat">Livo Hayaat</a></li>
+        <li><a href="product-detail.html?id=orthohayaat">Ortho Hayaat</a></li>
+        <li><a href="products.html">View All 12 →</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
+        <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Shah Hayaat. All Rights Reserved.</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" class="back-top" id="back-top" aria-label="Back to top">↑</a>
+<a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float" id="wa-float" aria-label="Order on WhatsApp">💬</a>
+
+<!-- TIMER OVERLAY -->
+<div class="timer-overlay" id="timerOverlay" role="dialog" aria-modal="true" aria-label="Exercise timer">
+  <div class="timer-box">
+    <button class="timer-close" id="timerClose" aria-label="Close">✕</button>
+    <span class="timer-box-emoji" id="timerEmoji">🧠</span>
+    <div class="timer-box-title" id="timerTitle">Exercise</div>
+    <div class="timer-box-sub" id="timerSub"></div>
+
+    <!-- Normal Timer -->
+    <div id="normalTimer">
+      <div class="timer-ring-wrap">
+        <svg class="timer-ring" viewBox="0 0 160 160">
+          <defs>
+            <linearGradient id="timerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#B8860B"/>
+              <stop offset="100%" style="stop-color:#D4A017"/>
+            </linearGradient>
+          </defs>
+          <circle class="timer-ring-bg" cx="80" cy="80" r="70"/>
+          <circle class="timer-ring-fill" id="timerRingFill" cx="80" cy="80" r="70"/>
+        </svg>
+        <div class="timer-num" id="timerNum">0</div>
+        <div class="timer-phase" id="timerPhase"></div>
+      </div>
+      <div class="timer-step-label" id="timerStepLabel"></div>
+      <div class="timer-btns">
+        <button class="timer-btn timer-btn-start" id="timerStartBtn" onclick="timerStart()">▶ Start</button>
+        <button class="timer-btn timer-btn-stop" onclick="timerClose()">✕ Close</button>
+      </div>
+    </div>
+
+    <!-- Wake-Up Game -->
+    <div class="wakeup-game" id="wakeupGame">
+      <div class="wg-prompt" id="wgPrompt">Tap as fast as you can!</div>
+      <div class="wg-count" id="wgCount">0</div>
+      <div class="wg-target" id="wgTarget">Target: 30 taps in 15 seconds</div>
+      <button class="wg-tap-btn" id="wgTapBtn" onclick="wgTap()">⚡</button>
+      <div class="wg-score-bar"><div class="wg-score-fill" id="wgFill" style="width:0%"></div></div>
+      <div class="wg-result" id="wgResult"></div>
+      <div class="timer-btns" style="margin-top:1rem">
+        <button class="timer-btn timer-btn-start" id="wgStartBtn" onclick="wgStart()">▶ Start Challenge</button>
+        <button class="timer-btn timer-btn-stop" onclick="timerClose()">✕ Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+'use strict';
+
+/* ── DATA ───────────────────────────────────────── */
+const EXERCISES = [
+  {
+    id:'wake-up',cat:'wake',
+    emoji:'⚡',title:'Wake-Up Shock Challenge',
+    tag:'Wake-Up Boost',tagClass:'tag-wake',duration:'2–3 min',
+    wakeup:true,
+    desc:'Feeling drowsy while reading or working? This high-energy tapping challenge floods your brain with blood flow and adrenaline to snap you back to alertness instantly.',
+    steps:['Sit upright — back straight, feet flat on floor','Take 3 rapid deep breaths through the nose','Complete the rapid tapping challenge below','Finish with 5 cold-water splashes on your face'],
+    benefit:'Beats drowsiness','benefitVal':'in under 2 min',
+    special:true
+  },
+  {
+    id:'box-breath',cat:'breath',
+    emoji:'🌬️',title:'Box Breathing',
+    tag:'Breathing',tagClass:'tag-breath',duration:'4 min',
+    phases:[{label:'Inhale',sec:4},{label:'Hold',sec:4},{label:'Exhale',sec:4},{label:'Hold',sec:4}],
+    rounds:4,
+    desc:'The military\'s go-to stress reset. Inhale, hold, exhale, hold — all for 4 counts each. Calms the nervous system in minutes.',
+    steps:['Sit or lie in a comfortable position','Inhale slowly through nose — 4 counts','Hold your breath — 4 counts','Exhale through mouth — 4 counts','Hold empty — 4 counts','Repeat 4 rounds'],
+    benefit:'Lowers stress','benefitVal':'by up to 40%',
+  },
+  {
+    id:'palming',cat:'eyes',
+    emoji:'👁️',title:'Eye Palming & 20-20-20',
+    tag:'Eye Relief',tagClass:'tag-eyes',duration:'3 min',
+    phases:[{label:'Rub palms',sec:10},{label:'Palm eyes',sec:30},{label:'20-20-20 gaze',sec:20},{label:'Rest',sec:10}],
+    rounds:3,
+    desc:'The 20-20-20 rule combined with palming relieves eye strain from screens. Every 20 minutes, look 20 feet away for 20 seconds.',
+    steps:['Rub your palms together until warm','Cup palms gently over closed eyes','Breathe deeply — hold for 30 seconds','Open eyes, focus on distant object (20 ft away) for 20 sec','Slowly roll eyes in circles — 5 each direction','Repeat 3 times'],
+    benefit:'Reduces eye strain','benefitVal':'& dryness',
+  },
+  {
+    id:'shoulder-neck',cat:'body',
+    emoji:'🤸',title:'Neck & Shoulder Release',
+    tag:'Body',tagClass:'tag-body',duration:'5 min',
+    phases:[{label:'Left tilt',sec:20},{label:'Right tilt',sec:20},{label:'Chin to chest',sec:20},{label:'Shoulder rolls',sec:30}],
+    rounds:3,
+    desc:'Desk workers carry enormous tension in neck and shoulders. This gentle sequence melts tightness, improves posture and relieves headaches caused by tension.',
+    steps:['Sit tall, roll shoulders back once','Tilt head slowly to left — hold 20 sec','Tilt to right — hold 20 sec','Drop chin to chest — hold 20 sec','Roll shoulders forward 5×, backward 5×','Gently turn head left and right 5× each'],
+    benefit:'Relieves tension','benefitVal':'headaches',
+  },
+  {
+    id:'memory-mnemonics',cat:'brain',
+    emoji:'🧠',title:'Memory Palace Warm-Up',
+    tag:'Brain',tagClass:'tag-brain',duration:'5 min',
+    phases:[{label:'Encode list',sec:60},{label:'Walk palace',sec:60},{label:'Recall test',sec:60}],
+    rounds:1,
+    desc:'The memory palace (Method of Loci) is the world\'s oldest memory technique. Scientists confirm it boosts recall by up to 200%. This warm-up builds the habit in minutes.',
+    steps:['Pick a familiar place (your home, school route)','Memorise these 5 words: Mango, Cloud, Book, River, Lamp','Place each word at a different spot in your imagined walk','Close your eyes and mentally walk through the locations','Recall the 5 words in order — check your score','Repeat with 7 words when you\'re comfortable'],
+    benefit:'Boosts memory','benefitVal':'up to 200%',
+  },
+  {
+    id:'4-7-8-breath',cat:'breath',
+    emoji:'😮‍💨',title:'4-7-8 Calming Breath',
+    tag:'Breathing',tagClass:'tag-breath',duration:'3 min',
+    phases:[{label:'Inhale',sec:4},{label:'Hold',sec:7},{label:'Exhale',sec:8}],
+    rounds:4,
+    desc:'Dr. Andrew Weil\'s natural tranquiliser for the nervous system. The extended exhale activates the parasympathetic system — ideal before sleep or after stress.',
+    steps:['Place tongue tip behind upper front teeth','Exhale completely through mouth (make whoosh sound)','Close mouth, inhale through nose for 4 counts','Hold breath for 7 counts','Exhale through mouth for 8 counts (whoosh)','This is 1 cycle — complete 4 cycles'],
+    benefit:'Induces calm','benefitVal':'in 60 seconds',
+  },
+  {
+    id:'eye-yoga',cat:'eyes',
+    emoji:'🔄',title:'Eye Yoga (6-Direction Stretch)',
+    tag:'Eye Relief',tagClass:'tag-eyes',duration:'3 min',
+    phases:[{label:'Up-Down',sec:15},{label:'Left-Right',sec:15},{label:'Diagonal',sec:15},{label:'Circles',sec:20}],
+    rounds:3,
+    desc:'Ayurvedic eye yoga strengthens the six extra-ocular muscles, reduces digital eye fatigue and is said to improve long-term vision health.',
+    steps:['Sit straight — keep head still throughout','Move eyes slowly upward, then down — 5 times','Move eyes left to right — 5 times','Diagonal: upper-left to lower-right — 5 times','Diagonal: upper-right to lower-left — 5 times','Slow full circles — 5 clockwise, 5 anti-clockwise','Palm eyes for 30 seconds to finish'],
+    benefit:'Strengthens',benefitVal:'eye muscles',
+  },
+  {
+    id:'deep-squat',cat:'body',
+    emoji:'🦵',title:'Standing Desk Reset',
+    tag:'Body',tagClass:'tag-body',duration:'3 min',
+    phases:[{label:'Stand & stretch',sec:20},{label:'Squats',sec:30},{label:'Calf raises',sec:20},{label:'Hip circles',sec:20}],
+    rounds:3,
+    desc:'Sitting for long periods slows blood flow and raises fatigue. This 3-minute desk reset restores circulation and wakes up the lower body.',
+    steps:['Stand up from your chair','Reach arms overhead — stretch tall for 10 sec','Do 10 slow bodyweight squats (chest up, knees out)','Rise onto toes 20 times (calf raises)','Circle hips slowly 5× each direction','Walk in place for 30 seconds'],
+    benefit:'Restores','benefitVal':'blood flow',
+  },
+  {
+    id:'alternate-nostril',cat:'breath',
+    emoji:'🌿',title:'Nadi Shodhana (Alternate Nostril)',
+    tag:'Breathing',tagClass:'tag-breath',duration:'5 min',
+    phases:[{label:'Left inhale',sec:4},{label:'Hold',sec:2},{label:'Right exhale',sec:4},{label:'Right inhale',sec:4},{label:'Hold',sec:2},{label:'Left exhale',sec:4}],
+    rounds:5,
+    desc:'Ancient pranayama that balances left and right brain hemispheres, reduces anxiety and improves focus. Used by yogis for thousands of years.',
+    steps:['Sit comfortably with spine erect','Place right hand in Vishnu mudra (index+middle finger folded)','Close right nostril with thumb — inhale through left 4 sec','Close both nostrils — hold 2 sec','Open right nostril — exhale 4 sec','Inhale right 4 sec — hold 2 sec — exhale left 4 sec','This is 1 round — complete 5–10 rounds'],
+    benefit:'Balances','benefitVal':'both brain hemispheres',
+  },
+  {
+    id:'gratitude-scan',cat:'calm',
+    emoji:'🧘',title:'Body Scan Meditation',
+    tag:'Calming',tagClass:'tag-calm',duration:'5 min',
+    phases:[{label:'Feet & legs',sec:60},{label:'Abdomen & chest',sec:60},{label:'Arms & hands',sec:60},{label:'Head & face',sec:60}],
+    rounds:1,
+    desc:'A progressive relaxation scan from toes to crown. Releases held tension in each body part and cultivates present-moment awareness in under 5 minutes.',
+    steps:['Lie down or sit very comfortably','Close eyes and take 3 slow breaths','Bring attention to feet — notice any tension, let it go','Slowly move awareness up: calves → thighs → hips','Continue upward: abdomen → chest → hands → arms','Finish at head and face — release jaw, brow, scalp','Rest in stillness for 1 minute'],
+    benefit:'Reduces tension','benefitVal':'& anxiety',
+  },
+  {
+    id:'cold-water-wake',cat:'wake',
+    emoji:'💦',title:'Wim Hof Cold-Water Jolt',
+    tag:'Wake-Up Boost',tagClass:'tag-wake',duration:'2 min',
+    phases:[{label:'30 power breaths',sec:60},{label:'Cold water',sec:30},{label:'Final hold',sec:30}],
+    rounds:1,
+    desc:'The fastest way to override drowsiness. Cold water on face + 30 power breaths activates the sympathetic nervous system and floods the brain with oxygen.',
+    steps:['Take 30 rapid, full deep breaths (in through nose, out through mouth)','On the 30th breath, exhale completely and hold for 30 sec','Inhale fully, hold 10 sec, then breathe normally','Now splash cold water on face and wrists 5–10 times','Rub cold water on neck and behind ears','Stand upright and take 5 deep, slow breaths to finish'],
+    benefit:'Activates','benefitVal':'full alertness',
+  },
+  {
+    id:'brain-gym',cat:'brain',
+    emoji:'🤹',title:'Cross-Crawl Brain Gym',
+    tag:'Brain',tagClass:'tag-brain',duration:'3 min',
+    phases:[{label:'Cross-crawl march',sec:30},{label:'Figure-8 hands',sec:30},{label:'Hook-ups',sec:60}],
+    rounds:3,
+    desc:'Cross-lateral movements force both brain hemispheres to communicate simultaneously. Brain Gym is used by educators worldwide to enhance learning and focus.',
+    steps:['Stand with feet shoulder width apart','Lift left knee, touch with right elbow — alternate sides','Continue marching with cross-body touches for 30 seconds','Draw slow figure-8 (∞) shapes in the air with one hand, follow with eyes','Switch hands — repeat figure-8 for 30 seconds','End with Hook-Ups: cross ankles, cross wrists, clasp hands, breathe for 1 min'],
+    benefit:'Activates','benefitVal':'both brain hemispheres',
+  },
+  {
+    id:'progressive-relax',cat:'calm',
+    emoji:'😌',title:'Progressive Muscle Relaxation',
+    tag:'Calming',tagClass:'tag-calm',duration:'6 min',
+    phases:[{label:'Feet & legs',sec:40},{label:'Abdomen',sec:30},{label:'Hands & arms',sec:40},{label:'Face & jaw',sec:40}],
+    rounds:1,
+    desc:'Clench each muscle group for 5 seconds, then release for 30 seconds. The contrast makes the relaxation profound — proven to lower blood pressure and cortisol.',
+    steps:['Lie down or sit in a reclining chair','Tense feet & calves as hard as possible — hold 5 sec — release','Move to thighs — tense and hold 5 sec — release','Tense stomach — hold 5 sec — release','Clench fists and flex arms — hold 5 sec — release','Squint eyes and clench jaw — hold 5 sec — release slowly','Rest in complete stillness for 2 minutes'],
+    benefit:'Lowers blood pressure','benefitVal':'& cortisol',
+  },
+  {
+    id:'eye-blink',cat:'eyes',
+    emoji:'😑',title:'Conscious Blinking Reset',
+    tag:'Eye Relief',tagClass:'tag-eyes',duration:'2 min',
+    phases:[{label:'Slow blink',sec:15},{label:'Normal blink',sec:15},{label:'Hard blink',sec:10}],
+    rounds:4,
+    desc:'When focused on screens, we blink only 3–7 times per minute (normal is 15–20). This exercise rehydrates the eyes, clears blurry vision and reduces dryness immediately.',
+    steps:['Look away from your screen','Blink slowly and deliberately 10 times (fully close each time)','Blink at a normal relaxed pace for 15 seconds','Do 5 firm hard blinks (fully squeezing eyelids together)','Look upward without moving head — blink 5 times','Look down — blink 5 times','Palm eyes for 20 seconds to finish'],
+    benefit:'Rehydrates','benefitVal':'dry eyes instantly',
+  },
+  {
+    id:'desk-yoga',cat:'body',
+    emoji:'🙆',title:'Seated Spinal Twist',
+    tag:'Body',tagClass:'tag-body',duration:'3 min',
+    phases:[{label:'Left twist hold',sec:30},{label:'Right twist hold',sec:30},{label:'Forward fold',sec:30}],
+    rounds:3,
+    desc:'The seated spinal twist decompresses vertebrae, stimulates digestion and counteracts the damage of prolonged sitting — all without leaving your chair.',
+    steps:['Sit at the edge of your chair, feet flat on floor','Sit tall — lengthen your spine on an inhale','On exhale, twist torso to the LEFT — right hand on left knee','Look over your left shoulder — hold for 30 seconds, breathe deeply','Inhale to centre — exhale, twist RIGHT — left hand on right knee','Hold 30 seconds','Come back to centre, interlace hands behind neck — gently look upward for 15 sec'],
+    benefit:'Decompresses','benefitVal':'the spine',
+  },
+];
+
+/* ── RENDER CARDS ──────────────────────────────── */
+const grid = document.getElementById('exGrid');
+
+function renderCards(filter='all'){
+  const list = filter==='all' ? EXERCISES : EXERCISES.filter(e=>e.cat===filter);
+  grid.innerHTML = list.map(ex => `
+    <div class="ex-card${ex.special?' wake-up-card':''} reveal" data-cat="${ex.cat}">
+      ${ex.special ? '<span class="wake-label">MUST TRY</span>' : ''}
+      <div class="ex-card-head">
+        <div class="ex-emoji">${ex.emoji}</div>
+        <div class="ex-card-meta">
+          <span class="ex-tag ${ex.tagClass}">${ex.tag}</span>
+          <h3>${ex.title}</h3>
+          <div class="ex-duration">⏱ ${ex.duration}</div>
+        </div>
+      </div>
+      <div class="ex-card-body">
+        <p class="ex-desc">${ex.desc}</p>
+        <div class="ex-steps">
+          ${ex.steps.slice(0,3).map((s,i)=>`<div class="ex-step"><div class="ex-step-num">${i+1}</div><span>${s}</span></div>`).join('')}
+          ${ex.steps.length>3?`<div class="ex-step"><div class="ex-step-num">…</div><span style="color:var(--text-mu);font-style:italic">${ex.steps.length-3} more steps inside →</span></div>`:''}
+        </div>
+      </div>
+      <div class="ex-card-footer">
+        <div class="ex-benefit">✦ <strong>${ex.benefit}</strong> ${ex.benefitVal}</div>
+        <button class="start-btn" onclick="openExercise('${ex.id}')">▶ Start</button>
+      </div>
+    </div>
+  `).join('');
+  observeReveal();
+}
+
+/* ── FILTER ────────────────────────────────────── */
+document.getElementById('filterBar').addEventListener('click', e=>{
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards(btn.dataset.filter);
+});
+
+/* ── TIMER STATE ───────────────────────────────── */
+let _timer=null, _ex=null, _phaseIdx=0, _sec=0, _round=1, _running=false;
+const CIRC = 439; // 2π×70
+
+function openExercise(id){
+  _ex = EXERCISES.find(e=>e.id===id);
+  if(!_ex) return;
+  clearInterval(_timer); _running=false; _phaseIdx=0; _sec=0; _round=1;
+
+  document.getElementById('timerEmoji').textContent=_ex.emoji;
+  document.getElementById('timerTitle').textContent=_ex.title;
+  document.getElementById('timerSub').textContent=_ex.desc;
+
+  const isWakeup = _ex.wakeup;
+  document.getElementById('normalTimer').style.display = isWakeup?'none':'block';
+  document.getElementById('wakeupGame').style.display = isWakeup?'block':'none';
+
+  if(!isWakeup){
+    const phase = _ex.phases[0];
+    document.getElementById('timerNum').textContent = phase.sec;
+    document.getElementById('timerPhase').textContent = phase.label;
+    document.getElementById('timerStepLabel').textContent = _ex.steps[0]||'';
+    document.getElementById('timerRingFill').style.strokeDashoffset='0';
+    document.getElementById('timerStartBtn').textContent='▶ Start';
+    _running=false;
+  } else {
+    // Reset wakeup game
+    document.getElementById('wgCount').textContent='0';
+    document.getElementById('wgFill').style.width='0%';
+    document.getElementById('wgResult').textContent='';
+    document.getElementById('wgStartBtn').style.display='inline-flex';
+    document.getElementById('wgTapBtn').disabled=true;
+    document.getElementById('wgTapBtn').style.opacity='.5';
+    document.getElementById('wgPrompt').textContent='Ready? Hit Start to begin!';
+    document.getElementById('wgTarget').textContent='Target: 30 taps in 15 seconds';
+    _wgActive=false; _wgTaps=0;
+  }
+
+  document.getElementById('timerOverlay').classList.add('open');
+}
+
+function timerStart(){
+  if(_running){clearInterval(_timer);_running=false;document.getElementById('timerStartBtn').textContent='▶ Resume';return;}
+  _running=true;
+  document.getElementById('timerStartBtn').textContent='⏸ Pause';
+  const phase = _ex.phases[_phaseIdx];
+  if(_sec===0) _sec = phase.sec;
+  _timer = setInterval(tick,1000);
+}
+
+function tick(){
+  if(!_running) return;
+  _sec--;
+  const phase = _ex.phases[_phaseIdx];
+  document.getElementById('timerNum').textContent=_sec;
+  const progress = (_sec/phase.sec);
+  document.getElementById('timerRingFill').style.strokeDashoffset = CIRC*(1-progress);
+
+  if(_sec<=0){
+    _phaseIdx++;
+    if(_phaseIdx >= _ex.phases.length){
+      _phaseIdx=0; _round++;
+      if(_round > _ex.rounds){
+        clearInterval(_timer); _running=false;
+        document.getElementById('timerNum').textContent='✓';
+        document.getElementById('timerPhase').textContent='Done!';
+        document.getElementById('timerStepLabel').textContent='Exercise complete! Well done 🎉';
+        document.getElementById('timerStartBtn').textContent='▶ Start Again';
+        document.getElementById('timerRingFill').style.strokeDashoffset='0';
+        _phaseIdx=0; _round=1; _sec=0; _running=false;
+        return;
+      }
+    }
+    const nextPhase = _ex.phases[_phaseIdx];
+    _sec = nextPhase.sec;
+    document.getElementById('timerPhase').textContent=nextPhase.label+' (Round '+_round+'/'+_ex.rounds+')';
+    document.getElementById('timerStepLabel').textContent=_ex.steps[Math.min(_phaseIdx,_ex.steps.length-1)]||'';
+  } else {
+    document.getElementById('timerPhase').textContent=phase.label+' (Round '+_round+'/'+_ex.rounds+')';
+  }
+}
+
+function timerClose(){
+  clearInterval(_timer); _running=false; _sec=0; _phaseIdx=0; _round=1;
+  document.getElementById('timerOverlay').classList.remove('open');
+}
+document.getElementById('timerClose').addEventListener('click',timerClose);
+document.getElementById('timerOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)timerClose();});
+
+/* ── WAKE-UP GAME ──────────────────────────────── */
+let _wgActive=false, _wgTaps=0, _wgTimer=null;
+const WG_TARGET=30, WG_TIME=15;
+
+function wgStart(){
+  _wgTaps=0; _wgActive=true;
+  document.getElementById('wgCount').textContent='0';
+  document.getElementById('wgFill').style.width='0%';
+  document.getElementById('wgResult').textContent='';
+  document.getElementById('wgStartBtn').style.display='none';
+  document.getElementById('wgTapBtn').disabled=false;
+  document.getElementById('wgTapBtn').style.opacity='1';
+  document.getElementById('wgPrompt').textContent='TAP IT! ⚡⚡⚡';
+  let secs=WG_TIME;
+  document.getElementById('wgTarget').textContent='⏱ '+secs+' seconds left';
+  _wgTimer=setInterval(()=>{
+    secs--;
+    document.getElementById('wgTarget').textContent='⏱ '+secs+' seconds left';
+    if(secs<=0){
+      clearInterval(_wgTimer); _wgActive=false;
+      document.getElementById('wgTapBtn').disabled=true;
+      document.getElementById('wgTapBtn').style.opacity='.5';
+      const score=_wgTaps;
+      let msg='';
+      if(score>=WG_TARGET) msg=`🔥 <strong>${score} taps!</strong> You're fully awake now!`;
+      else if(score>=20) msg=`⚡ <strong>${score} taps</strong> — Good effort! Try again to beat 30.`;
+      else msg=`💪 <strong>${score} taps</strong> — Warm up those fingers! Try again.`;
+      document.getElementById('wgResult').innerHTML=msg;
+      document.getElementById('wgStartBtn').textContent='🔄 Play Again';
+      document.getElementById('wgStartBtn').style.display='inline-flex';
+    }
+  },1000);
+}
+
+function wgTap(){
+  if(!_wgActive) return;
+  _wgTaps++;
+  document.getElementById('wgCount').textContent=_wgTaps;
+  const pct=Math.min((_wgTaps/WG_TARGET)*100,100);
+  document.getElementById('wgFill').style.width=pct+'%';
+  // Small visual pop
+  const btn=document.getElementById('wgTapBtn');
+  btn.style.transform='scale(.88)';
+  setTimeout(()=>btn.style.transform='',80);
+}
+
+/* ── REVEAL ────────────────────────────────────── */
+function observeReveal(){
+  const io=new IntersectionObserver(e=>{
+    e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});
+  },{threshold:0.05});
+  document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
+}
+
+/* ── NAV & SCROLL ──────────────────────────────── */
+const toggle=document.getElementById('nav-toggle');
+if(toggle){
+  toggle.addEventListener('click',()=>{
+    const open=document.body.classList.toggle('nav-open');
+    toggle.setAttribute('aria-expanded',String(open));
+  });
+  document.querySelectorAll('#nav-mobile a').forEach(a=>a.addEventListener('click',()=>setTimeout(()=>{document.body.classList.remove('nav-open');toggle.setAttribute('aria-expanded','false');},300)));
+}
+
+window.addEventListener('scroll',()=>{
+  const sy=window.scrollY;
+  document.body.classList.toggle('scrolled',sy>60);
+  const bt=document.getElementById('back-top');
+  const wa=document.getElementById('wa-float');
+  if(bt)bt.classList.toggle('show',sy>400);
+  if(wa)wa.classList.toggle('show',sy>300);
+},{passive:true});
+
+document.getElementById('year').textContent=new Date().getFullYear();
+renderCards();
+</script>
+</body>
+</html>
