@@ -4303,6 +4303,8 @@ LAB.showDashboard = function () {
   if (LAB.scores.hearing    == null) LAB.scores.hearing      = LAB.raw.hearingScore  ?? null;
 
   const recs = LAB._buildRecs();
+  LAB._saveScoresForExercises();
+  setTimeout(function(){ LAB._buildExerciseRecs(); }, 600);
   const isFem = LAB.gender==='female';
   const hormScore = isFem ? (LAB.scores.hormonal ?? null) : null;
 
@@ -4612,6 +4614,34 @@ LAB.showDashboard = function () {
       </div>
     </div>
 
+
+    <!-- ═══ EXERCISES INTEGRATION BLOCK ═══ -->
+    <div id="exercisesBlock" style="background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(212,160,23,.08));border:1.5px solid rgba(99,102,241,.3);border-radius:14px;padding:1.4rem 1.6rem;margin-bottom:1.6rem">
+      <div style="display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+        <div style="font-size:2.2rem;flex-shrink:0;line-height:1">🤸</div>
+        <div style="flex:1;min-width:180px">
+          <div style="font-weight:700;color:var(--t);font-size:1rem;margin-bottom:.3rem">
+            Personalised Wellness Exercises for You
+          </div>
+          <p style="font-size:.82rem;color:var(--tm);line-height:1.65;margin-bottom:.9rem">
+            Based on your test results, specific exercises have been selected to address your weak areas.
+            Each exercise is guided by a live timer and voice instructions — takes just 2–6 minutes.
+          </p>
+          <div id="exRecsBlock" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.9rem"></div>
+          <a href="exercises.html" id="goExercisesBtn"
+             onclick="LAB._saveScoresForExercises()"
+             style="display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.4rem;
+                    background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;
+                    border-radius:50px;font-size:.86rem;font-weight:700;text-decoration:none;
+                    box-shadow:0 4px 16px rgba(99,102,241,.35);transition:all .25s"
+             onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(99,102,241,.5)'"
+             onmouseout="this.style.transform='none';this.style.boxShadow='0 4px 16px rgba(99,102,241,.35)'">
+            🤸 Open My Personalised Exercises →
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ END EXERCISES BLOCK ═══ -->
 
     <div class="community-banner" style="margin-bottom:1.4rem">
       <div>
@@ -6014,6 +6044,38 @@ LAB._buildRecs = function() {
       action:'Sleep 7–9 hrs · hydrate · retest in 1 week',col:'#2563EB'});
 
   return recs.slice(0,12);
+};
+
+/* ── Save scores to localStorage for exercises page ── */
+LAB._saveScoresForExercises = function() {
+  try {
+    localStorage.setItem('sh_lab_scores', JSON.stringify(LAB.scores || {}));
+    localStorage.setItem('sh_lab_raw', JSON.stringify(LAB.raw || {}));
+  } catch(e) {}
+};
+
+/* ── Build recommended exercises list in dashboard ── */
+LAB._buildExerciseRecs = function() {
+  const S = LAB.scores, R = LAB.raw || {};
+  const tags = [];
+  const add = t => { if(!tags.includes(t)) tags.push(t); };
+  if((S.cognitive||100)<65){ add('🧠 Brain Exercises'); add('💡 Memory Training'); }
+  if((S.eye||100)<65)       add('👁️ Eye Exercises');
+  if((S.respiratory||100)<65){ add('🌬️ Breathing Exercises'); }
+  if((S.stress||100)<65)   { add('🔥 Stress Reduction'); add('🧘 Calming Exercises'); }
+  if((S.stability||100)<65)  add('⚖️ Balance Exercises');
+  if((S.lifestyle||100)<65)  add('😴 Wake-Up & Energy Boost');
+  if((R.fatigueDrift||0)>25) add('⚡ Anti-Fatigue Exercises');
+  if((R.breathScore||100)<55) add('🌬️ Breath Training');
+  const block = document.getElementById('exRecsBlock');
+  if(!block) return;
+  if(tags.length===0){
+    block.innerHTML='<span style="font-size:.8rem;color:#2A7A5A;font-weight:600">✓ All domains healthy! Explore exercises to maintain your scores.</span>';
+  } else {
+    block.innerHTML = tags.map(t=>
+      `<span style="display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .7rem;border-radius:50px;font-size:.68rem;font-weight:700;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.28);color:#fca5a5">${t}</span>`
+    ).join('');
+  }
 };
 
 LAB.SH_PRODUCTS = {
