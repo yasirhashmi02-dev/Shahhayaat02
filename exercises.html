@@ -452,138 +452,157 @@ body.nav-open{overflow:hidden}
 'use strict';
 
 /* ═══════════════════════════════════════
-   EXERCISE DATA
+   EXERCISE DATA  (20 exercises)
 ═══════════════════════════════════════ */
 const EXERCISES = [
+
+  /* ── WAKE-UP ── */
   { id:'wakeup-tap', cat:'wake', emoji:'⚡', title:'Rapid Tap Wake-Up',
     tag:'Wake-Up', tagClass:'tag-wake', dur:'2 min', isTapGame:true,
-    desc:'Floods your brain with blood and adrenaline in under 2 minutes — the fastest alertness reset known.',
-    steps:['Sit upright — spine straight, feet flat','Take 3 rapid deep breaths','Tap the button as fast as you can for 15 seconds','Finish with cold water splashes on your face'],
-    voiceIntro:'Wake-Up Tap Challenge. Sit straight, take three deep breaths, then tap as fast as you can for fifteen seconds.',
-    benefit:'Beats drowsiness', benefitVal:'in under 2 min' },
+    labTags:['fatigue','cognitive'],
+    desc:'The fastest alertness reset: rapid tapping floods your brain with blood and adrenaline in 15 seconds.',
+    steps:['Sit upright — spine straight','Take 3 deep breaths through your nose','Tap the button as fast as you can for 15 seconds','Finish with 5 cold-water splashes on your face'],
+    voiceIntro:'Wake-Up Tap Challenge. Sit straight. Take three deep breaths. Then tap as fast as you can.',
+    benefit:'Beats drowsiness', benefitVal:'instantly' },
 
   { id:'wakeup-power-breath', cat:'wake', emoji:'💨', title:'Power Breath Burst',
-    tag:'Wake-Up', tagClass:'tag-wake', dur:'90 sec',
-    desc:'30 rapid full breaths flood blood with oxygen — used by athletes to trigger instant alertness.',
-    phases:[{label:'Power Breathe',sec:45},{label:'Hold Empty',sec:30},{label:'Deep Inhale',sec:10},{label:'Hold Full',sec:10},{label:'Exhale Slowly',sec:5}],
+    tag:'Wake-Up', tagClass:'tag-wake', dur:'90 sec', special:true,
+    labTags:['fatigue','respiratory'],
+    desc:'30 rapid breaths flood your blood with oxygen for instant alertness. The Wim Hof technique used by athletes worldwide.',
+    phases:[{label:'Breathe fast — 30 times',sec:45},{label:'Exhale & hold empty',sec:30},{label:'One deep inhale',sec:10},{label:'Hold full',sec:10},{label:'Exhale slowly',sec:5}],
     rounds:1,
-    steps:['Sit or lie comfortably','Breathe in and out rapidly through nose+mouth — fast and forceful','Do 30 breaths in 45 seconds','Exhale fully — hold lungs empty for 30 sec','One deep inhale — hold 10 sec — then exhale slowly'],
-    voiceIntro:'Power Breath Burst. Thirty rapid full breaths, then a long hold. Begin now.',
-    phaseVoice:['Begin your thirty rapid power breaths. In and out, fast and forceful.','Exhale completely and hold. Do not breathe. You can do this.','Inhale as deeply as you can. Fill your lungs.','Hold. Feel the oxygen.','Exhale slowly. Breathe normally. Feel the alertness.'],
+    steps:['Sit or lie comfortably','Breathe in+out rapidly — full breaths — 30 times in 45 sec','Exhale fully then hold empty lungs for 30 sec','Take one big deep inhale and hold 10 sec','Exhale slowly — feel wide awake'],
+    voiceIntro:'Power Breath Burst. Thirty rapid full breaths, then a long hold.',
+    phaseVoice:['Begin thirty rapid power breaths. In and out, fast and full.','Exhale completely and hold. Do not breathe. You can do this.','Inhale as deeply as you can.','Hold. Feel the oxygen.','Exhale slowly. You should feel very alert now.'],
     benefit:'Floods brain', benefitVal:'with oxygen' },
 
   { id:'wakeup-cold-water', cat:'wake', emoji:'💦', title:'Cold Water Jolt',
-    tag:'Wake-Up', tagClass:'tag-wake', dur:'2 min',
-    desc:'Cold water activates the sympathetic nervous system immediately. More effective than caffeine.',
-    phases:[{label:'Wrists in cold water',sec:20},{label:'Splash face × 10',sec:30},{label:'Cold behind ears',sec:15},{label:'Breathe & reset',sec:35}],
+    tag:'Wake-Up', tagClass:'tag-wake', dur:'2 min', special:true,
+    labTags:['fatigue','stress'],
+    desc:'Cold water activates your nervous system immediately — more effective than caffeine in 10 seconds.',
+    phases:[{label:'Hold wrists under cold water',sec:20},{label:'Splash face 10 times',sec:30},{label:'Cold behind ears + neck',sec:15},{label:'Stand tall & breathe',sec:35}],
     rounds:1,
-    steps:['Go to a tap or basin','Hold both wrists under cold water — 20 seconds','Splash cold water on face 10 times — don\'t wipe','Rub cold water behind both ears','Stand tall and take 5 slow deep breaths'],
-    voiceIntro:'Cold Water Jolt. Go to a tap now. This activates your nervous system immediately.',
-    phaseVoice:['Hold both wrists under cold water.','Splash cold water on your face. Ten splashes.','Cold water behind both ears and the neck.','Stand tall. Five slow deep breaths. You are awake.'],
-    benefit:'Instant alertness', benefitVal:'no caffeine needed' },
+    steps:['Go to a tap — turn on cold water','Hold both wrists under cold water 20 sec','Splash face 10 times — don\'t wipe it','Cold water behind ears & neck','5 slow deep breaths — roll shoulders back'],
+    voiceIntro:'Cold Water Jolt. Go to a tap now.',
+    phaseVoice:['Hold both wrists under cold water.','Splash your face ten times.','Cold water behind your ears and neck.','Stand tall. Take five slow deep breaths.'],
+    benefit:'Activates', benefitVal:'nervous system' },
 
-  { id:'wakeup-jumping', cat:'wake', emoji:'🏃', title:'Sprint Burst Wake-Up',
-    tag:'Wake-Up', tagClass:'tag-wake', dur:'3 min',
-    desc:'Short bursts of movement release norepinephrine — the brain\'s natural stimulant.',
+  { id:'wakeup-jumping', cat:'wake', emoji:'🏃', title:'Sprint Burst',
+    tag:'Wake-Up', tagClass:'tag-wake', dur:'3 min', special:true,
+    labTags:['fatigue','stability'],
+    desc:'3 minutes of movement raises heart rate and releases norepinephrine — your brain\'s natural stimulant.',
     phases:[{label:'March in place',sec:30},{label:'Jumping Jacks',sec:30},{label:'High Knees',sec:30},{label:'Rest & breathe',sec:30},{label:'Arm circles',sec:30},{label:'Cool down',sec:30}],
     rounds:1,
-    steps:['Stand up — you need space','March in place for 30 sec — arms pumping','20 jumping jacks — full extension','High knees — waist height for 30 sec','Rest — 3 slow deep breaths','Roll shoulders, shake out hands'],
-    voiceIntro:'Sprint Burst Wake-Up. Stand up now.',
-    phaseVoice:['March in place! Arms pumping. Get the blood moving.','Jumping jacks! Full extension. Twenty of them.','High knees! Up to your waist. Keep going.','Rest. Breathe slowly. Feel your heart.','Arm circles. Big and slow.','Shake out your hands. Roll your shoulders. You are awake.'],
-    benefit:'Raises alertness', benefitVal:'via norepinephrine' },
+    steps:['Stand up from where you are','March in place 30 sec — arms pumping','20 jumping jacks','High knees — waist height — 30 sec','Rest — 3 deep breaths','Arm circles, shoulder roll, shake out hands'],
+    voiceIntro:'Sprint Burst. Stand up now. Three minutes of movement.',
+    phaseVoice:['March in place. Knees up, arms pumping.','Jumping jacks! Full extension. Twenty of them.','High knees! Bring them up. Push through.','Rest. Deep breaths. Feel your heart rate.','Arm circles — big and slow.','Shake out. Roll neck. Fully alert now.'],
+    benefit:'Raises alertness', benefitVal:'in 3 minutes' },
 
   { id:'wakeup-acupressure', cat:'wake', emoji:'👆', title:'Acupressure Energy Points',
     tag:'Wake-Up', tagClass:'tag-wake', dur:'2 min',
-    desc:'5 clinical acupressure points used to stimulate the nervous system and fight drowsiness.',
+    labTags:['fatigue'],
+    desc:'5 pressure points used in clinical acupuncture to stimulate the nervous system and create instant alertness.',
     phases:[{label:'Between eyebrows',sec:15},{label:'Both temples',sec:15},{label:'Under the nose',sec:15},{label:'Earlobes',sec:15},{label:'Tap the scalp',sec:30},{label:'Hand web point',sec:30}],
     rounds:1,
-    steps:['Rub hands together for 10 seconds','Press between eyebrows — circular rub — 15 sec','Press both temples in circles — 15 sec','Press below nose, above upper lip — 15 sec','Squeeze and massage both earlobes','Tap scalp with all 10 fingertips — 30 sec','Press web between thumb and index finger'],
-    voiceIntro:'Acupressure Energy Points. Rub your hands together first.',
-    phaseVoice:['Press the point between your eyebrows. Small circles.','Both temples. Slow circular massage.','Below your nose, above the upper lip. Firm pressure.','Squeeze both earlobes gently.','Tap your scalp firmly with all ten fingertips.','Press the web between your thumb and index finger. Hold firmly.'],
-    benefit:'Stimulates', benefitVal:'5 alertness points' },
+    steps:['Rub hands together 10 seconds','Press between eyebrows — small circles — 15 sec','Press both temples — circles — 15 sec','Press under nose, above upper lip — 15 sec','Squeeze and massage earlobes — 15 sec','Tap scalp with all 10 fingertips — 30 sec','Press web between thumb & index finger — 30 sec'],
+    voiceIntro:'Acupressure Energy Points. Rub your hands together now.',
+    phaseVoice:['Press the point between your eyebrows. Small circles.','Press both temples in slow circles.','Below your nose, above the upper lip. Firm pressure.','Squeeze both earlobes gently.','Tap all over your scalp with ten fingertips.','Press the web between thumb and index finger deeply.'],
+    benefit:'Stimulates', benefitVal:'5 energy points' },
 
   { id:'wakeup-eye-splash', cat:'wake', emoji:'👁️', title:'Eye & Face Activation',
     tag:'Wake-Up', tagClass:'tag-wake', dur:'90 sec',
-    desc:'Targets the face and eyes — reversing drowsiness signals in under 2 minutes.',
-    phases:[{label:'Blink rapidly × 20',sec:15},{label:'Splash eyelids',sec:20},{label:'Tap face',sec:25},{label:'Rub forehead',sec:15},{label:'Wide eyes — hold',sec:15}],
+    labTags:['fatigue','eye'],
+    desc:'Eye splashing and face tapping directly reverses the physical signs of drowsiness in under 2 minutes.',
+    phases:[{label:'Blink rapidly 20 times',sec:15},{label:'Splash eyelids',sec:20},{label:'Tap face',sec:25},{label:'Rub forehead',sec:15},{label:'Open eyes wide',sec:15}],
     rounds:1,
-    steps:['Blink rapidly 20 times','Splash cold water on closed eyelids 5 times','Tap cheeks, forehead and chin with fingertips','Rub forehead firmly up and down with both palms','Open eyes as wide as possible — hold 10 sec'],
-    voiceIntro:'Eye and Face Activation. Begin with rapid blinking.',
-    phaseVoice:['Blink rapidly. Twenty times. Fast and complete blinks.','Splash cold water on your closed eyelids.','Tap your cheeks, forehead and chin with your fingertips.','Rub your forehead up and down with both palms.','Eyes wide open. Hold. Feel them wake up.'],
+    steps:['Blink rapidly 20 times','Splash cold water on closed eyelids 5 times','Tap cheeks, forehead, chin with fingertips','Rub forehead up-down with both palms','Open eyes as wide as possible — hold 10 sec'],
+    voiceIntro:'Eye and Face Activation. Start with rapid blinking.',
+    phaseVoice:['Blink rapidly. Twenty times. Fast.','Splash cold water on your closed eyelids.','Tap cheeks, forehead and chin firmly.','Rub forehead up and down with both palms.','Open eyes as wide as you can. Hold.'],
     benefit:'Reverses', benefitVal:'facial fatigue' },
 
-  { id:'memory-palace', cat:'brain', emoji:'🧠', title:'Memory Palace',
+  /* ── BRAIN ── */
+  { id:'memory-palace', cat:'brain', emoji:'🧠', title:'Memory Palace Warm-Up',
     tag:'Brain', tagClass:'tag-brain', dur:'5 min',
-    desc:'Place items along a mental walk. Memory champions use this to boost recall by 200%.',
-    phases:[{label:'Build your palace',sec:60},{label:'Place the items',sec:60},{label:'Walk through it',sec:60},{label:'Recall test',sec:60}],
+    labTags:['cognitive','memory'],
+    desc:'Method of Loci — used by memory champions. Boosts recall by up to 200% with regular practice.',
+    phases:[{label:'Build your palace',sec:60},{label:'Place the 5 items',sec:60},{label:'Walk through it',sec:60},{label:'Recall test',sec:60}],
     rounds:1,
-    steps:['Close eyes — picture your home','Walk room to room in your mind','Memorise: Mango · Cloud · Book · River · Lamp','Place each item in a different room','Walk through — see each item in place','Say all 5 items in order without looking'],
-    voiceIntro:'Memory Palace. Close your eyes. Picture your home.',
-    phaseVoice:['Picture a familiar place. Walk from the entrance. See every detail.','Place these five items: Mango at the door. Cloud in the first room. Book on the table. River outside. Lamp by the bed.','Walk through your palace slowly. See each item exactly where you put it.','Say all five items in order. Mango. Cloud. Book. River. Lamp. How many did you get?'],
+    steps:['Close eyes — picture your home','Mentally walk from entrance through each room','Memorise: 🥭 Mango  ☁️ Cloud  📖 Book  🌊 River  💡 Lamp','Place each item at a different spot in your walk','Walk through — see each item — recall all 5'],
+    voiceIntro:'Memory Palace. You will build a mental palace and encode five items into it.',
+    phaseVoice:['Picture a place you know well. Walk through it in your mind. See every detail.','Place the five items along your mental walk. Mango at the door. Cloud in the first room. Book on a table. River outside. Lamp by the bed.','Walk through your palace. See each item clearly in its place.','Name all five items in order without looking. Mango. Cloud. Book. River. Lamp.'],
     benefit:'Boosts recall', benefitVal:'up to 200%' },
 
   { id:'cross-crawl', cat:'brain', emoji:'🤹', title:'Cross-Crawl Brain Gym',
     tag:'Brain', tagClass:'tag-brain', dur:'3 min',
-    desc:'Cross-body movements force both brain hemispheres to work together, boosting focus.',
-    phases:[{label:'Cross-crawl march',sec:30},{label:'Figure-8 right hand',sec:20},{label:'Figure-8 left hand',sec:20},{label:'Hook-Ups pose',sec:60},{label:'Deep breathe',sec:20}],
+    labTags:['cognitive','stability'],
+    desc:'Cross-lateral movements force both brain hemispheres to communicate. Used in Brain Gym programmes worldwide.',
+    phases:[{label:'Cross-crawl march',sec:30},{label:'Figure-8 — right hand',sec:20},{label:'Figure-8 — left hand',sec:20},{label:'Hook-Ups + breathe',sec:60},{label:'Deep breaths',sec:20}],
     rounds:2,
-    steps:['Stand feet shoulder-width apart','Left elbow touches right knee — then switch','Draw figure-8 in air with right hand — eyes follow','Switch to left hand — eyes follow','Cross ankles + wrists, clasp hands — breathe 60 sec'],
-    voiceIntro:'Cross-Crawl Brain Gym. Stand up.',
-    phaseVoice:['Left elbow, right knee. Right elbow, left knee. Keep marching.','Draw a giant figure 8 with your right hand. Eyes follow it.','Left hand now. Same figure 8. Eyes following.','Cross your ankles. Cross your wrists, clasp hands. Close your eyes. Breathe.','Five slow deep breaths.'],
+    steps:['Stand, feet shoulder-width apart','Left knee + right elbow — alternate — 30 sec','Right hand: trace ∞ in the air — eyes follow','Left hand: trace ∞ in the air — eyes follow','Cross ankles + wrists, clasp hands, breathe deeply'],
+    voiceIntro:'Cross-Crawl Brain Gym. Stand up, feet apart.',
+    phaseVoice:['Left elbow, right knee. Right elbow, left knee. March with crosses.','Right hand traces a figure eight in the air. Your eyes follow it.','Now your left hand. Same figure eight.','Cross ankles. Cross wrists. Clasp hands. Close eyes. Breathe deeply.','Five slow deep breaths. Feel the clarity.'],
     benefit:'Activates', benefitVal:'both hemispheres' },
 
-  { id:'backward-counting', cat:'brain', emoji:'🔢', title:'Dual-Task Brain Challenge',
+  { id:'backward-counting', cat:'brain', emoji:'🔢', title:'Dual-Task Mental Challenge',
     tag:'Brain', tagClass:'tag-brain', dur:'4 min',
-    desc:'Count backwards by 7 while tapping — a neurology clinic dual-task exercise.',
-    phases:[{label:'Count back by 7s',sec:60},{label:'Tap + count together',sec:60},{label:'Spell backwards',sec:60},{label:'Draw your home',sec:60}],
+    labTags:['cognitive'],
+    desc:'Counting backward by 7 while tapping — a neurology clinic technique that forces both brain networks to work together.',
+    phases:[{label:'Count back by 7s',sec:60},{label:'Count + tap at once',sec:60},{label:'Spell a word backwards',sec:60},{label:'Mental map of your home',sec:60}],
     rounds:1,
-    steps:['Start at 200. Count backwards by 7: 200, 193, 186…','Tap left hand on knee WHILE counting','Spell a word backwards — try MENTAL → L-A-T-N-E-M','Close eyes and draw your home mentally'],
-    voiceIntro:'Dual Task Brain Challenge. Count backwards from 200 by 7.',
-    phaseVoice:['Count backwards from 200, subtracting 7 each time. Say it out loud.','Now tap your left hand on your knee AND keep counting. Both at once.','Pick a six letter word. Spell it backwards. Try the word MENTAL. L. A. T. N. E. M.','Close your eyes. Draw your home. Every room, every door, every window.'],
+    steps:['Start at 200 — subtract 7 each time: 200, 193, 186…','Now count AND tap left hand on knee at the same time','Spell MENTAL backwards: L-A-T-N-E-M','Close eyes — draw your home in detail mentally'],
+    voiceIntro:'Dual Task Mental Challenge. Count backwards by sevens. Ready.',
+    phaseVoice:['Count backwards from two hundred by sevens. Say it out loud.','Add tapping your left hand on your knee. Keep counting. Both at the same time.','Spell a word backwards. Try MENTAL. L. A. T. N. E. M.','Close your eyes. Draw your home. Every room, door, window.'],
     benefit:'Trains', benefitVal:'dual-task focus' },
 
+  /* ── EYES ── */
   { id:'eye-yoga', cat:'eyes', emoji:'🔄', title:'Eye Yoga 6-Direction',
-    tag:'Eyes', tagClass:'tag-eyes', dur:'3 min',
-    desc:'Strengthens the 6 eye muscles, reduces screen fatigue and improves visual endurance.',
-    phases:[{label:'Up ↑ then Down ↓',sec:15},{label:'Left ← then Right →',sec:15},{label:'Diagonal ↗ ↙',sec:15},{label:'Diagonal ↘ ↖',sec:15},{label:'Circles clockwise ↻',sec:20},{label:'Circles anti-clock ↺',sec:20},{label:'Palming — eyes rest',sec:30}],
+    tag:'Eye Relief', tagClass:'tag-eyes', dur:'3 min',
+    labTags:['eye'],
+    desc:'Strengthens the 6 eye muscles, reduces digital fatigue. Core Ayurvedic eye care practice.',
+    phases:[{label:'Up ↑ then Down ↓',sec:15},{label:'Left ← then Right →',sec:15},{label:'Diagonal ↗',sec:15},{label:'Diagonal ↘',sec:15},{label:'Circles clockwise ↻',sec:20},{label:'Circles anti-clock ↺',sec:20},{label:'Palming — eyes rest',sec:30}],
     rounds:2,
-    steps:['Sit straight — HEAD stays still','Eyes up slowly, then down — hold 2 sec each — 5 times','Eyes left, then right — 5 times','Diagonal stretches — 5 times each direction','Slow circles — 3 each way','Warm palms cupped over closed eyes'],
-    voiceIntro:'Eye Yoga. Your head stays completely still. Only your eyes move.',
-    phaseVoice:['Eyes slowly upward. Hold. Eyes downward. Hold. Head still. Five times.','Eyes far left. Hold. Far right. Hold. Stretch fully. Five times.','Upper-left to lower-right diagonally. Five times.','Upper-right to lower-left. Five times.','Clockwise circles. Slow and full. Three rotations.','Anti-clockwise circles. Three rotations.','Rub palms until warm. Cup over closed eyes. Rest.'],
-    benefit:'Strengthens', benefitVal:'all 6 eye muscles' },
+    steps:['Sit straight — head completely still throughout','Eyes up then down — hold 2 sec each end — 5 times','Eyes left then right — 5 times','Diagonal upper-left to lower-right — 5 times','Diagonal upper-right to lower-left — 5 times','Circles clockwise — 3 slow rotations','Anti-clockwise — 3 rotations','Cup warm palms over closed eyes'],
+    voiceIntro:'Eye Yoga. Head completely still. Only your eyes move.',
+    phaseVoice:['Eyes up — hold — down — hold. Head still. Five times.','Far left — hold — far right — hold. Five times.','Diagonal. Upper left to lower right.','Other diagonal. Upper right to lower left.','Clockwise circles. Slow. Three full rounds.','Anti-clockwise. Three full rounds.','Rub palms warm. Cup over closed eyes. Rest.'],
+    benefit:'Strengthens', benefitVal:'eye muscles' },
 
   { id:'palming-2020', cat:'eyes', emoji:'👁️', title:'20-20-20 Eye Rest',
-    tag:'Eyes', tagClass:'tag-eyes', dur:'4 min',
-    desc:'The most proven technique for digital eye strain — recommended by ophthalmologists.',
+    tag:'Eye Relief', tagClass:'tag-eyes', dur:'4 min',
+    labTags:['eye'],
+    desc:'The most evidence-based technique for digital eye strain. Ophthalmologists recommend every 20 minutes at a screen.',
     phases:[{label:'Look far — 20 feet',sec:20},{label:'Look near — 30 cm',sec:10},{label:'Palming',sec:30},{label:'Slow blinks × 10',sec:20}],
     rounds:4,
-    steps:['Look at something 20 feet away for 20 seconds','Focus on something 30 cm away','Rub palms warm, cup over closed eyes for 30 sec','Blink slowly 10 times — full deliberate blinks'],
-    voiceIntro:'20-20-20 Eye Rest. Look away from your screen. Find something 20 feet away.',
-    phaseVoice:['Look at a distant point. Twenty feet or more. Let your eyes relax.','Focus on something close — about thirty centimetres away.','Warm palms cupped over closed eyes. Breathe. Rest.','Blink slowly. Ten full deliberate blinks.'],
+    steps:['Look at something 20+ feet away for 20 seconds','Focus on something 30 cm away for 10 seconds','Rub palms warm — cup over closed eyes 30 sec','Blink slowly 10 times — full deliberate blinks'],
+    voiceIntro:'Twenty Twenty Twenty Eye Rest. Look away from your screen now.',
+    phaseVoice:['Look at a distant point, twenty feet or more. Let your eyes relax.','Focus on something close — about thirty centimetres away.','Rub palms together. Cup over closed eyes. Breathe.','Blink slowly. Ten full deliberate blinks.'],
     benefit:'Relieves', benefitVal:'digital eye strain' },
 
+  /* ── BREATH ── */
   { id:'box-breathing', cat:'breath', emoji:'🌬️', title:'Box Breathing',
-    tag:'Breathing', tagClass:'tag-breath', dur:'4 min', isBreath:true,
-    desc:'Used by Navy SEALs. 4 counts each: inhale, hold, exhale, hold. Reduces cortisol fast.',
+    tag:'Breathing', tagClass:'tag-breath', dur:'4 min',
+    labTags:['stress','respiratory'],
+    desc:'Used by Navy SEALs. 4-4-4-4 counts. Clinically proven to reduce cortisol in minutes.',
     phases:[{label:'Inhale',sec:4},{label:'Hold Full',sec:4},{label:'Exhale',sec:4},{label:'Hold Empty',sec:4}],
-    rounds:5,
-    steps:['Sit upright or lie down','Inhale through nose — 4 counts','Hold — 4 counts','Exhale through mouth — 4 counts','Hold empty — 4 counts','Repeat 5 times'],
-    voiceIntro:'Box Breathing. Four counts each. Find your position.',
-    phaseVoice:['Inhale through your nose. One. Two. Three. Four.','Hold. Lungs full. One. Two. Three. Four.','Exhale through your mouth. One. Two. Three. Four.','Hold empty. One. Two. Three. Four.'],
+    rounds:5, isBreath:true,
+    steps:['Sit upright, feet flat — or lie down','Breathe in through nose — 4 counts','Hold full — 4 counts','Breathe out through mouth — 4 counts','Hold empty — 4 counts. That\'s 1 box. Do 5.'],
+    voiceIntro:'Box Breathing. Four counts each: in, hold, out, hold.',
+    phaseVoice:['Inhale. One. Two. Three. Four.','Hold. One. Two. Three. Four.','Exhale. One. Two. Three. Four.','Hold empty. One. Two. Three. Four.'],
     benefit:'Reduces cortisol', benefitVal:'in minutes' },
 
   { id:'478-breath', cat:'breath', emoji:'😮‍💨', title:'4-7-8 Calming Breath',
-    tag:'Breathing', tagClass:'tag-breath', dur:'3 min', isBreath:true,
-    desc:'Natural sedative for the nervous system. The long exhale activates deep calm.',
+    tag:'Breathing', tagClass:'tag-breath', dur:'3 min',
+    labTags:['stress','calm'],
+    desc:'Dr. Weil\'s natural sedative for the nervous system. The 8-count exhale triggers deep parasympathetic calm.',
     phases:[{label:'Exhale fully',sec:5},{label:'Inhale — 4 counts',sec:4},{label:'Hold — 7 counts',sec:7},{label:'Exhale — 8 counts',sec:8}],
-    rounds:4,
-    steps:['Tongue behind upper front teeth — keep it there','Exhale fully through mouth — make a WHOOSH','Inhale through nose — 4 counts','Hold — 7 counts','Exhale through mouth — WHOOSH — 8 counts'],
+    rounds:4, isBreath:true,
+    steps:['Tongue behind upper front teeth — keep it there','Exhale fully through mouth — WHOOSH sound','Inhale through nose — 4 counts','Hold — 7 counts','Exhale through mouth — WHOOSH — 8 counts'],
     voiceIntro:'Four Seven Eight Breath. Tongue behind your upper front teeth. Keep it there.',
     phaseVoice:['Exhale completely through your mouth. Make the whoosh sound.','Inhale through your nose. One. Two. Three. Four.','Hold. Do not breathe. One through seven.','Exhale through your mouth. Make the whoosh. One through eight.'],
     benefit:'Deep calm', benefitVal:'in under 3 min' },
 
   { id:'nadi-shodhana', cat:'breath', emoji:'🌿', title:'Alternate Nostril Breathing',
     tag:'Breathing', tagClass:'tag-breath', dur:'5 min',
+    labTags:['stress','cognitive'],
     desc:'Ancient pranayama that balances the nervous system and reduces anxiety.',
     phases:[{label:'Inhale LEFT nostril',sec:4},{label:'Hold both closed',sec:2},{label:'Exhale RIGHT nostril',sec:4},{label:'Inhale RIGHT nostril',sec:4},{label:'Hold both closed',sec:2},{label:'Exhale LEFT nostril',sec:4}],
     rounds:6,
@@ -592,8 +611,10 @@ const EXERCISES = [
     phaseVoice:['Close your right nostril with your thumb. Inhale through the left.','Close both nostrils. Hold.','Release right nostril. Exhale through the right.','Inhale through the right nostril.','Close both nostrils. Hold.','Release left nostril. Exhale through the left.'],
     benefit:'Balances', benefitVal:'nervous system' },
 
+  /* ── BODY ── */
   { id:'neck-shoulder', cat:'body', emoji:'🤸', title:'Neck & Shoulder Release',
     tag:'Body', tagClass:'tag-body', dur:'5 min',
+    labTags:['fatigue','stability'],
     desc:'Melts desk tension, decompresses the neck and relieves tension headaches.',
     phases:[{label:'Tilt left — hold',sec:25},{label:'Tilt right — hold',sec:25},{label:'Chin to chest',sec:25},{label:'Shoulder rolls',sec:30},{label:'Neck left + right',sec:30},{label:'Chest opener',sec:25}],
     rounds:2,
@@ -604,6 +625,7 @@ const EXERCISES = [
 
   { id:'desk-reset', cat:'body', emoji:'🦵', title:'Desk Reset — Stand Up',
     tag:'Body', tagClass:'tag-body', dur:'3 min',
+    labTags:['fatigue','stability'],
     desc:'3-minute standing reset restores blood flow and replaces an hour of passive sitting.',
     phases:[{label:'Reach up — stretch',sec:20},{label:'10 squats',sec:40},{label:'20 calf raises',sec:30},{label:'Hip circles',sec:25},{label:'March in place',sec:45},{label:'Shake out + breathe',sec:20}],
     rounds:1,
@@ -612,8 +634,10 @@ const EXERCISES = [
     phaseVoice:['Reach both arms as high as you can. Stretch tall.','Ten squats. Chest up. Down and up slowly.','Calf raises. Rise onto your toes. Twenty times.','Circle your hips. Five one way, five the other.','March in place. Knees up. Arms swinging.','Shake hands loose. Roll shoulders. Three deep breaths.'],
     benefit:'Restores', benefitVal:'circulation' },
 
+  /* ── CALM ── */
   { id:'body-scan', cat:'calm', emoji:'🧘', title:'Body Scan Meditation',
     tag:'Calming', tagClass:'tag-calm', dur:'5 min',
+    labTags:['stress','calm'],
     desc:'Moves attention through your body releasing tension. Reduces cortisol by 25%.',
     phases:[{label:'Feet & legs',sec:60},{label:'Belly & chest',sec:60},{label:'Hands & arms',sec:60},{label:'Head & face',sec:60},{label:'Total rest',sec:60}],
     rounds:1,
@@ -624,6 +648,7 @@ const EXERCISES = [
 
   { id:'prog-relaxation', cat:'calm', emoji:'😌', title:'Progressive Muscle Relax',
     tag:'Calming', tagClass:'tag-calm', dur:'6 min',
+    labTags:['stress'],
     desc:'Tense each muscle group 5 sec then release. Makes relaxation deep and profound.',
     phases:[{label:'Tense feet & calves',sec:40},{label:'Tense thighs',sec:35},{label:'Tense belly',sec:35},{label:'Clench fists & arms',sec:40},{label:'Tense face & jaw',sec:40},{label:'Release everything',sec:60}],
     rounds:1,
@@ -648,10 +673,10 @@ const PG = {
     'Hold Empty':{icon:'⏸',action:'HOLD EMPTY',   instr:'Lungs empty — hold still.\nDon\'t breathe yet.', breathDir:'hold'},
   },
   '478-breath':{
-    'Exhale fully':   {icon:'💨',action:'EXHALE',      instr:'Breathe out fully through your mouth.\nMake a WHOOSH sound.', breathDir:'out'},
-    'Inhale — 4 counts':{icon:'👃',action:'BREATHE IN',instr:'Close mouth. Breathe in through nose.\n1… 2… 3… 4', breathDir:'in'},
-    'Hold — 7 counts':{icon:'⏸',action:'HOLD',         instr:'Hold completely still.\n1… 2… 3… 4… 5… 6… 7', breathDir:'hold'},
-    'Exhale — 8 counts':{icon:'💨',action:'EXHALE',    instr:'Breathe out through mouth.\nMake the WHOOSH. 1 to 8.', breathDir:'out'},
+    'Exhale fully':      {icon:'💨',action:'EXHALE',      instr:'Breathe out fully through your mouth.\nMake a WHOOSH sound.', breathDir:'out'},
+    'Inhale — 4 counts': {icon:'👃',action:'BREATHE IN',  instr:'Close mouth. Breathe in through nose.\n1… 2… 3… 4', breathDir:'in'},
+    'Hold — 7 counts':   {icon:'⏸',action:'HOLD',         instr:'Hold completely still.\n1… 2… 3… 4… 5… 6… 7', breathDir:'hold'},
+    'Exhale — 8 counts': {icon:'💨',action:'EXHALE',       instr:'Breathe out through mouth.\nMake the WHOOSH. 1 to 8.', breathDir:'out'},
   },
   'nadi-shodhana':{
     'Inhale LEFT nostril': {icon:'👃',action:'INHALE LEFT', instr:'Right thumb closes right nostril.\nBreathe in through your LEFT nostril.', breathDir:'in'},
@@ -661,102 +686,102 @@ const PG = {
     'Exhale LEFT nostril': {icon:'💨',action:'EXHALE LEFT', instr:'Release left nostril.\nBreathe out through LEFT nostril.', breathDir:'out'},
   },
   'wakeup-power-breath':{
-    'Power Breathe': {icon:'💨',action:'BREATHE FAST',instr:'Rapid in AND out through nose+mouth.\nFast & forceful. 30 breaths!'},
-    'Hold Empty':    {icon:'⏸',action:'HOLD EMPTY',  instr:'Exhale fully, then hold.\nDon\'t breathe. Stay calm.', breathDir:'hold'},
-    'Deep Inhale':   {icon:'👃',action:'DEEP INHALE', instr:'One big deep breath in.\nFill your lungs completely.', breathDir:'in'},
-    'Hold Full':     {icon:'⏸',action:'HOLD',         instr:'Hold that deep breath.\nFeel the oxygen.', breathDir:'hold'},
-    'Exhale Slowly': {icon:'💨',action:'EXHALE',       instr:'Exhale slowly.\nBreath normally now.', breathDir:'out'},
+    'Breathe fast — 30 times':{icon:'💨',action:'BREATHE FAST',instr:'Rapid in AND out through nose+mouth.\nFast & forceful. 30 breaths!'},
+    'Exhale & hold empty':    {icon:'⏸',action:'HOLD EMPTY',  instr:'Exhale fully, then hold.\nDon\'t breathe. Stay calm.', breathDir:'hold'},
+    'One deep inhale':        {icon:'👃',action:'DEEP INHALE', instr:'One big deep breath in.\nFill your lungs completely.', breathDir:'in'},
+    'Hold full':              {icon:'⏸',action:'HOLD',         instr:'Hold that deep breath.\nFeel the oxygen.', breathDir:'hold'},
+    'Exhale slowly':          {icon:'💨',action:'EXHALE',       instr:'Exhale slowly.\nBreath normally now.', breathDir:'out'},
   },
   'eye-yoga':{
-    'Up ↑ then Down ↓':{icon:'👁️',action:'UP  ↕  DOWN', instr:'Head still. Eyes slowly UP then DOWN.\nHold 2 sec at each end. 5 times.'},
-    'Left ← then Right →':{icon:'👁️',action:'LEFT  ↔  RIGHT',instr:'Head still. Look far LEFT then far RIGHT.\nHold 2 sec at each end. 5 times.'},
-    'Diagonal ↗ ↙':{icon:'👁️',action:'DIAGONAL ↗',    instr:'From upper-left to lower-right.\nSlow and deliberate. 5 times.'},
-    'Diagonal ↘ ↖':{icon:'👁️',action:'DIAGONAL ↘',    instr:'From upper-right to lower-left.\nSlow and deliberate. 5 times.'},
-    'Circles clockwise ↻':{icon:'🔄',action:'CIRCLES ↻', instr:'Rotate eyes in slow clockwise circles.\n3 full rotations. Head still.'},
-    'Circles anti-clock ↺':{icon:'🔃',action:'CIRCLES ↺',instr:'Rotate eyes anti-clockwise.\n3 full rotations. Head still.'},
-    'Palming — eyes rest':{icon:'🖐',action:'PALMING',   instr:'Rub palms warm.\nCup them over your CLOSED eyes.'},
+    'Up ↑ then Down ↓':    {icon:'👁️',action:'UP  ↕  DOWN',   instr:'Head still. Eyes slowly UP then DOWN.\nHold 2 sec at each end. 5 times.'},
+    'Left ← then Right →': {icon:'👁️',action:'LEFT  ↔  RIGHT',instr:'Head still. Look far LEFT then far RIGHT.\nHold 2 sec. 5 times.'},
+    'Diagonal ↗':          {icon:'👁️',action:'DIAGONAL ↗',    instr:'From upper-left to lower-right.\nSlow and deliberate. 5 times.'},
+    'Diagonal ↘':          {icon:'👁️',action:'DIAGONAL ↘',    instr:'From upper-right to lower-left.\nSlow and deliberate. 5 times.'},
+    'Circles clockwise ↻': {icon:'🔄',action:'CIRCLES ↻',     instr:'Rotate eyes in slow clockwise circles.\n3 full rotations. Head still.'},
+    'Circles anti-clock ↺':{icon:'🔃',action:'CIRCLES ↺',     instr:'Rotate eyes anti-clockwise.\n3 full rotations. Head still.'},
+    'Palming — eyes rest':  {icon:'🖐',action:'PALMING',       instr:'Rub palms warm.\nCup them over your CLOSED eyes.'},
   },
   'palming-2020':{
     'Look far — 20 feet':{icon:'🏔️',action:'LOOK FAR',  instr:'Find something 20+ feet away.\nStare at it softly.'},
-    'Look near — 30 cm': {icon:'☝️',action:'LOOK NEAR',  instr:'Look at your fingertip\n— about 30 cm from your face.'},
-    'Palming':           {icon:'🖐',action:'PALMING',    instr:'Rub palms warm.\nCup over closed eyes. Breathe.'},
+    'Look near — 30 cm': {icon:'☝️',action:'LOOK NEAR', instr:'Look at your fingertip\n— about 30 cm from your face.'},
+    'Palming':           {icon:'🖐',action:'PALMING',   instr:'Rub palms warm.\nCup over closed eyes. Breathe.'},
     'Slow blinks × 10':  {icon:'👁️',action:'BLINK × 10',instr:'Blink slowly 10 times.\nFull, deliberate blinks.'},
   },
   'wakeup-cold-water':{
-    'Wrists in cold water':{icon:'🚿',action:'COLD WRISTS', instr:'Hold BOTH wrists under cold water.\n20 seconds.'},
-    'Splash face × 10':    {icon:'💦',action:'SPLASH FACE', instr:'Splash cold water on face 10 times.\nDon\'t wipe — let it air dry.'},
-    'Cold behind ears':    {icon:'👂',action:'EARS + NECK',  instr:'Rub cold water behind both ears\nand on the back of your neck.'},
-    'Breathe & reset':     {icon:'🌬️',action:'BREATHE',    instr:'Stand tall. Roll shoulders back.\nTake 5 slow deep breaths.'},
+    'Hold wrists under cold water':{icon:'🚿',action:'COLD WRISTS',instr:'Hold BOTH wrists under cold water.\n20 seconds.'},
+    'Splash face 10 times':        {icon:'💦',action:'SPLASH FACE',instr:'Splash cold water on face 10 times.\nDon\'t wipe — let it air dry.'},
+    'Cold behind ears + neck':     {icon:'👂',action:'EARS + NECK', instr:'Rub cold water behind both ears\nand on the back of your neck.'},
+    'Stand tall & breathe':        {icon:'🌬️',action:'BREATHE',    instr:'Stand tall. Roll shoulders back.\nTake 5 slow deep breaths.'},
   },
   'wakeup-jumping':{
-    'March in place':{icon:'🚶',action:'MARCH!',      instr:'Lift your knees. Swing your arms.\nKeep moving!'},
-    'Jumping Jacks': {icon:'⭐',action:'JACKS!',      instr:'Jump feet wide, arms up — then back.\n20 times!'},
-    'High Knees':    {icon:'🦵',action:'HIGH KNEES!', instr:'Bring knees up to waist height.\n30 seconds. Keep going!'},
-    'Rest & breathe':{icon:'🌬️',action:'REST',        instr:'Stop. Stand tall.\nTake 3 slow deep breaths.'},
-    'Arm circles':   {icon:'💪',action:'ARM CIRCLES', instr:'Arms wide. Big slow circles.\n10 forward, 10 back.'},
-    'Cool down':     {icon:'😤',action:'COOL DOWN',   instr:'Shake hands loose.\nRoll shoulders. Deep breath.'},
+    'March in place':{icon:'🚶',action:'MARCH!',     instr:'Lift your knees. Swing your arms.\nKeep moving!'},
+    'Jumping Jacks': {icon:'⭐',action:'JACKS!',     instr:'Jump feet wide, arms up — then back.\n20 times!'},
+    'High Knees':    {icon:'🦵',action:'HIGH KNEES!',instr:'Bring knees up to waist height.\n30 seconds. Keep going!'},
+    'Rest & breathe':{icon:'🌬️',action:'REST',       instr:'Stop. Stand tall.\nTake 3 slow deep breaths.'},
+    'Arm circles':   {icon:'💪',action:'ARM CIRCLES',instr:'Arms wide. Big slow circles.\n10 forward, 10 back.'},
+    'Cool down':     {icon:'😤',action:'COOL DOWN',  instr:'Shake hands loose.\nRoll shoulders. Deep breath.'},
   },
   'wakeup-acupressure':{
-    'Between eyebrows':{icon:'👆',action:'BROW POINT', instr:'Press firmly between your eyebrows.\nSmall circular rub.'},
-    'Both temples':    {icon:'🤌',action:'TEMPLES',    instr:'Both index fingers on temples.\nSlow circular massage.'},
-    'Under the nose':  {icon:'👆',action:'UNDER NOSE', instr:'Press below your nose, above upper lip.\nFirm pressure.'},
-    'Earlobes':        {icon:'👂',action:'EARLOBES',   instr:'Pinch and gently squeeze both earlobes.\nMassage them.'},
-    'Tap the scalp':   {icon:'🖐',action:'SCALP TAP',  instr:'Tap all over your scalp\nwith all 10 fingertips. Firmly.'},
-    'Hand web point':  {icon:'🤌',action:'HAND WEB',   instr:'Press the webbing between\nyour thumb and index finger.'},
+    'Between eyebrows':{icon:'👆',action:'BROW POINT',instr:'Press firmly between your eyebrows.\nSmall circular rub.'},
+    'Both temples':    {icon:'🤌',action:'TEMPLES',   instr:'Both index fingers on temples.\nSlow circular massage.'},
+    'Under the nose':  {icon:'👆',action:'UNDER NOSE',instr:'Press below your nose, above upper lip.\nFirm pressure.'},
+    'Earlobes':        {icon:'👂',action:'EARLOBES',  instr:'Pinch and gently squeeze both earlobes.\nMassage them.'},
+    'Tap the scalp':   {icon:'🖐',action:'SCALP TAP', instr:'Tap all over your scalp\nwith all 10 fingertips. Firmly.'},
+    'Hand web point':  {icon:'🤌',action:'HAND WEB',  instr:'Press the webbing between\nyour thumb and index finger.'},
   },
   'wakeup-eye-splash':{
-    'Blink rapidly × 20':{icon:'👁️',action:'BLINK FAST', instr:'Blink rapidly 20 times.\nFast and complete blinks.'},
-    'Splash eyelids':    {icon:'💦',action:'SPLASH EYES', instr:'Splash cold water on CLOSED eyelids.\n5 splashes.'},
-    'Tap face':          {icon:'🖐',action:'TAP FACE',    instr:'Tap cheeks, forehead and chin\nwith your fingertips. Firmly.'},
-    'Rub forehead':      {icon:'✋',action:'RUB FOREHEAD',instr:'Both palms on forehead.\nRub firmly UP and DOWN.'},
-    'Wide eyes — hold':  {icon:'😳',action:'WIDE EYES!',  instr:'Open eyes as WIDE as possible.\nHold for 10 seconds.'},
+    'Blink rapidly 20 times':{icon:'👁️',action:'BLINK FAST', instr:'Blink rapidly 20 times.\nFast and complete blinks.'},
+    'Splash eyelids':        {icon:'💦',action:'SPLASH EYES',instr:'Splash cold water on CLOSED eyelids.\n5 splashes.'},
+    'Tap face':              {icon:'🖐',action:'TAP FACE',   instr:'Tap cheeks, forehead and chin\nwith your fingertips. Firmly.'},
+    'Rub forehead':          {icon:'✋',action:'RUB FOREHEAD',instr:'Place both palms on your forehead.\nRub firmly up and down.'},
+    'Open eyes wide':        {icon:'😳',action:'WIDE EYES!', instr:'Open your eyes as WIDE as possible.\nHold for 10 seconds.'},
   },
   'cross-crawl':{
-    'Cross-crawl march':   {icon:'🤸',action:'CROSS CRAWL',    instr:'Left ELBOW → Right KNEE.\nRight ELBOW → Left KNEE.\nAlternate. Keep marching!'},
-    'Figure-8 right hand': {icon:'✋',action:'∞ RIGHT HAND',   instr:'Right arm out — trace a big\nfigure-8 (∞) in the air.\nBoth eyes follow your hand.'},
-    'Figure-8 left hand':  {icon:'🤚',action:'∞ LEFT HAND',    instr:'Left arm out — trace a big\nfigure-8 (∞) in the air.\nBoth eyes follow your hand.'},
-    'Hook-Ups pose':       {icon:'🧘',action:'HOOK-UPS',       instr:'Cross your ankles.\nCross wrists, clasp hands.\nClose eyes. Breathe slowly.'},
-    'Deep breathe':        {icon:'🌬️',action:'BREATHE',        instr:'Take 5 slow deep breaths.\nFeel both sides of your brain.'},
+    'Cross-crawl march':   {icon:'🤸',action:'CROSS CRAWL',  instr:'Left ELBOW touches Right KNEE.\nRight ELBOW touches Left KNEE.\nAlternate. Keep marching!'},
+    'Figure-8 — right hand':{icon:'✋',action:'∞ RIGHT HAND',instr:'Stretch right arm forward.\nTrace a big figure-8 (∞) in the air.\nBoth eyes follow it.'},
+    'Figure-8 — left hand': {icon:'🤚',action:'∞ LEFT HAND', instr:'Now use your left arm.\nTrace the same big figure-8 (∞).\nBoth eyes follow it.'},
+    'Hook-Ups + breathe':   {icon:'🧘',action:'HOOK-UPS',    instr:'Cross your ankles.\nCross wrists and clasp hands.\nClose eyes. Breathe slowly.'},
+    'Deep breaths':         {icon:'🌬️',action:'BREATHE',    instr:'Take 5 slow deep breaths.\nFeel your brain becoming clearer.'},
   },
   'memory-palace':{
-    'Build your palace':{icon:'🏠',action:'CLOSE EYES',   instr:'Close your eyes.\nPicture your home clearly.\nWalk from the entrance.'},
-    'Place the items':  {icon:'📝',action:'PLACE ITEMS',  instr:'Place 5 items along your walk:\n🥭Mango · ☁️Cloud · 📖Book · 🌊River · 💡Lamp'},
-    'Walk through it':  {icon:'🚶',action:'WALK THROUGH', instr:'Eyes closed. Walk your palace slowly.\nSee each item in its spot.'},
-    'Recall test':      {icon:'🧠',action:'RECALL!',      instr:'Without looking — say all 5 items.\nMango · Cloud · Book · River · Lamp'},
+    'Build your palace':{icon:'🏠',action:'CLOSE EYES', instr:'Close your eyes.\nPicture a place you know well — your home.'},
+    'Place the 5 items': {icon:'📝',action:'PLACE ITEMS',instr:'Place 5 items along your walk:\n🥭 Mango  ☁️ Cloud  📖 Book  🌊 River  💡 Lamp'},
+    'Walk through it':   {icon:'🚶',action:'WALK THROUGH',instr:'Close eyes. Walk through your palace.\nSee each item exactly where you placed it.'},
+    'Recall test':       {icon:'🧠',action:'RECALL',     instr:'Say all 5 items in order without looking.\nMango · Cloud · Book · River · Lamp'},
   },
   'backward-counting':{
-    'Count back by 7s':   {icon:'🔢',action:'COUNT BY 7s',   instr:'Start at 200. Count back by 7:\n200 → 193 → 186 → 179…'},
-    'Tap + count together':{icon:'🥁',action:'TAP + COUNT',  instr:'KEEP counting backwards by 7\nAND tap your left hand on your knee.\nBoth at the same time!'},
-    'Spell backwards':    {icon:'🔡',action:'SPELL BACK',    instr:'Pick a 6-letter word. Spell it BACKWARDS.\nTry: MENTAL → L-A-T-N-E-M'},
-    'Draw your home':     {icon:'🗺️',action:'MIND MAP',     instr:'Close eyes. Draw your home mentally.\nEvery room, door, window, furniture.'},
+    'Count back by 7s':     {icon:'🔢',action:'COUNT BY 7s', instr:'Start at 200. Subtract 7 each time.\n200 → 193 → 186 → 179…'},
+    'Count + tap at once':  {icon:'🥁',action:'TAP + COUNT', instr:'Keep counting backwards by 7.\nAND tap left hand on knee. Both together!'},
+    'Spell a word backwards':{icon:'🔡',action:'SPELL BACK', instr:'Pick a 6-letter word. Spell it BACKWARDS.\nTry: MENTAL → L-A-T-N-E-M'},
+    'Mental map of your home':{icon:'🗺️',action:'MIND MAP',  instr:'Close eyes.\nDraw your home mentally.\nEvery room, door, window.'},
   },
   'neck-shoulder':{
-    'Tilt left — hold': {icon:'↙',action:'TILT LEFT',     instr:'Slowly tilt head LEFT.\nEar moves toward left shoulder.\nHold and breathe.'},
-    'Tilt right — hold':{icon:'↘',action:'TILT RIGHT',    instr:'Slowly tilt head RIGHT.\nEar moves toward right shoulder.\nHold and breathe.'},
-    'Chin to chest':    {icon:'↓',action:'CHIN DOWN',     instr:'Drop chin toward chest.\nFeel the back of neck stretch.\nBreathe slowly.'},
-    'Shoulder rolls':   {icon:'🔄',action:'ROLL SHOULDERS',instr:'Roll both shoulders.\n5 circles FORWARD then 5 BACKWARD.'},
-    'Neck left + right':{icon:'↔',action:'TURN L + R',    instr:'Turn head slowly to the LEFT.\nThen to the RIGHT.\n5 times each.'},
-    'Chest opener':     {icon:'🙌',action:'CHEST OPEN',   instr:'Interlace fingers behind head.\nLook gently upward.\nFeel your chest open.'},
+    'Tilt left — hold': {icon:'↙',action:'TILT LEFT',      instr:'Slowly tilt your head to the LEFT.\nEar moves toward left shoulder. Hold.'},
+    'Tilt right — hold':{icon:'↘',action:'TILT RIGHT',     instr:'Slowly tilt your head to the RIGHT.\nEar moves toward right shoulder. Hold.'},
+    'Chin to chest':    {icon:'↓',action:'CHIN DOWN',      instr:'Drop chin toward chest.\nFeel the stretch at back of neck.'},
+    'Shoulder rolls':   {icon:'🔄',action:'ROLL SHOULDERS',instr:'Roll both shoulders slowly.\n5 circles FORWARD then 5 BACKWARD.'},
+    'Neck left + right':{icon:'↔',action:'TURN L + R',     instr:'Turn head slowly LEFT, then RIGHT.\n5 times each side.'},
+    'Chest opener':     {icon:'🙌',action:'CHEST OPEN',    instr:'Interlace fingers behind head.\nLook upward gently. Chest opens.'},
   },
   'desk-reset':{
-    'Reach up — stretch':{icon:'🙌',action:'REACH UP',    instr:'Stand up. Both arms OVERHEAD.\nStretch as tall as you can.'},
-    '10 squats':         {icon:'🦵',action:'SQUATS × 10', instr:'Feet shoulder-width apart.\nSit down slowly, chest up.\nRise back up. 10 times.'},
-    '20 calf raises':    {icon:'👟',action:'CALF RAISES', instr:'Rise up onto your TOES.\nLower slowly. 20 times.'},
-    'Hip circles':       {icon:'🔄',action:'HIP CIRCLES', instr:'Hands on hips.\nCircle hips slowly.\n5 each direction.'},
-    'March in place':    {icon:'🚶',action:'MARCH!',       instr:'March vigorously in place.\nKnees up. Arms swinging. 45 sec!'},
-    'Shake out + breathe':{icon:'😤',action:'SHAKE OUT',  instr:'Shake both hands loose.\nRoll shoulders.\n3 deep breaths.'},
+    'Reach up — stretch': {icon:'🙌',action:'REACH UP',    instr:'Stand up. Reach BOTH arms straight up.\nStretch as tall as you can.'},
+    '10 squats':          {icon:'🦵',action:'10 SQUATS',   instr:'Feet shoulder-width apart.\nDown slowly, chest up, then rise. 10 times.'},
+    '20 calf raises':     {icon:'👟',action:'CALF RAISES', instr:'Rise up onto your TOES.\nThen lower slowly. 20 times.'},
+    'Hip circles':        {icon:'🔄',action:'HIP CIRCLES', instr:'Hands on hips. Circle hips slowly.\n5 times each direction.'},
+    'March in place':     {icon:'🚶',action:'MARCH!',      instr:'March vigorously in place.\nKnees up, arms swinging. 45 seconds!'},
+    'Shake out + breathe':{icon:'😤',action:'SHAKE OUT',   instr:'Shake both hands loose.\nRoll shoulders. 3 deep breaths.'},
   },
   'body-scan':{
-    'Feet & legs': {icon:'🦶',action:'FEET + LEGS',  instr:'Eyes closed. Breathe gently.\nFocus on your FEET.\nFeel tension… then let it go.'},
-    'Belly & chest':{icon:'💙',action:'BELLY + CHEST',instr:'Move attention to BELLY and CHEST.\nFeel it rise and fall.\nRelax completely.'},
-    'Hands & arms':{icon:'🤲',action:'ARMS + HANDS', instr:'Move to HANDS and ARMS.\nSoften your fingers.\nLet them go heavy.'},
-    'Head & face': {icon:'😌',action:'HEAD + FACE',  instr:'Neck, jaw, eyes, forehead.\nUnclench everything.\nLet it all release.'},
-    'Total rest':  {icon:'🧘',action:'REST',          instr:'Stay completely still.\nNothing to do. Nowhere to be.\nJust rest.'},
+    'Feet & legs':    {icon:'🦶',action:'FEET + LEGS',  instr:'Eyes closed. Breathe slowly.\nFocus on your FEET. Feel tension. Let it go.'},
+    'Belly & chest':  {icon:'💙',action:'BELLY + CHEST',instr:'Move attention to BELLY and CHEST.\nFeel it rise and fall. Relax completely.'},
+    'Hands & arms':   {icon:'🤲',action:'ARMS + HANDS', instr:'Focus on HANDS and ARMS.\nSoften fingers. Let them go heavy.'},
+    'Head & face':    {icon:'😌',action:'HEAD + FACE',  instr:'Move to NECK, JAW, EYES, FOREHEAD.\nUnclench jaw. Smooth brow. Release.'},
+    'Total rest':     {icon:'🧘',action:'REST',         instr:'Stay completely still.\nNothing to do. Just rest and breathe.'},
   },
   'prog-relaxation':{
-    'Tense feet & calves':{icon:'🦶',action:'TENSE FEET',  instr:'TENSE feet and calves hard.\nHold 5 seconds… then RELEASE.\nFeel the warmth.'},
-    'Tense thighs':       {icon:'🦵',action:'TENSE THIGHS',instr:'Squeeze THIGH muscles tight.\nHold 5 seconds… then RELEASE.'},
-    'Tense belly':        {icon:'💪',action:'TENSE BELLY', instr:'Pull BELLY in tight.\nHold 5 seconds… then RELEASE.'},
+    'Tense feet & calves':{icon:'🦶',action:'TENSE FEET',   instr:'TENSE feet and calves as hard as you can.\nHold 5 seconds… then RELEASE slowly.'},
+    'Tense thighs':       {icon:'🦵',action:'TENSE THIGHS', instr:'Squeeze THIGH muscles hard.\nHold 5 seconds… then RELEASE.'},
+    'Tense belly':        {icon:'💪',action:'TENSE BELLY',  instr:'Pull STOMACH in tight.\nHold 5 seconds… then RELEASE.'},
     'Clench fists & arms':{icon:'✊',action:'CLENCH FISTS', instr:'Clench fists. Flex arms hard.\nHold 5 seconds… then RELEASE.'},
     'Tense face & jaw':   {icon:'😬',action:'TENSE FACE',  instr:'Squint eyes. Clench jaw.\nHold 5 seconds… then release SLOWLY.'},
     'Release everything': {icon:'😌',action:'RELEASE',     instr:'Your whole body is relaxed.\nRest here completely.\nJust breathe gently.'},
@@ -818,49 +843,42 @@ function resetWakeGame() {
   clearInterval(_wgTimer);
   _wgRunning = false; _wgCount = 0; _wgSec = 15;
   const $ = id => document.getElementById(id);
-  $('wgCount').textContent = '0';
-  $('wgSecs').textContent = '15';
-  $('wgTapBtn').disabled = true;
-  $('wgFill').style.width = '0';
-  $('wgResult').textContent = '';
-  $('wgPrompt').textContent = 'Tap the button as FAST as you can for 15 seconds!';
-  $('wgRing').style.strokeDashoffset = '0';
-  $('wgStartBtn').style.display = '';
-  $('wgStartBtn').textContent = '▶ Start Challenge';
-  $('wgSkipBtn').style.display = _allExQueue.length > 1 ? '' : 'none';
+  $('ovTaps').textContent = '0';
+  $('ovGameSecs').textContent = '15s';
+  $('ovTapBtn').disabled = true;
+  $('ovGameLbl').textContent = 'Tap the button as FAST as you can for 15 seconds!';
+  $('gStartBtn').style.display = '';
+  $('gStartBtn').textContent = '▶ Start Challenge';
+  $('gSkipBtn').style.display = _allExQueue.length > 1 ? '' : 'none';
 }
 
-function wgStart() {
+function gStart() {
   if (_wgRunning) return;
   _wgRunning = true; _wgCount = 0; _wgSec = 15;
   const $ = id => document.getElementById(id);
-  $('wgTapBtn').disabled = false;
-  $('wgResult').textContent = '';
-  $('wgPrompt').textContent = 'TAP! TAP! TAP! Go!';
-  $('wgStartBtn').style.display = 'none';
+  $('ovTapBtn').disabled = false;
+  $('ovGameLbl').textContent = 'TAP! TAP! TAP! Go!';
+  $('gStartBtn').style.display = 'none';
   speak('Go! Tap as fast as you can!');
   _wgTimer = setInterval(() => {
     _wgSec--;
-    $('wgSecs').textContent = _wgSec;
-    $('wgRing').style.strokeDashoffset = 220 * (1 - _wgSec / 15);
+    $('ovGameSecs').textContent = _wgSec + 's';
     if (_wgSec <= 0) {
       clearInterval(_wgTimer); _wgRunning = false;
-      $('wgTapBtn').disabled = true;
+      $('ovTapBtn').disabled = true;
       const s = _wgCount;
       const r = s >= 60 ? '🔥 Lightning fast!' : s >= 40 ? '💪 Great effort!' : s >= 20 ? '👍 Good start!' : '😊 Keep practising!';
-      $('wgResult').textContent = s + ' taps — ' + r;
-      $('wgPrompt').textContent = 'Challenge complete!';
+      $('ovGameLbl').textContent = s + ' taps — ' + r;
       speak(s + ' taps. ' + r);
-      setTimeout(() => { if (_allExQueue.length > 0) _showDone(); }, 1500);
+      setTimeout(() => _showDone(), 1500);
     }
   }, 1000);
 }
 
-function wgTap() {
+function gTap() {
   if (!_wgRunning) return;
   _wgCount++;
-  document.getElementById('wgCount').textContent = _wgCount;
-  document.getElementById('wgFill').style.width = Math.min(100, (_wgCount / 60) * 100) + '%';
+  document.getElementById('ovTaps').textContent = _wgCount;
 }
 
 /* ═══════════════════════════════════════
@@ -872,10 +890,10 @@ let _allExQueue = [], _allExIdx = -1, _autoTimer = null;
 
 function _showPanel(name) {
   // name: 'coach' | 'game' | 'done'
-  document.getElementById('exoBody').style.display       = name === 'coach' ? 'flex' : 'none';
-  document.getElementById('wgWrap').classList.toggle('on', name === 'game');
-  document.getElementById('exoDoneScreen').classList.toggle('on', name === 'done');
-  document.getElementById('exoCtrl').style.display       = name === 'done' ? 'none' : '';
+  document.getElementById('ovCoach').style.display       = name === 'coach' ? 'flex' : 'none';
+  document.getElementById('ovGame').classList.toggle('on', name === 'game');
+  document.getElementById('ovDone').classList.toggle('on', name === 'done');
+  document.getElementById('ovCtrl').style.display       = name === 'done' ? 'none' : '';
 }
 
 function _setPhase(phIdx, label) {
@@ -885,30 +903,30 @@ function _setPhase(phIdx, label) {
   const instr   = ph ? ph.instr   : '';
   const bDir    = ph ? ph.breathDir : null;
 
-  document.getElementById('tIcon').textContent   = icon;
-  document.getElementById('tAction').textContent = action;
-  document.getElementById('tAction').style.color = bDir === 'in' ? '#D4A017' : bDir === 'out' ? '#6CB4FF' : bDir === 'hold' ? '#22C55E' : '#D4A017';
-  document.getElementById('tInstr').innerHTML    = instr ? instr.replace(/\n/g, '<br>') : '';
+  document.getElementById('ovIcon').textContent   = icon;
+  document.getElementById('ovAction').textContent = action;
+  document.getElementById('ovAction').style.color = bDir === 'in' ? '#D4A017' : bDir === 'out' ? '#6CB4FF' : bDir === 'hold' ? '#22C55E' : '#D4A017';
+  document.getElementById('ovTell').innerHTML     = instr ? instr.replace(/\n/g, '<br>') : '';
 
   // breathing ring (for isBreath exercises)
-  const bc  = document.getElementById('breathCircle');
-  const tr  = document.getElementById('timerRing');
+  const ring = document.getElementById('ovRing');
   const showRing = _ex.isBreath && bDir;
   if (showRing) {
-    bc.style.display = 'flex'; tr.style.display = 'none';
-    const cls = bDir === 'in' ? 'inhale' : bDir === 'out' ? 'exhale' : 'hold';
-    bc.className = 'exo-breath ' + cls;
-    const bt = document.getElementById('breathText');
-    bt.textContent = action;
-    bt.style.color = cls === 'inhale' ? '#D4A017' : cls === 'exhale' ? '#6CB4FF' : '#22C55E';
+    ring.style.display = 'flex';
+    const cls = bDir === 'in' ? 'in' : bDir === 'out' ? 'out' : 'hold';
+    ring.className = 'ov-ring ' + cls;
+    const rt = document.getElementById('ovRingTxt');
+    if (rt) { rt.textContent = action; rt.style.color = bDir === 'in' ? '#D4A017' : bDir === 'out' ? '#6CB4FF' : '#22C55E'; }
   } else {
-    bc.style.display = 'none'; tr.style.display = '';
+    ring.className = 'ov-ring';
+    ring.style.display = 'none';
   }
 
-  // phase progress dots → use the top progress bar
+  // phase progress bar
   if (_ex.phases) {
-    const pct = (_ex.phases.length > 1) ? (phIdx / (_ex.phases.length - 1)) * 100 : 100;
-    document.getElementById('tProgFill').style.width = pct + '%';
+    const totalPhases = _ex.phases.length * (_ex.rounds || 1);
+    const donePhases  = (_round - 1) * _ex.phases.length + phIdx;
+    document.getElementById('ovPbar').style.width = (donePhases / totalPhases * 100) + '%';
   }
 }
 
@@ -919,69 +937,67 @@ function openExercise(id) {
   _running = false; _phaseIdx = 0; _sec = 0; _round = 1;
   stopSpeech();
 
-  document.getElementById('tEmoji').textContent = _ex.emoji;
-  document.getElementById('tTitle').textContent = _ex.title;
-  const ql = document.getElementById('exoQueueLine');
+  document.getElementById('ovEmoji').textContent = _ex.emoji;
+  document.getElementById('ovName').textContent  = _ex.title;
+  const ql = document.getElementById('ovQueue');
   if (_allExQueue.length > 1) {
     ql.textContent = 'Exercise ' + (_allExIdx + 1) + ' of ' + _allExQueue.length;
     ql.style.display = '';
   } else { ql.style.display = 'none'; }
 
-  const sb  = document.getElementById('tStartBtn');
-  const sk  = document.getElementById('tSkipBtn');
-  const wgs = document.getElementById('wgStartBtn');
-  const wgsk= document.getElementById('wgSkipBtn');
+  document.getElementById('ovPbar').style.width = '0%';
 
-  document.getElementById('tProgFill').style.width = '0%';
-
-  if (_ex.isTapGame) {
+  const isGame = _ex.isTapGame;
+  if (isGame) {
     _showPanel('game');
     resetWakeGame();
-    sb.style.display = 'none'; sk.style.display = 'none';
-    wgs.style.display = ''; wgsk.style.display = _allExQueue.length > 1 ? '' : 'none';
+    document.getElementById('ovGo').style.display   = 'none';
+    document.getElementById('ovSkip').style.display = 'none';
+    document.getElementById('gStartBtn').style.display = '';
+    document.getElementById('gSkipBtn').style.display  = _allExQueue.length > 1 ? '' : 'none';
   } else {
     _showPanel('coach');
-    sb.style.display = ''; sb.textContent = '▶ Start';
-    sk.style.display = _allExQueue.length > 1 ? '' : 'none';
-    wgs.style.display = 'none'; wgsk.style.display = 'none';
-    // Prime the first phase display
+    document.getElementById('ovGo').style.display   = '';
+    document.getElementById('ovGo').textContent     = '▶ Start';
+    document.getElementById('ovSkip').style.display = _allExQueue.length > 1 ? '' : 'none';
+    document.getElementById('gStartBtn').style.display = 'none';
+    document.getElementById('gSkipBtn').style.display  = 'none';
+    // Prime first phase
     if (_ex.phases) {
-      const ph = _ex.phases[0];
-      _setPhase(0, ph.label);
-      document.getElementById('tNum').textContent = ph.sec;
+      _setPhase(0, _ex.phases[0].label);
+      document.getElementById('ovCount').textContent = _ex.phases[0].sec;
     } else {
-      document.getElementById('tIcon').textContent   = _ex.emoji;
-      document.getElementById('tAction').textContent = 'Get Ready';
-      document.getElementById('tInstr').innerHTML    = (_ex.steps || []).slice(0, 3).map(s => '• ' + s).join('<br>');
-      document.getElementById('tNum').textContent    = '—';
+      document.getElementById('ovIcon').textContent   = _ex.emoji;
+      document.getElementById('ovAction').textContent = 'Ready?';
+      document.getElementById('ovTell').innerHTML     = (_ex.steps || []).slice(0, 3).map(s => '• ' + s).join('<br>');
+      document.getElementById('ovCount').textContent  = '—';
     }
   }
 
-  const vb = document.getElementById('tVoiceBtn');
+  const vb = document.getElementById('ovVoice');
   if (vb) { vb.textContent = voiceEnabled ? '🔊' : '🔇'; vb.classList.toggle('on', voiceEnabled); }
 
-  document.getElementById('timerOverlay').classList.add('open');
+  document.getElementById('exOv').classList.add('open');
   setTimeout(() => speak(_ex.voiceIntro || _ex.title), 350);
 }
 
-function timerToggle() {
+function ovToggle() {
   if (!_ex || !_ex.phases) return;
   if (!_running && _phaseIdx === 0 && _sec === 0) {
     // First start
     _running = true;
-    document.getElementById('tStartBtn').textContent = '⏸ Pause';
+    document.getElementById('ovGo').textContent = '⏸ Pause';
     const ph = _ex.phases[0]; _sec = ph.sec;
-    document.getElementById('tNum').textContent = ph.sec;
-    document.getElementById('tRingFill').style.strokeDashoffset = '0';
+    document.getElementById('ovCount').textContent = ph.sec;
     _setPhase(0, ph.label);
     _timer = setInterval(tick, 1000);
     speak((_ex.phaseVoice && _ex.phaseVoice[0]) || ph.label);
   } else if (_running) {
     clearInterval(_timer); _running = false; stopSpeech();
-    document.getElementById('tStartBtn').textContent = '▶ Resume';
+    document.getElementById('ovGo').textContent = '▶ Resume';
   } else {
     _running = true;
-    document.getElementById('tStartBtn').textContent = '⏸ Pause';
+    document.getElementById('ovGo').textContent = '⏸ Pause';
     _timer = setInterval(tick, 1000);
   }
 }
@@ -991,8 +1007,7 @@ function tick() {
   _sec--;
   const ph = _ex.phases[_phaseIdx];
   const sl = Math.max(0, _sec);
-  document.getElementById('tNum').textContent = sl;
-  document.getElementById('tRingFill').style.strokeDashoffset = CIRC * (sl / ph.sec);
+  document.getElementById('ovCount').textContent = sl;
 
   if (_sec <= 0) {
     _phaseIdx++;
@@ -1002,8 +1017,7 @@ function tick() {
       _showDone(); return;
     }
     const nph = _ex.phases[_phaseIdx]; _sec = nph.sec;
-    document.getElementById('tNum').textContent = nph.sec;
-    document.getElementById('tRingFill').style.strokeDashoffset = '0';
+    document.getElementById('ovCount').textContent = nph.sec;
     _setPhase(_phaseIdx, nph.label);
     speak((_ex.phaseVoice && _ex.phaseVoice[_phaseIdx]) || nph.label);
   }
@@ -1012,17 +1026,16 @@ function tick() {
 function _showDone() {
   const isQueue = _allExQueue.length > 0;
   const isLast  = !isQueue || _allExIdx >= _allExQueue.length - 1;
-  const nb = document.getElementById('doneNextBtn');
-  document.getElementById('doneEmoji').textContent  = isLast ? '🏆' : '✅';
-  document.getElementById('doneTitle').textContent  = isLast ? 'All Done! 🏆' : 'Well Done!';
-  document.getElementById('doneSub').textContent    = isLast ? 'You completed all exercises!' : (_ex ? _ex.title : '') + ' complete. Great job!';
+  const nb = document.getElementById('ovNextBtn');
+  document.getElementById('ovDoneIco').textContent  = isLast ? '🏆' : '✅';
+  document.getElementById('ovDoneTtl').textContent  = isLast ? 'All Done! 🏆' : 'Well Done!';
+  document.getElementById('ovDoneSub').textContent  = isLast ? 'You completed all exercises!' : (_ex ? _ex.title : '') + ' complete. Great job!';
   if (nb) nb.style.display = (!isLast) ? '' : 'none';
   _showPanel('done');
-  document.getElementById('exoCtrl').style.display = 'none';
+  document.getElementById('ovCtrl').style.display = 'none';
   speak(isLast ? 'All done! Fantastic!' : 'Well done! ' + (_ex ? _ex.title : '') + ' complete.');
 
   if (!isLast) {
-    // Auto-advance in 4 seconds
     let secs = 4;
     if (nb) nb.textContent = '▶ Next (' + secs + 's)';
     const cd = setInterval(() => {
@@ -1030,32 +1043,32 @@ function _showDone() {
       if (nb) { if (secs > 0) nb.textContent = '▶ Next (' + secs + 's)'; else nb.textContent = '▶ Next'; }
       if (secs <= 0) clearInterval(cd);
     }, 1000);
-    _autoTimer = setTimeout(nextExercise, 4000);
+    _autoTimer = setTimeout(ovNext, 4000);
   }
 }
 
-function skipExercise() {
+function ovSkip() {
   clearInterval(_timer); clearTimeout(_autoTimer); _running = false; stopSpeech();
-  if (_allExQueue.length > 0 && _allExIdx < _allExQueue.length - 1) nextExercise();
-  else timerClose();
+  if (_allExQueue.length > 0 && _allExIdx < _allExQueue.length - 1) ovNext();
+  else ovClose();
 }
 
-function repeatExercise() {
+function ovAgain() {
   clearTimeout(_autoTimer);
   _phaseIdx = 0; _sec = 0; _round = 1; _running = false; clearInterval(_timer);
   openExercise(_ex.id);
 }
 
-function nextExercise() {
+function ovNext() {
   clearTimeout(_autoTimer); _allExIdx++;
-  if (_allExIdx >= _allExQueue.length) { timerClose(); return; }
+  if (_allExIdx >= _allExQueue.length) { ovClose(); return; }
   openExercise(_allExQueue[_allExIdx].id);
 }
 
-function timerClose() {
+function ovClose() {
   clearInterval(_timer); clearTimeout(_autoTimer);
   _running = false; _sec = 0; _phaseIdx = 0; _round = 1; stopSpeech();
-  document.getElementById('timerOverlay').classList.remove('open');
+  document.getElementById('exOv').classList.remove('open');
   _allExQueue = []; _allExIdx = -1;
 }
 
@@ -1091,7 +1104,7 @@ function stopSpeech() { if (window.speechSynthesis) speechSynthesis.cancel(); _s
 
 function toggleVoice() {
   voiceEnabled = !voiceEnabled;
-  const b = document.getElementById('tVoiceBtn');
+  const b = document.getElementById('ovVoice');
   if (b) { b.textContent = voiceEnabled ? '🔊' : '🔇'; b.classList.toggle('on', voiceEnabled); }
   if (!voiceEnabled) stopSpeech();
 }
@@ -1140,8 +1153,8 @@ function speakCard(id) {
     }
   });
 
-  const ov = document.getElementById('timerOverlay');
-  if (ov) ov.addEventListener('click', e => { if (e.target === e.currentTarget) timerClose(); });
+  const ov = document.getElementById('exOv');
+  if (ov) ov.addEventListener('click', e => { if (e.target === e.currentTarget) ovClose(); });
 
   window.addEventListener('scroll', () => {
     document.body.classList.toggle('scrolled', window.scrollY > 60);
