@@ -1256,1163 +1256,858 @@ observeReveal();
 
 
 
-/* ══════════════════════════════════════════
-   SVG INSTRUCTOR — per-category animated figures
-   Replaces the broken canvas cartoon system
-══════════════════════════════════════════ */
-const SVG_FIGURES = {
-  // ── BREATHING exercises ──
-  breath: (phase) => {
-    const scale = phase==='inhale' ? 1.14 : phase==='hold' ? 1.14 : 1;
-    const anim  = phase==='inhale' ? 'breatheIn 4s ease-in-out infinite' :
-                  phase==='exhale' ? 'breatheOut 4s ease-in-out infinite' :
-                  'pulse 2s ease-in-out infinite';
-    return `<svg width="160" height="200" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- glow ring -->
-      <circle cx="80" cy="110" r="58" stroke="#D4A017" stroke-width="1.5" stroke-dasharray="6 4" opacity=".3" style="animation:spin 12s linear infinite;transform-origin:80px 110px"/>
-      <!-- ripple -->
-      <circle cx="80" cy="110" r="52" fill="rgba(212,160,23,.06)" style="animation:ripple 3s ease-out infinite"/>
-      <!-- body torso -->
-      <ellipse cx="80" cy="118" rx="20" ry="28" fill="#2A5FA0" style="animation:${anim};transform-origin:80px 118px"/>
+/* ══════════════════════════════════════════════════════
+   EXERCISE GUIDE PANEL — clear instructional diagrams
+   Shows body zone + action for each exercise phase
+══════════════════════════════════════════════════════ */
+
+// Maps each exercise+phase to a specific instructional panel
+const GUIDE_PANELS = {
+
+  // ─── BREATHING ───
+  'box-breathing': {
+    default: 'breath',
+    phases: {'Inhale':'breath-in', 'Hold Full':'breath-hold', 'Exhale':'breath-out', 'Hold Empty':'breath-empty'}
+  },
+  '478-breath': {
+    default: 'breath',
+    phases: {'Exhale reset':'breath-out', 'Inhale':'breath-in', 'Hold Full':'breath-hold', 'Long Exhale':'breath-out'}
+  },
+  'nadi-shodhana': {
+    default: 'nostril',
+    phases: {'Left inhale':'nostril-left', 'Hold both':'nostril-hold', 'Right exhale':'nostril-right',
+             'Right inhale':'nostril-right-in', 'Left exhale':'nostril-left-out'}
+  },
+
+  // ─── EYES ───
+  'eye-yoga': {
+    default: 'eyes-center',
+    phases: {'Up-Down':'eyes-updown', 'Left-Right':'eyes-leftright',
+             'Diagonal ↗':'eyes-diag1', 'Diagonal ↘':'eyes-diag2',
+             'Circles CW':'eyes-cw', 'Circles CCW':'eyes-ccw', 'Palming':'eyes-palm'}
+  },
+  'palming-2020': {
+    default: 'eyes-center',
+    phases: {'Distant focus':'eyes-far', 'Near focus':'eyes-near', 'Palming':'eyes-palm', 'Blink reset':'eyes-blink'}
+  },
+  'wakeup-eye-splash': {
+    default: 'eyes-center',
+    phases: {'Blink rapidly':'eyes-blink', 'Cold eye splash':'water-face', 'Face tapping':'tap-face', 'Forehead rub':'rub-forehead', 'Wide-eyes hold':'eyes-wide'}
+  },
+
+  // ─── WAKE-UP / BODY ───
+  'wakeup-tap': {default: 'tap-full', phases: {}},
+  'wakeup-power-breath': {
+    default: 'breath',
+    phases: {'Power Breathe':'breath-fast', 'Hold Empty':'breath-empty', 'Deep Inhale':'breath-in', 'Hold Full':'breath-hold', 'Exhale & Normalise':'breath-out'}
+  },
+  'wakeup-cold-water': {
+    default: 'water-wrist',
+    phases: {'Wrist Cold Water':'water-wrist', 'Face Splash × 10':'water-face', 'Behind Ears':'water-ears', 'Breathe & Reset':'breath'}
+  },
+  'wakeup-jumping': {
+    default: 'march',
+    phases: {'March in place':'march', 'Jumping Jacks':'jumping-jacks', 'High Knees':'high-knees', 'Rest & breathe':'breath', 'Arm circles':'arm-circles', 'Final cool down':'breath'}
+  },
+  'wakeup-acupressure': {
+    default: 'acu-brow',
+    phases: {'Between eyebrows':'acu-brow', 'Temples':'acu-temples', 'Under nose':'acu-nose', 'Earlobes':'acu-ears', 'Scalp tapping':'tap-scalp', 'Hand web point':'acu-hand'}
+  },
+
+  // ─── BRAIN ───
+  'memory-palace': {default: 'eyes-closed', phases: {}},
+  'cross-crawl': {
+    default: 'cross-crawl',
+    phases: {'Cross-crawl march':'cross-crawl', 'Figure-8 right hand':'fig8-right', 'Figure-8 left hand':'fig8-left', 'Hook-Ups':'hook-ups', 'Deep breathe':'breath'}
+  },
+  'backward-counting': {default: 'eyes-closed', phases: {}},
+
+  // ─── NECK / BODY ───
+  'neck-shoulder': {
+    default: 'neck-left',
+    phases: {'Left neck tilt':'neck-left', 'Right neck tilt':'neck-right', 'Chin to chest':'neck-chin', 'Shoulder rolls':'shoulder-rolls', 'Neck rotations':'neck-rotate', 'Chest opener':'chest-open'}
+  },
+  'desk-reset': {
+    default: 'reach-up',
+    phases: {'Overhead stretch':'reach-up', 'Squats':'squats', 'Calf raises':'calf-raise', 'Hip circles':'hip-circles', 'March in place':'march', 'Shake-out cool':'shake-out'}
+  },
+
+  // ─── CALM ───
+  'body-scan': {
+    default: 'scan-feet',
+    phases: {'Feet & legs':'scan-feet', 'Abdomen & chest':'scan-chest', 'Hands & arms':'scan-arms', 'Head & face':'scan-head', 'Rest in stillness':'rest'}
+  },
+  'prog-relaxation': {
+    default: 'tense-feet',
+    phases: {'Feet & calves':'tense-feet', 'Thighs':'tense-thighs', 'Abdomen':'tense-abs', 'Hands & arms':'tense-arms', 'Face & jaw':'tense-face', 'Whole body release':'rest'}
+  },
+};
+
+// ── SVG diagram library — one per diagram type ──
+// Each returns an SVG string. No animation. Clear body diagrams.
+
+function makeGuide(type) {
+  const G = GUIDE_DIAGRAMS;
+  return G[type] ? G[type]() : G['default']();
+}
+
+const GUIDE_DIAGRAMS = {
+
+  // ─── Body base: standing silhouette (reused in many) ───
+  _body(highlightZones, label, arrows) {
+    // zones: 'head','chest','belly','arms','legs','hands','face','neck'
+    const hz = new Set(highlightZones || []);
+    const hl = (z) => hz.has(z) ? '#D4A017' : 'rgba(255,255,255,0.15)';
+    const hlStroke = (z) => hz.has(z) ? '#F5C842' : 'rgba(255,255,255,0.08)';
+    const arrowsHTML = (arrows || []).map(a => a).join('');
+    return `<svg width="160" height="220" viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- head -->
-      <circle cx="80" cy="72" r="22" fill="#FDBF7A"/>
-      <!-- eyes blink -->
-      <ellipse cx="73" cy="70" rx="3.5" ry="4" fill="#1C1C2E" style="animation:blink 3.5s ease-in-out infinite;transform-origin:73px 70px"/>
-      <ellipse cx="87" cy="70" rx="3.5" ry="4" fill="#1C1C2E" style="animation:blink 3.5s ease-in-out infinite 0.15s;transform-origin:87px 70px"/>
-      <!-- smile -->
-      <path d="M73 80 Q80 87 87 80" stroke="#B8860B" stroke-width="2" stroke-linecap="round" fill="none"/>
-      <!-- arms -->
-      <line x1="60" y1="108" x2="38" y2="128" stroke="#2A5FA0" stroke-width="8" stroke-linecap="round" style="animation:armUp 4s ease-in-out infinite;transform-origin:60px 108px"/>
-      <line x1="100" y1="108" x2="122" y2="128" stroke="#2A5FA0" stroke-width="8" stroke-linecap="round" style="animation:armDown 4s ease-in-out infinite;transform-origin:100px 108px"/>
-      <!-- legs -->
-      <line x1="70" y1="144" x2="62" y2="178" stroke="#1A3A60" stroke-width="9" stroke-linecap="round"/>
-      <line x1="90" y1="144" x2="98" y2="178" stroke="#1A3A60" stroke-width="9" stroke-linecap="round"/>
-      <!-- breath label -->
-      <text x="80" y="195" font-size="10" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="600">${phase.toUpperCase()}</text>
+      <circle cx="80" cy="44" r="22" fill="${hl('head')}" stroke="${hlStroke('head')}" stroke-width="2"/>
+      <!-- neck -->
+      <rect x="72" y="64" width="16" height="14" rx="4" fill="${hl('neck')}" stroke="${hlStroke('neck')}" stroke-width="1.5"/>
+      <!-- torso -->
+      <rect x="52" y="77" width="56" height="52" rx="8" fill="${hl('chest')}" stroke="${hlStroke('chest')}" stroke-width="2"/>
+      <!-- belly -->
+      <rect x="52" y="117" width="56" height="32" rx="6" fill="${hl('belly')}" stroke="${hlStroke('belly')}" stroke-width="1.5"/>
+      <!-- left arm -->
+      <rect x="28" y="79" width="22" height="52" rx="10" fill="${hl('arms')}" stroke="${hlStroke('arms')}" stroke-width="1.5" transform="rotate(-4 28 79)"/>
+      <!-- right arm -->
+      <rect x="110" y="79" width="22" height="52" rx="10" fill="${hl('arms')}" stroke="${hlStroke('arms')}" stroke-width="1.5" transform="rotate(4 132 79)"/>
+      <!-- left hand -->
+      <ellipse cx="38" cy="140" rx="11" ry="8" fill="${hl('hands')}" stroke="${hlStroke('hands')}" stroke-width="1.5"/>
+      <!-- right hand -->
+      <ellipse cx="122" cy="140" rx="11" ry="8" fill="${hl('hands')}" stroke="${hlStroke('hands')}" stroke-width="1.5"/>
+      <!-- left leg -->
+      <rect x="54" y="148" width="22" height="52" rx="10" fill="${hl('legs')}" stroke="${hlStroke('legs')}" stroke-width="1.5"/>
+      <!-- right leg -->
+      <rect x="84" y="148" width="22" height="52" rx="10" fill="${hl('legs')}" stroke="${hlStroke('legs')}" stroke-width="1.5"/>
+      ${arrowsHTML}
+      <!-- label -->
+      <text x="80" y="215" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700" letter-spacing="0.5">${label||''}</text>
     </svg>`;
   },
 
-  // ── EYE exercises ──
-  eyes: (dir) => {
-    const dirs = {center:[0,0],up:[0,-8],down:[0,8],left:[-8,0],right:[8,0]};
-    const [ex, ey] = dirs[dir] || [0,0];
-    return `<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  // ─── HEAD / FACE (close-up) ───
+  _face(label, extraSVG) {
+    return `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- face -->
-      <circle cx="90" cy="90" r="70" fill="#FDBF7A" stroke="#E8A050" stroke-width="2"/>
-      <!-- left eye socket -->
-      <ellipse cx="65" cy="80" rx="20" ry="14" fill="white" stroke="#D4A017" stroke-width="1.5"/>
-      <!-- right eye socket -->
-      <ellipse cx="115" cy="80" rx="20" ry="14" fill="white" stroke="#D4A017" stroke-width="1.5"/>
-      <!-- left pupil (moves with direction) -->
-      <circle cx="${65+ex}" cy="${80+ey}" r="7" fill="#1C1C2E" style="animation:eyeMove 3s ease-in-out infinite;transform-origin:${65+ex}px ${80+ey}px"/>
-      <circle cx="${67+ex}" cy="${78+ey}" r="2.5" fill="white"/>
-      <!-- right pupil -->
-      <circle cx="${115+ex}" cy="${80+ey}" r="7" fill="#1C1C2E" style="animation:eyeMove 3s ease-in-out infinite;transform-origin:${115+ex}px ${80+ey}px"/>
-      <circle cx="${117+ex}" cy="${78+ey}" r="2.5" fill="white"/>
-      <!-- eyebrows -->
-      <path d="M48 64 Q65 58 82 64" stroke="#8B4513" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-      <path d="M98 64 Q115 58 132 64" stroke="#8B4513" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-      <!-- smile -->
-      <path d="M70 112 Q90 128 110 112" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-      <!-- direction arrow hint -->
-      <text x="90" y="160" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="600">LOOK ${(dir||'CENTER').toUpperCase()}</text>
+      <circle cx="80" cy="80" r="62" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+      ${extraSVG||''}
+      <text x="80" y="180" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">${label||''}</text>
     </svg>`;
   },
 
-  // ── BRAIN exercises ──
-  brain: () => `<svg width="160" height="200" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- thought bubble -->
-    <circle cx="115" cy="38" r="18" fill="rgba(212,160,23,.15)" stroke="#D4A017" stroke-width="1" style="animation:pulse 2s ease-in-out infinite"/>
-    <text x="115" y="44" font-size="16" text-anchor="middle" style="animation:float 2s ease-in-out infinite">💡</text>
-    <circle cx="96" cy="58" r="5" fill="rgba(212,160,23,.2)" stroke="#D4A017" stroke-width="1"/>
-    <circle cx="103" cy="70" r="3" fill="rgba(212,160,23,.15)" stroke="#D4A017" stroke-width="1"/>
-    <!-- body -->
-    <ellipse cx="70" cy="130" rx="20" ry="28" fill="#4A3FA0"/>
-    <!-- head -->
-    <circle cx="70" cy="82" r="24" fill="#FDBF7A"/>
-    <!-- brain glow on head -->
-    <circle cx="70" cy="72" r="14" fill="rgba(212,160,23,.12)" style="animation:glow 2s ease-in-out infinite"/>
-    <!-- eyes focused -->
-    <ellipse cx="63" cy="82" rx="4" ry="4.5" fill="#1C1C2E"/>
-    <circle cx="64.5" cy="81" r="1.5" fill="white"/>
-    <ellipse cx="77" cy="82" rx="4" ry="4.5" fill="#1C1C2E"/>
-    <circle cx="78.5" cy="81" r="1.5" fill="white"/>
-    <!-- focused expression -->
-    <path d="M62 92 Q70 96 78 92" stroke="#B8860B" stroke-width="2" stroke-linecap="round" fill="none"/>
-    <!-- arms in thinking pose -->
-    <line x1="52" y1="118" x2="35" y2="105" stroke="#4A3FA0" stroke-width="8" stroke-linecap="round" style="animation:sway 3s ease-in-out infinite;transform-origin:52px 118px"/>
-    <line x1="88" y1="118" x2="100" y2="105" stroke="#4A3FA0" stroke-width="8" stroke-linecap="round"/>
-    <!-- legs -->
-    <line x1="60" y1="156" x2="52" y2="188" stroke="#2A2A60" stroke-width="9" stroke-linecap="round"/>
-    <line x1="80" y1="156" x2="88" y2="188" stroke="#2A2A60" stroke-width="9" stroke-linecap="round"/>
-    <!-- floating numbers particles -->
-    <text x="22" y="95" font-size="12" fill="#D4A017" opacity=".7" style="animation:float 2.5s ease-in-out infinite">1</text>
-    <text x="118" y="110" font-size="10" fill="#D4A017" opacity=".6" style="animation:float 3s ease-in-out infinite 0.5s">A</text>
-    <text x="30" y="130" font-size="9" fill="#6C8EBF" opacity=".5" style="animation:float 3.5s ease-in-out infinite 1s">∞</text>
+  // ─── BREATHING diagrams ───
+  'breath-in': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- chest expanding ring -->
+    <circle cx="80" cy="90" r="58" stroke="#D4A017" stroke-width="2.5" stroke-dasharray="none" fill="rgba(212,160,23,0.08)"/>
+    <circle cx="80" cy="90" r="40" stroke="rgba(212,160,23,0.3)" stroke-width="1.5" fill="rgba(212,160,23,0.05)"/>
+    <!-- arrows pointing inward into nose -->
+    <path d="M46 60 L65 78" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arr)"/>
+    <path d="M114 60 L95 78" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arr)"/>
+    <!-- nose icon -->
+    <path d="M74 68 Q72 82 68 88 Q80 92 92 88 Q88 82 86 68" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- lungs expanding arrows -->
+    <path d="M62 118 L48 108" stroke="#D4A017" stroke-width="2" stroke-linecap="round" marker-end="url(#arr)"/>
+    <path d="M98 118 L112 108" stroke="#D4A017" stroke-width="2" stroke-linecap="round" marker-end="url(#arr)"/>
+    <!-- lung shapes hint -->
+    <ellipse cx="58" cy="128" rx="14" ry="18" fill="rgba(212,160,23,0.15)" stroke="rgba(212,160,23,0.4)" stroke-width="1.5"/>
+    <ellipse cx="102" cy="128" rx="14" ry="18" fill="rgba(212,160,23,0.15)" stroke="rgba(212,160,23,0.4)" stroke-width="1.5"/>
+    <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="#D4A017"/></marker></defs>
+    <text x="80" y="175" font-size="12" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">INHALE through nose</text>
   </svg>`,
 
-  // ── WAKE-UP exercises ──
-  wake: (phase) => `<svg width="160" height="210" viewBox="0 0 160 210" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- energy rings -->
-    <circle cx="80" cy="105" r="70" stroke="#EF4444" stroke-width="1" stroke-dasharray="4 6" opacity=".25" style="animation:spin 8s linear infinite;transform-origin:80px 105px"/>
-    <circle cx="80" cy="105" r="55" stroke="#F97316" stroke-width="1" opacity=".2" style="animation:spin 5s linear infinite reverse;transform-origin:80px 105px"/>
-    <!-- body energetic -->
-    <ellipse cx="80" cy="125" rx="18" ry="26" fill="#DC2626" style="animation:bob 0.6s ease-in-out infinite;transform-origin:80px 125px"/>
-    <!-- head -->
-    <circle cx="80" cy="78" r="22" fill="#FDBF7A" style="animation:bob 0.6s ease-in-out infinite;transform-origin:80px 78px"/>
-    <!-- alert eyes wide -->
-    <circle cx="73" cy="76" r="5" fill="#1C1C2E"/>
-    <circle cx="74.5" cy="74.5" r="2" fill="white"/>
-    <circle cx="87" cy="76" r="5" fill="#1C1C2E"/>
-    <circle cx="88.5" cy="74.5" r="2" fill="white"/>
-    <!-- big grin -->
-    <path d="M70 88 Q80 96 90 88" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-    <!-- marching arms -->
-    <line x1="63" y1="115" x2="40" y2="100" stroke="#DC2626" stroke-width="9" stroke-linecap="round" style="animation:armUp 0.6s ease-in-out infinite;transform-origin:63px 115px"/>
-    <line x1="97" y1="115" x2="120" y2="130" stroke="#DC2626" stroke-width="9" stroke-linecap="round" style="animation:armDown 0.6s ease-in-out infinite;transform-origin:97px 115px"/>
-    <!-- marching legs -->
-    <line x1="70" y1="148" x2="55" y2="182" stroke="#991B1B" stroke-width="9" stroke-linecap="round" style="animation:march 0.6s ease-in-out infinite;transform-origin:70px 148px"/>
-    <line x1="90" y1="148" x2="105" y2="182" stroke="#991B1B" stroke-width="9" stroke-linecap="round" style="animation:marchOpp 0.6s ease-in-out infinite;transform-origin:90px 148px"/>
-    <!-- energy burst sparks -->
-    <text x="108" y="70" font-size="16" style="animation:float 1s ease-in-out infinite">⚡</text>
-    <text x="22" y="88" font-size="12" style="animation:float 1.2s ease-in-out infinite 0.3s">✨</text>
+  'breath-out': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- chest contracting -->
+    <circle cx="80" cy="90" r="48" stroke="rgba(100,160,255,0.4)" stroke-width="2" fill="rgba(100,160,255,0.05)"/>
+    <!-- mouth exhale arrows -->
+    <ellipse cx="80" cy="96" rx="10" ry="6" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none"/>
+    <path d="M70 106 L48 125" stroke="#6CB4FF" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arrB)"/>
+    <path d="M90 106 L112 125" stroke="#6CB4FF" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arrB)"/>
+    <path d="M80 106 L80 130" stroke="#6CB4FF" stroke-width="2" stroke-linecap="round" marker-end="url(#arrB)"/>
+    <!-- lung shapes deflating -->
+    <ellipse cx="58" cy="118" rx="12" ry="15" fill="rgba(100,160,255,0.1)" stroke="rgba(100,160,255,0.3)" stroke-width="1.5"/>
+    <ellipse cx="102" cy="118" rx="12" ry="15" fill="rgba(100,160,255,0.1)" stroke="rgba(100,160,255,0.3)" stroke-width="1.5"/>
+    <defs><marker id="arrB" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="#6CB4FF"/></marker></defs>
+    <text x="80" y="175" font-size="12" fill="#6CB4FF" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">EXHALE through mouth</text>
   </svg>`,
 
-  // ── BODY / stretch exercises ──
-  body: (phase) => `<svg width="160" height="215" viewBox="0 0 160 215" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- body standing -->
-    <ellipse cx="80" cy="125" rx="18" ry="30" fill="#166534" style="animation:breatheIn 3s ease-in-out infinite;transform-origin:80px 125px"/>
-    <!-- head -->
-    <circle cx="80" cy="72" r="22" fill="#FDBF7A"/>
-    <!-- relaxed eyes -->
-    <path d="M70 72 Q73 69 76 72" stroke="#1C1C2E" stroke-width="2" stroke-linecap="round" fill="none"/>
-    <path d="M84 72 Q87 69 90 72" stroke="#1C1C2E" stroke-width="2" stroke-linecap="round" fill="none"/>
-    <!-- calm smile -->
-    <path d="M72 82 Q80 88 88 82" stroke="#B8860B" stroke-width="2" stroke-linecap="round" fill="none"/>
-    <!-- arms stretched up -->
-    <line x1="63" y1="112" x2="30" y2="78" stroke="#166534" stroke-width="9" stroke-linecap="round" style="animation:armUp 2s ease-in-out infinite;transform-origin:63px 112px"/>
-    <line x1="97" y1="112" x2="130" y2="78" stroke="#166534" stroke-width="9" stroke-linecap="round" style="animation:armDown 2s ease-in-out infinite;transform-origin:97px 112px"/>
-    <!-- hands -->
-    <circle cx="30" cy="75" r="6" fill="#FDBF7A" style="animation:armUp 2s ease-in-out infinite;transform-origin:63px 112px"/>
-    <circle cx="130" cy="75" r="6" fill="#FDBF7A" style="animation:armDown 2s ease-in-out infinite;transform-origin:97px 112px"/>
-    <!-- legs -->
-    <line x1="70" y1="152" x2="60" y2="192" stroke="#0F4620" stroke-width="9" stroke-linecap="round"/>
-    <line x1="90" y1="152" x2="100" y2="192" stroke="#0F4620" stroke-width="9" stroke-linecap="round"/>
-    <!-- sparkles around -->
-    <text x="140" y="90" font-size="14" style="animation:float 2s ease-in-out infinite">✨</text>
-    <text x="12" y="100" font-size="12" style="animation:float 2.5s ease-in-out infinite 0.5s">🌟</text>
+  'breath-hold': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- hold ring -->
+    <circle cx="80" cy="90" r="56" stroke="#22C55E" stroke-width="2.5" fill="rgba(34,197,94,0.06)"/>
+    <!-- pause symbol -->
+    <rect x="64" y="68" width="12" height="36" rx="4" fill="#22C55E"/>
+    <rect x="84" y="68" width="12" height="36" rx="4" fill="#22C55E"/>
+    <!-- lungs full -->
+    <ellipse cx="56" cy="130" rx="15" ry="20" fill="rgba(34,197,94,0.2)" stroke="#22C55E" stroke-width="1.5"/>
+    <ellipse cx="104" cy="130" rx="15" ry="20" fill="rgba(34,197,94,0.2)" stroke="#22C55E" stroke-width="1.5"/>
+    <text x="80" y="178" font-size="12" fill="#22C55E" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">HOLD — lungs full</text>
   </svg>`,
 
-  // ── CALM / meditation exercises ──
-  calm: () => `<svg width="170" height="190" viewBox="0 0 170 190" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- aura rings -->
-    <circle cx="85" cy="95" r="75" stroke="#7C3AED" stroke-width="1" stroke-dasharray="3 5" opacity=".2" style="animation:spin 20s linear infinite;transform-origin:85px 95px"/>
-    <circle cx="85" cy="95" r="62" fill="rgba(124,58,237,.05)" style="animation:pulse 4s ease-in-out infinite"/>
-    <!-- meditation pose - seated cross-legged -->
-    <!-- left leg -->
-    <path d="M55 145 Q45 160 40 175 Q55 178 70 175 Q72 162 70 148 Z" fill="#4C1D95" opacity=".9"/>
-    <!-- right leg -->
-    <path d="M115 145 Q125 160 130 175 Q115 178 100 175 Q98 162 100 148 Z" fill="#4C1D95" opacity=".9"/>
-    <!-- torso -->
-    <ellipse cx="85" cy="125" rx="22" ry="28" fill="#5B21B6"/>
-    <!-- head -->
-    <circle cx="85" cy="72" r="24" fill="#FDBF7A"/>
-    <!-- closed peaceful eyes -->
-    <path d="M74 72 Q78 68 82 72" stroke="#1C1C2E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-    <path d="M88 72 Q92 68 96 72" stroke="#1C1C2E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-    <!-- gentle smile -->
-    <path d="M76 84 Q85 91 94 84" stroke="#B8860B" stroke-width="2" stroke-linecap="round" fill="none"/>
-    <!-- third eye dot -->
-    <circle cx="85" cy="62" r="3" fill="#D4A017" style="animation:pulse 3s ease-in-out infinite"/>
-    <!-- arms resting on knees -->
-    <line x1="64" y1="120" x2="50" y2="148" stroke="#5B21B6" stroke-width="8" stroke-linecap="round"/>
-    <line x1="106" y1="120" x2="120" y2="148" stroke="#5B21B6" stroke-width="8" stroke-linecap="round"/>
-    <!-- floating om/peace symbols -->
-    <text x="135" y="55" font-size="14" opacity=".6" style="animation:float 4s ease-in-out infinite">☮</text>
-    <text x="22" y="68" font-size="12" opacity=".5" style="animation:float 5s ease-in-out infinite 1s">🧘</text>
-    <text x="140" y="110" font-size="10" opacity=".4" style="animation:float 3.5s ease-in-out infinite 0.5s">✨</text>
+  'breath-empty': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="90" r="40" stroke="rgba(148,163,184,0.5)" stroke-width="2" stroke-dasharray="6 4" fill="none"/>
+    <rect x="64" y="68" width="12" height="36" rx="4" fill="rgba(148,163,184,0.6)"/>
+    <rect x="84" y="68" width="12" height="36" rx="4" fill="rgba(148,163,184,0.6)"/>
+    <!-- lungs empty -->
+    <ellipse cx="56" cy="130" rx="10" ry="14" fill="none" stroke="rgba(148,163,184,0.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <ellipse cx="104" cy="130" rx="10" ry="14" fill="none" stroke="rgba(148,163,184,0.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="80" y="178" font-size="12" fill="rgba(148,163,184,0.9)" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">HOLD — lungs empty</text>
   </svg>`,
 
-  // ── ACUPRESSURE ──
-  acupressure: () => `<svg width="160" height="200" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- body -->
-    <ellipse cx="80" cy="128" rx="20" ry="28" fill="#92400E"/>
-    <!-- head -->
-    <circle cx="80" cy="76" r="26" fill="#FDBF7A" stroke="#E8A050" stroke-width="1.5"/>
-    <!-- acupressure point glows on face -->
-    <circle cx="80" cy="60" r="5" fill="rgba(212,160,23,.3)" style="animation:pulse 1.5s ease-in-out infinite"/>
-    <circle cx="65" cy="73" r="4" fill="rgba(212,160,23,.25)" style="animation:pulse 1.5s ease-in-out infinite 0.3s"/>
-    <circle cx="95" cy="73" r="4" fill="rgba(212,160,23,.25)" style="animation:pulse 1.5s ease-in-out infinite 0.6s"/>
-    <circle cx="80" cy="86" r="4" fill="rgba(212,160,23,.2)" style="animation:pulse 1.5s ease-in-out infinite 0.9s"/>
-    <!-- eyes -->
-    <ellipse cx="72" cy="76" rx="4" ry="4.5" fill="#1C1C2E"/>
-    <circle cx="73.5" cy="74.5" r="1.5" fill="white"/>
-    <ellipse cx="88" cy="76" rx="4" ry="4.5" fill="#1C1C2E"/>
-    <circle cx="89.5" cy="74.5" r="1.5" fill="white"/>
-    <!-- serene smile -->
-    <path d="M73 88 Q80 94 87 88" stroke="#B8860B" stroke-width="2" stroke-linecap="round" fill="none"/>
-    <!-- hands raised to face -->
-    <line x1="62" y1="116" x2="46" y2="96" stroke="#92400E" stroke-width="8" stroke-linecap="round" style="animation:handShake 2s ease-in-out infinite;transform-origin:62px 116px"/>
-    <line x1="98" y1="116" x2="114" y2="96" stroke="#92400E" stroke-width="8" stroke-linecap="round" style="animation:handShake 2s ease-in-out infinite 0.5s;transform-origin:98px 116px"/>
-    <!-- finger tips -->
-    <circle cx="44" cy="94" r="5" fill="#FDBF7A" style="animation:handShake 2s ease-in-out infinite;transform-origin:62px 116px"/>
-    <circle cx="116" cy="94" r="5" fill="#FDBF7A" style="animation:handShake 2s ease-in-out infinite 0.5s;transform-origin:98px 116px"/>
-    <!-- legs -->
-    <line x1="70" y1="154" x2="62" y2="188" stroke="#78350F" stroke-width="9" stroke-linecap="round"/>
-    <line x1="90" y1="154" x2="98" y2="188" stroke="#78350F" stroke-width="9" stroke-linecap="round"/>
+  'breath-fast': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- rapid in-out arrows -->
+    <path d="M45 60 L68 78 M115 60 L92 78" stroke="#F97316" stroke-width="3" stroke-linecap="round" marker-end="url(#arrO)"/>
+    <path d="M68 88 L45 106 M92 88 L115 106" stroke="#F97316" stroke-width="3" stroke-linecap="round" marker-end="url(#arrO)"/>
+    <path d="M55 88 L45 82 M105 88 L115 82" stroke="#F97316" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="80" cy="83" rx="16" ry="12" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none"/>
+    <!-- rapid bars -->
+    <rect x="30" y="120" width="8" height="22" rx="3" fill="#F97316" opacity="0.9"/>
+    <rect x="44" y="113" width="8" height="29" rx="3" fill="#F97316" opacity="0.8"/>
+    <rect x="58" y="118" width="8" height="24" rx="3" fill="#F97316" opacity="0.9"/>
+    <rect x="94" y="115" width="8" height="27" rx="3" fill="#F97316" opacity="0.8"/>
+    <rect x="108" y="120" width="8" height="22" rx="3" fill="#F97316" opacity="0.9"/>
+    <rect x="122" y="112" width="8" height="30" rx="3" fill="#F97316" opacity="0.8"/>
+    <defs><marker id="arrO" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="#F97316"/></marker></defs>
+    <text x="80" y="178" font-size="11" fill="#F97316" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">RAPID in-out breathing</text>
+  </svg>`,
+
+  'breath': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="90" r="50" stroke="rgba(212,160,23,0.3)" stroke-width="2" fill="rgba(212,160,23,0.05)"/>
+    <text x="80" y="82" font-size="28" text-anchor="middle">🌬️</text>
+    <text x="80" y="118" font-size="11" fill="rgba(255,255,255,0.7)" text-anchor="middle" font-family="DM Sans,sans-serif">Breathe slowly</text>
+    <text x="80" y="135" font-size="10" fill="rgba(255,255,255,0.4)" text-anchor="middle" font-family="DM Sans,sans-serif">in through nose, out mouth</text>
+    <text x="80" y="175" font-size="12" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">BREATHING</text>
+  </svg>`,
+
+  // ─── EYE diagrams ───
+  'eyes-updown': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="90" r="60" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+    <ellipse cx="80" cy="90" rx="28" ry="18" fill="white" stroke="rgba(0,0,0,0.2)" stroke-width="1"/>
+    <circle cx="80" cy="90" r="10" fill="#1C1C2E"/>
+    <circle cx="83" cy="87" r="3" fill="white"/>
+    <!-- up arrow -->
+    <path d="M80 62 L80 42" stroke="#D4A017" stroke-width="3" stroke-linecap="round" marker-end="url(#arrY)"/>
+    <!-- down arrow -->
+    <path d="M80 118 L80 138" stroke="#D4A017" stroke-width="3" stroke-linecap="round" marker-end="url(#arrY)"/>
+    <defs><marker id="arrY" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#D4A017"/></marker></defs>
+    <text x="80" y="64" font-size="9" fill="rgba(255,255,255,0.5)" text-anchor="middle" font-family="DM Sans,sans-serif">UP</text>
+    <text x="80" y="158" font-size="9" fill="rgba(255,255,255,0.5)" text-anchor="middle" font-family="DM Sans,sans-serif">DOWN</text>
+    <text x="80" y="178" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">Look UP then DOWN — slow</text>
+  </svg>`,
+
+  'eyes-leftright': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="90" r="60" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+    <ellipse cx="80" cy="90" rx="28" ry="18" fill="white" stroke="rgba(0,0,0,0.2)" stroke-width="1"/>
+    <circle cx="80" cy="90" r="10" fill="#1C1C2E"/>
+    <circle cx="83" cy="87" r="3" fill="white"/>
+    <path d="M38 90 L18 90" stroke="#D4A017" stroke-width="3" stroke-linecap="round" marker-end="url(#arrY2)"/>
+    <path d="M122 90 L142 90" stroke="#D4A017" stroke-width="3" stroke-linecap="round" marker-end="url(#arrY2)"/>
+    <defs><marker id="arrY2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#D4A017"/></marker></defs>
+    <text x="14" y="103" font-size="9" fill="rgba(255,255,255,0.5)" text-anchor="middle" font-family="DM Sans,sans-serif">L</text>
+    <text x="146" y="103" font-size="9" fill="rgba(255,255,255,0.5)" text-anchor="middle" font-family="DM Sans,sans-serif">R</text>
+    <text x="80" y="178" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">Look LEFT then RIGHT — slow</text>
+  </svg>`,
+
+  'eyes-diag1': () => GUIDE_DIAGRAMS._eyeDiag([-1,-1],[1,1],'Upper-left → lower-right'),
+  'eyes-diag2': () => GUIDE_DIAGRAMS._eyeDiag([1,-1],[-1,1],'Upper-right → lower-left'),
+
+  _eyeDiag(from, to, lbl) {
+    const x1=80+from[0]*38, y1=90+from[1]*28, x2=80+to[0]*38, y2=90+to[1]*28;
+    return `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="80" cy="90" r="60" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+      <ellipse cx="80" cy="90" rx="28" ry="18" fill="white" stroke="rgba(0,0,0,0.2)" stroke-width="1"/>
+      <circle cx="80" cy="90" r="10" fill="#1C1C2E"/>
+      <circle cx="83" cy="87" r="3" fill="white"/>
+      <path d="M${x1} ${y1} L${x2} ${y2}" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arrD)"/>
+      <circle cx="${x1}" cy="${y1}" r="4" fill="#D4A017" opacity="0.5"/>
+      <defs><marker id="arrD" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#D4A017"/></marker></defs>
+      <text x="80" y="178" font-size="10" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">${lbl}</text>
+    </svg>`;
+  },
+
+  'eyes-cw': () => GUIDE_DIAGRAMS._eyeCircle('clockwise','↻'),
+  'eyes-ccw': () => GUIDE_DIAGRAMS._eyeCircle('counter-clockwise','↺'),
+
+  _eyeCircle(dir, sym) {
+    const d = dir==='clockwise'
+      ? 'M 80 62 A 28 18 0 1 1 79.9 62'
+      : 'M 80 62 A 28 18 0 1 0 79.9 62';
+    return `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="80" cy="90" r="60" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+      <ellipse cx="80" cy="90" rx="28" ry="18" fill="white" stroke="rgba(0,0,0,0.2)" stroke-width="1"/>
+      <circle cx="80" cy="90" r="10" fill="#1C1C2E"/>
+      <circle cx="83" cy="87" r="3" fill="white"/>
+      <path d="${d}" stroke="#D4A017" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="4 3"/>
+      <text x="80" y="97" font-size="18" text-anchor="middle" fill="#D4A017">${sym}</text>
+      <text x="80" y="178" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">Rotate ${dir}</text>
+    </svg>`;
+  },
+
+  'eyes-palm': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- two palms covering face -->
+    <ellipse cx="60" cy="86" rx="26" ry="30" fill="rgba(253,191,122,0.25)" stroke="rgba(253,191,122,0.5)" stroke-width="2"/>
+    <ellipse cx="100" cy="86" rx="26" ry="30" fill="rgba(253,191,122,0.25)" stroke="rgba(253,191,122,0.5)" stroke-width="2"/>
+    <!-- fingers -->
+    <path d="M40 62 L38 46 M50 58 L48 42 M60 56 L60 40 M70 58 L72 42 M78 62 L82 46" stroke="rgba(253,191,122,0.6)" stroke-width="4" stroke-linecap="round"/>
+    <path d="M82 62 L78 46 M90 58 L88 42 M100 56 L100 40 M110 58 L112 42 M120 62 L122 46" stroke="rgba(253,191,122,0.6)" stroke-width="4" stroke-linecap="round"/>
+    <!-- closed eye hint -->
+    <path d="M50 90 Q60 96 70 90" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M90 90 Q100 96 110 90" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <text x="80" y="140" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle" font-family="DM Sans,sans-serif">Warm palms, cup over eyes</text>
+    <text x="80" y="178" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">PALMING — eyes closed</text>
+  </svg>`,
+
+  'eyes-blink': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="90" r="60" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+    <!-- left eye open -->
+    <ellipse cx="55" cy="80" rx="20" ry="13" fill="white"/>
+    <circle cx="55" cy="80" r="8" fill="#1C1C2E"/>
+    <circle cx="58" cy="77" r="2.5" fill="white"/>
+    <!-- right eye open -->
+    <ellipse cx="105" cy="80" rx="20" ry="13" fill="white"/>
+    <circle cx="105" cy="80" r="8" fill="#1C1C2E"/>
+    <circle cx="108" cy="77" r="2.5" fill="white"/>
+    <!-- eyelid arrows -->
+    <path d="M35 68 Q55 58 75 68" stroke="#D4A017" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M85 68 Q105 58 125 68" stroke="#D4A017" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M35 92 Q55 102 75 92" stroke="#D4A017" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M85 92 Q105 102 125 92" stroke="#D4A017" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <text x="80" y="130" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle" font-family="DM Sans,sans-serif">Blink fully — open and close</text>
+    <text x="80" y="178" font-size="12" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">BLINK — complete blinks</text>
+  </svg>`,
+
+  'eyes-wide': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="90" r="60" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+    <ellipse cx="55" cy="80" rx="22" ry="17" fill="white"/>
+    <circle cx="55" cy="80" r="10" fill="#1C1C2E"/>
+    <circle cx="59" cy="76" r="3" fill="white"/>
+    <ellipse cx="105" cy="80" rx="22" ry="17" fill="white"/>
+    <circle cx="105" cy="80" r="10" fill="#1C1C2E"/>
+    <circle cx="109" cy="76" r="3" fill="white"/>
+    <!-- outward stretch arrows -->
+    <path d="M33 63 L16 48" stroke="#D4A017" stroke-width="2" marker-end="url(#arrWE)"/>
+    <path d="M77 63 L94 48" stroke="#D4A017" stroke-width="2" marker-end="url(#arrWE)"/>
+    <path d="M83 63 L66 48" stroke="#D4A017" stroke-width="2" marker-end="url(#arrWE)"/>
+    <path d="M127 63 L144 48" stroke="#D4A017" stroke-width="2" marker-end="url(#arrWE)"/>
+    <defs><marker id="arrWE" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="#D4A017"/></marker></defs>
+    <text x="80" y="128" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle" font-family="DM Sans,sans-serif">Open as WIDE as possible</text>
+    <text x="80" y="178" font-size="12" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">WIDE-EYES — hold 10 sec</text>
+  </svg>`,
+
+  'eyes-center': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="90" r="60" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+    <ellipse cx="80" cy="90" rx="28" ry="18" fill="white"/>
+    <circle cx="80" cy="90" r="10" fill="#1C1C2E"/>
+    <circle cx="83" cy="87" r="3" fill="white"/>
+    <text x="80" y="140" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle" font-family="DM Sans,sans-serif">Head still — eyes move</text>
+    <text x="80" y="178" font-size="12" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">EYES — follow the guide</text>
+  </svg>`,
+
+  'eyes-far': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="80" cy="90" rx="28" ry="18" fill="white" stroke="rgba(0,0,0,0.1)"/>
+    <circle cx="80" cy="90" r="10" fill="#1C1C2E"/>
+    <circle cx="83" cy="87" r="3" fill="white"/>
+    <!-- long arrow pointing far away -->
+    <path d="M108 90 L148 90" stroke="#D4A017" stroke-width="3" stroke-linecap="round" marker-end="url(#arrFar)"/>
+    <text x="154" y="82" font-size="10" fill="rgba(255,255,255,0.4)" font-family="DM Sans,sans-serif">20 ft</text>
+    <defs><marker id="arrFar" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#D4A017"/></marker></defs>
+    <text x="80" y="130" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle" font-family="DM Sans,sans-serif">Fix gaze on distant object</text>
+    <text x="80" y="178" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">LOOK FAR — 20+ feet away</text>
+  </svg>`,
+
+  'eyes-near': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="80" cy="90" rx="28" ry="18" fill="white" stroke="rgba(0,0,0,0.1)"/>
+    <circle cx="80" cy="90" r="10" fill="#1C1C2E"/>
+    <circle cx="83" cy="87" r="3" fill="white"/>
+    <path d="M52 90 L28 90" stroke="#6CB4FF" stroke-width="3" stroke-linecap="round" marker-end="url(#arrNr)"/>
+    <rect x="14" y="80" width="14" height="18" rx="3" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <defs><marker id="arrNr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#6CB4FF"/></marker></defs>
+    <text x="80" y="130" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle" font-family="DM Sans,sans-serif">Focus on finger or close object</text>
+    <text x="80" y="178" font-size="11" fill="#6CB4FF" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">LOOK NEAR — 30 cm</text>
+  </svg>`,
+
+  // ─── NOSTRIL ───
+  'nostril-left': () => GUIDE_DIAGRAMS._nostril('left','Close RIGHT thumb → inhale LEFT'),
+  'nostril-right': () => GUIDE_DIAGRAMS._nostril('right','Close LEFT finger → exhale RIGHT'),
+  'nostril-right-in': () => GUIDE_DIAGRAMS._nostril('right','Inhale RIGHT nostril'),
+  'nostril-left-out': () => GUIDE_DIAGRAMS._nostril('left','Exhale LEFT nostril'),
+  'nostril-hold': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- nose closeup -->
+    <path d="M64 50 Q60 80 52 96 Q80 105 108 96 Q100 80 96 50" stroke="rgba(255,255,255,0.4)" stroke-width="2.5" fill="rgba(255,255,255,0.06)" stroke-linecap="round"/>
+    <!-- both sides blocked -->
+    <rect x="40" y="86" width="22" height="12" rx="6" fill="#D4A017" opacity="0.8"/>
+    <rect x="98" y="86" width="22" height="12" rx="6" fill="#D4A017" opacity="0.8"/>
+    <!-- pause symbol -->
+    <rect x="68" y="60" width="8" height="20" rx="3" fill="#22C55E"/>
+    <rect x="84" y="60" width="8" height="20" rx="3" fill="#22C55E"/>
+    <text x="80" y="140" font-size="11" fill="#22C55E" text-anchor="middle" font-family="DM Sans,sans-serif">Close BOTH nostrils — hold</text>
+    <text x="80" y="178" font-size="11" fill="#22C55E" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">HOLD — both closed</text>
+  </svg>`,
+
+  _nostril(open, lbl) {
+    const leftOpen = open === 'left';
+    const leftColor  = leftOpen  ? '#D4A017' : 'rgba(255,255,255,0.2)';
+    const rightColor = !leftOpen ? '#D4A017' : 'rgba(255,255,255,0.2)';
+    const blockSide  = leftOpen ? 'right' : 'left';
+    const bx = leftOpen ? 98 : 40;
+    return `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M64 50 Q60 80 52 96 Q80 105 108 96 Q100 80 96 50" stroke="rgba(255,255,255,0.35)" stroke-width="2.5" fill="rgba(255,255,255,0.05)" stroke-linecap="round"/>
+      <!-- open nostril glow -->
+      <ellipse cx="${leftOpen?55:105}" cy="92" rx="10" ry="8" fill="${leftOpen?leftColor:rightColor}" opacity="0.4"/>
+      <!-- closed nostril (thumb shown) -->
+      <rect x="${bx}" y="86" width="22" height="12" rx="6" fill="rgba(253,191,122,0.5)" stroke="rgba(253,191,122,0.7)" stroke-width="1.5"/>
+      <text x="${bx+11}" y="95" font-size="9" fill="white" text-anchor="middle" font-family="DM Sans,sans-serif">thumb</text>
+      <!-- flow arrow on open side -->
+      <path d="M${leftOpen?36:120} 78 L${leftOpen?50:106} 90" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arrN)"/>
+      <defs><marker id="arrN" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="#D4A017"/></marker></defs>
+      <text x="80" y="178" font-size="10" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">${lbl}</text>
+    </svg>`;
+  },
+
+  // ─── NECK / SHOULDER ───
+  'neck-left': () => GUIDE_DIAGRAMS._neckTilt('left'),
+  'neck-right': () => GUIDE_DIAGRAMS._neckTilt('right'),
+
+  _neckTilt(dir) {
+    const tiltX = dir==='left' ? -22 : 22;
+    return `<svg width="160" height="220" viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- shoulders -->
+      <rect x="30" y="120" width="100" height="40" rx="20" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+      <!-- neck -->
+      <rect x="68" y="92" width="24" height="32" rx="8" fill="rgba(255,255,255,0.12)" stroke="rgba(212,160,23,0.5)" stroke-width="2"/>
+      <!-- head tilted -->
+      <circle cx="${80+tiltX}" cy="${68+Math.abs(tiltX)*0.2}" r="26" fill="rgba(253,191,122,0.2)" stroke="#D4A017" stroke-width="2"/>
+      <!-- tilt arrow -->
+      <path d="M80 62 L${80+tiltX} ${40+Math.abs(tiltX)*0.3}" stroke="#D4A017" stroke-width="3" stroke-linecap="round" marker-end="url(#arrNT)"/>
+      <defs><marker id="arrNT" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#D4A017"/></marker></defs>
+      <text x="${80+tiltX}" y="${40+Math.abs(tiltX)*0.3-8}" font-size="10" fill="rgba(255,255,255,0.5)" text-anchor="middle" font-family="DM Sans,sans-serif">ear→shoulder</text>
+      <text x="80" y="210" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">Tilt head ${dir} — hold 25s</text>
+    </svg>`;
+  },
+
+  'neck-chin': () => `<svg width="160" height="220" viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="30" y="120" width="100" height="40" rx="20" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <rect x="68" y="92" width="24" height="32" rx="8" fill="rgba(255,255,255,0.12)" stroke="rgba(212,160,23,0.5)" stroke-width="2"/>
+    <!-- head chin-dropped -->
+    <circle cx="80" cy="82" r="26" fill="rgba(253,191,122,0.2)" stroke="#D4A017" stroke-width="2"/>
+    <path d="M80 94 L80 112" stroke="#D4A017" stroke-width="3" stroke-linecap="round" marker-end="url(#arrChin)"/>
+    <text x="80" y="78" font-size="9" fill="rgba(255,255,255,0.5)" text-anchor="middle" font-family="DM Sans,sans-serif">chin drops</text>
+    <defs><marker id="arrChin" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#D4A017"/></marker></defs>
+    <text x="80" y="210" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">Chin to chest — hold 25s</text>
+  </svg>`,
+
+  'shoulder-rolls': () => `<svg width="160" height="220" viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="60" r="22" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <!-- shoulders -->
+    <rect x="30" y="108" width="100" height="36" rx="18" fill="rgba(212,160,23,0.15)" stroke="#D4A017" stroke-width="2"/>
+    <!-- circular arrows on shoulders -->
+    <path d="M50 100 A 18 18 0 1 1 50.1 100" stroke="#D4A017" stroke-width="2.5" fill="none" stroke-dasharray="5 3"/>
+    <path d="M110 100 A 18 18 0 1 0 110.1 100" stroke="#D4A017" stroke-width="2.5" fill="none" stroke-dasharray="5 3"/>
+    <text x="50" y="100" font-size="14" text-anchor="middle" fill="#D4A017">↻</text>
+    <text x="110" y="100" font-size="14" text-anchor="middle" fill="#D4A017">↺</text>
+    <text x="80" y="210" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">Roll shoulders — 5× each way</text>
+  </svg>`,
+
+  'neck-rotate': () => `<svg width="160" height="220" viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="30" y="118" width="100" height="36" rx="18" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <rect x="68" y="92" width="24" height="30" rx="8" fill="rgba(255,255,255,0.1)" stroke="rgba(212,160,23,0.4)" stroke-width="1.5"/>
+    <circle cx="80" cy="68" r="26" fill="rgba(253,191,122,0.15)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <!-- rotation arrows at head level -->
+    <path d="M50 55 Q55 38 80 35 Q105 38 110 55" stroke="#D4A017" stroke-width="2.5" fill="none" stroke-linecap="round" marker-end="url(#arrR)"/>
+    <text x="30" y="72" font-size="10" fill="rgba(255,255,255,0.5)" font-family="DM Sans,sans-serif">L</text>
+    <text x="124" y="72" font-size="10" fill="rgba(255,255,255,0.5)" font-family="DM Sans,sans-serif">R</text>
+    <defs><marker id="arrR" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#D4A017"/></marker></defs>
+    <text x="80" y="210" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">Turn head L and R — 5×</text>
+  </svg>`,
+
+  'chest-open': () => GUIDE_DIAGRAMS._body(['chest','arms'], 'CHEST OPEN — hands behind head',
+    ['<path d="M50 90 L28 72 M110 90 L132 72" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arrCO)"/>',
+     '<defs><marker id="arrCO" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="#D4A017"/></marker></defs>']),
+
+  // ─── BODY MOVEMENTS ───
+  'reach-up': () => GUIDE_DIAGRAMS._body(['arms','chest'], 'Reach arms overhead — stretch tall',
+    ['<path d="M42 76 L28 46 M118 76 L132 46" stroke="#D4A017" stroke-width="3" stroke-linecap="round" marker-end="url(#arrRU)"/>',
+     '<defs><marker id="arrRU" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0 0 L7 3 L0 7 Z" fill="#D4A017"/></marker></defs>']),
+
+  'squats': () => `<svg width="160" height="220" viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- person in squat position -->
+    <circle cx="80" cy="40" r="20" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <!-- torso leaning forward -->
+    <path d="M80 60 L75 95" stroke="rgba(255,255,255,0.2)" stroke-width="10" stroke-linecap="round"/>
+    <!-- thighs parallel to ground -->
+    <path d="M75 95 L42 105 M75 95 L108 105" stroke="#D4A017" stroke-width="8" stroke-linecap="round"/>
+    <!-- calves downward -->
+    <path d="M42 105 L44 140 M108 105 L106 140" stroke="rgba(255,255,255,0.3)" stroke-width="8" stroke-linecap="round"/>
+    <!-- feet -->
+    <ellipse cx="44" cy="143" rx="10" ry="5" fill="rgba(255,255,255,0.2)"/>
+    <ellipse cx="106" cy="143" rx="10" ry="5" fill="rgba(255,255,255,0.2)"/>
+    <!-- arms forward for balance -->
+    <path d="M68 78 L42 100 M82 78 L108 100" stroke="rgba(212,160,23,0.5)" stroke-width="6" stroke-linecap="round"/>
+    <!-- down arrow -->
+    <path d="M80 160 L80 180" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arrSQ)"/>
+    <defs><marker id="arrSQ" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0 0 L7 3 L0 7 Z" fill="#D4A017"/></marker></defs>
+    <text x="80" y="210" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">SQUAT — chest up, knees out</text>
+  </svg>`,
+
+  'calf-raise': () => `<svg width="160" height="220" viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+    ${GUIDE_DIAGRAMS._bodyBase()}
+    <!-- up arrows at feet -->
+    <path d="M65 198 L65 178 M95 198 L95 178" stroke="#D4A017" stroke-width="3" stroke-linecap="round" marker-end="url(#arrCR)"/>
+    <!-- highlight calves/feet -->
+    <rect x="54" y="170" width="22" height="30" rx="8" fill="rgba(212,160,23,0.3)" stroke="#D4A017" stroke-width="2"/>
+    <rect x="84" y="170" width="22" height="30" rx="8" fill="rgba(212,160,23,0.3)" stroke="#D4A017" stroke-width="2"/>
+    <defs><marker id="arrCR" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0 0 L7 3 L0 7 Z" fill="#D4A017"/></marker></defs>
+    <text x="80" y="218" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">RISE onto toes — 20 reps</text>
+  </svg>`,
+
+  _bodyBase: () => `
+    <circle cx="80" cy="38" r="20" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <rect x="60" y="57" width="40" height="46" rx="8" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <rect x="34" y="60" width="24" height="44" rx="10" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" transform="rotate(-3 34 60)"/>
+    <rect x="102" y="60" width="24" height="44" rx="10" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" transform="rotate(3 126 60)"/>
+    <rect x="60" y="101" width="18" height="48" rx="8" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+    <rect x="82" y="101" width="18" height="48" rx="8" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+  `,
+
+  'march': () => `<svg width="160" height="220" viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="35" r="20" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <rect x="62" y="54" width="36" height="44" rx="8" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+    <!-- right knee raised -->
+    <path d="M80 98 L94 140" stroke="rgba(255,255,255,0.15)" stroke-width="10" stroke-linecap="round"/>
+    <!-- left leg down -->
+    <path d="M68 98 L58 170" stroke="rgba(255,255,255,0.15)" stroke-width="10" stroke-linecap="round"/>
+    <!-- right knee UP highlighted -->
+    <path d="M94 118 L106 100" stroke="#D4A017" stroke-width="9" stroke-linecap="round"/>
+    <!-- knee arrow -->
+    <path d="M106 100 L110 82" stroke="#D4A017" stroke-width="3" stroke-linecap="round" marker-end="url(#arrMa)"/>
+    <!-- left arm swings forward (opposite to right leg) -->
+    <path d="M62 68 L38 56" stroke="rgba(212,160,23,0.6)" stroke-width="7" stroke-linecap="round"/>
+    <!-- right arm swings back -->
+    <path d="M98 68 L118 80" stroke="rgba(212,160,23,0.4)" stroke-width="7" stroke-linecap="round"/>
+    <defs><marker id="arrMa" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0 0 L7 3 L0 7 Z" fill="#D4A017"/></marker></defs>
+    <text x="80" y="210" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">MARCH — arms pumping</text>
+  </svg>`,
+
+  'high-knees': () => `<svg width="160" height="220" viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="35" r="20" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <rect x="62" y="54" width="36" height="44" rx="8" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+    <!-- knee raised to waist height (highlighted) -->
+    <path d="M68 98 L58 170" stroke="rgba(255,255,255,0.12)" stroke-width="10" stroke-linecap="round"/>
+    <path d="M80 98 L98 98 L98 128" stroke="#D4A017" stroke-width="9" stroke-linecap="round"/>
+    <path d="M98 98 L110 78" stroke="#D4A017" stroke-width="3" stroke-linecap="round" marker-end="url(#arrHK)"/>
+    <!-- waist level dashed line -->
+    <path d="M20 98 L140 98" stroke="rgba(212,160,23,0.3)" stroke-width="1" stroke-dasharray="5 4"/>
+    <text x="15" y="95" font-size="8" fill="rgba(212,160,23,0.6)" font-family="DM Sans,sans-serif">waist</text>
+    <defs><marker id="arrHK" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0 0 L7 3 L0 7 Z" fill="#D4A017"/></marker></defs>
+    <text x="80" y="210" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">HIGH KNEES — waist height</text>
+  </svg>`,
+
+  'jumping-jacks': () => GUIDE_DIAGRAMS._body(['arms','legs'], 'JUMPING JACKS — arms + legs wide',
+    ['<path d="M42 76 L22 52 M118 76 L138 52" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arrJJ)"/>',
+     '<path d="M60 192 L42 210 M100 192 L118 210" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arrJJ)"/>',
+     '<defs><marker id="arrJJ" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0 0 L7 3 L0 7 Z" fill="#D4A017"/></marker></defs>']),
+
+  'arm-circles': () => `<svg width="160" height="220" viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="38" r="20" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <rect x="62" y="56" width="36" height="44" rx="8" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+    <rect x="62" y="98" width="16" height="44" rx="8" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+    <rect x="82" y="98" width="16" height="44" rx="8" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+    <!-- arm circles -->
+    <path d="M40 75 A 28 28 0 1 1 40.1 75" stroke="#D4A017" stroke-width="2.5" fill="none" stroke-dasharray="6 3"/>
+    <path d="M120 75 A 28 28 0 1 0 120.1 75" stroke="#D4A017" stroke-width="2.5" fill="none" stroke-dasharray="6 3"/>
+    <text x="40" y="72" font-size="14" text-anchor="middle" fill="#D4A017">↻</text>
+    <text x="120" y="72" font-size="14" text-anchor="middle" fill="#D4A017">↺</text>
+    <text x="80" y="210" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">Arm CIRCLES — big slow loops</text>
+  </svg>`,
+
+  'hip-circles': () => GUIDE_DIAGRAMS._body(['belly'], 'HIP CIRCLES — 5 each direction',
+    ['<path d="M80 140 A 22 14 0 1 1 80.1 140" stroke="#D4A017" stroke-width="2.5" fill="none" stroke-dasharray="5 3"/>',
+     '<text x="80" y="143" font-size="13" text-anchor="middle" fill="#D4A017">↻</text>']),
+
+  'shake-out': () => GUIDE_DIAGRAMS._body(['arms','hands','legs'], 'Shake hands + roll shoulders',
+    ['<path d="M38 105 L24 100 M38 115 L22 110 M38 125 L24 120" stroke="#D4A017" stroke-width="2" stroke-linecap="round"/>',
+     '<path d="M122 105 L136 100 M122 115 L138 110 M122 125 L136 120" stroke="#D4A017" stroke-width="2" stroke-linecap="round"/>']),
+
+  // ─── ACUPRESSURE ───
+  'acu-brow': () => GUIDE_DIAGRAMS._faceDot([80,54],'Between eyebrows — press & circle'),
+  'acu-temples': () => GUIDE_DIAGRAMS._faceDot2([38,80],[122,80],'Both temples — small circles'),
+  'acu-nose': () => GUIDE_DIAGRAMS._faceDot([80,102],'Below nose, above lip — press firm'),
+  'acu-ears': () => GUIDE_DIAGRAMS._faceDot2([32,114],[128,114],'Earlobes — squeeze gently'),
+  'tap-scalp': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="80" r="62" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+    <!-- tap dots on scalp -->
+    <circle cx="80" cy="24" r="5" fill="#D4A017" opacity="0.8"/>
+    <circle cx="56" cy="32" r="4" fill="#D4A017" opacity="0.7"/>
+    <circle cx="104" cy="32" r="4" fill="#D4A017" opacity="0.7"/>
+    <circle cx="40" cy="52" r="4" fill="#D4A017" opacity="0.6"/>
+    <circle cx="120" cy="52" r="4" fill="#D4A017" opacity="0.6"/>
+    <!-- fingers tapping -->
+    <path d="M72 16 L72 8 M80 14 L80 4 M88 16 L88 8" stroke="rgba(253,191,122,0.7)" stroke-width="3" stroke-linecap="round"/>
+    <text x="80" y="140" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle" font-family="DM Sans,sans-serif">10 fingertips — firm taps</text>
+    <text x="80" y="178" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">TAP scalp all over</text>
+  </svg>`,
+
+  'acu-hand': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- hand outline -->
+    <path d="M60 140 L60 70 Q60 60 68 60 Q76 60 76 70 L76 90 Q76 80 84 80 Q92 80 92 90 L92 88 Q92 78 100 78 Q108 78 108 88 L108 92 Q108 84 114 84 Q120 84 120 92 L120 130 Q120 155 100 160 L70 160 Q55 160 55 145 Z" fill="rgba(253,191,122,0.15)" stroke="rgba(253,191,122,0.5)" stroke-width="2"/>
+    <!-- web point (between thumb and index) highlighted -->
+    <ellipse cx="78" cy="106" rx="12" ry="10" fill="rgba(212,160,23,0.4)" stroke="#D4A017" stroke-width="2"/>
+    <circle cx="78" cy="106" r="5" fill="#D4A017"/>
+    <!-- press arrow -->
+    <path d="M52 96 L68 104" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arrH)"/>
+    <text x="42" y="88" font-size="9" fill="#D4A017" font-family="DM Sans,sans-serif">press</text>
+    <defs><marker id="arrH" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="#D4A017"/></marker></defs>
+    <text x="80" y="178" font-size="10" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">Thumb-index WEB — press firm</text>
+  </svg>`,
+
+  _faceDot([px,py], lbl) {
+    return `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="80" cy="80" r="62" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+      <circle cx="${px}" cy="${py}" r="8" fill="rgba(212,160,23,0.4)" stroke="#D4A017" stroke-width="2.5"/>
+      <circle cx="${px}" cy="${py}" r="3" fill="#D4A017"/>
+      <path d="M${px-16} ${py-16} L${px-8} ${py-6}" stroke="#D4A017" stroke-width="2" stroke-linecap="round" marker-end="url(#arrFD)"/>
+      <defs><marker id="arrFD" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="#D4A017"/></marker></defs>
+      <text x="80" y="162" font-size="10" fill="rgba(255,255,255,0.7)" text-anchor="middle" font-family="DM Sans,sans-serif">${lbl}</text>
+      <text x="80" y="178" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">PRESS — firm circular rub</text>
+    </svg>`;
+  },
+
+  _faceDot2([lx,ly],[rx,ry], lbl) {
+    return `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="80" cy="80" r="62" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+      <circle cx="${lx}" cy="${ly}" r="8" fill="rgba(212,160,23,0.35)" stroke="#D4A017" stroke-width="2"/>
+      <circle cx="${lx}" cy="${ly}" r="3" fill="#D4A017"/>
+      <circle cx="${rx}" cy="${ry}" r="8" fill="rgba(212,160,23,0.35)" stroke="#D4A017" stroke-width="2"/>
+      <circle cx="${rx}" cy="${ry}" r="3" fill="#D4A017"/>
+      <!-- rotation arrows at both points -->
+      <path d="M${lx-4} ${ly-10} A 8 8 0 1 1 ${lx+4} ${ly-10}" stroke="#D4A017" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M${rx-4} ${ry-10} A 8 8 0 1 0 ${rx+4} ${ry-10}" stroke="#D4A017" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <text x="80" y="162" font-size="10" fill="rgba(255,255,255,0.7)" text-anchor="middle" font-family="DM Sans,sans-serif">${lbl}</text>
+      <text x="80" y="178" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">BOTH sides simultaneously</text>
+    </svg>`;
+  },
+
+  // ─── WATER / FACE ───
+  'water-wrist': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- wrist under tap -->
+    <path d="M60 60 Q80 40 100 60" stroke="rgba(100,200,255,0.4)" stroke-width="2" fill="none"/>
+    <!-- water drops -->
+    <path d="M68 62 L66 90 M78 58 L76 92 M88 62 L86 90 M98 62 L96 90" stroke="#6CB4FF" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 5"/>
+    <!-- wrist -->
+    <ellipse cx="80" cy="115" rx="22" ry="10" fill="rgba(253,191,122,0.2)" stroke="rgba(253,191,122,0.5)" stroke-width="2"/>
+    <rect x="58" y="114" width="44" height="30" rx="10" fill="rgba(253,191,122,0.15)" stroke="rgba(253,191,122,0.4)" stroke-width="1.5"/>
+    <!-- cold indicator -->
+    <text x="112" y="75" font-size="16" text-anchor="middle">🧊</text>
+    <text x="80" y="178" font-size="11" fill="#6CB4FF" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">COLD water on both wrists</text>
+  </svg>`,
+
+  'water-face': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="90" r="56" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+    <!-- water splash drops from top -->
+    <path d="M50 28 L48 48 M62 22 L60 46 M78 18 L76 44 M94 22 L92 46 M108 28 L106 48"
+      stroke="#6CB4FF" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 4"/>
+    <!-- hands cupped -->
+    <path d="M30 75 Q50 80 50 90 Q50 100 36 108" stroke="rgba(253,191,122,0.5)" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <path d="M130 75 Q110 80 110 90 Q110 100 124 108" stroke="rgba(253,191,122,0.5)" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <text x="80" y="178" font-size="11" fill="#6CB4FF" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">SPLASH cold water on face</text>
+  </svg>`,
+
+  'water-ears': () => GUIDE_DIAGRAMS._faceDot2([26,88],[134,88],'Cold water behind both ears'),
+
+  'tap-face': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="80" r="62" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+    <!-- tap dots on cheeks and forehead -->
+    <circle cx="48" cy="76" r="5" fill="#D4A017" opacity="0.7"/>
+    <circle cx="58" cy="60" r="4" fill="#D4A017" opacity="0.6"/>
+    <circle cx="80" cy="36" r="5" fill="#D4A017" opacity="0.8"/>
+    <circle cx="102" cy="60" r="4" fill="#D4A017" opacity="0.6"/>
+    <circle cx="112" cy="76" r="5" fill="#D4A017" opacity="0.7"/>
+    <circle cx="65" cy="90" r="4" fill="#D4A017" opacity="0.6"/>
+    <circle cx="95" cy="90" r="4" fill="#D4A017" opacity="0.6"/>
+    <!-- fingertip hint arrows -->
+    <path d="M40 58 L46 70 M80 22 L80 30 M120 58 L114 70" stroke="rgba(212,160,23,0.5)" stroke-width="2" stroke-linecap="round" marker-end="url(#arrTF)"/>
+    <defs><marker id="arrTF" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="#D4A017"/></marker></defs>
+    <text x="80" y="148" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle" font-family="DM Sans,sans-serif">Fingertips tap cheeks + forehead</text>
+    <text x="80" y="178" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">TAP face firmly</text>
+  </svg>`,
+
+  'rub-forehead': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="80" r="62" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+    <!-- forehead zone highlighted -->
+    <path d="M42 50 Q80 30 118 50 L118 70 Q80 58 42 70 Z" fill="rgba(212,160,23,0.2)" stroke="#D4A017" stroke-width="1.5"/>
+    <!-- up-down arrows on forehead -->
+    <path d="M60 40 L60 68 M80 34 L80 64 M100 40 L100 68" stroke="#D4A017" stroke-width="2" stroke-linecap="round" marker-end="url(#arrRF)"/>
+    <defs><marker id="arrRF" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" fill="#D4A017"/></marker></defs>
+    <text x="80" y="148" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle" font-family="DM Sans,sans-serif">Both palms — up and down rub</text>
+    <text x="80" y="178" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">RUB forehead firmly</text>
+  </svg>`,
+
+  'tap-full': () => GUIDE_DIAGRAMS._body(['head','arms','legs'], 'TAP full body — rapid finger taps',
+    ['<text x="42" y="55" font-size="12" fill="#D4A017">●</text>',
+     '<text x="28" y="100" font-size="12" fill="#D4A017">●</text>',
+     '<text x="118" y="100" font-size="12" fill="#D4A017">●</text>',
+     '<text x="60" y="175" font-size="12" fill="#D4A017">●</text>',
+     '<text x="92" y="175" font-size="12" fill="#D4A017">●</text>']),
+
+  // ─── CROSS-CRAWL / BRAIN ───
+  'cross-crawl': () => `<svg width="160" height="220" viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="35" r="20" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <rect x="62" y="54" width="36" height="44" rx="8" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+    <!-- right knee raised left -->
+    <path d="M80 98 L100 98 L100 130" stroke="rgba(255,255,255,0.15)" stroke-width="9" stroke-linecap="round"/>
+    <!-- left leg down -->
+    <path d="M68 98 L58 170" stroke="rgba(255,255,255,0.12)" stroke-width="9" stroke-linecap="round"/>
+    <!-- LEFT elbow crossing to meet RIGHT knee — highlighted cross -->
+    <path d="M62 68 L100 100" stroke="#D4A017" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="none"/>
+    <circle cx="100" cy="100" r="8" fill="rgba(212,160,23,0.3)" stroke="#D4A017" stroke-width="2"/>
+    <!-- cross symbol label -->
+    <text x="80" y="80" font-size="11" fill="#D4A017" text-anchor="middle" opacity="0.8" font-family="DM Sans,sans-serif">cross</text>
+    <text x="80" y="210" font-size="10" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">Left elbow → Right knee (alternate)</text>
+  </svg>`,
+
+  'fig8-right': () => GUIDE_DIAGRAMS._fig8('right'),
+  'fig8-left':  () => GUIDE_DIAGRAMS._fig8('left'),
+
+  _fig8(hand) {
+    const color = '#D4A017';
+    const isRight = hand === 'right';
+    return `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- figure 8 / infinity path -->
+      <path d="M80 95 C80 65 118 65 118 95 C118 125 80 125 80 95 C80 65 42 65 42 95 C42 125 80 125 80 95" stroke="${color}" stroke-width="2.5" fill="none" stroke-dasharray="6 3"/>
+      <!-- direction arrows on the path -->
+      <path d="M80 68 L82 66" stroke="${color}" stroke-width="2.5" marker-end="url(#arrF8)"/>
+      <path d="M118 95 L120 97" stroke="${color}" stroke-width="2.5" marker-end="url(#arrF8)"/>
+      <!-- hand indicator -->
+      <text x="${isRight?110:50}" y="155" font-size="10" fill="rgba(255,255,255,0.5)" text-anchor="middle" font-family="DM Sans,sans-serif">${isRight?'RIGHT':'LEFT'} hand</text>
+      <text x="80" y="40" font-size="11" fill="rgba(255,255,255,0.5)" text-anchor="middle" font-family="DM Sans,sans-serif">trace ∞ in the air</text>
+      <text x="80" y="28" font-size="18" text-anchor="middle">∞</text>
+      <defs><marker id="arrF8" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0 0 L7 3 L0 7 Z" fill="${color}"/></marker></defs>
+      <text x="80" y="178" font-size="11" fill="${color}" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">${isRight?'RIGHT':'LEFT'} hand traces figure-8</text>
+    </svg>`;
+  },
+
+  'hook-ups': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- crossed ankles icon -->
+    <text x="80" y="52" font-size="12" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="DM Sans,sans-serif">Cross ankles</text>
+    <ellipse cx="64" cy="78" rx="14" ry="8" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" transform="rotate(-20 64 78)"/>
+    <ellipse cx="96" cy="72" rx="14" ry="8" fill="rgba(255,255,255,0.15)" stroke="#D4A017" stroke-width="1.5" transform="rotate(20 96 72)"/>
+    <!-- crossed wrists / clasped hands icon -->
+    <text x="80" y="118" font-size="12" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="DM Sans,sans-serif">Cross wrists, clasp</text>
+    <ellipse cx="66" cy="140" rx="14" ry="9" fill="rgba(253,191,122,0.2)" stroke="rgba(253,191,122,0.5)" stroke-width="1.5" transform="rotate(-15 66 140)"/>
+    <ellipse cx="94" cy="134" rx="14" ry="9" fill="rgba(253,191,122,0.2)" stroke="#D4A017" stroke-width="1.5" transform="rotate(15 94 134)"/>
+    <!-- breathe hint -->
+    <text x="80" y="170" font-size="11" fill="rgba(255,255,255,0.5)" text-anchor="middle" font-family="DM Sans,sans-serif">Breathe slowly — 60 sec</text>
+    <text x="80" y="184" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">HOOK-UPS — sit and breathe</text>
+  </svg>`,
+
+  // ─── BODY SCAN / PMR ───
+  'scan-feet': () => GUIDE_DIAGRAMS._bodyScan(['legs'], 'Focus attention on FEET & LEGS'),
+  'scan-chest': () => GUIDE_DIAGRAMS._bodyScan(['chest','belly'], 'Move attention to CHEST'),
+  'scan-arms': () => GUIDE_DIAGRAMS._bodyScan(['arms','hands'], 'Move attention to ARMS & HANDS'),
+  'scan-head': () => GUIDE_DIAGRAMS._bodyScan(['head','neck'], 'Move attention to HEAD & FACE'),
+  'tense-feet': () => GUIDE_DIAGRAMS._pmr(['legs'], 'TENSE feet & calves 5s → release'),
+  'tense-thighs': () => GUIDE_DIAGRAMS._pmr(['legs'], 'TENSE thighs 5s → release'),
+  'tense-abs': () => GUIDE_DIAGRAMS._pmr(['belly'], 'TENSE stomach 5s → release'),
+  'tense-arms': () => GUIDE_DIAGRAMS._pmr(['arms','hands'], 'CLENCH fists & flex arms 5s → release'),
+  'tense-face': () => GUIDE_DIAGRAMS._pmr(['head'], 'SQUINT eyes, clench jaw 5s → release'),
+
+  _bodyScan(zones, lbl) {
+    const hz = new Set(zones);
+    const hl = z => hz.has(z) ? 'rgba(212,160,23,0.35)' : 'rgba(255,255,255,0.07)';
+    const hlS = z => hz.has(z) ? '#D4A017' : 'rgba(255,255,255,0.08)';
+    return `<svg width="160" height="220" viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="80" cy="38" r="20" fill="${hl('head')}" stroke="${hlS('head')}" stroke-width="2"/>
+      <rect x="68" y="57" width="24" height="14" rx="4" fill="${hl('neck')}" stroke="${hlS('neck')}" stroke-width="1.5"/>
+      <rect x="55" y="70" width="50" height="42" rx="8" fill="${hl('chest')}" stroke="${hlS('chest')}" stroke-width="1.5"/>
+      <rect x="55" y="110" width="50" height="28" rx="6" fill="${hl('belly')}" stroke="${hlS('belly')}" stroke-width="1.5"/>
+      <rect x="34" y="72" width="20" height="46" rx="8" fill="${hl('arms')}" stroke="${hlS('arms')}" stroke-width="1.5"/>
+      <rect x="106" y="72" width="20" height="46" rx="8" fill="${hl('arms')}" stroke="${hlS('arms')}" stroke-width="1.5"/>
+      <ellipse cx="44" cy="124" rx="10" ry="7" fill="${hl('hands')}" stroke="${hlS('hands')}" stroke-width="1.5"/>
+      <ellipse cx="116" cy="124" rx="10" ry="7" fill="${hl('hands')}" stroke="${hlS('hands')}" stroke-width="1.5"/>
+      <rect x="56" y="137" width="20" height="48" rx="8" fill="${hl('legs')}" stroke="${hlS('legs')}" stroke-width="1.5"/>
+      <rect x="84" y="137" width="20" height="48" rx="8" fill="${hl('legs')}" stroke="${hlS('legs')}" stroke-width="1.5"/>
+      <text x="80" y="205" font-size="10" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">${lbl}</text>
+    </svg>`;
+  },
+
+  _pmr(zones, lbl) {
+    const hz = new Set(zones);
+    const hl = z => hz.has(z) ? 'rgba(239,68,68,0.3)' : 'rgba(255,255,255,0.07)';
+    const hlS = z => hz.has(z) ? '#EF4444' : 'rgba(255,255,255,0.08)';
+    return `<svg width="160" height="220" viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="80" cy="38" r="20" fill="${hl('head')}" stroke="${hlS('head')}" stroke-width="2"/>
+      <rect x="68" y="57" width="24" height="14" rx="4" fill="${hl('neck')}" stroke="${hlS('neck')}" stroke-width="1.5"/>
+      <rect x="55" y="70" width="50" height="42" rx="8" fill="${hl('chest')}" stroke="${hlS('chest')}" stroke-width="1.5"/>
+      <rect x="55" y="110" width="50" height="28" rx="6" fill="${hl('belly')}" stroke="${hlS('belly')}" stroke-width="1.5"/>
+      <rect x="34" y="72" width="20" height="46" rx="8" fill="${hl('arms')}" stroke="${hlS('arms')}" stroke-width="1.5"/>
+      <rect x="106" y="72" width="20" height="46" rx="8" fill="${hl('arms')}" stroke="${hlS('arms')}" stroke-width="1.5"/>
+      <ellipse cx="44" cy="124" rx="10" ry="7" fill="${hl('hands')}" stroke="${hlS('hands')}" stroke-width="1.5"/>
+      <ellipse cx="116" cy="124" rx="10" ry="7" fill="${hl('hands')}" stroke="${hlS('hands')}" stroke-width="1.5"/>
+      <rect x="56" y="137" width="20" height="48" rx="8" fill="${hl('legs')}" stroke="${hlS('legs')}" stroke-width="1.5"/>
+      <rect x="84" y="137" width="20" height="48" rx="8" fill="${hl('legs')}" stroke="${hlS('legs')}" stroke-width="1.5"/>
+      <!-- tense indicator (vibrate lines) -->
+      ${[...hz].map(z=>{
+        const coords={head:[80,38],chest:[80,91],belly:[80,124],arms:[40,95],hands:[44,124],legs:[66,161]};
+        const [cx,cy]=coords[z]||[80,100];
+        return `<path d="M${cx-14} ${cy} Q${cx-8} ${cy-6} ${cx} ${cy} Q${cx+8} ${cy+6} ${cx+14} ${cy}" stroke="#EF4444" stroke-width="1.5" fill="none"/>`;
+      }).join('')}
+      <text x="80" y="205" font-size="10" fill="#EF4444" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">${lbl}</text>
+    </svg>`;
+  },
+
+  // ─── REST / default ───
+  'rest': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="90" r="60" fill="rgba(124,58,237,0.06)" stroke="rgba(124,58,237,0.2)" stroke-width="2"/>
+    <text x="80" y="82" font-size="36" text-anchor="middle">🧘</text>
+    <text x="80" y="120" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle" font-family="DM Sans,sans-serif">Rest completely still</text>
+    <text x="80" y="178" font-size="12" fill="#7C3AED" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">REST — total stillness</text>
+  </svg>`,
+
+  'eyes-closed': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="90" r="60" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+    <!-- closed eyes -->
+    <path d="M44 82 Q62 72 80 82" stroke="rgba(255,255,255,0.5)" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M80 82 Q98 72 116 82" stroke="rgba(255,255,255,0.5)" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <!-- eyelashes -->
+    <line x1="50" y1="76" x2="48" y2="69" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <line x1="62" y1="72" x2="62" y2="64" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <line x1="74" y1="73" x2="76" y2="65" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <line x1="86" y1="73" x2="84" y2="65" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <line x1="98" y1="72" x2="98" y2="64" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <line x1="110" y1="76" x2="112" y2="69" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+    <text x="80" y="130" font-size="11" fill="rgba(255,255,255,0.5)" text-anchor="middle" font-family="DM Sans,sans-serif">Close eyes — visualise clearly</text>
+    <text x="80" y="178" font-size="12" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">EYES CLOSED — focus inward</text>
+  </svg>`,
+
+  'nostril': () => GUIDE_DIAGRAMS['nostril-left'](),
+
+  'default': () => `<svg width="160" height="190" viewBox="0 0 160 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="90" r="58" fill="rgba(212,160,23,0.06)" stroke="rgba(212,160,23,0.2)" stroke-width="1.5"/>
+    <text x="80" y="82" font-size="32" text-anchor="middle">🌿</text>
+    <text x="80" y="118" font-size="11" fill="rgba(255,255,255,0.5)" text-anchor="middle" font-family="DM Sans,sans-serif">Follow voice instructions</text>
+    <text x="80" y="178" font-size="12" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700">GET READY</text>
   </svg>`,
 };
 
-// Map exercise category/id to SVG type and phase
-function getInstructorSVG(exId, cat, phaseLabel){
-  const ph = (phaseLabel||'').toLowerCase();
-  if(cat==='breath' || exId.includes('breath') || exId.includes('nadi') || exId.includes('box')){
-    const p = ph.includes('inh') ? 'inhale' : ph.includes('exh') ? 'exhale' : ph.includes('hold') ? 'hold' : 'breathe';
-    return SVG_FIGURES.breath(p);
-  }
-  if(cat==='eyes' || exId.includes('eye') || exId.includes('vision')){
-    const dir = ph.includes('right')?'right':ph.includes('left')?'left':ph.includes('up')?'up':ph.includes('down')?'down':'center';
-    return SVG_FIGURES.eyes(dir);
-  }
-  if(cat==='brain' || exId.includes('brain') || exId.includes('memory') || exId.includes('cross') || exId.includes('fig8')){
-    return SVG_FIGURES.brain();
-  }
-  if(cat==='wake' || exId.includes('wake') || exId.includes('tap') || exId.includes('march') || exId.includes('jump') || exId.includes('squat')){
-    return SVG_FIGURES.wake(ph);
-  }
-  if(cat==='calm' || exId.includes('calm') || exId.includes('scan') || exId.includes('pmr') || exId.includes('nidra')){
-    return SVG_FIGURES.calm();
-  }
-  if(exId.includes('acupressure') || exId.includes('acu') || exId.includes('cold') || exId.includes('neck') || exId.includes('shoulder')){
-    return SVG_FIGURES.acupressure();
-  }
-  // default: body
-  return SVG_FIGURES.body(ph);
+function getGuideType(exId, phaseLabel) {
+  const map = GUIDE_PANELS[exId];
+  if (!map) return null;
+  if (phaseLabel && map.phases && map.phases[phaseLabel]) return map.phases[phaseLabel];
+  return map.default || null;
 }
 
-function updateInstructor(exId, cat, phaseLabel){
+function updateInstructor(exId, cat, phaseLabel) {
   const el = document.getElementById('svgInstructor');
-  if(!el) return;
-  // Fade transition
-  el.style.transition = 'opacity .4s';
+  if (!el) return;
+  const type = getGuideType(exId, phaseLabel) || 'default';
+  const svg  = makeGuide(type);
+  el.style.transition = 'opacity .25s';
   el.style.opacity = '0';
-  setTimeout(()=>{
-    el.innerHTML = getInstructorSVG(exId||'', cat||'', phaseLabel||'');
+  setTimeout(() => {
+    el.innerHTML = svg;
     el.style.opacity = '1';
-  }, 200);
+  }, 130);
 }
-
-
-</script>
-
-<script>
-(function(){
-'use strict';
-
-/* ── palette ── */
-const SK='#FBBF7A',HR='#3D2A1A',OL='#1a1a2e',SH='#2A7A5A',PT='#1e3a5f',SH2='#1A5A3A',
-      EW='#fff',EY='#1a1a2e',MO='#c07050',CK='rgba(255,150,100,.42)',SHO='#3D2A1A';
-
-/* ── math helpers ── */
-const π=Math.PI, lerp=(a,b,t)=>a+(b-a)*t, clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const easeInOut=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
-const sin=t=>Math.sin(t), cos=t=>Math.cos(t);
-
-/* ── drawing helpers ── */
-function limb(ctx,x1,y1,x2,y2,w,col){
-  ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
-  ctx.strokeStyle=col; ctx.lineWidth=w; ctx.lineCap='round'; ctx.stroke();
-  ctx.beginPath(); ctx.arc(x2,y2,w/2,0,2*π); ctx.fillStyle=col; ctx.fill();
-}
-function joint(ctx,x,y,r,col){
-  ctx.beginPath();ctx.arc(x,y,r,0,2*π);ctx.fillStyle=col;ctx.fill();
-}
-function roundRect(ctx,x,y,w,h,r,col,scol,sw=0){
-  ctx.beginPath(); ctx.roundRect(x,y,w,h,r);
-  ctx.fillStyle=col; ctx.fill();
-  if(sw){ctx.strokeStyle=scol;ctx.lineWidth=sw;ctx.stroke();}
-}
-
-/* ══ HEAD ══ */
-function head(ctx,cx,cy,r,{tiltX=0,tiltY=0,eyeX=0,blink=1,mouth='smile',sweat=false,exclaim=false}={}){
-  ctx.save(); ctx.translate(cx+tiltX,cy+tiltY);
-  // skull
-  ctx.beginPath(); ctx.ellipse(0,0,r,r*1.06,0,0,2*π);
-  ctx.fillStyle=SK; ctx.fill(); ctx.strokeStyle=OL; ctx.lineWidth=2.4; ctx.stroke();
-  // hair tuft
-  ctx.beginPath(); ctx.moveTo(-r*.8,-r*.2);
-  ctx.quadraticCurveTo(-r*.5,-r*1.1, 0,-r*.85);
-  ctx.quadraticCurveTo(r*.5,-r*1.1, r*.8,-r*.2);
-  ctx.fillStyle=HR; ctx.fill();
-  // cheeks
-  [[-.42,.15],[.42,.15]].forEach(([ex,ey])=>{
-    ctx.beginPath();ctx.ellipse(ex*r,ey*r,r*.2,r*.14,0,0,2*π);
-    ctx.fillStyle=CK;ctx.fill();
-  });
-  // eyes
-  const ex=r*.3, ey=-r*.04, bh=clamp(blink,0.05,1);
-  [[eyeX*r*.25,0],[-eyeX*r*.25,0]].forEach(([ox],i)=>{
-    const px=(i===0?ex:-ex)+ox, py=ey;
-    // white
-    ctx.beginPath();ctx.ellipse(px,py,r*.19,r*.19*bh,0,0,2*π);
-    ctx.fillStyle=EW;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=1.6;ctx.stroke();
-    if(bh>.12){
-      ctx.beginPath();ctx.arc(px,py,r*.1,0,2*π);ctx.fillStyle=EY;ctx.fill();
-      ctx.beginPath();ctx.arc(px+r*.04,py-r*.04,r*.03,0,2*π);ctx.fillStyle='#fff';ctx.fill();
-    } else {
-      ctx.beginPath();ctx.moveTo(px-r*.19,py);ctx.lineTo(px+r*.19,py);
-      ctx.strokeStyle=OL;ctx.lineWidth=2.2;ctx.stroke();
-    }
-  });
-  // eyebrows
-  const bry=ey-r*.28;
-  if(exclaim){
-    ctx.beginPath();ctx.moveTo(-ex-r*.15,bry-r*.1);ctx.quadraticCurveTo(-ex,bry-r*.2,-ex+r*.15,bry-r*.1);
-    ctx.moveTo(ex-r*.15,bry-r*.1);ctx.quadraticCurveTo(ex,bry-r*.2,ex+r*.15,bry-r*.1);
-  } else {
-    ctx.beginPath();ctx.moveTo(-ex-r*.18,bry);ctx.lineTo(-ex+r*.16,bry-r*.06);
-    ctx.moveTo(ex-r*.16,bry-r*.06);ctx.lineTo(ex+r*.18,bry);
-  }
-  ctx.strokeStyle=HR;ctx.lineWidth=2.2;ctx.stroke();
-  // mouth
-  if(mouth==='smile'){
-    ctx.beginPath();ctx.arc(0,r*.44,r*.22,0.1,π-0.1);
-    ctx.strokeStyle=MO;ctx.lineWidth=2.2;ctx.stroke();
-  } else if(mouth==='open'){
-    ctx.beginPath();ctx.ellipse(0,r*.44,r*.18,r*.12,0,0,π);
-    ctx.fillStyle=HR;ctx.fill();
-  } else if(mouth==='flat'){
-    ctx.beginPath();ctx.moveTo(-r*.18,r*.44);ctx.lineTo(r*.18,r*.44);
-    ctx.strokeStyle=MO;ctx.lineWidth=2;ctx.stroke();
-  } else if(mouth==='big'){
-    ctx.beginPath();ctx.ellipse(0,r*.42,r*.26,r*.2,0,0,π);
-    ctx.fillStyle=HR;ctx.fill();
-    ctx.beginPath();ctx.arc(0,r*.42,r*.26,0,π);
-    ctx.strokeStyle=MO;ctx.lineWidth=2.2;ctx.stroke();
-  }
-  // sweat drop
-  if(sweat){
-    ctx.beginPath();ctx.moveTo(r*.75,r*.0);ctx.quadraticCurveTo(r*.95,r*.25,r*.75,r*.45);
-    ctx.quadraticCurveTo(r*.55,r*.25,r*.75,r*.0);
-    ctx.fillStyle='rgba(130,200,255,.85)';ctx.fill();
-  }
-  // exclamation
-  if(exclaim){
-    ctx.font=`bold ${r*.7}px sans-serif`;ctx.fillStyle='#ef4444';
-    ctx.fillText('!',r*.9,-r*.4);
-  }
-  ctx.restore();
-}
-
-/* ══ PARTICLE SYSTEM ══ */
-let particles=[];
-function spawnParticles(type,bx,by){
-  particles=[];
-  if(type==='dots-up'){
-    for(let i=0;i<8;i++) particles.push({x:bx+(-40+i*10),y:by,vy:-1.5-Math.random()*1.5,vx:(Math.random()-.5)*.5,life:1,size:3+Math.random()*4,col:'rgba(130,200,255,A)'});
-  } else if(type==='dots-down'){
-    for(let i=0;i<8;i++) particles.push({x:bx+(-40+i*10),y:by-20,vy:1.5+Math.random()*1.5,vx:(Math.random()-.5)*.5,life:1,size:3+Math.random()*4,col:'rgba(100,160,220,A)'});
-  } else if(type==='sparkle'){
-    for(let i=0;i<12;i++){
-      const a=(i/12)*2*π;
-      particles.push({x:bx+cos(a)*35,y:by+sin(a)*35,vx:cos(a)*.4,vy:sin(a)*.4,life:1,size:2+Math.random()*3,col:'rgba(212,160,23,A)',shape:'star'});
-    }
-  } else if(type==='energy-burst'){
-    for(let i=0;i<14;i++){
-      const a=(i/14)*2*π;
-      particles.push({x:bx,y:by,vx:cos(a)*(2+Math.random()*2.5),vy:sin(a)*(2+Math.random()*2.5),life:1,size:3+Math.random()*4,col:'rgba(251,146,60,A)'});
-    }
-  } else if(type==='water-splash'){
-    for(let i=0;i<12;i++){
-      const a=-(π*.2)+(i/12)*π*1.4;
-      particles.push({x:bx+cos(a)*10,y:by,vx:cos(a)*(1.5+Math.random()*2),vy:sin(a)*(1.5+Math.random()*2)-1,life:1,size:4+Math.random()*4,col:'rgba(96,165,250,A)'});
-    }
-  } else if(type==='water-drip'){
-    for(let i=0;i<6;i++) particles.push({x:bx+(-20+i*8),y:by,vy:1.2+Math.random()*1.2,vx:(Math.random()-.5)*.3,life:1,size:4+Math.random()*3,col:'rgba(96,165,250,A)',teardrop:true});
-  } else if(type==='pulse'){
-    for(let i=0;i<5;i++) particles.push({x:bx,y:by-i*6,vx:(Math.random()-.5)*.6,vy:-0.8-i*.3,life:1,size:3+i*.5,col:'rgba(212,160,23,A)'});
-  } else if(type==='warmth'){
-    for(let i=0;i<6;i++){
-      const a=(-π*.3)+i*(π*.6/5);
-      particles.push({x:bx+cos(a)*25,y:by+sin(a)*20,vx:cos(a)*.4,vy:-1-Math.random()*.8,life:1,size:3+Math.random()*3,col:'rgba(253,186,116,A)'});
-    }
-  } else if(type==='stars'){
-    for(let i=0;i<10;i++){
-      const a=Math.random()*2*π, dist=20+Math.random()*50;
-      particles.push({x:bx+cos(a)*dist,y:by+sin(a)*dist,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,life:1,size:2+Math.random()*3,col:'rgba(212,160,23,A)',twinkle:true});
-    }
-  } else if(type==='numbers'){
-    const nums=['7','14','21','3','200'];
-    for(let i=0;i<5;i++) particles.push({x:bx+(-50+i*25),y:by,vy:-1.2-Math.random()*1,vx:(Math.random()-.5)*1.2,life:1,text:nums[i],col:'rgba(167,243,208,A)'});
-  } else if(type==='thought-bubble'){
-    for(let i=0;i<6;i++) particles.push({x:bx+10+i*12,y:by-20-i*10,vx:.1,vy:-.4-i*.15,life:1,size:4+i*2,col:'rgba(200,200,255,A)'});
-  } else if(type==='glow-low'||type==='glow-mid'||type==='glow-arms'||type==='glow-head'){
-    const gy={'glow-low':240,'glow-mid':195,'glow-arms':175,'glow-head':155}[type];
-    for(let i=0;i<8;i++) particles.push({x:60+i*15,y:gy,vx:(Math.random()-.5)*.5,vy:-.5-Math.random()*.8,life:1,size:3+Math.random()*4,col:'rgba(212,160,23,A)'});
-  } else if(type==='tense-pulse'){
-    for(let i=0;i<6;i++){const a=(i/6)*2*π; particles.push({x:bx+cos(a)*30,y:by+sin(a)*20,vx:cos(a)*.8,vy:sin(a)*.8,life:1,size:4,col:'rgba(239,68,68,A)'});}
-  } else if(type==='figure8-trail'){
-    for(let i=0;i<10;i++){const a=(i/10)*2*π; particles.push({x:bx+cos(a)*30,y:by+sin(a)*18,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,life:1,size:3,col:'rgba(99,102,241,A)'});}
-  } else if(type==='eye-trail'){
-    for(let i=0;i<6;i++) particles.push({x:bx+(-15+i*6),y:by,vx:(Math.random()-.5)*.8,vy:-1-Math.random(),life:1,size:3+Math.random()*3,col:'rgba(96,165,250,A)'});
-  } else if(type==='spin-trail'){
-    for(let i=0;i<8;i++){const a=(i/8)*2*π; particles.push({x:bx+cos(a)*30,y:by+sin(a)*25,vx:cos(a)*.6,vy:sin(a)*.6,life:1,size:3+Math.random()*3,col:'rgba(212,160,23,A)'});}
-  } else if(type==='eye-circle-cw'||type==='eye-circle-ccw'){
-    for(let i=0;i<8;i++){const a=(i/8)*2*π*(type==='eye-circle-cw'?1:-1); particles.push({x:bx+cos(a)*22,y:by+sin(a)*22,vx:cos(a+π/2)*.6,vy:sin(a+π/2)*.6,life:1,size:3,col:'rgba(96,165,250,A)'});}
-  } else if(type==='gaze-far'){
-    for(let i=0;i<6;i++) particles.push({x:bx+30+i*18,y:by+(-15+Math.random()*30),vx:1.5+Math.random()*1.5,vy:(Math.random()-.5)*.4,life:1,size:3,col:'rgba(147,197,253,A)'});
-  } else if(type==='gaze-near'){
-    for(let i=0;i<5;i++) particles.push({x:bx+5+i*10,y:by+(-8+Math.random()*16),vx:.5,vy:(Math.random()-.5)*.4,life:1,size:4,col:'rgba(167,243,208,A)'});
-  }
-}
-
-function tickParticles(){
-  particles.forEach(p=>{
-    p.x+=p.vx; p.y+=p.vy; p.life-=0.022;
-    if(p.twinkle) p.life-=0.005;
-  });
-  particles=particles.filter(p=>p.life>0);
-}
-
-function drawParticles(ctx){
-  particles.forEach(p=>{
-    const al=clamp(p.life,0,1);
-    const col=p.col.replace('A',al.toFixed(2));
-    ctx.save(); ctx.globalAlpha=al;
-    if(p.text){
-      ctx.font=`bold 13px monospace`;ctx.fillStyle=col.replace('A',String(al.toFixed(2)));
-      ctx.fillText(p.text,p.x,p.y);
-    } else if(p.shape==='star'){
-      ctx.beginPath();
-      for(let i=0;i<5;i++){
-        const a=(i*4*π/5)-π/2, r=p.size;
-        if(i===0) ctx.moveTo(p.x+cos(a)*r,p.y+sin(a)*r);
-        else ctx.lineTo(p.x+cos(a)*r,p.y+sin(a)*r);
-      }
-      ctx.closePath(); ctx.fillStyle=col; ctx.fill();
-    } else if(p.teardrop){
-      ctx.beginPath(); ctx.arc(p.x,p.y,p.size*.7,0,π); ctx.moveTo(p.x-p.size*.7,p.y); ctx.lineTo(p.x,p.y+p.size*1.4); ctx.lineTo(p.x+p.size*.7,p.y);
-      ctx.fillStyle=col; ctx.fill();
-    } else {
-      ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,2*π); ctx.fillStyle=col; ctx.fill();
-    }
-    ctx.restore();
-  });
-}
-
-/* ══ POSE LIBRARY ══
-   Each pose function: (ctx, cw, ch, t, phase)
-   cw=canvas logical width (760), ch=height (260)
-   Character rendered at logical coords then canvas scales
-   Character is in left 280px zone; right 280..760 is step text
-   t = 0..1 animation progress within pose cycle
-══ */
-let CX=140, GY=225; // updated dynamically
-
-function bgScene(ctx,cw,ch,bgCol,t){
-  // gradient bg
-  const g=ctx.createLinearGradient(0,0,0,ch);
-  g.addColorStop(0,bgCol);
-  g.addColorStop(1,'#020810');
-  ctx.fillStyle=g; ctx.fillRect(0,0,cw,ch);
-  // floor line
-  ctx.beginPath(); ctx.moveTo(0,GY+2); ctx.lineTo(280,GY+2);
-  ctx.strokeStyle='rgba(255,255,255,.06)'; ctx.lineWidth=1.5; ctx.stroke();
-}
-
-
-/* ══ SPEECH BUBBLE — mobile instructor label ══ */
-function speechBubble(ctx,cx,cy,text,cw){
-  if(!text) return;
-  ctx.save();
-  ctx.font='bold 12px "DM Sans",sans-serif';
-  const maxW=Math.min(cw-20, 200);
-  // word wrap
-  const words=text.split(' ');
-  const lines=[]; let cur='';
-  words.forEach(w=>{
-    const test=cur+(cur?' ':'')+w;
-    if(ctx.measureText(test).width>maxW-20&&cur){ lines.push(cur); cur=w; }
-    else cur=test;
-  });
-  if(cur) lines.push(cur);
-  const lh=15, pad=8;
-  const bw=Math.min(maxW, Math.max(...lines.map(l=>ctx.measureText(l).width))+pad*2);
-  const bh=lines.length*lh+pad*2;
-  const bx=cx-bw/2, by=Math.max(4,cy-bh-10);
-  // bubble
-  ctx.beginPath();
-  ctx.roundRect(bx,by,bw,bh,7);
-  ctx.fillStyle='rgba(10,20,48,.82)';
-  ctx.fill();
-  ctx.strokeStyle='rgba(212,160,23,.55)';
-  ctx.lineWidth=1.2;
-  ctx.stroke();
-  // tail
-  ctx.beginPath();
-  ctx.moveTo(cx-6,by+bh); ctx.lineTo(cx,by+bh+8); ctx.lineTo(cx+6,by+bh);
-  ctx.fillStyle='rgba(10,20,48,.82)'; ctx.fill();
-  // text
-  ctx.fillStyle='#D4A017';
-  ctx.textAlign='center';
-  lines.forEach((l,i)=>ctx.fillText(l, cx, by+pad+lh*(i+1)-2));
-  ctx.restore();
-}
-function stepText(ctx,cw,ch,lines,stepN,totalSteps,phaseLabel){
-  // right panel — only if canvas is wide enough
-  const rx=Math.round(cw*0.46), ry=14, rw=cw-rx-10;
-  if(rw < 80) return; // not enough space
-  // step counter badge
-  roundRect(ctx,rx,ry,rw,ch-ry*2,14,'rgba(255,255,255,.04)','rgba(255,255,255,.08)',1);
-  // step pill
-  roundRect(ctx,rx+12,ry+12,90,22,11,'rgba(212,160,23,.18)','rgba(212,160,23,.35)',1);
-  ctx.font='bold 10px "DM Sans",sans-serif'; ctx.fillStyle='#D4A017'; ctx.textAlign='left';
-  ctx.fillText(`Step ${stepN} of ${totalSteps}`,rx+20,ry+27);
-  // phase label
-  ctx.font='bold 14px "Playfair Display",serif'; ctx.fillStyle='#E8ECF0';
-  ctx.fillText(phaseLabel,rx+12,ry+60);
-  // instruction lines
-  ctx.font='13px "DM Sans",sans-serif'; ctx.fillStyle='rgba(200,215,230,.85)';
-  lines.forEach((line,i)=>{
-    if(!line) return;
-    // bullet dot
-    ctx.beginPath(); ctx.arc(rx+22, ry+82+i*26, 3, 0, 2*π);
-    ctx.fillStyle='rgba(212,160,23,.7)'; ctx.fill();
-    ctx.fillStyle='rgba(200,215,230,.85)';
-    // word-wrap to ~rw-40 chars
-    const words=line.split(' '); let row='', rows=[];
-    words.forEach(w=>{ const test=row+w+' '; if(ctx.measureText(test).width>rw-40&&row){rows.push(row.trim());row=w+' ';}else row=test; });
-    if(row.trim()) rows.push(row.trim());
-    rows.slice(0,2).forEach((r2,ri)=>ctx.fillText(r2,rx+32,ry+82+i*26+ri*15));
-  });
-}
-
-/* ── SITTING NEUTRAL ── */
-function poseSittingNeutral(ctx,t,opts={}){
-  const bob=sin(t*2*π)*.8;
-  // legs
-  limb(ctx,CX-8,150,CX-32,160+bob,13,PT); limb(ctx,CX-32,160+bob,CX-34,195+bob,11,PT);
-  limb(ctx,CX+8,150,CX+32,160+bob,13,PT); limb(ctx,CX+32,160+bob,CX+34,195+bob,11,PT);
-  // shoes
-  ctx.beginPath();ctx.ellipse(CX-34,202+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(CX+34,202+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  // torso
-  roundRect(ctx,CX-14,108+bob,28,55,8,SH,OL,2.2);
-  // arms resting
-  limb(ctx,CX-14,120+bob,CX-42,145+bob,11,SH); limb(ctx,CX-42,145+bob,CX-44,175+bob,9,SK);
-  limb(ctx,CX+14,120+bob,CX+42,145+bob,11,SH); limb(ctx,CX+42,145+bob,CX+44,175+bob,9,SK);
-  head(ctx,CX,100+bob,27,{mouth:opts.mouth||'smile',...opts});
-}
-
-/* ── SITTING INHALE (chest expanding) ── */
-function poseSittingInhale(ctx,t,stage=0){
-  const bob=sin(t*2*π)*.5, expand=stage*.18;
-  const ch=58+expand*20;
-  limb(ctx,CX-8,150,CX-32,162+bob,13,PT);limb(ctx,CX-32,162+bob,CX-34,196+bob,11,PT);
-  limb(ctx,CX+8,150,CX+32,162+bob,13,PT);limb(ctx,CX+32,162+bob,CX+34,196+bob,11,PT);
-  ctx.beginPath();ctx.ellipse(CX-34,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(CX+34,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  // torso wider on inhale
-  roundRect(ctx,CX-14-expand*4,108+bob,28+expand*8,ch,8,SH,OL,2.2);
-  // arms lift on inhale
-  const liftA=-expand*.8;
-  limb(ctx,CX-14-expand*4,120+bob,CX-45+expand*2,140+bob-expand*20+liftA*15,11,SH);
-  limb(ctx,CX-45+expand*2,140+bob-expand*20+liftA*15,CX-48+expand*4,168+bob-expand*18,9,SK);
-  limb(ctx,CX+14+expand*4,120+bob,CX+45-expand*2,140+bob-expand*20+liftA*15,11,SH);
-  limb(ctx,CX+45-expand*2,140+bob-expand*20+liftA*15,CX+48-expand*4,168+bob-expand*18,9,SK);
-  head(ctx,CX,100+bob-expand*2,27,{mouth:'flat',eyeX:.3*stage});
-}
-
-/* ── SITTING EXHALE ── */
-function poseSittingExhale(ctx,t,stage=0){
-  const bob=sin(t*2*π)*.4, shrink=stage*.15;
-  const ch=55-shrink*14;
-  limb(ctx,CX-8,150,CX-30,162+bob,13,PT);limb(ctx,CX-30,162+bob,CX-32,196+bob,11,PT);
-  limb(ctx,CX+8,150,CX+30,162+bob,13,PT);limb(ctx,CX+30,162+bob,CX+32,196+bob,11,PT);
-  ctx.beginPath();ctx.ellipse(CX-32,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(CX+32,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  roundRect(ctx,CX-12+shrink*3,108+bob,28-shrink*6,ch,8,SH,OL,2.2);
-  limb(ctx,CX-12+shrink*3,120+bob,CX-40,148+bob+shrink*10,11,SH);
-  limb(ctx,CX-40,148+bob+shrink*10,CX-38,180+bob+shrink*8,9,SK);
-  limb(ctx,CX+12-shrink*3,120+bob,CX+40,148+bob+shrink*10,11,SH);
-  limb(ctx,CX+40,148+bob+shrink*10,CX+38,180+bob+shrink*8,9,SK);
-  head(ctx,CX,100+bob+shrink,27,{mouth:'open',eyeX:-.2*stage});
-}
-
-/* ── STANDING NEUTRAL ── */
-function poseStandingNeutral(ctx,t,opts={}){
-  const bob=sin(t*2*π)*.8;
-  limb(ctx,CX-7,155+bob,CX-10,200+bob,12,PT);limb(ctx,CX-10,200+bob,CX-10,235+bob,10,PT);
-  limb(ctx,CX+7,155+bob,CX+10,200+bob,12,PT);limb(ctx,CX+10,200+bob,CX+10,235+bob,10,PT);
-  ctx.beginPath();ctx.ellipse(CX-10,240+bob,13,6,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(CX+10,240+bob,13,6,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  roundRect(ctx,CX-14,100+bob,28,58,8,SH,OL,2.2);
-  limb(ctx,CX-14,115+bob,CX-45,145+bob,11,SH);limb(ctx,CX-45,145+bob,CX-46,178+bob,9,SK);
-  limb(ctx,CX+14,115+bob,CX+45,145+bob,11,SH);limb(ctx,CX+45,145+bob,CX+46,178+bob,9,SK);
-  head(ctx,CX,92+bob,27,{...opts});
-}
-
-/* ── MARCHING ── */
-function poseMarch(ctx,t,side=0){
-  const swing=sin(t*2*π)*22;
-  const kL=side===0?25+swing:-25+swing, kR=side===0?-25-swing:25-swing;
-  // legs alternate lift
-  const lLiftY=side===0?-18:0, rLiftY=side===0?0:-18;
-  limb(ctx,CX-7,155,CX-7+kL*.4,200+lLiftY,12,PT);
-  limb(ctx,CX-7+kL*.4,200+lLiftY,CX-7+kL*.6,235+lLiftY,10,PT);
-  limb(ctx,CX+7,155,CX+7+kR*.4,200+rLiftY,12,PT);
-  limb(ctx,CX+7+kR*.4,200+rLiftY,CX+7+kR*.6,235+rLiftY,10,PT);
-  ctx.beginPath();ctx.ellipse(CX-7+kL*.6,241+lLiftY,13,6,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(CX+7+kR*.6,241+rLiftY,13,6,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  roundRect(ctx,CX-14,100,28,58,8,SH,OL,2.2);
-  // arms swing opposite to legs
-  limb(ctx,CX-14,115,CX-45-kR*.5,140,11,SH);limb(ctx,CX-45-kR*.5,140,CX-46-kR*.4,168,9,SK);
-  limb(ctx,CX+14,115,CX+45-kL*.5,140,11,SH);limb(ctx,CX+45-kL*.5,140,CX+46-kL*.4,168,9,SK);
-  head(ctx,CX,92,27,{tiltX:sin(t*π)*3,mouth:'open',exclaim:true});
-}
-
-/* ── JUMPING JACK ── */
-function poseJumpingJack(ctx,t,open=true){
-  const spread=open?1:0.1, bob=open?-10:0;
-  // legs spread
-  limb(ctx,CX-7,152+bob,CX-35*spread,200+bob,12,PT);limb(ctx,CX-35*spread,200+bob,CX-38*spread,235+bob,10,PT);
-  limb(ctx,CX+7,152+bob,CX+35*spread,200+bob,12,PT);limb(ctx,CX+35*spread,200+bob,CX+38*spread,235+bob,10,PT);
-  ctx.beginPath();ctx.ellipse(CX-38*spread,241+bob,13,6,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(CX+38*spread,241+bob,13,6,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  roundRect(ctx,CX-14,100+bob,28,55,8,SH,OL,2.2);
-  // arms up when open
-  const armY=open?60:140;
-  limb(ctx,CX-14,115+bob,CX-50*spread,armY+bob,11,SH);
-  limb(ctx,CX-50*spread,armY+bob,CX-55*spread,armY+25+bob,9,SK);
-  limb(ctx,CX+14,115+bob,CX+50*spread,armY+bob,11,SH);
-  limb(ctx,CX+50*spread,armY+bob,CX+55*spread,armY+25+bob,9,SK);
-  head(ctx,CX,92+bob,27,{mouth:'big',exclaim:open});
-}
-
-/* ── HIGH KNEE ── */
-function poseHighKnee(ctx,t,side=0){
-  const bob=sin(t*4*π)*2;
-  // standing leg
-  limb(ctx,CX+7,155+bob,CX+8,202+bob,12,PT);limb(ctx,CX+8,202+bob,CX+9,238+bob,10,PT);
-  ctx.beginPath();ctx.ellipse(CX+9,243+bob,13,6,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  // raised knee
-  if(side===0){
-    limb(ctx,CX-7,155+bob,CX-15,175+bob,12,PT);limb(ctx,CX-15,175+bob,CX-12,200+bob,10,PT);
-    ctx.beginPath();ctx.ellipse(CX-12,205+bob,11,5,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  } else {
-    limb(ctx,CX+7,155+bob,CX+15,175+bob,12,PT);limb(ctx,CX+15,175+bob,CX+12,200+bob,10,PT);
-    ctx.beginPath();ctx.ellipse(CX+12,205+bob,11,5,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-    limb(ctx,CX-7,155+bob,CX-8,202+bob,12,PT);limb(ctx,CX-8,202+bob,CX-9,238+bob,10,PT);
-    ctx.beginPath();ctx.ellipse(CX-9,243+bob,13,6,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  }
-  roundRect(ctx,CX-14,100+bob,28,57,8,SH,OL,2.2);
-  limb(ctx,CX-14,115+bob,CX-45,140+bob,11,SH);limb(ctx,CX-45,140+bob,CX-46,170+bob,9,SK);
-  limb(ctx,CX+14,115+bob,CX+45,140+bob,11,SH);limb(ctx,CX+45,140+bob,CX+46,170+bob,9,SK);
-  head(ctx,CX,92+bob,27,{mouth:'open',exclaim:true});
-}
-
-/* ── STRETCH UP ── */
-function poseStretchUp(ctx,t){
-  const stretch=0.7+sin(t*π)*.3;
-  limb(ctx,CX-7,155,CX-9,202,12,PT);limb(ctx,CX-9,202,CX-9,236,10,PT);
-  limb(ctx,CX+7,155,CX+9,202,12,PT);limb(ctx,CX+9,202,CX+9,236,10,PT);
-  ctx.beginPath();ctx.ellipse(CX-9,241,13,6,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(CX+9,241,13,6,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  roundRect(ctx,CX-14,100,28,58,8,SH,OL,2.2);
-  // arms straight up
-  const armH=65-stretch*35;
-  limb(ctx,CX-14,115,CX-28,armH+20,11,SH);limb(ctx,CX-28,armH+20,CX-26,armH,9,SK);
-  limb(ctx,CX+14,115,CX+28,armH+20,11,SH);limb(ctx,CX+28,armH+20,CX+26,armH,9,SK);
-  head(ctx,CX,92,27,{tiltY:stretch*-4,mouth:'smile'});
-}
-
-/* ── SQUAT ── */
-function poseSquat(ctx,t,depth=0){
-  const d=depth, bob=sin(t*2*π)*.4;
-  const hipY=155+d*40, kneeY=200+d*10, ankY=235-d*15;
-  limb(ctx,CX-7,hipY,CX-25,kneeY,12,PT);limb(ctx,CX-25,kneeY,CX-14,ankY,10,PT);
-  limb(ctx,CX+7,hipY,CX+25,kneeY,12,PT);limb(ctx,CX+25,kneeY,CX+14,ankY,10,PT);
-  ctx.beginPath();ctx.ellipse(CX-14,ankY+5,13,6,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(CX+14,ankY+5,13,6,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  roundRect(ctx,CX-14,100+d*35,28,58-d*15,8,SH,OL,2.2);
-  limb(ctx,CX-14,115+d*35,CX-20,145+d*30,11,SH);limb(ctx,CX-20,145+d*30,CX-22,175+d*20,9,SK);
-  limb(ctx,CX+14,115+d*35,CX+20,145+d*30,11,SH);limb(ctx,CX+20,145+d*30,CX+22,175+d*20,9,SK);
-  head(ctx,CX,92+d*35,27,{mouth:d>.5?'open':'smile'});
-}
-
-/* ── CALF RAISE ── */
-function poseCalfRaise(ctx,t,raised=false){
-  const ry=raised?-18:0;
-  limb(ctx,CX-7,155,CX-9,200+ry,12,PT);limb(ctx,CX-9,200+ry,CX-9,234+ry,10,PT);
-  limb(ctx,CX+7,155,CX+9,200+ry,12,PT);limb(ctx,CX+9,200+ry,CX+9,234+ry,10,PT);
-  ctx.beginPath();ctx.ellipse(CX-9,239+ry,13,raised?4:6,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(CX+9,239+ry,13,raised?4:6,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  roundRect(ctx,CX-14,100,28,58,8,SH,OL,2.2);
-  limb(ctx,CX-14,115,CX-45,145,11,SH);limb(ctx,CX-45,145,CX-46,175,9,SK);
-  limb(ctx,CX+14,115,CX+45,145,11,SH);limb(ctx,CX+45,145,CX+46,175,9,SK);
-  head(ctx,CX,92,27,{tiltY:ry*.15,mouth:'smile'});
-}
-
-/* ── CROSS CRAWL ── */
-function poseCrossCrawl(ctx,t,side=0){
-  // left knee + right elbow, or vice versa
-  const bob=sin(t*2*π)*2;
-  limb(ctx,CX-7,155+bob,CX-8,202+bob,12,PT);limb(ctx,CX-8,202+bob,CX-9,237+bob,10,PT);
-  ctx.beginPath();ctx.ellipse(CX-9,242+bob,13,6,.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  // raised leg
-  if(side===0){
-    limb(ctx,CX+7,155+bob,CX+20,172+bob,12,PT);limb(ctx,CX+20,172+bob,CX+18,195+bob,10,PT);
-  } else {
-    limb(ctx,CX+7,155+bob,CX+8,202+bob,12,PT);limb(ctx,CX+8,202+bob,CX+9,237+bob,10,PT);
-    ctx.beginPath();ctx.ellipse(CX+9,242+bob,13,6,-.1,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-    limb(ctx,CX-7,155+bob,CX-20,172+bob,12,PT);limb(ctx,CX-20,172+bob,CX-18,195+bob,10,PT);
-  }
-  roundRect(ctx,CX-14,100+bob,28,57,8,SH,OL,2.2);
-  // cross arm touches opposite knee
-  if(side===0){
-    limb(ctx,CX-14,115+bob,CX-40,138+bob,11,SH);limb(ctx,CX-40,138+bob,CX-42,168+bob,9,SK);
-    limb(ctx,CX+14,115+bob,CX+8,148+bob,11,SH);limb(ctx,CX+8,148+bob,CX+18,175+bob,9,SK);
-  } else {
-    limb(ctx,CX+14,115+bob,CX+40,138+bob,11,SH);limb(ctx,CX+40,138+bob,CX+42,168+bob,9,SK);
-    limb(ctx,CX-14,115+bob,CX-8,148+bob,11,SH);limb(ctx,CX-8,148+bob,CX-18,175+bob,9,SK);
-  }
-  head(ctx,CX,92+bob,27,{mouth:'smile'});
-}
-
-/* ── EYE CLOSE-UP (face only, centered) ── */
-function poseEyeCloseup(ctx,t,gazeX=0,gazeY=0,blink=1){
-  // big face for eye exercises
-  const cx=140,cy=130,r=60;
-  ctx.beginPath();ctx.ellipse(cx,cy,r,r*1.06,0,0,2*π);
-  ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=3.5;ctx.stroke();
-  // hair
-  ctx.beginPath();ctx.moveTo(cx-r*.8,cy-r*.2);
-  ctx.quadraticCurveTo(cx-r*.5,cy-r*1.1,cx,cy-r*.85);
-  ctx.quadraticCurveTo(cx+r*.5,cy-r*1.1,cx+r*.8,cy-r*.2);
-  ctx.fillStyle=HR;ctx.fill();
-  // cheeks
-  ctx.beginPath();ctx.ellipse(cx-r*.42,cy+r*.1,r*.2,r*.14,0,0,2*π);ctx.fillStyle=CK;ctx.fill();
-  ctx.beginPath();ctx.ellipse(cx+r*.42,cy+r*.1,r*.2,r*.14,0,0,2*π);ctx.fillStyle=CK;ctx.fill();
-  // BIG eyes
-  const bh=clamp(blink,0.05,1);
-  [[cx-r*.35,cy-r*.05],[cx+r*.35,cy-r*.05]].forEach(([ex,ey])=>{
-    ctx.beginPath();ctx.ellipse(ex+gazeX*r*.3,ey+gazeY*r*.2,r*.23,r*.23*bh,0,0,2*π);
-    ctx.fillStyle=EW;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=2.5;ctx.stroke();
-    if(bh>.1){
-      ctx.beginPath();ctx.arc(ex+gazeX*r*.3,ey+gazeY*r*.2,r*.13,0,2*π);ctx.fillStyle='#4A90D9';ctx.fill();
-      ctx.beginPath();ctx.arc(ex+gazeX*r*.3+r*.05,ey+gazeY*r*.2-r*.05,r*.05,0,2*π);ctx.fillStyle=EW;ctx.fill();
-    } else {
-      ctx.beginPath();ctx.moveTo(ex-r*.23,ey);ctx.lineTo(ex+r*.23,ey);
-      ctx.strokeStyle=OL;ctx.lineWidth=3;ctx.stroke();
-    }
-  });
-  // eyebrows
-  const bry=cy-r*.3;
-  ctx.beginPath();ctx.moveTo(cx-r*.58,bry);ctx.lineTo(cx-r*.14,bry-r*.08);
-  ctx.moveTo(cx+r*.14,bry-r*.08);ctx.lineTo(cx+r*.58,bry);
-  ctx.strokeStyle=HR;ctx.lineWidth=3;ctx.stroke();
-  // direction arrow
-  if(Math.abs(gazeX)+Math.abs(gazeY)>.1){
-    ctx.beginPath();
-    const ax=cx+gazeX*r*.65,ay=cy+gazeY*r*.55;
-    ctx.arc(ax,ay,r*.1,0,2*π);
-    ctx.fillStyle='rgba(212,160,23,.5)';ctx.fill();
-  }
-  // nose
-  ctx.beginPath();ctx.moveTo(cx,cy+r*.15);ctx.quadraticCurveTo(cx+r*.08,cy+r*.3,cx,cy+r*.35);
-  ctx.strokeStyle='rgba(200,140,100,.6)';ctx.lineWidth=2;ctx.stroke();
-  // mouth
-  ctx.beginPath();ctx.arc(cx,cy+r*.52,r*.2,0.1,π-0.1);
-  ctx.strokeStyle=MO;ctx.lineWidth=2.5;ctx.stroke();
-}
-
-/* ── PALMING ── */
-function posePalming(ctx,t){
-  const bob=sin(t*2*π)*.5, warm=(sin(t*2*π)+1)*.5;
-  // sitting
-  limb(ctx,CX-8,150+bob,CX-32,162+bob,13,PT);limb(ctx,CX-32,162+bob,CX-34,196+bob,11,PT);
-  limb(ctx,CX+8,150+bob,CX+32,162+bob,13,PT);limb(ctx,CX+32,162+bob,CX+34,196+bob,11,PT);
-  ctx.beginPath();ctx.ellipse(CX-34,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(CX+34,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  roundRect(ctx,CX-14,108+bob,28,55,8,SH,OL,2.2);
-  // both hands cover face
-  limb(ctx,CX-14,120+bob,CX-8,85+bob,11,SH);limb(ctx,CX-8,85+bob,CX-5,75+bob,9,SK);
-  limb(ctx,CX+14,120+bob,CX+8,85+bob,11,SH);limb(ctx,CX+8,85+bob,CX+5,75+bob,9,SK);
-  // palms over face
-  roundRect(ctx,CX-30,72+bob,28,24,8,`rgba(251,191,122,${0.7+warm*.3})`,OL,2);
-  roundRect(ctx,CX+2,72+bob,28,24,8,`rgba(251,191,122,${0.7+warm*.3})`,OL,2);
-  // warmth glow
-  const g=ctx.createRadialGradient(CX,80+bob,5,CX,80+bob,40);
-  g.addColorStop(0,`rgba(253,186,116,${warm*.4})`);g.addColorStop(1,'rgba(253,186,116,0)');
-  ctx.beginPath();ctx.arc(CX,80+bob,40,0,2*π);ctx.fillStyle=g;ctx.fill();
-}
-
-/* ── NECK TILT ── */
-function poseNeckTilt(ctx,t,dir=0){
-  // dir: -1=left, 0=center, 1=right
-  const bob=sin(t*2*π)*.4;
-  limb(ctx,CX-8,150+bob,CX-32,162+bob,13,PT);limb(ctx,CX-32,162+bob,CX-34,196+bob,11,PT);
-  limb(ctx,CX+8,150+bob,CX+32,162+bob,13,PT);limb(ctx,CX+32,162+bob,CX+34,196+bob,11,PT);
-  ctx.beginPath();ctx.ellipse(CX-34,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(CX+34,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  roundRect(ctx,CX-14,108+bob,28,55,8,SH,OL,2.2);
-  limb(ctx,CX-14,120+bob,CX-42,145+bob,11,SH);limb(ctx,CX-42,145+bob,CX-44,175+bob,9,SK);
-  limb(ctx,CX+14,120+bob,CX+42,145+bob,11,SH);limb(ctx,CX+42,145+bob,CX+44,175+bob,9,SK);
-  // head tilted
-  const tX=dir*18, tY=dir!==0?8:0;
-  head(ctx,CX+tX,100+bob,27,{tiltX:tX*.2,tiltY:tY*.3,mouth:'flat'});
-  // stretch line
-  if(dir!==0){
-    const sx=dir>0?CX-20:CX+20;
-    ctx.beginPath();ctx.setLineDash([4,4]);
-    ctx.moveTo(CX,110+bob);ctx.lineTo(CX+tX*1.2,100+bob+tY*2);
-    ctx.strokeStyle='rgba(212,160,23,.6)';ctx.lineWidth=2;ctx.stroke();ctx.setLineDash([]);
-  }
-}
-
-/* ── ACUPRESSURE PRESS ── */
-function pressPose(ctx,t,zone='forehead'){
-  const bob=sin(t*4*π)*1.5;
-  // sitting
-  limb(ctx,CX-8,150+bob,CX-32,162+bob,13,PT);limb(ctx,CX-32,162+bob,CX-34,196+bob,11,PT);
-  limb(ctx,CX+8,150+bob,CX+32,162+bob,13,PT);limb(ctx,CX+32,162+bob,CX+34,196+bob,11,PT);
-  ctx.beginPath();ctx.ellipse(CX-34,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(CX+34,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  roundRect(ctx,CX-14,108+bob,28,55,8,SH,OL,2.2);
-  const pts={
-    forehead:[CX,76], temples:null, nose:[CX,104], ears:null,
-    head:[CX,82], hand:[CX-25,172]
-  };
-  const zones={
-    forehead:()=>{
-      limb(ctx,CX-14,120+bob,CX+4,92+bob,11,SH);limb(ctx,CX+4,92+bob,CX+2,80+bob,9,SK);
-      limb(ctx,CX+14,120+bob,CX+42,145+bob,11,SH);limb(ctx,CX+42,145+bob,CX+44,175+bob,9,SK);
-      // finger on forehead point
-      ctx.beginPath();ctx.arc(CX+2,78+bob,5,0,2*π);ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=1.5;ctx.stroke();
-    },
-    temples:()=>{
-      limb(ctx,CX-14,120+bob,CX-40,90+bob,11,SH);limb(ctx,CX-40,90+bob,CX-45,78+bob,9,SK);
-      limb(ctx,CX+14,120+bob,CX+40,90+bob,11,SH);limb(ctx,CX+40,90+bob,CX+45,78+bob,9,SK);
-      ctx.beginPath();ctx.arc(CX-45,76+bob,5,0,2*π);ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=1.5;ctx.stroke();
-      ctx.beginPath();ctx.arc(CX+45,76+bob,5,0,2*π);ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=1.5;ctx.stroke();
-    },
-    nose:()=>{
-      limb(ctx,CX-14,120+bob,CX+5,102+bob,11,SH);limb(ctx,CX+5,102+bob,CX+3,93+bob,9,SK);
-      limb(ctx,CX+14,120+bob,CX+42,145+bob,11,SH);limb(ctx,CX+42,145+bob,CX+44,175+bob,9,SK);
-      ctx.beginPath();ctx.arc(CX+3,91+bob,5,0,2*π);ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=1.5;ctx.stroke();
-    },
-    ears:()=>{
-      limb(ctx,CX-14,120+bob,CX-45,95+bob,11,SH);limb(ctx,CX-45,95+bob,CX-50,88+bob,9,SK);
-      limb(ctx,CX+14,120+bob,CX+45,95+bob,11,SH);limb(ctx,CX+45,95+bob,CX+50,88+bob,9,SK);
-    },
-    head:()=>{
-      // tap head
-      limb(ctx,CX-14,120+bob,CX-8,82+bob,11,SH);limb(ctx,CX-8,82+bob,CX-5,72+bob,9,SK);
-      limb(ctx,CX+14,120+bob,CX+8,82+bob,11,SH);limb(ctx,CX+8,82+bob,CX+5,72+bob,9,SK);
-    },
-    hand:()=>{
-      limb(ctx,CX-14,120+bob,CX-38,148+bob,11,SH);limb(ctx,CX-38,148+bob,CX-35,172+bob,9,SK);
-      limb(ctx,CX+14,120+bob,CX-20,155+bob,11,SH);limb(ctx,CX-20,155+bob,CX-18,172+bob,9,SK);
-      // big hand closeup hint
-      ctx.beginPath();ctx.roundRect(CX-48,160+bob,40,28,8);ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=2;ctx.stroke();
-    }
-  };
-  if(zones[zone]) zones[zone]();
-  else { limb(ctx,CX-14,120+bob,CX+42,145+bob,11,SH);limb(ctx,CX+42,145+bob,CX+44,175+bob,9,SK);limb(ctx,CX-14,120+bob,CX-42,145+bob,11,SH);limb(ctx,CX-42,145+bob,CX-44,175+bob,9,SK); }
-  head(ctx,CX,100+bob,27,{mouth:'flat'});
-  // pulse rings
-  const pulseR=8+sin(t*4*π)*6;
-  if(pts[zone]){
-    ctx.beginPath();ctx.arc(pts[zone][0],pts[zone][1]+bob,pulseR,0,2*π);
-    ctx.strokeStyle=`rgba(212,160,23,${clamp(1-pulseR/20,0,1)})`;ctx.lineWidth=2;ctx.stroke();
-  }
-}
-
-/* ── THINKING ── */
-function poseThinking(ctx,t,stage=0){
-  const bob=sin(t*2*π)*.6, idx=sin(t*2*π)*.3;
-  limb(ctx,CX-8,150+bob,CX-32,162+bob,13,PT);limb(ctx,CX-32,162+bob,CX-34,196+bob,11,PT);
-  limb(ctx,CX+8,150+bob,CX+32,162+bob,13,PT);limb(ctx,CX+32,162+bob,CX+34,196+bob,11,PT);
-  ctx.beginPath();ctx.ellipse(CX-34,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(CX+34,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  roundRect(ctx,CX-14,108+bob,28,55,8,SH,OL,2.2);
-  if(stage===2){
-    // pointing
-    limb(ctx,CX-14,120+bob,CX-38,140+bob,11,SH);limb(ctx,CX-38,140+bob,CX-40,168+bob,9,SK);
-    limb(ctx,CX+14,120+bob,CX+50,105+bob,11,SH);limb(ctx,CX+50,105+bob,CX+68,92+bob,9,SK);
-    ctx.beginPath();ctx.arc(CX+68,90+bob,5,0,2*π);ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=1.5;ctx.stroke();
-  } else {
-    // hand on chin
-    limb(ctx,CX+14,120+bob,CX+40,118+bob,11,SH);limb(ctx,CX+40,118+bob,CX+38,105+bob,9,SK);
-    limb(ctx,CX-14,120+bob,CX-42,145+bob,11,SH);limb(ctx,CX-42,145+bob,CX-44,175+bob,9,SK);
-  }
-  // thought cloud
-  if(stage===0||stage===1){
-    [[CX+45,78+bob],[CX+58,68+bob],[CX+48,60+bob],[CX+35,68+bob],[CX+30,58+bob],[CX+45,52+bob],[CX+60,56+bob],[CX+68,68+bob],[CX+58,56+bob]].forEach(([cx2,cy2],i,arr)=>{
-      if(i===0){ctx.beginPath();ctx.moveTo(cx2,cy2);}else ctx.lineTo(cx2,cy2);
-    });
-    ctx.closePath();ctx.fillStyle='rgba(200,210,255,.18)';ctx.fill();ctx.strokeStyle='rgba(200,210,255,.4)';ctx.lineWidth=1.5;ctx.stroke();
-    // dots inside bubble
-    if(stage===1){
-      '💡'.split('').forEach((_,i)=>{ctx.font='16px serif';ctx.fillText('💡',CX+36,70+bob);});
-    } else {
-      ctx.font='11px serif';ctx.fillText('?',CX+45,66+bob);
-    }
-  }
-  const tX=stage===2?-4:4;
-  head(ctx,CX,100+bob,27,{tiltX:tX,tiltY:-3,mouth:stage===2?'smile':'flat',eyeX:stage===2?.5:.2});
-}
-
-/* ── LYING DOWN / BODY SCAN ── */
-function poseLying(ctx,t,opts={}){
-  const {glowZone=null,tense=false}=opts;
-  const gentle=sin(t*1.5*π)*.3;
-  const base=175;
-  // ground/mat hint
-  roundRect(ctx,20,base+62,220,14,4,'rgba(42,122,90,.12)','rgba(42,122,90,.18)',1);
-  // body
-  limb(ctx,40,base+5,175,base+5,32,SH); // torso horizontal
-  // legs
-  limb(ctx,40,base+8,18,base+55,12,PT);limb(ctx,18,base+55,12,base+72,10,PT);
-  limb(ctx,55,base+8,70,base+55,12,PT);limb(ctx,70,base+55,78,base+72,10,PT);
-  ctx.beginPath();ctx.ellipse(10,base+76,10,5,.3,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(80,base+76,10,5,-.3,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  // arms alongside
-  limb(ctx,55,base+18,58,base+58,10,SK);limb(ctx,58,base+58,56,base+72,9,SK);
-  limb(ctx,145,base+18,142,base+58,10,SK);limb(ctx,142,base+58,144,base+72,9,SK);
-  // head
-  head(ctx,182,base-2,22,{tiltX:0,tiltY:0,blink:0.05+sin(t*π)*.05,mouth:'smile'});
-  // glow scan highlight
-  if(glowZone){
-    const gy={'low':base+55,'mid':base+15,'arms':base+45,'head':base+5}[glowZone]||base+35;
-    const gx={'low':50,'mid':105,'arms':150,'head':182}[glowZone]||105;
-    const gr=ctx.createRadialGradient(gx,gy,3,gx,gy,tense?32:40);
-    const col=tense?'rgba(239,68,68,':'rgba(212,160,23,';
-    gr.addColorStop(0,col+'.55)');gr.addColorStop(1,col+'0)');
-    ctx.beginPath();ctx.ellipse(gx,gy,tense?30:42,tense?18:22,0,0,2*π);ctx.fillStyle=gr;ctx.fill();
-  }
-}
-
-/* ── NADI SHODHANA (nostril) ── */
-function poseNadi(ctx,t,nostril='left'){
-  const bob=sin(t*2*π)*.5;
-  limb(ctx,CX-8,150+bob,CX-32,162+bob,13,PT);limb(ctx,CX-32,162+bob,CX-34,196+bob,11,PT);
-  limb(ctx,CX+8,150+bob,CX+32,162+bob,13,PT);limb(ctx,CX+32,162+bob,CX+34,196+bob,11,PT);
-  ctx.beginPath();ctx.ellipse(CX-34,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(CX+34,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  roundRect(ctx,CX-14,108+bob,28,55,8,SH,OL,2.2);
-  // right hand up to nose
-  limb(ctx,CX+14,120+bob,CX+38,98+bob,11,SH);limb(ctx,CX+38,98+bob,CX+36,84+bob,9,SK);
-  // thumb or ring finger on nose
-  const thumbX=nostril==='right'?CX+22:CX+28, ringX=nostril==='left'?CX+22:CX+28;
-  ctx.beginPath();ctx.arc(thumbX,82+bob,5,0,2*π);ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=1.5;ctx.stroke();
-  // left hand on knee
-  limb(ctx,CX-14,120+bob,CX-42,148+bob,11,SH);limb(ctx,CX-42,148+bob,CX-44,170+bob,9,SK);
-  // breath arrow
-  const col=nostril==='left'?'rgba(96,165,250,.8)':'rgba(167,243,208,.8)';
-  const arrowX=nostril==='left'?CX-22:CX+22;
-  ctx.beginPath();ctx.moveTo(arrowX,95+bob);ctx.lineTo(arrowX,60+bob);
-  ctx.strokeStyle=col;ctx.lineWidth=3;ctx.lineDash=[4,3];ctx.stroke();ctx.setLineDash([]);
-  ctx.beginPath();ctx.moveTo(arrowX-6,65+bob);ctx.lineTo(arrowX,58+bob);ctx.lineTo(arrowX+6,65+bob);
-  ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.stroke();
-  head(ctx,CX,100+bob,27,{mouth:'flat',eyeX:.3});
-}
-
-/* ── WATER WRIST ── */
-function poseWristWater(ctx,t){
-  const bob=sin(t*2*π)*.4, flow=(t%1);
-  poseStandingNeutral(ctx,t,{mouth:'open',exclaim:true});
-  // tap waves
-  ctx.beginPath();ctx.arc(CX-46,180+bob,18,0,2*π);ctx.strokeStyle='rgba(96,165,250,.3)';ctx.lineWidth=2;ctx.stroke();
-  ctx.beginPath();ctx.arc(CX+46,180+bob,18,0,2*π);ctx.strokeStyle='rgba(96,165,250,.3)';ctx.lineWidth=2;ctx.stroke();
-  // water drips
-  for(let i=0;i<4;i++){
-    const dx=(-1.5+i)*10, dy=flow*30;
-    ctx.beginPath();ctx.arc(CX-46+dx,180+bob+dy,3,0,2*π);
-    ctx.fillStyle=`rgba(96,165,250,${1-flow})`;ctx.fill();
-  }
-}
-
-/* ── FIGURE 8 HAND ── */
-function poseFigure8(ctx,t,hand='right'){
-  const bob=sin(t*2*π)*.3;
-  poseSittingNeutral(ctx,t,{mouth:'smile'});
-  // draw figure-8 trail
-  const hx=hand==='right'?CX+50:CX-50, hy=120;
-  const cx2=hx+(hand==='right'?20:-20), trail=[];
-  for(let i=0;i<20;i++){
-    const a=(i/20)*4*π;
-    trail.push([cx2+cos(a)*30,hy+sin(a*0.5)*20]);
-  }
-  ctx.beginPath();
-  trail.forEach(([x,y],i)=>i===0?ctx.moveTo(x,y+bob):ctx.lineTo(x,y+bob));
-  ctx.strokeStyle='rgba(99,102,241,.5)';ctx.lineWidth=2.5;ctx.setLineDash([5,4]);ctx.stroke();ctx.setLineDash([]);
-  // hand dot at current position
-  const a=(t*4*π)%(4*π);
-  ctx.beginPath();ctx.arc(cx2+cos(a)*30,hy+sin(a*.5)*20+bob,6,0,2*π);
-  ctx.fillStyle=SK;ctx.fill();ctx.strokeStyle=OL;ctx.lineWidth=1.5;ctx.stroke();
-}
-
-/* ── HIP CIRCLE ── */
-function poseHipCircle(ctx,t,stage=0){
-  const a=(stage/3)*2*π, hip=8*sin(a);
-  poseStandingNeutral(ctx,t,{tiltX:hip*.5,mouth:'smile'});
-  // hip circle indicator
-  ctx.beginPath();ctx.arc(CX+hip*.5,155,15,0,2*π);
-  ctx.strokeStyle='rgba(212,160,23,.4)';ctx.lineWidth=2;ctx.setLineDash([4,4]);ctx.stroke();ctx.setLineDash([]);
-}
-
-/* ── SHOULDER ROLL ── */
-function poseShoulder(ctx,t,stage=0){
-  const a=(stage/3)*2*π, sh=15*sin(a);
-  const bob=sin(t*2*π)*.4;
-  limb(ctx,CX-8,150+bob,CX-32,162+bob,13,PT);limb(ctx,CX-32,162+bob,CX-34,196+bob,11,PT);
-  limb(ctx,CX+8,150+bob,CX+32,162+bob,13,PT);limb(ctx,CX+32,162+bob,CX+34,196+bob,11,PT);
-  ctx.beginPath();ctx.ellipse(CX-34,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(CX+34,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  roundRect(ctx,CX-14,108+bob,28,55,8,SH,OL,2.2);
-  limb(ctx,CX-14-sh,120+bob,CX-45-sh,128+bob+sh,11,SH);limb(ctx,CX-45-sh,128+bob+sh,CX-46-sh,158+bob+sh*.5,9,SK);
-  limb(ctx,CX+14+sh,120+bob,CX+45+sh,128+bob-sh,11,SH);limb(ctx,CX+45+sh,128+bob-sh,CX+46+sh,158+bob-sh*.5,9,SK);
-  head(ctx,CX,100+bob-sh*.1,27,{mouth:'smile'});
-}
-
-/* ── CHEST OPENER ── */
-function poseChestOpen(ctx,t){
-  const bob=sin(t*2*π)*.4, open=.8;
-  limb(ctx,CX-8,150+bob,CX-32,162+bob,13,PT);limb(ctx,CX-32,162+bob,CX-34,196+bob,11,PT);
-  limb(ctx,CX+8,150+bob,CX+32,162+bob,13,PT);limb(ctx,CX+32,162+bob,CX+34,196+bob,11,PT);
-  ctx.beginPath();ctx.ellipse(CX-34,203+bob,13,7,.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  ctx.beginPath();ctx.ellipse(CX+34,203+bob,13,7,-.15,0,2*π);ctx.fillStyle=SHO;ctx.fill();
-  roundRect(ctx,CX-14,108+bob,28,55,8,SH,OL,2.2);
-  // arms pulled way back
-  limb(ctx,CX-14,120+bob,CX-60,125+bob,11,SH);limb(ctx,CX-60,125+bob,CX-65,155+bob,9,SK);
-  limb(ctx,CX+14,120+bob,CX+60,125+bob,11,SH);limb(ctx,CX+60,125+bob,CX+65,155+bob,9,SK);
-  // hands interlaced hint behind back
-  ctx.beginPath();ctx.moveTo(CX-35,145+bob);ctx.quadraticCurveTo(CX,178+bob,CX+35,145+bob);
-  ctx.strokeStyle='rgba(251,191,122,.5)';ctx.lineWidth=2;ctx.setLineDash([4,4]);ctx.stroke();ctx.setLineDash([]);
-  head(ctx,CX,100+bob,27,{tiltY:-6,mouth:'smile'});
-}
-
-/* ══ POSE DISPATCH TABLE ══ */
-const POSES = {
-  // sitting
-  'sitting-neutral': (ctx,t)=>poseSittingNeutral(ctx,t),
-  'sitting-inhale':  (ctx,t)=>poseSittingInhale(ctx,t,0),
-  'sitting-inhale2': (ctx,t)=>poseSittingInhale(ctx,t,.5),
-  'sitting-inhale3': (ctx,t)=>poseSittingInhale(ctx,t,1),
-  'sitting-exhale':  (ctx,t)=>poseSittingExhale(ctx,t,0),
-  'sitting-exhale2': (ctx,t)=>poseSittingExhale(ctx,t,.5),
-  'sitting-exhale3': (ctx,t)=>poseSittingExhale(ctx,t,1),
-  'sitting-hold-full':(ctx,t)=>poseSittingInhale(ctx,t,.9),
-  'sitting-hold-empty':(ctx,t)=>poseSittingExhale(ctx,t,.9),
-  'hold-empty':      (ctx,t)=>poseSittingExhale(ctx,t,1),
-  'hold-full-wide':  (ctx,t)=>poseSittingInhale(ctx,t,1),
-  'power-breathe1':  (ctx,t)=>poseSittingInhale(ctx,t,0),
-  'power-breathe2':  (ctx,t)=>poseSittingInhale(ctx,t,.7),
-  'power-breathe3':  (ctx,t)=>poseSittingExhale(ctx,t,.7),
-  'deep-inhale':     (ctx,t)=>poseSittingInhale(ctx,t,1),
-  // standing
-  'standing-neutral':(ctx,t)=>poseStandingNeutral(ctx,t),
-  'standing-breathe':(ctx,t)=>poseStandingNeutral(ctx,t,{mouth:'flat'}),
-  'stretch-up':      (ctx,t)=>poseStretchUp(ctx,t),
-  'shake-hands':     (ctx,t)=>poseStandingNeutral(ctx,t,{mouth:'smile'}),
-  // wake-up actions
-  'march1': (ctx,t)=>poseMarch(ctx,t,0),
-  'march2': (ctx,t)=>poseStandingNeutral(ctx,t,{mouth:'open'}),
-  'march3': (ctx,t)=>poseMarch(ctx,t,1),
-  'jack-open': (ctx,t)=>poseJumpingJack(ctx,t,true),
-  'jack-close':(ctx,t)=>poseJumpingJack(ctx,t,false),
-  'knee-left': (ctx,t)=>poseHighKnee(ctx,t,0),
-  'knee-right':(ctx,t)=>poseHighKnee(ctx,t,1),
-  'squat-down':(ctx,t)=>poseSquat(ctx,t,0),
-  'squat-mid': (ctx,t)=>poseSquat(ctx,t,.5),
-  'squat-up':  (ctx,t)=>poseSquat(ctx,t,1),
-  'calf-raise':(ctx,t)=>poseCalfRaise(ctx,t,true),
-  'arm-circle1':(ctx,t)=>poseShoulder(ctx,t,0),
-  'arm-circle2':(ctx,t)=>poseShoulder(ctx,t,1),
-  'arm-circle3':(ctx,t)=>poseShoulder(ctx,t,2),
-  // eye
-  'eye-center': (ctx,t)=>poseEyeCloseup(ctx,t,0,0),
-  'eye-up':     (ctx,t)=>poseEyeCloseup(ctx,t,0,-1),
-  'eye-down':   (ctx,t)=>poseEyeCloseup(ctx,t,0,1),
-  'eye-left':   (ctx,t)=>poseEyeCloseup(ctx,t,-1,0),
-  'eye-right':  (ctx,t)=>poseEyeCloseup(ctx,t,1,0),
-  'eye-upleft': (ctx,t)=>poseEyeCloseup(ctx,t,-.8,-.8),
-  'eye-downright':(ctx,t)=>poseEyeCloseup(ctx,t,.8,.8),
-  'eye-upright':(ctx,t)=>poseEyeCloseup(ctx,t,.8,-.8),
-  'eye-downleft':(ctx,t)=>poseEyeCloseup(ctx,t,-.8,.8),
-  'look-far':   (ctx,t)=>poseEyeCloseup(ctx,t,.4,-.2),
-  'look-near':  (ctx,t)=>poseEyeCloseup(ctx,t,0,.3),
-  'blink-open': (ctx,t)=>poseEyeCloseup(ctx,t,0,0,1),
-  'blink-half': (ctx,t)=>poseEyeCloseup(ctx,t,0,0,.45),
-  'blink-closed':(ctx,t)=>poseEyeCloseup(ctx,t,0,0,.05),
-  'eye-splash1':(ctx,t)=>poseEyeCloseup(ctx,t,0,0,.05),
-  'eye-splash2':(ctx,t)=>poseEyeCloseup(ctx,t,0,0,1),
-  'wide-eyes':  (ctx,t)=>poseEyeCloseup(ctx,t,0,-.1,1+sin(t*2*π)*.1),
-  'palming':    (ctx,t)=>posePalming(ctx,t),
-  // brain
-  'think1': (ctx,t)=>poseThinking(ctx,t,0),
-  'think2': (ctx,t)=>poseThinking(ctx,t,1),
-  'think3': (ctx,t)=>poseThinking(ctx,t,0),
-  'think-point':(ctx,t)=>poseThinking(ctx,t,2),
-  'tap-knee1':(ctx,t)=>poseSittingNeutral(ctx,t,{mouth:'flat'}),
-  'tap-knee2':(ctx,t)=>poseSittingNeutral(ctx,t,{mouth:'flat'}),
-  // cross crawl
-  'cross1': (ctx,t)=>poseCrossCrawl(ctx,t,0),
-  'cross2': (ctx,t)=>poseCrossCrawl(ctx,t,1),
-  'fig8-right1':(ctx,t)=>poseFigure8(ctx,t,'right'),
-  'fig8-right2':(ctx,t)=>poseFigure8(ctx,t,'right'),
-  'fig8-right3':(ctx,t)=>poseFigure8(ctx,t,'right'),
-  'fig8-left1': (ctx,t)=>poseFigure8(ctx,t,'left'),
-  'fig8-left2': (ctx,t)=>poseFigure8(ctx,t,'left'),
-  'fig8-left3': (ctx,t)=>poseFigure8(ctx,t,'left'),
-  'hookup': (ctx,t)=>poseSittingNeutral(ctx,t,{mouth:'smile'}),
-  // neck/body
-  'neck-left':    (ctx,t)=>poseNeckTilt(ctx,t,-1),
-  'neck-right':   (ctx,t)=>poseNeckTilt(ctx,t,1),
-  'chin-chest':   (ctx,t)=>poseNeckTilt(ctx,t,0),
-  'shoulder-roll1':(ctx,t)=>poseShoulder(ctx,t,0),
-  'shoulder-roll2':(ctx,t)=>poseShoulder(ctx,t,1),
-  'shoulder-roll3':(ctx,t)=>poseShoulder(ctx,t,2),
-  'hip-circle1':  (ctx,t)=>poseHipCircle(ctx,t,0),
-  'hip-circle2':  (ctx,t)=>poseHipCircle(ctx,t,1),
-  'hip-circle3':  (ctx,t)=>poseHipCircle(ctx,t,2),
-  'chest-open':   (ctx,t)=>poseChestOpen(ctx,t),
-  // acupressure
-  'press-forehead':(ctx,t)=>pressPose(ctx,t,'forehead'),
-  'press-temples': (ctx,t)=>pressPose(ctx,t,'temples'),
-  'press-nose':    (ctx,t)=>pressPose(ctx,t,'nose'),
-  'press-ears':    (ctx,t)=>pressPose(ctx,t,'ears'),
-  'tap-head1':     (ctx,t)=>pressPose(ctx,t,'head'),
-  'tap-head2':     (ctx,t)=>pressPose(ctx,t,'head'),
-  'press-hand':    (ctx,t)=>pressPose(ctx,t,'hand'),
-  'tap-face1':     (ctx,t)=>pressPose(ctx,t,'forehead'),
-  'tap-face2':     (ctx,t)=>pressPose(ctx,t,'nose'),
-  'rub-forehead':  (ctx,t)=>pressPose(ctx,t,'forehead'),
-  // water
-  'wrist-water':   (ctx,t)=>poseWristWater(ctx,t),
-  'splash1':(ctx,t)=>poseEyeCloseup(ctx,t,0,0,.05),
-  'splash2':(ctx,t)=>poseEyeCloseup(ctx,t,0,0,1),
-  'splash3':(ctx,t)=>poseEyeCloseup(ctx,t,0,0,.3),
-  'behind-ears':(ctx,t)=>pressPose(ctx,t,'ears'),
-  // nadi shodhana
-  'nadi-left-in':  (ctx,t)=>poseNadi(ctx,t,'left'),
-  'nadi-left-out': (ctx,t)=>poseNadi(ctx,t,'left'),
-  'nadi-right-in': (ctx,t)=>poseNadi(ctx,t,'right'),
-  'nadi-right-out':(ctx,t)=>poseNadi(ctx,t,'right'),
-  'nadi-hold':     (ctx,t)=>poseNadi(ctx,t,'both'),
-  // lying down
-  'lying-rest':       (ctx,t)=>poseLying(ctx,t,{}),
-  'lying-scan-low':   (ctx,t)=>poseLying(ctx,t,{glowZone:'low'}),
-  'lying-scan-mid':   (ctx,t)=>poseLying(ctx,t,{glowZone:'mid'}),
-  'lying-scan-arms':  (ctx,t)=>poseLying(ctx,t,{glowZone:'arms'}),
-  'lying-scan-head':  (ctx,t)=>poseLying(ctx,t,{glowZone:'head'}),
-  'lying-tense-low':  (ctx,t)=>poseLying(ctx,t,{glowZone:'low',tense:true}),
-  'lying-tense-mid':  (ctx,t)=>poseLying(ctx,t,{glowZone:'mid',tense:true}),
-  'lying-tense-abs':  (ctx,t)=>poseLying(ctx,t,{glowZone:'mid',tense:true}),
-  'lying-tense-arms': (ctx,t)=>poseLying(ctx,t,{glowZone:'arms',tense:true}),
-  'lying-tense-face': (ctx,t)=>poseLying(ctx,t,{glowZone:'head',tense:true}),
-};
 
 const SCENES = {
   'box-breathing':[
@@ -2707,7 +2402,6 @@ window.CartoonAnim = {
 
 // Init canvas element reference on load (but don't start loop yet)
 document.addEventListener('DOMContentLoaded', () => { window.CartoonAnim.init(); });
-})();
 </script>
 
 </body>
