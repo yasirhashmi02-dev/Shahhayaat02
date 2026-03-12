@@ -21,14 +21,14 @@
   --sh-md:0 10px 30px rgba(0,0,0,.40);--sh-lg:0 20px 50px rgba(0,0,0,.50);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:72px}
+html,body{max-width:100vw;overflow-x:hidden;width:100%}html{scroll-behavior:smooth;scroll-padding-top:72px}
 body{font-family:var(--font-b);background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 ul{list-style:none}
 button{cursor:pointer;font-family:var(--font-b)}
-.container{max-width:1180px;margin:0 auto;padding:0 20px}
-.section{padding:clamp(60px,8vw,100px) 0}
+.container{max-width:1180px;margin:0 auto;padding:0 16px;width:100%;box-sizing:border-box}
+.section{padding:clamp(40px,6vw,100px) 0}
 .eyebrow{display:inline-block;font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.65rem}
 
 /* ── HEADER ── */
@@ -68,13 +68,13 @@ body.nav-open{overflow:hidden}
 .ex-hero-inner{position:relative;z-index:1;text-align:center}
 .ex-hero h1{font-family:var(--font-h);font-size:clamp(2rem,5vw,3.2rem);color:#fff;line-height:1.15;margin-bottom:.9rem}
 .ex-hero h1 em{color:var(--gold-l);font-style:italic}
-.ex-hero p{color:rgba(255,255,255,.60);max-width:560px;margin:0 auto 1.8rem;font-size:.97rem}
-.hero-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;margin-bottom:2rem}
+.ex-hero p{color:rgba(255,255,255,.60);max-width:560px;margin:0 auto 1.4rem;font-size:.88rem;padding:0 .5rem}
+.hero-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem;margin-bottom:1.4rem}
 .hero-chip{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .9rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:50px;font-size:.72rem;font-weight:600;color:rgba(255,255,255,.75)}
 
 /* ── LAB RESULTS BANNER ── */
 #labBanner{display:none;margin-bottom:2rem}
-.lab-banner-inner{background:linear-gradient(135deg,rgba(42,122,90,.18),rgba(212,160,23,.10));border:1.5px solid rgba(42,122,90,.35);border-radius:var(--r-lg);padding:1.3rem 1.6rem;display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap}
+.lab-banner-inner{background:linear-gradient(135deg,rgba(42,122,90,.18),rgba(212,160,23,.10));border:1.5px solid rgba(42,122,90,.35);border-radius:var(--r-lg);padding:1rem 1.1rem;display:flex;align-items:flex-start;gap:.8rem;flex-wrap:wrap}
 .lab-banner-icon{font-size:2rem;flex-shrink:0;line-height:1}
 .lab-banner-text{flex:1;min-width:200px}
 .lab-banner-text strong{display:block;font-family:var(--font-h);font-size:1rem;color:var(--text);margin-bottom:.25rem}
@@ -86,7 +86,7 @@ body.nav-open{overflow:hidden}
 .lab-dismiss:hover{color:var(--text)}
 
 /* ── FILTER ── */
-.filter-bar{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2.2rem}
+.filter-bar{display:flex;flex-wrap:nowrap;gap:.4rem;justify-content:flex-start;margin-bottom:1.6rem;overflow-x:auto;padding:0 0 .5rem 0;scrollbar-width:none;-webkit-overflow-scrolling:touch}.filter-bar::-webkit-scrollbar{display:none}
 .filter-btn{padding:.5rem 1.15rem;border-radius:50px;font-size:.78rem;font-weight:600;background:var(--bg3);border:1.5px solid var(--border);color:var(--text-m);transition:all .25s;letter-spacing:.03em}
 .filter-btn:hover{border-color:var(--gold);color:var(--text)}
 .filter-btn.active{background:var(--gold);border-color:var(--gold);color:#fff}
@@ -106,8 +106,9 @@ body.nav-open{overflow:hidden}
 .badge-rec{background:rgba(42,122,90,.85);color:#fff}
 .badge-wake{background:rgba(239,68,68,.85);color:#fff}
 .badge-new{background:rgba(212,160,23,.9);color:#fff}
-.ex-card-head{padding:1.35rem 1.35rem 0;display:flex;align-items:flex-start;gap:.9rem}
-.ex-emoji{font-size:2.1rem;line-height:1;flex-shrink:0}
+.ex-card-head{padding:1.1rem 1.1rem 0;display:flex;align-items:flex-start;gap:.8rem}
+.ex-mini-canvas{image-rendering:auto;flex-shrink:0}
+.ex-emoji{display:none}
 .ex-meta{flex:1;padding-right:3.5rem}
 .ex-tag{display:inline-block;font-size:.60rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;padding:.2rem .65rem;border-radius:50px;margin-bottom:.35rem}
 .tag-brain{background:rgba(99,102,241,.2);color:#a5b4fc;border:1px solid rgba(99,102,241,.25)}
@@ -134,6 +135,30 @@ body.nav-open{overflow:hidden}
 .voice-btn.speaking{background:rgba(212,160,23,.2);border-color:var(--gold);color:var(--gold-l);animation:voicePulse .8s ease-in-out infinite alternate}
 @keyframes voicePulse{from{box-shadow:0 0 0 0 rgba(212,160,23,.3)}to{box-shadow:0 0 0 8px rgba(212,160,23,0)}}
 
+
+/* ── ANIMATED SVG INSTRUCTOR ── */
+#svgInstructor svg { max-width:100%; max-height:100%; }
+.inst-figure { transform-origin: bottom center; }
+/* breathing animation */
+@keyframes breatheIn  { 0%,100%{transform:scaleY(1)}   50%{transform:scaleY(1.12)} }
+@keyframes breatheOut { 0%,100%{transform:scaleY(1.12)} 50%{transform:scaleY(1)} }
+@keyframes sway       { 0%,100%{transform:rotate(-4deg)} 50%{transform:rotate(4deg)} }
+@keyframes bob        { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+@keyframes blink      { 0%,90%,100%{transform:scaleY(1)} 95%{transform:scaleY(0.1)} }
+@keyframes eyeMove    { 0%,100%{transform:translateX(0)} 25%{transform:translateX(4px)} 75%{transform:translateX(-4px)} }
+@keyframes armUp      { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-35deg)} }
+@keyframes armDown    { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(35deg)} }
+@keyframes march      { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(25deg)} }
+@keyframes marchOpp   { 0%,100%{transform:rotate(25deg)} 50%{transform:rotate(0deg)} }
+@keyframes nod        { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(15deg)} }
+@keyframes pulse      { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(1.08)} }
+@keyframes glow       { 0%,100%{filter:drop-shadow(0 0 4px #D4A017)} 50%{filter:drop-shadow(0 0 16px #D4A017)} }
+@keyframes float      { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+@keyframes spin       { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+@keyframes handShake  { 0%,100%{transform:rotate(0)} 25%{transform:rotate(-10deg)} 75%{transform:rotate(10deg)} }
+@keyframes squat      { 0%,100%{transform:scaleY(1) translateY(0)} 50%{transform:scaleY(.75) translateY(12px)} }
+@keyframes ripple     { 0%{transform:scale(.8);opacity:1} 100%{transform:scale(2.5);opacity:0} }
+
 /* ── TIMER OVERLAY ── */
 .timer-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);align-items:flex-end;justify-content:center;padding:0}
 .timer-overlay.open{display:flex}
@@ -142,7 +167,7 @@ body.nav-open{overflow:hidden}
 @media(min-width:600px){.timer-box{border-radius:22px;max-height:90dvh;animation:popIn .3s var(--ease) forwards}}
 @keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 /* cartoon panel */
-.t-cartoon-panel{position:relative;width:100%;height:180px;overflow:hidden;background:#061428;flex-shrink:0;transition:background 1.2s ease}
+.t-cartoon-panel{position:relative;width:100%;height:200px;overflow:hidden;background:#061428;flex-shrink:0;transition:background 1.2s ease;max-width:100vw}
 #cartoonCanvas{display:block;width:100%;height:100%}
 .t-cartoon-label{position:absolute;bottom:.45rem;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:.18rem .75rem;font-size:.6rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#D4A017;white-space:nowrap;pointer-events:none;max-width:85%;overflow:hidden;text-overflow:ellipsis}
 .t-cartoon-step-pill{position:absolute;top:.5rem;left:.6rem;background:rgba(212,160,23,.18);border:1px solid rgba(212,160,23,.35);border-radius:50px;padding:.15rem .55rem;font-size:.55rem;font-weight:800;color:#D4A017;letter-spacing:.06em}
@@ -284,7 +309,7 @@ body.nav-open{overflow:hidden}
 </section>
 
 <!-- MAIN SECTION -->
-<section class="section" style="background:var(--bg2)">
+<section class="section" style="background:var(--bg2);width:100%;box-sizing:border-box">
   <div class="container">
 
     <!-- LAB RESULTS BANNER (shown only if lab data exists) -->
@@ -302,9 +327,13 @@ body.nav-open{overflow:hidden}
 
     <!-- FILTER -->
     <div class="sec-head reveal">
-      <div class="eyebrow">15 Activities</div>
+      <div class="eyebrow">20 Activities</div>
       <h2>Choose Your Exercise</h2>
       <p>Filter by category or see all. Every activity has a guided timer with voice instructions.</p>
+      <button id="startAllBtn" onclick="startAllExercises()"
+        style="margin-top:1.2rem;padding:.7rem 1.8rem;background:linear-gradient(135deg,#166534,#22c55e);color:#fff;border:none;border-radius:50px;font-size:.85rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:.5rem;box-shadow:0 4px 18px rgba(34,197,94,.3);transition:all .25s">
+        ▶▶ Start All Exercises
+      </button>
     </div>
     <div class="filter-bar" id="filterBar">
       <button class="filter-btn active" data-filter="all">All Activities</button>
@@ -370,12 +399,18 @@ body.nav-open{overflow:hidden}
 <!-- TIMER OVERLAY -->
 <div class="timer-overlay" id="timerOverlay" role="dialog" aria-modal="true">
   <div class="timer-box">
-    <!-- CARTOON PANEL -->
+    <!-- drag handle for mobile bottom sheet -->
+    <div style="display:flex;justify-content:center;padding:.55rem 0 0;flex-shrink:0;background:var(--bg3)">
+      <div style="width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,.18)"></div>
+    </div>
+    <!-- ANIMATED SVG INSTRUCTOR PANEL -->
     <div class="t-cartoon-panel" id="tCartoonPanel">
-      <canvas id="cartoonCanvas" width="760" height="260"></canvas>
+      <div id="svgInstructor" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative">
+        <!-- SVG figure injected by JS per exercise -->
+      </div>
       <div class="t-cartoon-step-pill" id="tCartoonPill">Step 1</div>
       <div class="t-cartoon-label" id="tCartoonLabel">Get Ready</div>
-      <button class="t-close" id="tClose" style="top:.7rem;right:.7rem;background:rgba(0,0,0,.45);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center">✕</button>
+      <button class="t-close" id="tClose" style="top:.7rem;right:.7rem;background:rgba(0,0,0,.45);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;z-index:10;position:absolute">✕</button>
     </div>
 
     <!-- CONTROLS AREA -->
@@ -407,10 +442,11 @@ body.nav-open{overflow:hidden}
 
       <!-- Normal timer step label -->
       <div id="normalTimer">
-        <div class="t-step-lbl" id="tStepLbl" style="font-size:.82rem;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:.65rem .9rem;text-align:left;line-height:1.6;color:var(--text-m)"></div>
+        <div class="t-step-lbl" id="tStepLbl" style="font-size:.82rem;background:rgba(255,255,255,.05);border:1px solid rgba(212,160,23,.2);border-radius:10px;padding:.6rem .85rem;text-align:left;line-height:1.6;color:var(--text);font-weight:500"></div>
         <div class="t-btns">
           <button class="t-btn t-btn-start" id="tStartBtn" onclick="timerStart()">▶ Start</button>
           <button class="t-btn t-btn-voice" id="tVoiceBtn" onclick="toggleVoice()">🔇 Voice Off</button>
+          <button class="t-btn" id="tNextBtn" onclick="nextExercise()" style="background:var(--bg4);color:var(--text-m);border:1.5px solid var(--border-m);display:none">⏭ Next</button>
           <button class="t-btn t-btn-stop" onclick="timerClose()">✕ Close</button>
         </div>
       </div>
@@ -446,6 +482,9 @@ body.nav-open{overflow:hidden}
 
 <script>
 'use strict';
+
+/* Virtual canvas coordinate space — all POSES draw within this */
+const VIRT_W = 280, VIRT_H = 260;
 
 /* ══════════════════════════════════════════
    EXERCISE DATA — 20 activities
@@ -759,7 +798,10 @@ function renderCards(filter='all'){
         ${ex.special ? '<span class="badge badge-wake">Must Try</span>' : ''}
       </div>
       <div class="ex-card-head">
-        <div class="ex-emoji">${ex.emoji}</div>
+        <div style="position:relative;flex-shrink:0">
+          <canvas class="ex-mini-canvas" id="mini-${ex.id}" width="64" height="64"
+            style="border-radius:14px;background:#071830;display:block;width:64px;height:64px"></canvas>
+        </div>
         <div class="ex-meta">
           <span class="ex-tag ${ex.tagClass}">${ex.tag}</span>
           <h3>${ex.title}</h3>
@@ -778,7 +820,10 @@ function renderCards(filter='all'){
         </div>
       </div>
       <div class="ex-footer">
-        <div class="ex-benefit">✦ <strong>${ex.benefit}</strong> ${ex.benefitVal}</div>
+        <div style="display:flex;flex-direction:column;gap:.25rem">
+          <div class="ex-benefit">✦ <strong>${ex.benefit}</strong> ${ex.benefitVal}</div>
+          <div style="font-size:.6rem;color:var(--text-mu);display:flex;align-items:center;gap:.3rem">🎬 <span>Cartoon instructor inside</span></div>
+        </div>
         <div class="ex-btns">
           <button class="voice-btn" onclick="speakCard('${ex.id}')" title="Hear description" aria-label="Hear description">🔊</button>
           <button class="start-btn" onclick="openExercise('${ex.id}')">▶ Start</button>
@@ -787,6 +832,54 @@ function renderCards(filter='all'){
     </div>`;
   }).join('');
   observeReveal();
+  // Draw mini instructor previews on each card
+  requestAnimationFrame(drawMiniPreviews);
+}
+
+function drawMiniPreviews(){
+  EXERCISES.forEach(ex=>{
+    const c=document.getElementById('mini-'+ex.id);
+    if(!c) return;
+    const ctx=c.getContext('2d');
+    const dpr=window.devicePixelRatio||1;
+    c.width=64*dpr; c.height=64*dpr;
+    c.style.width='64px'; c.style.height='64px';
+    ctx.scale(dpr,dpr);
+    // bg
+    const g=ctx.createLinearGradient(0,0,0,64);
+    const bgMap={wake:'#180800',brain:'#080820',eyes:'#041828',breath:'#031a10',body:'#081400',calm:'#020810'};
+    g.addColorStop(0,bgMap[ex.cat]||'#071830');
+    g.addColorStop(1,'#020810');
+    ctx.fillStyle=g; ctx.fillRect(0,0,64,64);
+    // draw tiny character using scaled versions of pose functions
+    drawMiniChar(ctx, ex.cat, ex.id);
+    // overlay emoji in bottom-right corner
+    ctx.font='13px serif';
+    ctx.fillText(ex.emoji, 46, 58);
+  });
+}
+
+function drawMiniChar(ctx, cat, id){
+  // Mini 64x64 — scale virtual 280x260 space down to 64px
+  const miniSize = 64;
+  const sc = miniSize / VIRT_W;       // ≈ 0.228
+  const offX = 0;
+  const offY = (miniSize - VIRT_H * sc) / 2;  // center vertically
+  ctx.save();
+  ctx.translate(offX, offY);
+  ctx.scale(sc, sc);
+  try{
+    const scenesForId = (typeof SCENES !== 'undefined') ? SCENES[id] : null;
+    const poseKey = scenesForId && scenesForId[0] && scenesForId[0].poses && scenesForId[0].poses[0];
+    if(poseKey && typeof POSES !== 'undefined' && POSES[poseKey]){
+      POSES[poseKey](ctx, 0);
+    } else {
+      const fallbacks={wake:'march1',brain:'think1',eyes:'eye-center',breath:'sitting-inhale2',body:'standing-neutral',calm:'lying-rest'};
+      const fb = fallbacks[cat] || 'sitting-neutral';
+      if(POSES[fb]) POSES[fb](ctx, 0);
+    }
+  } catch(e){}
+  ctx.restore();
 }
 
 /* ══════════════════════════════════════════
@@ -865,7 +958,8 @@ function openExercise(id){
     const ph = _ex.phases[0];
     document.getElementById('tNum').textContent = ph.sec;
     document.getElementById('tPhase').textContent = ph.label;
-    document.getElementById('tStepLbl').textContent = _ex.steps[0] || '';
+    const _s0 = _ex.steps[0] || '';
+    document.getElementById('tStepLbl').innerHTML = _s0 ? '<span style="color:var(--gold-l);font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-right:.4rem">Step 1</span>'+_s0 : '';
     document.getElementById('tRingFill').style.strokeDashoffset = '0';
     document.getElementById('tStartBtn').textContent = '▶ Start';
   } else if(isGame){
@@ -880,11 +974,18 @@ function openExercise(id){
 
   document.getElementById('timerOverlay').classList.add('open');
 
-  // Init cartoon
+  // Show animated SVG instructor
+  updateInstructor(_ex.id, _ex.cat, 'Get Ready');
+  // Also run canvas cartoon if available
   if(window.CartoonAnim){
-    const phases=_ex.phases?_ex.phases.map(p=>p.label):[];
-    CartoonAnim.setExercise(_ex.id, phases, _ex.steps||[]);
-    CartoonAnim.start();
+    const phases = _ex.phases ? _ex.phases.map(p=>p.label) : [];
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(()=>{
+        CartoonAnim.stop();
+        CartoonAnim.open();
+        CartoonAnim.setExercise(_ex.id, phases, _ex.steps||[]);
+      });
+    });
   }
 
   // Speak intro after short delay
@@ -937,9 +1038,11 @@ function tick(){
     const nextPh = _ex.phases[_phaseIdx];
     _sec = nextPh.sec;
     document.getElementById('tPhase').textContent = nextPh.label + ' — Round ' + _round + '/' + _ex.rounds;
-    document.getElementById('tStepLbl').textContent = _ex.steps[Math.min(_phaseIdx, _ex.steps.length-1)] || '';
+    const _stepTxt = _ex.steps[Math.min(_phaseIdx, _ex.steps.length-1)] || '';
+    document.getElementById('tStepLbl').innerHTML = _stepTxt ? '<span style="color:var(--gold-l);font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-right:.4rem">Step '+(_phaseIdx+1)+'</span>'+_stepTxt : '';
     document.getElementById('tRingFill').style.strokeDashoffset = '0';
     if(window.CartoonAnim) CartoonAnim.setPhase(_phaseIdx, Math.min(_phaseIdx,(_ex.steps||[]).length-1), nextPh.label);
+    updateInstructor(_ex.id, _ex.cat, nextPh.label);
   } else {
     document.getElementById('tPhase').textContent = ph.label + ' — Round ' + _round + '/' + _ex.rounds;
   }
@@ -948,8 +1051,41 @@ function tick(){
 function timerClose(){
   clearInterval(_timer); _running = false; _sec = 0; _phaseIdx = 0; _round = 1;
   stopSpeech(); cancelBreathAnim();
-  if(window.CartoonAnim) CartoonAnim.stop();
+  if(window.CartoonAnim){ CartoonAnim.stop(); }
   document.getElementById('timerOverlay').classList.remove('open');
+  const nb = document.getElementById('tNextBtn');
+  if(nb) nb.style.display='none';
+  _allExQueue = []; _allExIdx = -1;
+}
+
+// ══ START ALL / NEXT EXERCISE ══
+let _allExQueue = [], _allExIdx = -1;
+
+function startAllExercises(){
+  const active = document.querySelector('.filter-btn.active');
+  const filter = active ? active.dataset.filter : 'all';
+  _allExQueue = filter === 'all' ? [...EXERCISES] : EXERCISES.filter(e=>e.cat===filter);
+  _allExIdx = 0;
+  _startQueuedExercise();
+}
+
+function _startQueuedExercise(){
+  if(_allExIdx < 0 || _allExIdx >= _allExQueue.length) return;
+  openExercise(_allExQueue[_allExIdx].id);
+  setTimeout(()=>{
+    const btn = document.getElementById('tNextBtn');
+    if(btn) btn.style.display = _allExIdx < _allExQueue.length-1 ? 'inline-flex' : 'none';
+  }, 120);
+}
+
+function nextExercise(){
+  _allExIdx++;
+  if(_allExIdx >= _allExQueue.length){
+    timerClose();
+    setTimeout(()=>alert('🎉 All exercises complete! Great job!'), 200);
+    return;
+  }
+  _startQueuedExercise();
 }
 
 document.getElementById('tClose').addEventListener('click', timerClose);
@@ -1115,13 +1251,261 @@ if(window.speechSynthesis){
 loadLabData();
 renderCards();
 observeReveal();
+
+
+
+
+
+/* ══════════════════════════════════════════
+   SVG INSTRUCTOR — per-category animated figures
+   Replaces the broken canvas cartoon system
+══════════════════════════════════════════ */
+const SVG_FIGURES = {
+  // ── BREATHING exercises ──
+  breath: (phase) => {
+    const scale = phase==='inhale' ? 1.14 : phase==='hold' ? 1.14 : 1;
+    const anim  = phase==='inhale' ? 'breatheIn 4s ease-in-out infinite' :
+                  phase==='exhale' ? 'breatheOut 4s ease-in-out infinite' :
+                  'pulse 2s ease-in-out infinite';
+    return `<svg width="160" height="200" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- glow ring -->
+      <circle cx="80" cy="110" r="58" stroke="#D4A017" stroke-width="1.5" stroke-dasharray="6 4" opacity=".3" style="animation:spin 12s linear infinite;transform-origin:80px 110px"/>
+      <!-- ripple -->
+      <circle cx="80" cy="110" r="52" fill="rgba(212,160,23,.06)" style="animation:ripple 3s ease-out infinite"/>
+      <!-- body torso -->
+      <ellipse cx="80" cy="118" rx="20" ry="28" fill="#2A5FA0" style="animation:${anim};transform-origin:80px 118px"/>
+      <!-- head -->
+      <circle cx="80" cy="72" r="22" fill="#FDBF7A"/>
+      <!-- eyes blink -->
+      <ellipse cx="73" cy="70" rx="3.5" ry="4" fill="#1C1C2E" style="animation:blink 3.5s ease-in-out infinite;transform-origin:73px 70px"/>
+      <ellipse cx="87" cy="70" rx="3.5" ry="4" fill="#1C1C2E" style="animation:blink 3.5s ease-in-out infinite 0.15s;transform-origin:87px 70px"/>
+      <!-- smile -->
+      <path d="M73 80 Q80 87 87 80" stroke="#B8860B" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <!-- arms -->
+      <line x1="60" y1="108" x2="38" y2="128" stroke="#2A5FA0" stroke-width="8" stroke-linecap="round" style="animation:armUp 4s ease-in-out infinite;transform-origin:60px 108px"/>
+      <line x1="100" y1="108" x2="122" y2="128" stroke="#2A5FA0" stroke-width="8" stroke-linecap="round" style="animation:armDown 4s ease-in-out infinite;transform-origin:100px 108px"/>
+      <!-- legs -->
+      <line x1="70" y1="144" x2="62" y2="178" stroke="#1A3A60" stroke-width="9" stroke-linecap="round"/>
+      <line x1="90" y1="144" x2="98" y2="178" stroke="#1A3A60" stroke-width="9" stroke-linecap="round"/>
+      <!-- breath label -->
+      <text x="80" y="195" font-size="10" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="600">${phase.toUpperCase()}</text>
+    </svg>`;
+  },
+
+  // ── EYE exercises ──
+  eyes: (dir) => {
+    const dirs = {center:[0,0],up:[0,-8],down:[0,8],left:[-8,0],right:[8,0]};
+    const [ex, ey] = dirs[dir] || [0,0];
+    return `<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- face -->
+      <circle cx="90" cy="90" r="70" fill="#FDBF7A" stroke="#E8A050" stroke-width="2"/>
+      <!-- left eye socket -->
+      <ellipse cx="65" cy="80" rx="20" ry="14" fill="white" stroke="#D4A017" stroke-width="1.5"/>
+      <!-- right eye socket -->
+      <ellipse cx="115" cy="80" rx="20" ry="14" fill="white" stroke="#D4A017" stroke-width="1.5"/>
+      <!-- left pupil (moves with direction) -->
+      <circle cx="${65+ex}" cy="${80+ey}" r="7" fill="#1C1C2E" style="animation:eyeMove 3s ease-in-out infinite;transform-origin:${65+ex}px ${80+ey}px"/>
+      <circle cx="${67+ex}" cy="${78+ey}" r="2.5" fill="white"/>
+      <!-- right pupil -->
+      <circle cx="${115+ex}" cy="${80+ey}" r="7" fill="#1C1C2E" style="animation:eyeMove 3s ease-in-out infinite;transform-origin:${115+ex}px ${80+ey}px"/>
+      <circle cx="${117+ex}" cy="${78+ey}" r="2.5" fill="white"/>
+      <!-- eyebrows -->
+      <path d="M48 64 Q65 58 82 64" stroke="#8B4513" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <path d="M98 64 Q115 58 132 64" stroke="#8B4513" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <!-- smile -->
+      <path d="M70 112 Q90 128 110 112" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <!-- direction arrow hint -->
+      <text x="90" y="160" font-size="11" fill="#D4A017" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="600">LOOK ${(dir||'CENTER').toUpperCase()}</text>
+    </svg>`;
+  },
+
+  // ── BRAIN exercises ──
+  brain: () => `<svg width="160" height="200" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- thought bubble -->
+    <circle cx="115" cy="38" r="18" fill="rgba(212,160,23,.15)" stroke="#D4A017" stroke-width="1" style="animation:pulse 2s ease-in-out infinite"/>
+    <text x="115" y="44" font-size="16" text-anchor="middle" style="animation:float 2s ease-in-out infinite">💡</text>
+    <circle cx="96" cy="58" r="5" fill="rgba(212,160,23,.2)" stroke="#D4A017" stroke-width="1"/>
+    <circle cx="103" cy="70" r="3" fill="rgba(212,160,23,.15)" stroke="#D4A017" stroke-width="1"/>
+    <!-- body -->
+    <ellipse cx="70" cy="130" rx="20" ry="28" fill="#4A3FA0"/>
+    <!-- head -->
+    <circle cx="70" cy="82" r="24" fill="#FDBF7A"/>
+    <!-- brain glow on head -->
+    <circle cx="70" cy="72" r="14" fill="rgba(212,160,23,.12)" style="animation:glow 2s ease-in-out infinite"/>
+    <!-- eyes focused -->
+    <ellipse cx="63" cy="82" rx="4" ry="4.5" fill="#1C1C2E"/>
+    <circle cx="64.5" cy="81" r="1.5" fill="white"/>
+    <ellipse cx="77" cy="82" rx="4" ry="4.5" fill="#1C1C2E"/>
+    <circle cx="78.5" cy="81" r="1.5" fill="white"/>
+    <!-- focused expression -->
+    <path d="M62 92 Q70 96 78 92" stroke="#B8860B" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <!-- arms in thinking pose -->
+    <line x1="52" y1="118" x2="35" y2="105" stroke="#4A3FA0" stroke-width="8" stroke-linecap="round" style="animation:sway 3s ease-in-out infinite;transform-origin:52px 118px"/>
+    <line x1="88" y1="118" x2="100" y2="105" stroke="#4A3FA0" stroke-width="8" stroke-linecap="round"/>
+    <!-- legs -->
+    <line x1="60" y1="156" x2="52" y2="188" stroke="#2A2A60" stroke-width="9" stroke-linecap="round"/>
+    <line x1="80" y1="156" x2="88" y2="188" stroke="#2A2A60" stroke-width="9" stroke-linecap="round"/>
+    <!-- floating numbers particles -->
+    <text x="22" y="95" font-size="12" fill="#D4A017" opacity=".7" style="animation:float 2.5s ease-in-out infinite">1</text>
+    <text x="118" y="110" font-size="10" fill="#D4A017" opacity=".6" style="animation:float 3s ease-in-out infinite 0.5s">A</text>
+    <text x="30" y="130" font-size="9" fill="#6C8EBF" opacity=".5" style="animation:float 3.5s ease-in-out infinite 1s">∞</text>
+  </svg>`,
+
+  // ── WAKE-UP exercises ──
+  wake: (phase) => `<svg width="160" height="210" viewBox="0 0 160 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- energy rings -->
+    <circle cx="80" cy="105" r="70" stroke="#EF4444" stroke-width="1" stroke-dasharray="4 6" opacity=".25" style="animation:spin 8s linear infinite;transform-origin:80px 105px"/>
+    <circle cx="80" cy="105" r="55" stroke="#F97316" stroke-width="1" opacity=".2" style="animation:spin 5s linear infinite reverse;transform-origin:80px 105px"/>
+    <!-- body energetic -->
+    <ellipse cx="80" cy="125" rx="18" ry="26" fill="#DC2626" style="animation:bob 0.6s ease-in-out infinite;transform-origin:80px 125px"/>
+    <!-- head -->
+    <circle cx="80" cy="78" r="22" fill="#FDBF7A" style="animation:bob 0.6s ease-in-out infinite;transform-origin:80px 78px"/>
+    <!-- alert eyes wide -->
+    <circle cx="73" cy="76" r="5" fill="#1C1C2E"/>
+    <circle cx="74.5" cy="74.5" r="2" fill="white"/>
+    <circle cx="87" cy="76" r="5" fill="#1C1C2E"/>
+    <circle cx="88.5" cy="74.5" r="2" fill="white"/>
+    <!-- big grin -->
+    <path d="M70 88 Q80 96 90 88" stroke="#B8860B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <!-- marching arms -->
+    <line x1="63" y1="115" x2="40" y2="100" stroke="#DC2626" stroke-width="9" stroke-linecap="round" style="animation:armUp 0.6s ease-in-out infinite;transform-origin:63px 115px"/>
+    <line x1="97" y1="115" x2="120" y2="130" stroke="#DC2626" stroke-width="9" stroke-linecap="round" style="animation:armDown 0.6s ease-in-out infinite;transform-origin:97px 115px"/>
+    <!-- marching legs -->
+    <line x1="70" y1="148" x2="55" y2="182" stroke="#991B1B" stroke-width="9" stroke-linecap="round" style="animation:march 0.6s ease-in-out infinite;transform-origin:70px 148px"/>
+    <line x1="90" y1="148" x2="105" y2="182" stroke="#991B1B" stroke-width="9" stroke-linecap="round" style="animation:marchOpp 0.6s ease-in-out infinite;transform-origin:90px 148px"/>
+    <!-- energy burst sparks -->
+    <text x="108" y="70" font-size="16" style="animation:float 1s ease-in-out infinite">⚡</text>
+    <text x="22" y="88" font-size="12" style="animation:float 1.2s ease-in-out infinite 0.3s">✨</text>
+  </svg>`,
+
+  // ── BODY / stretch exercises ──
+  body: (phase) => `<svg width="160" height="215" viewBox="0 0 160 215" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- body standing -->
+    <ellipse cx="80" cy="125" rx="18" ry="30" fill="#166534" style="animation:breatheIn 3s ease-in-out infinite;transform-origin:80px 125px"/>
+    <!-- head -->
+    <circle cx="80" cy="72" r="22" fill="#FDBF7A"/>
+    <!-- relaxed eyes -->
+    <path d="M70 72 Q73 69 76 72" stroke="#1C1C2E" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M84 72 Q87 69 90 72" stroke="#1C1C2E" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <!-- calm smile -->
+    <path d="M72 82 Q80 88 88 82" stroke="#B8860B" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <!-- arms stretched up -->
+    <line x1="63" y1="112" x2="30" y2="78" stroke="#166534" stroke-width="9" stroke-linecap="round" style="animation:armUp 2s ease-in-out infinite;transform-origin:63px 112px"/>
+    <line x1="97" y1="112" x2="130" y2="78" stroke="#166534" stroke-width="9" stroke-linecap="round" style="animation:armDown 2s ease-in-out infinite;transform-origin:97px 112px"/>
+    <!-- hands -->
+    <circle cx="30" cy="75" r="6" fill="#FDBF7A" style="animation:armUp 2s ease-in-out infinite;transform-origin:63px 112px"/>
+    <circle cx="130" cy="75" r="6" fill="#FDBF7A" style="animation:armDown 2s ease-in-out infinite;transform-origin:97px 112px"/>
+    <!-- legs -->
+    <line x1="70" y1="152" x2="60" y2="192" stroke="#0F4620" stroke-width="9" stroke-linecap="round"/>
+    <line x1="90" y1="152" x2="100" y2="192" stroke="#0F4620" stroke-width="9" stroke-linecap="round"/>
+    <!-- sparkles around -->
+    <text x="140" y="90" font-size="14" style="animation:float 2s ease-in-out infinite">✨</text>
+    <text x="12" y="100" font-size="12" style="animation:float 2.5s ease-in-out infinite 0.5s">🌟</text>
+  </svg>`,
+
+  // ── CALM / meditation exercises ──
+  calm: () => `<svg width="170" height="190" viewBox="0 0 170 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- aura rings -->
+    <circle cx="85" cy="95" r="75" stroke="#7C3AED" stroke-width="1" stroke-dasharray="3 5" opacity=".2" style="animation:spin 20s linear infinite;transform-origin:85px 95px"/>
+    <circle cx="85" cy="95" r="62" fill="rgba(124,58,237,.05)" style="animation:pulse 4s ease-in-out infinite"/>
+    <!-- meditation pose - seated cross-legged -->
+    <!-- left leg -->
+    <path d="M55 145 Q45 160 40 175 Q55 178 70 175 Q72 162 70 148 Z" fill="#4C1D95" opacity=".9"/>
+    <!-- right leg -->
+    <path d="M115 145 Q125 160 130 175 Q115 178 100 175 Q98 162 100 148 Z" fill="#4C1D95" opacity=".9"/>
+    <!-- torso -->
+    <ellipse cx="85" cy="125" rx="22" ry="28" fill="#5B21B6"/>
+    <!-- head -->
+    <circle cx="85" cy="72" r="24" fill="#FDBF7A"/>
+    <!-- closed peaceful eyes -->
+    <path d="M74 72 Q78 68 82 72" stroke="#1C1C2E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <path d="M88 72 Q92 68 96 72" stroke="#1C1C2E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <!-- gentle smile -->
+    <path d="M76 84 Q85 91 94 84" stroke="#B8860B" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <!-- third eye dot -->
+    <circle cx="85" cy="62" r="3" fill="#D4A017" style="animation:pulse 3s ease-in-out infinite"/>
+    <!-- arms resting on knees -->
+    <line x1="64" y1="120" x2="50" y2="148" stroke="#5B21B6" stroke-width="8" stroke-linecap="round"/>
+    <line x1="106" y1="120" x2="120" y2="148" stroke="#5B21B6" stroke-width="8" stroke-linecap="round"/>
+    <!-- floating om/peace symbols -->
+    <text x="135" y="55" font-size="14" opacity=".6" style="animation:float 4s ease-in-out infinite">☮</text>
+    <text x="22" y="68" font-size="12" opacity=".5" style="animation:float 5s ease-in-out infinite 1s">🧘</text>
+    <text x="140" y="110" font-size="10" opacity=".4" style="animation:float 3.5s ease-in-out infinite 0.5s">✨</text>
+  </svg>`,
+
+  // ── ACUPRESSURE ──
+  acupressure: () => `<svg width="160" height="200" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- body -->
+    <ellipse cx="80" cy="128" rx="20" ry="28" fill="#92400E"/>
+    <!-- head -->
+    <circle cx="80" cy="76" r="26" fill="#FDBF7A" stroke="#E8A050" stroke-width="1.5"/>
+    <!-- acupressure point glows on face -->
+    <circle cx="80" cy="60" r="5" fill="rgba(212,160,23,.3)" style="animation:pulse 1.5s ease-in-out infinite"/>
+    <circle cx="65" cy="73" r="4" fill="rgba(212,160,23,.25)" style="animation:pulse 1.5s ease-in-out infinite 0.3s"/>
+    <circle cx="95" cy="73" r="4" fill="rgba(212,160,23,.25)" style="animation:pulse 1.5s ease-in-out infinite 0.6s"/>
+    <circle cx="80" cy="86" r="4" fill="rgba(212,160,23,.2)" style="animation:pulse 1.5s ease-in-out infinite 0.9s"/>
+    <!-- eyes -->
+    <ellipse cx="72" cy="76" rx="4" ry="4.5" fill="#1C1C2E"/>
+    <circle cx="73.5" cy="74.5" r="1.5" fill="white"/>
+    <ellipse cx="88" cy="76" rx="4" ry="4.5" fill="#1C1C2E"/>
+    <circle cx="89.5" cy="74.5" r="1.5" fill="white"/>
+    <!-- serene smile -->
+    <path d="M73 88 Q80 94 87 88" stroke="#B8860B" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <!-- hands raised to face -->
+    <line x1="62" y1="116" x2="46" y2="96" stroke="#92400E" stroke-width="8" stroke-linecap="round" style="animation:handShake 2s ease-in-out infinite;transform-origin:62px 116px"/>
+    <line x1="98" y1="116" x2="114" y2="96" stroke="#92400E" stroke-width="8" stroke-linecap="round" style="animation:handShake 2s ease-in-out infinite 0.5s;transform-origin:98px 116px"/>
+    <!-- finger tips -->
+    <circle cx="44" cy="94" r="5" fill="#FDBF7A" style="animation:handShake 2s ease-in-out infinite;transform-origin:62px 116px"/>
+    <circle cx="116" cy="94" r="5" fill="#FDBF7A" style="animation:handShake 2s ease-in-out infinite 0.5s;transform-origin:98px 116px"/>
+    <!-- legs -->
+    <line x1="70" y1="154" x2="62" y2="188" stroke="#78350F" stroke-width="9" stroke-linecap="round"/>
+    <line x1="90" y1="154" x2="98" y2="188" stroke="#78350F" stroke-width="9" stroke-linecap="round"/>
+  </svg>`,
+};
+
+// Map exercise category/id to SVG type and phase
+function getInstructorSVG(exId, cat, phaseLabel){
+  const ph = (phaseLabel||'').toLowerCase();
+  if(cat==='breath' || exId.includes('breath') || exId.includes('nadi') || exId.includes('box')){
+    const p = ph.includes('inh') ? 'inhale' : ph.includes('exh') ? 'exhale' : ph.includes('hold') ? 'hold' : 'breathe';
+    return SVG_FIGURES.breath(p);
+  }
+  if(cat==='eyes' || exId.includes('eye') || exId.includes('vision')){
+    const dir = ph.includes('right')?'right':ph.includes('left')?'left':ph.includes('up')?'up':ph.includes('down')?'down':'center';
+    return SVG_FIGURES.eyes(dir);
+  }
+  if(cat==='brain' || exId.includes('brain') || exId.includes('memory') || exId.includes('cross') || exId.includes('fig8')){
+    return SVG_FIGURES.brain();
+  }
+  if(cat==='wake' || exId.includes('wake') || exId.includes('tap') || exId.includes('march') || exId.includes('jump') || exId.includes('squat')){
+    return SVG_FIGURES.wake(ph);
+  }
+  if(cat==='calm' || exId.includes('calm') || exId.includes('scan') || exId.includes('pmr') || exId.includes('nidra')){
+    return SVG_FIGURES.calm();
+  }
+  if(exId.includes('acupressure') || exId.includes('acu') || exId.includes('cold') || exId.includes('neck') || exId.includes('shoulder')){
+    return SVG_FIGURES.acupressure();
+  }
+  // default: body
+  return SVG_FIGURES.body(ph);
+}
+
+function updateInstructor(exId, cat, phaseLabel){
+  const el = document.getElementById('svgInstructor');
+  if(!el) return;
+  // Fade transition
+  el.style.transition = 'opacity .4s';
+  el.style.opacity = '0';
+  setTimeout(()=>{
+    el.innerHTML = getInstructorSVG(exId||'', cat||'', phaseLabel||'');
+    el.style.opacity = '1';
+  }, 200);
+}
+
+
 </script>
 
-/* ══════════════════════════════════════════════════════════════════
-   CARTOON ANIMATION ENGINE — pure canvas stick-figure character
-   Canvas logical: 760×260 (scaled by CSS)
-   Character fits in left ~280px; right side shows step instruction
-══════════════════════════════════════════════════════════════════ */
+<script>
 (function(){
 'use strict';
 
@@ -1336,9 +1720,48 @@ function bgScene(ctx,cw,ch,bgCol,t){
   ctx.strokeStyle='rgba(255,255,255,.06)'; ctx.lineWidth=1.5; ctx.stroke();
 }
 
+
+/* ══ SPEECH BUBBLE — mobile instructor label ══ */
+function speechBubble(ctx,cx,cy,text,cw){
+  if(!text) return;
+  ctx.save();
+  ctx.font='bold 12px "DM Sans",sans-serif';
+  const maxW=Math.min(cw-20, 200);
+  // word wrap
+  const words=text.split(' ');
+  const lines=[]; let cur='';
+  words.forEach(w=>{
+    const test=cur+(cur?' ':'')+w;
+    if(ctx.measureText(test).width>maxW-20&&cur){ lines.push(cur); cur=w; }
+    else cur=test;
+  });
+  if(cur) lines.push(cur);
+  const lh=15, pad=8;
+  const bw=Math.min(maxW, Math.max(...lines.map(l=>ctx.measureText(l).width))+pad*2);
+  const bh=lines.length*lh+pad*2;
+  const bx=cx-bw/2, by=Math.max(4,cy-bh-10);
+  // bubble
+  ctx.beginPath();
+  ctx.roundRect(bx,by,bw,bh,7);
+  ctx.fillStyle='rgba(10,20,48,.82)';
+  ctx.fill();
+  ctx.strokeStyle='rgba(212,160,23,.55)';
+  ctx.lineWidth=1.2;
+  ctx.stroke();
+  // tail
+  ctx.beginPath();
+  ctx.moveTo(cx-6,by+bh); ctx.lineTo(cx,by+bh+8); ctx.lineTo(cx+6,by+bh);
+  ctx.fillStyle='rgba(10,20,48,.82)'; ctx.fill();
+  // text
+  ctx.fillStyle='#D4A017';
+  ctx.textAlign='center';
+  lines.forEach((l,i)=>ctx.fillText(l, cx, by+pad+lh*(i+1)-2));
+  ctx.restore();
+}
 function stepText(ctx,cw,ch,lines,stepN,totalSteps,phaseLabel){
-  // right panel
-  const rx=296, ry=18, rw=cw-rx-10;
+  // right panel — only if canvas is wide enough
+  const rx=Math.round(cw*0.46), ry=14, rw=cw-rx-10;
+  if(rw < 80) return; // not enough space
   // step counter badge
   roundRect(ctx,rx,ry,rw,ch-ry*2,14,'rgba(255,255,255,.04)','rgba(255,255,255,.08)',1);
   // step pill
@@ -1991,7 +2414,6 @@ const POSES = {
   'lying-tense-face': (ctx,t)=>poseLying(ctx,t,{glowZone:'head',tense:true}),
 };
 
-/* ══ SCENE DATA SAME AS BEFORE ══ */
 const SCENES = {
   'box-breathing':[
     {bg:'#041828',label:'Inhale…',poses:['sitting-inhale','sitting-inhale2','sitting-inhale3','sitting-inhale2'],particles:'dots-up'},
@@ -2143,125 +2565,150 @@ let _bgLerp=1;
 function setBg(col){ _targetBg=col; _bgLerp=0; }
 
 function cartoonFrame(){
-  if(!_canvas||!_ctx){ _raf=requestAnimationFrame(cartoonFrame); return; }
-  const dpr=window.devicePixelRatio||1;
-  const cw=(window._CW_dyn||320);
-  const ch=(window._CH_dyn||180);
-  // sync CX to canvas width
-  CX=Math.round(cw*.22); GY=Math.round(ch*.87);
+  if(!_canvas || !_ctx){ _raf = requestAnimationFrame(cartoonFrame); return; }
+
+  // Physical pixel dimensions of the canvas element
+  const pw = window._CV_PX_W || _canvas.width  || 600;
+  const ph = window._CV_PX_H || _canvas.height || 400;
+  // CSS (logical) dimensions
+  const cw = window._CV_CSS_W || Math.round(pw / (window.devicePixelRatio||1));
+  const ch = window._CV_CSS_H || Math.round(ph / (window.devicePixelRatio||1));
+
+  // Scale factor: fit virtual 280×260 into CSS size
+  // Keep CX/GY at their designed values (140, 225) — poses draw there
+  // We just scale the whole canvas to fit
+  const scaleX = cw / VIRT_W;
+  const scaleY = ch / VIRT_H;
+  const scale  = Math.min(scaleX, scaleY);      // uniform scale, no stretch
+  const offX   = (cw - VIRT_W * scale) / 2;     // center horizontally
+  const offY   = (ch - VIRT_H * scale) / 2;     // center vertically
+
   // lerp bg
-  _bgLerp=Math.min(_bgLerp+0.04,1);
-  _curBg=lerpColor(_curBg,_targetBg,_bgLerp);
+  _bgLerp = Math.min(_bgLerp + 0.04, 1);
+  _curBg  = lerpColor(_curBg, _targetBg, _bgLerp);
 
-  _ctx.clearRect(0,0,cw,ch);
-  // bg gradient
-  const grd=_ctx.createLinearGradient(0,0,0,ch);
-  grd.addColorStop(0,_curBg); grd.addColorStop(1,'#020810');
-  _ctx.fillStyle=grd; _ctx.fillRect(0,0,cw,ch);
+  // Clear entire physical canvas
+  _ctx.setTransform(1,0,0,1,0,0);
+  _ctx.clearRect(0, 0, pw, ph);
 
-  // floor
-  _ctx.beginPath();_ctx.moveTo(0,GY+5);_ctx.lineTo(cw*.5,GY+5);
-  _ctx.strokeStyle='rgba(255,255,255,.05)';_ctx.lineWidth=1;_ctx.stroke();
+  // Draw bg at full CSS size (behind the character)
+  const grd = _ctx.createLinearGradient(0, 0, 0, ch);
+  grd.addColorStop(0, _curBg);
+  grd.addColorStop(1, '#020810');
+  _ctx.fillStyle = grd;
+  _ctx.fillRect(0, 0, cw, ch);
 
-  // divider — only on wide canvases
-  if(cw>400){
-    _ctx.beginPath();_ctx.moveTo(cw*.45,10);_ctx.lineTo(cw*.45,ch-10);
-    _ctx.strokeStyle='rgba(255,255,255,.06)';_ctx.lineWidth=1;_ctx.stroke();
-  }
-
-  // --- POSE ---
+  // --- POSE (drawn in virtual 280×260 space, scaled to fit) ---
   const scene = _currentScenes[_sceneIdx] || _currentScenes[0];
   if(scene){
-    const poses = scene.poses||['sitting-neutral'];
+    const poses  = scene.poses || ['sitting-neutral'];
     const poseKey = poses[_poseIdx % poses.length];
-    const t = (_frameTick % _poseFrames)/_poseFrames;
+    const t      = (_frameTick % _poseFrames) / _poseFrames;
     const poseFn = POSES[poseKey];
+
+    // Apply scale + centering transform for character drawing
+    _ctx.save();
+    _ctx.translate(offX, offY);
+    _ctx.scale(scale, scale);
+
     if(poseFn){
-      _ctx.save();
-      try{ poseFn(_ctx, t); } catch(e){}
-      _ctx.restore();
+      try { poseFn(_ctx, t); } catch(e){}
     }
 
-    // particles
+    // Particles drawn in same virtual space
     tickParticles();
-    if(_particleTick===0) spawnParticles(scene.particles||'sparkle', CX, 120);
+    if(_particleTick === 0) spawnParticles(scene.particles || 'sparkle', CX, 120);
     drawParticles(_ctx);
-    _particleTick=(_particleTick+1)%22;
+    _particleTick = (_particleTick + 1) % 22;
 
-    // step text panel
-    if(cw>380) stepText(_ctx, cw, ch, _stepInstructions, _stepCount, _totalSteps, _curPhaseLabel);
+    _ctx.restore();
+
+    // Speech bubble drawn in CSS space (on top, not scaled)
+    const bubbleCX = offX + CX * scale;
+    const bubbleY  = offY + 15;   // near top of panel, always visible
+    const label    = _curPhaseLabel || (scene && scene.label) || '';
+    speechBubble(_ctx, bubbleCX, bubbleY, label, cw);
   }
 
   _frameTick++;
   if(_frameTick % _poseFrames === 0){
     _poseIdx++;
-    const poses = (scene&&scene.poses)||['sitting-neutral'];
-    if(_poseIdx >= poses.length){ _poseIdx=0; }
+    const poses = (scene && scene.poses) || ['sitting-neutral'];
+    if(_poseIdx >= poses.length) _poseIdx = 0;
   }
 
-  _raf=requestAnimationFrame(cartoonFrame);
+  _raf = requestAnimationFrame(cartoonFrame);
 }
 
 /* ══ PUBLIC API ══ */
 window.CartoonAnim = {
   init(){
-    _canvas=document.getElementById('cartoonCanvas');
+    _canvas = document.getElementById('cartoonCanvas');
     if(!_canvas) return;
-    _ctx=_canvas.getContext('2d');
-    function resize(){
-      const panel=_canvas.parentElement;
-      const dpr=window.devicePixelRatio||1;
-      const w=panel.offsetWidth||320;
-      const h=panel.offsetHeight||180;
-      _canvas.width=w*dpr;
-      _canvas.height=h*dpr;
-      _canvas.style.width=w+'px';
-      _canvas.style.height=h+'px';
-      _ctx.scale(dpr,dpr);
-      // update CX for centering: use 35% of width as character center
-      window._CX_dyn=Math.round(w*.22);
-      window._CW_dyn=w;
-      window._CH_dyn=h;
-    }
-    resize();
-    window.addEventListener('resize',()=>{resize();});
-    _raf=requestAnimationFrame(cartoonFrame);
+    _ctx = _canvas.getContext('2d');
+    // Don't start the RAF loop yet — wait until overlay opens
+    // so we have real dimensions
+  },
+  open(){
+    // Called when timer overlay opens — set real canvas size then start loop
+    if(!_canvas) return;
+    this._setSize();
+    if(!_raf) _raf = requestAnimationFrame(cartoonFrame);
+  },
+  _setSize(){
+    const panel = _canvas.parentElement;
+    if(!panel) return;
+    // Force a layout read after display:flex kicks in
+    const dpr = window.devicePixelRatio || 1;
+    const w = panel.offsetWidth  || panel.clientWidth  || 320;
+    const h = panel.offsetHeight || panel.clientHeight || 200;
+    _canvas.width  = Math.round(w * dpr);
+    _canvas.height = Math.round(h * dpr);
+    _canvas.style.width  = w + 'px';
+    _canvas.style.height = h + 'px';
+    // Store physical pixel size for cartoonFrame
+    window._CV_PX_W = Math.round(w * dpr);
+    window._CV_PX_H = Math.round(h * dpr);
+    window._CV_CSS_W = w;
+    window._CV_CSS_H = h;
   },
   setExercise(exId, phases, steps){
     _currentScenes = SCENES[exId] || phases.map((_,i)=>({
       bg:'#041828', label:phases[i]||'Exercise', poses:['sitting-neutral'], particles:'sparkle'
     }));
-    _stepInstructions = steps||[];
+    _stepInstructions = steps || [];
     _totalSteps = steps ? steps.length : 1;
     _sceneIdx=0; _poseIdx=0; _frameTick=0; _particleTick=0;
+    _stepCount=1;
     if(_currentScenes[0]) setBg(_currentScenes[0].bg);
-    const lbl=document.getElementById('tCartoonLabel');
-    if(lbl) lbl.textContent=_currentScenes[0]&&_currentScenes[0].label||'Get Ready';
-    const pill=document.getElementById('tCartoonPill');
-    if(pill) pill.textContent='Step 1 of '+(steps?steps.length:1);
+    const lbl = document.getElementById('tCartoonLabel');
+    if(lbl) lbl.textContent = (_currentScenes[0] && _currentScenes[0].label) || 'Get Ready';
+    const pill = document.getElementById('tCartoonPill');
+    if(pill) pill.textContent = 'Step 1 of ' + (steps ? steps.length : 1);
   },
   setPhase(phaseIdx, stepIdx, label){
-    _sceneIdx = Math.min(phaseIdx, _currentScenes.length-1);
-    _poseIdx=0; _frameTick=0; _particleTick=0; _stepCount=stepIdx+1;
-    _curPhaseLabel=label||'';
-    const scene=_currentScenes[_sceneIdx];
+    _sceneIdx = Math.min(phaseIdx, _currentScenes.length - 1);
+    _poseIdx=0; _frameTick=0; _particleTick=0; _stepCount = stepIdx + 1;
+    _curPhaseLabel = label || '';
+    const scene = _currentScenes[_sceneIdx];
     if(scene) setBg(scene.bg);
-    const lbl=document.getElementById('tCartoonLabel');
-    if(lbl) lbl.textContent=scene&&scene.label||label||'';
-    const pill=document.getElementById('tCartoonPill');
-    if(pill) pill.textContent='Step '+(_stepCount)+' of '+_totalSteps;
+    const lbl = document.getElementById('tCartoonLabel');
+    if(lbl) lbl.textContent = (scene && scene.label) || label || '';
+    const pill = document.getElementById('tCartoonPill');
+    if(pill) pill.textContent = 'Step ' + _stepCount + ' of ' + _totalSteps;
   },
   stop(){
-    if(_raf){ cancelAnimationFrame(_raf); _raf=null; }
+    if(_raf){ cancelAnimationFrame(_raf); _raf = null; }
   },
   start(){
-    if(!_raf) _raf=requestAnimationFrame(cartoonFrame);
+    if(!_raf) _raf = requestAnimationFrame(cartoonFrame);
   },
 };
 
-// Auto-init
-document.addEventListener('DOMContentLoaded',()=>{ window.CartoonAnim.init(); });
+// Init canvas element reference on load (but don't start loop yet)
+document.addEventListener('DOMContentLoaded', () => { window.CartoonAnim.init(); });
 })();
+</script>
 
 </body>
 </html>

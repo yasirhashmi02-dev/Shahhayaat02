@@ -138,7 +138,7 @@ body.nav-open{overflow:hidden}
 @media(min-width:860px){.story-grid{grid-template-columns:1fr 1fr}}
 .story-img-wrap{position:relative}
 .story-img{width:100%;height:clamp(300px,40vw,480px);object-fit:cover;border-radius:var(--radius-lg)}
-.story-badge{position:absolute;bottom:1.5rem;right:1.5rem;background:var(--green-dark);color:#fff;padding:1rem 1.4rem;border-radius:var(--radius);text-align:center;box-shadow:var(--shadow-lg)}
+.story-badge{position:absolute;bottom:1rem;right:1rem;background:var(--green-dark);color:#fff;padding:0.8rem 1.1rem;border-radius:var(--radius);text-align:center;box-shadow:var(--shadow-lg);max-width:120px}@media(max-width:600px){.story-badge{display:none}}
 .story-badge .num{font-family:var(--font-head);font-size:1.5rem;font-weight:700;display:block;line-height:1.1}
 .story-badge .lbl{font-size:0.66rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem;opacity:0.75}
 /* Values grid */
@@ -169,9 +169,9 @@ body.nav-open{overflow:hidden}
 .cert-cell p{font-size:0.86rem;color:var(--text-muted);margin:0;line-height:1.68}
 /* Stats bar */
 .stats-bar{background:linear-gradient(135deg,#061428 0%,#0a2040 55%,#0e3060 100%);padding:3rem 0}
-.stats-inner{display:flex;flex-wrap:wrap;justify-content:center;gap:2rem 4rem}
+.stats-inner{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:1.5rem 1rem;text-align:center}
 .stat-item{text-align:center}
-.stat-n{font-family:var(--font-head);font-size:2.2rem;color:var(--gold-light);display:block;line-height:1;margin-bottom:0.3rem}
+.stat-n{font-family:var(--font-head);font-size:clamp(1.4rem,4vw,2.2rem);color:var(--gold-light);display:block;line-height:1;margin-bottom:0.3rem}
 .stat-l{font-size:0.68rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.45)}
 /* Divider */
 .divider{width:40px;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:2px;margin:1rem 0 1.4rem}
@@ -268,6 +268,7 @@ body.nav-open{overflow:hidden}
       <a href="products.html">Products</a>
       <a href="conditions.html">Health Guides</a>
       <a href="ingredients.html">Ingredients</a>
+      <a href="exercises.html">Exercises</a>
       <a href="wellness-lab.html">🧪 Lab</a>
       <a href="blog.html">Blog</a>
       <a href="about.html" class="active">About</a>
@@ -285,6 +286,7 @@ body.nav-open{overflow:hidden}
     <a href="products.html">Products</a>
     <a href="conditions.html">Health Guides</a>
     <a href="ingredients.html">Ingredients</a>
+    <a href="exercises.html">Exercises</a>
     <a href="wellness-lab.html">🧪 Lab</a>
     <a href="blog.html">Blog</a>
     <a href="about.html" class="active">About</a>

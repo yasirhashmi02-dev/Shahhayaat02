@@ -542,6 +542,7 @@ body.nav-open{overflow:hidden}
       <a href="products.html">Products</a>
       <a href="conditions.html" class="active">Health Guides</a>
       <a href="ingredients.html">Ingredients</a>
+      <a href="exercises.html">Exercises</a>
       <a href="wellness-lab.html">🧪 Lab</a>
       <a href="blog.html">Blog</a>
       <a href="about.html">About</a>
@@ -559,6 +560,7 @@ body.nav-open{overflow:hidden}
     <a href="products.html">Products</a>
     <a href="conditions.html" class="active">Health Guides</a>
     <a href="ingredients.html">Ingredients</a>
+    <a href="exercises.html">Exercises</a>
     <a href="wellness-lab.html">🧪 Lab</a>
     <a href="blog.html">Blog</a>
     <a href="about.html">About</a>
@@ -1096,9 +1098,21 @@ function showCond(id) {
   var panel = document.getElementById('cond-' + id);
   var tab   = document.querySelector('[data-id="' + id + '"]');
   if(panel){ panel.classList.add('active'); }
-  if(tab){   tab.classList.add('active'); }
+  if(tab){
+    tab.classList.add('active');
+    tab.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+  }
   history.replaceState(null, '', '?c=' + id);
-  setTimeout
+  // scroll to panel on mobile
+  setTimeout(function(){
+    if(panel) panel.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 50);
+}
+// Init: load from URL param
+(function(){
+  var c = new URLSearchParams(location.search).get('c');
+  if(c) showCond(c);
+})();
 </script>
 <script type="text/javascript" data-cfasync="false">
     m.querySelectorAll('a').forEach(function(a) {
