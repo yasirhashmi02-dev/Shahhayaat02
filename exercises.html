@@ -462,11 +462,8 @@ body.nav-open{overflow:hidden}
     <ol class="ov-prep-steps" id="ovPrepSteps"></ol>
     <div class="ov-prep-btns">
       <button class="ov-btn-ready" id="ovReadyBtn" onclick="ovBegin()">▶ I'm Ready — Start</button>
-      <div class="ov-prep-row">
-        <button class="ov-btn-skip2" id="ovSkipPrep" onclick="ovSkipFromPrep()">⏭ Skip</button>
-        <button class="ov-btn-next2" id="ovNextPrep" onclick="ovNextFromPrep()">▶ Next</button>
-        <button class="ov-btn-end"   onclick="ovClose()">✕ Cancel</button>
-      </div>
+      <button class="ov-btn-skip2" id="ovSkipPrep" onclick="ovSkip()" style="display:none">⏭ Skip this</button>
+      <button class="ov-btn-end"   onclick="ovClose()" style="margin-top:.2rem">✕ Cancel</button>
     </div>
   </div>
 
@@ -496,7 +493,7 @@ body.nav-open{overflow:hidden}
     <div class="ov-done-ttl" id="ovDoneTtl">Well Done!</div>
     <div class="ov-done-sub" id="ovDoneSub"></div>
     <div class="ov-done-row">
-      <button class="ov-btn-next"  id="ovNextBtn" onclick="ovNext()">▶ Next Activity</button>
+      <button class="ov-btn-next"  id="ovNextBtn" onclick="ovNext()" style="display:none">▶ Next Activity</button>
       <button class="ov-btn-again"               onclick="ovAgain()">🔄 Do Again</button>
       <button class="ov-btn-close"               onclick="ovClose()">✕ Finish</button>
     </div>
@@ -505,7 +502,7 @@ body.nav-open{overflow:hidden}
   <!-- ══ RUNNING CONTROLS — shown while timer runs ══ -->
   <div class="ov-ctrl" id="ovCtrl" style="display:none">
     <button class="ov-btn-go"   id="ovGo"   onclick="ovToggle()">⏸ Pause</button>
-    <button class="ov-btn-skip" id="ovSkip" onclick="ovSkip()">⏭ Skip</button>
+    <button class="ov-btn-skip" id="ovSkip" onclick="ovSkip()" style="display:none">⏭ Skip</button>
     <button class="ov-btn-end"              onclick="ovClose()">✕ End</button>
     <!-- game buttons -->
     <button class="ov-btn-go"   id="gStartBtn" onclick="gStart()" style="display:none">▶ Start Challenge</button>
@@ -1625,7 +1622,7 @@ function ovBegin() {
   _showPanel('coach');
   document.getElementById('ovGo').style.display   = '';
   document.getElementById('ovGo').textContent     = '⏸ Pause';
-  document.getElementById('ovSkip').style.display = '';
+  document.getElementById('ovSkip').style.display = _allExQueue.length > 1 ? '' : 'none';
   document.getElementById('gStartBtn').style.display = 'none';
   document.getElementById('gSkipBtn').style.display  = 'none';
 
@@ -1675,32 +1672,6 @@ function _showDone() {
   document.getElementById('ovDoneIco').textContent = isLast ? '🏆' : '✅';
   document.getElementById('ovDoneTtl').textContent = isLast ? 'All Done! 🏆' : 'Well Done!';
   document.getElementById('ovDoneSub').textContent = isLast
-    ? 'You completed all activities. Great work!'
-    : (_ex ? _ex.title : '') + ' complete. Tap Next when you are ready.';
-  if (nb) {
-    nb.style.display = '';
-    nb.textContent = isLast ? '▶ Start Over' : '▶ Next Activity';
-    nb.onclick = isLast ? startAllExercises : ovNext;
-  }
-  _showPanel('done');
-  speak(isLast ? 'All done! Great work!' : 'Well done! Tap Next Activity when you are ready.');
-}
-
-function ovSkipFromPrep() {
-  // Skip = close this exercise, go to next if in queue, else close
-  if (_allExQueue.length > 1 && _allExIdx < _allExQueue.length - 1) {
-    _allExIdx++;
-    openExercise(_allExQueue[_allExIdx].id);
-  } else {
-    ovClose();
-  }
-}
-
-function ovNextFromPrep() {
-  // Next from prep = same as skip — move to next exercise
-  ovSkipFromPrep();
-}
-  document.getElementById('ovDoneSub').textContent = isLast
     ? 'Excellent! You completed all activities.'
     : (_ex ? _ex.title : '') + ' complete. Tap Next when you are ready.';
   if (nb) {
@@ -1713,12 +1684,8 @@ function ovNextFromPrep() {
 
 function ovSkip() {
   clearInterval(_timer); _running = false; stopSpeech();
-  if (_allExQueue.length > 1 && _allExIdx < _allExQueue.length - 1) {
-    _allExIdx++;
-    openExercise(_allExQueue[_allExIdx].id);
-  } else {
-    _showDone();
-  }
+  if (_allExQueue.length > 1 && _allExIdx < _allExQueue.length - 1) ovNext();
+  else ovClose();
 }
 
 function ovAgain() {
