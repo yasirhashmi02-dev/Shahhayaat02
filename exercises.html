@@ -239,6 +239,48 @@ body.nav-open{overflow:hidden}
 .ov-btn-end{padding:.7rem 1rem;border-radius:50px;font-size:.82rem;font-weight:700;
   background:rgba(239,68,68,.1);color:rgba(239,68,68,.7);
   border:1.5px solid rgba(239,68,68,.2);cursor:pointer}
+
+/* ── PREP SCREEN ── */
+.ov-prep{flex:1;display:flex;flex-direction:column;align-items:center;padding:1rem 1.4rem 1.2rem;
+  overflow-y:auto;-webkit-overflow-scrolling:touch}
+.ov-prep-emoji{font-size:clamp(2.8rem,12vw,4.2rem);line-height:1;margin-bottom:.3rem;margin-top:.4rem}
+.ov-prep-title{font-family:var(--font-h);font-size:clamp(1.25rem,5.5vw,1.7rem);color:#fff;
+  font-weight:800;text-align:center;line-height:1.2}
+.ov-prep-dur{font-size:.72rem;color:#D4A017;font-weight:700;letter-spacing:.08em;margin-top:.2rem}
+.ov-prep-divider{width:40px;height:2px;background:rgba(212,160,23,.35);margin:.85rem 0 .7rem;border-radius:2px}
+.ov-prep-lbl{font-size:.72rem;color:rgba(255,255,255,.4);font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:.6rem;text-align:center}
+.ov-prep-steps{list-style:none;padding:0;margin:0;width:100%;max-width:400px;
+  display:flex;flex-direction:column;gap:.55rem}
+.ov-prep-steps li{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;padding:.6rem .85rem;display:flex;gap:.65rem;align-items:flex-start;
+  font-size:clamp(.82rem,3.5vw,.95rem);color:rgba(255,255,255,.85);line-height:1.5}
+.ov-prep-steps li .step-n{background:#D4A017;color:#000;border-radius:50%;
+  min-width:1.4rem;height:1.4rem;display:flex;align-items:center;justify-content:center;
+  font-size:.68rem;font-weight:900;flex-shrink:0;margin-top:.1rem}
+.ov-prep-btns{display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  margin-top:1rem;width:100%;max-width:340px}
+.ov-btn-ready{width:100%;padding:.9rem 1.6rem;border-radius:50px;font-size:1rem;font-weight:800;
+  background:linear-gradient(135deg,#166534,#22C55E);color:#fff;border:none;cursor:pointer;
+  box-shadow:0 4px 20px rgba(34,197,94,.35);transition:all .2s}
+.ov-btn-ready:active{transform:scale(.97)}
+.ov-btn-skip2{padding:.65rem 1.3rem;border-radius:50px;font-size:.82rem;font-weight:700;
+  background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);
+  border:1.5px solid rgba(255,255,255,.12);cursor:pointer}
+
+/* ── LAB RECOMMENDATION BANNER (on card page) ── */
+.lab-rec-section{background:linear-gradient(135deg,rgba(34,197,94,.08),rgba(16,120,60,.12));
+  border:1px solid rgba(34,197,94,.2);border-radius:14px;padding:1rem 1.2rem;
+  margin-bottom:1.4rem;display:none}
+.lab-rec-section.show{display:block}
+.lab-rec-title{font-size:.8rem;font-weight:700;color:#22C55E;letter-spacing:.07em;
+  text-transform:uppercase;margin-bottom:.55rem}
+.lab-rec-cards{display:flex;flex-wrap:wrap;gap:.5rem}
+.lab-rec-card{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);
+  border-radius:50px;padding:.35rem .9rem;font-size:.75rem;font-weight:700;
+  color:#86efac;cursor:pointer;transition:all .2s}
+.lab-rec-card:hover{background:rgba(34,197,94,.2);transform:translateY(-1px)}
+.lab-rec-card.active-filter{background:rgba(34,197,94,.3);border-color:#22C55E}
 </style>
 </head>
 <body id="top">
@@ -307,15 +349,15 @@ body.nav-open{overflow:hidden}
   <div class="container">
 
     <!-- LAB RESULTS BANNER (shown only if lab data exists) -->
-    <div id="labBanner">
-      <div class="lab-banner-inner">
-        <div class="lab-banner-icon">🎯</div>
-        <div class="lab-banner-text">
-          <strong>Personalised for Your Wellness Lab Results</strong>
-          <p>Based on your latest assessment, these exercises are recommended specifically for you. Exercises tagged <span style="color:#86efac;font-weight:600">Recommended</span> match your weak areas.</p>
-          <div class="lab-banner-tags" id="labBannerTags"></div>
-        </div>
-        <button class="lab-dismiss" onclick="document.getElementById('labBanner').style.display='none'" aria-label="Dismiss">✕</button>
+    <!-- LAB RESULTS RECOMMENDATION SECTION -->
+    <div class="lab-rec-section" id="labRecSection">
+      <div class="lab-rec-title">🎯 Recommended for You — Based on Your Wellness Lab Results</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.55);margin-bottom:.7rem;line-height:1.5">
+        Your test results show some areas that need attention. Tap any category below to see the activities that will help you most.
+      </div>
+      <div class="lab-rec-cards" id="labRecCards"></div>
+      <div style="margin-top:.8rem;font-size:.72rem;color:rgba(255,255,255,.3)">
+        Activities marked <span style="color:#86efac;font-weight:700">★ Recommended</span> on the cards below are matched to your results.
       </div>
     </div>
 
@@ -323,7 +365,7 @@ body.nav-open{overflow:hidden}
     <div class="sec-head reveal">
       <div class="eyebrow">30 Guided Activities</div>
       <h2>Choose Your Activity</h2>
-      <p>Filter by category or see all. Every activity guides you step by step with voice and a timer.</p>
+      <p>Filter by category or see all. Every activity guides you step by step — it shows you exactly what to do before the timer starts.</p>
       <button id="startAllBtn" onclick="startAllExercises()"
         style="margin-top:1.2rem;padding:.7rem 1.8rem;background:linear-gradient(135deg,#166534,#22c55e);color:#fff;border:none;border-radius:50px;font-size:.85rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:.5rem;box-shadow:0 4px 18px rgba(34,197,94,.3);transition:all .25s">
         ▶ Start All Activities
@@ -400,7 +442,7 @@ body.nav-open{overflow:hidden}
   <div class="ov-bar">
     <span id="ovEmoji" style="font-size:1.35rem;flex-shrink:0">🌿</span>
     <div style="flex:1;min-width:0;margin-left:.4rem">
-      <div class="ov-bar-name" id="ovName">Exercise</div>
+      <div class="ov-bar-name" id="ovName">Activity</div>
       <div class="ov-bar-q"    id="ovQueue" style="display:none"></div>
     </div>
     <button class="ov-ico-btn" id="ovVoice" onclick="toggleVoice()">🔇</button>
@@ -410,8 +452,26 @@ body.nav-open{overflow:hidden}
   <!-- phase progress -->
   <div class="ov-pbar"><div class="ov-pbar-fill" id="ovPbar"></div></div>
 
-  <!-- COACH SCREEN -->
-  <div class="ov-coach" id="ovCoach">
+  <!-- ══ PREP SCREEN — shown before timer starts ══ -->
+  <div class="ov-prep" id="ovPrep">
+    <div class="ov-prep-emoji" id="ovPrepEmoji">🌿</div>
+    <div class="ov-prep-title" id="ovPrepTitle">Activity Name</div>
+    <div class="ov-prep-dur"   id="ovPrepDur">⏱ 3 min</div>
+    <div class="ov-prep-divider"></div>
+    <div class="ov-prep-lbl">📋 How to do it — read first, then press Start</div>
+    <ol class="ov-prep-steps" id="ovPrepSteps"></ol>
+    <div class="ov-prep-btns">
+      <button class="ov-btn-ready" id="ovReadyBtn" onclick="ovBegin()">▶ I'm Ready — Start</button>
+      <div class="ov-prep-row">
+        <button class="ov-btn-skip2" id="ovSkipPrep" onclick="ovSkipFromPrep()">⏭ Skip</button>
+        <button class="ov-btn-next2" id="ovNextPrep" onclick="ovNextFromPrep()">▶ Next</button>
+        <button class="ov-btn-end"   onclick="ovClose()">✕ Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ COACH SCREEN — shown while timer runs ══ -->
+  <div class="ov-coach" id="ovCoach" style="display:none">
     <div class="ov-icon"   id="ovIcon">🌿</div>
     <div class="ov-action" id="ovAction">Get Ready</div>
     <div class="ov-tell"   id="ovTell"></div>
@@ -422,7 +482,7 @@ body.nav-open{overflow:hidden}
     <div class="ov-count-lbl">seconds</div>
   </div>
 
-  <!-- TAP GAME -->
+  <!-- ══ TAP GAME ══ -->
   <div class="ov-game" id="ovGame">
     <div class="ov-game-lbl" id="ovGameLbl">Tap as FAST as you can for 15 seconds!</div>
     <div class="ov-taps"  id="ovTaps">0</div>
@@ -430,643 +490,835 @@ body.nav-open{overflow:hidden}
     <button class="ov-tap-btn" id="ovTapBtn" onclick="gTap()" disabled>⚡</button>
   </div>
 
-  <!-- DONE SCREEN -->
+  <!-- ══ DONE SCREEN ══ -->
   <div class="ov-done" id="ovDone">
     <div class="ov-done-ico" id="ovDoneIco">🎉</div>
     <div class="ov-done-ttl" id="ovDoneTtl">Well Done!</div>
     <div class="ov-done-sub" id="ovDoneSub"></div>
     <div class="ov-done-row">
-      <button class="ov-btn-next"  id="ovNextBtn" onclick="ovNext()"   style="display:none">▶ Next</button>
-      <button class="ov-btn-again"                onclick="ovAgain()">🔄 Again</button>
-      <button class="ov-btn-close"                onclick="ovClose()">✕ Done</button>
+      <button class="ov-btn-next"  id="ovNextBtn" onclick="ovNext()">▶ Next Activity</button>
+      <button class="ov-btn-again"               onclick="ovAgain()">🔄 Do Again</button>
+      <button class="ov-btn-close"               onclick="ovClose()">✕ Finish</button>
     </div>
   </div>
 
-  <!-- controls -->
-  <div class="ov-ctrl" id="ovCtrl">
-    <button class="ov-btn-go"   id="ovGo"   onclick="ovToggle()">▶ Start</button>
-    <button class="ov-btn-skip" id="ovSkip" onclick="ovSkip()" style="display:none">⏭ Skip</button>
+  <!-- ══ RUNNING CONTROLS — shown while timer runs ══ -->
+  <div class="ov-ctrl" id="ovCtrl" style="display:none">
+    <button class="ov-btn-go"   id="ovGo"   onclick="ovToggle()">⏸ Pause</button>
+    <button class="ov-btn-skip" id="ovSkip" onclick="ovSkip()">⏭ Skip</button>
     <button class="ov-btn-end"              onclick="ovClose()">✕ End</button>
-    <!-- game buttons (hidden by default) -->
+    <!-- game buttons -->
     <button class="ov-btn-go"   id="gStartBtn" onclick="gStart()" style="display:none">▶ Start Challenge</button>
     <button class="ov-btn-skip" id="gSkipBtn"  onclick="ovSkip()" style="display:none">⏭ Skip</button>
   </div>
 
 </div>
 
+
+
 <script>
 'use strict';
 
 /* ═══════════════════════════════════════════════
-   30 GUIDED ACTIVITIES
+   30 ACTIVITIES
 ═══════════════════════════════════════════════ */
 const EXERCISES = [
 
-  /* ── WAKE-UP (6) ── */
+  /* ── WAKE-UP ── */
   { id:'wakeup-tap', cat:'wake', emoji:'⚡', title:'Rapid Tap Wake-Up',
     tag:'Wake-Up', tagClass:'tag-wake', dur:'2 min', isTapGame:true,
-    labTags:['fatigue','cognitive'],
-    desc:'The fastest alertness reset known — rapid tapping for 15 seconds floods your brain with fresh blood and adrenaline. Proven more effective than a coffee break.',
-    steps:['Sit upright with your back straight and feet flat on the floor','Take 3 slow, deep breaths through your nose to prepare','When you press Start, tap the button as fast as possible for 15 seconds','Finish with 5 cold-water splashes on your face to seal the effect'],
-    voiceIntro:'Wake-Up Tap Challenge. Sit straight. Take three deep breaths. Then tap as fast as you can for fifteen seconds.',
+    desc:'The fastest way to wake up your brain. Rapid tapping for 15 seconds sends a rush of blood to your head — more effective than coffee.',
+    steps:[
+      'Sit up straight. Both feet flat on the floor.',
+      'Take 3 slow deep breaths.',
+      'Press Start — then tap the big ⚡ button as fast as you can for 15 seconds.',
+      'Try to beat your score every time you do it!'
+    ],
+    voiceIntro:'Wake-Up Tap Challenge. Sit straight. Take three deep breaths. Then tap as fast as you can.',
     benefit:'Beats drowsiness', benefitVal:'in 15 seconds' },
 
   { id:'wakeup-power-breath', cat:'wake', emoji:'💨', title:'Power Breath Burst',
-    tag:'Wake-Up', tagClass:'tag-wake', dur:'90 sec', special:true,
-    labTags:['fatigue','respiratory'],
-    desc:'30 rapid, full breaths flood your blood with oxygen and trigger instant alertness. The Wim Hof breathing method used by athletes, soldiers and biohackers worldwide.',
-    phases:[{label:'Breathe fast — 30 times',sec:45},{label:'Exhale fully & hold empty',sec:30},{label:'Take one deep inhale',sec:10},{label:'Hold your breath full',sec:10},{label:'Exhale slowly',sec:5}],
-    rounds:1,
-    steps:['Sit comfortably — back supported, or lie flat on a bed','Take rapid, full breaths: breathe IN fully through nose, breathe OUT fully through mouth — fast and forceful','Do 30 of these in 45 seconds — it will feel a little dizzy, that is normal','On the 30th breath, exhale completely and hold your lungs EMPTY for 30 seconds','Then take one big, slow deep inhale and hold it full for 10 seconds','Finally, exhale slowly and breathe normally — you will feel wide awake'],
-    voiceIntro:'Power Breath Burst. Thirty rapid full breaths, then a long hold. This floods your blood with oxygen.',
-    phaseVoice:['Begin thirty rapid power breaths. In fully, out fully, fast and forceful.','Exhale completely and hold. Do not breathe. Stay calm, you can do this.','Inhale as deeply as you can. Fill your lungs completely.','Hold that deep breath. Feel the oxygen reaching your brain.','Exhale slowly. Breathe normally. You should feel very alert now.'],
-    benefit:'Floods brain', benefitVal:'with oxygen in 90 sec' },
-
-  { id:'wakeup-cold-water', cat:'wake', emoji:'💦', title:'Cold Water Jolt',
-    tag:'Wake-Up', tagClass:'tag-wake', dur:'2 min', special:true,
-    labTags:['fatigue','stress'],
-    desc:'Cold water activates the dive reflex and your sympathetic nervous system in seconds — more effective than caffeine for breaking through mid-day drowsiness.',
-    phases:[{label:'Hold wrists under cold water',sec:20},{label:'Splash your face 10 times',sec:30},{label:'Cold water behind ears & neck',sec:15},{label:'Stand tall and breathe',sec:35}],
-    rounds:1,
-    steps:['Walk to a tap or basin — turn on cold water','Hold BOTH wrists under the cold running water for 20 seconds. The wrists have large veins that cool your blood quickly.','Cup water in your hands and splash your face 10 times. Do NOT wipe it off — let it air dry.','Rub cold water behind both ears and on the back of your neck.','Stand tall, roll shoulders back, take 5 slow deep breaths. You are now fully awake.'],
-    voiceIntro:'Cold Water Jolt. Go to a tap now. This activates your nervous system immediately.',
-    phaseVoice:['Hold both wrists under cold running water. Feel the coolness entering your bloodstream.','Cup water in your hands. Splash your face ten times.','Rub cold water behind your ears and on the back of your neck.','Stand tall. Roll shoulders back. Take five slow deep breaths.'],
-    benefit:'More effective', benefitVal:'than caffeine' },
-
-  { id:'wakeup-jumping', cat:'wake', emoji:'🏃', title:'3-Minute Sprint Burst',
-    tag:'Wake-Up', tagClass:'tag-wake', dur:'3 min', special:true,
-    labTags:['fatigue','stability'],
-    desc:'3 minutes of movement releases norepinephrine — your brain\'s own stimulant. Better and longer-lasting than any energy drink, with no crash afterward.',
-    phases:[{label:'March in place',sec:30},{label:'Jumping Jacks',sec:30},{label:'High Knees',sec:30},{label:'Rest & breathe',sec:30},{label:'Arm circles',sec:30},{label:'Cool down & shake',sec:30}],
-    rounds:1,
-    steps:['Stand up from your chair and clear a small space around you','March in place for 30 seconds — lift knees to hip height and swing your arms like walking fast','20 jumping jacks: jump your feet out wide while raising both arms overhead, then back together','High knees for 30 seconds: run in place bringing each knee up to waist height','Rest, stand still, take 3 deep breaths to recover','10 arm circles forward, 10 backward, then roll your neck and shake out your hands'],
-    voiceIntro:'Sprint Burst. Stand up now. Three minutes of movement will make you fully alert.',
-    phaseVoice:['March in place. Knees up, arms swinging. Get the blood moving.','Jumping jacks. Jump feet wide, raise arms. Back together. Twenty times.','High knees. Bring them up to your waist. Push through. Keep going.','Rest. Deep breaths. Three slow inhales. Feel your heart rate.','Arm circles. Big and slow. Ten forward, ten backward.','Shake hands loose. Roll your neck. Three deep breaths. Fully alert now.'],
-    benefit:'Releases', benefitVal:'natural stimulants' },
-
-  { id:'wakeup-acupressure', cat:'wake', emoji:'👆', title:'Acupressure Energy Points',
-    tag:'Wake-Up', tagClass:'tag-wake', dur:'2 min',
-    labTags:['fatigue'],
-    desc:'5 pressure points used in clinical acupuncture for centuries to stimulate the nervous system and create instant mental alertness. No equipment needed.',
-    phases:[{label:'Between eyebrows',sec:15},{label:'Both temples',sec:15},{label:'Under the nose',sec:15},{label:'Both earlobes',sec:15},{label:'Tap the scalp',sec:30},{label:'Hand web point',sec:30}],
-    rounds:1,
-    steps:['First, rub your palms together vigorously for 10 seconds to warm them and activate your hands','Use two fingers to press firmly on the spot BETWEEN your eyebrows — make small circular rubbing motions','Press both index fingers on your TEMPLES (the hollow just beside your eyes) — slow circles','Press the point BELOW your nose, just above your upper lip — firm, steady pressure','Squeeze and gently massage both EARLOBES between thumb and index finger','Tap all 10 fingertips firmly all over your SCALP for 30 seconds','Press the webbing between thumb and index finger on each hand for 30 sec — this is a major energy point'],
-    voiceIntro:'Acupressure Energy Points. These five points stimulate your nervous system for alertness. Start by rubbing your palms together.',
-    phaseVoice:['Press the point between your eyebrows. Two fingers. Small circles.','Move to your temples. Both at once. Small, slow circles.','The point just below your nose, above your upper lip. Firm pressure.','Squeeze both earlobes gently. Massage them up and down.','Tap all over your scalp with all ten fingertips. Firmly. Like a rainstorm on your head.','The webbing between thumb and index finger. Press and hold.'],
-    benefit:'Stimulates', benefitVal:'5 alertness points' },
-
-  { id:'wakeup-eye-splash', cat:'wake', emoji:'👁️', title:'Eye & Face Activation',
     tag:'Wake-Up', tagClass:'tag-wake', dur:'90 sec',
-    labTags:['fatigue','eye'],
-    desc:'Targets the face and eyes — the first parts of your body to show drowsiness. This sequence reverses the physical signs of fatigue in under 2 minutes.',
-    phases:[{label:'Blink rapidly 20 times',sec:15},{label:'Splash cold on eyelids',sec:20},{label:'Tap your face',sec:25},{label:'Rub your forehead',sec:15},{label:'Open eyes wide & hold',sec:15}],
+    desc:'30 fast, deep breaths flood your blood with oxygen and wake you up instantly. Athletes and soldiers use this worldwide.',
+    phases:[{label:'30 rapid breaths',sec:45},{label:'Hold lungs empty',sec:30},{label:'One big inhale',sec:10},{label:'Hold lungs full',sec:10},{label:'Breathe out slowly',sec:5}],
     rounds:1,
-    steps:['Blink rapidly 20 times — fast, complete blinks like you are blinking in bright light','Splash cold water directly onto your CLOSED eyelids 5 times. This refreshes the eye muscles.','Tap your cheeks, forehead and chin firmly with your fingertips — like lightly drumming on a table','Rub your entire forehead up and down with both flat palms firmly — this brings blood to your face','Open both eyes as WIDE as you possibly can and hold for 10 seconds — you will feel them wake up'],
-    voiceIntro:'Eye and Face Activation. Begin with rapid blinking.',
-    phaseVoice:['Blink rapidly. Twenty times. Fast and complete.','Splash cold water onto your closed eyelids.','Tap your cheeks, forehead and chin with your fingertips.','Rub your forehead up and down with both palms. Firmly.','Open your eyes as wide as you can. Hold them open.'],
+    steps:[
+      'Sit or lie down comfortably.',
+      'Breathe in fully through your nose, then out through your mouth — fast and forceful, like panting. Do this 30 times quickly.',
+      'On the 30th breath: breathe out fully, then HOLD — do not breathe in yet. Stay calm.',
+      'When you cannot hold any more: take one very big slow breath in and hold it for 10 seconds.',
+      'Breathe out slowly. You are done. Feel the energy!'
+    ],
+    voiceIntro:'Power Breath Burst. Thirty rapid full breaths, then a long hold. Ready.',
+    phaseVoice:['Breathe in and out fast and fully. Thirty times. Start now.','Breathe out completely and hold. Do not breathe. Stay calm.','Take one deep slow breath in. Fill your lungs completely.','Hold that breath. Feel the oxygen.','Breathe out slowly. You are done. Feel the difference.'],
+    benefit:'Floods brain', benefitVal:'with oxygen instantly' },
+
+  { id:'wakeup-cold-water', cat:'wake', emoji:'💦', title:'Cold Water Wake-Up',
+    tag:'Wake-Up', tagClass:'tag-wake', dur:'2 min',
+    desc:'Cold water on the wrists and face wakes up your nervous system in seconds. Faster than any energy drink.',
+    phases:[{label:'Wrists under cold water',sec:20},{label:'Splash face 10 times',sec:30},{label:'Cold behind ears & neck',sec:15},{label:'Stand tall & breathe',sec:35}],
+    rounds:1,
+    steps:[
+      'Walk to a sink. Turn the water to COLD.',
+      'Hold both wrists under the cold water for 20 seconds.',
+      'Cup cold water in your hands and splash your face 10 times.',
+      'Wet your fingers and run them behind both ears and the back of your neck.',
+      'Stand tall. Take 3 slow deep breaths through your nose.'
+    ],
+    voiceIntro:'Cold Water Wake-Up. Walk to a tap now and turn it to cold.',
+    phaseVoice:['Both wrists under cold running water. Hold them there.','Cup water and splash your face ten times.','Cold water behind your ears and on the back of your neck.','Stand straight. Shoulders back. Five slow deep breaths.'],
+    benefit:'Activates', benefitVal:'nervous system instantly' },
+
+  { id:'wakeup-jumping', cat:'wake', emoji:'🏃', title:'3-Minute Movement Burst',
+    tag:'Wake-Up', tagClass:'tag-wake', dur:'3 min',
+    desc:'3 minutes of movement releases your brain\'s natural stimulants. Better than an energy drink — no crash afterward.',
+    phases:[{label:'March in place',sec:30},{label:'Jumping jacks',sec:30},{label:'High knees',sec:30},{label:'Rest & breathe',sec:30},{label:'Arm circles',sec:30},{label:'Cool down',sec:30}],
+    rounds:1,
+    steps:[
+      'Stand up. Clear a small space around you.',
+      'March in place for 30 seconds — knees high, arms swinging.',
+      'Do jumping jacks for 30 seconds — jump feet out while raising arms up.',
+      'Run in place for 20 seconds — knees up to hip level.',
+      'Stretch both arms wide and do 10 big arm circles forward, then 10 backward.',
+      'Finish with 3 deep breaths and shake your hands loose.'
+    ],
+    voiceIntro:'Three Minute Movement Burst. Stand up right now.',
+    phaseVoice:['March in place. Knees up, arms swinging.','Jumping jacks. Feet out, arms up, back together.','High knees. Lift them to hip height. Keep going.','Rest. Three slow deep breaths.','Arm circles. Big and slow. Forward then backward.','Shake your hands. Roll your shoulders. Deep breath.'],
+    benefit:'Releases', benefitVal:'natural brain stimulants' },
+
+  { id:'wakeup-acupressure', cat:'wake', emoji:'👆', title:'Energy Pressure Points',
+    tag:'Wake-Up', tagClass:'tag-wake', dur:'2 min',
+    desc:'Pressing 5 specific points on your head and hands sends alertness signals to your brain. Used in Ayurveda and Chinese medicine for centuries.',
+    phases:[{label:'Between your eyebrows',sec:15},{label:'Both temples',sec:15},{label:'Under your nose',sec:15},{label:'Both earlobes',sec:15},{label:'Tap your whole scalp',sec:30},{label:'Hand web point',sec:30}],
+    rounds:1,
+    steps:[
+      'Rub both palms together hard for 10 seconds to warm them up.',
+      'BROW POINT: Press two fingers on the spot BETWEEN your eyebrows. Make slow circles for 15 sec.',
+      'TEMPLES: Press index fingers into the hollows beside your eyes. Slow circles for 15 sec.',
+      'EARLOBES: Pinch and squeeze both earlobes between thumb and finger.',
+      'SCALP TAP: Tap all 10 fingertips firmly all over your head for 30 seconds.',
+      'HAND WEB: Press the fleshy webbing between your thumb and index finger firmly for 20 sec.'
+    ],
+    voiceIntro:'Energy Pressure Points. Start by rubbing both palms together hard.',
+    phaseVoice:['Two fingers pressing the point between your eyebrows. Small circles.','Index fingers on both temples. Slow circles.','Press just below your nose, above the upper lip. Firm pressure.','Pinch and massage both earlobes.','Tap all over your scalp with all ten fingertips. Firmly.','Press the webbing between your thumb and index finger. Hold.'],
+    benefit:'Stimulates', benefitVal:'5 instant energy points' },
+
+  { id:'wakeup-eye-splash', cat:'wake', emoji:'👁️', title:'Eye & Face Wake-Up',
+    tag:'Wake-Up', tagClass:'tag-wake', dur:'90 sec',
+    desc:'Your eyes and face are the first things to show tiredness. This 90-second sequence reverses the look and feel of fatigue.',
+    phases:[{label:'Blink fast 20 times',sec:15},{label:'Splash eyelids with cold water',sec:20},{label:'Tap your face',sec:25},{label:'Rub your forehead',sec:15},{label:'Open eyes as wide as possible',sec:15}],
+    rounds:1,
+    steps:[
+      'Blink your eyes as fast as you can — 20 quick full blinks.',
+      'Splash cold water on your CLOSED eyelids 5 times.',
+      'Tap your fingertips firmly on your cheeks, forehead, and chin — like gentle drumming.',
+      'Place both flat palms on your forehead and rub up and down firmly 10 times.',
+      'Open both eyes as WIDE as possible and hold for 10 seconds.'
+    ],
+    voiceIntro:'Eye and Face Wake-Up. Start with rapid blinking.',
+    phaseVoice:['Blink rapidly. Twenty fast full blinks.','Splash cold water on your closed eyelids.','Tap your cheeks, forehead and chin with your fingertips.','Both palms on your forehead. Rub up and down firmly.','Open your eyes as wide as you can. Hold them open.'],
     benefit:'Reverses', benefitVal:'facial fatigue in 90 sec' },
 
-  /* ── BRAIN (4) ── */
-  { id:'memory-palace', cat:'brain', emoji:'🧠', title:'Memory Palace Warm-Up',
+  /* ── BRAIN ── */
+  { id:'memory-palace', cat:'brain', emoji:'🧠', title:'Memory Palace',
     tag:'Brain', tagClass:'tag-brain', dur:'5 min',
-    labTags:['cognitive','memory'],
-    desc:'The Method of Loci — used by memory champions and scholars for 2,500 years. Placing information in familiar locations boosts recall by up to 200%.',
-    phases:[{label:'Build your palace',sec:60},{label:'Place the 5 items',sec:60},{label:'Walk through it',sec:60},{label:'Test your recall',sec:60}],
+    desc:'Memory champions use this method to memorise hundreds of items. Placing information in familiar places makes it stick up to 200% better.',
+    phases:[{label:'Picture your home',sec:60},{label:'Place 5 items in rooms',sec:60},{label:'Walk through & see them',sec:60},{label:'Test — say all 5 without looking',sec:60}],
     rounds:1,
-    steps:['Close your eyes. Picture a place you know very well — your home, your street, your school. This is your "palace".','Mentally walk from the front entrance, through each room, in a fixed order you will always follow','Now memorise 5 items: 🥭 Mango  ☁️ Cloud  📖 Book  🌊 River  💡 Lamp','Imagine placing each item at a different spot along your walk — Mango at the door, Cloud in the hall, Book on the table, River outside the window, Lamp by the bed','Close your eyes, walk through your palace again, and see each item sitting exactly where you placed it','Now without looking, say all 5 items in order — this is how memory champions memorise decks of cards'],
-    voiceIntro:'Memory Palace Warm-Up. You will build a mental palace and encode five items into it.',
-    phaseVoice:['Picture a place you know well. Walk through it in your mind. See every detail — the walls, the floor, the light.','Place the five items along your mental walk. Mango at the door. Cloud in the first room. Book on a table. River outside. Lamp by the bed.','Close your eyes. Walk through your palace slowly. See each item clearly in its place.','Without looking, say all five items in order. Mango. Cloud. Book. River. Lamp. How many did you get?'],
-    benefit:'Boosts recall', benefitVal:'by up to 200%' },
+    steps:[
+      'Close your eyes. Picture your home from the front door.',
+      'Choose 5 spots as you walk in: door → hallway → table → window → bed.',
+      'Place these items at those spots in order: Mango · Cloud · Book · River · Lamp.',
+      'Walk through again in your mind — SEE each item exactly where you placed it.',
+      'Without looking: say all 5 items in order. How many did you get right?'
+    ],
+    voiceIntro:'Memory Palace. Close your eyes and picture your home from the front door.',
+    phaseVoice:['Picture your home clearly. Walk from the front door through each room. See every detail.','Place the five items along your walk. Mango at the door. Cloud in the hall. Book on the table. River at the window. Lamp by the bed.','Walk through your home again in your mind. See each item in its place.','Say all five items in order. No looking. Mango. Cloud. Book. River. Lamp. How many did you get?'],
+    benefit:'Boosts memory', benefitVal:'by up to 200%' },
 
   { id:'cross-crawl', cat:'brain', emoji:'🤹', title:'Cross-Crawl Brain Gym',
     tag:'Brain', tagClass:'tag-brain', dur:'3 min',
-    labTags:['cognitive','stability'],
-    desc:'Cross-lateral movements force your left and right brain hemispheres to communicate simultaneously. Used by teachers in Brain Gym programmes to instantly improve learning speed.',
-    phases:[{label:'Cross-crawl march',sec:30},{label:'Figure-8 — right hand',sec:20},{label:'Figure-8 — left hand',sec:20},{label:'Hook-Ups + breathe',sec:60},{label:'Deep breaths',sec:20}],
+    desc:'Moving opposite arm and leg at the same time forces both sides of your brain to work together. This improves thinking speed and coordination.',
+    phases:[{label:'Cross-crawl marching',sec:30},{label:'Draw infinity with right hand',sec:20},{label:'Draw infinity with left hand',sec:20},{label:'Cross arms & ankles — breathe',sec:60},{label:'Deep breaths',sec:20}],
     rounds:2,
-    steps:['Stand up with feet shoulder-width apart, arms relaxed at your sides','Lift your LEFT knee while touching it with your RIGHT elbow — then alternate sides like marching. This is the "cross-crawl". Keep going for 30 seconds.','Stretch your RIGHT arm forward. Make a big loose fist with your thumb pointing up. Draw a slow, large figure-8 (infinity ∞) in the air. Both eyes follow your thumb throughout.','Now switch to your LEFT arm and draw the same figure-8. Eyes follow throughout.','Cross your right ankle over left. Cross your wrists and clasp fingers. Close eyes and breathe slowly for 60 seconds. This "Hook-Ups" position integrates both brain sides.'],
-    voiceIntro:'Cross-Crawl Brain Gym. Stand up. Feet shoulder-width apart.',
-    phaseVoice:['Left elbow to right knee. Right elbow to left knee. March with crosses. Steady rhythm.','Right hand traces a large figure eight in the air. Both eyes follow your thumb.','Now your left hand. Same large figure eight. Eyes following every movement.','Cross your ankles. Cross your wrists. Clasp hands. Close eyes. Breathe slowly and deeply.','Five slow deep breaths. Feel the mental clarity returning.'],
+    steps:[
+      'Stand with feet shoulder-width apart.',
+      'CROSS CRAWL: Lift your LEFT knee and touch it with your RIGHT elbow. Then RIGHT knee with LEFT elbow. Alternate for 30 seconds — like a slow march.',
+      'FIGURE 8: Stretch your right arm forward, thumb up. Draw a big figure-8 (∞) in the air. Both eyes follow your thumb. Repeat with left arm.',
+      'HOOK-UPS: Cross your right ankle over left. Cross your wrists and clasp hands together. Close eyes and breathe slowly for 60 seconds.',
+      'Take 5 long slow deep breaths to finish.'
+    ],
+    voiceIntro:'Cross Crawl Brain Gym. Stand with feet shoulder-width apart.',
+    phaseVoice:['Left elbow to right knee. Right elbow to left knee. Alternating. Keep marching.','Right arm out, thumb up. Draw a big figure eight in the air. Both eyes follow your thumb.','Now left arm. Same big figure eight. Eyes following.','Cross ankles. Cross wrists. Clasp hands. Close eyes. Breathe slowly.','Five slow deep breaths. Feel your mind clear.'],
     benefit:'Activates', benefitVal:'both brain hemispheres' },
 
-  { id:'backward-counting', cat:'brain', emoji:'🔢', title:'Dual-Task Mental Challenge',
+  { id:'backward-counting', cat:'brain', emoji:'🔢', title:'Dual-Task Brain Challenge',
     tag:'Brain', tagClass:'tag-brain', dur:'4 min',
-    labTags:['cognitive'],
-    desc:'Counting backward by 7 while tapping rhythm is a neurology clinic test for brain function. Doing both simultaneously exercises working memory and coordination together.',
-    phases:[{label:'Count back by 7s',sec:60},{label:'Count + tap together',sec:60},{label:'Spell a word backwards',sec:60},{label:'Draw your home mentally',sec:60}],
+    desc:'Doing two mental tasks at once builds brain connections that improve focus, memory and thinking speed.',
+    phases:[{label:'Count backwards by 7',sec:60},{label:'Count AND tap together',sec:60},{label:'Spell a word backwards',sec:60},{label:'Draw your home mentally',sec:60}],
     rounds:1,
-    steps:['Start at 200 and count backwards, subtracting 7 each time: 200 → 193 → 186 → 179 → 172… say it out loud','Now KEEP counting backwards by 7 AND tap your left hand on your knee at the same time — both simultaneously. This is hard — that is the point.','Choose any 6-letter word and spell it backwards letter by letter out loud. Try: MENTAL → L, A, T, N, E, M. Or try your own name.','Close your eyes and draw a detailed mental map of your home — every room, every door, every window, furniture positions. Try to fill in as much detail as you can.'],
-    voiceIntro:'Dual Task Mental Challenge. Count backwards by sevens from two hundred. This is a genuine brain workout.',
-    phaseVoice:['Count backwards from two hundred by sevens. Two hundred. One ninety three. One eighty six. Say it out loud.','Now add tapping your left hand on your knee. Keep counting AND tapping. Both at the same time. Do not stop.','Spell a word backwards out loud, letter by letter. Try the word mental. L. A. T. N. E. M.','Close your eyes. Draw your home in your mind. Every room, every door, every window. As much detail as you can.'],
-    benefit:'Trains', benefitVal:'working memory & focus' },
+    steps:[
+      'Start at 200. Subtract 7 each time. Say the number OUT LOUD: 200 → 193 → 186...',
+      'Keep counting AND tap your left hand on your knee at the same time. Both together!',
+      'Spell a 6-letter word backwards letter by letter out loud. Example: MENTAL → L-A-T-N-E-M.',
+      'Close your eyes. Picture your home — every room, door, window, and furniture in detail.'
+    ],
+    voiceIntro:'Dual Task Brain Challenge. Count backwards from two hundred, subtracting seven each time. Say it out loud.',
+    phaseVoice:['Count backwards from two hundred by sevens. Say each number out loud.','Keep counting backwards AND tap your left hand on your knee. Both at the same time.','Spell a word backwards letter by letter. Try the word mental. L. A. T. N. E. M.','Close your eyes. Picture your home in detail. Every room, every door, every window.'],
+    benefit:'Builds', benefitVal:'focus & memory speed' },
 
-  { id:'focus-breath', cat:'brain', emoji:'🎯', title:'5-Minute Deep Focus Reset',
+  { id:'focus-breath', cat:'brain', emoji:'🎯', title:'Deep Focus Reset',
     tag:'Brain', tagClass:'tag-brain', dur:'5 min',
-    labTags:['cognitive','stress'],
-    desc:'A structured sequence of breath holds, counting and visualization that scientists have shown to dramatically increase focused attention within one session.',
-    phases:[{label:'Box breath — 3 rounds',sec:48},{label:'Count to 100 in mind',sec:60},{label:'Visualise your task',sec:60},{label:'Set your intention',sec:30},{label:'Close & commit',sec:30}],
+    desc:'A 5-minute sequence that clears mental noise and prepares your brain for focused, productive work.',
+    phases:[{label:'3 rounds of box breathing',sec:48},{label:'Count 1 to 100 silently',sec:60},{label:'Picture your task clearly',sec:60},{label:'Say your intention out loud',sec:30},{label:'3 deep breaths — then begin',sec:30}],
     rounds:1,
-    steps:['Do 3 rounds of box breathing: in 4 counts, hold 4, out 4, hold 4 — this calms your nervous system','Count from 1 to 100 slowly in your mind, without losing count — if you lose track, start again','Visualise the SPECIFIC task you need to focus on: picture yourself doing it well, step by step','Say out loud (or in your head): "I will focus on [your task] for the next [X] minutes"','Close your eyes, take 3 deep breaths, open your eyes and begin your task immediately'],
-    voiceIntro:'Five Minute Deep Focus Reset. This prepares your brain for deep, undistracted work.',
-    phaseVoice:['Three rounds of box breathing. In four counts, hold four, out four, hold four. Begin.','Count from one to one hundred slowly in your mind. If you lose track, start again.','Visualise the task you need to focus on. See yourself doing it, step by step, doing it well.','Say your intention: I will focus on my task for the next thirty minutes.','Three deep breaths. Eyes open. Begin your task immediately, right now.'],
-    benefit:'Increases', benefitVal:'focused attention' },
+    steps:[
+      'Box breathe 3 times: IN for 4 counts → Hold 4 → OUT for 4 → Hold 4.',
+      'Count from 1 to 100 slowly in your head only. If you lose track, restart from 1.',
+      'Picture your task clearly. See yourself doing it step by step, doing it well.',
+      'Say out loud: "I will focus on [my task] for the next [X] minutes."',
+      'Take 3 deep breaths. Open your eyes. Start your task immediately.'
+    ],
+    voiceIntro:'Deep Focus Reset. Five minutes to prepare your brain for focused work.',
+    phaseVoice:['Box breathing. In four, hold four, out four, hold four. Three rounds.','Count from one to one hundred slowly in your mind. Lose track — start again.','Picture the task you need to do. See yourself doing it step by step.','Say your intention out loud. I will focus on my task for the next thirty minutes.','Three deep breaths. Open eyes. Begin immediately.'],
+    benefit:'Prepares brain', benefitVal:'for deep focus' },
 
-  /* ── EYES (3) ── */
+  /* ── EYES ── */
   { id:'eye-yoga', cat:'eyes', emoji:'🔄', title:'Eye Yoga — 6 Directions',
     tag:'Eye Relief', tagClass:'tag-eyes', dur:'3 min',
-    labTags:['eye'],
-    desc:'Strengthens all 6 extra-ocular muscles and reduces digital eye fatigue. The core eye care practice of Ayurveda — recommended daily for anyone who uses screens.',
-    phases:[{label:'Up ↑ then Down ↓',sec:15},{label:'Left ← then Right →',sec:15},{label:'Diagonal ↗',sec:15},{label:'Diagonal ↘',sec:15},{label:'Circles clockwise ↻',sec:20},{label:'Circles anti-clock ↺',sec:20},{label:'Palming — eyes rest',sec:30}],
+    desc:'Your eyes have 6 muscles — just like any muscle they need exercise. This strengthens them and relieves screen-related eye strain.',
+    phases:[{label:'Up & down',sec:15},{label:'Left & right',sec:15},{label:'Diagonal — top left to bottom right',sec:15},{label:'Diagonal — top right to bottom left',sec:15},{label:'Clockwise circles',sec:20},{label:'Anti-clockwise circles',sec:20},{label:'Palming — rest eyes',sec:30}],
     rounds:2,
-    steps:['Sit straight in a chair. Keep your HEAD completely still throughout — only your eyes should move.','Look slowly UPWARD as far as you can, hold 2 seconds, then look DOWN as far as you can, hold 2 seconds. Repeat 5 times.','Look as far LEFT as you can, hold 2 seconds, then far RIGHT, hold 2 seconds. Repeat 5 times.','Upper-left to lower-right diagonally — hold 2 seconds at each corner. Repeat 5 times.','Upper-right to lower-left diagonally — hold 2 seconds at each corner. Repeat 5 times.','Slowly rotate your eyes in full clockwise circles — 3 complete slow rotations','Anti-clockwise — 3 complete slow rotations','Rub your palms together until warm, then gently cup them over your CLOSED eyes for 30 seconds. The warmth and darkness relaxes the eye muscles deeply.'],
-    voiceIntro:'Eye Yoga Six Directions. Head completely still. Only your eyes move.',
-    phaseVoice:['Eyes upward, hold, downward, hold. Head completely still. Five times, slow and deliberate.','Far left, hold, far right, hold. Stretch the muscles fully. Five times.','Diagonal. Upper left to lower right. Hold at each corner. Five times.','Other diagonal. Upper right to lower left. Slow and deliberate. Five times.','Clockwise circles. Slow and full. Three complete rotations. Head still.','Anti-clockwise circles. Three complete rotations. Head still.','Rub palms warm. Cup gently over closed eyes. Breathe. Let the darkness and warmth soothe your eyes.'],
+    steps:[
+      'Sit upright. Keep your HEAD completely still throughout — ONLY your eyes move.',
+      'Look UP slowly as far as you can. Hold 2 seconds. Look DOWN as far as you can. Hold 2 sec. Repeat 5 times.',
+      'Look as far LEFT as you can. Hold 2 sec. Then as far RIGHT. Hold 2 sec. Repeat 5 times.',
+      'Rotate your eyes in slow full circles — 3 times clockwise, then 3 times anti-clockwise.',
+      'Rub your palms together until warm. Cup them over your CLOSED eyes for 30 seconds. Rest.'
+    ],
+    voiceIntro:'Eye Yoga. Head completely still. Only your eyes move.',
+    phaseVoice:['Eyes up slowly, hold, then down slowly, hold. Head still. Five times.','Far left, hold, far right, hold. Head still. Five times.','Top left to bottom right diagonally. Hold at each corner. Five times.','Top right to bottom left. Hold at each corner. Five times.','Slow clockwise circles. Three full rotations.','Slow anti-clockwise circles. Three full rotations.','Rub palms warm. Cup over closed eyes. Breathe. Let the warmth soothe them.'],
     benefit:'Strengthens', benefitVal:'all 6 eye muscles' },
 
   { id:'palming-2020', cat:'eyes', emoji:'👁️', title:'20-20-20 Eye Rest',
     tag:'Eye Relief', tagClass:'tag-eyes', dur:'4 min',
-    labTags:['eye'],
-    desc:'The most evidence-based technique for digital eye strain. Ophthalmologists worldwide prescribe this rule: every 20 minutes of screen time, look 20 feet away for 20 seconds.',
-    phases:[{label:'Look far — 20 feet away',sec:20},{label:'Look near — 30 cm',sec:10},{label:'Palming',sec:30},{label:'Slow blinks × 10',sec:20}],
+    desc:'Eye doctors worldwide recommend this: every 20 minutes at a screen, look 20 feet away for 20 seconds. This does 4 full cycles.',
+    phases:[{label:'Look far away — 20 feet',sec:20},{label:'Look at something close',sec:10},{label:'Palming — warm hands on eyes',sec:30},{label:'Slow blinks — 10 times',sec:20}],
     rounds:4,
-    steps:['Look at something at least 20 feet (6 meters) away — a wall, a tree outside, anything far. Let your eyes relax and soften their focus naturally.','Now look at your finger held 30 cm from your face. Focus clearly on it. This is the near-far switch.','Rub your palms together until warm. Gently cup them over your CLOSED eyes without pressing. Hold. The warmth and darkness signals your eye muscles to fully relax.','Blink slowly 10 times — full, complete blinks that fully close and reopen. This re-coats your eyes with tears and reduces dryness.'],
-    voiceIntro:'Twenty Twenty Twenty Eye Rest. Look away from your screen now. Find a point at least twenty feet away.',
-    phaseVoice:['Look at a distant point. Twenty feet or more. Let your eyes soften and relax their focus naturally.','Now focus on something close — your fingertip, about thirty centimetres away.','Rub your palms together until warm. Cup them over your closed eyes. No pressure. Just warmth.','Blink slowly. Ten full deliberate blinks. Feel your eyes rehydrate.'],
+    steps:[
+      'Find something 20 feet away from you. Look at it and let your eyes go soft and relaxed.',
+      'Now look at your fingertip 30 cm from your face. Focus clearly on it.',
+      'Rub palms together until warm. Cup them gently over your CLOSED eyes. Do not press. Just hold the warmth.',
+      'Blink slowly 10 times — full blinks that completely close and fully reopen your eyes.'
+    ],
+    voiceIntro:'Twenty Twenty Twenty Eye Rest. Look away from your screen now.',
+    phaseVoice:['Look at a distant point. Twenty feet away. Let your eyes relax completely.','Now focus on your fingertip close to your face.','Rub palms warm. Cup gently over closed eyes. Breathe.','Blink slowly. Ten full blinks. Feel your eyes rehydrate.'],
     benefit:'Relieves', benefitVal:'digital eye strain' },
 
   { id:'eye-massage', cat:'eyes', emoji:'🖐', title:'Ayurvedic Eye Massage',
     tag:'Eye Relief', tagClass:'tag-eyes', dur:'3 min',
-    labTags:['eye'],
-    desc:'Traditional Ayurvedic self-massage for the eyes, forehead and temples. Relieves tension headaches caused by eye strain and improves circulation around the eye orbit.',
-    phases:[{label:'Brow bone press',sec:30},{label:'Under-eye gentle press',sec:30},{label:'Bridge of nose',sec:20},{label:'Temple circles',sec:30},{label:'Full eye palm',sec:40},{label:'Gentle eye tap',sec:30}],
+    desc:'Traditional Ayurvedic massage around the eyes relieves tension, headaches caused by eye strain, and improves blood flow around the eye area.',
+    phases:[{label:'Press along brow bone',sec:30},{label:'Press under-eye bone gently',sec:30},{label:'Press bridge of nose',sec:20},{label:'Massage temples',sec:30},{label:'Full palming',sec:40},{label:'Gentle fingertip tapping',sec:30}],
     rounds:1,
-    steps:['Use your index fingers to press gently along your BROW BONE — the ridge above your eyes. Start at the inner corner, press and hold for 2 seconds, move outward. 3 passes.','Use index fingers to VERY GENTLY press the bony ridge BELOW your eyes — do not press on the soft eye itself. Start at the inner corner, move outward. 3 gentle passes.','Press both index fingers on the bridge of your nose (the top part between your eyes) and hold for 20 seconds. Breathe slowly.','Press both index fingers into your TEMPLES and massage in slow circles — first clockwise, then anti-clockwise. 15 seconds each direction.','Rub palms warm. Cup softly over CLOSED eyes. Hold for 40 seconds. Breathe slowly. This is the deepest relaxation for the eyes.','Use all 10 fingertips to very gently TAP all around the eye area — brows, under-eyes, temples. Like very gentle rain.'],
-    voiceIntro:'Ayurvedic Eye Massage. This relieves eye strain and tension headaches. Use gentle pressure throughout.',
-    phaseVoice:['Press gently along your brow bone. Start at the inner corner and move outward. Three passes.','Very gently press the bony ridge below your eyes. Inner corner to outer corner. Three gentle passes.','Both fingers on the bridge of your nose. Hold and breathe.','Press into your temples. Slow circles. Clockwise, then anti-clockwise.','Palms warm. Cup over closed eyes. Hold. Breathe. Let your eyes completely rest.','Very gentle tapping with all ten fingertips around the entire eye area.'],
+    steps:[
+      'Press two fingers along the bony ridge ABOVE your eyes — from inner corner to outer. 3 slow passes. Never press the soft eye.',
+      'Very gently press the bony ridge BELOW your eyes — inner to outer corner. 3 slow passes.',
+      'Press both index fingers on the TOP of your nose bridge, between your eyes. Hold 20 sec.',
+      'Press index fingers into your temples (beside your eyes). Slow circles — 15 sec each direction.',
+      'Rub palms warm. Cup softly over closed eyes. Hold 40 seconds. Just warmth and darkness.'
+    ],
+    voiceIntro:'Ayurvedic Eye Massage. Use gentle pressure throughout.',
+    phaseVoice:['Press along the brow bone ridge. Start at the inner corner, move outward. Three passes.','Very gently press the bony ridge below your eyes. Three passes.','Both fingers on the bridge of your nose. Hold steady.','Press into your temples. Slow circles. Clockwise then anti-clockwise.','Palms warm. Cup over closed eyes. Breathe slowly.','Very gentle fingertip tapping all around the eye area.'],
     benefit:'Relieves', benefitVal:'eye strain & headaches' },
 
-  /* ── BREATH (4) ── */
+  /* ── BREATH ── */
   { id:'box-breathing', cat:'breath', emoji:'🌬️', title:'Box Breathing',
     tag:'Breathing', tagClass:'tag-breath', dur:'4 min',
-    labTags:['stress','respiratory'],
-    desc:'Used by US Navy SEALs before combat to achieve calm under extreme pressure. Each side of the "box" is 4 counts. Reduces cortisol and lowers heart rate within 3 minutes.',
-    phases:[{label:'Inhale',sec:4},{label:'Hold Full',sec:4},{label:'Exhale',sec:4},{label:'Hold Empty',sec:4}],
+    desc:'US Navy SEALs use this to stay calm under extreme pressure. 4 counts in, 4 hold, 4 out, 4 hold. Reduces cortisol in minutes.',
+    phases:[{label:'Breathe IN',sec:4},{label:'Hold — lungs full',sec:4},{label:'Breathe OUT',sec:4},{label:'Hold — lungs empty',sec:4}],
     rounds:5, isBreath:true,
-    steps:['Sit upright with feet flat on the floor, or lie down on your back','Place one hand on your belly. Breathe IN slowly through your nose for 4 counts — feel your belly rise','HOLD your breath, lungs full, for 4 counts. Do not breathe in or out.','Breathe OUT slowly through your mouth for 4 counts — feel your belly fall','HOLD your breath, lungs empty, for 4 counts. Do not breathe in or out.','That completes 1 box. Repeat 5 times total for maximum effect.'],
-    voiceIntro:'Box Breathing. Four counts each side of the box. Inhale, hold, exhale, hold.',
-    phaseVoice:['Breathe in through your nose. One. Two. Three. Four.','Hold. Lungs full. One. Two. Three. Four.','Breathe out through your mouth. One. Two. Three. Four.','Hold empty. One. Two. Three. Four. Begin again.'],
-    benefit:'Reduces cortisol', benefitVal:'& heart rate' },
+    steps:[
+      'Sit upright. Both feet flat. One hand on your belly.',
+      'Breathe IN through your nose for 4 counts. Feel your belly rise.',
+      'HOLD — lungs full — for 4 counts. Do not breathe.',
+      'Breathe OUT through your mouth for 4 counts. Feel belly fall.',
+      'HOLD — lungs empty — for 4 counts. Do not breathe. That is 1 round. Do 5 rounds.'
+    ],
+    voiceIntro:'Box Breathing. Four counts in, four hold, four out, four hold. Five rounds.',
+    phaseVoice:['Breathe in through your nose. One. Two. Three. Four.','Hold. Lungs full. One. Two. Three. Four.','Breathe out through your mouth. One. Two. Three. Four.','Hold empty. One. Two. Three. Four.'],
+    benefit:'Reduces cortisol', benefitVal:'& calms the heart' },
 
   { id:'478-breath', cat:'breath', emoji:'😮‍💨', title:'4-7-8 Calming Breath',
     tag:'Breathing', tagClass:'tag-breath', dur:'3 min',
-    labTags:['stress','calm'],
-    desc:'Dr. Andrew Weil\'s technique called a "natural tranquilizer for the nervous system." The 8-count exhale activates deep parasympathetic calm. Use it for anxiety, anger or before sleep.',
-    phases:[{label:'Exhale fully',sec:5},{label:'Inhale — 4 counts',sec:4},{label:'Hold — 7 counts',sec:7},{label:'Exhale — 8 counts',sec:8}],
+    desc:'Called a natural sedative for the nervous system. The long 8-count exhale switches off your stress response. Use for anxiety, anger, or before sleep.',
+    phases:[{label:'Breathe OUT fully',sec:5},{label:'Breathe IN — 4 counts',sec:4},{label:'HOLD — 7 counts',sec:7},{label:'Breathe OUT — 8 counts',sec:8}],
     rounds:4, isBreath:true,
-    steps:['Sit or lie comfortably. Place your tongue tip just behind your upper front teeth — and KEEP it there throughout.','Breathe out completely through your mouth, making a whooshing sound. This empties your lungs.','Close your mouth. Breathe in through your NOSE quietly for 4 counts.','Hold your breath completely still for 7 counts.','Breathe out through your MOUTH for 8 counts, making the whooshing sound again.','That is 1 cycle. Do 4 cycles. With practice this can induce sleep in under 2 minutes.'],
-    voiceIntro:'Four Seven Eight Breath. Tongue tip behind your upper front teeth. Keep it there throughout.',
-    phaseVoice:['Exhale completely through your mouth. Make the whoosh sound. Empty everything.','Inhale through your nose quietly. One. Two. Three. Four.','Hold. Do not breathe. One. Two. Three. Four. Five. Six. Seven.','Exhale through your mouth. Make the whoosh. One. Two. Three. Four. Five. Six. Seven. Eight.'],
-    benefit:'Natural sedative', benefitVal:'for the nervous system' },
+    steps:[
+      'Place your tongue tip just behind your upper front teeth. Keep it there the whole time.',
+      'Breathe OUT completely through your mouth — make a WHOOOOSH sound. Empty your lungs.',
+      'Close mouth. Breathe IN through your NOSE for 4 counts.',
+      'HOLD completely still for 7 counts. Do not breathe.',
+      'Breathe OUT through your mouth for 8 counts with another WHOOOOSH. That is 1 round. Do 4 rounds.'
+    ],
+    voiceIntro:'Four Seven Eight Breath. Tongue tip behind your upper front teeth. Keep it there.',
+    phaseVoice:['Breathe out completely. Make the whoosh sound. Empty everything.','Close mouth. Breathe in through your nose. One. Two. Three. Four.','Hold still. One. Two. Three. Four. Five. Six. Seven.','Breathe out through your mouth. Whoosh. One through eight.'],
+    benefit:'Natural sedative', benefitVal:'for your nervous system' },
 
   { id:'nadi-shodhana', cat:'breath', emoji:'🌿', title:'Alternate Nostril Breathing',
     tag:'Breathing', tagClass:'tag-breath', dur:'5 min',
-    labTags:['stress','cognitive'],
-    desc:'Nadi Shodhana — the classical Ayurvedic pranayama. Alternating nostrils balances left and right brain hemispheres, reduces anxiety and clears the mind within minutes.',
-    phases:[{label:'Inhale LEFT nostril',sec:4},{label:'Hold both closed',sec:2},{label:'Exhale RIGHT nostril',sec:4},{label:'Inhale RIGHT nostril',sec:4},{label:'Hold both closed',sec:2},{label:'Exhale LEFT nostril',sec:4}],
+    desc:'Nadi Shodhana — the classical Ayurvedic breath. Alternating nostrils balances both sides of the brain and reduces anxiety quickly.',
+    phases:[{label:'Breathe in through LEFT nostril',sec:4},{label:'Hold both closed',sec:2},{label:'Breathe out through RIGHT nostril',sec:4},{label:'Breathe in through RIGHT nostril',sec:4},{label:'Hold both closed',sec:2},{label:'Breathe out through LEFT nostril',sec:4}],
     rounds:6,
-    steps:['Sit straight. Raise your RIGHT hand to your face. Fold your index and middle fingers into your palm — you will use only your THUMB and RING FINGER.','Right THUMB closes your right nostril. Breathe in through your LEFT nostril for 4 counts.','Close BOTH nostrils with thumb and ring finger. Hold for 2 seconds.','Release thumb, open right nostril. Breathe out through RIGHT nostril for 4 counts.','Breathe in through the RIGHT nostril for 4 counts (right is still open, left is closed).','Close both nostrils again. Hold 2 seconds.','Release ring finger, open left nostril. Breathe out LEFT for 4 counts. This completes 1 round. Do 6 rounds.'],
+    steps:[
+      'Sit straight. Raise your RIGHT hand. Fold index and middle fingers into your palm — only THUMB and RING FINGER are used.',
+      'Right THUMB closes RIGHT nostril. Breathe in through LEFT nostril for 4 counts.',
+      'Close BOTH nostrils (thumb + ring finger). Hold 2 counts.',
+      'Release THUMB only. Breathe out through RIGHT nostril for 4 counts. Then breathe in through RIGHT.',
+      'Close both. Hold 2. Release ring finger. Breathe out through LEFT. That is 1 round. Do 6 rounds.'
+    ],
     voiceIntro:'Alternate Nostril Breathing. Sit straight. Raise your right hand. Fold index and middle fingers into your palm.',
-    phaseVoice:['Right thumb closes right nostril. Inhale through the left. One. Two. Three. Four.','Close both nostrils. Hold gently. Two seconds.','Release your thumb. Exhale through the right nostril. One. Two. Three. Four.','Inhale through the right nostril. One. Two. Three. Four.','Close both nostrils. Hold. Two seconds.','Release left nostril. Exhale through the left. One. Two. Three. Four.'],
-    benefit:'Balances', benefitVal:'brain hemispheres' },
+    phaseVoice:['Right thumb closes right nostril. Breathe in through the left. One two three four.','Close both nostrils. Hold. One two.','Release thumb. Breathe out through right. One two three four.','Breathe in through right. One two three four.','Close both. Hold. One two.','Release ring finger. Breathe out through left. One two three four.'],
+    benefit:'Balances', benefitVal:'left & right brain' },
 
-  { id:'humming-bee', cat:'breath', emoji:'🐝', title:'Humming Bee Breath (Bhramari)',
+  { id:'humming-bee', cat:'breath', emoji:'🐝', title:'Humming Bee Breath',
     tag:'Breathing', tagClass:'tag-breath', dur:'4 min',
-    labTags:['stress','calm'],
-    desc:'Bhramari pranayama — the humming bee breath. The vibration of humming activates the vagus nerve, directly switching off the stress response and inducing profound calm.',
-    phases:[{label:'Prepare — close senses',sec:20},{label:'Deep inhale',sec:4},{label:'Hum on exhale',sec:10},{label:'Rest between rounds',sec:6}],
+    desc:'Bhramari pranayama — humming activates the vagus nerve which directly switches off the body\'s stress response. One of the most calming techniques known.',
+    phases:[{label:'Close ears & eyes — settle',sec:20},{label:'Breathe in deeply',sec:4},{label:'Hum on the exhale',sec:10},{label:'Rest between rounds',sec:6}],
     rounds:7,
-    steps:['Sit comfortably. Close your eyes. Use your THUMBS to gently close both ears (press the little flap called the tragus). Place fingers lightly over your eyes and face — not pressing.','Take a slow, deep inhale through your nose. Fill your lungs completely.','With your mouth CLOSED, make a long, steady humming sound on the exhale — like saying "mmmmm". Feel the vibration in your head and chest.','Sit quietly for a few seconds between rounds. Notice the stillness and calm.','Repeat 7 times. Each round feels calmer than the last.'],
-    voiceIntro:'Humming Bee Breath. Sit comfortably. Close your ears gently with your thumbs. Close your eyes.',
-    phaseVoice:['Close your ears with your thumbs. Place fingers lightly over your eyes. Sit still.','Breathe in slowly and deeply through your nose. Fill completely.','Exhale with a long, steady hum. Mouth closed. Feel the vibration in your head.','Rest in the silence. Notice the calm spreading through you.'],
+    steps:[
+      'Sit comfortably with eyes closed.',
+      'Use your THUMBS to gently close both ears — press the small flap (tragus) inward.',
+      'Rest your other fingers lightly over your closed eyes.',
+      'Breathe in slowly through your nose — fill your lungs.',
+      'With mouth CLOSED, make a long "Mmmmmm" hum as you breathe out. Feel the vibration in your forehead. Do 7 rounds.'
+    ],
+    voiceIntro:'Humming Bee Breath. Thumbs gently close your ears. Other fingers over closed eyes.',
+    phaseVoice:['Thumbs in ears. Fingers over closed eyes. Sit completely still.','Breathe in slowly and deeply through your nose.','Mouth closed. Make a long steady humming sound. Feel it in your forehead.','Rest in the stillness. Notice the calm.'],
     benefit:'Activates', benefitVal:'vagus nerve calm response' },
 
-  /* ── BODY (3) ── */
+  /* ── BODY ── */
   { id:'neck-shoulder', cat:'body', emoji:'🤸', title:'Neck & Shoulder Release',
     tag:'Body', tagClass:'tag-body', dur:'5 min',
-    labTags:['fatigue','stability'],
-    desc:'Melts desk tension from the neck and shoulders. Decompresses cervical vertebrae and relieves tension headaches caused by hours of sitting and screen use.',
-    phases:[{label:'Tilt left — hold',sec:25},{label:'Tilt right — hold',sec:25},{label:'Chin to chest',sec:25},{label:'Shoulder rolls',sec:30},{label:'Neck left + right',sec:30},{label:'Chest opener',sec:25}],
+    desc:'Melts away the tension that builds up in your neck and shoulders from sitting and screen use. Relieves tension headaches.',
+    phases:[{label:'Tilt head left — hold',sec:25},{label:'Tilt head right — hold',sec:25},{label:'Chin to chest — hold',sec:25},{label:'Roll shoulders',sec:30},{label:'Turn head left & right',sec:30},{label:'Chest opener',sec:25}],
     rounds:2,
-    steps:['Sit tall in a chair. Feet flat. Roll shoulders back once to open your chest before you begin.','Slowly tilt your head to the LEFT — bring your left ear toward your left shoulder. Do NOT raise your shoulder. Hold for 25 seconds. Breathe deeply — feel the right side of your neck stretching.','Now tilt to the RIGHT. Same gentle stretch. Hold 25 seconds. Breathe.','Drop your chin slowly toward your chest. Feel the stretch at the BACK of your neck and upper back. Hold 25 seconds. Breathe into the stretch.','Slowly roll your shoulders forward in circles — 5 times. Then roll them backward — 5 times.','Turn your head slowly to the LEFT — look over your shoulder gently. Hold 3 seconds. Then slowly to the RIGHT. Hold 3 seconds. Repeat 5 times each side.','Interlace your fingers behind your head. Gently tilt your head back and look upward. Feel your chest open. Hold 25 seconds. Breathe into your chest.'],
-    voiceIntro:'Neck and Shoulder Release. Sit tall. Roll shoulders back once to begin.',
-    phaseVoice:['Slowly tilt your head to the left. Ear toward shoulder. Don\'t raise the shoulder. Breathe into the right side of your neck.','Now to the right. Breathe into the left side. Let gravity do the work gently.','Chin slowly toward your chest. Breathe into the back of your neck. Let it release.','Roll shoulders forward, five times. Then backward, five times.','Turn head slowly left. Hold. Then right. Hold. Five times each side.','Hands behind head. Look up gently. Feel your chest open. Breathe into the front of your body.'],
+    steps:[
+      'Sit at the edge of a chair. Feet flat. Roll shoulders back once.',
+      'Slowly move your LEFT ear toward your LEFT shoulder. Do NOT raise the shoulder. Hold and breathe. Then do the right side.',
+      'Drop your chin slowly toward your chest. Feel the back of neck stretch. Hold.',
+      'Roll both shoulders slowly — 5 times forward, 5 times backward.',
+      'Turn head to the LEFT and hold 3 seconds. Then to the RIGHT. Do 5 times each side.'
+    ],
+    voiceIntro:'Neck and Shoulder Release. Sit tall. Roll shoulders back once.',
+    phaseVoice:['Tilt head to the left. Ear toward shoulder. Don\'t raise the shoulder. Breathe.','Now to the right. Breathe into the stretch.','Chin slowly toward chest. Feel the back of the neck. Breathe.','Roll shoulders forward five times. Then backward five times.','Turn head slowly left, hold. Then right, hold. Five each side.','Hands behind head. Look up gently. Feel your chest open.'],
     benefit:'Relieves tension', benefitVal:'headaches & neck pain' },
 
   { id:'desk-reset', cat:'body', emoji:'🦵', title:'Desk Reset — Stand Up',
     tag:'Body', tagClass:'tag-body', dur:'3 min',
-    labTags:['fatigue','stability'],
-    desc:'Sitting for hours reduces circulation and triggers fatigue. This 3-minute standing sequence restores blood flow to your legs, core and brain — replacing an hour of passive sitting.',
-    phases:[{label:'Reach up — stretch',sec:20},{label:'10 squats',sec:40},{label:'20 calf raises',sec:30},{label:'Hip circles',sec:25},{label:'March in place',sec:45},{label:'Shake out + breathe',sec:20}],
+    desc:'Sitting for hours reduces blood flow to your legs and brain. This 3-minute standing sequence restores it completely.',
+    phases:[{label:'Reach both arms up — stretch',sec:20},{label:'10 slow squats',sec:40},{label:'20 calf raises',sec:30},{label:'Hip circles',sec:25},{label:'March in place',sec:45},{label:'Shake out & breathe',sec:20}],
     rounds:1,
-    steps:['Stand up completely from your chair. Plant feet shoulder-width apart.','Raise BOTH arms directly overhead as high as you can. Stretch upward as if reaching for the ceiling. Hold for 20 seconds. Feel your spine lengthen.','Do 10 slow squats: feet shoulder-width, toes slightly outward, lower yourself as if sitting back into a chair. Keep your chest up and heels on the floor. Slow and controlled.','20 calf raises: rise up onto your toes as high as you can, hold 1 second, lower slowly. Feel your calves working.','Circle your hips slowly — 5 big circles to the right, 5 to the left. Like using a hula hoop.','March vigorously in place for 45 seconds — knees up, arms swinging, like walking fast in place'],
-    voiceIntro:'Desk Reset. Stand up completely right now. You have been sitting too long.',
-    phaseVoice:['Reach both arms as high as you can. Stretch upward. Feel your spine lengthen.','Ten squats. Chest up, heels on floor. Down slowly. Up slowly. Controlled.','Calf raises. Rise onto your toes fully. Twenty times. Feel the calves activating.','Hip circles. Five one way, five the other. Loosen the joints.','March in place. Knees up, arms swinging. Get that heart rate up.','Shake your hands loose. Roll your shoulders. Three deep breaths. Sit back down refreshed.'],
+    steps:[
+      'Stand up from your chair. Feet shoulder-width apart.',
+      'Raise BOTH arms overhead as high as you can. Stretch like reaching the ceiling. Hold 20 sec.',
+      'SQUATS: Slowly sit back as if into a chair — chest up, heels on floor. Stand up. Do 10 times.',
+      'CALF RAISES: Rise onto your toes as high as possible. Hold 1 second. Lower slowly. Do 20 times.',
+      'March vigorously in place for 45 seconds — knees up, arms swinging.',
+      'Shake hands loose, roll shoulders, take 3 deep breaths.'
+    ],
+    voiceIntro:'Desk Reset. Stand up completely right now.',
+    phaseVoice:['Both arms overhead. Stretch as tall as you can. Feel your spine lengthen.','Ten squats. Chest up, heels on floor. Down slow, up slow.','Calf raises. Rise onto toes fully. Twenty times.','Hands on hips. Big slow circles. Five each direction.','March in place. Knees up, arms swinging.','Shake hands loose. Roll shoulders. Three deep breaths.'],
     benefit:'Restores', benefitVal:'full body circulation' },
 
   { id:'wrist-hand', cat:'body', emoji:'🤲', title:'Wrist & Hand Relief',
     tag:'Body', tagClass:'tag-body', dur:'3 min',
-    labTags:['fatigue'],
-    desc:'Essential for anyone who types or uses a phone. Prevents carpal tunnel syndrome and relieves the muscle tension that builds up in the hands, wrists and forearms during screen work.',
-    phases:[{label:'Wrist circles',sec:20},{label:'Finger stretch & spread',sec:20},{label:'Thumb stretch',sec:20},{label:'Forearm massage',sec:30},{label:'Prayer stretch',sec:25},{label:'Fist & open',sec:20}],
+    desc:'Prevents the aches and stiffness that come from typing and phone use. Prevents carpal tunnel syndrome.',
+    phases:[{label:'Wrist circles',sec:20},{label:'Spread fingers wide & close',sec:20},{label:'Thumb stretch',sec:20},{label:'Forearm massage',sec:30},{label:'Prayer stretch',sec:25},{label:'Fist & open — shake out',sec:20}],
     rounds:2,
-    steps:['Hold both arms in front of you. Rotate your wrists in circles — 5 clockwise, 5 anti-clockwise. Make the circles as wide as possible.','Spread your fingers as wide apart as you possibly can — hold 5 seconds — then close into a fist — hold 5 seconds. Repeat 5 times.','Pull your thumb gently backward with the other hand and hold for 10 seconds each thumb.','Use the thumb of one hand to firmly massage the forearm of the other — from wrist to elbow, pressing into the muscle. Swap.','Press palms together in a "prayer" position in front of your chest. Slowly lower your hands, keeping palms together, until you feel the stretch in your wrists. Hold 25 seconds.','Make a tight fist, hold 5 seconds, then open and spread fingers wide, hold 5 seconds. Repeat 5 times. Shake out your hands to finish.'],
-    voiceIntro:'Wrist and Hand Relief. Hold both arms in front of you to begin.',
-    phaseVoice:['Rotate both wrists in circles. Five clockwise. Five anti-clockwise. Make them wide.','Spread fingers as wide as possible. Hold. Then close into a fist. Hold. Five times.','Pull your thumb gently backward. Hold ten seconds each thumb.','Massage one forearm firmly with the other thumb. From wrist to elbow. Then swap.','Prayer position. Palms together. Lower hands slowly until you feel the wrist stretch. Hold.','Tight fist, five seconds. Spread wide, five seconds. Five times. Shake out.'],
-    benefit:'Prevents', benefitVal:'carpal tunnel syndrome' },
+    steps:[
+      'Hold arms in front. Rotate both wrists in full circles — 5 clockwise, 5 anti-clockwise.',
+      'Spread all fingers as wide as possible. Hold 5 sec. Close to a tight fist. Hold 5 sec. Repeat 5 times.',
+      'Hold right thumb with left hand. Gently pull it backward. Hold 10 sec. Swap hands.',
+      'Press palms together in front of chest. Slowly lower joined hands while keeping palms together. Hold 25 sec.',
+      'Tight fist 5 sec → spread wide 5 sec. Repeat 5 times. Shake both hands out loosely.'
+    ],
+    voiceIntro:'Wrist and Hand Relief. Hold both arms in front of you.',
+    phaseVoice:['Rotate wrists in circles. Five clockwise, five anti-clockwise. Make them wide.','Spread all fingers wide. Hold. Close to a fist. Hold. Five times.','Pull thumb gently backward with the other hand. Hold. Then swap.','Thumb massaging firmly from wrist to elbow. Then swap.','Palms together. Lower hands slowly keeping them together. Feel the wrist stretch.','Tight fist, open wide. Five times. Shake hands out.'],
+    benefit:'Prevents', benefitVal:'carpal tunnel & stiffness' },
 
-  /* ── CALM (3) ── */
+  /* ── CALM ── */
   { id:'body-scan', cat:'calm', emoji:'🧘', title:'Body Scan Meditation',
     tag:'Calming', tagClass:'tag-calm', dur:'5 min',
-    labTags:['stress','calm'],
-    desc:'Progressive body scan from toes to crown. Each body part receives attention and then releases its tension. Proven to reduce cortisol by 25% and lower blood pressure in a single session.',
+    desc:'Move your attention slowly from feet to head. Each part releases its tension as you notice it. Reduces stress hormones by 25% per session.',
     phases:[{label:'Feet & legs',sec:60},{label:'Belly & chest',sec:60},{label:'Hands & arms',sec:60},{label:'Head & face',sec:60},{label:'Total stillness',sec:60}],
     rounds:1,
-    steps:['Lie down on your back, or sit in a reclining chair. Close your eyes. Take 3 slow deep breaths.','Bring ALL of your attention to your FEET. Notice any sensations — warmth, tingling, pressure, tension. Now imagine that tension melting away completely. Move slowly up to calves and thighs.','Move attention to your BELLY — notice it rising and falling with each breath. Your CHEST — let your breathing become slower and deeper.','Your HANDS — soften your fingers. Let them uncurl. ARMS — let them become heavy. SHOULDERS — drop them down away from your ears.','Your NECK — release any holding. JAW — unclench it. EYES — let them be soft. FOREHEAD — smooth out any lines. SCALP — relax it completely.','Rest in complete stillness for 1 minute. Just breathe. Nothing to do. Nowhere to be.'],
-    voiceIntro:'Body Scan Meditation. Lie down. Close your eyes. Take three deep breaths.',
-    phaseVoice:['Bring awareness to your feet. Notice tension. Now let it go completely. Move up to calves and thighs. Let them relax and sink.','Move to your belly. Feel it rise and fall. Your chest. Let your breathing slow naturally.','Your hands and fingers. Soften them. Your arms and shoulders. Let them drop heavy.','Your neck, jaw, eyes, forehead, scalp. Unclench your jaw. Smooth your brow. Release everything.','Rest completely. Nothing to do. Nowhere to be. Just breathe and rest.'],
-    benefit:'Reduces cortisol', benefitVal:'by 25% per session' },
+    steps:[
+      'Lie down or sit back in a chair. Close your eyes. Take 3 slow deep breaths.',
+      'Focus on your FEET and legs. Notice any tension. Breathe slowly and imagine it melting away.',
+      'Move to your BELLY and CHEST. Feel them rise and fall. Let breathing slow.',
+      'Move to your ARMS and HANDS. Soften fingers. Let arms become heavy.',
+      'Move to your NECK, JAW, and FACE. Unclench your jaw. Smooth your forehead. Stay still for 1 minute.'
+    ],
+    voiceIntro:'Body Scan. Lie down. Close your eyes. Three slow deep breaths.',
+    phaseVoice:['Bring all attention to your feet. Notice tension. Let it melt away. Move up to calves and thighs.','Belly and chest. Feel it rise and fall. Let breathing slow naturally.','Hands and fingers — soften them. Arms and shoulders — let them drop heavy.','Neck, jaw, eyes, forehead. Unclench jaw. Smooth brow. Release all tension.','Total stillness. Nothing to do. Just breathe and rest.'],
+    benefit:'Reduces stress hormones', benefitVal:'by 25% per session' },
 
   { id:'prog-relaxation', cat:'calm', emoji:'😌', title:'Progressive Muscle Relaxation',
     tag:'Calming', tagClass:'tag-calm', dur:'6 min',
-    labTags:['stress'],
-    desc:'Tense each muscle group for 5 seconds then release for 30 seconds. The sudden contrast between tension and release produces a state of relaxation far deeper than simply trying to relax.',
-    phases:[{label:'Tense feet & calves',sec:40},{label:'Tense thighs',sec:35},{label:'Tense belly',sec:35},{label:'Clench fists & arms',sec:40},{label:'Tense face & jaw',sec:40},{label:'Release everything',sec:60}],
+    desc:'Tense each muscle group for 5 seconds then release. The contrast between tension and release creates relaxation far deeper than simply trying to relax.',
+    phases:[{label:'Tense feet & calves',sec:40},{label:'Tense thighs',sec:35},{label:'Tense belly',sec:35},{label:'Clench fists & arms',sec:40},{label:'Tense face & jaw',sec:40},{label:'Release & rest',sec:60}],
     rounds:1,
-    steps:['Lie down on your back or sit in a reclining chair. Close eyes. Take 3 deep breaths to prepare.','Curl your TOES and tense your FEET and CALVES as hard as you can — like you\'re squeezing them in a vice. Hold for 5 seconds. Then release slowly and completely. Notice the warmth flooding in.','Squeeze your THIGHS together tightly. Hold 5 seconds. Release. Let them sink heavy.','Pull your STOMACH inward as hard as you can, like bracing for a punch. Hold 5 seconds. Release. Let it soften completely.','Clench both FISTS tightly and flex your ARMS hard. Hold 5 seconds. Release. Let your arms become completely heavy.','Squint your EYES tightly, raise your EYEBROWS, clench your JAW, hunch your SHOULDERS. Everything tense at once. Hold 5 seconds. Release very slowly. Let your face become completely smooth and soft.','Rest in complete stillness for 1 full minute. Your entire body is now deeply relaxed.'],
-    voiceIntro:'Progressive Muscle Relaxation. Lie down. We will tense each muscle group, then release completely.',
-    phaseVoice:['Tense your feet and calves. As hard as you can. Hold. And release. Feel the warmth flooding in.','Tense your thighs tightly. Hold. And release. Let them sink heavy.','Pull your belly in tight. Hold. And release. Feel it soften completely.','Clench your fists. Flex your arms hard. Hold. And release. Let them become heavy.','Squint eyes. Clench jaw. Raise shoulders. Everything tense. Hold. And slowly release. Let your face become soft.','Your whole body is now relaxed. Rest here completely. Nothing to do.'],
-    benefit:'Deep relaxation', benefitVal:'beyond normal rest' },
+    steps:[
+      'Lie down or sit back. Close eyes. Take 3 deep breaths.',
+      'FEET: Curl toes and squeeze feet and calves as HARD as you can. Hold 5 sec. Release slowly.',
+      'THIGHS and BELLY: Squeeze thighs together hard. Hold 5 sec. Release. Then pull belly in tight. Hold 5 sec. Release.',
+      'FISTS and ARMS: Clench both fists and flex arms hard. Hold 5 sec. Release.',
+      'FACE: Squint eyes, clench jaw, hunch shoulders — all at once. Hold 5 sec. Release very slowly. Rest completely still for 1 minute.'
+    ],
+    voiceIntro:'Progressive Muscle Relaxation. Lie down. We tense each muscle group then release completely.',
+    phaseVoice:['Tense feet and calves as hard as you can. Hold. And release. Feel the warmth.','Squeeze thighs tightly. Hold. And release. Let them sink heavy.','Pull belly in tight. Hold. And release. Feel it soften.','Clench fists and flex arms. Hold. And release. Arms become heavy.','Squint eyes, clench jaw, hunch shoulders. Everything tense. And slowly release.','Your whole body is relaxed. Rest here. Nothing to do.'],
+    benefit:'Creates deep', benefitVal:'physical relaxation' },
 
   { id:'gratitude-reset', cat:'calm', emoji:'🌟', title:'Gratitude & Positivity Reset',
     tag:'Calming', tagClass:'tag-calm', dur:'5 min',
-    labTags:['stress','calm'],
-    desc:'A structured gratitude practice backed by neuroscience. Just 5 minutes of genuine gratitude reflection lowers cortisol, increases dopamine and shifts your mental state measurably.',
-    phases:[{label:'Breathe & settle',sec:30},{label:'3 things you are grateful for',sec:90},{label:'One good thing today',sec:60},{label:'Someone you appreciate',sec:60},{label:'Your own strength',sec:60}],
+    desc:'5 minutes of genuine gratitude lowers stress hormones, increases dopamine, and measurably shifts your mental state. Backed by neuroscience.',
+    phases:[{label:'Breathe & settle',sec:30},{label:'3 things you are grateful for',sec:90},{label:'One good thing today',sec:60},{label:'One person you appreciate',sec:60},{label:'One strength you have',sec:60}],
     rounds:1,
-    steps:['Sit quietly. Close your eyes. Take 5 slow deep breaths. Let your thoughts settle.','Think of 3 specific things you are genuinely grateful for — not vague things, but specific. "I am grateful for the warm cup of tea I had this morning." Really feel the appreciation.','Think of ONE good thing that happened today — no matter how small. Someone smiled at you. The weather was nice. You completed a task. Focus on it.','Think of ONE person in your life you appreciate. Picture their face. Think of something they have done for you. Feel the warmth of that.','Acknowledge ONE strength or quality you have. Something you did well recently. Really accept that it is true. Say it in your mind: "I am ___."'],
-    voiceIntro:'Gratitude Reset. Sit quietly. Close your eyes. Take five slow breaths.',
-    phaseVoice:['Close your eyes. Take five slow deep breaths. Let your thoughts settle.','Think of three specific things you are grateful for. Take your time. Really feel each one.','Think of one good thing that happened today. No matter how small.','Think of one person you appreciate. Picture their face. Feel the warmth.','Acknowledge one strength you have. Something you did well. Accept that it is true.'],
-    benefit:'Increases dopamine', benefitVal:'& reduces cortisol' },
+    steps:[
+      'Sit quietly. Close eyes. Take 5 slow deep breaths.',
+      'Think of 3 SPECIFIC things you are grateful for. Be detailed: "The warm tea this morning."',
+      'Think of ONE good thing that happened today — no matter how small.',
+      'Think of ONE person you appreciate. Picture their face. Feel the warmth.',
+      'Acknowledge ONE thing you did well recently. Say it in your mind: "I am ___."'
+    ],
+    voiceIntro:'Gratitude Reset. Sit quietly. Close your eyes.',
+    phaseVoice:['Close eyes. Five slow deep breaths. Let your thoughts settle.','Three specific things you are grateful for. Take your time. Feel each one.','One good thing that happened today. No matter how small.','One person you appreciate. Picture their face. Feel the warmth.','One strength you have. Say it in your mind.'],
+    benefit:'Increases dopamine', benefitVal:'& reduces stress' },
 
-  /* ── SLEEP (4) ── */
+  /* ── SLEEP ── */
   { id:'sleep-wind-down', cat:'sleep', emoji:'🌙', title:'Sleep Wind-Down Routine',
     tag:'Sleep', tagClass:'tag-sleep', dur:'7 min',
-    labTags:['stress','calm'],
-    desc:'A clinically designed pre-sleep routine that cools your nervous system, reduces mental chatter and prepares your body for deep, restorative sleep.',
-    phases:[{label:'Dim light stretch',sec:60},{label:'478 breath — 4 rounds',sec:80},{label:'Body tense & release',sec:90},{label:'Clear your thoughts',sec:60},{label:'Count down from 300',sec:60}],
+    desc:'A step-by-step pre-sleep sequence that cools your nervous system and prepares your body for deep, restorative sleep.',
+    phases:[{label:'Stretch & let go',sec:60},{label:'4-7-8 breathing — 4 rounds',sec:80},{label:'Tense everything & release',sec:90},{label:'Let thoughts float past',sec:60},{label:'Count down from 300',sec:60}],
     rounds:1,
-    steps:['Lie in your bed. Stretch your arms overhead and legs long for 30 seconds. Then let go completely and lie flat. Signal to your body that it is time to stop.','4 rounds of 4-7-8 breathing: in 4 counts, hold 7, out 8. This directly activates the sleep pathway in the nervous system.','Tense your whole body at once — fists, legs, face — hold 5 seconds. Then release EVERYTHING at once. Do this twice.','Let your thoughts play out without engaging with them. Imagine them as clouds passing. If a thought grabs you, say "not now" and let it drift past.','Count down slowly from 300 in your head. Most people fall asleep before reaching 200.'],
-    voiceIntro:'Sleep Wind-Down. Lie in your bed. This will prepare you for deep, restorative sleep.',
-    phaseVoice:['Stretch arms overhead and legs long. Thirty seconds. Then let go completely. Lie flat.','Four rounds of four seven eight breathing. In four, hold seven, out eight. Begin.','Tense your whole body at once. Fists, legs, face. Hold. Then release everything. Twice.','Let thoughts float past without grabbing them. Clouds passing. Not now.','Count backward from three hundred, slowly. Let yourself drift.'],
+    steps:[
+      'Lie in bed. Stretch arms above head and legs long for 30 seconds. Let go completely.',
+      '4-7-8 BREATH 4 times: IN for 4 counts → HOLD 7 → OUT 8 with a whoosh sound.',
+      'Squeeze your WHOLE BODY at once — fists, legs, face. Hold 5 sec. Release everything at once. Repeat twice.',
+      'Let thoughts appear but do not follow them. Imagine them as clouds drifting past.',
+      'Count slowly down from 300. Do not rush — drift off as you count.'
+    ],
+    voiceIntro:'Sleep Wind-Down. Lie in your bed. We are going to prepare your body for deep sleep.',
+    phaseVoice:['Stretch arms overhead and legs long. Then let go completely. Lie flat.','Four rounds of four seven eight breathing. In four, hold seven, out eight.','Tense your whole body at once. Hold. Then release everything.','Let thoughts float past without engaging with them.','Count backward from three hundred. Let yourself drift.'],
     benefit:'Prepares body', benefitVal:'for deep sleep' },
 
-  { id:'sleep-yoga-nidra', cat:'sleep', emoji:'💤', title:'Yoga Nidra — Sleep Meditation',
+  { id:'sleep-yoga-nidra', cat:'sleep', emoji:'💤', title:'Yoga Nidra — Deep Rest',
     tag:'Sleep', tagClass:'tag-sleep', dur:'10 min',
-    labTags:['stress','calm'],
-    desc:'Yoga Nidra — the "yogic sleep" technique that places you in a state between waking and sleep. 10 minutes equals 40 minutes of ordinary rest according to sleep researchers.',
-    phases:[{label:'Settle and breathe',sec:60},{label:'Rotation of awareness',sec:120},{label:'Opposite sensations',sec:60},{label:'Visualise',sec:60},{label:'Affirmation',sec:60},{label:'Rest in awareness',sec:60}],
+    desc:'The ancient yogic sleep technique. 10 minutes equals 40 minutes of ordinary rest — your body repairs and your mind deeply de-stresses.',
+    phases:[{label:'Lie flat — 10 deep breaths',sec:60},{label:'Move awareness through body parts',sec:120},{label:'Feel HEAVY then feel LIGHT',sec:60},{label:'Visualise a peaceful place',sec:60},{label:'Repeat your intention',sec:60},{label:'Simply rest',sec:60}],
     rounds:1,
-    steps:['Lie flat on your back, arms slightly away from sides, palms up. Close eyes. Take 10 deep breaths. Set an intention: "I am going to rest deeply."','Move your awareness through each body part, spending 3 seconds at each: right thumb, fingers, palm, wrist, forearm, elbow, upper arm, shoulder, right side of chest, waist, hip, thigh, knee, calf, ankle, right heel, right toes. Then the same on the left side. Then your back, face, top of head.','Experience the sensation of HEAVY: let your body feel as heavy as lead sinking into the floor. Then LIGHT: imagine your body floating upward, weightless.','Visualise a peaceful place: a garden, a beach, a mountain meadow. See it in detail. Hear the sounds. Feel the air.','Repeat quietly in your mind: "I am calm. I am well. I rest deeply."','Simply remain aware that you are lying there, without moving, without thinking about anything in particular. Rest in pure awareness.'],
-    voiceIntro:'Yoga Nidra. Lie completely flat. Arms slightly out. Palms up. This is the yogic sleep practice.',
-    phaseVoice:['Lie completely flat. Palms up. Close eyes. Take ten deep breaths. Set your intention to rest deeply.','Move awareness through each body part. Right thumb. Right fingers. Right palm. Continue through every part of your body slowly.','Now feel your body as HEAVY as lead, sinking. Then feel it as LIGHT as air, floating.','Visualise a peaceful, beautiful place. See it clearly. Hear the sounds. Feel safe there.','Repeat silently: I am calm. I am well. I rest deeply.','Rest in pure awareness. No need to do anything. Simply be.'],
-    benefit:'10 min equals', benefitVal:'40 min ordinary rest' },
+    steps:[
+      'Lie flat on your back. Arms slightly away from body, palms up. Take 10 slow deep breaths.',
+      'BODY ROTATION: Move awareness slowly through every body part — right hand, arm, shoulder, chest, waist, hip, thigh, knee, foot. Then left side. Then back, belly, face.',
+      'Feel your whole body becoming HEAVY like lead sinking into the floor.',
+      'Picture a beautiful peaceful place — a garden, a beach, a forest. See the colours. Hear the sounds.',
+      'Repeat quietly in your mind: "I am calm. I am well. I rest deeply." Stay still.'
+    ],
+    voiceIntro:'Yoga Nidra. Lie completely flat. Arms out, palms up. This is the yogic sleep technique.',
+    phaseVoice:['Completely flat. Palms up. Close eyes. Ten slow deep breaths.','Move awareness slowly through each body part. Right thumb. Fingers. Palm. Wrist. Continue slowly.','Feel your body as heavy as lead, sinking. Then feel it light as a feather, floating.','Picture a beautiful peaceful place. See it clearly. Hear its sounds.','Repeat quietly: I am calm. I am well. I rest deeply.','Simply rest. No movement. Nothing to do. Just be.'],
+    benefit:'10 min equals', benefitVal:'40 min of rest' },
 
   { id:'feet-elevation', cat:'sleep', emoji:'🦶', title:'Legs Up — Circulation Reset',
     tag:'Sleep', tagClass:'tag-sleep', dur:'5 min',
-    labTags:['fatigue','stability'],
-    desc:'Elevating your legs above heart level reverses the blood pooling of a full day\'s sitting. Reduces swelling, improves sleep quality and gives a profound sense of physical relief.',
-    phases:[{label:'Elevate legs — settle',sec:30},{label:'Breathe & relax legs',sec:120},{label:'Foot flexes & circles',sec:60},{label:'Total stillness',sec:90}],
+    desc:'Lifting your legs above your heart level reverses blood pooling from a day of sitting. Reduces swelling, eases tired legs and improves sleep quality.',
+    phases:[{label:'Legs up — settle in',sec:30},{label:'Breathe & let legs rest',sec:120},{label:'Flex feet & ankle circles',sec:60},{label:'Total stillness',sec:90}],
     rounds:1,
-    steps:['Lie on your back on the floor or bed. Swing your legs up and rest them on a wall, or prop them on 2-3 pillows. Your hips should be below your heart. This is the base position.','Close your eyes. Let your legs relax completely — feel them becoming heavy as blood flows back toward your heart. Breathe slowly. Feel the relief in your legs, feet and lower back.','Slowly flex your feet (toes toward you) and then point them (toes away). Repeat 10 times. Then circle your ankles clockwise 5 times, anti-clockwise 5 times. This pumps fluid from the ankles.','Remain still with legs elevated for 90 seconds. Just breathe. Feel the full reset happening.'],
-    voiceIntro:'Legs Up Circulation Reset. Lie on your back. Swing your legs up against a wall or rest on pillows.',
-    phaseVoice:['Legs up. Settle into the position. Hips below heart. Breathe.','Close eyes. Let your legs become heavy. Feel blood flowing back to your heart. Notice the relief.','Flex your feet and point them. Ten times. Then ankle circles. Five each direction.','Stay completely still. Legs elevated. Breathe. Feel the full reset.'],
-    benefit:'Reduces swelling', benefitVal:'& improves sleep' },
+    steps:[
+      'Lie on your back. Swing your legs up against a wall — OR rest them on 2-3 pillows stacked up.',
+      'Close your eyes. Let your legs relax completely. Feel blood flowing back toward your heart.',
+      'Slowly flex feet (pull toes toward you) then point (push toes away). Do 10 times.',
+      'Rotate ankles in circles — 5 clockwise, 5 anti-clockwise.',
+      'Stay still with legs elevated for 90 seconds. Just breathe.'
+    ],
+    voiceIntro:'Legs Up Circulation Reset. Lie on your back. Swing legs up against a wall or rest on pillows.',
+    phaseVoice:['Legs up against the wall or on pillows. Hips on floor. Settle in.','Close eyes. Let legs become heavy. Feel blood returning toward your heart.','Flex feet and point them. Ten times. Then ankle circles, five each direction.','Stay completely still. Legs elevated. Breathe. Feel the reset.'],
+    benefit:'Reduces swelling', benefitVal:'& improves sleep quality' },
 
   { id:'sleep-pressure-points', cat:'sleep', emoji:'😴', title:'Acupressure for Sleep',
     tag:'Sleep', tagClass:'tag-sleep', dur:'4 min',
-    labTags:['stress','calm'],
-    desc:'These specific pressure points have been used in traditional Chinese medicine and Ayurveda for centuries to induce sleep. Stimulating them calms the nervous system within minutes.',
-    phases:[{label:'An Mian — behind ear',sec:30},{label:'Shen Men — wrist',sec:30},{label:'Baihui — top of head',sec:30},{label:'Yin Tang — between brows',sec:30},{label:'Nei Guan — inner wrist',sec:40},{label:'Breathing with pressure',sec:60}],
+    desc:'These 5 pressure points have been used in traditional medicine for centuries to induce sleep by calming the nervous system.',
+    phases:[{label:'Behind the ear — An Mian',sec:30},{label:'Inner wrist crease — Shen Men',sec:30},{label:'Top of head — Baihui',sec:30},{label:'Between eyebrows — Yin Tang',sec:30},{label:'Inner forearm — Nei Guan',sec:40},{label:'Press wrists & breathe',sec:60}],
     rounds:1,
-    steps:['An Mian point: Find the hollow just BEHIND your ear and BELOW the bone. Use your index finger to press firmly and make slow circles for 30 seconds. Do both ears.','Shen Men (Heart 7): On the WRIST crease, on the inner side (pinky side). Press firmly with your thumb and hold for 30 seconds. Then the other wrist.','Baihui point: The VERY TOP of your head — find the midpoint from ear to ear. Use your fingertip to press gently and make slow circles for 30 seconds.','Yin Tang: The point directly BETWEEN your eyebrows. Press gently with one finger and hold for 30 seconds. Breathe slowly as you hold.','Nei Guan (PC6): Three finger-widths UP from the wrist crease on the INNER forearm. Press firmly between the two tendons. Hold 40 seconds each wrist.','Now lie down and combine: press Shen Men on both wrists while doing slow 4-7-8 breathing for 60 seconds.'],
-    voiceIntro:'Acupressure for Sleep. These pressure points calm your nervous system and signal the body to sleep.',
-    phaseVoice:['Find the hollow behind your ear, below the bone. Press and circle gently. Both ears.','Inner wrist, pinky side, at the crease. Press firmly with your thumb. Hold. Then the other.','Top of your head. Find the midpoint. Press gently with one fingertip. Slow circles.','Between your eyebrows. Gentle steady pressure. Breathe slowly as you hold.','Three finger-widths up from wrist, inner arm, between the tendons. Press firmly. Hold.','Lie down. Press both wrist points. Four-seven-eight breathing. Drift.'],
+    steps:[
+      'AN MIAN: Press firmly in the hollow BEHIND your ear, below the bony lump. Slow circles. 30 sec each side.',
+      'SHEN MEN: Press your thumb on the inner wrist crease on the pinky side. Hold 30 sec. Then other wrist.',
+      'YIN TANG: Gently press the point BETWEEN your eyebrows. Breathe slowly as you hold.',
+      'BAIHUI: Press gently on the very TOP of your head — midpoint between your ears. Slow circles.',
+      'Lie down. Press both inner wrists at the same time. Do 4-7-8 breathing and let yourself drift off.'
+    ],
+    voiceIntro:'Acupressure for Sleep. These pressure points calm your nervous system for natural sleep.',
+    phaseVoice:['Behind the ear, below the bone. Press and circle gently. Both sides.','Inner wrist, pinky side, at the crease. Press firmly. Hold. Then the other.','Very top of your head. Midpoint between ears. Gentle press. Slow circles.','Between your eyebrows. Gentle steady press. Breathe slowly.','Three finger-widths up from wrist, inner arm, between the tendons. Press firmly.','Lie down. Press both inner wrists. Four seven eight breathing. Let yourself drift.'],
     benefit:'Calms nervous system', benefitVal:'for natural sleep' },
 
-  /* ── DIGESTION (3) ── */
-  { id:'abdominal-massage', cat:'digest', emoji:'🍃', title:'Self Abdominal Massage',
+  /* ── DIGESTION ── */
+  { id:'abdominal-massage', cat:'digest', emoji:'🍃', title:'Abdominal Self-Massage',
     tag:'Digestion', tagClass:'tag-digest', dur:'5 min',
-    labTags:['fatigue'],
-    desc:'Traditional Ayurvedic abdominal massage stimulates the digestive organs, relieves bloating and gas, and activates the vagus nerve. Best done 30 minutes after eating or in the morning.',
-    phases:[{label:'Warm your hands',sec:15},{label:'Clockwise circles',sec:60},{label:'Kneading motion',sec:60},{label:'Navel press',sec:30},{label:'Full sweep',sec:45}],
+    desc:'Traditional Ayurvedic stomach massage stimulates your digestive organs, relieves bloating and gas, and activates the gut-brain nerve connection.',
+    phases:[{label:'Warm your hands',sec:15},{label:'Clockwise circles — large',sec:60},{label:'Kneading — gentle press & release',sec:60},{label:'Navel point press',sec:30},{label:'One big sweep & finish',sec:45}],
     rounds:1,
-    steps:['Lie on your back or sit comfortably. Rub your palms together vigorously for 15 seconds until they are warm.','Place both palms flat on your belly. Massage in large CLOCKWISE circles (following the path of your colon: up the right side, across, down the left side). Do this for 60 seconds with gentle but firm pressure.','Use your fingertips to make a kneading motion — press in gently and release, moving around your belly in clockwise direction. Like kneading bread dough, very gently.','Place your fingertips directly on your navel and apply gentle downward pressure. Hold for 10 seconds, release. Repeat 3 times. Breathe slowly.','Using the flat of your hand, make one large clockwise sweep from lower right, up and across and down. Then 3 gentle pats. This completes the massage.'],
-    voiceIntro:'Abdominal Massage. Lie on your back or sit. Warm your palms first.',
-    phaseVoice:['Rub palms vigorously until warm.','Place both palms on your belly. Clockwise circles. Gentle but firm. Following the path of the colon.','Fingertips kneading gently around your belly. Clockwise. Like gentle bread kneading.','Fingertips on your navel. Gentle downward pressure. Hold ten seconds. Release. Three times.','One large clockwise sweep of the whole belly. Three gentle pats to finish.'],
-    benefit:'Relieves bloating', benefitVal:'& activates digestion' },
+    steps:[
+      'Lie on your back or sit comfortably. Rub palms together hard for 15 seconds until warm.',
+      'Place both flat palms on your belly. Massage in large CLOCKWISE circles — up the right side, across the top, down the left. Do this for 60 seconds.',
+      'Use fingertips to gently knead — press in and release, moving clockwise around your belly.',
+      'Place fingertips on your belly button. Press gently downward. Hold 10 sec. Release. Repeat 3 times.',
+      'One final large clockwise sweep with one flat hand. Then 3 gentle pats. Done.'
+    ],
+    voiceIntro:'Abdominal Self-Massage. Lie on your back or sit comfortably. Warm your hands first.',
+    phaseVoice:['Rub palms together hard until warm.','Both palms on belly. Large clockwise circles. Up the right, across, down the left.','Fingertips gently kneading your belly. Press in and release. Clockwise.','Fingertips on your belly button. Gentle downward press. Hold ten seconds. Three times.','One large clockwise sweep of the whole belly. Three gentle pats.'],
+    benefit:'Relieves bloating', benefitVal:'& stimulates digestion' },
 
-  { id:'walking-after-eating', cat:'digest', emoji:'🚶', title:'Post-Meal Walking Ritual',
+  { id:'walking-after-eating', cat:'digest', emoji:'🚶', title:'Post-Meal Walking',
     tag:'Digestion', tagClass:'tag-digest', dur:'5 min',
-    labTags:['fatigue'],
-    desc:'Ayurveda and modern science agree: 100 steps after eating activates digestion and prevents the post-meal energy slump. Even 5 minutes of walking reduces blood sugar spike by 30%.',
-    phases:[{label:'Slow walking',sec:60},{label:'Steady walk',sec:90},{label:'Arm swing walk',sec:60},{label:'Cool down stroll',sec:60},{label:'Abdominal breathing',sec:30}],
+    desc:'Even 5 minutes of walking after eating reduces blood sugar by 30% and prevents the post-meal energy slump. A key Ayurvedic practice.',
+    phases:[{label:'Gentle stroll — very slow',sec:60},{label:'Steady comfortable walk',sec:90},{label:'Walk with arm swing',sec:60},{label:'Slow down to stroll',sec:60},{label:'Stand still — belly breathing',sec:30}],
     rounds:1,
-    steps:['Start walking very slowly and gently — do not rush. Your pace should be relaxed, like a gentle stroll in a garden.','Pick up to a steady, comfortable walking pace. Breathe naturally through your nose. Swing your arms normally.','Exaggerate your arm swing slightly — let your arms swing forward and back naturally. This gentle rotation of the torso massages the abdominal organs.','Slow back down to a very easy stroll for the final 60 seconds. Breathe deeply.','Stand still. Place one hand on your belly. Take 5 deep belly breaths — feel your belly push your hand out on inhale. This stimulates digestion.'],
-    voiceIntro:'Post-Meal Walking. Start walking now. Slow, gentle steps.',
-    phaseVoice:['Walk slowly and gently. Breathe through your nose. No rush.','Steady comfortable pace now. Swing your arms naturally.','Slightly exaggerated arm swing. Let your torso gently rotate.','Slow back to a gentle stroll. Breathe deeply.','Stand still. Hand on belly. Five deep belly breaths. Belly pushes out on inhale.'],
-    benefit:'Reduces blood sugar', benefitVal:'spike by 30%' },
+    steps:[
+      'Start walking VERY slowly — like strolling through a garden. No hurry.',
+      'After 1 minute, pick up to a normal comfortable walking pace. Breathe through your nose.',
+      'Let your arms swing a little more than usual. This gentle twist massages your stomach.',
+      'Slow back down to a gentle stroll for the last 60 seconds.',
+      'Stand still. Place one hand on belly. Take 5 DEEP BELLY BREATHS — belly pushes your hand out on each inhale.'
+    ],
+    voiceIntro:'Post-Meal Walking. Begin walking slowly and gently.',
+    phaseVoice:['Walk very gently. No rush. Breathe through your nose.','Steady comfortable pace. Arms swinging naturally.','Slightly bigger arm swing. Your torso gently rotates.','Slow back to an easy stroll. Deep breaths.','Stand still. Hand on belly. Five deep belly breaths. Belly pushes out on inhale.'],
+    benefit:'Cuts blood sugar', benefitVal:'spike by 30%' },
 
   { id:'agni-breath', cat:'digest', emoji:'🔥', title:'Agni Breath — Digestive Fire',
     tag:'Digestion', tagClass:'tag-digest', dur:'4 min',
-    labTags:['fatigue'],
-    desc:'Kapalabhati — the "shining skull breath" — is the Ayurvedic technique for awakening digestive fire (agni). Sharp exhalations massage the stomach and digestive organs from inside.',
-    phases:[{label:'Prepare — gentle breath',sec:20},{label:'Kapalabhati — sharp exhales',sec:30},{label:'Rest — normal breath',sec:20},{label:'Kapalabhati round 2',sec:30},{label:'Rest',sec:20},{label:'Deep breath finish',sec:40}],
+    desc:'Kapalabhati — the Ayurvedic breath for awakening digestive fire. Sharp exhale pumps massage your stomach from the inside.',
+    phases:[{label:'Prepare — gentle breath',sec:20},{label:'Sharp pumping exhales — Round 1',sec:30},{label:'Rest — big inhale, hold & out',sec:20},{label:'Sharp pumping exhales — Round 2',sec:30},{label:'Rest again',sec:20},{label:'Finish — 3 deep slow breaths',sec:40}],
     rounds:2,
-    steps:['Sit up straight. Place one hand on your belly. Take 3 gentle deep breaths to prepare.','KAPALABHATI: breathe in passively, then SHARPLY pump out your belly button toward your spine on the exhale — short, sharp, forceful exhalations through the nose. Breathe in happens automatically. Do 30 pumps in 30 seconds.','After 30 pumps, take a big inhale and hold for 5 seconds. Then exhale slowly. Rest and breathe normally for 20 seconds.','Repeat the 30 pumps. This is your second round.','Rest again. Notice the warmth in your belly — that is your digestive fire being activated.','Finish with 3 very long, slow, deep breaths. Feel your belly and digestive system fully awake.'],
-    voiceIntro:'Agni Breath — Digestive Fire. Sit straight. One hand on your belly. Take three deep breaths to prepare.',
-    phaseVoice:['Sit straight. Breathe gently. Place a hand on your belly.','Kapalabhati. Sharp pumping exhales through the nose. Belly button toward spine on each exhale. Begin.','Big inhale, hold five seconds, exhale slowly. Rest and breathe normally.','Second round of kapalabhati. Same sharp pumping exhales. Begin.','Rest. Notice the warmth in your belly.','Three long, slow deep breaths to finish. Feel your digestion awakening.'],
+    steps:[
+      'Sit up very straight. Place one hand on your belly. Take 3 slow deep breaths to prepare.',
+      'KAPALABHATI: Do a short SHARP exhale through your nose, pulling your belly button backward toward your spine. The inhale happens automatically.',
+      'Do 30 sharp pumping exhales in 30 seconds — like a steam engine pumping.',
+      'After 30 pumps: take one BIG breath in, hold 5 seconds, breathe out slowly. Rest 20 seconds.',
+      'Do 30 pumps again. Finish with 3 long slow deep breaths. Feel the warmth in your belly.'
+    ],
+    voiceIntro:'Agni Breath. Sit straight. Hand on belly. Three slow deep breaths to prepare.',
+    phaseVoice:['Sit straight. Hand on belly. Three gentle deep breaths.','Sharp pumping exhales through the nose. Belly button pumps in sharply. Begin.','Big inhale, hold five seconds, breathe out slowly. Rest and breathe normally.','Second round of sharp pumping exhales. Begin.','Rest. Big inhale, hold, breathe out. Notice the warmth in your belly.','Three long slow deep breaths. Feel your digestion waking up.'],
     benefit:'Awakens', benefitVal:'digestive fire (agni)' },
 
-  /* ── POSTURE (3) ── */
+  /* ── POSTURE ── */
   { id:'spine-reset', cat:'posture', emoji:'🪑', title:'Spine Reset & Alignment',
     tag:'Posture', tagClass:'tag-posture', dur:'5 min',
-    labTags:['fatigue','stability'],
-    desc:'Hours of sitting cause spinal compression and postural collapse. This sequence decompresses every segment of the spine, re-aligns your posture and relieves back pain instantly.',
-    phases:[{label:'Chin tucks',sec:30},{label:'Thoracic extension',sec:45},{label:'Seated cat-cow',sec:40},{label:'Side bend left',sec:20},{label:'Side bend right',sec:20},{label:'Spinal twist left',sec:25},{label:'Spinal twist right',sec:25}],
+    desc:'Sitting compresses your spine over time. This sequence decompresses every part of it and re-aligns your posture.',
+    phases:[{label:'Chin tucks',sec:30},{label:'Arch back over chair',sec:45},{label:'Cat-cow — arch & round',sec:40},{label:'Lean left',sec:20},{label:'Lean right',sec:20},{label:'Twist left',sec:25},{label:'Twist right',sec:25}],
     rounds:2,
-    steps:['Sit tall on the edge of your chair. Feet flat. This is your starting position for every move.','CHIN TUCKS: Without moving your shoulders, gently pull your chin straight back (making a "double chin"). Hold 3 seconds, release. Repeat 5 times. This realigns your head over your spine.','THORACIC EXTENSION: Interlace fingers behind your head. Gently arch backward over your chair back. Feel your mid-back stretching. Hold 15 seconds. Come back upright.','SEATED CAT-COW: On inhale, arch your lower back forward (stick chest out, look up slightly). On exhale, round your back (hunch forward, tuck chin). Repeat 8 times slowly.','SIDE BEND: Raise your RIGHT arm overhead and gently lean to the LEFT. Hold 20 seconds. Then LEFT arm up, lean to the RIGHT.','SPINAL TWIST: Sit tall, cross right arm over to the left knee and gently twist LEFT looking over your left shoulder. Hold 25 seconds. Then twist RIGHT.'],
-    voiceIntro:'Spine Reset. Sit on the edge of your chair. Feet flat. Back straight. Begin.',
-    phaseVoice:['Chin tucks. Pull chin straight back, hold three seconds, release. Five times.','Fingers behind head. Arch gently over chair back. Feel the mid-back stretch.','Cat-cow. Arch forward on inhale, round on exhale. Eight times slowly.','Right arm up, lean left. Hold. Feel the side stretch.','Left arm up, lean right. Hold. Other side.','Right arm to left knee. Twist left. Look over left shoulder. Hold.'],
+    steps:[
+      'Sit at the EDGE of your chair. Feet flat. Sit as tall as you can.',
+      'CHIN TUCKS: Pull your chin STRAIGHT BACKWARD (double chin position). Hold 3 sec. Release. Repeat 5 times.',
+      'ARCH BACK: Both hands behind head, fingers linked. Lean back gently and arch over the chair back. Hold 15 sec.',
+      'CAT-COW: Breathe IN while arching lower back forward. Breathe OUT while rounding back and tucking chin. Alternate 8 times.',
+      'TWIST: Sit tall, cross right arm to left knee, and twist to look over your left shoulder. Hold 25 sec. Then twist the other way.'
+    ],
+    voiceIntro:'Spine Reset. Sit at the edge of your chair. Feet flat. Sit tall.',
+    phaseVoice:['Chin tuck. Pull chin straight back. Hold three seconds. Release. Five times.','Hands behind head. Arch gently backward over the chair. Feel the mid-back stretching.','Cat-cow. Arch forward on inhale, round on exhale. Eight times slowly.','Right arm up, lean gently left. Hold.','Left arm up, lean gently right. Hold.','Right arm to left knee. Twist and look over your left shoulder. Hold.'],
     benefit:'Decompresses', benefitVal:'entire spine' },
 
   { id:'wall-posture', cat:'posture', emoji:'🧱', title:'Wall Posture Correction',
     tag:'Posture', tagClass:'tag-posture', dur:'3 min',
-    labTags:['stability'],
-    desc:'Standing against a wall with correct alignment resets your posture memory and teaches your body what correct alignment feels like. Regular practice corrects forward head posture.',
-    phases:[{label:'Wall stand — find position',sec:30},{label:'Hold correct alignment',sec:60},{label:'Walk away — maintain',sec:30},{label:'Reset — return to wall',sec:30},{label:'Final hold',sec:60}],
+    desc:'Standing against a wall teaches your body what correct posture feels like. Corrects forward head posture from phone and screen use.',
+    phases:[{label:'Find correct position against wall',sec:30},{label:'Hold alignment — breathe',sec:60},{label:'Walk away maintaining posture',sec:30},{label:'Return — check all contact points',sec:30},{label:'Final hold',sec:60}],
     rounds:1,
-    steps:['Stand with your BACK against a flat wall. Place feet about 6 inches from the wall. Your HEELS, CALVES, BOTTOM and UPPER BACK should all touch the wall. Your HEAD should also touch the wall — but do not force it.','Notice the natural curve of your lower back — there should be a small gap you could slide a hand into. This is correct. Hold this position. Breathe normally.','Now step away from the wall trying to MAINTAIN exactly this alignment. Walk across the room and return. Feel how correct posture feels different from your usual posture.','Return to the wall. Check that all points are touching again: heels, calves, bottom, upper back, head.','Hold the wall position for 60 seconds with full awareness. This is training your postural memory.'],
+    steps:[
+      'Stand with your BACK flat against a wall. Feet 6 inches from the wall.',
+      'Check 4 contact points — all should touch the wall: HEELS, BOTTOM, UPPER BACK, HEAD.',
+      'Check your lower back — a small gap is normal. If too large, gently tighten your belly.',
+      'Hold this position for 60 seconds. Breathe normally.',
+      'Step AWAY from the wall. Walk across the room trying to KEEP the same posture. Come back and check again.'
+    ],
     voiceIntro:'Wall Posture Correction. Stand with your back against a flat wall.',
-    phaseVoice:['Back to wall. Heels touching. Bottom touching. Upper back touching. Head touching. Find the position.','Hold. Breathe normally. Notice the small curve in your lower back. This is correct alignment.','Step away maintaining this posture. Walk. Notice how it feels different.','Return to the wall. Check all contact points.','Hold for sixty seconds. Train your body to remember this alignment.'],
+    phaseVoice:['Back to wall. Find the position. Heels, bottom, upper back, and head all touching.','Hold. Breathe. Notice the small natural curve at your lower back.','Walk away from the wall. Try to keep this exact same alignment.','Return to the wall. Check all contact points again.','Hold for sixty seconds. Train your body to remember this alignment.'],
     benefit:'Corrects', benefitVal:'forward head posture' },
 
   { id:'hip-flexor', cat:'posture', emoji:'🦴', title:'Hip Flexor & Lower Back Release',
     tag:'Posture', tagClass:'tag-posture', dur:'5 min',
-    labTags:['fatigue','stability'],
-    desc:'Sitting shortens the hip flexors and creates lower back pain. This targeted sequence lengthens the hip flexors, releases the lower back and restores proper pelvic alignment.',
-    phases:[{label:'Standing lunge stretch',sec:40},{label:'Low lunge hold',sec:35},{label:'Figure-4 stretch',sec:40},{label:'Child\'s pose',sec:50},{label:'Bridge hold',sec:40},{label:'Supine twist',sec:40}],
+    desc:'Sitting shortens the hip flexors which pulls the lower back out of alignment. This targeted sequence lengthens them and relieves lower back pain.',
+    phases:[{label:'Standing lunge stretch',sec:40},{label:'Deep lunge — sink lower',sec:35},{label:'Figure-4 hip stretch',sec:40},{label:'Child\'s pose',sec:50},{label:'Bridge — hips up',sec:40},{label:'Spinal twist — both sides',sec:40}],
     rounds:1,
-    steps:['Stand up. Step your RIGHT foot forward into a wide lunge. LOWER your left knee to the floor (use a mat or pillow for comfort). Keep your right knee above your right ankle. Gently push your hips forward to feel the stretch in your left hip flexor. Hold 40 seconds then switch sides.','Deep LOW LUNGE: From the lunge position, lower your back knee down and sit deep in the lunge. Place both hands on your front knee. Hold 35 seconds each side.','Sit in a chair. Place your right ANKLE on top of your left knee (figure-4 position). Gently press down on the right knee and lean forward slightly. Hold 40 seconds. Switch sides.','CHILD\'S POSE: Kneel on the floor. Spread knees wide. Sit back on your heels. Stretch arms forward on the floor. Let your forehead rest down. Hold 50 seconds. Breathe into your lower back.','BRIDGE: Lie on back, feet flat, knees up. Push hips up as high as you can. Hold for 40 seconds. Feel your hip flexors stretching and your glutes activating.','SUPINE TWIST: Lie on back, bring right knee to chest, then slowly let it fall to the LEFT while looking RIGHT. Hold 40 seconds. Switch.'],
-    voiceIntro:'Hip Flexor and Lower Back Release. Stand up. We begin with a lunge stretch.',
-    phaseVoice:['Wide lunge. Right foot forward. Left knee down. Push hips forward. Feel the hip flexor stretching. Hold.','Deep lunge. Sink in. Hands on front knee. Hold. Then switch sides.','Sit in chair. Ankle on opposite knee. Press gently on the crossed knee. Lean forward slightly. Hold.','Kneel. Spread knees. Sit back. Arms forward. Forehead down. Child\'s pose. Breathe into lower back.','Lie on back. Feet flat. Push hips up high. Bridge hold. Feel the hip flexors stretching.','Bring knee to chest, let it fall to the side. Look the other way. Supine twist. Hold.'],
+    steps:[
+      'LUNGE: Step right foot forward. Lower LEFT knee to the floor. Gently push hips forward and down. Hold 40 sec. Then switch legs.',
+      'FIGURE-4: Sit in a chair. Cross right ANKLE over left knee. Press down gently on the crossed knee and lean forward slightly. Hold 40 sec. Switch.',
+      'CHILD\'S POSE: Kneel on the floor. Sit back on your heels. Stretch both arms forward on the floor. Lower forehead down. Hold 50 sec.',
+      'BRIDGE: Lie on your back, knees bent, feet flat. Lift your hips off the floor until body is a straight line. Hold 40 sec.',
+      'SPINAL TWIST: Lie on your back. Pull right knee to chest, then cross it to the LEFT. Look right. Hold 40 sec. Switch sides.'
+    ],
+    voiceIntro:'Hip Flexor and Lower Back Release. Stand up. We start with a lunge.',
+    phaseVoice:['Wide lunge. Right foot forward. Left knee down. Push hips forward. Hold.','Sink deeper in the lunge. Hands on front thigh. Hold. Then switch sides.','Sit in chair. Ankle on opposite knee. Press knee down gently. Lean forward slightly. Hold.','Kneel, spread knees, sit back, arms forward, forehead down. Breathe into lower back.','Lie on back. Feet flat. Push hips up high. Bridge. Hold.','Knee to chest, let it fall to the side, look the other way. Full spinal twist.'],
     benefit:'Relieves lower back', benefitVal:'from sitting all day' },
 ];
 
 /* ═══════════════════════════════════════════════
-   PHASE GUIDE — icon + big action word + instruction
-   breathDir: 'in' | 'out' | 'hold'
+   WELLNESS LAB → EXERCISE MAPPING
+   Maps sh_lab_scores keys to exercise IDs
+═══════════════════════════════════════════════ */
+const LAB_MAP = {
+  cognitive:   ['memory-palace','cross-crawl','backward-counting','focus-breath'],
+  eye:         ['eye-yoga','palming-2020','eye-massage'],
+  respiratory: ['box-breathing','478-breath','nadi-shodhana','humming-bee','wakeup-power-breath'],
+  stress:      ['body-scan','prog-relaxation','gratitude-reset','478-breath','humming-bee'],
+  stability:   ['cross-crawl','spine-reset','wall-posture','hip-flexor','desk-reset'],
+  lifestyle:   ['wakeup-tap','wakeup-jumping','wakeup-cold-water','desk-reset'],
+  gut:         ['abdominal-massage','walking-after-eating','agni-breath'],
+  heart:       ['box-breathing','wakeup-jumping','desk-reset'],
+};
+
+const LAB_CAT_LABELS = {
+  cognitive:   {label:'🧠 Brain & Memory',  cat:'brain'},
+  eye:         {label:'👁️ Eye Care',        cat:'eyes'},
+  respiratory: {label:'🌬️ Breathing',       cat:'breath'},
+  stress:      {label:'🧘 Stress & Calm',   cat:'calm'},
+  stability:   {label:'🪑 Posture & Balance',cat:'posture'},
+  lifestyle:   {label:'⚡ Energy & Wake-Up', cat:'wake'},
+  gut:         {label:'🍃 Digestion',        cat:'digest'},
+  heart:       {label:'❤️ Heart Health',     cat:'body'},
+};
+
+/* ═══════════════════════════════════════════════
+   PHASE GUIDE — ultra-simple 2-line instructions
 ═══════════════════════════════════════════════ */
 const PG = {
   'box-breathing':{
-    'Inhale':    {icon:'👃',action:'BREATHE IN',   instr:'Breathe in slowly through your nose.\nCount with me: 1… 2… 3… 4', breathDir:'in'},
-    'Hold Full': {icon:'⏸',action:'HOLD',          instr:'Lungs are full. Hold completely still.\nDo not breathe in or out yet.', breathDir:'hold'},
-    'Exhale':    {icon:'💨',action:'BREATHE OUT',   instr:'Breathe out slowly through your mouth.\nCount: 1… 2… 3… 4', breathDir:'out'},
-    'Hold Empty':{icon:'⏸',action:'HOLD EMPTY',    instr:'Lungs are empty. Hold completely still.\nDo not breathe in or out yet.', breathDir:'hold'},
+    'Breathe IN':          {icon:'👃',action:'BREATHE IN',   instr:'Breathe in through your NOSE slowly.\nFeel your belly rise.', breathDir:'in'},
+    'Hold — lungs full':   {icon:'⏸',action:'HOLD FULL',    instr:'Lungs are full — hold still.\nDo not breathe in or out.', breathDir:'hold'},
+    'Breathe OUT':         {icon:'💨',action:'BREATHE OUT',  instr:'Breathe out through your MOUTH slowly.\nFeel your belly fall.', breathDir:'out'},
+    'Hold — lungs empty':  {icon:'⏸',action:'HOLD EMPTY',   instr:'Lungs are empty — hold still.\nDo not breathe in or out.', breathDir:'hold'},
   },
   '478-breath':{
-    'Exhale fully':      {icon:'💨',action:'EXHALE',       instr:'Breathe out fully through your mouth.\nMake a deep WHOOSH sound as you do.', breathDir:'out'},
-    'Inhale — 4 counts': {icon:'👃',action:'BREATHE IN',   instr:'Close your mouth. Breathe in through nose.\n1… 2… 3… 4 (slow counts)', breathDir:'in'},
-    'Hold — 7 counts':   {icon:'⏸',action:'HOLD',          instr:'Hold completely still — do not breathe.\n1… 2… 3… 4… 5… 6… 7', breathDir:'hold'},
-    'Exhale — 8 counts': {icon:'💨',action:'EXHALE',        instr:'Breathe out through mouth — make the WHOOSH.\nCount: 1… 2… 3… 4… 5… 6… 7… 8', breathDir:'out'},
+    'Breathe OUT fully':    {icon:'💨',action:'BREATHE OUT', instr:'Breathe out through your mouth completely.\nMake a "whoooosh" sound.', breathDir:'out'},
+    'Breathe IN — 4 counts':{icon:'👃',action:'BREATHE IN', instr:'Close mouth. Breathe in through your NOSE.\nCount: 1, 2, 3, 4.', breathDir:'in'},
+    'HOLD — 7 counts':      {icon:'⏸',action:'HOLD',        instr:'Hold still — do not breathe at all.\nCount 1 to 7 slowly.', breathDir:'hold'},
+    'Breathe OUT — 8 counts':{icon:'💨',action:'BREATHE OUT',instr:'Breathe out through your mouth — "whoooosh".\nCount 1 to 8 slowly.', breathDir:'out'},
   },
   'nadi-shodhana':{
-    'Inhale LEFT nostril': {icon:'👃',action:'INHALE LEFT',  instr:'Right THUMB closes your right nostril.\nBreathe in slowly through your LEFT nostril.', breathDir:'in'},
-    'Hold both closed':    {icon:'⏸',action:'HOLD',          instr:'Close BOTH nostrils — thumb and ring finger.\nHold gently for 2 seconds.', breathDir:'hold'},
-    'Exhale RIGHT nostril':{icon:'💨',action:'EXHALE RIGHT', instr:'Release your thumb from the right nostril.\nBreathe out slowly through your RIGHT nostril.', breathDir:'out'},
-    'Inhale RIGHT nostril':{icon:'👃',action:'INHALE RIGHT', instr:'Breathe in through your RIGHT nostril.\nLeft nostril stays closed with ring finger.', breathDir:'in'},
-    'Exhale LEFT nostril': {icon:'💨',action:'EXHALE LEFT',  instr:'Release ring finger from left nostril.\nBreathe out slowly through your LEFT nostril.', breathDir:'out'},
+    'Breathe in through LEFT nostril': {icon:'👃',action:'IN — LEFT NOSTRIL', instr:'Right thumb closes RIGHT nostril.\nBreathe in slowly through your LEFT nostril.', breathDir:'in'},
+    'Hold both closed':                {icon:'⏸',action:'HOLD',               instr:'Close BOTH nostrils — thumb and ring finger.\nHold 2 seconds. Do not breathe.', breathDir:'hold'},
+    'Breathe out through RIGHT nostril':{icon:'💨',action:'OUT — RIGHT NOSTRIL',instr:'Lift your thumb off. Right nostril is now open.\nBreathe out slowly through the RIGHT nostril.', breathDir:'out'},
+    'Breathe in through RIGHT nostril': {icon:'👃',action:'IN — RIGHT NOSTRIL',instr:'Left nostril is still closed by ring finger.\nBreathe in through the RIGHT nostril.', breathDir:'in'},
+    'Breathe out through LEFT nostril': {icon:'💨',action:'OUT — LEFT NOSTRIL',instr:'Lift ring finger off. Left nostril is now open.\nBreathe out slowly through the LEFT nostril.', breathDir:'out'},
   },
   'humming-bee':{
-    'Prepare — close senses':{icon:'🤫',action:'CLOSE & SETTLE', instr:'Thumbs gently close both ears.\nFingers lightly over closed eyes. Sit still.'},
-    'Deep inhale':           {icon:'👃',action:'BREATHE IN DEEP',instr:'Breathe in slowly and deeply through your nose.\nFill your lungs completely.', breathDir:'in'},
-    'Hum on exhale':         {icon:'🐝',action:'HUMMMM…',        instr:'Mouth stays closed. Make a steady "mmmm" hum.\nFeel the vibration in your forehead and chest.'},
-    'Rest between rounds':   {icon:'🤫',action:'REST & FEEL',    instr:'Sit in the silence after the hum.\nNotice the stillness. Let the calm spread.'},
+    'Close ears & eyes — settle':{icon:'🤫',action:'CLOSE & SETTLE',  instr:'Press both ear flaps gently inward with thumbs.\nRest other fingers over your closed eyes.'},
+    'Breathe in deeply':         {icon:'👃',action:'BREATHE IN DEEP', instr:'Breathe in slowly and fully through your nose.\nFill your lungs completely.', breathDir:'in'},
+    'Hum on the exhale':         {icon:'🐝',action:'HUMMM…',          instr:'Keep mouth closed. Make a long "Mmmmmm" sound.\nFeel the buzz in your forehead and skull.'},
+    'Rest between rounds':       {icon:'🤫',action:'REST & FEEL',     instr:'Sit quietly. Do not move.\nNotice the calm feeling spreading through you.'},
   },
   'wakeup-power-breath':{
-    'Breathe fast — 30 times':{icon:'💨',action:'BREATHE FAST!',  instr:'Rapid full breaths — in AND out through nose+mouth.\nFast and forceful. 30 breaths in 45 seconds.'},
-    'Exhale fully & hold empty':{icon:'⏸',action:'HOLD EMPTY',   instr:'Breathe out fully, then HOLD.\nLungs empty. Do not breathe. Stay calm — you can do this.', breathDir:'hold'},
-    'Take one deep inhale':     {icon:'👃',action:'DEEP INHALE',  instr:'Now ONE big, slow deep breath in.\nFill your lungs completely. All the way.', breathDir:'in'},
-    'Hold your breath full':    {icon:'⏸',action:'HOLD FULL',     instr:'Hold that deep breath.\nFeel the oxygen reaching every part of you.', breathDir:'hold'},
-    'Exhale slowly':            {icon:'💨',action:'EXHALE SLOW',   instr:'Breathe out very slowly and gently.\nNow breathe normally. Feel wide awake.', breathDir:'out'},
+    '30 rapid breaths':      {icon:'💨',action:'BREATHE FAST!',  instr:'Fast full breaths in AND out through mouth.\nLike panting — big and forceful.'},
+    'Hold lungs empty':      {icon:'⏸',action:'HOLD EMPTY',     instr:'Breathe out completely. Then STOP breathing.\nHold. Stay calm. You will be fine.', breathDir:'hold'},
+    'One big inhale':        {icon:'👃',action:'DEEP INHALE',    instr:'Take one very slow, DEEP breath in.\nFill your lungs as far as they will go.', breathDir:'in'},
+    'Hold lungs full':       {icon:'⏸',action:'HOLD FULL',      instr:'Hold that big breath in.\nFeel the oxygen. Stay calm.', breathDir:'hold'},
+    'Breathe out slowly':    {icon:'💨',action:'BREATHE OUT',    instr:'Breathe out very slowly.\nThen breathe normally. You are done!', breathDir:'out'},
   },
   'eye-yoga':{
-    'Up ↑ then Down ↓':    {icon:'👁️',action:'UP  ↕  DOWN',    instr:'HEAD completely still. Only eyes move.\nLook up slowly, hold 2 sec. Down, hold 2 sec. 5 times.'},
-    'Left ← then Right →': {icon:'👁️',action:'LEFT  ↔  RIGHT', instr:'HEAD completely still. Only eyes move.\nFar left, hold 2 sec. Far right, hold 2 sec. 5 times.'},
-    'Diagonal ↗':           {icon:'👁️',action:'DIAGONAL ↗',     instr:'Move eyes from upper-LEFT to lower-RIGHT.\nSlow and deliberate. Hold 2 sec at each corner.'},
-    'Diagonal ↘':           {icon:'👁️',action:'DIAGONAL ↘',     instr:'Move eyes from upper-RIGHT to lower-LEFT.\nSlow and deliberate. Hold 2 sec at each corner.'},
-    'Circles clockwise ↻':  {icon:'🔄',action:'CIRCLES ↻',      instr:'Rotate eyes in full CLOCKWISE circles.\n3 complete slow rotations. Head still throughout.'},
-    'Circles anti-clock ↺': {icon:'🔃',action:'CIRCLES ↺',      instr:'Rotate eyes ANTI-CLOCKWISE.\n3 complete slow rotations. Head still throughout.'},
-    'Palming — eyes rest':   {icon:'🖐',action:'PALMING',         instr:'Rub palms warm.\nCup gently over CLOSED eyes. Let the warmth soothe them.'},
+    'Up & down':                          {icon:'👁️',action:'UP  ↕  DOWN',    instr:'HEAD completely still — only EYES move.\nLook UP slowly. Hold 2 sec. Look DOWN. Hold 2 sec.'},
+    'Left & right':                       {icon:'👁️',action:'LEFT  ↔  RIGHT', instr:'HEAD completely still.\nLook as far LEFT as you can. Hold 2 sec. Then far RIGHT. Hold 2 sec.'},
+    'Diagonal — top left to bottom right':{icon:'👁️',action:'DIAGONAL ↘',    instr:'Look to the top-LEFT corner. Hold 2 sec.\nNow look to the bottom-RIGHT corner. Hold 2 sec.'},
+    'Diagonal — top right to bottom left':{icon:'👁️',action:'DIAGONAL ↙',    instr:'Look to the top-RIGHT corner. Hold 2 sec.\nNow look to the bottom-LEFT corner. Hold 2 sec.'},
+    'Clockwise circles':                  {icon:'🔄',action:'CIRCLES ↻',      instr:'Rotate eyes in full clockwise circles.\nVery slowly — 3 complete rotations.'},
+    'Anti-clockwise circles':             {icon:'🔃',action:'CIRCLES ↺',      instr:'Rotate eyes anti-clockwise.\nVery slowly — 3 complete rotations.'},
+    'Palming — rest eyes':                {icon:'🖐',action:'PALMING',         instr:'Rub palms together until they feel warm.\nCup them gently over CLOSED eyes. Relax.'},
   },
   'palming-2020':{
-    'Look far — 20 feet away':{icon:'🏔️',action:'LOOK FAR',  instr:'Find a point 20+ feet (6m) away.\nLet your eyes relax and soften their focus.'},
-    'Look near — 30 cm':      {icon:'☝️',action:'LOOK NEAR',  instr:'Now look at your fingertip held 30 cm away.\nFocus on it clearly.'},
-    'Palming':                 {icon:'🖐',action:'PALMING',    instr:'Rub palms until warm.\nCup gently over CLOSED eyes. No pressing. Just warmth.'},
-    'Slow blinks × 10':        {icon:'👁️',action:'BLINK × 10',instr:'Blink slowly 10 times.\nFull, complete blinks that fully close and reopen.'},
+    'Look far away — 20 feet':{icon:'🏔️',action:'LOOK FAR',   instr:'Look at something far away — across the room or out the window.\nLet your eyes go soft and relax.'},
+    'Look at something close': {icon:'☝️',action:'LOOK NEAR',  instr:'Hold up one finger 30 cm from your face.\nFocus on it clearly.'},
+    'Palming — warm hands on eyes':{icon:'🖐',action:'PALMING',instr:'Rub palms together until warm.\nCup them gently over your CLOSED eyes. No pressing.'},
+    'Slow blinks — 10 times':  {icon:'👁️',action:'BLINK × 10',instr:'Blink slowly 10 times.\nFull blinks that fully close and reopen.'},
   },
   'eye-massage':{
-    'Brow bone press':   {icon:'☝️',action:'BROW BONE',     instr:'Two fingers on the ridge ABOVE your eyes.\nStart at inner corner, press 2 sec, move outward. 3 passes.'},
-    'Under-eye gentle press':{icon:'☝️',action:'UNDER EYE',  instr:'VERY gently press bony ridge BELOW the eyes.\nDo NOT press the soft eye itself. 3 gentle passes.'},
-    'Bridge of nose':    {icon:'👃',action:'NOSE BRIDGE',   instr:'Both index fingers on the top of your nose bridge.\nHold steady pressure. Breathe slowly.'},
-    'Temple circles':    {icon:'🤌',action:'TEMPLE CIRCLES',instr:'Index fingers on temples.\nSlow circles — clockwise then anti-clockwise.'},
-    'Full eye palm':     {icon:'🖐',action:'FULL PALMING',  instr:'Palms rubbed warm.\nCup softly over CLOSED eyes. Hold. Breathe slowly.'},
-    'Gentle eye tap':    {icon:'✨',action:'GENTLE TAP',    instr:'Very gently tap all around the eye area\nwith all 10 fingertips. Like light rain.'},
+    'Press along brow bone':        {icon:'☝️',action:'BROW BONE',    instr:'Press 2 fingers along ridge ABOVE eyes.\nInner to outer corner. 3 passes.'},
+    'Press under-eye bone gently':  {icon:'☝️',action:'UNDER EYE',    instr:'VERY gently press bony ridge BELOW eyes.\n3 passes. Never press the soft eye.'},
+    'Press bridge of nose':         {icon:'👃',action:'NOSE BRIDGE',  instr:'Both fingers on top of nose bridge.\nHold steady. Breathe slowly.'},
+    'Massage temples':              {icon:'🤌',action:'TEMPLES',      instr:'Index fingers on your temples.\nSlow circles — clockwise then anti-clockwise.'},
+    'Full palming':                 {icon:'🖐',action:'FULL PALMING', instr:'Palms rubbed warm.\nCup softly over closed eyes. Hold.'},
+    'Gentle fingertip tapping':     {icon:'✨',action:'GENTLE TAP',   instr:'Tap all around eye area\nwith 10 fingertips. Very gentle.'},
   },
   'wakeup-cold-water':{
-    'Hold wrists under cold water':{icon:'🚿',action:'COLD WRISTS', instr:'Both wrists under cold running water.\nThe wrist veins cool your blood quickly.'},
-    'Splash your face 10 times':   {icon:'💦',action:'SPLASH FACE',  instr:'Splash cold water on your face 10 times.\nDo NOT wipe off — let it air dry.'},
-    'Cold water behind ears & neck':{icon:'👂',action:'EARS + NECK', instr:'Rub cold water behind both ears\nand on the back of your neck.'},
-    'Stand tall and breathe':       {icon:'🌬️',action:'BREATHE',    instr:'Stand tall. Roll shoulders back.\nTake 5 slow, deep breaths through your nose.'},
+    'Wrists under cold water':       {icon:'🚿',action:'COLD WRISTS', instr:'Both wrists under cold running water.\nThe wrist veins cool your blood fast.'},
+    'Splash face 10 times':          {icon:'💦',action:'SPLASH FACE', instr:'Splash cold water on face 10 times.\nDo NOT wipe — let it air dry.'},
+    'Cold behind ears & neck':       {icon:'👂',action:'EARS + NECK', instr:'Rub cold water behind both ears\nand on the back of your neck.'},
+    'Stand tall & breathe':          {icon:'🌬️',action:'BREATHE',    instr:'Stand straight. Shoulders back.\nTake 5 slow deep breaths.'},
   },
   'wakeup-jumping':{
-    'March in place':{icon:'🚶',action:'MARCH!',     instr:'Lift your knees to hip height.\nSwing your arms. Keep moving!'},
-    'Jumping Jacks':  {icon:'⭐',action:'JACKS!',     instr:'Jump feet wide, arms up — then back together.\n20 times!'},
-    'High Knees':     {icon:'🦵',action:'HIGH KNEES!',instr:'Bring each knee up to waist height as you run in place.\n30 seconds. Push through!'},
-    'Rest & breathe': {icon:'🌬️',action:'REST',       instr:'Stop moving. Stand tall.\nTake 3 slow, deep breaths.'},
-    'Arm circles':    {icon:'💪',action:'ARM CIRCLES',instr:'Stretch arms wide. Big slow circles.\n10 forward, then 10 backward.'},
-    'Cool down & shake':{icon:'😤',action:'COOL DOWN',instr:'Shake your hands loose.\nRoll your shoulders. One deep breath.'},
+    'March in place':{icon:'🚶',action:'MARCH!',      instr:'Lift knees to hip height.\nSwing your arms. Keep moving!'},
+    'Jumping jacks': {icon:'⭐',action:'JACKS!',      instr:'Feet jump out wide, arms up — then back.\n20 times!'},
+    'High knees':    {icon:'🦵',action:'HIGH KNEES!', instr:'Run in place bringing each knee up\nto hip level. Keep going!'},
+    'Rest & breathe':{icon:'🌬️',action:'REST',        instr:'Stand still.\nThree slow deep breaths.'},
+    'Arm circles':   {icon:'💪',action:'ARM CIRCLES', instr:'Arms wide. Big slow circles.\n10 forward, 10 backward.'},
+    'Cool down':     {icon:'😤',action:'COOL DOWN',   instr:'Shake hands loose.\nRoll shoulders. Deep breath.'},
   },
   'wakeup-acupressure':{
-    'Between eyebrows':{icon:'👆',action:'BROW POINT',instr:'Two fingers press the point between your eyebrows.\nMake small circular rubbing motions.'},
-    'Both temples':    {icon:'🤌',action:'TEMPLES',   instr:'Index fingers on both temples.\nSlow circular massage — feel the pressure.'},
-    'Under the nose':  {icon:'👆',action:'UNDER NOSE',instr:'Press firmly below your nose, just above your upper lip.\nSteady firm pressure.'},
-    'Both earlobes':   {icon:'👂',action:'EARLOBES',  instr:'Pinch and gently squeeze both earlobes.\nMassage up and down.'},
-    'Tap the scalp':   {icon:'🖐',action:'SCALP TAP', instr:'All 10 fingertips tapping firmly all over your scalp.\nLike a firm, energising rainstorm.'},
-    'Hand web point':  {icon:'🤌',action:'HAND WEB',  instr:'Press the webbing between thumb and index finger.\nFirm, deep pressure. Hold.'},
+    'Between your eyebrows':{icon:'👆',action:'BROW POINT', instr:'Two fingers pressing between eyebrows.\nSmall circular motions.'},
+    'Both temples':          {icon:'🤌',action:'TEMPLES',   instr:'Index fingers on both temples.\nSlow circular massage.'},
+    'Under your nose':       {icon:'👆',action:'UNDER NOSE',instr:'Press just below your nose.\nAbove your upper lip. Firm.'},
+    'Both earlobes':         {icon:'👂',action:'EARLOBES',  instr:'Pinch both earlobes between thumb and finger.\nMassage up and down.'},
+    'Tap your whole scalp':  {icon:'🖐',action:'SCALP TAP', instr:'All 10 fingertips tapping your scalp.\nFirmly. Like energising rain.'},
+    'Hand web point':        {icon:'🤌',action:'HAND WEB',  instr:'Press the webbing between\nthumb and index finger. Hold.'},
   },
   'wakeup-eye-splash':{
-    'Blink rapidly 20 times':{icon:'👁️',action:'BLINK FAST!', instr:'Blink as rapidly as you can 20 times.\nFast, complete blinks.'},
-    'Splash cold on eyelids': {icon:'💦',action:'SPLASH EYES', instr:'Cup water and splash on your CLOSED eyelids.\n5 splashes.'},
-    'Tap your face':          {icon:'🖐',action:'TAP FACE',    instr:'Tap cheeks, forehead and chin\nwith your fingertips. Firmly.'},
-    'Rub your forehead':      {icon:'✋',action:'RUB FOREHEAD',instr:'Both flat palms rubbing your forehead\nup and down. Firmly.'},
-    'Open eyes wide & hold':  {icon:'😳',action:'WIDE EYES!',  instr:'Open both eyes as WIDE as possible.\nHold them open. Feel them wake up.'},
+    'Blink fast 20 times':            {icon:'👁️',action:'BLINK FAST!',  instr:'Blink as fast as you can.\n20 fast full blinks.'},
+    'Splash eyelids with cold water': {icon:'💦',action:'SPLASH EYES',  instr:'Splash cold water on your CLOSED eyelids.\n5 splashes.'},
+    'Tap your face':                  {icon:'🖐',action:'TAP FACE',     instr:'Tap cheeks, forehead and chin\nwith fingertips. Firmly.'},
+    'Rub your forehead':              {icon:'✋',action:'RUB FOREHEAD', instr:'Both palms flat on forehead.\nRub up and down firmly.'},
+    'Open eyes as wide as possible':  {icon:'😳',action:'WIDE EYES!',   instr:'Open both eyes as WIDE as you can.\nHold them open. Feel them wake up.'},
   },
   'cross-crawl':{
-    'Cross-crawl march':    {icon:'🤸',action:'CROSS CRAWL',  instr:'LEFT elbow touches RIGHT knee.\nRIGHT elbow touches LEFT knee.\nAlternate. Keep marching!'},
-    'Figure-8 — right hand':{icon:'✋',action:'∞ RIGHT HAND', instr:'Right arm forward. Thumb up.\nTrace a large figure-8 (∞) in the air.\nBoth eyes follow your thumb.'},
-    'Figure-8 — left hand': {icon:'🤚',action:'∞ LEFT HAND',  instr:'Left arm forward. Thumb up.\nTrace the same large figure-8 (∞).\nBoth eyes follow throughout.'},
-    'Hook-Ups + breathe':   {icon:'🧘',action:'HOOK-UPS',     instr:'Cross ankles. Cross wrists. Clasp hands.\nClose eyes. Breathe deeply and slowly.'},
-    'Deep breaths':         {icon:'🌬️',action:'BREATHE',     instr:'Take 5 slow, deep breaths.\nFeel mental clarity returning.'},
+    'Cross-crawl marching':         {icon:'🤸',action:'CROSS CRAWL',  instr:'LEFT elbow to RIGHT knee.\nRIGHT elbow to LEFT knee. Alternating.'},
+    'Draw infinity with right hand':{icon:'✋',action:'∞ RIGHT HAND', instr:'Right arm out, thumb up.\nDraw a big ∞ shape. Both eyes follow.'},
+    'Draw infinity with left hand': {icon:'🤚',action:'∞ LEFT HAND',  instr:'Left arm out, thumb up.\nDraw a big ∞ shape. Both eyes follow.'},
+    'Cross arms & ankles — breathe':{icon:'🧘',action:'HOOK-UPS',     instr:'Cross ankles. Cross wrists. Clasp hands.\nClose eyes. Breathe slowly.'},
+    'Deep breaths':                 {icon:'🌬️',action:'BREATHE',     instr:'Five slow deep breaths.\nFeel your mind clearing.'},
   },
   'memory-palace':{
-    'Build your palace':{icon:'🏠',action:'CLOSE EYES', instr:'Close your eyes.\nPicture a place you know very well — your home or street.'},
-    'Place the 5 items': {icon:'📝',action:'PLACE ITEMS',instr:'Place items along your mental walk:\n🥭 Mango  ☁️ Cloud  📖 Book  🌊 River  💡 Lamp\nOne per spot.'},
-    'Walk through it':   {icon:'🚶',action:'WALK THROUGH',instr:'Close eyes. Walk through your palace slowly.\nSee each item clearly in its place.'},
-    'Test your recall':  {icon:'🧠',action:'RECALL',      instr:'Without looking — say all 5 in order.\nMango · Cloud · Book · River · Lamp'},
+    'Picture your home':                  {icon:'🏠',action:'CLOSE EYES',   instr:'Close your eyes completely.\nPicture your home clearly from the front door.'},
+    'Place 5 items in rooms':             {icon:'📝',action:'PLACE ITEMS',  instr:'Place these 5 items along your route:\n🥭 Mango · ☁️ Cloud · 📖 Book · 🌊 River · 💡 Lamp'},
+    'Walk through & see them':            {icon:'🚶',action:'WALK THROUGH', instr:'Walk through your home in your mind.\nSee each item clearly in its spot.'},
+    'Test — say all 5 without looking':   {icon:'🧠',action:'RECALL',       instr:'Without looking — say all 5 in order.\n Mango · Cloud · Book · River · Lamp'},
   },
   'backward-counting':{
-    'Count back by 7s':     {icon:'🔢',action:'COUNT BY 7s',  instr:'Start at 200. Subtract 7 each time.\n200 → 193 → 186 → 179… Say it out loud.'},
-    'Count + tap together': {icon:'🥁',action:'TAP + COUNT',  instr:'KEEP counting backwards by 7.\nAND tap left hand on your knee. Both at the same time!'},
-    'Spell a word backwards':{icon:'🔡',action:'SPELL BACK',  instr:'Spell a 6-letter word BACKWARDS out loud.\nTry: MENTAL → L-A-T-N-E-M'},
-    'Draw your home mentally':{icon:'🗺️',action:'MIND MAP',  instr:'Close eyes. Draw your home mentally.\nEvery room, door, window, furniture.'},
+    'Count backwards by 7':  {icon:'🔢',action:'COUNT BY 7s', instr:'Start at 200. Say each number OUT LOUD.\n200 → 193 → 186 → 179 → 172…'},
+    'Count AND tap together': {icon:'🥁',action:'TAP + COUNT', instr:'Keep counting backwards by 7 AND tap your left hand on your knee.\nBoth at the same time — it is supposed to be hard!'},
+    'Spell a word backwards': {icon:'🔡',action:'SPELL BACK',  instr:'Spell a word backwards out loud.\nExample: MENTAL becomes L-A-T-N-E-M'},
+    'Draw your home mentally':{icon:'🗺️',action:'MIND MAP',   instr:'Close eyes. Picture your home clearly.\nEvery room, every door, every window, all furniture.'},
   },
   'focus-breath':{
-    'Box breath — 3 rounds':{icon:'🌬️',action:'BOX BREATHE', instr:'In 4 counts. Hold 4. Out 4. Hold 4.\n3 rounds. This calms your nervous system.', breathDir:'in'},
-    'Count to 100 in mind':  {icon:'🔢',action:'COUNT 1–100', instr:'Count slowly from 1 to 100 in your mind.\nIf you lose count — start again.'},
-    'Visualise your task':   {icon:'🎯',action:'VISUALISE',    instr:'Picture the specific task you need to do.\nSee yourself doing it well, step by step.'},
-    'Set your intention':    {icon:'💬',action:'COMMIT',        instr:'Say out loud: "I will focus on [my task] for the next [X] minutes."\nMake it specific.'},
-    'Close & commit':        {icon:'✅',action:'BEGIN NOW',     instr:'Three deep breaths.\nOpen your eyes. Start your task immediately — right now.'},
+    '3 rounds of box breathing':     {icon:'🌬️',action:'BOX BREATHE',  instr:'In 4, hold 4, out 4, hold 4.\n3 rounds.', breathDir:'in'},
+    'Count 1 to 100 silently':       {icon:'🔢',action:'COUNT 1–100',  instr:'Count 1 to 100 in your head only.\nLose count? Start again.'},
+    'Picture your task clearly':     {icon:'🎯',action:'VISUALISE',    instr:'Picture your task clearly.\nSee yourself doing it well.'},
+    'Say your intention out loud':   {icon:'💬',action:'COMMIT',       instr:'Say aloud: "I will focus on\n[my task] for [X] minutes."'},
+    '3 deep breaths — then begin':   {icon:'✅',action:'BEGIN NOW',    instr:'Three deep breaths.\nThen open eyes and start immediately.'},
   },
   'neck-shoulder':{
-    'Tilt left — hold': {icon:'↙',action:'TILT LEFT',       instr:'Head tilts to the LEFT.\nLeft ear toward left shoulder — do not raise shoulder.'},
-    'Tilt right — hold':{icon:'↘',action:'TILT RIGHT',      instr:'Head tilts to the RIGHT.\nRight ear toward right shoulder — do not raise shoulder.'},
-    'Chin to chest':    {icon:'↓',action:'CHIN DOWN',       instr:'Drop chin slowly toward your chest.\nFeel the stretch at the back of your neck.'},
-    'Shoulder rolls':   {icon:'🔄',action:'ROLL SHOULDERS', instr:'Roll both shoulders in slow circles.\n5 times FORWARD. Then 5 times BACKWARD.'},
-    'Neck left + right':{icon:'↔',action:'TURN L + R',      instr:'Turn head slowly to the LEFT, hold 3 sec.\nThen to the RIGHT. 5 times each side.'},
-    'Chest opener':     {icon:'🙌',action:'CHEST OPEN',     instr:'Fingers interlaced behind your head.\nGently look upward. Feel your chest open.'},
+    'Tilt head left — hold': {icon:'↙',action:'TILT LEFT',       instr:'Left ear toward left shoulder.\nDo NOT raise the shoulder.'},
+    'Tilt head right — hold':{icon:'↘',action:'TILT RIGHT',      instr:'Right ear toward right shoulder.\nDo NOT raise the shoulder.'},
+    'Chin to chest — hold':  {icon:'↓',action:'CHIN DOWN',       instr:'Drop chin slowly toward chest.\nFeel the back of neck stretch.'},
+    'Roll shoulders':        {icon:'🔄',action:'ROLL SHOULDERS', instr:'Roll both shoulders slowly.\n5 times forward. 5 times backward.'},
+    'Turn head left & right':{icon:'↔',action:'TURN L + R',      instr:'Turn head slowly to the left.\nHold 3 sec. Then right. 5 times.'},
+    'Chest opener':          {icon:'🙌',action:'CHEST OPEN',     instr:'Hands behind head, fingers interlaced.\nGently look upward. Chest opens.'},
   },
   'desk-reset':{
-    'Reach up — stretch': {icon:'🙌',action:'REACH UP',     instr:'Both arms straight overhead.\nStretch as tall as you can. Feel your spine lengthen.'},
-    '10 squats':           {icon:'🦵',action:'10 SQUATS',   instr:'Feet shoulder-width apart. Sit back slowly.\nChest up, heels on floor. Down and up. 10 times.'},
-    '20 calf raises':      {icon:'👟',action:'CALF RAISES', instr:'Rise up onto your TOES fully.\nHold 1 second. Lower slowly. 20 times.'},
-    'Hip circles':         {icon:'🔄',action:'HIP CIRCLES', instr:'Hands on hips. Big slow circles.\n5 times right. 5 times left.'},
-    'March in place':      {icon:'🚶',action:'MARCH!',      instr:'March vigorously in place.\nKnees up high. Arms swinging. 45 seconds!'},
-    'Shake out + breathe': {icon:'😤',action:'SHAKE OUT',   instr:'Shake both hands loose.\nRoll your shoulders. 3 deep breaths.'},
+    'Reach both arms up — stretch': {icon:'🙌',action:'REACH UP',    instr:'Both arms straight overhead.\nStretch as tall as you can.'},
+    '10 slow squats':               {icon:'🦵',action:'10 SQUATS',   instr:'Sit back slowly (like onto a chair).\nChest up, heels on floor. 10 times.'},
+    '20 calf raises':               {icon:'👟',action:'CALF RAISES', instr:'Rise onto your toes fully.\nHold 1 second. Lower slowly. 20 times.'},
+    'Hip circles':                  {icon:'🔄',action:'HIP CIRCLES', instr:'Hands on hips. Big slow circles.\n5 right, 5 left.'},
+    'March in place':               {icon:'🚶',action:'MARCH!',      instr:'March vigorously in place.\nKnees up, arms swinging. 45 seconds!'},
+    'Shake out & breathe':          {icon:'😤',action:'SHAKE OUT',   instr:'Shake hands loose.\nRoll shoulders. 3 deep breaths.'},
   },
   'wrist-hand':{
-    'Wrist circles':         {icon:'🔄',action:'WRIST CIRCLES',   instr:'Hold arms in front. Rotate wrists in circles.\n5 clockwise. 5 anti-clockwise. Make them wide.'},
-    'Finger stretch & spread':{icon:'🖐',action:'SPREAD FINGERS', instr:'Spread all fingers as wide apart as possible.\nHold 5 sec. Then close to a fist. Hold 5 sec. 5 times.'},
-    'Thumb stretch':          {icon:'👍',action:'THUMB STRETCH',  instr:'Use the other hand to gently pull your thumb back.\nHold 10 seconds each thumb.'},
-    'Forearm massage':        {icon:'✋',action:'FOREARM RUB',     instr:'Use your thumb to firmly massage the forearm.\nFrom wrist up to elbow. Then swap.'},
-    'Prayer stretch':         {icon:'🙏',action:'PRAYER STRETCH', instr:'Palms together at chest height.\nSlowly lower hands, keeping palms together. Feel the wrist stretch.'},
-    'Fist & open':            {icon:'✊',action:'FIST & OPEN',     instr:'Tight fist — hold 5 sec.\nSpread wide — hold 5 sec. Repeat 5 times. Shake out.'},
+    'Wrist circles':             {icon:'🔄',action:'WRIST CIRCLES',   instr:'Rotate both wrists in full circles.\n5 clockwise. 5 anti-clockwise.'},
+    'Spread fingers wide & close':{icon:'🖐',action:'SPREAD & CLOSE', instr:'Spread fingers as wide as possible.\nHold 5 sec. Close to fist. Hold 5 sec.'},
+    'Thumb stretch':             {icon:'👍',action:'THUMB STRETCH',   instr:'Other hand gently pulls your thumb back.\nHold 10 sec. Then swap.'},
+    'Forearm massage':           {icon:'✋',action:'FOREARM RUB',     instr:'Thumb massages firmly from wrist to elbow.\nThen swap arms.'},
+    'Prayer stretch':            {icon:'🙏',action:'PRAYER STRETCH', instr:'Palms together at chest.\nLower hands slowly. Feel wrists stretch.'},
+    'Fist & open — shake out':   {icon:'✊',action:'FIST & OPEN',    instr:'Tight fist 5 sec → open wide 5 sec.\nRepeat 5 times. Shake out.'},
   },
   'body-scan':{
-    'Feet & legs':  {icon:'🦶',action:'FEET + LEGS',   instr:'Eyes closed. Slow breath.\nFocus on your FEET. Notice tension. Let it melt away. Move up to legs.'},
-    'Belly & chest':{icon:'💙',action:'BELLY + CHEST', instr:'Move attention to BELLY and CHEST.\nFeel it rise and fall. Let your breathing slow naturally.'},
-    'Hands & arms': {icon:'🤲',action:'ARMS + HANDS',  instr:'Focus on HANDS and ARMS.\nSoften your fingers. Let arms become heavy.'},
-    'Head & face':  {icon:'😌',action:'HEAD + FACE',   instr:'Move to NECK, JAW, EYES, FOREHEAD.\nUnclench jaw. Smooth brow. Release all tension.'},
-    'Total stillness':{icon:'🧘',action:'REST',         instr:'Stay completely still.\nNothing to do. Nowhere to be. Just breathe and rest.'},
+    'Feet & legs':   {icon:'🦶',action:'FEET + LEGS',   instr:'Close eyes. Breathe slowly.\nFocus only on your feet. Notice any tension. Let it melt away.'},
+    'Belly & chest': {icon:'💙',action:'BELLY + CHEST', instr:'Move attention to belly and chest.\nFeel them rise and fall. Slow your breathing.'},
+    'Hands & arms':  {icon:'🤲',action:'ARMS + HANDS',  instr:'Move to your hands. Soften every finger.\nLet your arms become heavy.'},
+    'Head & face':   {icon:'😌',action:'HEAD + FACE',   instr:'Move to your face — neck, jaw, eyes, forehead.\nUnclench your jaw. Smooth your brow.'},
+    'Total stillness':{icon:'🧘',action:'TOTAL REST',   instr:'Stay completely still. Nothing to do.\nJust breathe slowly. Relax completely.'},
   },
   'prog-relaxation':{
-    'Tense feet & calves':{icon:'🦶',action:'TENSE FEET',   instr:'TENSE feet and calves as hard as you can.\nHold 5 seconds… then RELEASE slowly. Feel the warmth.'},
-    'Tense thighs':       {icon:'🦵',action:'TENSE THIGHS', instr:'Squeeze THIGH muscles as hard as possible.\nHold 5 seconds… then RELEASE. Let them sink heavy.'},
-    'Tense belly':        {icon:'💪',action:'TENSE BELLY',  instr:'Pull your STOMACH in tight, like bracing for a punch.\nHold 5 seconds… then RELEASE. Feel it soften.'},
-    'Clench fists & arms':{icon:'✊',action:'CLENCH FISTS', instr:'Clench fists. Flex arms hard.\nHold 5 seconds… then RELEASE. Arms become heavy.'},
-    'Tense face & jaw':   {icon:'😬',action:'TENSE FACE',   instr:'Squint eyes. Clench jaw. Raise shoulders.\nHold 5 seconds… then release SLOWLY. Face softens.'},
-    'Release everything': {icon:'😌',action:'RELEASE ALL',  instr:'Your whole body is now deeply relaxed.\nRest here. Just breathe gently.'},
+    'Tense feet & calves':{icon:'🦶',action:'TENSE FEET',   instr:'Squeeze your feet and calves as HARD as you can.\nHold for 5 seconds… then let go completely.'},
+    'Tense thighs':       {icon:'🦵',action:'TENSE THIGHS', instr:'Squeeze both thighs together as hard as you can.\nHold 5 seconds… then let go.'},
+    'Tense belly':        {icon:'💪',action:'TENSE BELLY',  instr:'Pull your belly button in toward your spine.\nHold 5 seconds… then let go.'},
+    'Clench fists & arms':{icon:'✊',action:'CLENCH FISTS', instr:'Clench both fists tight. Flex your arms hard.\nHold 5 seconds… then let go.'},
+    'Tense face & jaw':   {icon:'😬',action:'TENSE FACE',   instr:'Squint eyes. Clench jaw. Hunch shoulders — all at once.\nHold 5 seconds… then release VERY slowly.'},
+    'Release & rest':     {icon:'😌',action:'RELEASE ALL',  instr:'Your whole body is deeply relaxed.\nRest here. Just breathe gently.'},
   },
   'gratitude-reset':{
-    'Breathe & settle':          {icon:'🌬️',action:'SETTLE',    instr:'Close eyes. Take 5 slow, deep breaths.\nLet your thoughts quiet down.'},
-    '3 things you are grateful for':{icon:'🙏',action:'BE GRATEFUL',instr:'Think of 3 specific things you are grateful for.\nMake them specific. Really feel the appreciation.'},
-    'One good thing today':      {icon:'✨',action:'GOOD TODAY',  instr:'Think of ONE good thing that happened today.\nNo matter how small — it counts.'},
-    'Someone you appreciate':    {icon:'💛',action:'APPRECIATE',  instr:'Think of ONE person you appreciate.\nPicture their face. Feel the warmth.'},
-    'Your own strength':         {icon:'💪',action:'YOUR STRENGTH',instr:'Acknowledge ONE strength or quality you have.\nSay it in your mind: "I am ___"'},
+    'Breathe & settle':                {icon:'🌬️',action:'SETTLE',      instr:'Close eyes. 5 slow deep breaths.\nLet all thoughts quiet down.'},
+    '3 things you are grateful for':   {icon:'🙏',action:'BE GRATEFUL', instr:'Think of 3 specific things you are grateful for.\nReally feel each one.'},
+    'One good thing today':            {icon:'✨',action:'GOOD TODAY',   instr:'One good thing from today.\nNo matter how small — it counts.'},
+    'One person you appreciate':       {icon:'💛',action:'APPRECIATE',   instr:'Picture one person you appreciate.\nThink of something they did for you.'},
+    'One strength you have':           {icon:'💪',action:'YOUR STRENGTH',instr:'One strength or quality you have.\nSay it: "I am ___."'},
   },
   'sleep-wind-down':{
-    'Dim light stretch':      {icon:'🌙',action:'STRETCH & LET GO',instr:'Lie in bed. Stretch arms and legs long — 30 sec.\nThen completely let go and lie flat.'},
-    '478 breath — 4 rounds':  {icon:'😮‍💨',action:'4-7-8 BREATH',  instr:'In 4 counts. Hold 7. Out 8.\nTongue behind upper front teeth.', breathDir:'in'},
-    'Body tense & release':   {icon:'😬',action:'TENSE ALL & GO',  instr:'Tense your whole body at once.\nFists, legs, face. Hold 5 sec — then RELEASE everything.'},
-    'Clear your thoughts':    {icon:'☁️',action:'LET THOUGHTS PASS',instr:'Thoughts appear — let them float past.\nLike clouds. "Not now." Watch them drift away.'},
-    'Count down from 300':    {icon:'💤',action:'COUNT DOWN',       instr:'Count backward from 300 slowly.\nMost people fall asleep before 200.'},
+    'Stretch & let go':          {icon:'🌙',action:'STRETCH & LET GO',instr:'Stretch arms up and legs long.\nThen completely let go. Lie flat.'},
+    '4-7-8 breathing — 4 rounds':{icon:'😮‍💨',action:'4-7-8 BREATH',   instr:'In 4. Hold 7. Out 8 with whoosh.\nTongue behind front teeth.', breathDir:'in'},
+    'Tense everything & release':{icon:'😬',action:'TENSE ALL & GO',  instr:'Tense whole body at once.\nFists, legs, face. Hold 5 sec — RELEASE.'},
+    'Let thoughts float past':   {icon:'☁️',action:'LET FLOAT',       instr:'Thoughts appear — let them float past.\nSay "not now" and let them go.'},
+    'Count down from 300':       {icon:'💤',action:'COUNT DOWN',       instr:'Count backward from 300 slowly.\nMost people fall asleep before 200.'},
   },
   'sleep-yoga-nidra':{
-    'Settle and breathe':      {icon:'🌙',action:'SETTLE',          instr:'Lie completely flat. Arms slightly out, palms up.\nTake 10 deep breaths. Set intention to rest deeply.'},
-    'Rotation of awareness':   {icon:'🤲',action:'BODY AWARENESS',  instr:'Move awareness slowly through each body part.\nRight thumb → fingers → palm → wrist → up the arm. Then left. Then back. Then face.'},
-    'Opposite sensations':     {icon:'⚖️',action:'HEAVY → LIGHT',   instr:'Feel your body as HEAVY as lead, sinking.\nThen feel it LIGHT as air, floating upward.'},
-    'Visualise':               {icon:'🏖️',action:'PEACEFUL PLACE',  instr:'Picture a beautiful, peaceful place.\nSee it clearly. Hear its sounds. Feel safe there.'},
-    'Affirmation':             {icon:'💬',action:'REPEAT SLOWLY',    instr:'"I am calm.  I am well.  I rest deeply."\nRepeat quietly in your mind.'},
-    'Rest in awareness':       {icon:'💤',action:'SIMPLY BE',        instr:'Remain still. No need to do anything.\nJust be aware that you are lying here resting.'},
+    'Lie flat — 10 deep breaths':    {icon:'🌙',action:'SETTLE',          instr:'Completely flat. Arms out, palms up.\nTen slow deep breaths.'},
+    'Move awareness through body parts':{icon:'🤲',action:'BODY SCAN',   instr:'Move awareness through each body part.\nRight hand → arm → shoulder → chest…'},
+    'Feel HEAVY then feel LIGHT':    {icon:'⚖️',action:'HEAVY → LIGHT',  instr:'Feel body as HEAVY as lead, sinking.\nThen LIGHT as a feather, floating.'},
+    'Visualise a peaceful place':    {icon:'🏖️',action:'PEACEFUL PLACE', instr:'Picture a beautiful, safe place.\nSee the colours. Hear the sounds.'},
+    'Repeat your intention':         {icon:'💬',action:'REPEAT SLOWLY',   instr:'"I am calm. I am well. I rest deeply."\nRepeat 3 times quietly.'},
+    'Simply rest':                   {icon:'💤',action:'SIMPLY BE',       instr:'Stay still. No movement needed.\nJust be aware. Rest.'},
   },
   'feet-elevation':{
-    'Elevate legs — settle':  {icon:'🦶',action:'LEGS UP',          instr:'Legs up the wall or on pillows.\nHips below heart. Settle in and breathe.'},
-    'Breathe & relax legs':   {icon:'🌬️',action:'LET LEGS REST',   instr:'Close eyes. Let legs become completely heavy.\nFeel blood flowing back toward your heart. Relief.'},
-    'Foot flexes & circles':  {icon:'🦵',action:'FLEX & CIRCLE',    instr:'Flex feet (toes toward you) then point (toes away). 10 times.\nAnkle circles: 5 each direction.'},
-    'Total stillness':        {icon:'😌',action:'TOTAL STILL',      instr:'Stay completely still. Legs elevated.\nBreathe. Feel the full circulation reset.'},
+    'Legs up — settle in':     {icon:'🦶',action:'LEGS UP',       instr:'Legs up against wall or on pillows.\nHips on floor. Settle in.'},
+    'Breathe & let legs rest': {icon:'🌬️',action:'LET REST',     instr:'Close eyes. Let legs go heavy.\nFeel blood returning to your heart.'},
+    'Flex feet & ankle circles':{icon:'🦵',action:'FLEX & CIRCLE',instr:'Flex feet (toes toward you) then point.\n10 times. Then ankle circles.'},
+    'Total stillness':         {icon:'😌',action:'TOTAL STILL',   instr:'Completely still. Legs up. Breathe.\nFeel the full reset happening.'},
   },
   'sleep-pressure-points':{
-    'An Mian — behind ear':   {icon:'👂',action:'BEHIND EAR',       instr:'Find the hollow just behind your ear, below the bone.\nPress and circle gently. Both sides.'},
-    'Shen Men — wrist':       {icon:'✋',action:'INNER WRIST',       instr:'Inner wrist crease, pinky side.\nPress firmly with your thumb. Hold. Then other wrist.'},
-    'Baihui — top of head':   {icon:'☝️',action:'TOP OF HEAD',       instr:'Midpoint between your ears at the very TOP of head.\nGentle fingertip press. Slow circles.'},
-    'Yin Tang — between brows':{icon:'👆',action:'BETWEEN BROWS',   instr:'Point between your eyebrows.\nGentle steady pressure. Breathe slowly.'},
-    'Nei Guan — inner wrist': {icon:'🤌',action:'INNER ARM',         instr:'Three finger-widths UP from wrist, inner forearm,\nbetween the two tendons. Press firmly. Hold.'},
-    'Breathing with pressure':{icon:'💤',action:'DRIFT',             instr:'Lie down. Press both inner wrist points.\nDo slow 4-7-8 breathing and let yourself drift.', breathDir:'in'},
+    'Behind the ear — An Mian':   {icon:'👂',action:'BEHIND EAR',  instr:'Behind your ear, below the bone.\nPress and circle. Both sides.'},
+    'Inner wrist crease — Shen Men':{icon:'✋',action:'INNER WRIST',instr:'Inner wrist, pinky side, at the crease.\nPress firmly. Hold. Then other wrist.'},
+    'Top of head — Baihui':       {icon:'☝️',action:'TOP OF HEAD', instr:'Very top of your head.\nGentle press with one fingertip. Circles.'},
+    'Between eyebrows — Yin Tang':{icon:'👆',action:'BROW CENTRE', instr:'Between your eyebrows.\nGentle steady press. Breathe slowly.'},
+    'Inner forearm — Nei Guan':   {icon:'🤌',action:'INNER ARM',   instr:'3 finger-widths up from wrist crease,\ninner arm, between tendons. Press firmly.'},
+    'Press wrists & breathe':     {icon:'💤',action:'DRIFT',       instr:'Lie down. Press both inner wrists.\nDo 4-7-8 breathing. Let yourself drift.', breathDir:'in'},
   },
   'abdominal-massage':{
-    'Warm your hands':   {icon:'🤲',action:'WARM PALMS',    instr:'Rub palms together vigorously for 15 seconds.\nUntil they feel warm.'},
-    'Clockwise circles': {icon:'🔄',action:'CLOCKWISE RUB', instr:'Both flat palms on belly. Large clockwise circles.\nFollow the path of the colon — up right, across, down left.'},
-    'Kneading motion':   {icon:'🫱',action:'GENTLE KNEAD',  instr:'Fingertips gently kneading your belly.\nPress in and release, clockwise. Very gentle.'},
-    'Navel press':       {icon:'👆',action:'NAVEL PRESS',   instr:'Fingertips on navel. Gentle downward pressure.\nHold 10 seconds. Release. 3 times.'},
-    'Full sweep':        {icon:'✋',action:'FULL SWEEP',     instr:'One large clockwise sweep of the whole belly.\nThen 3 gentle pats to finish.'},
+    'Warm your hands':             {icon:'🤲',action:'WARM PALMS',   instr:'Rub palms together hard for 15 seconds.\nUntil they feel warm.'},
+    'Clockwise circles — large':   {icon:'🔄',action:'CLOCKWISE RUB',instr:'Both palms on belly. Large clockwise circles.\nUp right, across, down left.'},
+    'Kneading — gentle press & release':{icon:'🫱',action:'GENTLE KNEAD',instr:'Fingertips gently kneading belly.\nPress in and release. Clockwise.'},
+    'Navel point press':           {icon:'👆',action:'NAVEL PRESS',  instr:'Fingertips on belly button.\nGentle downward press. Hold 10 sec.'},
+    'One big sweep & finish':      {icon:'✋',action:'FULL SWEEP',   instr:'One big clockwise sweep of whole belly.\nThree gentle pats to finish.'},
   },
   'walking-after-eating':{
-    'Slow walking':        {icon:'🚶',action:'WALK SLOWLY',  instr:'Walk very gently and slowly.\nRelaxed pace. Breathe through your nose.'},
-    'Steady walk':         {icon:'🚶',action:'STEADY WALK',  instr:'Pick up to a comfortable pace.\nBreathe naturally. Arms swing normally.'},
-    'Arm swing walk':      {icon:'💪',action:'SWING ARMS',   instr:'Walk with slightly exaggerated arm swing.\nThis gentle torso rotation massages your digestive organs.'},
-    'Cool down stroll':    {icon:'🌿',action:'SLOW STROLL',  instr:'Slow back down to a gentle, easy stroll.\nTake deep breaths as you walk.'},
-    'Abdominal breathing': {icon:'🌬️',action:'BELLY BREATH', instr:'Stand still. Hand on belly.\nTake 5 deep belly breaths — belly pushes out on inhale.'},
+    'Gentle stroll — very slow': {icon:'🚶',action:'WALK SLOWLY', instr:'Walk very gently. No rush.\nBreathe through your nose.'},
+    'Steady comfortable walk':   {icon:'🚶',action:'STEADY WALK', instr:'Comfortable pace.\nArms swinging naturally.'},
+    'Walk with arm swing':       {icon:'💪',action:'SWING ARMS',  instr:'Slightly bigger arm swing.\nGentle torso rotation massages stomach.'},
+    'Slow down to stroll':       {icon:'🌿',action:'SLOW STROLL', instr:'Slow back to a gentle easy walk.\nDeep breaths as you go.'},
+    'Stand still — belly breathing':{icon:'🌬️',action:'BELLY BREATH',instr:'Hand on belly. 5 deep breaths.\nBelly pushes your hand out on inhale.'},
   },
   'agni-breath':{
-    'Prepare — gentle breath': {icon:'🌬️',action:'PREPARE',      instr:'Sit straight. Hand on belly.\nTake 3 gentle deep breaths to prepare.'},
-    'Kapalabhati — sharp exhales':{icon:'🔥',action:'SHARP PUMPS!',instr:'Short, SHARP exhales through nose.\nPump belly button toward spine on each exhale. Inhale is automatic.'},
-    'Rest — normal breath':    {icon:'😤',action:'REST & FEEL',   instr:'Big inhale, hold 5 sec, exhale slowly.\nRest and breathe normally. Feel the warmth.'},
-    'Kapalabhati round 2':     {icon:'🔥',action:'ROUND 2!',      instr:'Same sharp pumping exhales again.\nBelly button pumping in sharply on each exhale.'},
-    'Rest':                    {icon:'😌',action:'REST AGAIN',    instr:'Big inhale, hold, exhale slowly.\nFeel the warmth in your belly — your digestive fire awakening.'},
-    'Deep breath finish':      {icon:'🌬️',action:'DEEP FINISH',  instr:'Three long, slow, deep breaths.\nFeel your belly and digestion fully awake.'},
+    'Prepare — gentle breath':          {icon:'🌬️',action:'PREPARE',      instr:'Sit straight. Hand on belly.\nThree slow deep breaths to prepare.'},
+    'Sharp pumping exhales — Round 1':  {icon:'🔥',action:'SHARP PUMPS!',  instr:'Short sharp exhales through nose.\nPump belly button toward spine each time.'},
+    'Rest — big inhale, hold & out':    {icon:'😤',action:'REST & FEEL',   instr:'Big inhale, hold 5 sec, breathe out.\nFeel the warmth in your belly.'},
+    'Sharp pumping exhales — Round 2':  {icon:'🔥',action:'ROUND 2!',      instr:'Same sharp pumping exhales again.\nBelly pumps in on each exhale.'},
+    'Rest again':                       {icon:'😌',action:'REST AGAIN',    instr:'Rest and breathe normally.\nNotice the warmth — digestive fire!'},
+    'Finish — 3 deep slow breaths':     {icon:'🌬️',action:'DEEP FINISH',  instr:'Three very slow deep breaths.\nFeel digestion fully awake.'},
   },
   'spine-reset':{
-    'Chin tucks':           {icon:'↩️',action:'CHIN TUCK',        instr:'Pull chin straight BACK — making a double chin.\nHold 3 sec, release. 5 times. Realigns neck over spine.'},
-    'Thoracic extension':   {icon:'🙌',action:'ARCH BACK',        instr:'Fingers interlaced behind head.\nGently arch backward over chair back. Feel mid-back stretch.'},
-    'Seated cat-cow':       {icon:'🐱',action:'CAT-COW',          instr:'Inhale: arch lower back forward, chest out.\nExhale: round back, tuck chin. 8 times slowly.'},
-    'Side bend left':       {icon:'↙',action:'BEND LEFT',         instr:'Right arm overhead.\nLean gently to the left. Feel the right side stretch.'},
-    'Side bend right':      {icon:'↘',action:'BEND RIGHT',        instr:'Left arm overhead.\nLean gently to the right. Feel the left side stretch.'},
-    'Spinal twist left':    {icon:'↺',action:'TWIST LEFT',        instr:'Right arm crosses to left knee.\nGently twist left. Look over left shoulder.'},
-    'Spinal twist right':   {icon:'↻',action:'TWIST RIGHT',       instr:'Left arm crosses to right knee.\nGently twist right. Look over right shoulder.'},
+    'Chin tucks':           {icon:'↩️',action:'CHIN TUCK',       instr:'Pull chin straight BACK (double chin).\nHold 3 sec, release. 5 times.'},
+    'Arch back over chair': {icon:'🙌',action:'ARCH BACK',        instr:'Hands behind head.\nArch backward over chair. 15 seconds.'},
+    'Cat-cow — arch & round':{icon:'🐱',action:'CAT-COW',         instr:'Inhale → arch lower back forward.\nExhale → round back. 8 times.'},
+    'Lean left':            {icon:'↙',action:'LEAN LEFT',         instr:'Right arm overhead.\nLean gently to the left. Hold.'},
+    'Lean right':           {icon:'↘',action:'LEAN RIGHT',        instr:'Left arm overhead.\nLean gently to the right. Hold.'},
+    'Twist left':           {icon:'↺',action:'TWIST LEFT',        instr:'Right arm crosses to left knee.\nTwist and look over left shoulder.'},
+    'Twist right':          {icon:'↻',action:'TWIST RIGHT',       instr:'Left arm crosses to right knee.\nTwist and look over right shoulder.'},
   },
   'wall-posture':{
-    'Wall stand — find position':{icon:'🧱',action:'BACK TO WALL', instr:'Stand with back against wall.\nHeels, calves, bottom, upper back and head all touching.'},
-    'Hold correct alignment':    {icon:'⬆️',action:'HOLD TALL',    instr:'Stay against wall. Breathe normally.\nFeel the small gap at your lower back — this is correct alignment.'},
-    'Walk away — maintain':      {icon:'🚶',action:'WALK AWAY',    instr:'Step away from wall.\nTry to maintain exactly this same alignment as you walk.'},
-    'Reset — return to wall':    {icon:'🔄',action:'BACK TO WALL', instr:'Return to the wall.\nCheck all contact points again.'},
-    'Final hold':                {icon:'⬆️',action:'FINAL HOLD',   instr:'Hold correct wall alignment for 60 seconds.\nYou are training your posture memory.'},
+    'Find correct position against wall':{icon:'🧱',action:'BACK TO WALL', instr:'Back, bottom, upper back & head\nall touching the wall.'},
+    'Hold alignment — breathe':         {icon:'⬆️',action:'HOLD TALL',     instr:'Hold still. Breathe normally.\nSmall gap at lower back is correct.'},
+    'Walk away maintaining posture':    {icon:'🚶',action:'WALK AWAY',     instr:'Step away from wall.\nKeep the same alignment as you walk.'},
+    'Return — check all contact points':{icon:'🔄',action:'BACK TO WALL', instr:'Return to wall.\nCheck all 4 contact points again.'},
+    'Final hold':                       {icon:'⬆️',action:'FINAL HOLD',   instr:'Hold for 60 seconds.\nTraining your posture memory.'},
   },
   'hip-flexor':{
-    'Standing lunge stretch':{icon:'🏃',action:'LUNGE STRETCH', instr:'Step one foot forward wide. Other knee down.\nPush hips forward. Feel hip flexor stretch. Hold.'},
-    'Low lunge hold':        {icon:'🧘',action:'DEEP LUNGE',    instr:'Sink deep in the lunge. Back knee on floor.\nBoth hands on front knee. Hold.'},
-    'Figure-4 stretch':      {icon:'🪑',action:'FIGURE-4',      instr:'Sit in chair. Ankle on opposite knee.\nGently press crossed knee down. Lean forward slightly.'},
-    'Child\'s pose':         {icon:'🙇',action:"CHILD'S POSE",  instr:'Kneel, spread knees, sit back on heels.\nArms stretched forward. Forehead down. Breathe.'},
-    'Bridge hold':           {icon:'🌉',action:'BRIDGE UP',     instr:'Lie on back. Feet flat, knees up.\nPush hips up high. Hold. Feel hip flexors stretching.'},
-    'Supine twist':          {icon:'↺',action:'SPINAL TWIST',   instr:'Knee to chest, then let it fall to the side.\nLook the opposite way. Full spinal twist.'},
+    'Standing lunge stretch':{icon:'🏃',action:'LUNGE STRETCH', instr:'Right foot forward, left knee down.\nPush hips forward. Hold.'},
+    'Deep lunge — sink lower':{icon:'🧘',action:'DEEP LUNGE',   instr:'Sink deeper. Back knee on floor.\nHands on front thigh. Hold.'},
+    'Figure-4 hip stretch':   {icon:'🪑',action:'FIGURE-4',     instr:'Ankle on opposite knee.\nPress knee down gently. Lean forward.'},
+    "Child's pose":           {icon:'🙇',action:"CHILD'S POSE", instr:'Kneel, knees wide, sit back, arms forward.\nForehead down. Breathe.'},
+    'Bridge — hips up':       {icon:'🌉',action:'BRIDGE UP',    instr:'Lie on back. Feet flat.\nPush hips up high. Hold.'},
+    'Spinal twist — both sides':{icon:'↺',action:'TWIST',       instr:'Knee to chest, let it fall to side.\nLook the opposite way.'},
   },
   'wakeup-tap': {},
 };
@@ -1074,17 +1326,17 @@ const PG = {
 /* ═══════════════════════════════════════════════
    RENDER EXERCISE CARDS
 ═══════════════════════════════════════════════ */
-function renderCards(filter, labRecs) {
+function renderCards(filter, recIds) {
   const grid = document.getElementById('exGrid');
   if (!grid) return;
-  const recs = new Set(labRecs || []);
+  const recs = new Set(recIds || []);
   const list = filter === 'all' ? EXERCISES : EXERCISES.filter(e => e.cat === filter);
   grid.innerHTML = list.map(ex => {
     const isRec = recs.has(ex.id);
     return `
     <article class="ex-card${isRec ? ' recommended' : ''}${ex.cat === 'wake' ? ' wake-special' : ''} reveal">
       <div class="badge-strip">
-        ${isRec ? '<span class="badge badge-rec">★ Recommended</span>' : ''}
+        ${isRec ? '<span class="badge badge-rec">★ Recommended for You</span>' : ''}
         ${ex.cat === 'wake' ? '<span class="badge badge-wake">⚡ Wake-Up</span>' : ''}
       </div>
       <div class="ex-card-head">
@@ -1110,11 +1362,101 @@ function renderCards(filter, labRecs) {
       </div>
     </article>`;
   }).join('');
-
   requestAnimationFrame(() => {
     const io = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) x.target.classList.add('in'); }), { threshold: 0.05 });
     document.querySelectorAll('#exGrid .reveal').forEach(el => io.observe(el));
   });
+}
+
+/* ═══════════════════════════════════════════════
+   LOAD LAB RESULTS & BUILD RECOMMENDATIONS
+═══════════════════════════════════════════════ */
+function loadLabResults() {
+  let scores = {}, recIds = new Set();
+  try {
+    scores = JSON.parse(localStorage.getItem('sh_lab_scores') || '{}');
+  } catch(e) {}
+
+  const weakDomains = Object.entries(scores).filter(([k, v]) => v !== null && v < 65);
+  if (!weakDomains.length) return [];
+
+  // Build recommended exercise IDs
+  weakDomains.forEach(([domain]) => {
+    (LAB_MAP[domain] || []).forEach(id => recIds.add(id));
+  });
+
+  // Show recommendation section
+  const section = document.getElementById('labRecSection');
+  if (section) section.classList.add('show');
+
+  // Build clickable category chips
+  const container = document.getElementById('labRecCards');
+  if (container) {
+    const shown = new Set();
+    weakDomains.forEach(([domain]) => {
+      const info = LAB_CAT_LABELS[domain];
+      if (info && !shown.has(info.cat)) {
+        shown.add(info.cat);
+        const chip = document.createElement('button');
+        chip.className = 'lab-rec-card';
+        chip.textContent = info.label;
+        chip.onclick = () => {
+          document.querySelectorAll('.lab-rec-card').forEach(c => c.classList.remove('active-filter'));
+          chip.classList.add('active-filter');
+          document.querySelectorAll('.filter-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.filter === info.cat);
+          });
+          renderCards(info.cat, Array.from(recIds));
+          document.getElementById('exGrid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+        container.appendChild(chip);
+      }
+    });
+
+    // "Show all recommended" chip
+    if (shown.size > 1) {
+      const all = document.createElement('button');
+      all.className = 'lab-rec-card';
+      all.textContent = '✨ Show All Recommended';
+      all.onclick = () => {
+        document.querySelectorAll('.lab-rec-card').forEach(c => c.classList.remove('active-filter'));
+        all.classList.add('active-filter');
+        // Filter grid to only recommended
+        const grid = document.getElementById('exGrid');
+        if (grid) {
+          const filtered = EXERCISES.filter(e => recIds.has(e.id));
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          grid.innerHTML = filtered.map(ex => {
+            return `
+            <article class="ex-card recommended reveal">
+              <div class="badge-strip"><span class="badge badge-rec">★ Recommended for You</span></div>
+              <div class="ex-card-head"><div class="ex-meta">
+                <span class="ex-tag ${ex.tagClass}">${ex.tag}</span>
+                <h3>${ex.emoji} ${ex.title}</h3>
+                <div class="ex-dur">⏱ ${ex.dur || ''}</div>
+              </div></div>
+              <div class="ex-body">
+                <p class="ex-desc">${ex.desc}</p>
+                <div class="ex-steps">
+                  ${(ex.steps || []).slice(0, 3).map((s, i) => `
+                  <div class="ex-step"><span class="ex-step-n">${i + 1}</span><span>${s}</span></div>`).join('')}
+                </div>
+              </div>
+              <div class="ex-footer">
+                <span class="ex-benefit"><strong>${ex.benefit}</strong> ${ex.benefitVal}</span>
+                <div class="ex-btns">
+                  <button class="voice-btn" onclick="speakCard('${ex.id}')">🔇</button>
+                  <button class="start-btn" onclick="openExercise('${ex.id}')">▶ Begin</button>
+                </div>
+              </div>
+            </article>`;
+          }).join('');
+        }
+      };
+      container.appendChild(all);
+    }
+  }
+  return Array.from(recIds);
 }
 
 /* ═══════════════════════════════════════════════
@@ -1140,7 +1482,7 @@ function gStart() {
   _wgRunning = true; _wgCount = 0; _wgSec = 15;
   const $ = id => document.getElementById(id);
   $('ovTapBtn').disabled = false;
-  $('ovGameLbl').textContent = 'TAP! TAP! TAP! Go!';
+  $('ovGameLbl').textContent = 'TAP! TAP! TAP! GO!';
   $('gStartBtn').style.display = 'none';
   speak('Go! Tap as fast as you can!');
   _wgTimer = setInterval(() => {
@@ -1167,15 +1509,21 @@ function gTap() {
 /* ═══════════════════════════════════════════════
    TIMER ENGINE
 ═══════════════════════════════════════════════ */
-const CIRC = 327;
 let _ex = null, _phaseIdx = 0, _sec = 0, _round = 1, _running = false, _timer = null;
 let _allExQueue = [], _allExIdx = -1;
 
 function _showPanel(name) {
-  document.getElementById('ovCoach').style.display = name === 'coach' ? 'flex' : 'none';
-  document.getElementById('ovGame').classList.toggle('on', name === 'game');
-  document.getElementById('ovDone').classList.toggle('on', name === 'done');
-  document.getElementById('ovCtrl').style.display = name === 'done' ? 'none' : '';
+  // panels: 'prep' | 'coach' | 'game' | 'done'
+  const prep  = document.getElementById('ovPrep');
+  const coach = document.getElementById('ovCoach');
+  const game  = document.getElementById('ovGame');
+  const done  = document.getElementById('ovDone');
+  const ctrl  = document.getElementById('ovCtrl');
+  if (prep)  prep.style.display  = name === 'prep'  ? 'flex' : 'none';
+  if (coach) coach.style.display = name === 'coach' ? 'flex' : 'none';
+  if (game)  game.classList.toggle('on', name === 'game');
+  if (done)  done.classList.toggle('on', name === 'done');
+  if (ctrl)  ctrl.style.display  = name === 'coach' || name === 'game' ? '' : 'none';
 }
 
 function _setPhase(phIdx, label) {
@@ -1187,17 +1535,16 @@ function _setPhase(phIdx, label) {
 
   document.getElementById('ovIcon').textContent   = icon;
   document.getElementById('ovAction').textContent = action;
-  document.getElementById('ovAction').style.color = bDir === 'in' ? '#D4A017' : bDir === 'out' ? '#6CB4FF' : bDir === 'hold' ? '#22C55E' : '#D4A017';
-  document.getElementById('ovTell').innerHTML     = instr ? instr.replace(/\n/g, '<br>') : '';
+  document.getElementById('ovAction').style.color = bDir==='in' ? '#D4A017' : bDir==='out' ? '#6CB4FF' : bDir==='hold' ? '#22C55E' : '#D4A017';
+  document.getElementById('ovTell').innerHTML     = instr ? instr.replace(/\n/g,'<br>') : '';
 
-  const ring     = document.getElementById('ovRing');
-  const showRing = _ex.isBreath && bDir;
-  if (showRing) {
-    const cls = bDir === 'in' ? 'in' : bDir === 'out' ? 'out' : 'hold';
+  const ring = document.getElementById('ovRing');
+  if (_ex.isBreath && bDir) {
+    const cls = bDir==='in' ? 'in' : bDir==='out' ? 'out' : 'hold';
     ring.className = 'ov-ring ' + cls;
     ring.style.display = 'flex';
     const rt = document.getElementById('ovRingTxt');
-    if (rt) { rt.textContent = action; rt.style.color = bDir === 'in' ? '#D4A017' : bDir === 'out' ? '#6CB4FF' : '#22C55E'; }
+    if (rt) { rt.textContent = action; rt.style.color = bDir==='in' ? '#D4A017' : bDir==='out' ? '#6CB4FF' : '#22C55E'; }
   } else {
     ring.className = 'ov-ring';
     ring.style.display = 'none';
@@ -1210,6 +1557,7 @@ function _setPhase(phIdx, label) {
   }
 }
 
+/* Open: show PREP screen first — no auto-start */
 function openExercise(id) {
   _ex = EXERCISES.find(e => e.id === id);
   if (!_ex) return;
@@ -1228,48 +1576,69 @@ function openExercise(id) {
   document.getElementById('ovPbar').style.width = '0%';
 
   if (_ex.isTapGame) {
-    _showPanel('game');
-    resetWakeGame();
-    document.getElementById('ovGo').style.display   = 'none';
-    document.getElementById('ovSkip').style.display = 'none';
-    document.getElementById('gStartBtn').style.display = '';
-    document.getElementById('gSkipBtn').style.display  = _allExQueue.length > 1 ? '' : 'none';
+    // Tap game: show prep first
+    document.getElementById('ovPrepEmoji').textContent = _ex.emoji;
+    document.getElementById('ovPrepTitle').textContent = _ex.title;
+    document.getElementById('ovPrepDur').textContent   = '⏱ ' + (_ex.dur || '');
+    const stepsList = document.getElementById('ovPrepSteps');
+    stepsList.innerHTML = (_ex.steps || []).map((s, i) =>
+      `<li><span class="step-n">${i + 1}</span><span>${s}</span></li>`
+    ).join('');
+    document.getElementById('ovReadyBtn').textContent = '▶ Start Challenge';
+    document.getElementById('ovSkipPrep').style.display = _allExQueue.length > 1 ? '' : 'none';
+    // Override ready button to go to game
+    document.getElementById('ovReadyBtn').onclick = () => {
+      _showPanel('game');
+      resetWakeGame();
+      document.getElementById('ovGo').style.display   = 'none';
+      document.getElementById('ovSkip').style.display = 'none';
+      document.getElementById('gStartBtn').style.display = '';
+      document.getElementById('gSkipBtn').style.display  = _allExQueue.length > 1 ? '' : 'none';
+      speak(_ex.voiceIntro || _ex.title);
+    };
+    _showPanel('prep');
   } else {
-    _showPanel('coach');
-    document.getElementById('ovGo').style.display   = '';
-    document.getElementById('ovGo').textContent     = '▶ Start';
-    document.getElementById('ovSkip').style.display = _allExQueue.length > 1 ? '' : 'none';
-    document.getElementById('gStartBtn').style.display = 'none';
-    document.getElementById('gSkipBtn').style.display  = 'none';
-    if (_ex.phases) {
-      _setPhase(0, _ex.phases[0].label);
-      document.getElementById('ovCount').textContent = _ex.phases[0].sec;
-    } else {
-      document.getElementById('ovIcon').textContent   = _ex.emoji;
-      document.getElementById('ovAction').textContent = 'Ready?';
-      document.getElementById('ovTell').innerHTML     = (_ex.steps || []).slice(0, 3).map(s => '• ' + s).join('<br>');
-      document.getElementById('ovCount').textContent  = '—';
-    }
+    // Normal exercise: show prep screen
+    document.getElementById('ovPrepEmoji').textContent = _ex.emoji;
+    document.getElementById('ovPrepTitle').textContent = _ex.title;
+    document.getElementById('ovPrepDur').textContent   = '⏱ ' + (_ex.dur || '');
+    const stepsList = document.getElementById('ovPrepSteps');
+    stepsList.innerHTML = (_ex.steps || []).map((s, i) =>
+      `<li><span class="step-n">${i + 1}</span><span>${s}</span></li>`
+    ).join('');
+    document.getElementById('ovReadyBtn').textContent = '▶ I\'m Ready — Start';
+    document.getElementById('ovReadyBtn').onclick = ovBegin;
+    document.getElementById('ovSkipPrep').style.display = _allExQueue.length > 1 ? '' : 'none';
+    _showPanel('prep');
   }
 
   const vb = document.getElementById('ovVoice');
   if (vb) { vb.textContent = voiceEnabled ? '🔊' : '🔇'; vb.classList.toggle('on', voiceEnabled); }
 
   document.getElementById('exOv').classList.add('open');
-  setTimeout(() => speak(_ex.voiceIntro || _ex.title), 350);
+  setTimeout(() => speak(_ex.voiceIntro || _ex.title), 400);
+}
+
+/* User pressed "I'm Ready" — now start the timer */
+function ovBegin() {
+  if (!_ex || !_ex.phases) return;
+  _showPanel('coach');
+  document.getElementById('ovGo').style.display   = '';
+  document.getElementById('ovGo').textContent     = '⏸ Pause';
+  document.getElementById('ovSkip').style.display = '';
+  document.getElementById('gStartBtn').style.display = 'none';
+  document.getElementById('gSkipBtn').style.display  = 'none';
+
+  _running = true; _phaseIdx = 0; _round = 1;
+  const ph = _ex.phases[0]; _sec = ph.sec;
+  document.getElementById('ovCount').textContent = ph.sec;
+  _setPhase(0, ph.label);
+  _timer = setInterval(tick, 1000);
+  speak((_ex.phaseVoice && _ex.phaseVoice[0]) || ph.label);
 }
 
 function ovToggle() {
-  if (!_ex || !_ex.phases) return;
-  if (!_running && _phaseIdx === 0 && _sec === 0) {
-    _running = true;
-    document.getElementById('ovGo').textContent = '⏸ Pause';
-    const ph = _ex.phases[0]; _sec = ph.sec;
-    document.getElementById('ovCount').textContent = ph.sec;
-    _setPhase(0, ph.label);
-    _timer = setInterval(tick, 1000);
-    speak((_ex.phaseVoice && _ex.phaseVoice[0]) || ph.label);
-  } else if (_running) {
+  if (_running) {
     clearInterval(_timer); _running = false; stopSpeech();
     document.getElementById('ovGo').textContent = '▶ Resume';
   } else {
@@ -1283,8 +1652,7 @@ function tick() {
   if (!_running) return;
   _sec--;
   const ph = _ex.phases[_phaseIdx];
-  const sl = Math.max(0, _sec);
-  document.getElementById('ovCount').textContent = sl;
+  document.getElementById('ovCount').textContent = Math.max(0, _sec);
 
   if (_sec <= 0) {
     _phaseIdx++;
@@ -1307,22 +1675,50 @@ function _showDone() {
   document.getElementById('ovDoneIco').textContent = isLast ? '🏆' : '✅';
   document.getElementById('ovDoneTtl').textContent = isLast ? 'All Done! 🏆' : 'Well Done!';
   document.getElementById('ovDoneSub').textContent = isLast
-    ? 'You completed all activities. Excellent!'
-    : (_ex ? _ex.title : '') + ' complete. Well done!';
-  // Show Next button only when in a queue — no auto-advance, user taps when ready
+    ? 'You completed all activities. Great work!'
+    : (_ex ? _ex.title : '') + ' complete. Tap Next when you are ready.';
+  if (nb) {
+    nb.style.display = '';
+    nb.textContent = isLast ? '▶ Start Over' : '▶ Next Activity';
+    nb.onclick = isLast ? startAllExercises : ovNext;
+  }
+  _showPanel('done');
+  speak(isLast ? 'All done! Great work!' : 'Well done! Tap Next Activity when you are ready.');
+}
+
+function ovSkipFromPrep() {
+  // Skip = close this exercise, go to next if in queue, else close
+  if (_allExQueue.length > 1 && _allExIdx < _allExQueue.length - 1) {
+    _allExIdx++;
+    openExercise(_allExQueue[_allExIdx].id);
+  } else {
+    ovClose();
+  }
+}
+
+function ovNextFromPrep() {
+  // Next from prep = same as skip — move to next exercise
+  ovSkipFromPrep();
+}
+  document.getElementById('ovDoneSub').textContent = isLast
+    ? 'Excellent! You completed all activities.'
+    : (_ex ? _ex.title : '') + ' complete. Tap Next when you are ready.';
   if (nb) {
     nb.style.display = (isQueue && !isLast) ? '' : 'none';
     nb.textContent = '▶ Next Activity';
   }
   _showPanel('done');
-  document.getElementById('ovCtrl').style.display = 'none';
-  speak(isLast ? 'All done! Excellent work!' : 'Well done! ' + (_ex ? _ex.title : '') + ' complete. Tap Next when you are ready.');
+  speak(isLast ? 'All done! Excellent!' : 'Well done! Tap Next Activity when you are ready.');
 }
 
 function ovSkip() {
   clearInterval(_timer); _running = false; stopSpeech();
-  if (_allExQueue.length > 1 && _allExIdx < _allExQueue.length - 1) ovNext();
-  else ovClose();
+  if (_allExQueue.length > 1 && _allExIdx < _allExQueue.length - 1) {
+    _allExIdx++;
+    openExercise(_allExQueue[_allExIdx].id);
+  } else {
+    _showDone();
+  }
 }
 
 function ovAgain() {
@@ -1393,34 +1789,25 @@ function speakCard(id) {
    INIT
 ═══════════════════════════════════════════════ */
 (function init() {
-  try {
-    const d = JSON.parse(localStorage.getItem('wl_result') || '{}');
-    window._labRecs = d.exercises || [];
-    if (window._labRecs.length) {
-      const banner = document.getElementById('labBanner');
-      if (banner) banner.style.display = '';
-      const tags = document.getElementById('labBannerTags');
-      if (tags) tags.innerHTML = (d.weak || []).map(w => `<span class="lab-tag">${w}</span>`).join('')
-        + (d.ok || []).map(w => `<span class="lab-tag ok">✓ ${w}</span>`).join('');
-    }
-  } catch (e) {}
+  const recIds = loadLabResults();
 
-  renderCards('all', window._labRecs || []);
+  renderCards('all', recIds);
 
   document.getElementById('filterBar').addEventListener('click', e => {
     const btn = e.target.closest('.filter-btn');
     if (!btn) return;
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    renderCards(btn.dataset.filter, window._labRecs || []);
+    renderCards(btn.dataset.filter, recIds);
   });
 
   window.addEventListener('message', e => {
     if (e.data && e.data.type === 'wl_result') {
       try {
-        window._labRecs = e.data.exercises || [];
-        renderCards(document.querySelector('.filter-btn.active')?.dataset.filter || 'all', window._labRecs);
-      } catch (ex) {}
+        // Re-init if lab results posted
+        const recIds2 = loadLabResults();
+        renderCards(document.querySelector('.filter-btn.active')?.dataset.filter || 'all', recIds2);
+      } catch(ex) {}
     }
   });
 
@@ -1442,6 +1829,8 @@ function speakCard(id) {
 })();
 
 </script>
+
+
 
 </body>
 </html>

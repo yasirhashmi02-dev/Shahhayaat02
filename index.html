@@ -266,9 +266,22 @@ body.nav-open{overflow:hidden}
 
 /* TRUST */
 .trust-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-top:2.5rem}
-.trust-card{background:#0e2448;border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;transition:all 0.25s}
+.trust-card{background:#0e2448;border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;transition:all 0.4s}
 .trust-card:hover{border-color:var(--border-mid);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.trust-card.cert-glow{border-color:#D4A017;box-shadow:0 0 22px rgba(212,160,23,.45),0 0 6px rgba(212,160,23,.2);transform:translateY(-3px) scale(1.025);background:#112040}
 .trust-icon{font-size:1.8rem;flex-shrink:0;line-height:1;margin-top:2px}
+.cert-badge{font-size:.65rem!important;font-weight:900!important;letter-spacing:.08em;border-radius:6px;padding:.28rem .38rem;line-height:1.1;min-width:44px;text-align:center;flex-shrink:0;margin-top:2px;transition:transform 0.4s ease}
+.cert-badge.gmp{background:linear-gradient(135deg,#1a5c38,#22c55e);color:#fff;box-shadow:0 2px 8px rgba(34,197,94,.3)}
+.cert-badge.who{background:linear-gradient(135deg,#1a3a6e,#3b82f6);color:#fff;box-shadow:0 2px 8px rgba(59,130,246,.3)}
+.cert-badge.iso{background:linear-gradient(135deg,#7c2d12,#f97316);color:#fff;box-shadow:0 2px 8px rgba(249,115,22,.3)}
+.cert-badge.haccp{background:linear-gradient(135deg,#4c1d95,#8b5cf6);color:#fff;box-shadow:0 2px 8px rgba(139,92,246,.3)}
+.cert-badge.cust{background:linear-gradient(135deg,#854d0e,#D4A017);color:#fff;box-shadow:0 2px 8px rgba(212,160,23,.3)}
+/* Glow colours per cert */
+#cert1.cert-glow{border-color:#22c55e;box-shadow:0 0 24px rgba(34,197,94,.5),0 0 8px rgba(34,197,94,.2);background:#0d1f14}
+#cert2.cert-glow{border-color:#3b82f6;box-shadow:0 0 24px rgba(59,130,246,.5),0 0 8px rgba(59,130,246,.2);background:#0d1629}
+#cert3.cert-glow{border-color:#f97316;box-shadow:0 0 24px rgba(249,115,22,.5),0 0 8px rgba(249,115,22,.2);background:#1f1208}
+#cert4.cert-glow{border-color:#8b5cf6;box-shadow:0 0 24px rgba(139,92,246,.5),0 0 8px rgba(139,92,246,.2);background:#160e2a}
+#cert5.cert-glow{border-color:#D4A017;box-shadow:0 0 24px rgba(212,160,23,.5),0 0 8px rgba(212,160,23,.2);background:#1a1505}
 .trust-card strong{display:block;font-family:var(--font-head);font-size:0.97rem;color:#EEF2F6;margin-bottom:0.3rem}
 .trust-card p{font-size:0.83rem;color:#A8BECC;margin:0;line-height:1.65}
 
@@ -645,11 +658,26 @@ body.nav-open{overflow:hidden}
       <h2 class="reveal delay-1" id="trust-heading">Why People Trust Shah Hayaat</h2>
     </div>
     <div class="trust-grid">
-      <div class="trust-card reveal delay-1"><div class="trust-icon">🌍</div><div><strong>WHO & GMP Certified Manufacturing</strong><p>Global pharmaceutical benchmark, guaranteeing purity, safety and potency in every batch we produce.</p></div></div>
-      <div class="trust-card reveal delay-2"><div class="trust-icon">🏆</div><div><strong>ISO 9001:2015 Quality System</strong><p>International quality management ensuring consistent excellence and full regulatory compliance across all products.</p></div></div>
-      <div class="trust-card reveal delay-3"><div class="trust-icon">✅</div><div><strong>HACCP Food Safety</strong><p>Hazard Analysis Critical Control Points, the gold standard for supplement and food safety throughout the production process.</p></div></div>
-      <div class="trust-card reveal delay-4"><div class="trust-icon">🌿</div><div><strong>Classical Herbal Formulations</strong><p>Every remedy is rooted in traditional Ayurvedic science, using time-tested herbs verified by modern quality protocols.</p></div></div>
-      <div class="trust-card reveal delay-1"><div class="trust-icon">🤝</div><div><strong>50,000+ Satisfied Customers</strong><p>Trusted by wellness seekers across India and beyond for genuine, consistent and measurable health results.</p></div></div>
+      <div class="trust-card reveal delay-1" id="cert1">
+        <div class="trust-icon cert-badge gmp">GMP</div>
+        <div><strong>GMP Certified Manufacturing</strong><p>Good Manufacturing Practice — the global pharmaceutical standard guaranteeing purity, safety and potency in every batch.</p></div>
+      </div>
+      <div class="trust-card reveal delay-2" id="cert2">
+        <div class="trust-icon cert-badge who">WHO</div>
+        <div><strong>WHO Quality Guidelines</strong><p>Formulated in compliance with World Health Organization guidelines for traditional medicine safety and efficacy.</p></div>
+      </div>
+      <div class="trust-card reveal delay-3" id="cert3">
+        <div class="trust-icon cert-badge iso">ISO</div>
+        <div><strong>ISO 9001:2015 Certified</strong><p>International quality management system ensuring consistent excellence and full regulatory compliance across all products.</p></div>
+      </div>
+      <div class="trust-card reveal delay-4" id="cert4">
+        <div class="trust-icon cert-badge haccp">HACCP</div>
+        <div><strong>HACCP Food Safety</strong><p>Hazard Analysis Critical Control Points — the gold standard for supplement and food safety throughout the entire production process.</p></div>
+      </div>
+      <div class="trust-card reveal delay-1" id="cert5">
+        <div class="trust-icon cert-badge cust">50K+</div>
+        <div><strong>50,000+ Satisfied Customers</strong><p>Trusted by wellness seekers across India and beyond for genuine, consistent and measurable health results.</p></div>
+      </div>
     </div>
   </div>
 </section>
@@ -1135,6 +1163,30 @@ window.addEventListener('load',function(){
   var loader=document.getElementById('preloader');
   setTimeout(function(){if(loader)loader.classList.add('out');},3800);
 });
+
+/* ── Certification Glow Cycle ── */
+(function(){
+  var ids = ['cert1','cert2','cert3','cert4','cert5'];
+  var cur = 0;
+  function glow(){
+    ids.forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) {
+        el.classList.remove('cert-glow');
+        var badge = el.querySelector('.cert-badge');
+        if (badge) badge.style.transform = '';
+      }
+    });
+    var el = document.getElementById(ids[cur]);
+    if (el) {
+      el.classList.add('cert-glow');
+      var badge = el.querySelector('.cert-badge');
+      if (badge) badge.style.transform = 'scale(1.12)';
+    }
+    cur = (cur + 1) % ids.length;
+  }
+  setTimeout(function(){ glow(); setInterval(glow, 2200); }, 1800);
+})();
 </script>
 
 </body>
