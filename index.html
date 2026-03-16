@@ -11,7 +11,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="canonical" href="https://www.shahhayaat.com/">
+<link rel="canonical" href="https://shahhayaat.com/">
 <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" type="image/jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -178,8 +178,7 @@ body.nav-open{overflow:hidden}
 .hero-text h1 em{color:var(--gold-light);font-style:italic}
 .hero-badge-row{display:flex;flex-wrap:wrap;gap:0.55rem}
 @media(max-width:800px){.hero-badge-row{justify-content:center}}
-.hero-cert{display:inline-flex;align-items:center;gap:0.35rem;padding:0.35rem 0.9rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:50px;font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.75);letter-spacing:0.04em;backdrop-filter:blur(8px);transition:all 0.5s cubic-bezier(0.4,0,0.2,1)}
-.hero-cert.cert-active{background:rgba(212,160,23,0.18);border-color:rgba(212,160,23,0.70);color:#fff;box-shadow:0 0 18px rgba(212,160,23,0.55),0 0 6px rgba(212,160,23,0.30);transform:translateY(-2px) scale(1.06);text-shadow:0 0 8px rgba(212,160,23,0.6)}
+.hero-cert{display:inline-flex;align-items:center;gap:0.35rem;padding:0.35rem 0.9rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:50px;font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.75);letter-spacing:0.04em;backdrop-filter:blur(8px)}
 .hero-sub{color:rgba(255,255,255,0.62);max-width:460px;font-size:0.96rem}
 .hero-btns{display:flex;flex-wrap:wrap;gap:0.9rem}
 @media(max-width:800px){.hero-btns{justify-content:center}}
@@ -269,7 +268,7 @@ body.nav-open{overflow:hidden}
 .trust-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-top:2.5rem}
 .trust-card{background:#0e2448;border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;transition:all 0.4s}
 .trust-card:hover{border-color:var(--border-mid);transform:translateY(-2px);box-shadow:var(--shadow-md)}
-.trust-card.cert-glow{border-color:#D4A017;box-shadow:0 0 32px rgba(212,160,23,.55),0 0 10px rgba(212,160,23,.25),inset 0 0 24px rgba(212,160,23,.05);transform:translateY(-4px) scale(1.03);background:#122040;transition:all 0.5s cubic-bezier(0.4,0,0.2,1)}
+.trust-card.cert-glow{border-color:#D4A017;box-shadow:0 0 22px rgba(212,160,23,.45),0 0 6px rgba(212,160,23,.2);transform:translateY(-3px) scale(1.025);background:#112040}
 .trust-icon{font-size:1.8rem;flex-shrink:0;line-height:1;margin-top:2px}
 .trust-card strong{display:block;font-family:var(--font-head);font-size:0.97rem;color:#EEF2F6;margin-bottom:0.3rem}
 .trust-card p{font-size:0.83rem;color:#A8BECC;margin:0;line-height:1.65}
@@ -314,9 +313,7 @@ body.nav-open{overflow:hidden}
 .blog-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.45s var(--ease)}
 .blog-card:hover .blog-card-img img{transform:scale(1.05)}
 .blog-body{padding:1.35rem;flex:1;display:flex;flex-direction:column}
-.blog-meta{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
-.blog-cat{font-size:0.64rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold)}
-.blog-date{font-size:0.64rem;color:var(--text-muted)}
+.blog-cat{font-size:0.64rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.5rem}
 .blog-body h3{font-size:0.97rem;color:var(--text);margin-bottom:0.5rem;line-height:1.4}
 .blog-body p{font-size:0.83rem;flex:1;color:var(--text-muted);line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .blog-more{display:inline-flex;align-items:center;gap:0.35rem;font-size:0.76rem;font-weight:600;color:var(--gold-light);margin-top:0.9rem;transition:gap 0.25s}
@@ -493,10 +490,10 @@ body.nav-open{overflow:hidden}
         <div class="eyebrow">WHO-GMP · ISO 9001:2015 · HACCP</div>
         <h1>Premium Ayurvedic<br>Medicines for<br><em>Complete Wellness</em></h1>
         <div class="hero-badge-row">
-          <span class="hero-cert" id="hcert1">🌿 WHO</span>
-          <span class="hero-cert" id="hcert2">GMP</span>
-          <span class="hero-cert" id="hcert3">ISO 9001:2015</span>
-          <span class="hero-cert" id="hcert4">HACCP</span>
+          <span class="hero-cert">🌿 WHO</span>
+          <span class="hero-cert">GMP</span>
+          <span class="hero-cert">ISO 9001:2015</span>
+          <span class="hero-cert">HACCP</span>
         </div>
         <p class="hero-sub">Certified herbal formulations for Brain, Liver, Digestion, Joints, Immunity and more. Crafted with traditional wisdom, modern standards.</p>
         <div class="hero-btns">
@@ -695,7 +692,7 @@ body.nav-open{overflow:hidden}
     <div class="overall-rating-bar reveal delay-2" id="overallRatingBar">
       <div><span class="orb-num">4.8</span></div>
       <div><span class="orb-stars">★★★★★</span><div class="orb-count">Based on 50,000+ customer experiences</div></div>
-      <button class="btn btn-primary btn-sm" style="margin-left:auto" onclick="openRateModal()">⭐ Add Review</button>
+      <a href="https://g.page/r/CXsr4edSqOKSEBM/review" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-left:auto">⭐ Add Review on Google</a>
     </div>
     <div class="reviews-wall reveal" id="reviewsWall"></div>
   </div>
@@ -737,37 +734,8 @@ body.nav-open{overflow:hidden}
     <div class="text-center">
       <div class="eyebrow reveal">Wellness Journal</div>
       <h2 class="reveal delay-1" id="blog-heading">Ayurvedic Wellness Insights</h2>
-      <p class="section-sub reveal delay-2">Practical wisdom for modern health — backed by ancient Ayurvedic science.</p>
     </div>
-    <div class="blog-grid" id="blog-preview-grid" role="list">
-      <article class="blog-card reveal" role="listitem" onclick="window.location='blog.html'" style="cursor:pointer">
-        <div class="blog-card-img" style="background:linear-gradient(135deg,#071830,#0a2040);display:flex;align-items:center;justify-content:center;font-size:3rem">🧠</div>
-        <div class="blog-body">
-          <div class="blog-meta"><span class="blog-cat">Mental Health</span><span class="blog-date">1 Mar 2026</span></div>
-          <h3>Best Ayurvedic Herbs for Brain Power & Memory</h3>
-          <p>Discover how Brahmi, Shankhpushpi and Ashwagandha are clinically proven to improve memory, cut brain fog and sharpen focus naturally.</p>
-          <span style="font-size:0.8rem;color:#B8860B;font-weight:600">Read More →</span>
-        </div>
-      </article>
-      <article class="blog-card reveal delay-1" role="listitem" onclick="window.location='blog.html'" style="cursor:pointer">
-        <div class="blog-card-img" style="background:linear-gradient(135deg,#071830,#0a2040);display:flex;align-items:center;justify-content:center;font-size:3rem">🫀</div>
-        <div class="blog-body">
-          <div class="blog-meta"><span class="blog-cat">Wellness</span><span class="blog-date">2 Mar 2026</span></div>
-          <h3>Fatty Liver Diet & Ayurvedic Treatment: What Actually Works</h3>
-          <p>NAFLD affects 38% of urban Indians. Learn the foods to avoid, what to eat, and which herbs can reverse mild fatty liver naturally.</p>
-          <span style="font-size:0.8rem;color:#B8860B;font-weight:600">Read More →</span>
-        </div>
-      </article>
-      <article class="blog-card reveal delay-2" role="listitem" onclick="window.location='blog.html'" style="cursor:pointer">
-        <div class="blog-card-img" style="background:linear-gradient(135deg,#071830,#0a2040);display:flex;align-items:center;justify-content:center;font-size:3rem">🦴</div>
-        <div class="blog-body">
-          <div class="blog-meta"><span class="blog-cat">Joint Care</span><span class="blog-date">3 Mar 2026</span></div>
-          <h3>Ayurvedic Remedies for Joint Pain: From Kitchen to Cure</h3>
-          <p>Before reaching for painkillers, try these evidence-backed Ayurvedic approaches that heal inflammation from the root — not just mask the pain.</p>
-          <span style="font-size:0.8rem;color:#B8860B;font-weight:600">Read More →</span>
-        </div>
-      </article>
-    </div>
+    <div class="blog-grid" id="blog-preview-grid" role="list"></div>
     <div class="text-center mt-3 reveal"><a href="blog.html" class="btn btn-outline-green">Read All Articles</a></div>
   </div>
 </section>
@@ -856,7 +824,7 @@ body.nav-open{overflow:hidden}
 <!-- FLOATING BUTTONS -->
 <a href="#top" class="back-top" id="back-top" aria-label="Back to top">↑</a>
 <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float" id="wa-float" aria-label="Order on WhatsApp">💬</a>
-<button class="rate-fab" id="rate-fab" onclick="openRateModal()">⭐ Rate Us</button>
+<button class="rate-fab" id="rate-fab" onclick="window.open('https://g.page/r/CXsr4edSqOKSEBM/review','_blank','noopener')">⭐ Rate Us</button>
 
 <!-- STICKY WA (mobile) -->
 <div class="sticky-wa" id="sticky-wa">
@@ -1169,45 +1137,18 @@ window.addEventListener('load',function(){
   setTimeout(function(){if(loader)loader.classList.add('out');},3800);
 });
 
-/* ── Certification Sequential Glow ─────────────────────────────── */
+/* ── Certification Glow Cycle ── */
 (function(){
-  /* Hero cert pills — WHO, GMP, ISO, HACCP */
-  var heroCerts = ['hcert1','hcert2','hcert3','hcert4'];
-  var heroCur = 0;
-
-  /* Trust cards — cert1…cert5 */
-  var trustCerts = ['cert1','cert2','cert3','cert4','cert5'];
-  var trustCur = 0;
-
-  function glowHero(){
-    heroCerts.forEach(function(id){
-      var el = document.getElementById(id);
-      if(el) el.classList.remove('cert-active');
-    });
-    var el = document.getElementById(heroCerts[heroCur]);
-    if(el) el.classList.add('cert-active');
-    heroCur = (heroCur + 1) % heroCerts.length;
+  var ids = ['cert1','cert2','cert3','cert4','cert5'];
+  var cur = 0;
+  function glow(){
+    ids.forEach(function(id){ var el=document.getElementById(id); if(el) el.classList.remove('cert-glow'); });
+    var el = document.getElementById(ids[cur]);
+    if(el){ el.classList.add('cert-glow'); }
+    cur = (cur + 1) % ids.length;
   }
-
-  function glowTrust(){
-    trustCerts.forEach(function(id){
-      var el = document.getElementById(id);
-      if(el) el.classList.remove('cert-glow');
-    });
-    var el = document.getElementById(trustCerts[trustCur]);
-    if(el) el.classList.add('cert-glow');
-    trustCur = (trustCur + 1) % trustCerts.length;
-  }
-
-  /* Start after page settles */
-  setTimeout(function(){
-    glowHero();
-    glowTrust();
-    /* Hero pills: faster cycle — every 1.2s so all 4 feel snappy */
-    setInterval(glowHero, 1200);
-    /* Trust cards: slightly slower — every 1.8s */
-    setInterval(glowTrust, 1800);
-  }, 1800);
+  // Start after page settles, then cycle every 1.8 seconds
+  setTimeout(function(){ glow(); setInterval(glow, 1800); }, 2000);
 })();
 </script>
 
