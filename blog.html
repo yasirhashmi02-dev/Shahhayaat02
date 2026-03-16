@@ -427,6 +427,8 @@ p { color: #3D3D3D !important; }
       <a href="products.html" >Products</a>
       <a href="conditions.html" >Health Guides</a>
       <a href="ingredients.html" >Ingredients</a>
+      <a href="exercises.html" >Exercises</a>
+      <a href="wellness-lab.html" >🧪 Lab</a>
       <a href="blog.html" class="active">Blog</a>
       <a href="about.html" >About</a>
       <a href="contact.html" >Contact</a>
@@ -440,6 +442,8 @@ p { color: #3D3D3D !important; }
     <a href="products.html" >Products</a>
     <a href="conditions.html" >Health Guides</a>
     <a href="ingredients.html" >Ingredients</a>
+    <a href="exercises.html" >Exercises</a>
+    <a href="wellness-lab.html" >🧪 Lab</a>
     <a href="blog.html" class="active">Blog</a>
     <a href="about.html" >About</a>
     <a href="contact.html" >Contact</a>
@@ -460,10 +464,13 @@ p { color: #3D3D3D !important; }
     <button onclick="closeBlogNav()" aria-label="Close menu" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;cursor:pointer;padding:8px;z-index:10" id="close-blog-nav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   <ul style="text-align:center;margin-bottom:2.5rem;list-style:none">
     <li><a href="index.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:rgba(255,255,255,0.72);font-style:italic;text-decoration:none;transition:color 0.22s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">Home</a></li>
-    <li><a href="about.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:rgba(255,255,255,0.72);font-style:italic;text-decoration:none;transition:color 0.22s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">About</a></li>
     <li><a href="products.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:rgba(255,255,255,0.72);font-style:italic;text-decoration:none" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">Products</a></li>
-    <li><a href="quiz.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:rgba(255,255,255,0.72);font-style:italic;text-decoration:none" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">Quiz</a></li>
+    <li><a href="conditions.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:rgba(255,255,255,0.72);font-style:italic;text-decoration:none" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">Health Guides</a></li>
+    <li><a href="ingredients.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:rgba(255,255,255,0.72);font-style:italic;text-decoration:none" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">Ingredients</a></li>
+    <li><a href="exercises.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:rgba(255,255,255,0.72);font-style:italic;text-decoration:none" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">Exercises</a></li>
+    <li><a href="wellness-lab.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:rgba(255,255,255,0.72);font-style:italic;text-decoration:none" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">🧪 Lab</a></li>
     <li><a href="blog.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:var(--gold);font-style:italic;text-decoration:none">Blog</a></li>
+    <li><a href="about.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:rgba(255,255,255,0.72);font-style:italic;text-decoration:none" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">About</a></li>
     <li><a href="contact.html" style="display:block;padding:0.65rem 2rem;font-family:var(--font-h);font-size:2.4rem;color:rgba(255,255,255,0.72);font-style:italic;text-decoration:none" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">Contact</a></li>
   </ul>
   <div style="display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center">
@@ -701,7 +708,7 @@ const SEED_BLOGS = [
     id:'seed6',
     title:'Hormonal Balance Naturally: An Ayurvedic Guide for Women',
     cat:'Female Health',
-    img: GH + 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/utrohayaat1.jpg',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/utrohayaat1.jpg',
     date:'28 Mar 2025',
     desc:'From irregular periods to PCOD, discover how Ayurvedic herbs have helped women regain hormonal balance for thousands of years.',
     body:`Hormonal imbalance affects millions of women globally, causing issues from irregular cycles to mood swings, weight gain, and fertility challenges. Rather than masking symptoms with synthetic hormones, Ayurveda treats the root imbalance.
@@ -717,7 +724,7 @@ Shah Hayaat's Utro Hayaat combines these powerful Ayurvedic herbs to support men
     id:'seed7',
     title:'Why Your Liver Needs Daily Attention, The Ayurvedic Way',
     cat:'Wellness',
-    img: GH + 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg',
     date:'5 Apr 2025',
     desc:'The liver performs over 500 vital functions daily. Learn how Ayurvedic wisdom protects this powerhouse organ from toxins and fatty deposits.',
     body:`The liver is one of the most hardworking organs in your body, filtering blood, producing bile, metabolising fat, and detoxifying hundreds of harmful substances every day. Yet it rarely gets the attention it deserves until problems arise.
@@ -733,7 +740,7 @@ For those with fatty liver, making simple dietary changes, reducing refined oils
     id:'seed8',
     title:'Managing Blood Sugar Naturally: Diet, Lifestyle & Herbs',
     cat:'Wellness',
-    img: GH + 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg',
     date:'18 Apr 2025',
     desc:'Type 2 diabetes is largely lifestyle-driven. Explore evidence-backed Ayurvedic strategies that help regulate blood sugar without harsh side effects.',
     body:`India is the diabetes capital of the world, and the numbers are climbing. While medication is essential for severe cases, early-stage and pre-diabetic conditions respond remarkably well to lifestyle medicine combined with Ayurvedic herbs.
@@ -749,7 +756,7 @@ Combined with a low-glycaemic diet (millet over wheat, vegetables over fruit jui
     id:'seo1',
     title:'Best Ayurvedic Medicine for Brain Power and Memory in India (2025)',
     cat:'Mental Health',
-    img: GH + 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg',
     date:'1 Mar 2026',
     desc:'Struggling with poor memory, lack of focus or brain fog? Discover which Ayurvedic herbs are scientifically proven to boost brain power, and which product actually delivers results.',
     body:`The 5 most effective Ayurvedic herbs for brain health:
@@ -773,7 +780,7 @@ Brain Champ contains all 5 herbs in a WHO-GMP certified formulation. Just Rs.175
     id:'seo2',
     title:'Fatty Liver Diet & Ayurvedic Treatment: What Actually Works',
     cat:'Wellness',
-    img: GH + 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg',
     date:'2 Mar 2026',
     desc:'Fatty liver (NAFLD) affects 38% of Indians. Learn what foods to avoid, what to eat, and which Ayurvedic herbs can reverse mild to moderate fatty liver naturally.',
     body:`NAFLD (Non-Alcoholic Fatty Liver Disease) is now India's most common liver condition, affecting over 38% of urban Indians. Most people have no symptoms until it progresses.
@@ -795,7 +802,7 @@ Livo Hayaat by Shah Hayaat combines these herbs in a WHO-GMP certified syrup. Cu
     id:'seo3',
     title:'Ayurvedic Remedies for Joint Pain: From Kitchen to Cure',
     cat:'Joint Care',
-    img: GH + 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg',
     date:'3 Mar 2026',
     desc:'Joint pain affects 180 million Indians. Before reaching for painkillers, try these evidence-backed Ayurvedic approaches that heal inflammation from the root.',
     body:`Over-the-counter NSAIDs provide temporary relief but damage the stomach lining and kidneys with long-term use. Ayurveda treats the inflammatory root cause.
@@ -818,7 +825,7 @@ For advanced joint pain, Ortho Hayaat by Shah Hayaat combines Shallaki (Boswelli
     id:'seo4',
     title:'How to Control Blood Sugar Naturally: Ayurvedic & Lifestyle Approach',
     cat:'Wellness',
-    img: GH + 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg',
     date:'4 Mar 2026',
     desc:'India has 101 million diabetics. Learn how proven Ayurvedic herbs and simple daily habits can dramatically reduce blood sugar levels before your condition progresses.',
     body:`Know your numbers: Fasting blood sugar below 100 mg/dL is normal. 100-125 mg/dL is pre-diabetic (reversible). 126+ mg/dL is diabetic. HbA1c above 5.7% means pre-diabetic range.
@@ -847,7 +854,7 @@ Dia-Ease by Shah Hayaat combines all five, WHO-GMP certified, Rs.695.`,
     id:'seo5',
     title:'Natural Blood Purifier: Ayurvedic Approach to Clear Skin & Healthy Blood',
     cat:'Skin',
-    img: GH + 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/musaffakhoon1.jpg',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/musaffakhoon1.jpg',
     date:'5 Mar 2026',
     desc:'Acne, boils, dark patches, and persistent pimples are signs of impure blood in Ayurveda. Discover herbs that have purified blood for 5,000 years.',
     body:`In Ayurveda, most skin problems trace back to Rakta Dushti, impurity in the blood. Signs your blood needs purification: recurrent acne despite skincare, dark patches, itching/rashes, slow wound healing, sluggish liver function.
