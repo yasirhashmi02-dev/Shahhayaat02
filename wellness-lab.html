@@ -347,7 +347,7 @@ button,input,select{font-family:inherit}
 /* ── Lab Cards on Welcome ────────────────────────────────── */
 .lab-nav-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
+  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
   gap:.7rem;
   margin:1.4rem 0;
 }
@@ -475,40 +475,64 @@ button,input,select{font-family:inherit}
     <div style="margin-bottom:.5rem">
       <div style="font-size:.63rem;font-weight:700;color:var(--tq);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.9rem">Select an Assessment to Begin</div>
       <div class="lab-nav-grid au d3">
-        <button class="lab-nav-btn" style="--lab-col:#2A7A5A" onclick="LAB.goInstr()" aria-label="Brain Lab">
+        <button class="lab-nav-btn" style="--lab-col:#2A7A5A" onclick="LAB.goInstr();LAB._pendingCat='brain'" aria-label="Brain Lab">
           <span class="lnb-ico">🧠</span>
           <span class="lnb-name">Brain Lab</span>
           <span class="lnb-sub">Focus · Memory · Reaction</span>
           <span class="lnb-dur">~5 min</span>
         </button>
-        <button class="lab-nav-btn" style="--lab-col:#C97010" onclick="LAB.goInstr()" aria-label="Stress Lab">
-          <span class="lnb-ico">🔥</span>
-          <span class="lnb-name">Stress Lab</span>
-          <span class="lnb-sub">Breathing · Calm</span>
-          <span class="lnb-dur">~3 min</span>
-        </button>
-        <button class="lab-nav-btn" style="--lab-col:#2563EB" onclick="LAB.goInstr()" aria-label="Eye Lab">
+        <button class="lab-nav-btn" style="--lab-col:#2563EB" onclick="LAB.goInstr();LAB._pendingCat='eye'" aria-label="Eye Lab">
           <span class="lnb-ico">👁</span>
           <span class="lnb-name">Eye Lab</span>
           <span class="lnb-sub">Vision · Tracking</span>
           <span class="lnb-dur">~4 min</span>
         </button>
-        <button class="lab-nav-btn" style="--lab-col:#059669" onclick="LAB.goInstr()" aria-label="Breathing Lab">
+        <button class="lab-nav-btn" style="--lab-col:#059669" onclick="LAB.goInstr();LAB._pendingCat='breathing'" aria-label="Breathing Lab">
           <span class="lnb-ico">🌬</span>
           <span class="lnb-name">Breath Lab</span>
           <span class="lnb-sub">Lungs · Control</span>
           <span class="lnb-dur">~3 min</span>
         </button>
-        <button class="lab-nav-btn" style="--lab-col:#8B5CF6" onclick="LAB.goInstr()" aria-label="Energy Lab">
+        <button class="lab-nav-btn" style="--lab-col:#C97010" onclick="LAB.goInstr();LAB._pendingCat='stress'" aria-label="Stress Lab">
+          <span class="lnb-ico">🔥</span>
+          <span class="lnb-name">Stress Lab</span>
+          <span class="lnb-sub">Breathing · Calm</span>
+          <span class="lnb-dur">~3 min</span>
+        </button>
+        <button class="lab-nav-btn" style="--lab-col:#8B5CF6" onclick="LAB.goInstr();LAB._pendingCat='energy'" aria-label="Energy Lab">
           <span class="lnb-ico">⚡</span>
           <span class="lnb-name">Energy Lab</span>
           <span class="lnb-sub">Alertness · Vitality</span>
           <span class="lnb-dur">~3 min</span>
         </button>
-        <button class="lab-nav-btn" style="--lab-col:#E74C3C" onclick="LAB.goInstr()" aria-label="Sleep Lab">
-          <span class="lnb-ico">🌙</span>
-          <span class="lnb-name">Sleep Lab</span>
-          <span class="lnb-sub">Rest · Recovery</span>
+        <button class="lab-nav-btn" style="--lab-col:#7C3AED" onclick="LAB.goInstr();LAB._pendingCat='stability'" aria-label="Stability Lab">
+          <span class="lnb-ico">📱</span>
+          <span class="lnb-name">Stability Lab</span>
+          <span class="lnb-sub">Tremor · Balance</span>
+          <span class="lnb-dur">~2 min</span>
+        </button>
+        <button class="lab-nav-btn" style="--lab-col:#C0392B" onclick="LAB.goInstr();LAB._pendingCat='lifestyle'" aria-label="Lifestyle Lab">
+          <span class="lnb-ico">🌿</span>
+          <span class="lnb-name">Lifestyle Lab</span>
+          <span class="lnb-sub">Sleep · Habits</span>
+          <span class="lnb-dur">~2 min</span>
+        </button>
+        <button class="lab-nav-btn" style="--lab-col:#E74C3C" onclick="LAB.goInstr();LAB._pendingCat='heart'" aria-label="Heart Lab">
+          <span class="lnb-ico">❤️</span>
+          <span class="lnb-name">Heart Lab</span>
+          <span class="lnb-sub">Pulse · Cardiovascular</span>
+          <span class="lnb-dur">~2 min</span>
+        </button>
+        <button class="lab-nav-btn" style="--lab-col:#F39C12" onclick="LAB.goInstr();LAB._pendingCat='gut'" aria-label="Gut Lab">
+          <span class="lnb-ico">🍽</span>
+          <span class="lnb-name">Gut Lab</span>
+          <span class="lnb-sub">Digestion · Comfort</span>
+          <span class="lnb-dur">~2 min</span>
+        </button>
+        <button class="lab-nav-btn" style="--lab-col:#8E44AD" onclick="LAB.goInstr();LAB._pendingCat='hearing'" aria-label="Hearing Lab">
+          <span class="lnb-ico">👂</span>
+          <span class="lnb-name">Hearing Lab</span>
+          <span class="lnb-sub">Tone · Detection</span>
           <span class="lnb-dur">~2 min</span>
         </button>
       </div>
@@ -525,7 +549,7 @@ button,input,select{font-family:inherit}
 
     <!-- ── STATS ROW ──────────────────────────────────────── -->
     <div class="stats-row" role="list">
-      <div class="stat-box" role="listitem"><span class="stat-n">6</span><span class="stat-l">Labs</span></div>
+      <div class="stat-box" role="listitem"><span class="stat-n">10</span><span class="stat-l">Labs</span></div>
       <div class="stat-box" role="listitem"><span class="stat-n">20+</span><span class="stat-l">Checks</span></div>
       <div class="stat-box" role="listitem"><span class="stat-n">&lt;2</span><span class="stat-l">Min / Test</span></div>
       <div class="stat-box" role="listitem"><span class="stat-n" style="font-size:1.1rem">🔐</span><span class="stat-l">Private</span></div>
@@ -8665,25 +8689,27 @@ LAB.showLeaderboard = async function(testId, unit) {
   if (src) src.textContent = '— Topic: ' + pick.tag;
 })();
 
-/* ── Start Brain Lab button — wait for gender before navigating ── */
+/* ── Lab nav buttons — route to specific category after gender ── */
 (function() {
   const btn = document.getElementById('startBrainBtn');
-  if (!btn) return;
-  btn.onclick = function() {
-    LAB.goInstr();
-    /* After gender is set, route to brain category */
-    const orig = LAB.renderCategoryDashboard.bind(LAB);
-    LAB._pendingBrainLab = true;
-    const interceptOnce = function() {
-      if (LAB._pendingBrainLab) {
-        LAB._pendingBrainLab = false;
-        LAB.renderCategoryDashboard = orig;
-        LAB.beginCategory('brain');
-      } else {
-        orig();
-      }
+  if (btn) {
+    btn.onclick = function() {
+      LAB._pendingCat = 'brain';
+      LAB.goInstr();
     };
-    LAB.renderCategoryDashboard = interceptOnce;
+  }
+
+  /* Universal: intercept renderCategoryDashboard once to route to _pendingCat */
+  const _origRCD = LAB.renderCategoryDashboard.bind(LAB);
+  LAB.renderCategoryDashboard = function() {
+    if (this._pendingCat) {
+      const cat = this._pendingCat;
+      this._pendingCat = null;
+      LAB.renderCategoryDashboard = _origRCD;
+      this.beginCategory(cat);
+    } else {
+      _origRCD();
+    }
   };
 })();
 
