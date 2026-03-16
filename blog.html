@@ -1097,6 +1097,7 @@ function verifyLogin() {
   if (pin === getAdminPin()) {
     isOwner = true;
     localStorage.setItem(LOGIN_KEY, '1');
+    localStorage.setItem('sh_admin_ts', Date.now().toString());
     closeModal('login-modal-bg');
     document.getElementById('owner-bar').style.display = '';
     showToast('Welcome back, Admin!');
@@ -1108,6 +1109,7 @@ function verifyLogin() {
 function ownerLogout() {
   isOwner = false;
   localStorage.removeItem(LOGIN_KEY);
+  localStorage.removeItem('sh_admin_ts');
   document.getElementById('owner-bar').style.display = 'none';
   showToast('Logged out.');
 }
@@ -1257,10 +1259,15 @@ function checkUrlPost() {
 
 /* ── Init ── */
 document.addEventListener('DOMContentLoaded', () => {
-  /* Check persistent login */
-  if (localStorage.getItem(LOGIN_KEY) === '1') {
+  /* Check persistent login — auto-expire after 24 hours */
+  const loginTime = parseInt(localStorage.getItem('sh_admin_ts') || '0');
+  const expired = (Date.now() - loginTime) > 86400000; // 24 hours
+  if (localStorage.getItem(LOGIN_KEY) === '1' && !expired) {
     isOwner = true;
     document.getElementById('owner-bar').style.display = '';
+  } else if (expired) {
+    localStorage.removeItem(LOGIN_KEY);
+    localStorage.removeItem('sh_admin_ts');
   }
 
   buildFilters();
