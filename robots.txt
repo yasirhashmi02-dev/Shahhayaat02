@@ -1,12 +1,8 @@
 User-agent: *
 Allow: /
 
+# Disallow system paths
+Disallow: /cdn-cgi/
+
 # Sitemap
 Sitemap: https://www.shahhayaat.com/sitemap.xml
-
-# Crawl-delay for respectful crawling
-Crawl-delay: 10
-
-# Disallow any admin or hidden paths
-Disallow: /cdn-cgi/
-Disallow: /*?utm_*
