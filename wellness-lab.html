@@ -328,6 +328,77 @@ button,input,select{font-family:inherit}
   font-family:'JetBrains Mono',monospace;letter-spacing:.07em;
   text-transform:uppercase;font-weight:700;margin-bottom:.7rem;
 }
+
+/* ── Start Here Banner ────────────────────────────────────── */
+.start-here-banner{
+  background:linear-gradient(135deg,#EBF7F1,#fff);
+  border:1.5px solid rgba(42,122,90,.22);
+  border-radius:var(--r);
+  padding:1.3rem 1.5rem;
+  margin:1.5rem 0;
+  display:flex;align-items:center;gap:1.2rem;
+  flex-wrap:wrap;
+}
+.start-here-banner .shb-icon{font-size:2.2rem;flex-shrink:0}
+.start-here-banner .shb-body{flex:1;min-width:160px}
+.start-here-banner .shb-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--t);margin-bottom:.2rem}
+.start-here-banner .shb-desc{font-size:.8rem;color:var(--tm);line-height:1.55}
+
+/* ── Lab Cards on Welcome ────────────────────────────────── */
+.lab-nav-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
+  gap:.7rem;
+  margin:1.4rem 0;
+}
+.lab-nav-btn{
+  background:#fff;border:1.5px solid var(--b);border-radius:var(--r);
+  padding:1.1rem .8rem .9rem;text-align:center;cursor:pointer;
+  transition:all .22s var(--ease);display:flex;flex-direction:column;
+  align-items:center;gap:.35rem;border-top:3px solid var(--lab-col,var(--g));
+}
+.lab-nav-btn:hover{transform:translateY(-3px);box-shadow:0 6px 22px rgba(0,0,0,.08);border-color:var(--lab-col,var(--g))}
+.lab-nav-btn .lnb-ico{font-size:1.7rem;line-height:1}
+.lab-nav-btn .lnb-name{font-size:.8rem;font-weight:700;color:var(--t)}
+.lab-nav-btn .lnb-sub{font-size:.62rem;color:var(--tq)}
+.lab-nav-btn .lnb-dur{font-size:.58rem;font-family:'JetBrains Mono',monospace;color:var(--lab-col,var(--g));font-weight:700;letter-spacing:.06em;background:var(--g3);padding:.12rem .45rem;border-radius:50px;margin-top:.1rem}
+
+/* ── Wellness Insight of the Day ──────────────────────────── */
+.insight-of-day{
+  background:linear-gradient(135deg,var(--g4),#F8FEF9);
+  border:1.5px solid rgba(42,122,90,.18);
+  border-radius:var(--r);
+  padding:1.3rem 1.5rem;
+  margin:1.5rem 0;
+  position:relative;overflow:hidden;
+}
+.insight-of-day::before{
+  content:'';position:absolute;right:-30px;top:-30px;
+  width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,rgba(42,122,90,.06),transparent 70%);
+  pointer-events:none;
+}
+.iod-label{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:.4rem}
+.iod-text{font-family:'Playfair Display',serif;font-size:1rem;color:var(--t);line-height:1.55;font-style:italic}
+.iod-source{font-size:.68rem;color:var(--tq);margin-top:.4rem}
+
+/* ── Lab step flow cards ─────────────────────────────────── */
+.step-flow{display:flex;gap:.6rem;margin:1rem 0;flex-wrap:wrap}
+.step-flow-item{flex:1;min-width:80px;background:var(--g4);border:1px solid rgba(42,122,90,.15);border-radius:var(--rs);padding:.75rem .7rem;text-align:center}
+.step-flow-num{font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:700;color:var(--g);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem}
+.step-flow-title{font-size:.76rem;font-weight:700;color:var(--t);margin-bottom:.15rem}
+.step-flow-desc{font-size:.65rem;color:var(--tq);line-height:1.5}
+
+/* ── Category section Lab header ─────────────────────────── */
+.lab-section-title{font-size:.6rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--tq);margin-bottom:.6rem;margin-top:1.4rem;display:flex;align-items:center;gap:.4rem}
+.lab-section-title::before,.lab-section-title::after{content:'';flex:1;height:1px;background:var(--b)}
+
+/* ── History panel ───────────────────────────────────────── */
+.history-row{display:flex;flex-wrap:wrap;gap:.6rem;margin:.6rem 0}
+.history-chip{background:#fff;border:1.5px solid var(--b);border-radius:var(--rs);padding:.5rem .9rem;display:flex;flex-direction:column;gap:.08rem}
+.history-chip .hc-label{font-size:.6rem;color:var(--tq);text-transform:uppercase;letter-spacing:.08em}
+.history-chip .hc-val{font-family:'JetBrains Mono',monospace;font-size:.92rem;font-weight:700;color:var(--g)}
+.history-chip .hc-best{font-size:.62rem;color:var(--tq)}
 </style>
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 </head>
@@ -375,38 +446,125 @@ button,input,select{font-family:inherit}
   <div class="wrap">
     <div class="hero">
       <div class="hero-ey au">
-        <div class="tag">🧪 33 Smart Wellness Checks</div>
-        <div class="tag" style="background:#FFF0F5;border-color:rgba(168,48,96,.22);color:#A83060">🌸 + Women's Health Checks</div>
+        <div class="tag">🧪 Wellness Lab</div>
         <div class="tag tag--gd">✨ Free · Private · No Sign-Up</div>
       </div>
 
-      <h1 class="h1 au d1" style="margin-bottom:.95rem">
+      <h1 class="h1 au d1" style="margin-bottom:.7rem">
         Your Personal<br><span style="color:var(--g)">Wellness Lab</span>
       </h1>
 
-      <p class="pg hero-desc au d2">
-        Short, powerful checks for your brain, eyes, breathing and body. <strong>Everything is guided.</strong> Just tap and follow.
+      <p class="pg hero-desc au d2" style="font-size:.97rem;max-width:480px">
+        Simple self-tests that help you understand your <strong>focus, reaction speed, breathing and energy.</strong> Each test takes less than 2 minutes. Everything is guided — just tap and follow.
       </p>
+    </div>
 
-      <div class="btn-row au d3" style="margin-top:1.4rem;flex-direction:column;align-items:flex-start;gap:.6rem">
-        <button class="btn btn--p btn--lg btn--cta" onclick="LAB.goInstr()" id="mainStartBtn">
-          ▶ Start My Wellness Check
+    <!-- ── START HERE BANNER ──────────────────────────────── -->
+    <div class="start-here-banner au d2" id="startHereBanner">
+      <div class="shb-icon">🌟</div>
+      <div class="shb-body">
+        <div class="shb-title">New here? We recommend beginning with the Brain Lab</div>
+        <div class="shb-desc">Measure your focus, reaction speed and memory in just 5 minutes. It's the best place to begin your wellness journey.</div>
+      </div>
+      <button class="btn btn--p" style="white-space:nowrap;flex-shrink:0" onclick="LAB.goInstr();setTimeout(()=>LAB.setGender&&LAB.beginCategory&&(LAB.gender?LAB.beginCategory('brain'):null),100)" id="startBrainBtn">
+        Begin Brain Assessment →
+      </button>
+    </div>
+
+    <!-- ── LAB NAVIGATION GRID ──────────────────────────── -->
+    <div style="margin-bottom:.5rem">
+      <div style="font-size:.63rem;font-weight:700;color:var(--tq);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.9rem">Select an Assessment to Begin</div>
+      <div class="lab-nav-grid au d3">
+        <button class="lab-nav-btn" style="--lab-col:#2A7A5A" onclick="LAB.goInstr()" aria-label="Brain Lab">
+          <span class="lnb-ico">🧠</span>
+          <span class="lnb-name">Brain Lab</span>
+          <span class="lnb-sub">Focus · Memory · Reaction</span>
+          <span class="lnb-dur">~5 min</span>
         </button>
-        <span style="font-size:.72rem;color:var(--tq);padding-left:.3rem;animation:arrowBob 1.8s ease-in-out infinite">
-          ↓ Takes about 15 minutes · Free PDF at the end
-        </span>
+        <button class="lab-nav-btn" style="--lab-col:#C97010" onclick="LAB.goInstr()" aria-label="Stress Lab">
+          <span class="lnb-ico">🔥</span>
+          <span class="lnb-name">Stress Lab</span>
+          <span class="lnb-sub">Breathing · Calm</span>
+          <span class="lnb-dur">~3 min</span>
+        </button>
+        <button class="lab-nav-btn" style="--lab-col:#2563EB" onclick="LAB.goInstr()" aria-label="Eye Lab">
+          <span class="lnb-ico">👁</span>
+          <span class="lnb-name">Eye Lab</span>
+          <span class="lnb-sub">Vision · Tracking</span>
+          <span class="lnb-dur">~4 min</span>
+        </button>
+        <button class="lab-nav-btn" style="--lab-col:#059669" onclick="LAB.goInstr()" aria-label="Breathing Lab">
+          <span class="lnb-ico">🌬</span>
+          <span class="lnb-name">Breath Lab</span>
+          <span class="lnb-sub">Lungs · Control</span>
+          <span class="lnb-dur">~3 min</span>
+        </button>
+        <button class="lab-nav-btn" style="--lab-col:#8B5CF6" onclick="LAB.goInstr()" aria-label="Energy Lab">
+          <span class="lnb-ico">⚡</span>
+          <span class="lnb-name">Energy Lab</span>
+          <span class="lnb-sub">Alertness · Vitality</span>
+          <span class="lnb-dur">~3 min</span>
+        </button>
+        <button class="lab-nav-btn" style="--lab-col:#E74C3C" onclick="LAB.goInstr()" aria-label="Sleep Lab">
+          <span class="lnb-ico">🌙</span>
+          <span class="lnb-name">Sleep Lab</span>
+          <span class="lnb-sub">Rest · Recovery</span>
+          <span class="lnb-dur">~2 min</span>
+        </button>
+      </div>
+
+      <div style="text-align:center;margin-top:.6rem">
+        <button class="btn btn--p btn--lg btn--cta" onclick="LAB.goInstr()" id="mainStartBtn" style="font-size:.9rem">
+          ▶ Begin Full Wellness Assessment
+        </button>
+        <div style="font-size:.72rem;color:var(--tq);margin-top:.5rem;animation:arrowBob 1.8s ease-in-out infinite">
+          ~15 minutes · 8 labs · Free PDF report
+        </div>
       </div>
     </div>
 
+    <!-- ── STATS ROW ──────────────────────────────────────── -->
     <div class="stats-row" role="list">
-      <div class="stat-box" role="listitem"><span class="stat-n">20</span><span class="stat-l">Checks</span></div>
-      <div class="stat-box" role="listitem"><span class="stat-n">8</span><span class="stat-l">Categories</span></div>
-      <div class="stat-box" role="listitem"><span class="stat-n">~15</span><span class="stat-l">Minutes</span></div>
-      <div class="stat-box" role="listitem"><span class="stat-n" style="font-size:1.1rem">🔐</span><span class="stat-l">No Health Data<br>Stored</span></div>
+      <div class="stat-box" role="listitem"><span class="stat-n">6</span><span class="stat-l">Labs</span></div>
+      <div class="stat-box" role="listitem"><span class="stat-n">20+</span><span class="stat-l">Checks</span></div>
+      <div class="stat-box" role="listitem"><span class="stat-n">&lt;2</span><span class="stat-l">Min / Test</span></div>
+      <div class="stat-box" role="listitem"><span class="stat-n" style="font-size:1.1rem">🔐</span><span class="stat-l">Private</span></div>
       <div class="stat-box" role="listitem"><span class="stat-n">Free</span><span class="stat-l">Always</span></div>
     </div>
 
+    <!-- ── PROGRESS HISTORY (shown after first test) ─────── -->
+    <div id="labHistoryPanel" style="display:none;margin:1.2rem 0"></div>
 
+    <!-- ── WELLNESS INSIGHT OF THE DAY ──────────────────── -->
+    <div class="insight-of-day" id="insightOfDay">
+      <div class="iod-label">💡 Wellness Insight</div>
+      <div class="iod-text" id="iodText">Loading today's insight…</div>
+      <div class="iod-source" id="iodSource"></div>
+    </div>
+
+    <!-- ── HOW EACH LAB WORKS ────────────────────────────── -->
+    <div style="padding:1.2rem 0;border-top:1px solid var(--b)">
+      <div style="font-size:.63rem;font-weight:700;color:var(--tq);text-transform:uppercase;letter-spacing:.09em;margin-bottom:.8rem">How Each Lab Works</div>
+      <div class="step-flow">
+        <div class="step-flow-item">
+          <div class="step-flow-num">Step 1</div>
+          <div class="step-flow-title">Prepare</div>
+          <div class="step-flow-desc">Watch a quick demo — no guessing needed</div>
+        </div>
+        <div class="step-flow-item">
+          <div class="step-flow-num">Step 2</div>
+          <div class="step-flow-title">Assess</div>
+          <div class="step-flow-desc">Under 2 minutes, fully guided</div>
+        </div>
+        <div class="step-flow-item">
+          <div class="step-flow-num">Step 3</div>
+          <div class="step-flow-title">Insight</div>
+          <div class="step-flow-desc">Instant result + actionable advice</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── COMMUNITY BANNER ──────────────────────────────── -->
     <div class="community-banner">
       <div>
         <div class="cb-title">🌿 Join Our Community</div>
@@ -423,19 +581,6 @@ button,input,select{font-family:inherit}
       </div>
     </div>
 
-    <div style="padding:1.1rem 0;border-top:1px solid var(--b)">
-      <div style="font-size:.63rem;font-weight:700;color:var(--tq);text-transform:uppercase;letter-spacing:.09em;margin-bottom:.7rem">What you will check:</div>
-      <div style="display:flex;flex-wrap:wrap;gap:.5rem">
-        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid var(--b);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">🧠 Brain <span style="color:var(--tq);font-weight:400">11 checks</span></div>
-        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid rgba(37,99,235,.2);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">👁 Eyes <span style="color:var(--tq);font-weight:400">6 checks</span></div>
-        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid var(--b);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">🌬 Breathing <span style="color:var(--tq);font-weight:400">4 checks</span></div>
-        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid var(--b);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">📱 Stability <span style="color:var(--tq);font-weight:400">3 checks</span></div>
-        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid rgba(42,122,90,.2);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">🌿 Lifestyle <span style="color:var(--tq);font-weight:400">4 checks</span></div>
-        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid rgba(231,76,60,.2);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">❤️ Heart <span style="color:var(--tq);font-weight:400">1 check</span></div>
-        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid rgba(243,156,18,.2);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">🍽 Gut <span style="color:var(--tq);font-weight:400">1 check</span></div>
-        <div style="display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;background:#fff;border:1.5px solid rgba(142,68,173,.2);border-radius:50px;font-size:.72rem;font-weight:600;color:var(--t)">👂 Hearing <span style="color:var(--tq);font-weight:400">1 check</span></div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -474,7 +619,7 @@ button,input,select{font-family:inherit}
 
       <p style="font-size:.72rem;color:var(--tq);text-align:center;margin-bottom:1rem">🔐 Your health results stay on your device. Anonymous usage analytics may be collected.</p>
 
-      <button class="btn btn--p btn--lg btn--full" onclick="LAB.goGender()">I'm Ready — Let's Start! →</button>
+      <button class="btn btn--p btn--lg btn--full" onclick="LAB.goGender()">Begin Assessment →</button>
     </div>
   </div>
 </section>
@@ -527,22 +672,22 @@ button,input,select{font-family:inherit}
                   background:var(--g3);border:1px solid rgba(42,122,90,.28);border-radius:50px;
                   font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--ok);
                   letter-spacing:.09em;text-transform:uppercase;margin-bottom:1rem">
-        🧪 Choose Your Assessment
+        🧪 Choose Your Lab
       </div>
-      <h2 class="h1" style="margin-bottom:.55rem">What would you like to check?</h2>
-      <p class="pg" style="max-width:420px;margin:0 auto">Run the full 17-check lab, or focus on one area — all results are private and stay on your device.</p>
+      <h2 class="h1" style="margin-bottom:.55rem">Select Your Wellness Assessment</h2>
+      <p class="pg" style="max-width:420px;margin:0 auto">Each lab is a mini wellness experience — simple, guided, and finished in minutes. All results stay private on your device.</p>
     </div>
 
     <!-- Full Lab CTA -->
     <button class="btn btn--p btn--lg btn--full" style="margin-bottom:1.6rem;font-size:.95rem;padding:1rem 1.5rem"
             onclick="LAB.beginModules()">
-      ▶ Full Wellness Lab &nbsp;·&nbsp; <span style="font-weight:400;opacity:.85">All 33 checks · ~25 min · Free PDF</span>
+      ▶ Complete Wellness Lab &nbsp;·&nbsp; <span style="font-weight:400;opacity:.85">All Labs · ~15 min · Free PDF</span>
     </button>
 
     <!-- Divider -->
     <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1.4rem">
       <div style="flex:1;height:1px;background:var(--b)"></div>
-      <span style="font-size:.72rem;color:var(--tq);font-family:'JetBrains Mono',monospace;letter-spacing:.08em">OR CHOOSE A CATEGORY</span>
+      <span style="font-size:.72rem;color:var(--tq);font-family:'JetBrains Mono',monospace;letter-spacing:.08em">OR SELECT AN INDIVIDUAL ASSESSMENT</span>
       <div style="flex:1;height:1px;background:var(--b)"></div>
     </div>
 
@@ -622,7 +767,7 @@ const LAB = {
   voiceOn: true,
   idx: 0,
   queue: [],
-  scores: { cognitive:null, eye:null, respiratory:null, stress:null, stability:null, lifestyle:null, hormonal:null, heart:null, gut:null, hearing:null },
+  scores: { cognitive:null, eye:null, respiratory:null, stress:null, stability:null, lifestyle:null, hormonal:null, heart:null, gut:null, hearing:null, energy:null },
   raw: {},
   _cogTimeline: [],   // [{label, score}] recorded per brain test for stamina chart
   _demoCB: null,
@@ -726,6 +871,49 @@ const LAB = {
     } catch(e) {}
   },
 
+  /* ── Daily Reset streak banner ──────────────────────────────── */
+  _checkStreak() {
+    try {
+      const streakRaw = localStorage.getItem('wl_streak');
+      if (!streakRaw) return;
+      const streakData = JSON.parse(streakRaw);
+      if (!streakData || !streakData.lastDate) return;
+
+      const today     = new Date().toDateString();
+      const yesterday = new Date(Date.now() - 86400000).toDateString();
+
+      /* Only show if they completed yesterday or earlier (returning user) */
+      if (streakData.lastDate === today) return; /* already done today */
+
+      const isStreak = streakData.lastDate === yesterday;
+      const hero = document.querySelector('#sWelcome .hero');
+      if (!hero) return;
+
+      const existing = document.getElementById('_streakBanner');
+      if (existing) existing.remove();
+
+      const streakCount = streakData.count || 1;
+      const msg = isStreak
+        ? `Your streak continues: <strong>${streakCount} day${streakCount > 1 ? 's' : ''}</strong> 🔥 — Try today\'s assessments to keep it going.`
+        : 'Welcome back! Begin today\'s Wellness Lab to track your improvement.';
+
+      const banner = document.createElement('div');
+      banner.id = '_streakBanner';
+      banner.style.cssText = 'background:linear-gradient(135deg,#EAF7EE,#F5FEF7);border:1.5px solid rgba(42,122,90,.22);border-radius:var(--r);padding:.85rem 1.1rem;margin-top:1rem;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;animation:popIn .3s var(--ease) both';
+      banner.innerHTML = `
+        <div style="display:flex;align-items:center;gap:.65rem">
+          <span style="font-size:1.5rem">${isStreak ? '🔥' : '👋'}</span>
+          <div>
+            <div style="font-size:.82rem;font-weight:700;color:var(--t)">Welcome back!</div>
+            <div style="font-size:.72rem;color:var(--tm);line-height:1.5">${msg}</div>
+          </div>
+        </div>
+        <button class="btn btn--p" style="font-size:.78rem;padding:.45rem 1rem;min-height:36px;white-space:nowrap"
+                onclick="LAB.goInstr()">Begin Today →</button>`;
+      hero.appendChild(banner);
+    } catch(e) {}
+  },
+
   _resumeSession(mode, gender) {
     try { localStorage.removeItem('wl_progress'); } catch(e){}
     /* Restore gender and route to the saved mode */
@@ -774,7 +962,7 @@ const LAB = {
   categories: {
     brain: {
       id:'brain', name:'Brain & Cognitive', icon:'🧠', color:'#2A7A5A',
-      tests:['mod_reactionSpeed','mod_fatigueDrift','mod_workingMemory','mod_sustainedAttention','mod_wordRecall','mod_cogUnderPressure','mod_numberSequence','mod_goNoGo','mod_multitask','mod_decisionSpeed','mod_cogFlex'],
+      tests:['mod_reactionSpeed','mod_workingMemory','mod_sustainedAttention','mod_cogUnderPressure','mod_numberSequence','mod_goNoGo'],
       scoreKey:'cognitive', time:'~5 min', desc:'Memory, focus, reaction speed and mental agility'
     },
     eye: {
@@ -809,13 +997,18 @@ const LAB = {
     },
     stress: {
       id:'stress', name:'Stress & Regulation', icon:'🔥', color:'#C97010',
-      tests:['mod_cogUnderPressure','mod_calmTimer','mod_goNoGo','mod_stressRecovery','mod_emotionalStress'],
+      tests:['mod_breathSync','mod_co2Tolerance','mod_calmTimer','mod_stressRecovery'],
       scoreKey:'stress', time:'~3 min', desc:'Stress response, impulse control and calm regulation'
     },
     hearing: {
       id:'hearing', name:'Hearing Check', icon:'👂', color:'#8E44AD',
       tests:['mod_hearingCheck'],
       scoreKey:'hearing', time:'~2 min', desc:'High-frequency tone detection — best with headphones'
+    },
+    energy: {
+      id:'energy', name:'Energy', icon:'⚡', color:'#8B5CF6',
+      tests:['mod_handSpeed','mod_energyCheck'],
+      scoreKey:'energy', time:'~3 min', desc:'Hand speed, motor alertness and daily energy self-check'
     }
   },
 
@@ -890,8 +1083,8 @@ const LAB = {
                         ✓ Done · <strong>${sc}</strong>
                       </div>` : ''}
           <span class="cat-icon">${cat.icon}</span>
-          <div class="cat-name">${cat.name}</div>
-          <div class="cat-meta">${cat.tests.length} tests &nbsp;·&nbsp; ${cat.time}${isDone ? ' &nbsp;·&nbsp; <span style="color:'+scCol+'">Retake →</span>' : ''}</div>
+          <div class="cat-name">${cat.name} Lab</div>
+          <div class="cat-meta">${cat.tests.length} checks &nbsp;·&nbsp; ${cat.time}${isDone ? ' &nbsp;·&nbsp; <span style="color:'+scCol+'">Retake →</span>' : ''}</div>
           <div class="cat-desc">${cat.desc}</div>
           ${!isDone ? '<span class="cat-arrow">→</span>' : ''}
         </button>`;
@@ -1120,14 +1313,14 @@ const LAB = {
     mod_hydration:'💧 Hydration Risk',
     mod_circadian:'🌅 Circadian Type',
     mod_postureBalance:'⚖ Posture Balance',
-    mod_emotionalStress:'😮 Emotional Stress',
-    mod_cogFlex:'🔄 Cognitive Flexibility',
-    mod_stressRecovery:'🧘 Stress Recovery',
+            mod_stressRecovery:'🧘 Stress Recovery',
     mod_multitask:'🔀 Multitask Load',
     mod_decisionSpeed:'⚡ Decision Speed',
     mod_fatigueDrift:'⚡ Fatigue Drift',
     mod_numberSequence:'🔢 Number Sequence',
     mod_goNoGo:'🚦 Go / No-Go',
+    mod_handSpeed:'⚡ Hand Speed',
+    mod_energyCheck:'⚡ Energy Check',
   },
 
   _sections: {
@@ -1161,11 +1354,11 @@ const LAB = {
     mod_recovery:           {label:'🌬 Breathing', num:4, of:4},
     mod_hydration:          {label:'🌿 Lifestyle', num:3, of:4},
     mod_circadian:          {label:'🌿 Lifestyle', num:4, of:4},
-    mod_stressRecovery:     {label:'🔥 Stress',     num:4, of:5},
-    mod_emotionalStress:    {label:'🔥 Stress',     num:5, of:5},
+    mod_stressRecovery:     {label:'🔥 Stress',     num:4, of:4},
     mod_multitask:          {label:'🧠 Brain',     num:9, of:10},
     mod_decisionSpeed:      {label:'🧠 Brain',     num:10, of:11},
-    mod_cogFlex:            {label:'🧠 Brain',     num:11, of:11},
+    mod_handSpeed:          {label:'⚡ Energy',    num:1, of:2},
+    mod_energyCheck:        {label:'⚡ Energy',    num:2, of:2},
   },
 
   _updateProg() {
@@ -1266,7 +1459,7 @@ const LAB = {
     set('demoHint',  cfg.hint || '');
 
     const ds = this.el('demoStart');
-    if (ds) ds.textContent = cfg.btnLabel || 'Start →';
+    if (ds) ds.textContent = cfg.btnLabel || 'Begin →';
 
     const dv = this.el('demoVis');
     if (dv) {
@@ -1456,7 +1649,7 @@ window.mod_reactionSpeed = function () {
     txt: 'The box turns <strong style="color:var(--am)">red → Wait</strong> then suddenly goes <strong style="color:var(--g)">green → TAP!</strong><br>Hit it the instant you see green. <strong>Do NOT tap on Wait or you lose that round.</strong>',
     hint: '10 rounds · try to beat your best each time!',
     voiceEN: "First up — Reaction Speed! A box appears. Red means wait, green means tap as fast as you can. Simple! Ten quick rounds — let's see how sharp you are!",
-    btnLabel: 'Start Reaction Test →',
+    btnLabel: 'Begin Reaction Assessment →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.8rem;padding:.6rem">
       <div id="dRxBox" class="d3p" style="width:160px;height:58px;border-radius:16px;
            background:#fff;border:2.5px solid #D4E8DC;
@@ -1567,6 +1760,7 @@ window.mod_reactionSpeed = function () {
     const m=LAB.avg(st.times), sd=LAB.sd(st.times), best=Math.min(...st.times);
     const sc=LAB.clamp(Math.round((m<200?100:m<260?92:m<320?82:m<420?70:m<560?55:38) - sd/22),18,100);
     LAB.raw.rxAvg=Math.round(m); LAB.raw.rxBest=best; LAB.raw.rxSD=Math.round(sd); LAB.raw.rxScore=sc;
+    if (typeof LAB._saveToHistory === 'function') LAB._saveToHistory('Reaction Speed', Math.round(m), 'ms');
     LAB.celebrate();
     LAB.say(`Nice one! Your average reaction was ${Math.round(m)} milliseconds — that is ${LAB.scoreLbl(sc)}! Keep going, you are doing brilliantly!`);
     /* v2: Show challenge button briefly before auto-advance */
@@ -1584,132 +1778,6 @@ window.mod_reactionSpeed = function () {
   }
 };
 
-window.mod_reactionFatigue = function () {
-  const DUR=30;
-  const st={active:false,elapsed:0,waiting:false,startT:0,taps:[],locked:false};
-  let _cd=null,_pt=null;
-
-  LAB.showDemo({
-    title: '📉 Fatigue Test',
-    txt: 'Same as reaction speed — but for <strong>30 seconds non-stop</strong>. Keep tapping every time the box flashes green. We check if you slow down towards the end.',
-    hint: '30 seconds · do you stay consistent?',
-    voiceEN: 'Same idea as before — but this time for thirty seconds non-stop. We will check if you slow down towards the end.',
-    btnLabel: 'Start 30s Test →',
-    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:.4rem">
-      <div style="display:flex;align-items:flex-end;gap:4px;height:56px;padding:0 4px">
-        ${Array.from({length:10},(_,i)=>`<div id="dFb${i}" style="width:11px;border-radius:4px 4px 0 0;
-          background:linear-gradient(to top,var(--g),var(--g2));
-          box-shadow:0 -2px 8px rgba(42,120,90,.2);
-          transition:height .2s cubic-bezier(.4,0,.2,1),box-shadow .2s;
-          height:${14+i*3}px"></div>`).join('')}
-      </div>
-      <div style="font-size:.64rem;color:var(--tq);font-weight:600;letter-spacing:.06em">TAP · TAP · TAP — 30 seconds</div>
-    </div>`,
-    anim(vis) {
-      let i=0;
-      const id=setInterval(()=>{
-        const bars=vis.querySelectorAll('[id^="dFb"]');
-        bars.forEach((b,j)=>{
-          const isActive=j===i;
-          b.style.height=(isActive?'42px':(12+j*2)+'px');
-          b.style.background=isActive?'var(--g)':'var(--g2)';
-        });
-        i=(i+1)%bars.length;
-      },200);
-      return id;
-    }
-  }, () => {
-    LAB.render(`<div class="mwrap"><div class="card card--pop">
-      <div class="step-head">
-        <div class="tag">📉 Cognitive · 2 of 4</div>
-        <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Fatigue Drift</h2>
-        <p class="pg">Tap every time the box turns green — <strong>for 30 seconds</strong>. We compare your speed at the start vs the end.</p>
-      </div>
-      <span class="timer" id="ftTimer">30</span>
-      <div id="ftBox" class="rz" onclick="_ftTap()" role="button" tabindex="0"
-           onkeydown="if(event.key===' '||event.key==='Enter')_ftTap()" aria-label="Fatigue tap zone"
-           style="cursor:default;background:#F8FAFB;border-color:#D4E8DC">
-        <span class="rz-l" id="ftLbl">Press Start below</span>
-        <span class="rz-s">30-second endurance test</span>
-      </div>
-      <div class="sc-row">
-        <div class="scb"><span class="v" id="ftTaps">0</span><span class="l">Total Taps</span></div>
-        <div class="scb"><span class="v" id="ftAvg">—</span><span class="l">Avg ms</span></div>
-        <div class="scb"><span class="v" id="ftDrift">—</span><span class="l">Drift</span></div>
-      </div>
-      <div class="btn-row">
-        <button class="btn btn--p btn--lg" id="ftStartBtn" onclick="_ftBegin()">▶ Start 30s Test</button>
-      </div>
-    </div></div>`);
-    LAB.say('Press start and tap every time the box turns green. Thirty seconds.');
-  });
-
-  window._ftBegin = function () {
-    const b=document.getElementById('ftStartBtn'); if(b) b.style.display='none';
-    const z=document.getElementById('ftBox'); if(z) z.style.cursor='pointer';
-    st.active=true;
-    _cd=setInterval(()=>{
-      st.elapsed++;
-      const rem=DUR-st.elapsed;
-      const te=document.getElementById('ftTimer');
-      if(te){ te.textContent=rem; te.className='timer'+(rem<=5?' crit':rem<=12?' warn':''); }
-      if(rem===20) LAB.say('Good — twenty seconds to go!');
-      if(rem===10) LAB.say('Nearly there — ten seconds left!');
-      if(rem===5)  LAB.say('Last five — keep going!');
-      if(st.elapsed>=DUR){ clearInterval(_cd); clearTimeout(_pt); st.active=false; _ftDone(); }
-    },1000);
-    _ftNext();
-  };
-
-  function _ftNext() {
-    if(!st.active||!document.getElementById('ftBox')) return;
-    const z=document.getElementById('ftBox'), l=document.getElementById('ftLbl');
-    if(z){ z.className='rz'; z.style.background='#FFF5F5'; z.style.borderColor='#E88080'; }
-    if(l){ l.textContent='🔴 Wait…'; l.style.color='#C05050'; }
-    st.waiting=false; st.locked=false;
-    _pt=setTimeout(()=>{
-      const z2=document.getElementById('ftBox'), l2=document.getElementById('ftLbl');
-      if(!z2) return;
-      z2.className='rz go'; z2.style.background=''; z2.style.borderColor='';
-      if(l2){ l2.textContent='👆 TAP!'; l2.style.color=''; }
-      st.waiting=true; st.startT=performance.now();
-    }, 400+Math.random()*800);
-  }
-
-  window._ftTap = function () {
-    if(!st.active||st.locked) return;
-    if(!st.waiting){ LAB.flash('miss'); return; }
-    const rt=Math.round(performance.now()-st.startT);
-    st.taps.push({t:rt, elapsed:st.elapsed}); st.waiting=false; st.locked=true;
-    const z=document.getElementById('ftBox'), l=document.getElementById('ftLbl');
-    if(z){ z.className='rz done'; z.style.background=''; z.style.borderColor=''; }
-    if(l){ l.textContent=`⚡ ${rt}ms`; l.style.color='var(--ok)'; }
-    const tc=document.getElementById('ftTaps'); if(tc) tc.textContent=st.taps.length;
-    if(st.taps.length>=2){
-      const avg=Math.round(LAB.avg(st.taps.map(t=>t.t)));
-      const avgEl=document.getElementById('ftAvg'); if(avgEl) avgEl.textContent=avg+'ms';
-    }
-    LAB.flash('hit');
-    setTimeout(_ftNext, 250);
-  };
-
-  function _ftDone() {
-    const taps=st.taps;
-    if(taps.length<4){ LAB.idx++; LAB.next(); return; }
-    const half=Math.floor(taps.length/2);
-    const first=LAB.avg(taps.slice(0,half).map(t=>t.t));
-    const last =LAB.avg(taps.slice(-half).map(t=>t.t));
-    const drift=Math.round(last-first);
-    const score=LAB.clamp(Math.round(100-Math.max(0,drift)/3.5),15,100);
-    LAB.raw.ftTaps=taps.length; LAB.raw.ftDrift=drift; LAB.raw.ftScore=score;
-    const dEl=document.getElementById('ftDrift');
-    if(dEl){ dEl.textContent=(drift>0?'+':'')+drift+'ms'; dEl.style.color=LAB.scoreCol(score); }
-    LAB.celebrate();
-    LAB.say(`Fatigue test done! ${taps.length} taps. Drift of ${Math.abs(drift)} milliseconds. ${LAB.scoreLbl(score)} endurance.`);
-    setTimeout(()=>{ LAB.idx++; LAB.next(); },1900);
-  }
-};
-
 window.mod_workingMemory = function () {
   const TOTAL_ROUNDS=7;
   const st={seq:[],user:[],span:3,round:0,maxSpan:0,errors:0,phase:'idle'};
@@ -1719,7 +1787,7 @@ window.mod_workingMemory = function () {
     txt: 'Boxes light up one by one in a sequence. <strong>Remember the order</strong>, then tap them back in the same order. Each round gets a little longer!',
     hint: 'Watch carefully — then repeat the pattern',
     voiceEN: "Memory Matrix time! Watch the grid — boxes will light up one by one. Once they stop, tap them back in the same order. Each round gets a little longer. You can do this!",
-    btnLabel: 'Start Memory Test →',
+    btnLabel: 'Begin Memory Assessment →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.8rem;padding:.3rem">
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:114px;transform-style:preserve-3d;transform:rotateX(12deg) rotateY(-6deg)" id="dMemGrid">
         ${Array.from({length:9},(_,i)=>`<div id="dm${i}" style="aspect-ratio:1;background:#fff;border:2px solid #D4E8DC;border-radius:9px;transition:all .22s cubic-bezier(.4,0,.2,1);box-shadow:0 3px 8px rgba(0,0,0,.08)"></div>`).join('')}
@@ -1824,6 +1892,7 @@ window.mod_workingMemory = function () {
   function _mDone(){
     const sc=LAB.clamp(Math.round((st.maxSpan/9)*80-st.errors*2.5+18),12,100);
     LAB.raw.memSpan=st.maxSpan;LAB.raw.memErrors=st.errors;LAB.raw.memScore=sc;
+    if (typeof LAB._saveToHistory === 'function') LAB._saveToHistory('Memory Score', sc, '%');
     LAB.celebrate();
     LAB.say(`Excellent memory work! Your best sequence was ${st.maxSpan} items — that is ${LAB.scoreLbl(sc)} working memory. Halfway through the brain section!`);
     /* v2: Challenge button */
@@ -1851,7 +1920,7 @@ window.mod_sustainedAttention = function () {
     txt: 'A circle appears — either <strong style="color:var(--g)">GREEN</strong> or <strong style="color:var(--rd)">RED</strong>.<br>Tap <strong>only the GREEN</strong> circle. Completely ignore red. 60 seconds.',
     hint: 'Green = tap · Red = ignore · stay sharp!',
     voiceEN: "Attention test — 60 seconds! A circle appears — green means tap it, red means ignore it completely. Stay sharp the whole time. You can totally do this!",
-    btnLabel: 'Start Attention Test →',
+    btnLabel: 'Begin Attention Assessment →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.7rem;padding:.4rem">
       <div style="display:flex;gap:14px;align-items:center">
         <div style="text-align:center">
@@ -1915,7 +1984,7 @@ window.mod_sustainedAttention = function () {
         <div class="scb"><span class="v" id="atAcc">—</span><span class="l">Accuracy</span></div>
       </div>
       <div class="btn-row">
-        <button class="btn btn--p btn--lg" id="atStart" onclick="_atBegin()">▶ Start 60s Test</button>
+        <button class="btn btn--p btn--lg" id="atStart" onclick="_atBegin()">▶ Begin 60s Assessment</button>
       </div>
     </div></div>`);
     LAB.say('Remember — green means tap, red means ignore. Sixty seconds.');
@@ -2062,7 +2131,7 @@ window.mod_colourBlindness = function () {
     txt: 'You will see a circle packed with coloured dots. <strong>A number is hidden inside</strong> — look carefully. Type the number or tap "Cannot see it".',
     hint: '10 plates — takes about 3 minutes',
     voiceEN: "Eye section! First — colour vision. A circle of coloured dots has a number hidden inside. Try to spot it! Do not worry if you cannot see it — just try your best.",
-    btnLabel: 'Start Colour Check →',
+    btnLabel: 'Begin Colour Perception Check →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:.3rem">
       <div class="d3f" style="border-radius:50%;box-shadow:0 8px 24px rgba(0,0,0,.15),0 2px 8px rgba(0,0,0,.08)">
         <canvas id="cbDemoC" width="90" height="90" style="border-radius:50%;display:block"></canvas>
@@ -2165,7 +2234,7 @@ window.mod_visualAcuity = function () {
     txt: 'Rows of letters appear, getting <strong>smaller and smaller</strong>. Tap the <strong>smallest row you can read clearly</strong> from where you are sitting.',
     hint: '9 rows from large to very fine — keep glasses on',
     voiceEN: "Vision check! You will see rows of letters getting smaller. Just tap the smallest row you can read clearly. Keep your glasses on if you wear them — no trick here!",
-    btnLabel: 'Start Vision Test →',
+    btnLabel: 'Begin Visual Acuity Assessment →',
     vis: `<div style="text-align:center;transform-style:preserve-3d;transform:perspective(300px) rotateX(8deg);padding:.5rem .8rem" id="acDemoWrap">
       <div style="background:#fff;border-radius:10px;padding:.5rem .9rem;box-shadow:0 8px 24px rgba(0,0,0,.1),0 2px 6px rgba(0,0,0,.06);border:1.5px solid #D4E8DC">
         <div id="acDl1" style="font-size:22px;font-weight:800;font-family:'JetBrains Mono',monospace;color:#1C2E1C;letter-spacing:.18em;transition:font-size .5s">E  F  P</div>
@@ -2251,7 +2320,7 @@ window.mod_contrastSensitivity = function () {
     txt: 'A letter appears on a white background. Each round it gets <strong>harder to see</strong> as the contrast fades. Tap <strong>I Can See It</strong> while you still can. Stop when it becomes too faint.',
     hint: 'The letter gradually fades — tap while visible',
     voiceEN: 'A letter will appear on screen, and each round it will get harder to see as the contrast fades. Keep tapping while you can still see it, and stop when it becomes too faint.',
-    btnLabel: 'Start Contrast Test →',
+    btnLabel: 'Begin Contrast Sensitivity Check →',
     vis: `<div style="display:flex;gap:6px;justify-content:center;align-items:flex-end;transform-style:preserve-3d;transform:perspective(300px) rotateX(10deg);padding:.4rem .6rem">
       ${[['#111','#fff',52],['#4D4D4D','#fff',46],['#888','#fff',40],['#BBB','#f5f5f5',34],['#D8D8D8','#f9f9f9',28]].map(([fg,bg,sz],i)=>
         `<div id="csd${i}" style="width:${sz}px;height:${sz}px;background:${bg};border:1.5px solid #D4E8DC;
@@ -2339,7 +2408,7 @@ window.mod_breathSync = function () {
     txt: 'A circle will grow and shrink. <strong>Breathe with it</strong>: inhale when it expands, hold when it pauses, exhale when it shrinks. Just follow its rhythm naturally.',
     hint: '6 breathing cycles — find your calm',
     voiceEN: "Breathing check — this one is actually calming! A circle will grow and shrink on screen. Just breathe with it — in as it grows, hold when it pauses, out as it shrinks. Follow its gentle rhythm.",
-    btnLabel: 'Start Breath Sync →',
+    btnLabel: 'Begin Breathing Assessment →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
       <div id="bsDemoCirc" style="width:52px;height:52px;border-radius:50%;background:var(--g3);border:3px solid var(--g);transition:all .6s ease-in-out"></div>
       <span id="bsDemoLbl" style="font-size:.72rem;color:var(--g);font-weight:600">Inhale…</span>
@@ -2391,7 +2460,7 @@ window.mod_breathSync = function () {
       </div>
 
       <div class="btn-row">
-        <button class="btn btn--p btn--lg" id="bsStart" onclick="_bsBegin()">▶ Start Breathing</button>
+        <button class="btn btn--p btn--lg" id="bsStart" onclick="_bsBegin()">▶ Begin Breathing Assessment</button>
       </div>
     </div></div>`);
 
@@ -2473,7 +2542,7 @@ window.mod_co2Tolerance = function () {
     txt: 'Take a normal breath in, then breathe out slowly. Then <strong>hold your breath</strong> and tap the button when you feel you need to breathe. That\'s it!',
     hint: 'Do NOT force it — stop when it feels natural',
     voiceEN: "Breath hold test — totally safe, no pressure! Take a normal breath in, breathe out slowly, then hold as long as feels comfortable. Tap when you feel ready to breathe again.",
-    btnLabel: 'Start →',
+    btnLabel: 'Begin Assessment →',
     vis: `<div style="text-align:center;font-size:1.1rem">
       1. 😮‍💨 <strong>Breathe in</strong> normally<br>
       2. 💨 <strong>Breathe out</strong> slowly<br>
@@ -2569,6 +2638,7 @@ window.mod_co2Tolerance = function () {
     const sc = LAB.clamp(Math.round(_held<15?30:_held<25?50:_held<40?65:_held<60?80:_held<90?92:100), 20, 100);
     const rating = _held<15?'Short':_held<30?'Fair':_held<50?'Good':_held<75?'Great':'Excellent';
     LAB.raw.breathHold  = Math.round(_held);
+    if (typeof LAB._saveToHistory === 'function') LAB._saveToHistory('Breath Hold', Math.round(_held), 's');
     LAB.raw.breathScore = sc;
 
     const eh=document.getElementById('bhHeld'), er=document.getElementById('bhRating'), p=document.getElementById('bhPanel'), b=document.getElementById('bhBtn');
@@ -2605,7 +2675,7 @@ window.mod_recovery = function () {
     txt: 'Feel your heartbeat — in your chest, wrist or neck. Then <strong>tap the button once for every heartbeat</strong> for 30 seconds. This estimates your heart rate variability.',
     hint: 'Find your pulse first — then tap!',
     voiceEN: 'Recovery test. Find your pulse on your wrist or neck. Then tap the button once per heartbeat for 30 seconds.',
-    btnLabel: 'Start →',
+    btnLabel: 'Begin Assessment →',
     vis: `<div style="text-align:center;font-size:.9rem;color:var(--tm);line-height:2">
       <div style="font-size:2rem">❤️</div>
       Feel your wrist or neck pulse<br>
@@ -2651,7 +2721,7 @@ window.mod_recovery = function () {
       </div>
 
       <div class="btn-row">
-        <button class="btn btn--p btn--lg" id="rvStart" onclick="_rvBegin()">▶ Start 30s Test</button>
+        <button class="btn btn--p btn--lg" id="rvStart" onclick="_rvBegin()">▶ Begin 30s Assessment</button>
       </div>
     </div></div>`);
 
@@ -2756,7 +2826,7 @@ window.mod_cogUnderPressure = function () {
     txt: 'A maths question appears. Tap the <strong>correct answer</strong> from 4 choices. You have just <strong>35 seconds</strong> for all 20 questions — work fast!',
     hint: '20 questions · 35 seconds · all mental maths',
     voiceEN: "Brain challenge! Twenty quick maths questions — four choices each. Tap the right answer fast. Don't overthink it, just go with your gut. Ready? Let's test that brain!",
-    btnLabel: 'Start Maths Challenge →',
+    btnLabel: 'Begin Cognitive Speed Assessment →',
     vis: `<div style="text-align:center">
       <div style="font-size:1.6rem;font-weight:700;color:var(--t);font-family:'JetBrains Mono',monospace;margin-bottom:.8rem" id="mpDemo">8 × 7 = ?</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;max-width:200px;margin:0 auto" id="mpChoices">
@@ -2875,133 +2945,6 @@ window.mod_cogUnderPressure = function () {
   }
 };
 
-window.mod_patternOverload = function () {
-  const ROUNDS = 8;
-  const SYMS = ['★','●','▲','■','♦','✦','❋','⬟','⬡','⊕'];
-  let _round=0, _correct=0, _times=[];
-
-  function _mkRound(r) {
-    const gridSize = r<3?16:r<6?25:36;
-    const cols     = r<3?4:r<6?5:6;
-
-    const allSyms   = SYMS.slice(0, r<3?4:r<6?6:8);
-    const oddSym    = allSyms[Math.floor(Math.random()*allSyms.length)];
-    const fillers   = allSyms.filter(s=>s!==oddSym);
-    const filler    = fillers[Math.floor(Math.random()*fillers.length)];
-    const oddCount  = r<3?3:r<6?4:5;
-    const fillCount = gridSize - oddCount;
-
-    const cells = [];
-    for(let i=0;i<fillCount;i++) cells.push(filler);
-    for(let i=0;i<oddCount;i++)  cells.push(oddSym);
-    cells.sort(()=>Math.random()-.5);
-
-    return { gridSize, cols, oddSym, filler, oddCount, fillCount, cells };
-  }
-
-  LAB.showDemo({
-    title: '🔷 Pattern Search',
-    txt: 'A grid of symbols appears. <strong>One symbol appears a different number of times</strong> than the others. Tap it! Gets faster each round.',
-    hint: '8 rounds — spot the odd one out!',
-    voiceEN: 'Pattern search test. A grid of symbols appears. One symbol appears a different number of times. Tap that symbol. 8 rounds, gets harder.',
-    btnLabel: 'Start Pattern Search →',
-    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;width:110px" id="ptDemo">
-        ${Array.from({length:16},(_,i)=>`<div id="ptd${i}" style="aspect-ratio:1;background:var(--bg);border:1.5px solid var(--b);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .25s">${i<3?'★':'●'}</div>`).join('')}
-      </div>
-      <span style="font-size:.72rem;color:var(--tq)">★ appears 3 times — ● appears 13 times</span>
-    </div>`,
-    anim(vis) {
-      let highlight = 0;
-      const id = setInterval(()=>{
-        for(let i=0;i<16;i++){
-          const el=vis.querySelector(`#ptd${i}`);
-          if(!el) continue;
-          const isOdd=i<3;
-          el.style.background  = (isOdd&&highlight%2===0)?'var(--gd3)':isOdd?'var(--bg)':'var(--bg)';
-          el.style.borderColor = (isOdd&&highlight%2===0)?'var(--gd)':'var(--b)';
-          el.style.transform   = (isOdd&&highlight%2===0)?'scale(1.1)':'scale(1)';
-        }
-        highlight++;
-      }, 700);
-      return id;
-    }
-  }, () => { _ptRound(); });
-
-  function _ptRound() {
-    if (_round >= ROUNDS) { _ptDone(); return; }
-    const rd    = _mkRound(_round);
-    const start = performance.now();
-
-    LAB.render(`<div class="mwrap"><div class="card card--pop">
-      <div class="step-head">
-        <div class="tag">🔷 Stress · 2 of 2</div>
-        <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Pattern Search</h2>
-        <p class="pg">Tap the symbol that appears a <strong>different number of times</strong> from all the others.</p>
-      </div>
-
-      <div style="display:flex;gap:.3rem;justify-content:center;margin:.6rem 0">
-        ${Array.from({length:ROUNDS},(_,i)=>`<div style="width:22px;height:5px;border-radius:3px;background:${i<_round?'var(--ok)':i===_round?'var(--g)':'var(--b)'}"></div>`).join('')}
-      </div>
-
-      <p style="text-align:center;font-size:.7rem;color:var(--tq);font-family:'JetBrains Mono',monospace;margin-bottom:.85rem">
-        Round ${_round+1} of ${ROUNDS} &nbsp;·&nbsp; ${rd.gridSize} symbols &nbsp;·&nbsp; find the odd one
-      </p>
-
-      <div style="display:grid;grid-template-columns:repeat(${rd.cols},1fr);gap:6px;max-width:min(340px,90vw);margin:0 auto" id="ptGrid">
-        ${rd.cells.map((s,i)=>`
-          <button id="ptCell${i}"
-            style="aspect-ratio:1;background:#fff;border:1.5px solid var(--b);border-radius:7px;
-                   font-size:clamp(.85rem,2vw,1.1rem);cursor:pointer;transition:all .15s;
-                   -webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center"
-            onclick="_ptPick('${s}','${rd.oddSym}')"
-            aria-label="Symbol ${s}">${s}</button>`).join('')}
-      </div>
-
-      <div class="sc-row" style="justify-content:center;margin-top:1rem">
-        <div class="scb"><span class="v">${_round+1}/${ROUNDS}</span><span class="l">Round</span></div>
-        <div class="scb"><span class="v" id="ptCorr">${_correct}</span><span class="l">Correct</span></div>
-        <div class="scb"><span class="v" id="ptAvgT">${_times.length?Math.round(LAB.avg(_times)/100)/10+'s':'—'}</span><span class="l">Avg Time</span></div>
-      </div>
-    </div></div>`);
-
-    LAB.say(`Round ${_round+1}. One of these symbols appears a different number of times — find it.`);
-
-    window._ptStartT = start;
-  }
-
-  window._ptPick = function (sym, oddSym) {
-    const rt   = performance.now() - (window._ptStartT||performance.now());
-    const ok   = sym === oddSym;
-    if (ok) { _correct++; _times.push(rt); }
-
-    const grid = document.getElementById('ptGrid');
-    if (grid) {
-      grid.querySelectorAll('button').forEach(btn => {
-        btn.disabled = true;
-        const s = btn.textContent.trim();
-        if (s===oddSym)  { btn.style.background='var(--g3)'; btn.style.borderColor='var(--g)'; }
-        else if (s===sym&&!ok){ btn.style.background='var(--rd2)'; btn.style.borderColor='var(--rd)'; }
-      });
-    }
-
-    const cc=document.getElementById('ptCorr'); if(cc) cc.textContent=_correct;
-    LAB.flash(ok?'hit':'miss');
-    _round++;
-    setTimeout(_ptRound, ok?400:700);
-  };
-
-  function _ptDone() {
-    const sc = LAB.clamp(Math.round((_correct/ROUNDS)*70 + (ROUNDS/_times.length||0)*8 + 5), 15, 100);
-    LAB.raw.patternCorrect=_correct; LAB.raw.patternScore=sc;
-    { const ss=[LAB.raw.mathScore,sc].filter(x=>x!=null); LAB.scores.stress=Math.round(LAB.avg(ss)); }
-
-    LAB.celebrate();
-    LAB.say(`Good eye! ${_correct} out of ${ROUNDS} correct. ${LAB.scoreLbl(sc)}.`);
-    setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
-  }
-};
-
 window.mod_stabilityHold = function () {
   const DUR = 20;
   let _samples=[], _elapsed=0, _cd=null, _motionOn=false, _mvAvg=0;
@@ -3011,7 +2954,7 @@ window.mod_stabilityHold = function () {
     txt: '<strong>Hold your phone as still as possible</strong> for 20 seconds. On desktop, keep your mouse cursor inside the green circle without moving.',
     hint: 'The steadier you are, the higher your score',
     voiceEN: "Steady hand! This one is fun — hold your phone as still as you possibly can for 20 seconds. On desktop, keep your cursor inside the green circle. How steady are you?",
-    btnLabel: 'Start Steady Hand Test →',
+    btnLabel: 'Begin Motor Stability Assessment →',
     vis: `<div style="text-align:center">
       <div style="font-size:2.5rem">📱</div>
       <div style="font-size:.82rem;color:var(--tq);margin-top:.4rem">Hold still — don't move!</div>
@@ -3067,7 +3010,7 @@ window.mod_stabilityHold = function () {
       </div>
 
       <div class="btn-row">
-        <button class="btn btn--p btn--lg" id="shStart" onclick="_shBegin()">▶ Start 20s Hold</button>
+        <button class="btn btn--p btn--lg" id="shStart" onclick="_shBegin()">▶ Begin 20s Assessment</button>
       </div>
     </div></div>`);
 
@@ -3173,7 +3116,7 @@ window.mod_microTremor = function () {
     txt: 'You will see a zig-zag path on screen. <strong>Trace along it with your finger or mouse</strong> as smoothly and accurately as you can. We measure how steady your hand is.',
     hint: 'Go slowly — accuracy matters more than speed',
     voiceEN: "Last motor check! A zig-zag path appears on screen. Trace along it slowly and smoothly with your finger. Slow and steady wins this one!",
-    btnLabel: 'Start Drawing Test →',
+    btnLabel: 'Begin Tremor Assessment →',
     vis: `<div style="text-align:center">
       <svg width="200" height="70" viewBox="0 0 200 70" style="border:1.5px solid var(--b);border-radius:8px;background:#fff">
         <polyline points="${PATH.map(p=>`${p.x*200},${p.y*70}`).join(' ')}"
@@ -3342,7 +3285,7 @@ window.mod_sleepEfficiency = function () {
     txt: 'Answer 5 quick questions about your sleep last night. We calculate a sleep quality score based on your answers.',
     hint: 'Honest answers = accurate score',
     voiceEN: "Almost done! Quick sleep check — just 5 honest questions about last night. Honest answers give you the most useful result.",
-    btnLabel: 'Start Sleep Check →',
+    btnLabel: 'Begin Sleep Quality Assessment →',
     vis: `<div style="text-align:center;font-size:2rem;margin-bottom:.5rem">💤</div>
     <div style="font-size:.82rem;color:var(--tq);text-align:center">5 quick questions<br>about last night's sleep</div>`,
     anim(vis) {
@@ -3435,7 +3378,7 @@ window.mod_lifestyleLoad = function () {
     txt: 'Answer 6 quick questions about your daily habits — water intake, exercise, diet, stress, screen time and social time. Takes about 2 minutes.',
     hint: 'No wrong answers — just be honest with yourself',
     voiceEN: "Last one! Six quick questions about your daily habits — water, exercise, diet, stress, screens, and social life. Tap your honest answers and your full report is ready!",
-    btnLabel: 'Start Lifestyle Check →',
+    btnLabel: 'Begin Lifestyle Assessment →',
     vis: `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;max-width:180px;margin:0 auto">
       ${['💧','🏃','🥗','😤','📱','👥'].map(e=>`<div style="aspect-ratio:1;background:var(--g3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem">${e}</div>`).join('')}
     </div>`,
@@ -3518,7 +3461,7 @@ window.mod_hormonalRhythm = function () {
     txt: '5 short questions about your monthly cycle. <strong>Completely private</strong> — nothing is stored anywhere. Takes under 2 minutes.',
     hint: 'Private · Results stay on your device',
     voiceEN: 'Hormonal rhythm check. Five quick questions about your monthly cycle. All completely private.',
-    btnLabel: 'Start — 2 Minutes →',
+    btnLabel: 'Begin Hormonal Check →',
     vis: `<div style="text-align:center">
       <div id="hrDemoIcon" style="font-size:2.4rem;transition:all .5s">🌸</div>
       <div style="font-size:.75rem;color:var(--tq);margin-top:.35rem">Private · Results stay on your device</div>
@@ -3612,7 +3555,7 @@ window.mod_energyIron = function () {
     txt: '4 quick questions about energy, fatigue and common iron-deficiency signs. Gets you a simple score and practical advice.',
     hint: 'Iron deficiency is very common — worth checking',
     voiceEN: 'Energy and iron check. Four questions about your energy levels and iron deficiency symptoms.',
-    btnLabel: 'Start Energy Check →',
+    btnLabel: 'Begin Energy & Iron Assessment →',
     vis: `<div style="text-align:center">
       <div style="font-size:2rem" id="eiIcon">⚡</div>
       <div style="font-size:.75rem;color:var(--tq);margin-top:.3rem">Energy · Iron · Fatigue</div>
@@ -3696,7 +3639,7 @@ window.mod_femCombined = function () {
     txt: '5 questions combining sleep-cycle quality and physical comfort — specific to female health patterns.',
     hint: 'Combines sleep cycle + comfort in one short check',
     voiceEN: 'Sleep and comfort check. Five questions about sleep quality linked to your cycle and physical comfort.',
-    btnLabel: 'Start — Final Female Module →',
+    btnLabel: 'Begin Sleep & Comfort Assessment →',
     vis: `<div style="text-align:center;font-size:1.8rem" id="fcIcon">🌙</div>`,
     anim(vis) {
       const icons=['🌙','🛌','🌸','💆','🌙'];
@@ -3892,7 +3835,7 @@ window.mod_peripheralVision = function () {
     txt: 'A dot flashes <strong>at the edges</strong> of the screen — top, bottom, left or right. Tap the screen <strong>as soon as you see it</strong>. Keep your eyes on the centre cross.',
     hint: 'Eyes 4 of 5 — tests edge awareness',
     voiceEN: "Peripheral vision test! A dot will flash at the edge of your screen. Keep your eyes on the centre cross — and tap the moment you see any dot appear at the edges.",
-    btnLabel: 'Start Peripheral Test →',
+    btnLabel: 'Begin Peripheral Vision Assessment →',
     vis: `<div style="position:relative;width:130px;height:110px;margin:0 auto" id="pvDemoArea">
       <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1.1rem;color:var(--tq)">+</div>
       <div id="pvDemoDot" style="position:absolute;width:14px;height:14px;border-radius:50%;background:var(--g);opacity:0;transition:opacity .15s"></div>
@@ -4000,7 +3943,7 @@ window.mod_eyeTracking = function () {
     txt: 'A dot moves slowly around the screen. <strong>Keep your finger on it</strong> as it moves. We measure how accurately you follow it.',
     hint: 'Eyes 5 of 5 — tests smooth pursuit',
     voiceEN: "Eye tracking! A dot will move slowly around the screen. Keep your finger touching the dot as it moves — follow it smoothly. Ready?",
-    btnLabel: 'Start Eye Tracking →',
+    btnLabel: 'Begin Eye Tracking Assessment →',
     vis: `<div style="position:relative;width:140px;height:100px;background:#F0F7F4;border:1.5px solid var(--b);border-radius:10px;overflow:hidden" id="etDemoBox">
       <div id="etDemoDot" style="position:absolute;width:20px;height:20px;border-radius:50%;background:var(--g);border:2px solid #fff;box-shadow:0 2px 8px rgba(42,122,90,.4);left:50%;top:50%;transform:translate(-50%,-50%);transition:left .05s,top .05s"></div>
     </div>`,
@@ -4119,7 +4062,7 @@ window.mod_calmTimer = function () {
     txt: '<strong>60 seconds</strong> of calm breathing. Watch the gentle pulse on screen and breathe with it. Tap the circle every time you feel a calm heartbeat.',
     hint: 'Breathing 3 of 3 — measures relaxation stability',
     voiceEN: "Calm Timer — this is relaxing! Watch the gentle pulse on screen and breathe slowly with it. Every time you feel a calm heartbeat, tap the circle. 60 seconds of pure calm.",
-    btnLabel: 'Start Calm Timer →',
+    btnLabel: 'Begin Calm Response Assessment →',
     vis: `<div style="display:flex;justify-content:center;align-items:center;height:80px" id="ctDemoWrap">
       <div id="ctDemoCirc" style="width:52px;height:52px;border-radius:50%;background:var(--g3);border:3px solid var(--g2);transition:transform .8s ease-in-out,background .8s">💓</div>
     </div>`,
@@ -4151,7 +4094,7 @@ window.mod_calmTimer = function () {
           <div class="scb"><span class="v" id="ctHRV">—</span><span class="l">Regularity</span></div>
         </div>
       </div>
-      <button class="btn btn--p btn--lg btn--full" id="ctStartBtn" onclick="_ctStart()">Start 60s Calm Timer →</button>
+      <button class="btn btn--p btn--lg btn--full" id="ctStartBtn" onclick="_ctStart()">Begin 60s Calm Assessment →</button>
     </div></div>`);
     LAB.say("Relax your shoulders. When you press Start — breathe slowly and tap the circle each time you feel a calm heartbeat. This is the most relaxing check of all!");
   });
@@ -4237,8 +4180,7 @@ LAB._buildCogTimeline = function() {
     {key:'goNoGoScore',      label:'Go/No-Go'},
     {key:'multitaskScore',   label:'Multitask'},
     {key:'decisionScore',    label:'Decision'},
-    {key:'cogFlexScore',     label:'Cog Flex'},
-  ];
+      ];
   return seq.map(s => ({label: s.label, score: this.raw[s.key] ?? null}))
             .filter(s => s.score !== null);
 };
@@ -4301,6 +4243,7 @@ LAB.showDashboard = function () {
   if (LAB.scores.heart      == null) LAB.scores.heart        = LAB.raw.heartScore    ?? null;
   if (LAB.scores.gut        == null) LAB.scores.gut          = LAB.raw.gutScore      ?? null;
   if (LAB.scores.hearing    == null) LAB.scores.hearing      = LAB.raw.hearingScore  ?? null;
+  if (LAB.scores.energy     == null) LAB.scores.energy       = domAvg('handSpeedScore','energyScore');
 
   const recs = LAB._buildRecs();
   LAB._saveScoresForExercises();
@@ -4346,6 +4289,7 @@ LAB.showDashboard = function () {
     ...(LAB.scores.heart    != null ? [{key:'heart',   icon:'❤️', label:'Heart',   col:'#E74C3C'}] : []),
     ...(LAB.scores.gut      != null ? [{key:'gut',     icon:'🍽',  label:'Gut',     col:'#F39C12'}] : []),
     ...(LAB.scores.hearing  != null ? [{key:'hearing', icon:'👂',  label:'Hearing', col:'#8E44AD'}] : []),
+    ...(LAB.scores.energy   != null ? [{key:'energy',  icon:'⚡',  label:'Energy',  col:'#8B5CF6'}] : []),
   ];
 
   /* In category mode: only show the relevant domain card(s) */
@@ -4355,6 +4299,32 @@ LAB.showDashboard = function () {
 
   LAB.setStatus('idle','Results Ready');
   LAB.el('progBar').style.display='none';
+
+  /* ── Lab Completion Celebration (full lab only) ── */
+  const isFullComplete = !isCategoryMode && completedDomains >= 4 && overall !== null;
+  if (isFullComplete) {
+    /* Update streak */
+    try {
+      const today = new Date().toDateString();
+      const streakRaw = localStorage.getItem('wl_streak');
+      const streakData = streakRaw ? JSON.parse(streakRaw) : { count: 0, lastDate: null };
+      const yesterday = new Date(Date.now() - 86400000).toDateString();
+      if (streakData.lastDate === today) {
+        /* already recorded today — no change */
+      } else if (streakData.lastDate === yesterday) {
+        streakData.count = (streakData.count || 0) + 1;
+        streakData.lastDate = today;
+      } else {
+        streakData.count = 1;
+        streakData.lastDate = today;
+      }
+      localStorage.setItem('wl_streak', JSON.stringify(streakData));
+    } catch(e) {}
+    /* Fire confetti */
+    setTimeout(() => {
+      if (typeof LAB._fireConfetti === 'function') LAB._fireConfetti();
+    }, 400);
+  }
 
   /* Title / subtitle vary by mode */
   const titleBadge = isCategoryMode && activeCat
@@ -4385,6 +4355,21 @@ LAB.showDashboard = function () {
       <h2 class="h1" style="margin-bottom:.6rem">${isCategoryMode && activeCat ? activeCat.icon + ' ' + activeCat.name + ' Results' : 'Your Wellness Results'}</h2>
       <p class="pg" style="max-width:400px;margin:0 auto 1.5rem">${subtitle}</p>
 
+      ${isFullComplete ? `
+      <div style="background:linear-gradient(135deg,#EAF7EE,#F5FEF7);border:2px solid rgba(42,122,90,.25);
+                  border-radius:var(--r);padding:1.5rem 1.8rem;margin-bottom:1.6rem;
+                  animation:popIn .5s var(--ease) both;text-align:center">
+        <div style="font-size:2.2rem;margin-bottom:.5rem">🎉</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--t);margin-bottom:.3rem">Wellness Lab Complete!</div>
+        <p style="font-size:.84rem;color:var(--tm);line-height:1.6;margin:0 0 .8rem">You have completed all assessments today. Your results are ready below.</p>
+        <div style="display:inline-flex;align-items:baseline;gap:.35rem;background:#fff;border:1.5px solid rgba(42,122,90,.2);border-radius:50px;padding:.45rem 1.2rem;margin-bottom:.7rem">
+          <span style="font-size:.7rem;color:var(--tq)">Your Wellness Score</span>
+          <span style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:${LAB.scoreCol(overall)}">${overall} / 100</span>
+          <span style="font-size:.8rem;font-weight:700;color:${LAB.scoreCol(overall)}">${LAB.scoreLbl(overall)}</span>
+        </div>
+        <p style="font-size:.78rem;color:var(--tq);margin:0">Check your recommended exercises below to improve further →</p>
+      </div>` : ''}
+
       <div style="display:inline-flex;flex-direction:column;align-items:center;gap:.5rem;
                   background:#fff;border:1.5px solid var(--b);border-radius:var(--r);
                   padding:1.6rem 2.2rem;box-shadow:var(--shm);margin-bottom:1.8rem">
@@ -4408,7 +4393,50 @@ LAB.showDashboard = function () {
         const wa = LAB.calcWellnessAge(overall, userAge);
         const prevScore = LAB.raw.prevScore || null;
         const scoreDelta = (prevScore !== null && overall !== null) ? overall - prevScore : null;
+
+        /* ── Wellness Score Summary card ── */
+        const summaryDomains = [
+          {key:'cognitive',  icon:'🧠', label:'Brain Speed'},
+          {key:'eye',        icon:'👁',  label:'Eye Health'},
+          {key:'respiratory',icon:'🌬', label:'Breathing'},
+          {key:'stress',     icon:'🔥', label:'Stress Control'},
+          {key:'stability',  icon:'📱', label:'Stability'},
+          {key:'lifestyle',  icon:'⚖',  label:'Lifestyle'},
+          {key:'energy',     icon:'⚡', label:'Energy'},
+          {key:'heart',      icon:'❤️', label:'Heart'},
+          {key:'gut',        icon:'🍽',  label:'Gut Health'},
+          {key:'hearing',    icon:'👂', label:'Hearing'},
+        ].filter(d => LAB.scores[d.key] != null);
+
+        const summaryCard = summaryDomains.length >= 2 ? `
+        <div style="background:#fff;border:1.5px solid var(--b);border-radius:var(--r);padding:1.4rem 1.5rem;margin-bottom:1.4rem;text-align:left">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tq);margin-bottom:1rem;text-align:center">📊 Your Wellness Score Summary</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem">
+            ${summaryDomains.map(d => {
+              const sc = LAB.scores[d.key];
+              const col = LAB.scoreCol(sc);
+              const lbl = LAB.scoreLbl(sc);
+              const pct = sc + '%';
+              return `<div style="display:flex;align-items:center;gap:.75rem">
+                <span style="font-size:1rem;width:1.4rem;flex-shrink:0">${d.icon}</span>
+                <span style="font-size:.8rem;font-weight:600;color:var(--t);min-width:100px;flex-shrink:0">${d.label}</span>
+                <div style="flex:1;height:7px;background:var(--g3);border-radius:4px;overflow:hidden">
+                  <div style="height:100%;width:${pct};background:${col};border-radius:4px;transition:width .8s ease"></div>
+                </div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;color:${col};min-width:28px;text-align:right">${sc}</span>
+                <span style="font-size:.68rem;color:${col};font-weight:600;min-width:55px">${lbl}</span>
+              </div>`;
+            }).join('')}
+          </div>
+          <div style="margin-top:1rem;padding:.75rem 1rem;background:linear-gradient(135deg,var(--g4),#F9FEF9);border-radius:var(--rs);text-align:center">
+            <span style="font-size:.72rem;color:var(--tq)">Overall Wellness Score — </span>
+            <span style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:${LAB.scoreCol(overall)}">${overall} / 100</span>
+            <span style="font-size:.75rem;font-weight:700;color:${LAB.scoreCol(overall)};margin-left:.4rem">${LAB.scoreLbl(overall)}</span>
+          </div>
+        </div>` : '';
+
         return `
+        ${summaryCard}
         <div style="display:flex;flex-wrap:wrap;gap:.9rem;justify-content:center;margin-bottom:1.4rem">
           <div style="background:linear-gradient(135deg,#E8F5EE,#F0FBF5);border:1.5px solid rgba(42,122,90,.28);border-radius:var(--r);padding:1rem 1.4rem;text-align:center;min-width:130px">
             <div style="font-size:.62rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--tq);margin-bottom:.3rem">🧬 Wellness Age</div>
@@ -4455,15 +4483,137 @@ LAB.showDashboard = function () {
       ${isCategoryMode && activeCat ? `
       <div style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-bottom:1.4rem">
         <button class="btn btn--p" style="font-size:.82rem;min-width:160px" onclick="LAB._showAddMoreTests()">
-          ➕ Add More Tests
+          ➕ Add More Labs
         </button>
         <button class="btn btn--o" style="font-size:.82rem" onclick="LAB.renderCategoryDashboard()">
-          ← Categories
+          ← All Labs
         </button>
         <button class="btn btn--g" style="font-size:.82rem" onclick="LAB.beginModules()">
           ▶ Full Lab
         </button>
-      </div>` : ''}
+      </div>
+
+      <!-- ── POST-LAB INSIGHT ──────────────────────────────── -->
+      ${(function() {
+        const insights = {
+          brain: {
+            good: 'Your brain performance is healthy! Regular focus exercises and breathing practices can improve it further.',
+            fair: 'Your scores are in the average range. Short daily memory exercises and quality sleep can make a real difference.',
+            low:  'Focus and reaction can be trained. Start with daily breathing exercises and short brain games.'
+          },
+          eye: {
+            good: 'Your eyes are performing well. Continue the 20-20-20 rule to maintain good eye health.',
+            fair: 'Consider taking more screen breaks and using good lighting. Your eyes may benefit from a clinical check.',
+            low:  'Eye health indicators suggest some areas to address. Please consider a professional eye examination.'
+          },
+          breathing: {
+            good: 'Excellent breath control — your nervous system is well regulated. Keep up the practice.',
+            fair: 'Your breathing balance is moderate. Daily 5-minute slow breathing exercises can help significantly.',
+            low:  'Breath control could be improved. Start with simple inhale-hold-exhale cycles each morning.'
+          },
+          stress: {
+            good: 'Your stress regulation looks healthy. Maintain your calm practices daily.',
+            fair: 'Some stress indicators are present. Short meditation and limiting caffeine can help your body recover better.',
+            low:  'Stress levels appear elevated. Daily breathing practices and adequate sleep are the most effective starting points.'
+          },
+          stability: {
+            good: 'Your motor stability is excellent. Continue balance exercises to maintain coordination.',
+            fair: 'Stability is in the average range. Simple balance poses and grip exercises can help.',
+            low:  'Stability exercises like single-leg stands and slow movements can improve coordination over time.'
+          },
+          lifestyle: {
+            good: 'Your lifestyle patterns look healthy. Consistent habits are your greatest wellness asset.',
+            fair: 'Some lifestyle areas need attention. A regular sleep schedule can improve many other scores.',
+            low:  'Lifestyle factors are impacting your overall wellness. Focus on consistent sleep and hydration first.'
+          },
+          heart: {
+            good: 'Cardiovascular indicators look good. Keep moving regularly and manage stress.',
+            fair: 'Heart rate patterns are moderate. Regular gentle exercise and stress reduction can help.',
+            low:  'Consider consulting a healthcare provider and focusing on stress reduction and light aerobic exercise.'
+          },
+          gut: {
+            good: 'Digestive health indicators are positive. Your gut microbiome benefits from your current habits.',
+            fair: 'Some digestive patterns need attention. Warm water, probiotics and a regular meal schedule can help.',
+            low:  'Digestive health needs focus. Consult a healthcare provider and consider dietary improvements.'
+          },
+          hearing: {
+            good: 'Your hearing appears healthy. Protect it by limiting loud noise exposure.',
+            fair: 'Some high-frequency detection was reduced. Consider limiting headphone volume and protecting your ears.',
+            low:  'Hearing indicators suggest a professional audiological check may be beneficial.'
+          },
+          energy: {
+            good: 'Your energy and motor alertness are strong! Stay active, sleep well, and keep your hydration up.',
+            fair: 'Your energy is moderate. Short walks, proper hydration and consistent sleep can make a real difference.',
+            low:  'Energy levels appear low today. Focus on sleep quality, hydration, and gentle movement first.'
+          }
+        };
+        const exercises = {
+          brain: ['🕯 Candle Focus Exercise', '🃏 Memory Match Game', '🧘 Morning Mindfulness'],
+          eye:   ['👁 Eye Roll Exercise', '🌿 Palming Rest', '🎯 Focus Point Practice'],
+          breathing: ['🌬 Box Breathing', '🕉 Humming Breath (Bhramari)', '🌙 4-7-8 Relaxation'],
+          stress:    ['🧘 Body Scan Meditation', '🌬 Extended Exhale Breathing', '🚶 Mindful Walking'],
+          stability: ['🦵 Single-Leg Stand', '✋ Grip Strength Exercise', '🧘 Tree Pose Balance'],
+          lifestyle: ['🌅 Morning Sunlight Walk', '📵 Digital Sunset Routine', '💧 Hydration Tracker'],
+          heart: ['🚶 Gentle Daily Walk', '🧘 Stress Reduction Practice', '🌬 Slow Breathing'],
+          gut:   ['🌿 Warm Water with Ginger', '🥗 Probiotic Foods', '🧘 Abdominal Massage'],
+          hearing:['🎧 Volume Awareness', '🌿 Ear Oil Practice', '🔕 Quiet Time Daily'],
+          energy: ['⚡ Finger Tap Exercise', '🚶 10-Minute Energising Walk', '🌬 Energising Breath (Kapalabhati)'],
+        };
+        const herbs = {
+          brain: { product: 'Brain Champ', herbs: ['Brahmi', 'Shankhpushpi', 'Ashwagandha'] },
+          stress: { product: 'Calm Plus', herbs: ['Ashwagandha', 'Jatamansi', 'Brahmi'] },
+          breathing: { product: 'Lung Vital', herbs: ['Tulsi', 'Mulethi', 'Vasaka'] },
+          eye: { product: 'Eye Nourish', herbs: ['Triphala', 'Bilberry', 'Saffron'] },
+          heart: { product: 'Heart Support', herbs: ['Arjuna', 'Garlic', 'Hawthorn'] },
+          lifestyle: { product: 'Vitality Blend', herbs: ['Shatavari', 'Ashwagandha', 'Amalaki'] },
+          stability: { product: 'Strength Plus', herbs: ['Bala', 'Ashwagandha', 'Gokshura'] },
+          gut: { product: 'Digestive Balance', herbs: ['Triphala', 'Ajwain', 'Haritaki'] },
+          hearing: { product: 'Ear Health', herbs: ['Brahmi', 'Bala', 'Sesame'] },
+          energy: { product: 'Energy Plus', herbs: ['Ashwagandha', 'Shilajit', 'Ginseng'] },
+        };
+        const catId = activeCat?.id || '';
+        const ins = insights[catId] || insights.brain;
+        const exs = exercises[catId] || exercises.brain;
+        const herb = herbs[catId] || herbs.brain;
+        const level = overall >= 70 ? 'good' : overall >= 45 ? 'fair' : 'low';
+        const insightText = ins[level];
+        return `
+        <!-- Insight Card -->
+        <div style="background:linear-gradient(135deg,var(--g4),#F9FEF9);border:1.5px solid rgba(42,122,90,.18);border-radius:var(--r);padding:1.3rem 1.5rem;margin-bottom:1rem">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:.5rem">💡 Your Insight</div>
+          <p style="font-size:.9rem;color:var(--t);line-height:1.65;margin:0">${insightText}</p>
+        </div>
+
+        <!-- Recommended Exercises -->
+        <div style="background:#fff;border:1.5px solid var(--b);border-radius:var(--r);padding:1.3rem 1.5rem;margin-bottom:1rem">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tq);margin-bottom:.75rem">🏃 Recommended Exercises</div>
+          <div style="display:flex;flex-direction:column;gap:.45rem">
+            ${exs.map(e => `<div style="display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--t);padding:.45rem .7rem;background:var(--bg);border-radius:var(--rs)">${e}</div>`).join('')}
+          </div>
+          <a href="exercises.html" style="display:inline-flex;align-items:center;gap:.3rem;margin-top:.8rem;font-size:.78rem;font-weight:600;color:var(--g);text-decoration:none">
+            View all exercises on Exercise Page →
+          </a>
+        </div>
+
+        <!-- Optional Herbal Support -->
+        <div style="background:linear-gradient(135deg,#FFFBF0,#fff);border:1.5px solid rgba(201,120,0,.18);border-radius:var(--r);padding:1.3rem 1.5rem;margin-bottom:1rem">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gd);margin-bottom:.5rem">🌿 Optional Herbal Support</div>
+          <div style="font-size:.78rem;color:var(--tq);margin-bottom:.6rem">For ${activeCat?.name || 'wellness'} &amp; clarity — informational only, not a treatment</div>
+          <div style="font-weight:700;font-size:.92rem;color:var(--t);margin-bottom:.4rem">${herb.product}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:.35rem">
+            ${herb.herbs.map(h => `<span style="background:var(--gd3);border:1px solid rgba(201,120,0,.2);border-radius:50px;padding:.2rem .65rem;font-size:.72rem;color:var(--gd);font-weight:600">${h}</span>`).join('')}
+          </div>
+        </div>
+
+        <!-- Recommended Next Step -->
+        <div style="background:linear-gradient(135deg,#EBF5F0,#fff);border:1.5px solid rgba(42,122,90,.2);border-radius:var(--r);padding:1.1rem 1.5rem;margin-bottom:1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+          <div style="font-size:1.6rem;flex-shrink:0">👉</div>
+          <div style="flex:1;min-width:160px">
+            <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:.2rem">Recommended Next Step</div>
+            <div style="font-size:.85rem;color:var(--t);line-height:1.5">${exs[0]} — <a href="exercises.html" style="color:var(--g);font-weight:600;text-decoration:none">open in Exercise Library →</a></div>
+          </div>
+        </div>`;
+      })()}` : ''}
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.9rem;margin-bottom:2.5rem" id="scoreGrid">
@@ -4884,7 +5034,7 @@ window.mod_fatigueDrift = function () {
     txt: 'Same as Reaction Speed — but we\'re watching if you <strong>slow down</strong> over 10 rounds. Tap <strong style="color:var(--g)">green</strong> instantly, ignore <strong style="color:var(--am)">red</strong>.',
     hint: '10 rounds · detects mental fatigue over time',
     voiceEN: "Fatigue Drift — just like reaction speed, but we're checking if your reaction slows down. Ten rounds. Tap green as fast as you can!",
-    btnLabel: 'Start Fatigue Test →',
+    btnLabel: 'Begin Fatigue Assessment →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.8rem;padding:.6rem">
       <div id="dFdBox" class="d3p" style="width:160px;height:58px;border-radius:16px;background:#fff;border:2.5px solid #D4E8DC;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:#6A8A6A;box-shadow:0 8px 24px rgba(42,120,90,.12);transition:all .25s">⏳ Wait…</div>
     </div>`,
@@ -4990,7 +5140,7 @@ window.mod_numberSequence = function () {
     txt: 'Numbers <strong>1 to 25</strong> are scattered on screen. Tap them <strong>in order</strong> — 1, then 2, then 3 … up to 25. As fast as you can!',
     hint: '25 numbers · 2 minutes · measures visual search speed',
     voiceEN: 'Number Sequence! Find and tap 1, 2, 3 all the way to 25 — in order, as fast as you can. Two minutes on the clock!',
-    btnLabel: 'Start Number Test →',
+    btnLabel: 'Begin Number Sequence Assessment →',
     vis: `<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:.5rem;max-width:260px;margin:0 auto">
       ${Array.from({length:10},(_,i)=>`<div style="background:#E8F5EE;border-radius:8px;padding:.4rem;text-align:center;font-weight:700;font-size:.85rem;color:#2A7A5A">${i+1}</div>`).join('')}
     </div>`
@@ -5182,7 +5332,7 @@ window.mod_goNoGo = function () {
     txt: '<strong style="color:var(--g)">Green circle → TAP IT!</strong><br><strong style="color:var(--am)">Red circle → DO NOT tap.</strong><br>Tests your impulse control.',
     hint: '20 quick trials · tests self-control',
     voiceEN: 'Go No-Go test! Green circle means tap it. Red circle means do NOT tap. Tests impulse control. Stay sharp!',
-    btnLabel: 'Start Go / No-Go →',
+    btnLabel: 'Begin Impulse Control Assessment →',
     vis: `<div style="display:flex;gap:1.5rem;justify-content:center;align-items:center;padding:1rem">
       <div style="width:60px;height:60px;border-radius:50%;background:#38A87A;box-shadow:0 0 20px rgba(42,120,90,.5);display:flex;align-items:center;justify-content:center;font-size:1.4rem">👆</div>
       <div style="width:60px;height:60px;border-radius:50%;background:#E88080;box-shadow:0 0 20px rgba(220,80,80,.5);display:flex;align-items:center;justify-content:center;font-size:1.4rem">✋</div>
@@ -5404,7 +5554,7 @@ window.mod_hydration = function () {
     txt: 'Answer 5 quick questions about your hydration habits. Dehydration affects mood, cognition and energy — even when mild.',
     hint: 'Takes under 60 seconds · be honest',
     voiceEN: 'Hydration check! Five quick questions about your water intake and related symptoms.',
-    btnLabel: 'Start Hydration Check →',
+    btnLabel: 'Begin Hydration Assessment →',
     vis: `<div style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;padding:.5rem">
       ${['💧','🚰','🟡','😴','🤕'].map(e=>`<div style="width:48px;height:48px;background:var(--g3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.5rem">${e}</div>`).join('')}
     </div>`
@@ -5471,7 +5621,7 @@ window.mod_circadian = function () {
     txt: 'Discover if you are a <strong>Morning Lark</strong>, <strong>Night Owl</strong> or <strong>Intermediate</strong>. This shapes optimal sleep and focus times.',
     hint: '5 questions · personalises your sleep advice',
     voiceEN: 'Circadian rhythm check! Five questions to find out if you are a morning person, night owl, or somewhere in between.',
-    btnLabel: 'Start Circadian Check →',
+    btnLabel: 'Begin Circadian Rhythm Assessment →',
     vis: `<div style="display:flex;gap:1rem;justify-content:center;padding:.5rem">
       <div style="text-align:center"><div style="font-size:2rem">🌅</div><div style="font-size:.65rem;color:var(--tq);font-weight:700;margin-top:.3rem">MORNING</div></div>
       <div style="text-align:center;opacity:.5"><div style="font-size:2rem">☀️</div><div style="font-size:.65rem;color:var(--tq);font-weight:700;margin-top:.3rem">MIDDLE</div></div>
@@ -5548,7 +5698,7 @@ window.mod_multitask = function () {
     txt: 'Two things at once: <strong>tap green circles</strong> AND <strong>keep a count in your head</strong> — you\'ll be asked to report it at the end.',
     hint: '12 stimuli · tests divided attention',
     voiceEN: 'Multitask test! Tap every green circle AND count how many times you see a star. You will report the star count at the end!',
-    btnLabel: 'Start Multitask Test →',
+    btnLabel: 'Begin Multitasking Assessment →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.7rem;padding:.5rem">
       <div style="width:60px;height:60px;border-radius:50%;background:#38A87A;display:flex;align-items:center;justify-content:center;font-size:1.5rem">👆</div>
       <div style="font-size:.75rem;color:var(--tq);font-weight:700">TAP GREEN</div>
@@ -5729,7 +5879,7 @@ window.mod_decisionSpeed = function () {
     txt: 'Two options appear. Tap the <strong>correct answer</strong> as fast as you can. Simple questions — speed matters!',
     hint: '10 questions · decision processing speed',
     voiceEN: 'Decision Speed! Two words appear — tap the correct answer instantly. Speed and accuracy both count!',
-    btnLabel: 'Start Decision Test →',
+    btnLabel: 'Begin Decision Speed Assessment →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:.5rem">
       <div style="font-size:.8rem;font-weight:700;color:var(--tq)">Which is larger?</div>
       <div style="display:flex;gap:.8rem">
@@ -6734,7 +6884,7 @@ window.mod_heartRate = function () {
     title: '❤️ Heart Rate Check',
     txt: 'Find your pulse on your <strong>wrist</strong> (two fingers below thumb) or on your <strong>neck</strong> beside the windpipe. Tap the button <strong>once for each beat</strong> you feel for 30 seconds.',
     hint: '30 seconds · tap with every heartbeat',
-    btnLabel: 'Start Heart Rate Test →',
+    btnLabel: 'Begin Cardiovascular Assessment →',
     voiceEN: 'Heart rate check. Find your pulse on your wrist or neck. Tap the big button once for each heartbeat for thirty seconds. Ready?',
   }, function () {
     let elapsed = 0, rem = 30;
@@ -6873,7 +7023,7 @@ window.mod_gutHealth = function () {
     title: '🍽 Gut Health Check',
     txt: '5 quick questions about your digestive comfort over the <strong>past month</strong>. No right or wrong answers — just pick what fits best.',
     hint: '5 questions · ~2 min · tap to answer',
-    btnLabel: 'Start Gut Check →',
+    btnLabel: 'Begin Digestive Health Assessment →',
     voiceEN: 'Gut health check. Five quick questions about your digestion over the past month. Tap the answer that best describes you.',
   }, function () { renderQ(0); });
 
@@ -7144,7 +7294,7 @@ window.mod_postureBalance = function() {
     txt: 'Hold your phone <strong>flat and still</strong> for 15 seconds. The phone measures micro-movements to assess your postural stability and hand tremor.',
     hint: '📱 Stability · 3 of 3 · requires device motion sensor',
     voiceEN: "Posture Balance Test. Hold your phone flat and completely still for 15 seconds. We will measure how steady you are.",
-    btnLabel: 'Start Balance Test →',
+    btnLabel: 'Begin Balance & Coordination Assessment →',
     vis: `<div style="text-align:center;padding:.4rem">
       <div style="width:70px;height:70px;background:linear-gradient(135deg,var(--g),#059669);border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:2rem;box-shadow:0 0 0 10px rgba(42,122,90,.12)" id="pbDemoDisc">📱</div>
       <div style="font-size:.68rem;color:var(--tq);margin-top:.5rem">hold flat · stay still</div>
@@ -7308,306 +7458,270 @@ window.mod_postureBalance = function() {
 };
 
 /* ══════════════════════════════════════════════════════════════
-   mod_emotionalStress — Emotional Stress Response Test
-   Category: Stress · measures stress sensitivity via reaction time
-   to emotionally-charged words vs neutral words
+   mod_handSpeed — Hand Speed / Motor Alertness Test
+   Category: Energy · measures motor response and alertness via tapping
    ══════════════════════════════════════════════════════════════ */
-window.mod_emotionalStress = function() {
+window.mod_handSpeed = function () {
+  'use strict';
+  const DURATION = 10; // 10 seconds
+  let _taps = 0, _timer = null, _remaining = DURATION, _active = false;
+
   LAB.showDemo({
-    title: '😮 Emotional Stress Response',
-    txt: 'Words will flash on screen. Tap <strong style="color:#2A7A5A">green</strong> when you see a positive or neutral word, <strong style="color:#C0392B">red</strong> to ignore stress-related words. Your reaction delay reveals emotional sensitivity.',
-    hint: 'Stress · 5 of 5 · measures emotional reactivity',
-    voiceEN: "Emotional Stress Response. Words will flash one at a time. Tap green for positive or neutral words, red for stressful words. React as fast as you can!",
-    btnLabel: 'Start Emotional Test →',
-    vis: `<div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;max-width:220px;margin:0 auto">
-      ${[['CALM','#2A7A5A'],['STRESS','#C0392B'],['HAPPY','#2A7A5A'],['WORRY','#C0392B']].map(([w,c])=>`<div style="background:${c}18;border:1.5px solid ${c}44;border-radius:8px;padding:.4rem;text-align:center;font-weight:700;font-size:.75rem;color:${c}">${w}</div>`).join('')}
-    </div>`
+    title: '⚡ Hand Speed Test',
+    txt: 'Tap the button as many times as you can in <strong>10 seconds</strong>. This measures your motor alertness and hand response speed.',
+    hint: 'Energy · quick · measures motor alertness',
+    voiceEN: 'Hand Speed Test. Tap the big green button as fast as you can for ten seconds. Ready? Start when you tap!',
+    btnLabel: 'Begin Hand Speed Assessment →',
+    vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.6rem">
+      <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--g2));display:flex;align-items:center;justify-content:center;font-size:2rem;box-shadow:0 6px 20px rgba(42,122,90,.3);animation:pulse3d 1s ease-in-out infinite">👋</div>
+      <div style="font-size:.75rem;color:var(--tq)">Tap as fast as you can!</div>
+    </div>`,
+    anim(vis) { return null; }
   }, () => {
-    const POSITIVE = ['CALM','HAPPY','PEACE','SAFE','JOY','RELAX','LOVE','BRIGHT','WARM','KIND','FREE','HOPE','SMILE','TRUST','GENTLE'];
-    const STRESS   = ['PANIC','THREAT','DANGER','FEAR','WORRY','PAIN','TENSE','DREAD','ALARM','RUSH','CRASH','FAIL','ANGRY','HURT','TRAP'];
-    const NEUTRAL  = ['TABLE','CLOCK','PAPER','WINDOW','CARPET','SHELF','BRIDGE','RIVER','STONE','CLOUD','PLANT','CHAIR','PENCIL','LAMP','DOOR'];
 
-    const shuffle = a => { const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; };
+    function _render(started) {
+      LAB.render(`
+      <div class="mwrap"><div class="card card--pop" style="text-align:center">
+        <div class="tag" style="margin-bottom:.8rem">⚡ Hand Speed · Energy Lab</div>
+        <h2 class="h2" style="margin-bottom:.3rem">Tap as fast as you can!</h2>
+        <p class="pg" style="margin-bottom:1.2rem;font-size:.82rem">Keep tapping the button for 10 seconds</p>
 
-    // Build 18-word sequence: 6 stress, 6 positive, 6 neutral — shuffled
-    const seq = shuffle([
-      ...shuffle(STRESS).slice(0,6).map(w=>({w, type:'stress', correct:'no-go'})),
-      ...shuffle(POSITIVE).slice(0,6).map(w=>({w, type:'positive', correct:'tap'})),
-      ...shuffle(NEUTRAL).slice(0,6).map(w=>({w, type:'neutral', correct:'tap'}))
-    ]);
+        <div style="font-family:'JetBrains Mono',monospace;font-size:3rem;font-weight:700;color:var(--g);margin-bottom:.4rem" id="hsCount">0</div>
+        <div style="font-size:.75rem;color:var(--tq);margin-bottom:1.2rem">taps</div>
 
-    let idx = 0;
-    const tapTimes = { stress:[], other:[] }; // stress = suppression delay, other = tap speed
-    let wordStart = 0, responded = false;
-    const falseAlarms = []; // tapped stress words
+        <div style="font-family:'JetBrains Mono',monospace;font-size:1.2rem;color:${started?'var(--g)':'var(--tq)'};margin-bottom:1.4rem" id="hsTimer">${started ? DURATION + 's' : 'Ready'}</div>
 
-    function showWord() {
-      if (idx >= seq.length) { finish(); return; }
-      const { w, type, correct } = seq[idx];
-      responded = false;
-      const isStress = type === 'stress';
-      const col = isStress ? '#C0392B' : type === 'positive' ? '#2A7A5A' : '#2563EB';
-      const bg  = isStress ? '#FFF0EE' : type === 'positive' ? '#E8F5EE' : '#EEF4FF';
-
-      LAB.render(`<div class="mwrap"><div class="card card--pop" style="border-color:${col}33;background:${bg}">
-        <div class="step-head">
-          <div class="tag" style="background:${col}18;border-color:${col}44;color:${col}">😮 Stress Response · ${idx+1} of ${seq.length}</div>
-          <div style="text-align:center;padding:2rem 0">
-            <div id="emWord" style="font-size:clamp(1.8rem,7vw,2.8rem);font-weight:900;letter-spacing:.05em;color:${col};font-family:'JetBrains Mono',monospace;transition:opacity .2s">${w}</div>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.5rem">
-          <button id="emTapBtn" onclick="window._emRespond('tap')"
-            style="background:#E8F5EE;border:2px solid #2A7A5A;border-radius:var(--rs);padding:1rem;
-                   font-weight:700;font-size:1rem;color:#2A7A5A;cursor:pointer;transition:.15s"
-            onmousedown="this.style.transform='scale(.96)'" onmouseup="this.style.transform=''">
-            ✅ TAP
-          </button>
-          <button id="emSkipBtn" onclick="window._emRespond('no-go')"
-            style="background:#FFF0EE;border:2px solid #C0392B;border-radius:var(--rs);padding:1rem;
-                   font-weight:700;font-size:1rem;color:#C0392B;cursor:pointer;transition:.15s"
-            onmousedown="this.style.transform='scale(.96)'" onmouseup="this.style.transform=''">
-            🚫 SKIP
-          </button>
-        </div>
-        <p style="text-align:center;font-size:.68rem;color:var(--tq);margin-top:.7rem">
-          Tap ✅ for neutral/positive · Skip 🚫 for stressful words
-        </p>
+        <button id="hsTapBtn"
+          style="width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--g2));
+                 border:none;cursor:pointer;font-size:3rem;box-shadow:0 8px 28px rgba(42,122,90,.35);
+                 transition:transform .07s,box-shadow .07s;-webkit-tap-highlight-color:transparent;
+                 display:flex;align-items:center;justify-content:center;margin:0 auto"
+          onclick="window._hsTap()"
+          onmousedown="this.style.transform='scale(.93)';this.style.boxShadow='0 3px 12px rgba(42,122,90,.2)'"
+          onmouseup="this.style.transform='scale(1)';this.style.boxShadow='0 8px 28px rgba(42,122,90,.35)'"
+          ontouchstart="this.style.transform='scale(.93)'" ontouchend="this.style.transform='scale(1)'">
+          👋
+        </button>
+        <p style="font-size:.7rem;color:var(--tq);margin-top:1rem">Tap starts the timer automatically</p>
       </div></div>`);
-      wordStart = performance.now();
-
-      // Auto-advance if no response in 2.5s
-      window._emAutoTimer = setTimeout(() => {
-        if (!responded) window._emRespond(null);
-      }, 2500);
     }
 
-    window._emRespond = function(action) {
-      if (responded) return;
-      responded = true;
-      clearTimeout(window._emAutoTimer);
-      const rt = performance.now() - wordStart;
-      const item = seq[idx];
+    _render(false);
 
-      if (item.type === 'stress') {
-        tapTimes.stress.push(rt);
-        if (action === 'tap') falseAlarms.push(item.w); // tapped a stress word
-      } else {
-        if (action === 'tap') tapTimes.other.push(rt);
+    window._hsTap = function() {
+      if (!_active) {
+        // First tap starts the test
+        _active = true;
+        _taps = 0;
+        _remaining = DURATION;
+        _timer = setInterval(() => {
+          _remaining--;
+          const timerEl = document.getElementById('hsTimer');
+          if (timerEl) {
+            timerEl.textContent = _remaining + 's';
+            timerEl.style.color = _remaining <= 3 ? 'var(--rd)' : 'var(--g)';
+          }
+          if (_remaining <= 0) {
+            clearInterval(_timer);
+            _active = false;
+            window._hsTap = null;
+            _showResult();
+          }
+        }, 1000);
       }
-      idx++;
-      setTimeout(showWord, 300);
+      if (_active || _remaining === DURATION) {
+        _taps++;
+        const countEl = document.getElementById('hsCount');
+        if (countEl) {
+          countEl.textContent = _taps;
+          countEl.style.transform = 'scale(1.2)';
+          setTimeout(() => { if (countEl) countEl.style.transform = 'scale(1)'; }, 80);
+        }
+      }
     };
 
-    function finish() {
-      // Calculate scores:
-      // 1. Inhibition accuracy: how well they avoided stress words
-      const inhibAcc = Math.max(0, 100 - (falseAlarms.length / 6) * 100);
-      // 2. Mean RT for positive/neutral (lower = less anxious)
-      const avgRT = tapTimes.other.length ? tapTimes.other.reduce((a,b)=>a+b,0)/tapTimes.other.length : 800;
-      const rtScore = Math.max(20, Math.min(100, Math.round(140 - (avgRT / 10))));
-      // 3. Stress word RT (longer hold time = more processing = possible stress sensitivity)
-      const avgStressRT = tapTimes.stress.length ? tapTimes.stress.reduce((a,b)=>a+b,0)/tapTimes.stress.length : 800;
-      const stressRTScore = Math.max(20, Math.min(100, Math.round(140 - (avgStressRT/10))));
+    function _showResult() {
+      const tapsPerSec = (_taps / DURATION).toFixed(1);
+      const level = _taps >= 70 ? 'Excellent' : _taps >= 55 ? 'Good' : _taps >= 40 ? 'Average' : 'Keep Practising';
+      const col   = _taps >= 70 ? 'var(--ok)' : _taps >= 55 ? 'var(--g)' : _taps >= 40 ? 'var(--am)' : 'var(--rd)';
+      const score = Math.min(100, Math.round((_taps / 80) * 100));
+      LAB.raw.handTaps = _taps;
+      LAB.raw.handSpeedScore = score;
 
-      const combined = Math.round((inhibAcc * 0.5) + (rtScore * 0.3) + (stressRTScore * 0.2));
+      // Save to history
+      if (typeof LAB._saveToHistory === 'function') LAB._saveToHistory('Hand Speed', _taps, 'taps');
 
-      LAB.raw.emotionalStressScore = combined;
-      LAB.raw.emotionalInhibAcc = Math.round(inhibAcc);
-      LAB.raw.emotionalFalseAlarms = falseAlarms.length;
-      LAB.raw.emotionalAvgRT = Math.round(avgRT);
+      LAB.render(`
+      <div class="mwrap"><div class="card card--pop">
+        <div class="tag" style="margin-bottom:.8rem">⚡ Hand Speed Result</div>
+        <h2 class="h2" style="margin-bottom:1.2rem">Your Result</h2>
 
-      // Merge into stress domain
-      const stressCmps = [LAB.raw.mathScore, LAB.raw.patternScore, LAB.raw.goNoGoScore, LAB.raw.stressRecoveryScore, combined].filter(x=>x!=null);
-      if (stressCmps.length) LAB.scores.stress = Math.round(LAB.avg(stressCmps));
-
-      const lbl = combined >= 75 ? 'Low Stress Sensitivity' : combined >= 55 ? 'Moderate Sensitivity' : 'High Stress Sensitivity';
-      const col = combined >= 75 ? '#2A7A5A' : combined >= 55 ? '#C97010' : '#C0392B';
-
-      LAB.render(`<div class="mwrap"><div class="card card--pop" style="text-align:center">
-        <div class="tag" style="background:${col}18;color:${col};border-color:${col}44">😮 Emotional Stress · Result</div>
-        <h2 class="h2" style="margin-top:.75rem">Stress Sensitivity: <span style="color:${col}">${combined}</span></h2>
-        <p class="pg">${lbl}</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:.9rem 0;max-width:320px;margin:.9rem auto">
-          <div style="background:var(--g4);border:1px solid var(--g2);border-radius:10px;padding:.75rem;text-align:center">
-            <div style="font-size:1.4rem;font-weight:800;color:var(--g)">${Math.round(inhibAcc)}%</div>
-            <div style="font-size:.65rem;color:var(--tq)">Stress Word Accuracy</div>
+        <div style="display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:1.4rem">
+          <div style="background:var(--bg);border:1.5px solid var(--b);border-radius:var(--r);padding:1rem 1.3rem;text-align:center;flex:1;min-width:100px">
+            <div style="font-size:.6rem;color:var(--tq);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem">Total Taps</div>
+            <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:${col};line-height:1">${_taps}</div>
+            <div style="font-size:.68rem;color:var(--tq);margin-top:.2rem">in 10 seconds</div>
           </div>
-          <div style="background:${falseAlarms.length>2?'#FFF0EE':'var(--g4)'};border:1px solid ${falseAlarms.length>2?'#C0392B33':'var(--g2)'};border-radius:10px;padding:.75rem;text-align:center">
-            <div style="font-size:1.4rem;font-weight:800;color:${falseAlarms.length>2?'#C0392B':'var(--g)'}">${falseAlarms.length}</div>
-            <div style="font-size:.65rem;color:var(--tq)">False Taps</div>
+          <div style="background:var(--bg);border:1.5px solid var(--b);border-radius:var(--r);padding:1rem 1.3rem;text-align:center;flex:1;min-width:100px">
+            <div style="font-size:.6rem;color:var(--tq);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem">Speed</div>
+            <div style="font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:${col};line-height:1">${tapsPerSec}</div>
+            <div style="font-size:.68rem;color:var(--tq);margin-top:.2rem">taps per second</div>
           </div>
         </div>
-        ${falseAlarms.length > 2 ? `<div style="background:#FFF8E1;border:1px solid #FBC02D;border-radius:10px;padding:.75rem;font-size:.8rem;color:#5D3A00;max-width:340px;margin:0 auto .8rem">
-          💡 Tapping stress words suggests higher emotional reactivity. Mindfulness practice can improve inhibitory control.
-        </div>` : ''}
-        <button class="btn btn--p" style="margin-top:1rem" onclick="LAB.idx++;LAB.next()">Continue →</button>
+
+        <div style="background:${col}18;border:1.5px solid ${col}44;border-radius:var(--rs);padding:.85rem 1rem;margin-bottom:1.2rem;text-align:center">
+          <div style="font-size:.6rem;color:var(--tq);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.25rem">Your Performance</div>
+          <div style="font-size:1.4rem;font-weight:700;color:${col}">${level}</div>
+        </div>
+
+        <div style="background:var(--bg);border:1px solid var(--b);border-radius:var(--rs);padding:.85rem 1rem;margin-bottom:1.2rem;font-size:.8rem">
+          <div style="font-weight:700;color:var(--t);margin-bottom:.4rem">Typical Range</div>
+          <div style="display:flex;flex-direction:column;gap:.2rem;color:var(--tm)">
+            <div>🏆 Excellent: <strong>70+ taps</strong></div>
+            <div>✅ Good: <strong>55–69 taps</strong></div>
+            <div>🔶 Average: <strong>40–54 taps</strong></div>
+          </div>
+        </div>
+
+        <div style="background:linear-gradient(135deg,var(--g4),#F9FEF9);border:1.5px solid rgba(42,122,90,.18);border-radius:var(--rs);padding:1rem;margin-bottom:1rem">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:.4rem">💡 Insight</div>
+          <p style="font-size:.85rem;color:var(--t);line-height:1.6;margin:0">
+            ${_taps >= 55
+              ? 'Your hand speed and motor alertness are good! This reflects healthy neural signal speed. Stay active and well-rested to maintain it.'
+              : 'Hand speed responds well to practice. Regular finger exercises, adequate sleep, and hydration all improve motor response.'}
+          </p>
+        </div>
+
+        <div class="btn-row" style="justify-content:center">
+          <button class="btn btn--p" onclick="LAB.idx++;LAB.next()">Continue →</button>
+        </div>
       </div></div>`);
     }
-
-    showWord();
   });
 };
 
 /* ══════════════════════════════════════════════════════════════
-   mod_cogFlex — Cognitive Flexibility Test
-   Category: Brain · measures mental adaptability / task-switching
-   Based on: Color-Shape sorting with rule switches mid-test
+   mod_energyCheck — Energy Level Self-Check
+   Category: Energy · quick slider + suggestions
    ══════════════════════════════════════════════════════════════ */
-window.mod_cogFlex = function() {
+window.mod_energyCheck = function () {
+  'use strict';
+
   LAB.showDemo({
-    title: '🔄 Cognitive Flexibility',
-    txt: 'Sort shapes by <strong>colour</strong> then by <strong>shape</strong> — the rules <em>switch without warning</em>. How quickly you adapt reveals mental flexibility.',
-    hint: '🧠 Brain · 11 of 11 · measures rule-switching speed',
-    voiceEN: "Cognitive Flexibility! Sort shapes using the rule shown at the top. The rule will switch mid-test — adapt as fast as you can!",
-    btnLabel: 'Begin Flexibility Test →',
-    vis: `<div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;max-width:200px;margin:0 auto">
-      ${[['#E74C3C','●'],['#3498DB','■'],['#E74C3C','■'],['#3498DB','●']].map(([c,s])=>`<div style="width:44px;height:44px;background:${c}22;border:2px solid ${c}55;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:${c}">${s}</div>`).join('')}
-    </div>`
+    title: '⚡ Energy Level Check',
+    txt: 'A quick self-check on how energetic you feel today. Answer 3 simple sliders — get instant personalised suggestions.',
+    hint: 'Energy · ~1 min · self-assessment',
+    voiceEN: 'Energy Level Check. Rate how you feel today on three simple scales — energy, mood, and mental sharpness. I will give you personalised suggestions.',
+    btnLabel: 'Begin Energy Level Assessment →',
+    vis: `<div style="display:flex;flex-direction:column;gap:.5rem;max-width:200px;margin:0 auto">
+      ${[['⚡ Energy','Low','High'],['😊 Mood','Low','High'],['🧠 Sharpness','Foggy','Clear']].map(([l,lo,hi])=>`
+        <div style="background:var(--g3);border-radius:8px;padding:.5rem .7rem">
+          <div style="font-size:.7rem;font-weight:700;color:var(--t);margin-bottom:.25rem">${l}</div>
+          <div style="height:4px;background:linear-gradient(90deg,var(--rd),var(--g));border-radius:2px"></div>
+          <div style="display:flex;justify-content:space-between;font-size:.58rem;color:var(--tq);margin-top:.15rem"><span>${lo}</span><span>${hi}</span></div>
+        </div>`).join('')}
+    </div>`,
+    anim(vis) { return null; }
   }, () => {
-    const SHAPES = ['●', '■', '▲'];
-    const COLORS_MAP = { red:'#E74C3C', blue:'#3498DB', green:'#2A7A5A' };
-    const COLORS = ['red','blue','green'];
 
-    // Generate 24 stimuli: alternating blocks of 6 with rule switches
-    const rules = ['color','shape','color','shape']; // 4 blocks × 6 = 24 trials
-    let trialIdx = 0;
-    let ruleIdx = 0;
-    let currentRule = rules[0];
-    let trialsInBlock = 0;
-    const BLOCK_SIZE = 6;
-    const TOTAL_TRIALS = rules.length * BLOCK_SIZE;
+    let _vals = { energy: 5, mood: 5, sharpness: 5 };
 
-    let correct = 0, errors = 0, switchErrors = 0;
-    const rts = [];
-    let trialStart = 0;
-    let justSwitched = false;
-    let awaitingResponse = false;
+    LAB.render(`
+    <div class="mwrap"><div class="card card--pop">
+      <div class="tag" style="margin-bottom:.8rem">⚡ Energy Lab</div>
+      <h2 class="h2" style="margin-bottom:.3rem">How do you feel today?</h2>
+      <p class="pg" style="font-size:.82rem;margin-bottom:1.5rem">Move each slider honestly — no right or wrong answer</p>
 
-    // Generate a stimulus
-    function mkStim() {
-      const shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
-      const color = COLORS[Math.floor(Math.random() * COLORS.length)];
-      return { shape, color, col: COLORS_MAP[color] };
-    }
-
-    function showTrial() {
-      if (trialIdx >= TOTAL_TRIALS) { finish(); return; }
-      // Rule switch?
-      if (trialsInBlock >= BLOCK_SIZE) {
-        ruleIdx++;
-        currentRule = rules[ruleIdx] || 'color';
-        trialsInBlock = 0;
-        justSwitched = true;
-      } else { justSwitched = false; }
-
-      const stim = mkStim();
-      // Correct answer depends on rule
-      let correctGroup, wrongGroup;
-      if (currentRule === 'color') {
-        correctGroup = stim.color; // sort by colour: red=left, other=right
-      } else {
-        correctGroup = stim.shape === '●' ? 'circle' : stim.shape === '■' ? 'square' : 'triangle';
-      }
-      // Build LEFT and RIGHT options
-      const ruleLabel = currentRule === 'color' ? '🎨 Sort by COLOUR' : '🔷 Sort by SHAPE';
-      const leftLabel = currentRule === 'color' ? '🔴 Red' : '● Circle';
-      const rightLabel = currentRule === 'color' ? '🔵 Other' : '■▲ Other';
-      const correctSide = currentRule === 'color'
-        ? (stim.color === 'red' ? 'left' : 'right')
-        : (stim.shape === '●' ? 'left' : 'right');
-
-      awaitingResponse = true;
-      LAB.render(`<div class="mwrap"><div class="card card--pop">
-        <div class="step-head">
-          <div class="tag" style="background:${justSwitched?'#FFF4E6':'var(--g3)'};border-color:${justSwitched?'rgba(201,120,0,.35)':'var(--g2)'};color:${justSwitched?'#C97010':'var(--g)'};font-size:.68rem">
-            ${justSwitched ? '⚠ RULE SWITCHED! ' : ''}${ruleLabel} · ${trialIdx+1} / ${TOTAL_TRIALS}
+      ${[
+        {id:'slEnergy',   icon:'⚡', label:'Energy Level',   lo:'Very Low',  hi:'Very High'},
+        {id:'slMood',     icon:'😊', label:'Mood & Calm',    lo:'Low / Anxious', hi:'Calm & Positive'},
+        {id:'slSharpness',icon:'🧠', label:'Mental Sharpness',lo:'Foggy',    hi:'Clear & Sharp'},
+      ].map(s => `
+        <div style="margin-bottom:1.3rem">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+            <span style="font-weight:700;font-size:.88rem;color:var(--t)">${s.icon} ${s.label}</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--g);font-weight:700" id="${s.id}Val">5</span>
           </div>
-          <div style="text-align:center;padding:1.5rem 0">
-            <div style="font-size:5rem;color:${stim.col};line-height:1;filter:drop-shadow(0 4px 12px ${stim.col}44)">${stim.shape}</div>
+          <input type="range" min="1" max="10" value="5" class="rng" id="${s.id}"
+            oninput="document.getElementById('${s.id}Val').textContent=this.value;window._ecVals['${s.id}']=+this.value">
+          <div style="display:flex;justify-content:space-between;font-size:.62rem;color:var(--tq);margin-top:.2rem">
+            <span>${s.lo}</span><span>${s.hi}</span>
+          </div>
+        </div>`).join('')}
+
+      <button class="btn btn--p btn--full btn--lg" style="margin-top:.5rem" onclick="window._ecSubmit()">
+        See My Energy Insights →
+      </button>
+    </div></div>`);
+
+    window._ecVals = { slEnergy: 5, slMood: 5, slSharpness: 5 };
+
+    window._ecSubmit = function() {
+      const energy    = window._ecVals.slEnergy;
+      const mood      = window._ecVals.slMood;
+      const sharpness = window._ecVals.slSharpness;
+      const avg       = Math.round((energy + mood + sharpness) / 3);
+      const score     = Math.round((avg / 10) * 100);
+
+      LAB.raw.energyLevel    = energy;
+      LAB.raw.energyMood     = mood;
+      LAB.raw.energySharpness= sharpness;
+      LAB.raw.energyScore    = score;
+
+      // Save to history
+      if (typeof LAB._saveToHistory === 'function') LAB._saveToHistory('Energy Score', score, '%');
+
+      const level = avg >= 7 ? 'High' : avg >= 4 ? 'Moderate' : 'Low';
+      const col   = avg >= 7 ? 'var(--ok)' : avg >= 4 ? 'var(--am)' : 'var(--rd)';
+
+      const suggestions = avg >= 7
+        ? ['Maintain your routine — it\'s working well', 'Light exercise will keep your energy peak', 'Stay hydrated to sustain mental clarity']
+        : avg >= 4
+        ? ['Take a short 10-min walk for an energy lift', 'Try a glass of warm water with lemon', 'A 5-min breathing exercise can refresh the mind']
+        : ['Rest and don\'t push hard today', 'Check your sleep — poor sleep is the top cause', 'Gentle stretching and warm ginger tea can help'];
+
+      const herbs = avg >= 7
+        ? { name: 'Vitality Blend', list: ['Ashwagandha', 'Shatavari', 'Amalaki'] }
+        : avg >= 4
+        ? { name: 'Energy Plus', list: ['Ashwagandha', 'Shilajit', 'Ginseng'] }
+        : { name: 'Restoration Blend', list: ['Shatavari', 'Brahmi', 'Tulsi'] };
+
+      LAB.render(`
+      <div class="mwrap"><div class="card card--pop">
+        <div class="tag" style="margin-bottom:.8rem">⚡ Energy Result</div>
+        <h2 class="h2" style="margin-bottom:1.2rem">Your Energy Today</h2>
+
+        <div style="display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:1.3rem">
+          ${[['⚡','Energy',energy],['😊','Mood',mood],['🧠','Sharpness',sharpness]].map(([ico,lbl,val])=>`
+            <div style="flex:1;min-width:80px;background:var(--bg);border:1.5px solid var(--b);border-radius:var(--rs);padding:.8rem;text-align:center">
+              <div style="font-size:.6rem;color:var(--tq);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.25rem">${ico} ${lbl}</div>
+              <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:${val>=7?'var(--ok)':val>=4?'var(--am)':'var(--rd)'}">${val}<span style="font-size:.9rem">/10</span></div>
+            </div>`).join('')}
+        </div>
+
+        <div style="background:${col}18;border:1.5px solid ${col}44;border-radius:var(--rs);padding:.85rem 1rem;margin-bottom:1.2rem;text-align:center">
+          <div style="font-size:.6rem;color:var(--tq);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.2rem">Overall Energy Level</div>
+          <div style="font-size:1.5rem;font-weight:700;color:${col}">${level}</div>
+        </div>
+
+        <div style="background:linear-gradient(135deg,var(--g4),#F9FEF9);border:1.5px solid rgba(42,122,90,.18);border-radius:var(--rs);padding:1rem;margin-bottom:1rem">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:.55rem">💡 Suggestions For You</div>
+          ${suggestions.map(s=>`<div style="display:flex;align-items:flex-start;gap:.5rem;font-size:.83rem;color:var(--t);margin-bottom:.35rem"><span style="color:var(--g);flex-shrink:0">✦</span>${s}</div>`).join('')}
+        </div>
+
+        <div style="background:linear-gradient(135deg,#FFFBF0,#fff);border:1.5px solid rgba(201,120,0,.18);border-radius:var(--rs);padding:1rem;margin-bottom:1rem">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gd);margin-bottom:.4rem">🌿 Optional Herbal Support</div>
+          <div style="font-weight:700;font-size:.88rem;color:var(--t);margin-bottom:.35rem">${herbs.name}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:.3rem">
+            ${herbs.list.map(h=>`<span style="background:var(--gd3);border:1px solid rgba(201,120,0,.2);border-radius:50px;padding:.18rem .6rem;font-size:.7rem;color:var(--gd);font-weight:600">${h}</span>`).join('')}
           </div>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.5rem">
-          <button onclick="window._cfTap('left','${correctSide}')"
-            style="background:#FFF0EE;border:2.5px solid #E74C3C44;border-radius:var(--rs);padding:1rem .5rem;
-                   font-weight:700;font-size:1.1rem;color:#E74C3C;cursor:pointer;transition:.15s;min-height:60px"
-            onmousedown="this.style.transform='scale(.96)'" onmouseup="this.style.transform=''">
-            ${leftLabel}
-          </button>
-          <button onclick="window._cfTap('right','${correctSide}')"
-            style="background:#EEF4FF;border:2.5px solid #3498DB44;border-radius:var(--rs);padding:1rem .5rem;
-                   font-weight:700;font-size:1.1rem;color:#3498DB;cursor:pointer;transition:.15s;min-height:60px"
-            onmousedown="this.style.transform='scale(.96)'" onmouseup="this.style.transform=''">
-            ${rightLabel}
-          </button>
-        </div>
-        <div style="display:flex;gap:3px;justify-content:center;margin-top:.8rem">
-          ${Array.from({length:TOTAL_TRIALS},(_,i)=>`<div style="width:${100/TOTAL_TRIALS-0.5}%;height:4px;border-radius:2px;background:${i<trialIdx?'var(--ok)':i===trialIdx?'var(--g)':'var(--b)'}"></div>`).join('')}
+
+        <div class="btn-row" style="justify-content:center">
+          <button class="btn btn--p" onclick="LAB.idx++;LAB.next()">Continue →</button>
         </div>
       </div></div>`);
-      trialStart = performance.now();
-    }
-
-    window._cfTap = function(side, correctSide) {
-      if (!awaitingResponse) return;
-      awaitingResponse = false;
-      const rt = performance.now() - trialStart;
-      rts.push(rt);
-      if (side === correctSide) {
-        correct++;
-      } else {
-        errors++;
-        if (justSwitched) switchErrors++;
-      }
-      trialIdx++;
-      trialsInBlock++;
-      setTimeout(showTrial, 220);
     };
-
-    function finish() {
-      const accuracy = Math.round((correct / TOTAL_TRIALS) * 100);
-      const avgRT = rts.length ? rts.reduce((a,b)=>a+b,0)/rts.length : 800;
-      const rtScore = Math.max(20, Math.min(100, Math.round(130 - (avgRT/10))));
-      const flexScore = Math.round((accuracy * 0.6) + (rtScore * 0.4));
-
-      LAB.raw.cogFlexScore = flexScore;
-      LAB.raw.cogFlexAccuracy = accuracy;
-      LAB.raw.cogFlexSwitchErrors = switchErrors;
-      LAB.raw.cogFlexAvgRT = Math.round(avgRT);
-
-      // Merge into cognitive domain
-      const cogCmps = [LAB.raw.rxScore, LAB.raw.memScore, LAB.raw.attScore, LAB.raw.wordRecallScore, LAB.raw.mathScore, LAB.raw.numberSeqScore, LAB.raw.goNoGoScore, LAB.raw.multitaskScore, LAB.raw.decisionScore, flexScore].filter(x=>x!=null);
-      if (cogCmps.length) LAB.scores.cognitive = Math.round(LAB.avg(cogCmps));
-
-      const lbl = flexScore >= 80 ? 'High Flexibility' : flexScore >= 60 ? 'Good Flexibility' : flexScore >= 40 ? 'Moderate Rigidity' : 'Low Flexibility';
-      const col = flexScore >= 80 ? '#2A7A5A' : flexScore >= 60 ? '#059669' : flexScore >= 40 ? '#C97010' : '#C0392B';
-
-      LAB.render(`<div class="mwrap"><div class="card card--pop" style="text-align:center">
-        <div class="tag" style="background:${col}18;color:${col};border-color:${col}44">🔄 Cognitive Flex · Result</div>
-        <h2 class="h2" style="margin-top:.75rem">Flexibility Score: <span style="color:${col}">${flexScore}</span></h2>
-        <p class="pg">${lbl}</p>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:.9rem auto;max-width:320px">
-          <div style="background:var(--g4);border:1px solid var(--g2);border-radius:10px;padding:.7rem;text-align:center">
-            <div style="font-size:1.3rem;font-weight:800;color:var(--g)">${accuracy}%</div>
-            <div style="font-size:.62rem;color:var(--tq)">Accuracy</div>
-          </div>
-          <div style="background:var(--g4);border:1px solid var(--g2);border-radius:10px;padding:.7rem;text-align:center">
-            <div style="font-size:1.3rem;font-weight:800;color:var(--g)">${Math.round(avgRT)}ms</div>
-            <div style="font-size:.62rem;color:var(--tq)">Avg Response</div>
-          </div>
-          <div style="background:${switchErrors>2?'#FFF0EE':'var(--g4)'};border:1px solid ${switchErrors>2?'#C0392B33':'var(--g2)'};border-radius:10px;padding:.7rem;text-align:center">
-            <div style="font-size:1.3rem;font-weight:800;color:${switchErrors>2?'#C0392B':'var(--g)'}">${switchErrors}</div>
-            <div style="font-size:.62rem;color:var(--tq)">Switch Errors</div>
-          </div>
-        </div>
-        ${switchErrors > 2 ? `<div style="background:#FFF8E1;border:1px solid #FBC02D;border-radius:10px;padding:.75rem;font-size:.8rem;color:#5D3A00;max-width:340px;margin:0 auto .8rem;text-align:left">
-          💡 High switch errors suggest lower cognitive flexibility. Practice alternating tasks and mindfulness to strengthen adaptability.
-        </div>` : ''}
-        <button class="btn btn--p" style="margin-top:.5rem" onclick="LAB.idx++;LAB.next()">Continue →</button>
-      </div></div>`);
-    }
-
-    showTrial();
   });
 };
 
@@ -7692,7 +7806,7 @@ window.mod_hearingCheck = function () {
     title: '👂 Hearing Check',
     txt: '<strong>Put on headphones or earbuds</strong> — this test measures hearing <em>sensitivity</em> in each ear across 5 frequencies. Tones get quieter when you hear them, louder when you miss, to find your personal threshold.',
     hint: '6 adaptive tones · both ears · ~2 min · headphones recommended',
-    btnLabel: 'Start Hearing Test →',
+    btnLabel: 'Begin Hearing Assessment →',
     voiceEN: 'Adaptive hearing test. Put on headphones. We will measure your hearing sensitivity in both ears across five frequencies. Tap yes or no for each tone.',
   }, function () {
     _initCtx().then(() => _headphoneCheck());
@@ -8269,7 +8383,7 @@ LAB.showLeaderboard = async function(testId, unit) {
   /* Check for resumable session (only when not a challenge URL) */
   if (!challengeTest) {
     /* Small delay so DOM is ready */
-    setTimeout(() => LAB._checkResume(), 400);
+    setTimeout(() => { LAB._checkResume(); LAB._checkStreak(); }, 400);
   }
 
   if (challengeTest && challengeScore) {
@@ -8353,6 +8467,145 @@ LAB.showLeaderboard = async function(testId, unit) {
     /* If not in active test — let normal nav happen */
   });
 })();
+
+/* ── Progress History Panel ───────────────────────────────────── */
+(function initProgressHistory() {
+  try {
+    const panel = document.getElementById('labHistoryPanel');
+    if (!panel) return;
+
+    const historyItems = [
+      { key: 'wl_hist_reaction_speed',  label: 'Reaction Speed',  unit: 'ms',   lowerBetter: true  },
+      { key: 'wl_hist_memory_score',    label: 'Memory Score',    unit: '%',    lowerBetter: false },
+      { key: 'wl_hist_hand_speed',      label: 'Hand Speed',      unit: ' taps',lowerBetter: false },
+      { key: 'wl_hist_energy_score',    label: 'Energy Score',    unit: '%',    lowerBetter: false },
+      { key: 'wl_hist_breath_hold',     label: 'Breath Hold',     unit: 's',    lowerBetter: false },
+    ];
+
+    const found = [];
+    historyItems.forEach(item => {
+      try {
+        const raw = localStorage.getItem(item.key);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        if (data && data.last) found.push({ ...item, last: data.last.val, best: data.best });
+      } catch(e) {}
+    });
+
+    if (found.length === 0) return; // no history yet — hide panel
+
+    panel.style.display = 'block';
+    panel.innerHTML = `
+      <div style="padding:1.1rem 0;border-top:1px solid var(--b)">
+        <div style="font-size:.63rem;font-weight:700;color:var(--tq);text-transform:uppercase;letter-spacing:.09em;margin-bottom:.75rem">📈 Your Lab History</div>
+        <div style="display:flex;flex-wrap:wrap;gap:.6rem">
+          ${found.map(item => {
+            const isBest = item.lowerBetter ? item.last <= item.best : item.last >= item.best;
+            return `<div style="background:#fff;border:1.5px solid ${isBest?'rgba(42,122,90,.3)':'var(--b)'};border-radius:var(--rs);padding:.6rem .95rem;min-width:110px">
+              <div style="font-size:.58rem;color:var(--tq);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.25rem">${item.label}</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:.95rem;font-weight:700;color:var(--g)">Today: ${item.last}${item.unit}</div>
+              <div style="font-size:.62rem;color:var(--tq);margin-top:.1rem">Best: <strong>${item.best}${item.unit}</strong>${isBest?' 🏆':''}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+  } catch(e) {}
+})();
+
+/* ── Wellness Insight of the Day ──────────────────────────────── */
+(function initInsightOfDay() {
+  const insights = [
+    { text: 'Reaction speed often improves when sleep quality and breathing patterns are balanced together.', tag: 'Brain & Sleep' },
+    { text: 'Just 5 minutes of slow, deep breathing can reduce stress hormone levels noticeably.', tag: 'Breathing & Stress' },
+    { text: 'Short memory exercises done daily — like the memory match test — strengthen focus over time.', tag: 'Brain Health' },
+    { text: 'Your eyes need regular breaks. Every 20 minutes, look at something 20 feet away for 20 seconds.', tag: 'Eye Health' },
+    { text: 'Energy levels naturally peak twice a day — mid-morning and early afternoon. Use those windows for deep work.', tag: 'Energy Patterns' },
+    { text: 'Consistent sleep and wake times are more important than total hours for mental sharpness.', tag: 'Sleep Quality' },
+    { text: 'Hydration affects brain performance directly. Even mild dehydration can slow reaction times.', tag: 'Hydration & Brain' },
+    { text: 'Your nervous system can be trained to calm faster. Breathing balance exercises are the simplest way.', tag: 'Stress Recovery' },
+    { text: 'Herbs like Brahmi and Shankhpushpi have been traditionally used to support memory and mental clarity.', tag: 'Herbal Wisdom' },
+    { text: 'Morning sunlight within 30 minutes of waking helps regulate your energy and sleep cycle naturally.', tag: 'Circadian Rhythm' },
+    { text: 'Hand tremors are normal — but tracking them weekly can reveal important patterns about rest quality.', tag: 'Motor Stability' },
+    { text: 'Your body\'s stress response can be voluntarily slowed through extended exhale breathing.', tag: 'Calm Practice' },
+  ];
+  const el = document.getElementById('iodText');
+  const src = document.getElementById('iodSource');
+  if (!el) return;
+  /* Pick by day of year so it rotates daily */
+  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+  const pick = insights[dayOfYear % insights.length];
+  el.textContent = pick.text;
+  if (src) src.textContent = '— Topic: ' + pick.tag;
+})();
+
+/* ── Start Brain Lab button — wait for gender before navigating ── */
+(function() {
+  const btn = document.getElementById('startBrainBtn');
+  if (!btn) return;
+  btn.onclick = function() {
+    LAB.goInstr();
+    /* After gender is set, route to brain category */
+    const orig = LAB.renderCategoryDashboard.bind(LAB);
+    LAB._pendingBrainLab = true;
+    const interceptOnce = function() {
+      if (LAB._pendingBrainLab) {
+        LAB._pendingBrainLab = false;
+        LAB.renderCategoryDashboard = orig;
+        LAB.beginCategory('brain');
+      } else {
+        orig();
+      }
+    };
+    LAB.renderCategoryDashboard = interceptOnce;
+  };
+})();
+
+/* ── Lab Progress History on Welcome ─────────────────────────── */
+(function initLabHistory() {
+  try {
+    const history_data = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith('wl_hist_')) {
+        try { history_data[key.replace('wl_hist_','')] = JSON.parse(localStorage.getItem(key)); } catch(e) {}
+      }
+    }
+    /* Will be populated after tests complete — show nothing on first visit */
+  } catch(e) {}
+})();
+
+/* ── Save lab score to history ───────────────────────────────── */
+LAB._saveToHistory = function(label, value, unit) {
+  try {
+    const key = 'wl_hist_' + label.toLowerCase().replace(/\s+/g,'_');
+    const existing = JSON.parse(localStorage.getItem(key) || '{}');
+    const today = { val: value, ts: Date.now() };
+    if (!existing.best || (unit === 'ms' ? value < existing.best : value > existing.best)) {
+      existing.best = value;
+    }
+    existing.last = today;
+    localStorage.setItem(key, JSON.stringify(existing));
+  } catch(e) {}
+};
+
+/* ── Confetti burst on full-lab completion ───────────────────── */
+LAB._fireConfetti = function() {
+  const colors = ['#2A7A5A','#38A87A','#C97800','#F0A020','#2563EB','#8B5CF6'];
+  for (let i = 0; i < 60; i++) {
+    const el = document.createElement('div');
+    const size = 7 + Math.random() * 8;
+    el.style.cssText = `
+      position:fixed;top:-12px;
+      left:${Math.random() * 100}vw;
+      width:${size}px;height:${size * (Math.random() > .5 ? 1 : 2.5)}px;
+      background:${colors[Math.floor(Math.random() * colors.length)]};
+      border-radius:${Math.random() > .5 ? '50%' : '2px'};
+      opacity:.9;z-index:9999;pointer-events:none;
+      animation:confettiFall ${1.3 + Math.random() * 1.5}s ease-in ${Math.random() * .6}s both`;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 3500);
+  }
+};
 
 </script>
 
