@@ -646,8 +646,12 @@ button,input,select{font-family:inherit}
           <div class="gck" aria-hidden="true">✓</div>
           <span class="gico">♀</span>
           <div class="gnm">Female</div>
-          <div class="gnt">33 checks + 2 women's health</div>
+          <div class="gnt">33 checks + 3 women's health</div>
         </div>
+      </div>
+
+      <div id="femNote" class="fem-note">
+        🌸 <strong>Women's Health Checks included:</strong> Hormonal Rhythm, Energy & Iron, and Sleep & Comfort — 3 additional checks personalised for you.
       </div>
 
       <div style="margin:0 auto .9rem;max-width:260px">
@@ -1009,6 +1013,11 @@ const LAB = {
       id:'energy', name:'Energy', icon:'⚡', color:'#8B5CF6',
       tests:['mod_handSpeed','mod_energyCheck'],
       scoreKey:'energy', time:'~3 min', desc:'Hand speed, motor alertness and daily energy self-check'
+    },
+    female: {
+      id:'female', name:"Women's Health", icon:'🌸', color:'#B83060',
+      tests:['mod_hormonalRhythm','mod_energyIron','mod_femCombined'],
+      scoreKey:'hormonal', time:'~5 min', desc:'Hormonal rhythm, energy & iron, and sleep comfort — female-specific checks'
     }
   },
 
@@ -1068,7 +1077,9 @@ const LAB = {
 
     const grid = this.el('catGrid');
     if (grid) {
-      grid.innerHTML = Object.values(this.categories).map(cat => {
+      grid.innerHTML = Object.values(this.categories)
+        .filter(cat => cat.id !== 'female' || this.gender === 'female')
+        .map(cat => {
         const isDone = this.scores[cat.scoreKey] != null;
         const sc     = isDone ? this.scores[cat.scoreKey] : null;
         const scCol  = sc != null ? LAB.scoreCol(sc) : cat.color;
@@ -1124,7 +1135,7 @@ const LAB = {
     this.queue = Object.values(this.categories).flatMap(c => (c.tests || []).filter(Boolean))
       .filter(m => { if (_seen.has(m)) return false; _seen.add(m); return true; });
     if (this.gender === 'female') {
-      this.queue.push('mod_hormonalRhythm','mod_energyIron');
+      this.queue.push('mod_hormonalRhythm','mod_energyIron','mod_femCombined');
     }
     this.idx = 0;
     /* Reset all scores for a fresh run */
@@ -1307,6 +1318,7 @@ const LAB = {
     mod_stabilityHold:'📱 Steady Hand',      mod_microTremor:'✏ Tremor Drawing',
     mod_sleepEfficiency:'💤 Sleep Check',    mod_lifestyleLoad:'⚖ Lifestyle Score',
     mod_hormonalRhythm:'🌸 Hormonal Rhythm', mod_energyIron:'⚡ Energy & Iron',
+    mod_femCombined:'🌙 Sleep & Comfort',
     mod_heartRate:'❤️ Heart Rate',           mod_gutHealth:'🍽 Gut Health',
     mod_hearingCheck:'👂 Hearing Check',
     mod_eyeStrain:'🖥 Eye Strain Test',
@@ -1343,8 +1355,9 @@ const LAB = {
     mod_postureBalance:     {label:'📱 Stability', num:3, of:3},
     mod_sleepEfficiency:    {label:'🌿 Lifestyle', num:1, of:2},
     mod_lifestyleLoad:      {label:'🌿 Lifestyle', num:2, of:2},
-    mod_hormonalRhythm:     {label:'🌸 Female',   num:1, of:2},
-    mod_energyIron:         {label:'🌸 Female',   num:2, of:2},
+    mod_hormonalRhythm:     {label:'🌸 Female',   num:1, of:3},
+    mod_energyIron:         {label:'🌸 Female',   num:2, of:3},
+    mod_femCombined:        {label:'🌸 Female',   num:3, of:3},
     mod_heartRate:          {label:'❤️ Heart',     num:1, of:1},
     mod_fatigueDrift:       {label:'🧠 Brain',     num:6, of:8},
     mod_numberSequence:     {label:'🧠 Brain',     num:7, of:8},
@@ -4560,18 +4573,20 @@ LAB.showDashboard = function () {
           energy: ['⚡ Finger Tap Exercise', '🚶 10-Minute Energising Walk', '🌬 Energising Breath (Kapalabhati)'],
         };
         const herbs = {
-          brain: { product: 'Brain Champ', herbs: ['Brahmi', 'Shankhpushpi', 'Ashwagandha'] },
-          stress: { product: 'Calm Plus', herbs: ['Ashwagandha', 'Jatamansi', 'Brahmi'] },
-          breathing: { product: 'Lung Vital', herbs: ['Tulsi', 'Mulethi', 'Vasaka'] },
-          eye: { product: 'Eye Nourish', herbs: ['Triphala', 'Bilberry', 'Saffron'] },
-          heart: { product: 'Heart Support', herbs: ['Arjuna', 'Garlic', 'Hawthorn'] },
-          lifestyle: { product: 'Vitality Blend', herbs: ['Shatavari', 'Ashwagandha', 'Amalaki'] },
-          stability: { product: 'Strength Plus', herbs: ['Bala', 'Ashwagandha', 'Gokshura'] },
-          gut: { product: 'Digestive Balance', herbs: ['Triphala', 'Ajwain', 'Haritaki'] },
-          hearing: { product: 'Ear Health', herbs: ['Brahmi', 'Bala', 'Sesame'] },
-          energy: { product: 'Energy Plus', herbs: ['Ashwagandha', 'Shilajit', 'Ginseng'] },
+          brain:     { product: 'Brain Champ',   id:'brainchamp',   herbs: ['Brahmi (Bacopa monnieri)', 'Shankhpushpi', 'Ashwagandha', 'Jatamansi', 'Vacha'],      dosage: '10–15 ml twice daily with warm milk after meals' },
+          stress:    { product: 'Brain Champ',   id:'brainchamp',   herbs: ['Brahmi (Bacopa monnieri)', 'Ashwagandha', 'Shankhpushpi', 'Jatamansi'],               dosage: '10–15 ml twice daily with warm milk after meals' },
+          breathing: { product: 'Cough X Pro',   id:'coughxpro',    herbs: ['Tulsi (Holy Basil)', 'Mulethi (Licorice)', 'Adrak (Ginger)', 'Pippali', 'Vasa'],      dosage: '10 ml three times daily' },
+          eye:       { product: 'Musaffa Khoon', id:'musaffakhoon', herbs: ['Neem', 'Manjistha', 'Khadir', 'Giloy', 'Triphala', 'Sarsaparilla'],                   dosage: '10–15 ml twice daily with water before meals' },
+          heart:     { product: 'Blood Storm',   id:'bloodstorm',   herbs: ['Loha Bhasma', 'Punarnava', 'Shatavari', 'Ashwagandha', 'Amla', 'Draksha'],            dosage: '10–15 ml twice daily with water after meals' },
+          lifestyle: { product: 'Livo Hayaat',   id:'livohayaat',   herbs: ['Bhumi Amla', 'Kalmegh', 'Kutki', 'Punarnava', 'Makoy', 'Kasni'],                      dosage: '2 tablets twice daily with warm water before meals' },
+          stability: { product: 'Ortho Hayaat',  id:'orthohayaat',  herbs: ['Shallaki (Boswellia)', 'Guggul', 'Rasna', 'Nirgundi', 'Ashwagandha', 'Sunthi'],       dosage: '2 tablets twice daily with warm milk after meals' },
+          gut:       { product: 'Shah Zyme',     id:'shahzyme',     herbs: ['Ajwain', 'Saunf (Fennel)', 'Jeera (Cumin)', 'Pudina (Mint)', 'Harad', 'Amla'],        dosage: '10–15 ml after meals, twice daily' },
+          hearing:   { product: 'Brain Champ',   id:'brainchamp',   herbs: ['Brahmi (Bacopa monnieri)', 'Shankhpushpi', 'Ashwagandha', 'Jatamansi'],               dosage: '10–15 ml twice daily with warm milk after meals' },
+          energy:    { product: 'Blood Storm',   id:'bloodstorm',   herbs: ['Loha Bhasma', 'Shatavari', 'Ashwagandha', 'Punarnava', 'Amla', 'Draksha'],            dosage: '10–15 ml twice daily with water after meals' },
+          female:    { product: 'Utro Hayaat',   id:'utrohayaat',   herbs: ['Ashoka', 'Lodhra', 'Shatavari', 'Nagkesar', 'Daruharidra', 'Kumari (Aloe)'],          dosage: '10–15 ml twice daily after meals with milk or water' },
         };
         const catId = activeCat?.id || '';
+        const P = LAB.SH_PRODUCTS;
         const ins = insights[catId] || insights.brain;
         const exs = exercises[catId] || exercises.brain;
         const herb = herbs[catId] || herbs.brain;
@@ -4598,11 +4613,17 @@ LAB.showDashboard = function () {
         <!-- Optional Herbal Support -->
         <div style="background:linear-gradient(135deg,#FFFBF0,#fff);border:1.5px solid rgba(201,120,0,.18);border-radius:var(--r);padding:1.3rem 1.5rem;margin-bottom:1rem">
           <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gd);margin-bottom:.5rem">🌿 Optional Herbal Support</div>
-          <div style="font-size:.78rem;color:var(--tq);margin-bottom:.6rem">For ${activeCat?.name || 'wellness'} &amp; clarity — informational only, not a treatment</div>
-          <div style="font-weight:700;font-size:.92rem;color:var(--t);margin-bottom:.4rem">${herb.product}</div>
-          <div style="display:flex;flex-wrap:wrap;gap:.35rem">
-            ${herb.herbs.map(h => `<span style="background:var(--gd3);border:1px solid rgba(201,120,0,.2);border-radius:50px;padding:.2rem .65rem;font-size:.72rem;color:var(--gd);font-weight:600">${h}</span>`).join('')}
+          <div style="font-size:.78rem;color:var(--tq);margin-bottom:.65rem">Informational only — not a treatment. Always consult a healthcare professional before use.</div>
+          <div style="font-weight:700;font-size:.98rem;color:var(--t);margin-bottom:.1rem">${herb.product}</div>
+          <div style="font-size:.7rem;color:var(--tq);margin-bottom:.5rem;font-style:italic">${P[herb.id]?.desc || ''}</div>
+          <div style="font-size:.68rem;font-weight:700;color:var(--tq);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem">Key Herbs</div>
+          <div style="display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.65rem">
+            ${herb.herbs.map(h => `<span style="background:var(--gd3);border:1px solid rgba(201,120,0,.2);border-radius:50px;padding:.2rem .65rem;font-size:.7rem;color:var(--gd);font-weight:600">${h}</span>`).join('')}
           </div>
+          ${herb.dosage ? `<div style="font-size:.72rem;color:var(--tm);background:var(--bg);border-radius:var(--rs);padding:.4rem .7rem;margin-bottom:.6rem">📋 <strong>Suggested Use:</strong> ${herb.dosage}</div>` : ''}
+          <a href="product-detail.html?id=${herb.id}" style="display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;font-weight:600;color:var(--gd);text-decoration:none;border:1px solid rgba(201,120,0,.3);padding:.3rem .8rem;border-radius:50px;background:var(--gd3)">
+            View Full Product Details →
+          </a>
         </div>
 
         <!-- Recommended Next Step -->
@@ -4702,6 +4723,9 @@ LAB.showDashboard = function () {
       <h3 class="h3" style="margin-bottom:.35rem">Products Matched to Your Results</h3>
       <p class="pg" style="margin-bottom:1.3rem;font-size:.82rem">
         These products from the Shah Hayaat range are selected based on your specific scores.
+        <div style="margin-top:.6rem;padding:.7rem 1rem;background:#FFF8ED;border:1px solid rgba(201,120,0,.25);border-radius:var(--rs);font-size:.72rem;color:#92400E;line-height:1.6">
+          ⚠️ <strong>Disclaimer:</strong> These are Ayurvedic supplements. They are not intended to diagnose, treat, cure or prevent any disease. Results may vary. Always consult a qualified healthcare professional before use. Presented for informational purposes only.
+        </div>
         WHO-GMP · ISO 9001:2015 · HACCP Certified.
         Tap <strong style="color:#25D366">Order on WhatsApp</strong> to place an order instantly.
       </p>
@@ -6229,42 +6253,126 @@ LAB._buildExerciseRecs = function() {
 };
 
 LAB.SH_PRODUCTS = {
-  brainchamp:   { name:'Brain Champ',    price:175, tag:'🧠 Brain & Focus',     tagColor:'#2A7A5A',
-    desc:'Brahmi, Ashwagandha & Shankhpushpi blend to boost memory, cut brain fog and sharpen focus.',
-    benefits:'Improves memory · Reduces mental fatigue · Manages stress' },
-  shahzyme:     { name:'Shah Zyme',      price:165, tag:'🍽 Digestion',          tagColor:'#059669',
-    desc:'Herbal digestive enzyme syrup for gas, bloating and sluggish digestion after meals.',
-    benefits:'Relieves bloating · Improves absorption · Stimulates appetite' },
-  bloodstorm:   { name:'Blood Storm',    price:165, tag:'🩸 Blood & Energy',     tagColor:'#C0392B',
-    desc:'Iron-rich Ayurvedic tonic to raise haemoglobin, fight anaemia and restore vitality.',
-    benefits:'Raises haemoglobin · Combats anaemia · Restores energy' },
-  coughxpro:    { name:'Cough X Pro',    price:90,  tag:'😮‍💨 Respiratory',       tagColor:'#0891B2',
-    desc:'Tulsi & Mulethi syrup to soothe airways, clear mucus and relieve chronic cough.',
-    benefits:'Soothes throat · Reduces congestion · Anti-inflammatory' },
-  musaffakhoon: { name:'Musaffa Khoon',  price:165, tag:'✨ Skin Care',           tagColor:'#7C3AED',
-    desc:'Classical blood purifier — clears acne, psoriasis and dull skin from the root cause.',
-    benefits:'Purifies blood · Clears acne · Promotes glow' },
-  panasip:      { name:'PanaSip',        price:165, tag:'🔥 Acidity',            tagColor:'#EA580C',
-    desc:'Cooling herbal antacid to neutralise acid, heal ulcers and stop heartburn naturally.',
-    benefits:'Neutralises acid · Soothes inflammation · Heals ulcers' },
-  livohayaat:   { name:'Livo Hayaat',    price:349, tag:'🟤 Liver Health',       tagColor:'#92400E',
-    desc:'Hepatoprotective formula with Bhumi Amla & Kutki to detox liver and normalise enzymes.',
-    benefits:'Regenerates liver cells · Reduces fatty liver · Antioxidant' },
-  diaease:      { name:'Dia-Ease',       price:695, tag:'🍬 Diabetes Care',      tagColor:'#0F766E',
-    desc:'Karela, Jamun & Gurmar combination to support healthy blood sugar balance naturally.',
-    benefits:'Supports blood sugar · Improves insulin sensitivity · Safe' },
-  orthohayaat:  { name:'Ortho Hayaat',   price:649, tag:'🦴 Joint Care',         tagColor:'#7C3AED',
-    desc:'Shallaki & Guggul anti-inflammatory blend for joint pain, arthritis and mobility.',
-    benefits:'Reduces joint pain · Improves mobility · Strengthens bones' },
-  utrohayaat:   { name:'Utro Hayaat',    price:625, tag:'🌸 Female Health',      tagColor:'#BE185D',
-    desc:'Ashoka & Shatavari tonic to regulate cycles, relieve period pain and balance hormones.',
-    benefits:'Regulates cycles · Relieves period pain · Hormonal balance' },
-  passionpulse: { name:'Passion Pulse',  price:599, tag:'⚡ Male Vitality',      tagColor:'#1D4ED8',
-    desc:'Ashwagandha, Shilajit & Safed Musli for stamina, libido and male reproductive health.',
-    benefits:'Enhances stamina · Improves libido · Supports testosterone' },
-  fevodol:      { name:'Fevodol',        price:165, tag:'🛡 Immunity',            tagColor:'#2A7A5A',
-    desc:'Giloy & Tulsi immunity booster to fight fever, infections and strengthen body defences.',
-    benefits:'Boosts immunity · Antipyretic · Anti-infective' },
+  brainchamp: {
+    name:'Brain Champ', price:175, tag:'🧠 Brain & Focus', tagColor:'#2A7A5A',
+    desc:'Enhances memory, focus and cognitive function with powerful Ayurvedic herbs.',
+    full:'Scientifically formulated Ayurvedic syrup combining Brahmi, Shankhpushpi, Ashwagandha and classical herbs to support optimal brain health. Reduces mental fatigue, improves concentration and enhances memory retention naturally.',
+    benefits:'Improves memory & recall · Reduces mental fatigue & brain fog · Manages stress & anxiety · Enhances focus & concentration · Long-term brain health adaptogen',
+    ingredients:'Brahmi (Bacopa monnieri), Shankhpushpi, Ashwagandha, Jatamansi, Vacha',
+    dosage:'10–15 ml twice daily with warm milk or water, preferably after meals.',
+    precautions:'Not recommended during pregnancy. Consult physician if on existing medication.',
+    indication:'Low cognitive score · High reaction time · Low memory span · Stress indicators'
+  },
+  shahzyme: {
+    name:'Shah Zyme', price:165, tag:'🍽 Digestion', tagColor:'#059669',
+    desc:'Effective digestive enzyme syrup for relief from gas, bloating and indigestion.',
+    full:'Potent herbal digestive enzyme syrup. Unique combination of digestive herbs helps break down food efficiently, relieving gas, bloating and sluggish digestion after meals.',
+    benefits:'Relieves gas & bloating · Improves nutrient absorption · Stimulates healthy appetite · Supports enzyme activity · Reduces post-meal heaviness',
+    ingredients:'Ajwain, Saunf (Fennel), Jeera (Cumin), Pudina (Mint), Harad, Baheda, Amla',
+    dosage:'10–15 ml after meals, twice daily.',
+    precautions:'Not for children under 5 years without medical advice.',
+    indication:'Low gut health score · Digestive discomfort reported'
+  },
+  bloodstorm: {
+    name:'Blood Storm', price:165, tag:'🩸 Blood & Energy', tagColor:'#C0392B',
+    desc:'Revitalising blood tonic to combat anaemia, weakness and low haemoglobin.',
+    full:'Premium Ayurvedic blood-tonic combining iron-rich herbs with rejuvenating ingredients to naturally raise haemoglobin, improve circulation and restore energy in anaemia and chronic weakness.',
+    benefits:'Raises haemoglobin naturally · Combats iron-deficiency anaemia · Restores energy & vitality · Improves blood circulation · Strengthens overall immunity',
+    ingredients:'Loha Bhasma, Punarnava, Shatavari, Ashwagandha, Amla, Draksha',
+    dosage:'10–15 ml twice daily with water or milk after meals.',
+    precautions:'Consult a physician before use during pregnancy.',
+    indication:'Low energy score · Low iron indicators · High stress · Heart rate concerns · Low haemoglobin'
+  },
+  coughxpro: {
+    name:'Cough X Pro', price:90, tag:'😮‍💨 Respiratory', tagColor:'#0891B2',
+    desc:'Soothing herbal cough syrup for fast, lasting relief from chronic cough.',
+    full:'Time-tested Ayurvedic formulation that soothes the respiratory tract, reduces inflammation and provides lasting relief from acute and chronic cough. Clears mucus and calms irritated airways.',
+    benefits:'Soothes throat irritation · Reduces mucus congestion · Anti-inflammatory action · Fast & lasting relief · Safe for adults & children',
+    ingredients:'Tulsi (Holy Basil), Mulethi (Licorice), Adrak (Ginger), Pippali, Vasa, Honey',
+    dosage:'10 ml three times daily. Children (5–12): 5 ml three times daily.',
+    precautions:'Diabetics should consult a physician due to natural honey content.',
+    indication:'Low respiratory score · Low breath hold time · Breathing difficulty reported'
+  },
+  musaffakhoon: {
+    name:'Musaffa Khoon', price:165, tag:'✨ Blood Purifier', tagColor:'#7C3AED',
+    desc:'Traditional blood purifier for clear, glowing skin free from acne and disorders.',
+    full:'Classical Ayurvedic blood-purifier that detoxifies blood and the lymphatic system. Purifies from within to address root causes of skin disorders including acne, psoriasis and eczema. Also supports eye clarity.',
+    benefits:'Purifies blood & lymph · Clears acne & pimples · Reduces psoriasis symptoms · Promotes glowing clear skin · Full-body natural detox',
+    ingredients:'Neem, Manjistha, Khadir, Sarsaparilla, Giloy, Triphala',
+    dosage:'10–15 ml twice daily with water before meals.',
+    precautions:'Results typically visible after 4–6 weeks of consistent use.',
+    indication:'Low eye health score · Visual acuity concerns · Skin-related indicators'
+  },
+  panasip: {
+    name:'PanaSip', price:165, tag:'🔥 Acidity Relief', tagColor:'#EA580C',
+    desc:'Fast-acting Ayurvedic relief from acidity, heartburn and peptic ulcers.',
+    full:'Powerful Ayurvedic antacid syrup that neutralises excess stomach acid naturally. Cooling and soothing herbs form a protective layer over the stomach lining, providing rapid relief from acidity, heartburn and gastric ulcers.',
+    benefits:'Neutralises stomach acid · Soothes oesophageal inflammation · Heals peptic ulcers naturally · Prevents acid reflux · Promotes healthy gastric pH',
+    ingredients:'Mulethi, Shatavari, Amalaki, Guduchi, Yashtimadhu, Shankha Bhasma',
+    dosage:'15 ml before meals, three times daily.',
+    precautions:'Take on an empty stomach for best results. Refrigerate after opening.',
+    indication:'Low gut health score · Acidity or heartburn reported in lifestyle check'
+  },
+  livohayaat: {
+    name:'Livo Hayaat', price:349, tag:'🟤 Liver Health', tagColor:'#92400E',
+    desc:'Premium Ayurvedic formulation for optimal liver health and detoxification.',
+    full:'Hepatoprotective Ayurvedic tablet supporting the liver\'s natural detoxification. Helps regenerate liver cells, reduce fatty liver, normalise enzyme levels and improve overall hepatic function.',
+    benefits:'Protects & regenerates liver cells · Reduces fatty liver condition · Normalises liver enzyme levels · Supports bile production · Powerful antioxidant',
+    ingredients:'Bhumi Amla, Kalmegh, Kutki, Punarnava, Makoy, Kasni',
+    dosage:'2 tablets twice daily with warm water before meals.',
+    precautions:'Not for use with hepatotoxic drugs without physician advice.',
+    indication:'Poor lifestyle score · Low gut health score · Chronic fatigue indicators'
+  },
+  diaease: {
+    name:'Dia-Ease', price:695, tag:'🍬 Blood Sugar', tagColor:'#0F766E',
+    desc:'Advanced Ayurvedic support for maintaining healthy blood sugar balance.',
+    full:'Specialised Ayurvedic formulation to help manage blood glucose levels naturally. Multi-herb approach addresses insulin sensitivity, reduces glucose absorption and supports pancreatic function.',
+    benefits:'Supports healthy blood sugar · Improves insulin sensitivity · Reduces sugar cravings · Supports pancreatic health · Helps prevent diabetic complications',
+    ingredients:'Karela (Bitter Melon), Jamun Seed, Gurmar, Vijaysar, Methi, Neem, Tulsi',
+    dosage:'2 tablets twice daily, 30 minutes before meals with warm water.',
+    precautions:'Monitor blood sugar regularly. Do not discontinue prescribed medication without physician guidance.',
+    indication:'Blood sugar or diabetes indicators from lifestyle questionnaire'
+  },
+  orthohayaat: {
+    name:'Ortho Hayaat', price:649, tag:'🦴 Joint Care', tagColor:'#7C3AED',
+    desc:'Specialised Ayurvedic blend for joint health, pain relief and improved mobility.',
+    full:'Combines the most potent anti-inflammatory and analgesic Ayurvedic herbs for comprehensive joint care. Reduces inflammation, lubricates joints, strengthens bones and improves mobility for arthritis and joint degeneration.',
+    benefits:'Reduces joint inflammation · Relieves chronic joint pain · Improves mobility & flexibility · Strengthens bones & cartilage · Anti-arthritis properties',
+    ingredients:'Shallaki (Boswellia), Guggul, Rasna, Nirgundi, Ashwagandha, Sunthi',
+    dosage:'2 tablets twice daily with warm milk or water after meals.',
+    precautions:'Results typically noticeable within 4–6 weeks of consistent use.',
+    indication:'Low stability score · High tremor score · Motor coordination concerns'
+  },
+  utrohayaat: {
+    name:'Utro Hayaat', price:625, tag:'🌸 Female Health', tagColor:'#BE185D',
+    desc:"Gentle Ayurvedic tonic for women\'s reproductive health and hormonal balance.",
+    full:"Carefully formulated Ayurvedic uterine-tonic syrup addressing common female health concerns. Regulates menstrual cycles, relieves period pain, treats leucorrhoea and supports hormonal balance using classical Ayurvedic herbs.",
+    benefits:'Regulates menstrual cycles · Relieves painful periods · Treats leucorrhoea · Supports hormonal balance · Strengthens uterine health',
+    ingredients:'Ashoka, Lodhra, Shatavari, Nagkesar, Daruharidra, Kumari (Aloe)',
+    dosage:'10–15 ml twice daily after meals with milk or water.',
+    precautions:'Not recommended during pregnancy or breastfeeding without medical advice.',
+    indication:'Low hormonal score (female) · Menstrual irregularity reported'
+  },
+  passionpulse: {
+    name:'Passion Pulse', price:599, tag:'⚡ Male Vitality', tagColor:'#1D4ED8',
+    desc:'Natural vitality booster for men — stamina, libido and reproductive health.',
+    full:'Premium Ayurvedic male vitality supplement combining powerful adaptogens and vajikarana herbs to enhance stamina, improve libido, support testosterone levels and boost overall masculine vitality naturally.',
+    benefits:'Enhances stamina & endurance · Improves libido & sexual health · Supports testosterone levels · Improves sperm health & motility · Reduces fatigue & boosts energy',
+    ingredients:'Ashwagandha, Shilajit, Safed Musli, Kaunch Beej, Gokshura, Vidarikanda',
+    dosage:'2 tablets twice daily with milk or warm water before bedtime.',
+    precautions:'Not for use under 18 years. Consult physician if you have existing health conditions.',
+    indication:'Low stress & energy scores (male) · Chronic fatigue indicators'
+  },
+  fevodol: {
+    name:'Fevodol', price:165, tag:'🛡 Immunity', tagColor:'#2A7A5A',
+    desc:'Powerful immunity booster to defend against fever, infections and illness.',
+    full:"Ayurvedic immune-strengthening formulation supporting the body\'s natural defence mechanisms. Antipyretic, anti-infective and immunomodulatory herbs reduce fever, fight infections and build long-term immunity.",
+    benefits:'Reduces fever naturally · Fights infections · Strengthens immune system · Anti-inflammatory · Prevents recurrent illness',
+    ingredients:'Giloy (Guduchi), Tulsi, Chirayata, Kutki, Sudarshan Churna',
+    dosage:'2 tablets three times daily during illness. For immunity maintenance: twice daily.',
+    precautions:'Continue medical treatment during severe infections. This is a supportive supplement.',
+    indication:'Multiple low scores · Recurring illness indicators · General immunity maintenance'
+  }
 };
 
 LAB._buildProductCards = function () {
@@ -6273,40 +6381,54 @@ LAB._buildProductCards = function () {
   const isMale = LAB.gender === 'male';
   const selected = [];
 
+  // Brain & Cognitive
   if ((S.cognitive ?? 100) < 75 || (R.memSpan ?? 9) < 5 || (R.rxAvg ?? 0) > 350)
     selected.push({ ...P.brainchamp, id:'brainchamp', reason:'Your cognitive score suggests memory or focus support.' });
 
+  // Respiratory
   if ((S.respiratory ?? 100) < 70 || (R.breathHold ?? 999) < 25)
     selected.push({ ...P.coughxpro, id:'coughxpro', reason:'Breathing scores indicate respiratory support may help.' });
 
+  // Stress & Energy
   if ((S.stress ?? 100) < 70 || (R.sleepHours ?? 8) < 6)
     selected.push({ ...P.bloodstorm, id:'bloodstorm', reason:'Low energy or stress scores detected.' });
 
+  // Lifestyle & Liver
   if ((S.lifestyle ?? 100) < 65)
-    selected.push({ ...P.livohayaat, id:'livohayaat', reason:'Lifestyle scores suggest a detox and liver support.' });
+    selected.push({ ...P.livohayaat, id:'livohayaat', reason:'Lifestyle scores suggest liver detox and digestive support.' });
 
+  // Stability & Joints
   if ((S.stability ?? 100) < 65 || (R.tremorDev ?? 0) > 30)
-    selected.push({ ...P.orthohayaat, id:'orthohayaat', reason:'Motor stability scores point to joint/nerve support.' });
+    selected.push({ ...P.orthohayaat, id:'orthohayaat', reason:'Motor stability scores point to joint and nerve support.' });
 
+  // Eye Health
   if ((S.eye ?? 100) < 70 || R.cbFlag || R.acuityFlag)
     selected.push({ ...P.musaffakhoon, id:'musaffakhoon', reason:'Blood purification supports eye health and clarity.' });
 
+  // Gut Health — shahzyme for digestion, panasip for acidity, livohayaat for liver
+  if ((S.gut ?? 100) < 65) {
+    selected.push({ ...P.shahzyme, id:'shahzyme', reason:'Gut health scores suggest digestive enzyme support.' });
+    selected.push({ ...P.panasip,  id:'panasip',  reason:'Gut health score suggests acidity or gastric discomfort support.' });
+    selected.push({ ...P.livohayaat, id:'livohayaat', reason:'Gut health scores suggest digestive and liver support.' });
+  }
+
+  // Female Hormonal
   if (isFem && (S.hormonal ?? 100) < 75)
     selected.push({ ...P.utrohayaat, id:'utrohayaat', reason:'Hormonal rhythm scores indicate female tonic support.' });
 
+  // Female Iron / Energy
   if (isFem && (R.ironScore ?? 100) < 70)
     selected.push({ ...P.bloodstorm, id:'bloodstorm', reason:'Iron and energy indicators suggest blood support.' });
 
+  // Male Vitality
   if (isMale && (S.stress ?? 100) < 65)
     selected.push({ ...P.passionpulse, id:'passionpulse', reason:'Stress and energy scores may benefit from vitality support.' });
 
-  /* v2: New domain recommendations */
+  // Heart Rate
   if ((S.heart ?? 100) < 75 || (R.heartBPM ?? 72) > 90 || (R.heartBPM ?? 72) < 55)
     selected.push({ ...P.bloodstorm, id:'bloodstorm', reason:'Heart rate indicators suggest cardiovascular and energy support.' });
 
-  if ((S.gut ?? 100) < 65)
-    selected.push({ ...P.livohayaat, id:'livohayaat', reason:'Gut health scores suggest digestive and liver support.' });
-
+  // Immunity — any low score
   const anyLow = Object.values(S).some(v => v != null && v < 60);
   if (anyLow)
     selected.push({ ...P.fevodol, id:'fevodol', reason:'Multiple low scores — immunity support recommended.' });
@@ -6320,7 +6442,6 @@ LAB._buildProductCards = function () {
   }
 
   const show = unique.slice(0, 6);
-
   const WA = '917051056287';
 
   return show.map(p => {
@@ -6341,7 +6462,9 @@ LAB._buildProductCards = function () {
         </div>
         <div style="font-weight:700;font-size:.92rem;color:var(--t);line-height:1.25">${p.name}</div>
         <div style="font-size:.74rem;color:var(--tq);line-height:1.58;flex:1">${p.desc}</div>
+        ${p.ingredients ? `<div style="font-size:.62rem;color:var(--g);margin-top:.1rem">🌿 <em>${p.ingredients}</em></div>` : ''}
         <div style="font-size:.64rem;color:var(--g);font-weight:600;margin-top:.1rem">✓ ${p.benefits.replace(/·/g,'&nbsp;&nbsp;·&nbsp;')}</div>
+        ${p.dosage ? `<div style="font-size:.62rem;color:var(--tm);background:var(--bg);border-radius:4px;padding:.3rem .5rem;margin-top:.1rem">📋 ${p.dosage}</div>` : ''}
         ${p.reason ? `<div style="font-size:.62rem;color:var(--am);font-style:italic;margin-top:.15rem">💡 ${p.reason}</div>` : ''}
       </div>
       <div style="padding:.7rem 1rem;border-top:1px solid var(--b);display:flex;gap:.5rem;flex-wrap:wrap">
@@ -6353,7 +6476,7 @@ LAB._buildProductCards = function () {
           <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Order on WhatsApp
         </a>
-        <a href="https://yasirhashmi02-dev.github.io/Shahhayaat02/product-detail.html?id=${p.id}"
+        <a href="https://www.shahhayaat.com/product-detail.html?id=${p.id}"
            target="_blank" rel="noopener"
            style="display:inline-flex;align-items:center;padding:.45rem .7rem;
                   background:var(--g3);color:var(--g);border-radius:50px;
@@ -6790,8 +6913,11 @@ LAB.generatePDF = function () {
   </div>
 
   <div style="margin:22px 0">
-    <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#1C2E1C;border-bottom:2.5px solid #2A7A5A;padding-bottom:6px;margin-bottom:14px">🌿 Products Matched to Your Results</div>
-    <p style="font-size:12px;color:#3A5A3A;margin-bottom:12px">Based on your scores, these Shah Hayaat products may support your wellness goals. WHO-GMP · ISO 9001:2015 · HACCP Certified.</p>
+    <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#1C2E1C;border-bottom:2.5px solid #2A7A5A;padding-bottom:6px;margin-bottom:8px">🌿 Products Matched to Your Results</div>
+    <p style="font-size:11px;color:#3A5A3A;margin-bottom:6px;line-height:1.6">Based on your scores, these Shah Hayaat Ayurvedic products may support your wellness goals. WHO-GMP · ISO 9001:2015 · HACCP Certified.</p>
+    <div style="background:#FFF8ED;border:1px solid #D4A056;border-radius:6px;padding:8px 12px;margin-bottom:12px;font-size:10.5px;color:#7A4A10;line-height:1.6">
+      ⚠️ <strong>Disclaimer:</strong> These are Ayurvedic supplements. They are not intended to diagnose, treat, cure or prevent any disease. Results may vary. Please consult a qualified healthcare professional before starting any supplement. Presented for informational purposes only.
+    </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px">
       ${(()=>{
         const S=LAB.scores,R=LAB.raw,P=LAB.SH_PRODUCTS,isFem=LAB.gender==='female',isMale=LAB.gender==='male';
@@ -6805,7 +6931,7 @@ LAB.generatePDF = function () {
         if(isFem&&(S.hormonal??100)<75) sel.push({...P.utrohayaat,id:'utrohayaat',reason:'Female hormonal support'});
         if(isMale&&(S.stress??100)<65) sel.push({...P.passionpulse,id:'passionpulse',reason:'Male vitality support'});
         if((S.heart??100)<75||(R.heartBPM??72)>90) sel.push({...P.bloodstorm,id:'bloodstorm',reason:'Heart rate & cardiovascular support'});
-        if((S.gut??100)<65) sel.push({...P.livohayaat,id:'livohayaat',reason:'Digestive & gut health support'});
+        if((S.gut??100)<65){ sel.push({...P.shahzyme,id:'shahzyme',reason:'Digestive enzyme support'}); sel.push({...P.livohayaat,id:'livohayaat',reason:'Digestive & gut health support'}); }
         if(Object.values(S).some(v=>v!=null&&v<60)) sel.push({...P.fevodol,id:'fevodol',reason:'Immunity support'});
         const seen=new Set(),unique=sel.filter(p=>{if(seen.has(p.id))return false;seen.add(p.id);return true;});
         if(!unique.length){unique.push({...P.brainchamp,id:'brainchamp',reason:'General wellness'});unique.push({...P.fevodol,id:'fevodol',reason:'Immunity support'});}
@@ -6814,11 +6940,12 @@ LAB.generatePDF = function () {
           <div style="height:3px;background:${p.tagColor};border-radius:2px;margin-bottom:8px"></div>
           <div style="font-size:10px;font-weight:700;color:${p.tagColor};margin-bottom:4px">${p.tag}</div>
           <div style="font-size:13px;font-weight:700;color:#1C2E1C;margin-bottom:4px">${p.name}</div>
-          <div style="font-size:11px;color:#3D3D3D;margin-bottom:6px;line-height:1.5">${p.desc}</div>
-          <div style="font-size:10px;color:#2A7A5A;font-style:italic;margin-bottom:8px">💡 ${p.reason}</div>
+          <div style="font-size:11px;color:#3D3D3D;margin-bottom:4px;line-height:1.5">${p.desc}</div>
+          ${p.ingredients ? `<div style="font-size:9.5px;color:#6A8A6A;margin-bottom:4px;line-height:1.5">🌿 ${p.ingredients}</div>` : ''}
+          <div style="font-size:10px;color:#C97010;font-style:italic;margin-bottom:8px">💡 ${p.reason}</div>
           <div style="display:flex;align-items:center;justify-content:space-between">
             <span style="font-size:14px;font-weight:800;color:#2A7A5A">₹${p.price}</span>
-            <span style="font-size:10px;color:#888">Order on WhatsApp →</span>
+            <span style="font-size:10px;color:#888">WhatsApp to order →</span>
           </div>
         </div>`).join('');
       })()}
