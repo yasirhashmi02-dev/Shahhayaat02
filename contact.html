@@ -402,7 +402,6 @@ body.nav-open{overflow:hidden}
       <a href="products.html">Products</a>
       <a href="conditions.html">Health Guides</a>
       <a href="ingredients.html">Ingredients</a>
-      <a href="exercises.html">Exercises</a>
       <a href="wellness-lab.html">🧪 Lab</a>
       <a href="blog.html">Blog</a>
       <a href="about.html">About</a>
@@ -420,7 +419,6 @@ body.nav-open{overflow:hidden}
     <a href="products.html">Products</a>
     <a href="conditions.html">Health Guides</a>
     <a href="ingredients.html">Ingredients</a>
-    <a href="exercises.html">Exercises</a>
     <a href="wellness-lab.html">🧪 Lab</a>
     <a href="blog.html">Blog</a>
     <a href="about.html">About</a>
@@ -513,13 +511,13 @@ body.nav-open{overflow:hidden}
       <div class="reveal-r d1">
         <div class="form-card">
           <h3>Send a Message</h3>
-          <form id="contactForm" novalidate>
+          <form id="contactForm" id="contactForm" novalidate>
             <div class="form-group"><label for="c-name">Your Name *</label><input type="text" id="c-name" name="name" placeholder="e.g. Priya Sharma" required autocomplete="name"></div>
             <div class="form-group"><label for="c-email">Email Address *</label><input type="email" id="c-email" name="email" placeholder="your@email.com" required autocomplete="email"></div>
             <div class="form-group"><label for="c-phone">Phone / WhatsApp</label><input type="tel" id="c-phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel"></div>
             <div class="form-group"><label for="c-subject">Subject</label><input type="text" id="c-subject" name="subject" placeholder="e.g. Question about Brain Champ"></div>
             <div class="form-group"><label for="c-message">Message *</label><textarea id="c-message" name="message" rows="5" placeholder="Tell us how we can help you&#8230;" required></textarea></div>
-            <button type="submit" id="contactSubmitBtn" style="display:flex;align-items:center;justify-content:center;width:100%;padding:0.9rem 1.5rem;background:var(--navy-light);color:var(--gold);font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(198,167,94,0.35);cursor:pointer;transition:background 0.5s" onmouseover="this.style.background='var(--navy-mid)'" onmouseout="this.style.background='var(--navy-light)'">Send Message &#8594;</button>
+            <button type="submit" style="display:flex;align-items:center;justify-content:center;width:100%;padding:0.9rem 1.5rem;background:var(--navy-light);color:var(--gold);font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(198,167,94,0.35);cursor:pointer;transition:background 0.5s" onmouseover="this.style.background='var(--navy-mid)'" onmouseout="this.style.background='var(--navy-light)'">Send Message &#8594;</button>
           </form>
           <div id="form-status" class="form-status"></div>
           <p class="form-note">We typically respond within 24 hours. For urgent queries, WhatsApp is fastest.</p>
@@ -528,38 +526,6 @@ body.nav-open{overflow:hidden}
     </div>
   </div>
 </section>
-<script>
-(function(){
-  var form = document.getElementById('contactForm');
-  if (!form) return;
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    var name    = document.getElementById('c-name').value.trim();
-    var email   = document.getElementById('c-email').value.trim();
-    var phone   = document.getElementById('c-phone').value.trim();
-    var subject = document.getElementById('c-subject').value.trim();
-    var message = document.getElementById('c-message').value.trim();
-    var status  = document.getElementById('form-status');
-    if (!name || !email || !message) {
-      status.textContent = 'Please fill in all required fields.';
-      status.style.color = '#e74c3c';
-      return;
-    }
-    /* Build WhatsApp message */
-    var wa = 'Hi Shah Hayaat!\n\nName: ' + name +
-      '\nEmail: ' + email +
-      (phone ? '\nPhone: ' + phone : '') +
-      (subject ? '\nSubject: ' + subject : '') +
-      '\n\nMessage:\n' + message;
-    var waUrl = 'https://wa.me/917051056287?text=' + encodeURIComponent(wa);
-    /* Open WhatsApp */
-    window.open(waUrl, '_blank', 'noopener');
-    status.textContent = 'Opening WhatsApp to send your message. If it did not open, please message us directly at +91 70510 56287.';
-    status.style.color = '#2A7A5A';
-    form.reset();
-  });
-})();
-</script>
 <div class="cert-strip">
   <div class="container cert-strip-inner reveal">
     <div class="cert-item"><div class="ci-icon">&#127757;</div><p>WHO-GMP Certified</p></div>
@@ -650,6 +616,35 @@ document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){rio.observe(el);});
   ['yr','year','yr-footer'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=new Date().getFullYear();});
 });
+</script>
+
+<script>
+(function(){
+  var form = document.getElementById('contactForm');
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var name    = (document.getElementById('c-name') || document.getElementById('name') || {}).value || '';
+    var email   = (document.getElementById('c-email') || document.getElementById('email') || {}).value || '';
+    var phone   = (document.getElementById('c-phone') || document.getElementById('phone') || {}).value || '';
+    var subject = (document.getElementById('c-subject') || document.getElementById('subject') || {}).value || '';
+    var message = (document.getElementById('c-message') || document.getElementById('message') || {}).value || '';
+    var status  = document.getElementById('form-status');
+    name = name.trim(); email = email.trim(); message = message.trim();
+    if (!name || !email || !message) {
+      if (status) { status.textContent = 'Please fill in all required fields.'; status.style.color = '#e74c3c'; }
+      return;
+    }
+    var wa = 'Hi Shah Hayaat!\n\nName: ' + name +
+      '\nEmail: ' + email +
+      (phone ? '\nPhone: ' + phone.trim() : '') +
+      (subject ? '\nSubject: ' + subject.trim() : '') +
+      '\n\nMessage:\n' + message;
+    window.open('https://wa.me/917051056287?text=' + encodeURIComponent(wa), '_blank', 'noopener');
+    if (status) { status.textContent = 'Opening WhatsApp with your message. If it did not open, message us directly at +91 70510 56287.'; status.style.color = '#2A7A5A'; }
+    form.reset();
+  });
+})();
 </script>
 </body>
 </html>

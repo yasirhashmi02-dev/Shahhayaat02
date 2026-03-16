@@ -1259,9 +1259,9 @@ function checkUrlPost() {
 
 /* ── Init ── */
 document.addEventListener('DOMContentLoaded', () => {
-  /* Check persistent login — auto-expire after 24 hours */
-  const loginTime = parseInt(localStorage.getItem('sh_admin_ts') || '0');
-  const expired = (Date.now() - loginTime) > 86400000; // 24 hours
+  /* Check persistent login */
+  var loginTime = parseInt(localStorage.getItem('sh_admin_ts') || '0');
+  var expired = (Date.now() - loginTime) > 86400000;
   if (localStorage.getItem(LOGIN_KEY) === '1' && !expired) {
     isOwner = true;
     document.getElementById('owner-bar').style.display = '';
