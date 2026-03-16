@@ -19,7 +19,7 @@
 (function(){
   var _q = [];
   function stub(name){ return function(){ _q.push([name, Array.prototype.slice.call(arguments)]); }; }
-  var fns = ['scrollAndFilter','openExercise','speakCard','startRoutine','filterByGoal',
+  var fns = ['scrollAndFilter','openExercise','speakCard','startRoutine','filterByGoal','toggleDrawer',
              'startAllExercises','dismissWelcome','dismissGuide','markDone','hideToast',
              'startNextFromToast','toggleVoice','ovToggle','ovSkip','ovAgain','ovNext',
              'ovClose','ovBegin','gStart','gTap','mathStart','mathAnswer','memStart','memFlip'];
@@ -155,23 +155,22 @@ body.nav-open{overflow:hidden}
 .filter-btn.active{background:var(--gold);border-color:var(--gold);color:#fff}
 
 /* ── EXERCISE GRID ── */
-.ex-grid{display:grid;grid-template-columns:1fr;gap:1rem}
-@media(min-width:520px){.ex-grid{grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}}
+.ex-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
+@media(min-width:640px){.ex-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:960px){.ex-grid{grid-template-columns:repeat(4,1fr)}}
 
-/* ── CARD ── */
-.ex-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;transition:all .28s var(--ease);position:relative}
-.ex-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);border-color:var(--border-m)}
-.ex-card.recommended{border:1.5px solid rgba(42,122,90,.45);background:linear-gradient(160deg,var(--bg3),rgba(42,122,90,.08))}
-.ex-card.recommended:hover{border-color:rgba(42,122,90,.7);box-shadow:0 20px 50px rgba(42,122,90,.18)}
-.ex-card.wake-special{border:1.5px solid rgba(239,68,68,.3);background:linear-gradient(135deg,var(--bg3),rgba(239,68,68,.06))}
-.ex-card.wake-special:hover{border-color:rgba(239,68,68,.55);box-shadow:0 20px 50px rgba(239,68,68,.15)}
-.badge-strip{position:absolute;top:.9rem;right:.9rem;display:flex;flex-direction:column;align-items:flex-end;gap:.3rem;z-index:2}
-.badge{font-size:.57rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .65rem;border-radius:50px}
+/* ── CARD — clean minimal ── */
+.ex-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-lg);display:flex;flex-direction:column;align-items:center;text-align:center;padding:1.2rem .9rem 1rem;gap:.45rem;transition:all .25s var(--ease);position:relative;cursor:pointer}
+.ex-card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);border-color:var(--border-m)}
+.ex-card:active{transform:scale(.97)}
+.ex-card.recommended{border:1.5px solid rgba(42,122,90,.45)}
+.ex-card.wake-special{border:1.5px solid rgba(239,68,68,.3)}
+.badge-strip{position:absolute;top:.6rem;right:.6rem;display:flex;flex-direction:column;align-items:flex-end;gap:.25rem;z-index:2}
+.badge{font-size:.52rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .5rem;border-radius:50px}
 .badge-rec{background:rgba(42,122,90,.85);color:#fff}
 .badge-wake{background:rgba(239,68,68,.85);color:#fff}
-.ex-card-head{padding:1.1rem 1.1rem 0;display:flex;align-items:flex-start;gap:.8rem}
-.ex-meta{flex:1;padding-right:3.5rem}
-.ex-tag{display:inline-block;font-size:.60rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;padding:.2rem .65rem;border-radius:50px;margin-bottom:.35rem}
+.ex-emoji-big{font-size:clamp(2rem,7vw,2.6rem);line-height:1;margin-bottom:.1rem}
+.ex-tag{display:inline-block;font-size:.56rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.15rem .55rem;border-radius:50px;margin-bottom:.1rem}
 .tag-brain{background:rgba(99,102,241,.2);color:#a5b4fc;border:1px solid rgba(99,102,241,.25)}
 .tag-eyes{background:rgba(14,165,233,.2);color:#7dd3fc;border:1px solid rgba(14,165,233,.25)}
 .tag-breath{background:rgba(16,185,129,.2);color:#6ee7b7;border:1px solid rgba(16,185,129,.25)}
@@ -181,38 +180,34 @@ body.nav-open{overflow:hidden}
 .tag-sleep{background:rgba(30,58,138,.35);color:#93c5fd;border:1px solid rgba(147,197,253,.25)}
 .tag-digest{background:rgba(20,83,45,.35);color:#86efac;border:1px solid rgba(134,239,172,.25)}
 .tag-posture{background:rgba(120,53,15,.35);color:#fdba74;border:1px solid rgba(253,186,116,.25)}
-.ex-meta h3{font-family:var(--font-h);font-size:1.02rem;color:var(--text);line-height:1.3;margin-bottom:.2rem}
-.ex-dur{font-size:.68rem;color:var(--text-mu);font-weight:600;letter-spacing:.06em}
-.ex-body{padding:.85rem 1.35rem 1.1rem;flex:1;display:flex;flex-direction:column;gap:.7rem}
-.ex-desc{font-size:.84rem;color:var(--text-m);line-height:1.68}
-.ex-steps{display:flex;flex-direction:column;gap:.38rem}
-.ex-step{display:flex;align-items:flex-start;gap:.55rem;font-size:.80rem;color:var(--text-m);line-height:1.5}
-.ex-step-n{width:19px;height:19px;border-radius:50%;background:var(--gold-pale);border:1px solid rgba(212,160,23,.3);display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:700;color:var(--gold-l);flex-shrink:0;margin-top:1px}
-.ex-avoid{font-size:.75rem;color:rgba(239,68,68,.75);padding:.45rem .7rem;background:rgba(239,68,68,.06);border-radius:8px;border:1px solid rgba(239,68,68,.15);margin-top:.2rem}
-.ex-avoid strong{color:rgba(239,68,68,.9)}
-.ex-footer{padding:.85rem 1.35rem 1.1rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:.7rem;flex-wrap:wrap}
-.ex-benefit{font-size:.72rem;color:var(--text-mu);font-weight:500}
-.ex-benefit strong{color:var(--gold-l)}
-.ex-btns{display:flex;gap:.5rem;align-items:center}
-.start-btn{padding:.58rem 1.3rem;border-radius:50px;font-size:.79rem;font-weight:700;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;border:none;transition:all .25s;flex-shrink:0}
-.start-btn:hover{transform:translateY(-1px);box-shadow:0 4px 18px rgba(184,134,11,.45)}
-.voice-btn{padding:.55rem;border-radius:50%;width:34px;height:34px;background:var(--bg4);border:1px solid var(--border-m);color:var(--text-m);font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0}
+.ex-card-title{font-family:var(--font-h);font-size:.92rem;color:var(--text);line-height:1.25;margin:0}
+.ex-card-dur{font-size:.65rem;color:var(--text-mu);font-weight:600;letter-spacing:.05em}
+.ex-card-benefit{font-size:.72rem;color:var(--text-m);line-height:1.4}
+.ex-card-benefit strong{color:var(--gold-l)}
+.ex-card-start{width:100%;margin-top:.5rem;padding:.65rem;border-radius:50px;font-size:.82rem;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;border:none;transition:all .22s;letter-spacing:.02em}
+.ex-card-start:hover{box-shadow:0 4px 18px rgba(184,134,11,.45)}
+/* Info toggle — detail drawer */
+.ex-card-info{width:100%;background:none;border:none;font-size:.68rem;color:var(--text-mu);cursor:pointer;padding:.2rem 0;margin-top:.1rem;transition:color .2s}
+.ex-card-info:hover{color:var(--text-m)}
+.ex-drawer{display:none;width:100%;text-align:left;background:rgba(255,255,255,.04);border-radius:10px;padding:.75rem;margin-top:.4rem;border:1px solid var(--border)}
+.ex-drawer.open{display:block}
+.ex-drawer-steps{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.5rem}
+.ex-drawer-step{display:flex;gap:.5rem;font-size:.75rem;color:var(--text-m);line-height:1.5;align-items:flex-start}
+.ex-drawer-step-n{width:17px;height:17px;border-radius:50%;background:var(--gold-pale);border:1px solid rgba(212,160,23,.3);display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:700;color:var(--gold-l);flex-shrink:0;margin-top:1px}
+.ex-drawer-avoid{font-size:.68rem;color:rgba(239,68,68,.7);padding:.35rem .6rem;background:rgba(239,68,68,.05);border-radius:7px;border:1px solid rgba(239,68,68,.12);margin-bottom:.45rem}
+.ex-drawer-herbal{background:linear-gradient(135deg,rgba(184,134,11,.07),rgba(14,36,72,.5));border:1px solid rgba(184,134,11,.18);border-radius:9px;padding:.6rem .7rem}
+.ex-drawer-herbal-top{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap}
+.ex-drawer-herbal-name{font-size:.78rem;font-weight:700;color:var(--text)}
+.ex-drawer-herbal-desc{font-size:.68rem;color:var(--text-m);margin:.2rem 0 .3rem}
+.ex-drawer-herbs{display:flex;flex-wrap:wrap;gap:.25rem}
+.herb-pill{font-size:.57rem;font-weight:600;padding:.12rem .45rem;border-radius:50px;background:rgba(212,160,23,.12);border:1px solid rgba(212,160,23,.2);color:var(--gold-l)}
+.ex-drawer-herbal-btn{padding:.28rem .7rem;border-radius:50px;font-size:.68rem;font-weight:700;background:transparent;border:1.5px solid rgba(184,134,11,.35);color:var(--gold-l);white-space:nowrap;transition:all .2s;flex-shrink:0}
+.ex-drawer-herbal-btn:hover{background:var(--gold-pale)}
+.ex-drawer-disclaimer{font-size:.6rem;color:rgba(255,255,255,.28);margin-top:.4rem;font-style:italic;line-height:1.5}
+.voice-btn{padding:.45rem;border-radius:50%;width:30px;height:30px;background:var(--bg4);border:1px solid var(--border-m);color:var(--text-mu);font-size:.75rem;display:flex;align-items:center;justify-content:center;transition:all .25s;flex-shrink:0;position:absolute;top:.6rem;left:.6rem}
 .voice-btn:hover{background:var(--gold-pale);border-color:var(--gold);color:var(--gold-l)}
 .voice-btn.speaking{background:rgba(212,160,23,.2);border-color:var(--gold);color:var(--gold-l);animation:voicePulse .8s ease-in-out infinite alternate}
 @keyframes voicePulse{from{box-shadow:0 0 0 0 rgba(212,160,23,.3)}to{box-shadow:0 0 0 8px rgba(212,160,23,0)}}
-
-/* ── HERBAL SUPPORT CARD (inside exercise card) ── */
-.herbal-card{background:linear-gradient(135deg,rgba(184,134,11,.07),rgba(14,36,72,.6));border:1px solid rgba(184,134,11,.2);border-radius:10px;padding:.7rem .9rem;margin:.4rem 0 0;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
-.herbal-card-icon{font-size:1.5rem;flex-shrink:0}
-.herbal-card-body{flex:1;min-width:120px}
-.herbal-card-label{font-size:.55rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-l);margin-bottom:.15rem}
-.herbal-card-name{font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:.1rem}
-.herbal-card-desc{font-size:.72rem;color:var(--text-m)}
-.herbal-card-herbs{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.35rem}
-.herb-pill{font-size:.58rem;font-weight:600;padding:.15rem .5rem;border-radius:50px;background:rgba(212,160,23,.12);border:1px solid rgba(212,160,23,.2);color:var(--gold-l)}
-.herbal-card-btn{padding:.35rem .85rem;border-radius:50px;font-size:.72rem;font-weight:700;background:transparent;border:1.5px solid rgba(184,134,11,.4);color:var(--gold-l);transition:all .2s;white-space:nowrap}
-.herbal-card-btn:hover{background:var(--gold-pale);border-color:var(--gold-l)}
-.herbal-disclaimer{font-size:.62rem;color:rgba(255,255,255,.35);margin-top:.4rem;line-height:1.5;font-style:italic}
 
 /* ── SCORE DISPLAY (brain games result) ── */
 .score-display{background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:10px;padding:.7rem;text-align:center;margin-top:.4rem}
@@ -1329,7 +1324,7 @@ const DAILY_TIPS = [
 ];
 
 /* ─────────────────────────────────────────────────────
-   RENDER CARDS
+   RENDER CARDS — minimal, action-first
 ───────────────────────────────────────────────────── */
 function renderCards(filter, recIds) {
   const grid = document.getElementById('exGrid');
@@ -1339,54 +1334,44 @@ function renderCards(filter, recIds) {
 
   grid.innerHTML = list.map(ex => {
     const isRec = recs.has(ex.id);
-    const stepsHTML = (ex.steps || []).slice(0, 3).map((s, i) =>
-      `<div class="ex-step"><span class="ex-step-n">${i + 1}</span><span>${s}</span></div>`
+
+    // Detail drawer — steps + avoid + herbal (hidden by default)
+    const stepsHTML = (ex.steps || []).map((s, i) =>
+      `<div class="ex-drawer-step"><span class="ex-drawer-step-n">${i+1}</span><span>${s}</span></div>`
     ).join('');
-
     const avoidHTML = ex.avoid
-      ? `<div class="ex-avoid"><strong>⚠️ Avoid if: </strong>${ex.avoid}</div>` : '';
-
+      ? `<div class="ex-drawer-avoid">⚠️ <strong>Avoid if:</strong> ${ex.avoid}</div>` : '';
     const herbalHTML = ex.herbal ? `
-      <div class="herbal-card">
-        <div class="herbal-card-icon">${ex.herbal.icon}</div>
-        <div class="herbal-card-body">
-          <div class="herbal-card-label">Optional Herbal Support</div>
-          <div class="herbal-card-name">${ex.herbal.name}</div>
-          <div class="herbal-card-desc">${ex.herbal.desc}</div>
-          <div class="herbal-card-herbs">${ex.herbal.herbs.map(h => `<span class="herb-pill">${h}</span>`).join('')}</div>
-          <div class="herbal-disclaimer">⚠️ This is not a substitute for medical advice. Consult your doctor before use.</div>
+      <div class="ex-drawer-herbal">
+        <div class="ex-drawer-herbal-top">
+          <div>
+            <div style="font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-l);margin-bottom:.15rem">Optional Herbal Support</div>
+            <div class="ex-drawer-herbal-name">${ex.herbal.icon} ${ex.herbal.name}</div>
+          </div>
+          <a href="${PRODUCT_LINKS[ex.herbal.product] || 'products.html'}" class="ex-drawer-herbal-btn">Learn More</a>
         </div>
-        <a href="${PRODUCT_LINKS[ex.herbal.product] || 'products.html'}" class="herbal-card-btn">Learn More</a>
+        <div class="ex-drawer-herbal-desc">${ex.herbal.desc}</div>
+        <div class="ex-drawer-herbs">${ex.herbal.herbs.map(h => `<span class="herb-pill">${h}</span>`).join('')}</div>
+        <div class="ex-drawer-disclaimer">⚠️ Not a substitute for medical advice. Consult your doctor before use.</div>
       </div>` : '';
 
     return `
-    <article class="ex-card${isRec ? ' recommended' : ''}${ex.cat === 'wake' ? ' wake-special' : ''} reveal">
+    <article class="ex-card${isRec ? ' recommended' : ''}${ex.cat === 'wake' ? ' wake-special' : ''} reveal" onclick="openExercise('${ex.id}')">
+      <button class="voice-btn" onclick="event.stopPropagation();speakCard('${ex.id}')" title="Listen" aria-label="Listen">🔇</button>
       <div class="badge-strip">
-        ${isRec ? '<span class="badge badge-rec">★ Recommended</span>' : ''}
-        ${ex.cat === 'wake' ? '<span class="badge badge-wake">⚡ Wake-Up</span>' : ''}
+        ${isRec ? '<span class="badge badge-rec">★ For You</span>' : ''}
       </div>
-      <div class="ex-card-head">
-        <div class="ex-meta">
-          <span class="ex-tag ${ex.tagClass}">${ex.tag}</span>
-          <h3>${ex.emoji} ${ex.title}</h3>
-          <div class="ex-dur">⏱ ${ex.dur || ''}</div>
-        </div>
-      </div>
-      <div class="ex-body">
-        <p class="ex-desc">${ex.desc}</p>
-        <div class="ex-steps">${stepsHTML}</div>
+      <div class="ex-emoji-big">${ex.emoji}</div>
+      <span class="ex-tag ${ex.tagClass}">${ex.tag}</span>
+      <h3 class="ex-card-title">${ex.title}</h3>
+      <div class="ex-card-dur">⏱ ${ex.dur || ''}</div>
+      <div class="ex-card-benefit"><strong>${ex.benefit}</strong> ${ex.benefitVal}</div>
+      <button class="ex-card-start" onclick="event.stopPropagation();openExercise('${ex.id}')">▶ Start</button>
+      <button class="ex-card-info" onclick="event.stopPropagation();toggleDrawer('drawer-${ex.id}',this)">ⓘ More info</button>
+      <div class="ex-drawer" id="drawer-${ex.id}">
+        <div class="ex-drawer-steps">${stepsHTML}</div>
         ${avoidHTML}
         ${herbalHTML}
-      </div>
-      <div class="ex-footer">
-        <span class="ex-benefit"><strong>${ex.benefit}</strong> ${ex.benefitVal}</span>
-        <div class="ex-btns">
-          <div class="voice-btn-wrap">
-            <button class="voice-btn" onclick="speakCard('${ex.id}')" title="Hear description" aria-label="Listen to activity description">🔇</button>
-            <span class="v-tip">Hear description</span>
-          </div>
-          <button class="start-btn" onclick="openExercise('${ex.id}')">▶ Begin</button>
-        </div>
       </div>
     </article>`;
   }).join('');
@@ -1397,6 +1382,13 @@ function renderCards(filter, recIds) {
     }), { threshold: 0.05 });
     document.querySelectorAll('#exGrid .reveal').forEach(el => io.observe(el));
   });
+}
+
+function toggleDrawer(id, btn) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const open = el.classList.toggle('open');
+  btn.textContent = open ? '✕ Less info' : 'ⓘ More info';
 }
 
 /* ─────────────────────────────────────────────────────
@@ -2227,6 +2219,7 @@ function updateProgressBars() {
   window.scrollAndFilter   = scrollAndFilter;
   window.openExercise      = openExercise;
   window.speakCard         = speakCard;
+  window.toggleDrawer      = toggleDrawer;
   window.startRoutine      = startRoutine;
   window.filterByGoal      = filterByGoal;
   window.startAllExercises = startAllExercises;
