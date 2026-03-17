@@ -398,6 +398,35 @@ body.nav-open{overflow:hidden}
 .nav-mobile-links a{font-size:1.5rem;font-style:italic;color:rgba(255,255,255,.7);padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);text-decoration:none;transition:color .2s}
 .nav-mobile-links a:hover,.nav-mobile-links a.active{color:#D4A017}
 .nav-mobile-actions{display:flex;flex-direction:column;gap:.8rem;margin-top:auto}
+
+/* ═══ PRODUCT DETAIL — NEW CONVERSION LAYOUT ═══ */
+:root{--primary:#4CAF50;--primary-dark:#388E3C;--primary-light:#E8F5E9;--primary-mid:#C8E6C9;--font:'Inter',system-ui,sans-serif}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:13px 24px;border-radius:12px;font-family:var(--font);font-size:15px;font-weight:600;transition:all 0.25s;cursor:pointer;white-space:nowrap;border:none;text-decoration:none}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 16px rgba(76,175,80,0.28)}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px)}
+.btn-secondary{background:transparent;border:1.5px solid var(--primary);color:var(--primary)}
+.btn-secondary:hover{background:var(--primary-light)}
+.btn-sm{padding:9px 18px;font-size:13px}
+.btn-lg{padding:16px 32px;font-size:16px}
+.card{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);padding:20px;border:1px solid #E8EDE8}
+.pd-hero{background:linear-gradient(160deg,#F1F8E9 0%,#fff 70%);padding:clamp(80px,12vw,110px) 0 40px;border-bottom:1px solid #E8EDE8}
+.pd-hero-grid{display:grid;gap:32px;align-items:start;margin-top:20px}
+@media(min-width:760px){.pd-hero-grid{grid-template-columns:1fr 1fr}}
+.pd-img-col{}
+.pd-img-wrap{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.09);border:1px solid #E8EDE8;display:flex;align-items:center;justify-content:center;min-height:300px;padding:16px}
+.pd-img-wrap img{width:100%;max-height:360px;object-fit:contain}
+.pd-tag{display:inline-flex;align-items:center;padding:4px 12px;background:var(--primary-light);border:1px solid var(--primary-mid);border-radius:50px;font-size:12px;font-weight:700;color:var(--primary-dark);letter-spacing:0.04em}
+.pd-info-col{}
+.pd-section-grid{display:grid;gap:16px}
+@media(min-width:640px){.pd-section-grid{grid-template-columns:1fr 1fr}}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:#999;margin-bottom:4px;flex-wrap:wrap}
+.breadcrumb a{color:#666;transition:color 0.2s}
+.breadcrumb a:hover{color:var(--primary)}
+.breadcrumb .sep{opacity:0.4}
+/* sticky mobile buy */
+.sticky-pd-buy{display:none}
+@media(max-width:640px){.sticky-pd-buy{display:block;position:fixed;bottom:0;left:0;right:0;z-index:470;background:#fff;border-top:1px solid #E8EDE8;padding:10px 16px;box-shadow:0 -4px 16px rgba(0,0,0,0.08)}}
+
 </style>
 <meta name="description" content="Buy Shah Hayaat certified Ayurvedic medicine online. WHO-GMP & ISO certified herbal formulations. 100% natural ingredients. Order on WhatsApp: +91 70510 56287.">
 <meta name="keywords" content="ayurvedic medicine buy online, herbal syrup india, certified ayurvedic product, shah hayaat product">
@@ -412,21 +441,97 @@ body.nav-open{overflow:hidden}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Shah Hayaat Certified Ayurvedic Medicine">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Product",
-"name":"Shah Hayaat Ayurvedic Medicine",
-"brand":{"@type":"Brand","name":"Shah Hayaat"},
-"manufacturer":{"@type":"Organization","name":"Shah Hayaat","url":"https://www.shahhayaat.com"},
-"url":"https://www.shahhayaat.com/product-detail.html",
-"offers":{"@type":"Offer","priceCurrency":"INR","availability":"https://schema.org/InStock","seller":{"@type":"Organization","name":"Shah Hayaat"}},
-"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"50","bestRating":"5","worstRating":"1"}}
-</script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
-{"@type":"ListItem","position":1,"name":"Home","item":"https://www.shahhayaat.com/"},
-{"@type":"ListItem","position":2,"name":"Products","item":"https://www.shahhayaat.com/products.html"},
-{"@type":"ListItem","position":3,"name":"Product Detail","item":"https://www.shahhayaat.com/product-detail.html"}
-]}
+<script>
+/* ── Synchronous schema injection — runs before DOM ready so Google sees it ── */
+(function(){
+  var GH='https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
+  var BASE='https://www.shahhayaat.com/';
+  var PDATA={
+    brainchamp:{name:'Brain Champ',price:'175',desc:'Ayurvedic syrup for memory, focus and mental clarity. Contains Brahmi, Ashwagandha and Shankhpushpi. WHO-GMP certified. Order on WhatsApp.',tag:'Brain & Focus'},
+    shahzyme:{name:'Shah Zyme',price:'165',desc:'Ayurvedic digestive enzyme syrup for gas, bloating and indigestion relief. Contains Ajwain, Saunf and Jeera. WHO-GMP certified.',tag:'Digestion'},
+    bloodstorm:{name:'Blood Storm',price:'165',desc:'Ayurvedic blood tonic for anaemia, low haemoglobin and weakness. Contains Loha Bhasma, Shatavari and Ashwagandha. WHO-GMP certified.',tag:'Blood & Energy'},
+    coughxpro:{name:'Cough X Pro',price:'90',desc:'Ayurvedic herbal cough syrup for fast relief from chronic cough and throat irritation. Contains Tulsi, Mulethi and Adrak.',tag:'Respiratory'},
+    musaffakhoon:{name:'Musaffa Khoon',price:'165',desc:'Ayurvedic blood purifier syrup for clear skin, acne and detox. Contains Neem, Manjistha and Giloy. WHO-GMP certified.',tag:'Skin Care'},
+    panasip:{name:'PanaSip',price:'165',desc:'Ayurvedic antacid syrup for fast relief from acidity, heartburn and gastric ulcers. Contains Mulethi and Shatavari.',tag:'Acidity'},
+    livohayaat:{name:'Livo Hayaat',price:'349',desc:'Ayurvedic liver detox and hepatoprotective formula. Reduces fatty liver and normalises SGPT levels. Contains Bhumi Amla and Kutki.',tag:'Liver Health'},
+    diaease:{name:'Dia-Ease',price:'695',desc:'Ayurvedic blood sugar management formula for diabetes support. Contains Karela, Gurmar and Jamun Seed. WHO-GMP certified.',tag:'Diabetes Care'},
+    orthohayaat:{name:'Ortho Hayaat',price:'649',desc:'Ayurvedic joint pain relief and mobility support. Contains Shallaki (Boswellia) and Guggul. WHO-GMP certified.',tag:'Joint Care'},
+    utrohayaat:{name:'Utro Hayaat',price:'625',desc:'Ayurvedic uterine tonic for womens health, hormonal balance and menstrual regularity. Contains Ashoka and Shatavari.',tag:'Female Health'},
+    passionpulse:{name:'Passion Pulse',price:'599',desc:'Ayurvedic male vitality supplement for stamina and energy. Contains Ashwagandha, Shilajit and Safed Musli.',tag:'Male Vitality'},
+    fevodol:{name:'Fevodol',price:'165',desc:'Ayurvedic immunity booster for fever, infections and immune defence. Contains Giloy, Tulsi and Chirayata.',tag:'Immunity'}
+  };
+  var id=(location.search.match(/[?&]id=([^&]+)/)||[])[1]||'brainchamp';
+  var p=PDATA[id]||PDATA.brainchamp;
+  var pgUrl=BASE+'product-detail.html?id='+id;
+  var imgUrl=GH+id+'1.jpg';
+
+  /* Update title and meta immediately */
+  var titleEl=document.getElementById('pg-title');
+  var descEl=document.getElementById('pg-desc');
+  if(titleEl)titleEl.textContent=p.name+' — Ayurvedic '+p.tag+' | Buy Online India | Shah Hayaat';
+  if(descEl)descEl.setAttribute('content','Buy '+p.name+' online. '+p.desc+' ₹'+p.price+'. Order on WhatsApp +91 70510 56287.');
+
+  /* Inject Product schema */
+  var schema=[
+    {
+      "@context":"https://schema.org",
+      "@type":"Product",
+      "name":p.name,
+      "description":p.desc,
+      "image":[imgUrl],
+      "brand":{"@type":"Brand","name":"Shah Hayaat"},
+      "manufacturer":{"@type":"Organization","name":"Shah Hayaat","url":BASE},
+      "url":pgUrl,
+      "offers":{
+        "@type":"Offer",
+        "price":p.price,
+        "priceCurrency":"INR",
+        "availability":"https://schema.org/InStock",
+        "url":pgUrl,
+        "seller":{"@type":"Organization","name":"Shah Hayaat"},
+        "shippingDetails":{
+          "@type":"OfferShippingDetails",
+          "shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"INR"},
+          "shippingDestination":{"@type":"DefinedRegion","addressCountry":"IN"},
+          "deliveryTime":{"@type":"ShippingDeliveryTime","handlingTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":2,"unitCode":"DAY"},"transitTime":{"@type":"QuantitativeValue","minValue":3,"maxValue":7,"unitCode":"DAY"}}
+        },
+        "hasMerchantReturnPolicy":{
+          "@type":"MerchantReturnPolicy",
+          "applicableCountry":"IN",
+          "returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays":7,
+          "returnMethod":"https://schema.org/ReturnByMail",
+          "returnFees":"https://schema.org/FreeReturn"
+        }
+      },
+      "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"50","bestRating":"5","worstRating":"1"}
+    },
+    {
+      "@context":"https://schema.org",
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":BASE},
+        {"@type":"ListItem","position":2,"name":"Products","item":BASE+"products.html"},
+        {"@type":"ListItem","position":3,"name":p.name,"item":pgUrl}
+      ]
+    }
+  ];
+
+  var s=document.createElement('script');
+  s.type='application/ld+json';
+  s.textContent=JSON.stringify(schema);
+  document.currentScript.parentNode.insertBefore(s,document.currentScript.nextSibling);
+
+  /* Also update OG/Twitter tags */
+  function setMeta(sel,attr,val){var el=document.querySelector(sel);if(el)el.setAttribute(attr,val);}
+  setMeta('meta[property="og:title"]','content',p.name+' | Shah Hayaat');
+  setMeta('meta[property="og:description"]','content',p.desc);
+  setMeta('meta[property="og:image"]','content',imgUrl);
+  setMeta('meta[property="og:url"]','content',pgUrl);
+  setMeta('link[rel="canonical"]','href',pgUrl);
+  setMeta('meta[name="twitter:title"]','content',p.name+' | Shah Hayaat');
+  setMeta('meta[name="twitter:image"]','content',imgUrl);
+})();
 </script></head>
 <body>
 
@@ -697,129 +802,175 @@ document.addEventListener('DOMContentLoaded', function() {
   if (!mainEl) return;
 
   if (!p) {
-    mainEl.innerHTML = '<div style="text-align:center;padding:6rem 2rem">' +
-      '<div style="font-size:3.5rem;margin-bottom:1rem">🌿</div>' +
-      '<h2 style="color:var(--navy-mid);margin-bottom:0.6rem">Product Not Found</h2>' +
-      '<p style="margin-bottom:1.6rem">We could not find that product. Please browse our full range.</p>' +
-      '<a href="products.html" class="btn btn-primary">Browse All Products</a>' +
-      '</div>';
-    return;
-  }
+    var waMsg = encodeURIComponent("Hi! I'd like to order " + p.name + " — ₹" + p.price + ". Please guide me.");
+  var waUrl = 'https://wa.me/917051056287?text=' + waMsg;
 
-  var pgTitle = document.getElementById('pg-title');
-  var pgDesc  = document.getElementById('pg-desc');
-  var revHead = document.getElementById('reviews-heading');
-  if (pgTitle) pgTitle.textContent = p.name + ' — Ayurvedic ' + p.tag + ' | Shah Hayaat | Buy Online India';
-  if (pgDesc)  pgDesc.setAttribute('content', 'Buy ' + p.name + ' — ' + p.desc + ' WHO-GMP & ISO certified. ₹' + p.price + '. Order on WhatsApp +91 70510 56287.');
-  if (revHead) revHead.textContent = 'Reviews for ' + p.name;
+  /* Exercises per category */
+  var catExercises = {
+    brain: [{name:'Candle Focus Exercise',dur:'2 min'},{name:'Humming Breath (Bhramari)',dur:'1 min'},{name:'Memory Palace Technique',dur:'3 min'}],
+    digestion: [{name:'Agni Digestive Breath',dur:'2 min'},{name:'Abdominal Self-Massage',dur:'3 min'},{name:'Post-Meal Walking',dur:'10 min'}],
+    liver: [{name:'Deep Diaphragm Breathing',dur:'3 min'},{name:'Twisting Yoga Poses',dur:'5 min'},{name:'Morning Lemon Ritual',dur:'1 min'}],
+    joint: [{name:'Gentle Joint Mobility',dur:'5 min'},{name:'Warm Oil Massage',dur:'5 min'},{name:'Anti-inflammatory Breath',dur:'2 min'}],
+    diabetes: [{name:'Post-Meal Walk',dur:'10 min'},{name:'Kapalbhati Pranayama',dur:'5 min'},{name:'Stress Reset Breath',dur:'3 min'}],
+    immunity: [{name:'Bhramari Breathing',dur:'2 min'},{name:'Morning Sunlight Walk',dur:'10 min'},{name:'Cold Water Resistance',dur:'1 min'}],
+    blood: [{name:'Iron-Rich Foods Guide',dur:'2 min read'},{name:'Anulom Vilom',dur:'5 min'},{name:'Energising Breath',dur:'2 min'}],
+    respiratory: [{name:'Steam Breathing Exercise',dur:'5 min'},{name:'Pursed Lip Breathing',dur:'2 min'},{name:'Bhramari for Airways',dur:'2 min'}],
+    skin: [{name:'Facial Self-Massage',dur:'3 min'},{name:'Hydration Check',dur:'1 min'},{name:'Blood-Purifying Breath',dur:'2 min'}],
+    acidity: [{name:'Cooling Breath (Sheetali)',dur:'2 min'},{name:'Left Nostril Breathing',dur:'2 min'},{name:'Post-Meal Walking',dur:'10 min'}],
+    female: [{name:'Gentle Yoga for Hormones',dur:'5 min'},{name:'Womb Breathing',dur:'3 min'},{name:'Stress Relief Sequence',dur:'5 min'}],
+    male: [{name:'Ashwini Mudra',dur:'2 min'},{name:'Energy Pranayama',dur:'3 min'},{name:'Power Stretch Sequence',dur:'5 min'}]
+  };
+  var exercises = catExercises[p.cat] || catExercises.brain;
 
-  /* Update OG tags for social sharing */
-  var ogTitle = document.querySelector('meta[property="og:title"]');
-  var ogDesc  = document.querySelector('meta[property="og:description"]');
-  var ogImg   = document.querySelector('meta[property="og:image"]');
-  var ogUrl   = document.querySelector('meta[property="og:url"]');
-  var canon   = document.querySelector('link[rel="canonical"]');
-  var twTitle = document.querySelector('meta[name="twitter:title"]');
-  var twImg   = document.querySelector('meta[name="twitter:image"]');
-  var pgUrl   = 'https://www.shahhayaat.com/product-detail.html?id=' + p.id;
-  var imgUrl  = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/' + p.id + '1.jpg';
-  if (ogTitle) ogTitle.setAttribute('content', p.name + ' — ' + p.tag + ' | Shah Hayaat');
-  if (ogDesc)  ogDesc.setAttribute('content', p.desc + ' WHO-GMP certified. ₹' + p.price + '. 50,000+ customers.');
-  if (ogImg)   ogImg.setAttribute('content', imgUrl);
-  if (ogUrl)   ogUrl.setAttribute('content', pgUrl);
-  if (canon)   canon.setAttribute('href', pgUrl);
-  if (twTitle) twTitle.setAttribute('content', p.name + ' | Shah Hayaat');
-  if (twImg)   twImg.setAttribute('content', imgUrl);
-
-  /* Inject Product schema with actual product data */
-  var schemaEl = document.querySelector('script[type="application/ld+json"]');
-  if (schemaEl) {
-    schemaEl.textContent = JSON.stringify([{
-      "@context": "https://schema.org",
-      "@type": "Product",
-      "name": p.name,
-      "description": p.desc,
-      "image": imgUrl,
-      "brand": {"@type": "Brand", "name": "Shah Hayaat"},
-      "manufacturer": {"@type": "Organization", "name": "Shah Hayaat", "url": "https://www.shahhayaat.com"},
-      "url": pgUrl,
-      "offers": {
-        "@type": "Offer",
-        "price": p.price.toString(),
-        "priceCurrency": "INR",
-        "availability": "https://schema.org/InStock",
-        "seller": {"@type": "Organization", "name": "Shah Hayaat"},
-        "url": pgUrl
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "reviewCount": "50",
-        "bestRating": "5",
-        "worstRating": "1"
-      }
-    }, {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.shahhayaat.com/"},
-        {"@type": "ListItem", "position": 2, "name": "Products", "item": "https://www.shahhayaat.com/products.html"},
-        {"@type": "ListItem", "position": 3, "name": p.name, "item": pgUrl}
-      ]
-    }]);
-  }
-
-  var waMsg = encodeURIComponent("Hi! I'd like to order " + p.name + ", ₹" + p.price);
+  /* Who is this for */
+  var whoFor = {
+    brain: ['Students preparing for exams','Working professionals with mental fatigue','Anyone experiencing poor memory or brain fog'],
+    digestion: ['People suffering from bloating after meals','Those with irregular digestion','Anyone with gas or acidity issues'],
+    liver: ['People with elevated SGPT/SGOT levels','Those with fatty liver concerns','Anyone who drinks alcohol occasionally'],
+    joint: ['Arthritis and joint pain sufferers','People with morning stiffness','Active adults over 40'],
+    diabetes: ['Pre-diabetic individuals','Type 2 diabetes patients (supportive)','People with high sugar cravings'],
+    immunity: ['People with frequent colds or infections','Those recovering from illness','Anyone wanting stronger immune defence'],
+    blood: ['People with anaemia or low haemoglobin','Those feeling constantly tired or weak','Women with heavy menstrual blood loss'],
+    respiratory: ['Chronic cough sufferers','People with respiratory allergies','Smokers or those in polluted areas'],
+    skin: ['People with acne, pimples or dull skin','Those with psoriasis or eczema','Anyone wanting clearer, glowing skin'],
+    acidity: ['Frequent heartburn or acid reflux sufferers','People with peptic ulcers','Those who eat spicy or fried food often'],
+    female: ['Women with irregular periods','Those experiencing PCOD symptoms','Women with hormonal imbalances'],
+    male: ['Men feeling low energy or stamina','Those with reproductive health concerns','Men over 35 experiencing fatigue']
+  };
+  var audience = whoFor[p.cat] || whoFor.brain;
 
   mainEl.innerHTML =
-    '<div class="page-hero">' +
-      '<div class="container page-hero-inner">' +
+    /* 1. Product Hero */
+    '<div class="pd-hero">' +
+      '<div class="container">' +
         '<nav class="breadcrumb">' +
-          '<a href="index.html">Home</a><span class="sep">/</span>' +
-          '<a href="products.html">Products</a><span class="sep">/</span>' +
+          '<a href="index.html">Home</a><span class="sep"> / </span>' +
+          '<a href="products.html">Products</a><span class="sep"> / </span>' +
           '<span>' + p.name + '</span>' +
         '</nav>' +
-        '<h1 style="font-size:clamp(1.75rem,4vw,2.6rem)">' + p.name + '</h1>' +
-        '<p>' + p.tag + '</p>' +
+        '<div class="pd-hero-grid">' +
+          '<div class="pd-img-col">' +
+            '<div class="pd-img-wrap">' +
+              '<img src="' + imgSrc(p.id) + '" alt="' + p.name + '" loading="eager" id="pd-main-img">' +
+            '</div>' +
+          '</div>' +
+          '<div class="pd-info-col">' +
+            '<div style="margin-bottom:10px"><span class="pd-tag">' + p.tag + '</span></div>' +
+            '<h1 style="font-size:clamp(24px,4vw,34px);margin-bottom:8px">' + p.name + '</h1>' +
+            '<p style="font-size:15px;color:#444;margin-bottom:16px">' + p.desc + '</p>' +
+            '<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">' +
+              '<span style="color:#D4A017;font-size:16px">★★★★★</span>' +
+              '<span style="font-size:13px;color:#666">Trusted by 50,000+ customers</span>' +
+            '</div>' +
+            '<div style="margin-bottom:16px">' +
+              '<div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:#4CAF50;margin-bottom:8px">Key Benefits</div>' +
+              p.benefits.map(function(b){ return '<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:14px;color:#444"><span style="color:#4CAF50;font-weight:700;flex-shrink:0">✓</span>' + b + '</div>'; }).join('') +
+            '</div>' +
+            '<div style="font-size:30px;font-weight:700;color:#388E3C;margin-bottom:20px">₹' + p.price + ' <span style="font-size:14px;color:#999;font-weight:400">/ pack</span></div>' +
+            '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px">' +
+              '<a href="' + waUrl + '" target="_blank" rel="noopener" class="btn btn-primary btn-lg" style="flex:1;min-width:180px;justify-content:center">💬 Order on WhatsApp</a>' +
+              '<a href="products.html" class="btn btn-secondary" style="flex-shrink:0">← All Products</a>' +
+            '</div>' +
+            '<div style="display:flex;flex-wrap:wrap;gap:8px">' +
+              '<span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;padding:5px 12px;background:#E8F5E9;border:1px solid #C8E6C9;border-radius:50px;color:#2E7D32">🌍 WHO-GMP</span>' +
+              '<span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;padding:5px 12px;background:#E8F5E9;border:1px solid #C8E6C9;border-radius:50px;color:#2E7D32">✅ ISO 9001:2015</span>' +
+              '<span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;padding:5px 12px;background:#E8F5E9;border:1px solid #C8E6C9;border-radius:50px;color:#2E7D32">🛡️ HACCP</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
       '</div>' +
     '</div>' +
-    '<section class="section bg-white">' +
+
+    /* 2. Who Is This For */
+    '<section style="padding:40px 0;background:#F8FAF8;border-top:1px solid #E8EDE8;border-bottom:1px solid #E8EDE8">' +
       '<div class="container">' +
-        '<div class="detail-grid">' +
-          '<div class="reveal">' +
-            '<div class="detail-img">' +
-              '<img src="' + imgSrc(p.id) + '" alt="' + p.name + '" loading="eager">' +
-            '</div>' +
+        '<div class="pd-section-grid">' +
+          '<div class="card">' +
+            '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">Who Is This For?</div>' +
+            '<h3 style="margin-bottom:14px">Is This Right for You?</h3>' +
+            audience.map(function(a){ return '<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f0f0f0;font-size:14px;color:#444"><span style="font-size:1.1rem">👤</span>' + a + '</div>'; }).join('') +
           '</div>' +
-          '<div class="reveal delay-2">' +
-            '<div class="detail-price">₹' + p.price + ' <sub>/ pack</sub></div>' +
-            '<div id="inline-rating" style="margin:0.5rem 0 1rem"></div>' +
-            '<div class="detail-actions">' +
-              '<a href="https://wa.me/917051056287?text=' + waMsg + '" target="_blank" rel="noopener" class="btn btn-primary btn-lg">💬 Order on WhatsApp</a>' +
-              '<a href="products.html" class="btn btn-outline">← All Products</a>' +
-            '</div>' +
-            '<div class="info-block">' +
-              '<span class="info-block-label">About This Product</span>' +
-              '<p style="line-height:1.8">' + p.full + '</p>' +
-            '</div>' +
-            '<div class="info-block">' +
-              '<span class="info-block-label" style="font-size:0.78rem;margin-bottom:0.8rem">✦ Key Benefits</span>' +
-              '<div>' + p.benefits.map(function(b,i){ return '<div class="benefit-item" data-bi="'+i+'">'+b+'</div>'; }).join('') + '</div>' +
-            '</div>' +
+          '<div class="card">' +
+            '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">How It Works</div>' +
+            '<h3 style="margin-bottom:10px">Natural Approach</h3>' +
+            '<p style="font-size:14px;color:#555;line-height:1.75;margin-bottom:14px">' + p.full + '</p>' +
           '</div>' +
         '</div>' +
-        '<div class="info-boxes">' +
-          '<div class="info-box reveal delay-1"><span class="info-block-label">Key Ingredients</span><p>' + p.ingredients + '</p></div>' +
-          '<div class="info-box reveal delay-2"><span class="info-block-label">Dosage Instructions</span><p>' + p.dosage + '</p></div>' +
-          '<div class="info-box reveal delay-3"><span class="info-block-label">Precautions</span><p>' + p.precautions + '</p></div>' +
+      '</div>' +
+    '</section>' +
+
+    /* 3. Key Ingredients */
+    '<section style="padding:40px 0">' +
+      '<div class="container">' +
+        '<div class="pd-section-grid">' +
+          '<div class="card">' +
+            '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">Key Ingredients</div>' +
+            '<h3 style="margin-bottom:14px">What's Inside</h3>' +
+            p.ingredients.split(',').map(function(ing){ var parts=ing.trim().split('('); return '<div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #f0f0f0"><span style="color:#4CAF50;font-size:1.1rem;flex-shrink:0">🌿</span><div><div style="font-size:14px;font-weight:600;color:#222">' + parts[0].trim() + '</div>' + (parts[1] ? '<div style="font-size:12px;color:#888">(' + parts[1].replace(')','') + ')</div>' : '') + '</div></div>'; }).join('') +
+          '</div>' +
+          '<div class="card">' +
+            '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">How to Use</div>' +
+            '<h3 style="margin-bottom:10px">Dosage Instructions</h3>' +
+            '<p style="font-size:14px;color:#555;line-height:1.75;margin-bottom:16px">' + p.dosage + '</p>' +
+            '<div style="background:#FFF8E1;border:1px solid rgba(212,160,23,0.25);border-radius:8px;padding:12px 14px;font-size:13px;color:#7A5500;line-height:1.6"><strong>⚠️ Precautions:</strong> ' + p.precautions + '</div>' +
+          '</div>' +
         '</div>' +
-        '<div class="quiz-disclaimer reveal" style="margin-top:2rem">' +
-          '<strong>Disclaimer:</strong> This is an Ayurvedic supplement. It is not intended to diagnose, treat, cure or prevent any disease. Results may vary. Please consult a qualified healthcare professional before use.' +
+      '</div>' +
+    '</section>' +
+
+    /* 4. Improve Results with Daily Practice */
+    '<section style="padding:40px 0;background:#F8FAF8;border-top:1px solid #E8EDE8">' +
+      '<div class="container">' +
+        '<div class="card" style="max-width:720px">' +
+          '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">Supporting Tools</div>' +
+          '<h3 style="margin-bottom:8px">Improve Results with Daily Practice</h3>' +
+          '<p style="font-size:14px;color:#555;margin-bottom:16px">These simple exercises are designed to support the effects of ' + p.name + ' — combining herbal support with daily practice delivers better outcomes.</p>' +
+          '<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">' +
+            exercises.map(function(ex){ return '<a href="exercises.html" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border:1px solid #E8EDE8;border-radius:8px;text-decoration:none;transition:all 0.2s;font-size:14px;font-weight:500;color:#222"><span style="font-size:1.2rem">🧘</span>' + ex.name + '<span style="margin-left:auto;font-size:12px;color:#999;font-weight:400">' + ex.dur + '</span></a>'; }).join('') +
+          '</div>' +
+          '<a href="exercises.html" class="btn btn-secondary btn-sm">View All Exercises →</a>' +
         '</div>' +
+      '</div>' +
+    '</section>' +
+
+    /* 5. Optional Wellness Check */
+    '<section style="padding:40px 0;border-top:1px solid #E8EDE8">' +
+      '<div class="container">' +
+        '<div class="card" style="max-width:720px;background:#E8F5E9;border-color:#C8E6C9">' +
+          '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">Optional</div>' +
+          '<h3 style="margin-bottom:8px">Check Your Wellness Level</h3>' +
+          '<p style="font-size:14px;color:#444;margin-bottom:16px">Take a quick 2-minute self-assessment to understand your current ' + p.tag.toLowerCase() + ' level and see if ' + p.name + ' is the right fit for you.</p>' +
+          '<a href="wellness-lab.html" class="btn btn-secondary btn-sm">Start Wellness Lab →</a>' +
+        '</div>' +
+      '</div>' +
+    '</section>' +
+
+    /* 6. FAQ */
+    '<section style="padding:40px 0;background:#F8FAF8;border-top:1px solid #E8EDE8">' +
+      '<div class="container" style="max-width:720px">' +
+        '<h3 style="margin-bottom:16px">Frequently Asked Questions</h3>' +
+        '<div style="border:1px solid #E8EDE8;border-radius:12px;overflow:hidden;background:#fff">' +
+          '<div style="padding:16px 20px;border-bottom:1px solid #f0f0f0"><strong style="font-size:14px">Is ' + p.name + ' safe to use?</strong><p style="font-size:13px;color:#666;margin-top:6px;margin-bottom:0">Yes. ' + p.name + ' is formulated using traditional Ayurvedic herbs. ' + p.precautions + '</p></div>' +
+          '<div style="padding:16px 20px;border-bottom:1px solid #f0f0f0"><strong style="font-size:14px">When will I see results?</strong><p style="font-size:13px;color:#666;margin-top:6px;margin-bottom:0">Most customers notice improvements within 3–4 weeks of consistent use. For best results, a full 6–8 week course is recommended.</p></div>' +
+          '<div style="padding:16px 20px"><strong style="font-size:14px">How do I order?</strong><p style="font-size:13px;color:#666;margin-top:6px;margin-bottom:0">The easiest way is WhatsApp — message +91 70510 56287 with the product name. You can also find it on Amazon India and IndiaMART.</p></div>' +
+        '</div>' +
+      '</div>' +
+    '</section>' +
+
+    /* 7. Final CTA */
+    '<section style="padding:48px 0;background:linear-gradient(135deg,#2E7D32,#43A047);text-align:center">' +
+      '<div class="container">' +
+        '<h2 style="color:#fff;margin-bottom:8px">Start Supporting Your ' + p.tag + ' Today</h2>' +
+        '<p style="color:rgba(255,255,255,0.80);max-width:460px;margin:0 auto 24px;font-size:15px">Join 50,000+ customers who trust Shah Hayaat for natural, certified Ayurvedic support.</p>' +
+        '<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">' +
+          '<a href="' + waUrl + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:16px 32px;border-radius:12px;background:#25D366;color:#fff;font-weight:700;font-size:16px;text-decoration:none;transition:all 0.25s">💬 Order on WhatsApp</a>' +
+          '<a href="products.html" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:16px 32px;border-radius:12px;background:transparent;color:#fff;font-weight:600;font-size:15px;text-decoration:none;border:2px solid rgba(255,255,255,0.55);transition:all 0.25s">Browse All Products</a>' +
+        '</div>' +
+        '<p style="color:rgba(255,255,255,0.55);font-size:12px;margin-top:16px">Ayurvedic supplement — not a treatment. Consult a healthcare professional before use.</p>' +
       '</div>' +
     '</section>';
 
-  /* Related products */
+    /* Related products */
   var related = PRODUCTS.filter(function(x){ return x.cat === p.cat && x.id !== p.id; }).slice(0,3);
   if (related.length) {
     var relWrap = document.getElementById('related-wrap');
@@ -1109,6 +1260,27 @@ document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){rio.observe(el);});
   ['yr','year','yr-footer'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=new Date().getFullYear();});
 });
+</script>
+
+<div class="sticky-pd-buy" id="sticky-pd-buy">
+  <a id="sticky-buy-btn" href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-primary btn-full">💬 Order on WhatsApp</a>
+</div>
+<script>
+(function(){
+  var id=new URLSearchParams(location.search).get('id');
+  var PRODUCTS_LOCAL=[
+    {id:'brainchamp',price:175},{id:'shahzyme',price:165},{id:'bloodstorm',price:165},
+    {id:'coughxpro',price:90},{id:'musaffakhoon',price:165},{id:'panasip',price:165},
+    {id:'livohayaat',price:349},{id:'diaease',price:695},{id:'orthohayaat',price:649},
+    {id:'utrohayaat',price:625},{id:'passionpulse',price:599},{id:'fevodol',price:165}
+  ];
+  var p=PRODUCTS_LOCAL.find(function(x){return x.id===id;});
+  if(p){
+    var btn=document.getElementById('sticky-buy-btn');
+    var name=id.charAt(0).toUpperCase()+id.slice(1);
+    if(btn)btn.href='https://wa.me/917051056287?text='+encodeURIComponent("Hi! I'd like to order "+id+" — ₹"+p.price);
+  }
+})();
 </script>
 </body>
 </html>
