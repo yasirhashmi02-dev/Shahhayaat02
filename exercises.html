@@ -20,8 +20,9 @@
   var _q = [];
   function stub(name){ return function(){ _q.push([name, Array.prototype.slice.call(arguments)]); }; }
   var fns = ['scrollAndFilter','openExercise','speakCard','startRoutine','filterByGoal','toggleDrawer',
+             'showHowToPlay','htpNext','htpPrev','htpDoStep','htpAdvance','ovBeginDirect','toggleInstructions','resumeFromInstructions',
              'startAllExercises','dismissWelcome','dismissGuide','markDone','hideToast',
-             'startNextFromToast','toggleVoice','ovToggle','ovSkip','ovAgain','ovNext',
+             'startNextFromToast','toggleVoice','ovToggle','ovSkip','skipPhase','ovAgain','ovNext',
              'ovClose','ovBegin','gStart','gTap','mathStart','mathAnswer','memStart','memFlip'];
   fns.forEach(function(n){ window[n] = stub(n); });
   window.__drainQueue = function(){
@@ -369,6 +370,60 @@ body.nav-open{overflow:hidden}
 .ov-btn-ready{width:100%;padding:.9rem 1.6rem;border-radius:50px;font-size:1rem;font-weight:800;background:linear-gradient(135deg,#166534,#22C55E);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(34,197,94,.35);transition:all .2s}
 .ov-btn-ready:active{transform:scale(.97)}
 .ov-btn-skip2{padding:.65rem 1.3rem;border-radius:50px;font-size:.82rem;font-weight:700;background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);border:1.5px solid rgba(255,255,255,.12);cursor:pointer}
+
+/* ── SKIP BUTTON — always visible during exercise ── */
+.ov-btn-skip{padding:.7rem 1.4rem;border-radius:50px;font-size:.88rem;font-weight:700;background:rgba(255,255,255,.08);color:rgba(255,255,255,.65);border:1.5px solid rgba(255,255,255,.15);cursor:pointer;transition:all .2s}
+.ov-btn-skip:hover{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.3)}
+
+/* ── HOW TO PLAY SCREEN ── */
+.ov-htp{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:1.2rem 1.4rem 1.4rem;overflow-y:auto;-webkit-overflow-scrolling:touch;text-align:center}
+.ov-htp-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-l);background:var(--gold-pale);border:1px solid rgba(212,160,23,.25);padding:.22rem .7rem;border-radius:50px;margin-bottom:.5rem}
+.ov-htp-emoji{font-size:clamp(2.5rem,11vw,3.8rem);line-height:1;margin-bottom:.2rem}
+.ov-htp-title{font-family:var(--font-h);font-size:clamp(1.1rem,4.5vw,1.45rem);color:#fff;font-weight:800;margin-bottom:.1rem;line-height:1.2}
+.ov-htp-dur{font-size:.7rem;color:var(--gold-l);font-weight:700;letter-spacing:.08em;margin-bottom:.7rem}
+/* Step card — one at a time */
+.ov-htp-card{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:360px;gap:.8rem;padding:.5rem 0}
+.ov-htp-step-num{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-mu)}
+.ov-htp-step-bubble{background:rgba(255,255,255,.05);border:1.5px solid rgba(212,160,23,.25);border-radius:20px;padding:1.4rem 1.2rem;width:100%;position:relative}
+.ov-htp-step-n-big{width:2.2rem;height:2.2rem;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#000;font-size:.82rem;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto .75rem}
+.ov-htp-step-text{font-size:clamp(.9rem,4vw,1.05rem);color:rgba(255,255,255,.9);line-height:1.65;font-weight:400}
+/* Dots progress */
+.ov-htp-dots{display:flex;gap:.45rem;justify-content:center;margin:.5rem 0}
+.ov-htp-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.18);transition:all .25s}
+.ov-htp-dot.active{background:var(--gold-l);transform:scale(1.3)}
+.ov-htp-dot.done{background:rgba(34,197,94,.6)}
+/* Avoid box */
+.ov-htp-avoid{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:.5rem .85rem;width:100%;max-width:360px;font-size:.76rem;color:rgba(239,68,68,.8);line-height:1.6;text-align:left}
+.ov-htp-avoid strong{display:block;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem;color:rgba(239,68,68,.9)}
+/* Navigation buttons */
+.ov-htp-nav{display:flex;gap:.6rem;width:100%;max-width:340px;margin-top:.5rem}
+.ov-htp-prev{flex:1;padding:.8rem;border-radius:50px;font-size:.88rem;font-weight:700;background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);border:1.5px solid rgba(255,255,255,.12);cursor:pointer;transition:all .2s}
+.ov-htp-prev:hover{background:rgba(255,255,255,.1);color:#fff}
+.ov-htp-next{flex:2;padding:.85rem;border-radius:50px;font-size:.92rem;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(184,134,11,.3);transition:all .2s}
+.ov-htp-next:active{transform:scale(.97)}
+.ov-htp-start-final{width:100%;max-width:340px;padding:.9rem;border-radius:50px;font-size:1rem;font-weight:800;background:linear-gradient(135deg,#166534,#22C55E);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(34,197,94,.35);transition:all .2s;margin-top:.4rem}
+.ov-htp-start-final:active{transform:scale(.97)}
+.ov-htp-resume{width:100%;max-width:340px;padding:.9rem;border-radius:50px;font-size:1rem;font-weight:800;background:linear-gradient(135deg,#166534,#22C55E);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(34,197,94,.35);transition:all .2s;margin-top:.4rem}
+.ov-htp-resume:active{transform:scale(.97)}
+.ov-htp-skip{padding:.55rem 1.1rem;border-radius:50px;font-size:.78rem;font-weight:700;background:rgba(255,255,255,.04);color:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.1);cursor:pointer;margin-top:.3rem}
+/* Instructions button — glows gold when active (paused + viewing) */
+.ov-instr-btn.active{background:rgba(212,160,23,.25) !important;color:#D4A017 !important;animation:voicePulse .8s ease-in-out infinite alternate}
+/* Paused pill shown in top bar when instructions are open mid-exercise */
+.ov-paused-pill{display:none;font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#F59E0B;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);border-radius:50px;padding:.18rem .55rem;white-space:nowrap}
+.ov-paused-pill.show{display:inline-flex;align-items:center;gap:.25rem}
+
+/* ── CHOICE SCREEN (shown first — instructions or jump in) ── */
+.ov-choice{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.8rem 1.4rem;text-align:center;gap:.6rem}
+.ov-choice-emoji{font-size:clamp(3.5rem,15vw,5rem);line-height:1;margin-bottom:.3rem}
+.ov-choice-title{font-family:var(--font-h);font-size:clamp(1.3rem,5.5vw,1.8rem);color:#fff;font-weight:800;line-height:1.2}
+.ov-choice-dur{font-size:.75rem;color:var(--gold-l);font-weight:700;letter-spacing:.08em;margin-bottom:.4rem}
+.ov-choice-q{font-size:clamp(.88rem,3.8vw,1rem);color:rgba(255,255,255,.55);margin-bottom:.4rem}
+.ov-choice-btns{display:flex;flex-direction:column;gap:.65rem;width:100%;max-width:300px;margin-top:.3rem}
+.ov-choice-yes{width:100%;padding:1rem 1.6rem;border-radius:50px;font-size:.97rem;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(184,134,11,.35);transition:all .2s;letter-spacing:.02em}
+.ov-choice-yes:active{transform:scale(.97)}
+.ov-choice-no{width:100%;padding:.88rem 1.6rem;border-radius:50px;font-size:.97rem;font-weight:800;background:linear-gradient(135deg,#166534,#22C55E);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(34,197,94,.3);transition:all .2s}
+.ov-choice-no:active{transform:scale(.97)}
+.ov-choice-skip{background:none;border:none;font-size:.78rem;color:rgba(255,255,255,.3);cursor:pointer;text-decoration:underline;padding:.3rem;margin-top:.2rem}
 
 /* ── voice tooltip ── */
 .voice-btn-wrap{position:relative}
@@ -853,32 +908,66 @@ body.nav-open{overflow:hidden}
 
   <div class="ov-bar">
     <span id="ovEmoji" style="font-size:1.35rem;flex-shrink:0">🌿</span>
-    <div style="flex:1;min-width:0;margin-left:.4rem">
-      <div class="ov-bar-name" id="ovName">Activity</div>
-      <div class="ov-bar-q" id="ovQueue" style="display:none"></div>
+    <div style="flex:1;min-width:0;margin-left:.4rem;display:flex;align-items:center;gap:.5rem">
+      <div>
+        <div class="ov-bar-name" id="ovName">Activity</div>
+        <div class="ov-bar-q" id="ovQueue" style="display:none"></div>
+      </div>
+      <span class="ov-paused-pill" id="ovPausedPill">⏸ Paused</span>
     </div>
+    <!-- Instructions toggle — visible once exercise starts, pauses and shows steps -->
+    <button class="ov-ico-btn ov-instr-btn" id="ovInstrBtn" onclick="toggleInstructions()" title="View instructions" style="display:none">📋</button>
     <button class="ov-ico-btn" id="ovVoice" onclick="toggleVoice()" title="Toggle voice guidance">🔇</button>
     <button class="ov-ico-btn" onclick="ovClose()" style="margin-left:.25rem" title="Close">✕</button>
   </div>
 
   <div class="ov-pbar"><div class="ov-pbar-fill" id="ovPbar"></div></div>
 
-  <!-- PREP SCREEN -->
-  <div class="ov-prep" id="ovPrep">
-    <div class="ov-prep-emoji" id="ovPrepEmoji">🌿</div>
-    <div class="ov-prep-title" id="ovPrepTitle">Activity Name</div>
-    <div class="ov-prep-dur" id="ovPrepDur">⏱ 3 min</div>
-    <div class="ov-prep-divider"></div>
-    <div class="ov-prep-lbl">📋 Read the instructions below, then press Start when ready</div>
-    <ol class="ov-prep-steps" id="ovPrepSteps"></ol>
-    <div class="ov-avoid-box" id="ovAvoidBox" style="display:none">
-      <strong>⚠️ Who Should Avoid</strong>
-      <span id="ovAvoidText"></span>
+  <!-- CHOICE SCREEN — first thing user sees -->
+  <div class="ov-choice" id="ovChoice">
+    <div class="ov-choice-emoji" id="ovChoiceEmoji">🌿</div>
+    <div class="ov-choice-title" id="ovChoiceTitle">Activity</div>
+    <div class="ov-choice-dur"   id="ovChoiceDur">⏱ 3 min</div>
+    <div class="ov-choice-q">Would you like to see how to do this exercise first?</div>
+    <div class="ov-choice-btns">
+      <button class="ov-choice-yes" onclick="showHowToPlay()">📋 Yes, show me how</button>
+      <button class="ov-choice-no"  id="ovChoiceStart" onclick="ovBeginDirect()">▶ Start right away</button>
+      <button class="ov-choice-skip" id="ovChoiceSkipBtn" onclick="ovSkip()" style="display:none">⏭ Skip this exercise</button>
     </div>
-    <div class="ov-prep-btns">
-      <button class="ov-btn-ready" id="ovReadyBtn" onclick="ovBegin()">▶ I'm Ready — Start</button>
-      <button class="ov-btn-skip2" id="ovSkipPrep" onclick="ovSkip()" style="display:none">⏭ Skip this</button>
-      <button class="ov-btn-end" onclick="ovClose()" style="margin-top:.2rem">✕ Cancel</button>
+  </div>
+
+  <!-- HOW TO PLAY SCREEN — shows ONE step at a time, synced with exercise -->
+  <div class="ov-htp" id="ovHtp" style="display:none">
+    <div>
+      <div class="ov-htp-badge" id="ovHtpBadge">📋 How To Do This</div>
+      <div class="ov-htp-emoji" id="ovHtpEmoji">🌿</div>
+      <div class="ov-htp-title" id="ovHtpTitle">Activity</div>
+      <div class="ov-htp-dur"   id="ovHtpDur">⏱ 3 min</div>
+    </div>
+    <!-- Single step card — only the CURRENT step -->
+    <div class="ov-htp-card">
+      <div class="ov-htp-step-num" id="ovHtpStepNum">Step 1 of 4</div>
+      <div class="ov-htp-step-bubble">
+        <div class="ov-htp-step-n-big" id="ovHtpStepN">1</div>
+        <div class="ov-htp-step-text"  id="ovHtpStepText">Loading…</div>
+      </div>
+      <div class="ov-htp-dots" id="ovHtpDots"></div>
+    </div>
+    <!-- Avoid box — shown only on last step -->
+    <div class="ov-htp-avoid" id="ovHtpAvoid" style="display:none">
+      <strong>⚠️ Who Should Avoid</strong>
+      <span id="ovHtpAvoidText"></span>
+    </div>
+    <!-- Action buttons -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:.45rem;width:100%;max-width:340px">
+      <!-- "Do this step" — starts/resumes this phase -->
+      <button class="ov-htp-start-final" id="ovHtpDoBtn" onclick="htpDoStep()" style="display:none">▶ Do This Step</button>
+      <!-- Final start button for non-phase games -->
+      <button class="ov-htp-start-final" id="ovHtpStartBtn" onclick="ovBeginDirect()" style="display:none">▶ I'm Ready — Start</button>
+      <!-- Resume button (mid-exercise via 📋) -->
+      <button class="ov-htp-resume" id="ovHtpResumeBtn" onclick="resumeFromInstructions()" style="display:none">▶ Resume Exercise</button>
+      <button class="ov-htp-skip" id="ovHtpSkipBtn" onclick="ovSkip()" style="display:none">⏭ Skip this exercise</button>
+      <button class="ov-htp-skip" onclick="ovClose()">✕ Cancel</button>
     </div>
   </div>
 
@@ -935,13 +1024,13 @@ body.nav-open{overflow:hidden}
 
   <!-- CONTROLS -->
   <div class="ov-ctrl" id="ovCtrl" style="display:none">
-    <button class="ov-btn-go"   id="ovGo"      onclick="ovToggle()">⏸ Pause</button>
-    <button class="ov-btn-skip" id="ovSkip"    onclick="ovSkip()" style="display:none">⏭ Skip</button>
-    <button class="ov-btn-end"                 onclick="ovClose()">✕ End</button>
-    <button class="ov-btn-go"   id="gStartBtn" onclick="gStart()" style="display:none">▶ Start Challenge</button>
-    <button class="ov-btn-skip" id="gSkipBtn"  onclick="ovSkip()" style="display:none">⏭ Skip</button>
-    <button class="ov-btn-go"   id="mathStartBtn" onclick="mathStart()" style="display:none">▶ Start Math Challenge</button>
-    <button class="ov-btn-go"   id="memStartBtn"  onclick="memStart()" style="display:none">▶ Start Memory Game</button>
+    <button class="ov-btn-go"   id="ovGo"         onclick="ovToggle()">⏸ Pause</button>
+    <button class="ov-btn-skip" id="ovSkip"        onclick="skipPhase()">⏭ Skip Step</button>
+    <button class="ov-btn-end"                     onclick="ovClose()">✕ End</button>
+    <button class="ov-btn-go"   id="gStartBtn"     onclick="gStart()"    style="display:none">▶ Start Challenge</button>
+    <button class="ov-btn-skip" id="gSkipBtn"      onclick="ovSkip()"    style="display:none">⏭ Skip Exercise</button>
+    <button class="ov-btn-go"   id="mathStartBtn"  onclick="mathStart()" style="display:none">▶ Start Math Challenge</button>
+    <button class="ov-btn-go"   id="memStartBtn"   onclick="memStart()"  style="display:none">▶ Start Memory Game</button>
   </div>
 
 </div>
@@ -1783,7 +1872,7 @@ let _ex = null, _phaseIdx = 0, _sec = 0, _round = 1, _running = false, _timer = 
 let _allExQueue = [], _allExIdx = -1;
 
 function _showPanel(name) {
-  const ids = {prep:'ovPrep',coach:'ovCoach',game:'ovGame',math:'ovMath',mem:'ovMem',done:'ovDone'};
+  const ids = {choice:'ovChoice',htp:'ovHtp',coach:'ovCoach',game:'ovGame',math:'ovMath',mem:'ovMem',done:'ovDone'};
   const ctrl = document.getElementById('ovCtrl');
   Object.entries(ids).forEach(([k, id]) => {
     const el = document.getElementById(id);
@@ -1835,6 +1924,7 @@ function openExercise(id) {
   _mRunning = false; _memRunning = false;
   stopSpeech();
 
+  // Top bar
   document.getElementById('ovEmoji').textContent = _ex.emoji;
   document.getElementById('ovName').textContent  = _ex.title;
   const ql = document.getElementById('ovQueue');
@@ -1844,76 +1934,282 @@ function openExercise(id) {
   } else { ql.style.display = 'none'; }
   document.getElementById('ovPbar').style.width = '0%';
 
-  // Prep screen
-  document.getElementById('ovPrepEmoji').textContent = _ex.emoji;
-  document.getElementById('ovPrepTitle').textContent = _ex.title;
-  document.getElementById('ovPrepDur').textContent   = '⏱ ' + (_ex.dur || '');
-  const stepsList = document.getElementById('ovPrepSteps');
-  stepsList.innerHTML = (_ex.steps || []).map((s, i) =>
-    `<li><span class="step-n">${i + 1}</span><span>${s}</span></li>`
-  ).join('');
+  // Populate choice screen
+  document.getElementById('ovChoiceEmoji').textContent = _ex.emoji;
+  document.getElementById('ovChoiceTitle').textContent = _ex.title;
+  document.getElementById('ovChoiceDur').textContent   = '⏱ ' + (_ex.dur || '');
 
-  // Avoid box
-  const avoidBox = document.getElementById('ovAvoidBox');
-  const avoidTxt = document.getElementById('ovAvoidText');
-  if (_ex.avoid) { avoidTxt.textContent = _ex.avoid; avoidBox.style.display = ''; }
-  else { avoidBox.style.display = 'none'; }
+  // Show skip on choice screen only when in a queue
+  const choiceSkip = document.getElementById('ovChoiceSkipBtn');
+  if (choiceSkip) choiceSkip.style.display = _allExQueue.length > 1 ? '' : 'none';
 
-  document.getElementById('ovSkipPrep').style.display = _allExQueue.length > 1 ? '' : 'none';
+  // Populate how-to-play screen header (steps are rendered one-by-one in showHowToPlay)
+  document.getElementById('ovHtpEmoji').textContent = _ex.emoji;
+  document.getElementById('ovHtpTitle').textContent = _ex.title;
+  document.getElementById('ovHtpDur').textContent   = '⏱ ' + (_ex.dur || '');
+  const htpSkip = document.getElementById('ovHtpSkipBtn');
+  if (htpSkip) htpSkip.style.display = _allExQueue.length > 1 ? '' : 'none';
 
-  // Hide all game start buttons first
-  ['gStartBtn','gSkipBtn','mathStartBtn','memStartBtn'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = 'none';
-  });
-  document.getElementById('ovGo').style.display = 'none';
-  document.getElementById('ovSkip').style.display = 'none';
-
-  if (_ex.isTapGame) {
-    document.getElementById('ovReadyBtn').textContent = '▶ Start Challenge';
-    document.getElementById('ovReadyBtn').onclick = () => {
-      _showPanel('game'); resetWakeGame();
-      document.getElementById('gStartBtn').style.display = '';
-      document.getElementById('gSkipBtn').style.display  = _allExQueue.length > 1 ? '' : 'none';
-      speak(_ex.voiceIntro || _ex.title);
-    };
-  } else if (_ex.isMathGame) {
-    document.getElementById('ovReadyBtn').textContent = '▶ Start Math Challenge';
-    document.getElementById('ovReadyBtn').onclick = () => {
-      _showPanel('coach');
-      document.getElementById('ovCoach').style.display = 'none';
-      document.getElementById('mathStartBtn').style.display = '';
-      document.getElementById('ovCtrl').style.display = '';
-      speak(_ex.voiceIntro || _ex.title);
-    };
-  } else if (_ex.isMemoryGame) {
-    document.getElementById('ovReadyBtn').textContent = '▶ Start Memory Game';
-    document.getElementById('ovReadyBtn').onclick = () => {
-      _showPanel('coach');
-      document.getElementById('ovCoach').style.display = 'none';
-      document.getElementById('memStartBtn').style.display = '';
-      document.getElementById('ovCtrl').style.display = '';
-      speak(_ex.voiceIntro || _ex.title);
-    };
-  } else {
-    document.getElementById('ovReadyBtn').textContent = '▶ I\'m Ready — Start';
-    document.getElementById('ovReadyBtn').onclick = ovBegin;
-  }
+  // Label start button based on exercise type
+  const startLabel = _ex.isTapGame ? '▶ Start Tap Challenge'
+    : _ex.isMathGame ? '▶ Start Math Challenge'
+    : _ex.isMemoryGame ? '▶ Start Memory Game'
+    : '▶ I\'m Ready — Start';
+  document.getElementById('ovChoiceStart').textContent  = startLabel;
+  document.getElementById('ovHtpStartBtn').textContent  = startLabel;
 
   const vb = document.getElementById('ovVoice');
   if (vb) { vb.textContent = voiceEnabled ? '🔊' : '🔇'; vb.classList.toggle('on', voiceEnabled); }
 
   document.getElementById('exOv').classList.add('open');
-  _showPanel('prep');
-  setTimeout(() => speak(_ex.voiceIntro || _ex.title), 400);
+  _showPanel('choice');
+  setTimeout(() => speak(_ex.voiceIntro || _ex.title), 500);
+}
+
+/* ═══════════════════════════════════════════════════════
+   HOW TO PLAY — one step at a time, synced with exercise
+   ───────────────────────────────────────────────────────
+   FLOW (guided mode):
+     showHowToPlay()
+       → Show Step 1 instruction + "▶ Do This Step"
+       → User taps → htpDoStep() → runs phase 1 timer
+       → Phase ends → htpAdvance() → show Step 2 + "▶ Do Step 2"
+       → … repeat until all steps done → _showDone()
+
+   RESUME MODE (📋 mid-exercise):
+       openInstructions()
+       → Shows current step instruction + "▶ Resume Exercise"
+═══════════════════════════════════════════════════════ */
+let _htpIdx        = 0;
+let _htpGuided     = false; // true = guided step-by-step mode
+let _htpResumeMode = false; // true = came from mid-exercise 📋
+
+/* Called when user taps "📋 Yes, show me how" from choice screen */
+function showHowToPlay() {
+  _htpIdx        = 0;
+  _htpGuided     = _ex.phases && _ex.phases.length > 0 && !_ex.isTapGame && !_ex.isMathGame && !_ex.isMemoryGame;
+  _htpResumeMode = false;
+  _renderHtpStep();
+  _showPanel('htp');
+}
+
+/* Render the current step card */
+function _renderHtpStep() {
+  const steps  = _ex.steps || [];
+  const total  = steps.length;
+  const isLast = _htpIdx >= total - 1;
+
+  // Header
+  document.getElementById('ovHtpStepNum').textContent  = 'Step ' + (_htpIdx + 1) + ' of ' + total;
+  document.getElementById('ovHtpStepN').textContent    = _htpIdx + 1;
+  document.getElementById('ovHtpStepText').textContent = steps[_htpIdx] || '';
+
+  // Progress dots — only current dot shown bright, rest dim
+  const dotsEl = document.getElementById('ovHtpDots');
+  dotsEl.innerHTML = steps.map((_, i) => {
+    const cls = i === _htpIdx ? 'active' : i < _htpIdx ? 'done' : '';
+    return `<div class="ov-htp-dot ${cls}"></div>`;
+  }).join('');
+
+  // Avoid box on last step only
+  const avoidBox = document.getElementById('ovHtpAvoid');
+  const avoidTxt = document.getElementById('ovHtpAvoidText');
+  if (isLast && _ex.avoid) { avoidTxt.textContent = _ex.avoid; avoidBox.style.display = ''; }
+  else { avoidBox.style.display = 'none'; }
+
+  // Button logic
+  const doBtn     = document.getElementById('ovHtpDoBtn');
+  const startBtn  = document.getElementById('ovHtpStartBtn');
+  const resumeBtn = document.getElementById('ovHtpResumeBtn');
+  const skipBtn   = document.getElementById('ovHtpSkipBtn');
+
+  // Reset all
+  [doBtn, startBtn, resumeBtn].forEach(b => { if (b) b.style.display = 'none'; });
+  if (skipBtn) skipBtn.style.display = _allExQueue.length > 1 ? '' : 'none';
+
+  if (_htpResumeMode) {
+    // Mid-exercise: just show Resume
+    if (resumeBtn) resumeBtn.style.display = '';
+  } else if (_htpGuided) {
+    // Guided phase mode: "Do This Step" drives the timer
+    if (doBtn) {
+      doBtn.style.display = '';
+      doBtn.textContent   = _htpIdx === 0
+        ? '▶ Start — Do This Step'
+        : '▶ Next Step — Do It Now';
+    }
+  } else {
+    // Non-phase games (tap/math/memory): all steps shown for reference, final button starts game
+    if (isLast) {
+      if (startBtn) {
+        startBtn.style.display = '';
+        startBtn.textContent   = document.getElementById('ovHtpStartBtn').dataset.label ||
+          (_ex.isTapGame ? '▶ Start Tap Challenge'
+          : _ex.isMathGame ? '▶ Start Math Challenge'
+          : _ex.isMemoryGame ? '▶ Start Memory Game'
+          : '▶ I\'m Ready — Start');
+      }
+    } else {
+      if (doBtn) { doBtn.style.display = ''; doBtn.textContent = 'Next →'; }
+    }
+  }
+
+  speak('Step ' + (_htpIdx + 1) + '. ' + (steps[_htpIdx] || ''));
+}
+
+/* "▶ Do This Step" / "Next →" button tapped */
+function htpDoStep() {
+  const steps = _ex.steps || [];
+  const total = steps.length;
+
+  if (_htpGuided) {
+    // Start the timer for this phase index, overlay the instruction strip
+    _htpStartPhase(_htpIdx);
+  } else {
+    // Non-phase: just advance through instructions
+    if (_htpIdx < total - 1) {
+      _htpIdx++;
+      _renderHtpStep();
+    }
+  }
+}
+
+/* Start phase _phaseIdx directly from guided HTP mode */
+function _htpStartPhase(stepIdx) {
+  if (!_ex || !_ex.phases) return;
+
+  // Map step index to phase index (they are 1:1)
+  const ph = _ex.phases[stepIdx];
+  if (!ph) return;
+
+  // Hide HTP, show coach
+  _showPanel('coach');
+  document.getElementById('ovGo').style.display  = '';
+  document.getElementById('ovGo').textContent    = '⏸ Pause';
+  const skipBtn = document.getElementById('ovSkip');
+  if (skipBtn) skipBtn.style.display = '';
+  const instrBtn = document.getElementById('ovInstrBtn');
+  if (instrBtn) instrBtn.style.display = '';
+
+  // Candle
+  const candleEl = document.getElementById('candleDisplay');
+  const iconEl   = document.getElementById('ovIcon');
+  if (_ex.id === 'candle-focus') {
+    if (candleEl) candleEl.style.display = 'flex';
+    if (iconEl)   iconEl.style.display   = 'none';
+  } else {
+    if (candleEl) candleEl.style.display = 'none';
+    if (iconEl)   iconEl.style.display   = '';
+  }
+
+  // Run only this single phase
+  clearInterval(_timer);
+  _running  = true;
+  _phaseIdx = stepIdx;
+  _round    = 1;
+  _sec      = ph.sec;
+  document.getElementById('ovCount').textContent = ph.sec;
+  _setPhase(stepIdx, ph.label);
+  speak((_ex.phaseVoice && _ex.phaseVoice[stepIdx]) || ph.label);
+
+  _timer = setInterval(function() {
+    if (!_running) return;
+    _sec--;
+    document.getElementById('ovCount').textContent = Math.max(0, _sec);
+    if (_sec <= 0) {
+      clearInterval(_timer);
+      _running = false;
+      stopSpeech();
+      // Advance to next step instruction
+      htpAdvance(stepIdx);
+    }
+  }, 1000);
+}
+
+/* Called automatically when a guided phase finishes */
+function htpAdvance(finishedStepIdx) {
+  const steps = _ex.steps || [];
+  const next  = finishedStepIdx + 1;
+
+  if (next >= steps.length) {
+    // All steps done — complete the exercise
+    saveScore(_ex.cat === 'breath' ? 'breath' : _ex.cat === 'eyes' ? 'eyes'
+      : _ex.cat === 'digest' ? 'body' : _ex.cat === 'body' || _ex.cat === 'wake' ? 'body' : 'focus', 80);
+    _showDone();
+  } else {
+    // Show next step instruction
+    _htpIdx = next;
+    _renderHtpStep();
+    _showPanel('htp');
+    speak('Great! Now step ' + (next + 1) + '. ' + (steps[next] || ''));
+  }
+}
+
+/* htpNext / htpPrev — kept for mid-exercise review navigation only */
+function htpNext() {
+  const total = (_ex.steps || []).length;
+  if (_htpIdx < total - 1) { _htpIdx++; _renderHtpStep(); }
+}
+
+function htpPrev() {
+  if (_htpIdx > 0) { _htpIdx--; _renderHtpStep(); }
+}
+
+/* User tapped "Start right away" or "I'm Ready" from how-to screen */
+function ovBeginDirect() {
+  // Reset game buttons
+  ['gStartBtn','gSkipBtn','mathStartBtn','memStartBtn'].forEach(bid => {
+    const el = document.getElementById(bid);
+    if (el) el.style.display = 'none';
+  });
+  document.getElementById('ovGo').style.display = 'none';
+  // Hide Skip Step for games — they use Skip Exercise instead
+  const skipStepBtn = document.getElementById('ovSkip');
+
+  if (_ex.isTapGame) {
+    if (skipStepBtn) skipStepBtn.style.display = 'none';
+    const instrBtn = document.getElementById('ovInstrBtn');
+    if (instrBtn) instrBtn.style.display = '';
+    _showPanel('game'); resetWakeGame();
+    document.getElementById('gStartBtn').style.display = '';
+    document.getElementById('gSkipBtn').style.display  = _allExQueue.length > 1 ? '' : 'none';
+    speak(_ex.voiceIntro || _ex.title);
+  } else if (_ex.isMathGame) {
+    if (skipStepBtn) skipStepBtn.style.display = 'none';
+    const instrBtn = document.getElementById('ovInstrBtn');
+    if (instrBtn) instrBtn.style.display = '';
+    _showPanel('coach');
+    document.getElementById('ovCoach').style.display = 'none';
+    document.getElementById('mathStartBtn').style.display = '';
+    document.getElementById('ovCtrl').style.display = '';
+    speak(_ex.voiceIntro || _ex.title);
+  } else if (_ex.isMemoryGame) {
+    if (skipStepBtn) skipStepBtn.style.display = 'none';
+    const instrBtn = document.getElementById('ovInstrBtn');
+    if (instrBtn) instrBtn.style.display = '';
+    _showPanel('coach');
+    document.getElementById('ovCoach').style.display = 'none';
+    document.getElementById('memStartBtn').style.display = '';
+    document.getElementById('ovCtrl').style.display = '';
+    speak(_ex.voiceIntro || _ex.title);
+  } else {
+    // Timed phase exercises — Skip Step is meaningful
+    if (skipStepBtn) skipStepBtn.style.display = '';
+    ovBegin();
+  }
 }
 
 function ovBegin() {
   if (!_ex || !_ex.phases) return;
   _showPanel('coach');
-  document.getElementById('ovGo').style.display    = '';
-  document.getElementById('ovGo').textContent      = '⏸ Pause';
-  document.getElementById('ovSkip').style.display  = _allExQueue.length > 1 ? '' : 'none';
+  document.getElementById('ovGo').style.display   = '';
+  document.getElementById('ovGo').textContent     = '⏸ Pause';
+  // Skip Step is always visible during a timed exercise
+  const skipBtn = document.getElementById('ovSkip');
+  if (skipBtn) skipBtn.style.display = '';
+  // Show 📋 instructions button in top bar
+  const instrBtn = document.getElementById('ovInstrBtn');
+  if (instrBtn) instrBtn.style.display = '';
   // Show candle flame for candle-focus, hide the normal icon
   const candleEl = document.getElementById('candleDisplay');
   const iconEl   = document.getElementById('ovIcon');
@@ -1932,6 +2228,140 @@ function ovBegin() {
   speak((_ex.phaseVoice && _ex.phaseVoice[0]) || ph.label);
 }
 
+/* ─────────────────────────────────────────────────────
+   MID-EXERCISE INSTRUCTIONS TOGGLE
+   Pauses the exercise, shows HTP steps, resumes on close
+───────────────────────────────────────────────────── */
+let _instrPreviousPanel = null; // which panel was showing before instructions opened
+
+function toggleInstructions() {
+  const instrBtn  = document.getElementById('ovInstrBtn');
+  const isOpen    = instrBtn && instrBtn.classList.contains('active');
+  if (isOpen) {
+    resumeFromInstructions();
+  } else {
+    openInstructions();
+  }
+}
+
+function openInstructions() {
+  // 1. Detect what panel is currently active so we can return to it
+  const panels = ['coach','game','math','mem'];
+  _instrPreviousPanel = null;
+  for (const p of panels) {
+    const ids = {coach:'ovCoach', game:'ovGame', math:'ovMath', mem:'ovMem'};
+    const el = document.getElementById(ids[p]);
+    if (el) {
+      const showing = (p === 'game' || p === 'math' || p === 'mem')
+        ? el.classList.contains('on')
+        : el.style.display !== 'none';
+      if (showing) { _instrPreviousPanel = p; break; }
+    }
+  }
+
+  // 2. Pause whichever timer is running
+  if (_running) {
+    clearInterval(_timer); _running = false; stopSpeech();
+    document.getElementById('ovGo').textContent = '▶ Resume';
+  }
+  if (_wgRunning) {
+    clearInterval(_wgTimer); _wgRunning = false;
+  }
+  if (_mRunning) {
+    clearInterval(_mTimer); _mRunning = false;
+  }
+  if (_memRunning) {
+    clearInterval(_memTimer); _memRunning = false;
+  }
+
+  // 3. Show paused pill
+  const pill = document.getElementById('ovPausedPill');
+  if (pill) pill.classList.add('show');
+
+  // 4. Mark instructions button as active
+  const instrBtn = document.getElementById('ovInstrBtn');
+  if (instrBtn) instrBtn.classList.add('active');
+
+  // 5. Set HTP to "resume mode" — show Resume button, hide Start button
+  document.getElementById('ovHtpStartBtn').style.display  = 'none';
+  document.getElementById('ovHtpResumeBtn').style.display = 'none'; // will show on last step
+  const htpSkip = document.getElementById('ovHtpSkipBtn');
+  if (htpSkip) htpSkip.style.display = _allExQueue.length > 1 ? '' : 'none';
+
+  // 6. Render first step in resume mode and show HTP panel
+  _htpIdx = 0;
+  _htpResumeMode = true;
+  _htpGuided     = false; // no guided phase driving in resume mode
+  _renderHtpStep();
+  _showPanel('htp');
+}
+
+function resumeFromInstructions() {
+  // Clear paused pill and button state
+  const pill = document.getElementById('ovPausedPill');
+  if (pill) pill.classList.remove('show');
+  const instrBtn = document.getElementById('ovInstrBtn');
+  if (instrBtn) instrBtn.classList.remove('active');
+
+  stopSpeech();
+
+  // Return to whatever was showing before
+  const prev = _instrPreviousPanel || 'coach';
+  _showPanel(prev);
+
+  // Resume the correct timer
+  if (prev === 'coach' && _ex && _ex.phases) {
+    _running = true;
+    document.getElementById('ovGo').textContent = '⏸ Pause';
+    _timer = setInterval(tick, 1000);
+    speak((_ex.phaseVoice && _ex.phaseVoice[_phaseIdx]) || (_ex.phases[_phaseIdx]?.label || ''));
+  } else if (prev === 'game' && !_wgRunning && _wgSec > 0) {
+    // Tap game was mid-run — restart its timer
+    _wgRunning = true;
+    _wgTimer = setInterval(() => {
+      _wgSec--;
+      document.getElementById('ovGameSecs').textContent = _wgSec + 's';
+      if (_wgSec <= 0) {
+        clearInterval(_wgTimer); _wgRunning = false;
+        const s = _wgCount;
+        const r = s >= 70 ? '🔥 Lightning fast!' : s >= 50 ? '💪 Excellent!' : s >= 30 ? '👍 Good effort!' : '😊 Keep practising!';
+        document.getElementById('ovGameLbl').textContent = s + ' taps — ' + r;
+        speak(s + ' taps. ' + r);
+        savePB('reaction', Math.round(15000 / Math.max(s, 1)));
+        saveScore('brain', Math.min(100, Math.round(s / 0.7)));
+        const scoreHTML = `<div class="done-score-pill"><strong>${s}</strong><span>TAPS</span></div>
+          <div class="done-score-pill"><strong>${Math.round(15000/Math.max(s,1))}ms</strong><span>REACT</span></div>`;
+        setTimeout(() => _showDone(scoreHTML), 1500);
+      }
+    }, 1000);
+    speak('Resuming. Keep tapping!');
+  } else if (prev === 'math' && _mRunning === false && _mSec > 0) {
+    _mRunning = true;
+    _mTimer = setInterval(() => {
+      _mSec--;
+      document.getElementById('mathTimer').textContent = '⏱ ' + _mSec + 's';
+      if (_mSec <= 0) {
+        clearInterval(_mTimer); _mRunning = false;
+        const pct = Math.round(_mCorrect / Math.max(_mCorrect + _mWrong, 1) * 100);
+        speak(_mCorrect + ' correct. ' + (pct >= 80 ? 'Excellent!' : 'Good effort!'));
+        savePB('math', _mCorrect); saveScore('brain', pct);
+        const scoreHTML = `<div class="done-score-pill"><strong>${_mCorrect}</strong><span>CORRECT</span></div>
+          <div class="done-score-pill"><strong>${_mWrong}</strong><span>WRONG</span></div>
+          <div class="done-score-pill"><strong>${pct}%</strong><span>ACCURACY</span></div>`;
+        _showDone(scoreHTML);
+      }
+    }, 1000);
+    speak('Resuming math challenge.');
+  } else if (prev === 'mem' && _memRunning === false && _memMatched < 8) {
+    _memRunning = true;
+    _memTimer = setInterval(() => {
+      _memSec++;
+      document.getElementById('memTime').textContent = _memSec + 's';
+    }, 1000);
+    speak('Resuming memory game.');
+  }
+}
+
 function ovToggle() {
   if (_running) {
     clearInterval(_timer); _running = false; stopSpeech();
@@ -1941,6 +2371,29 @@ function ovToggle() {
     document.getElementById('ovGo').textContent = '⏸ Pause';
     _timer = setInterval(tick, 1000);
   }
+}
+
+/* Skip the current phase/step and jump to the next one immediately.
+   If it's the last phase/round, mark the exercise as complete. */
+function skipPhase() {
+  if (!_ex || !_ex.phases) return;
+  clearInterval(_timer); stopSpeech();
+  // Advance to next phase
+  _phaseIdx++;
+  if (_phaseIdx >= _ex.phases.length) { _phaseIdx = 0; _round++; }
+  if (_round > (_ex.rounds || 1)) {
+    // All phases done — treat as completed
+    _running = false;
+    saveScore(_ex.cat === 'breath' ? 'breath' : _ex.cat === 'eyes' ? 'eyes' : _ex.cat === 'digest' ? 'body' : _ex.cat === 'body' || _ex.cat === 'wake' ? 'body' : 'focus', 80);
+    _showDone(); return;
+  }
+  // Resume from new phase
+  const nph = _ex.phases[_phaseIdx]; _sec = nph.sec;
+  document.getElementById('ovCount').textContent = nph.sec;
+  _setPhase(_phaseIdx, nph.label);
+  speak((_ex.phaseVoice && _ex.phaseVoice[_phaseIdx]) || nph.label);
+  _running = true;
+  _timer = setInterval(tick, 1000);
 }
 
 function tick() {
@@ -2035,6 +2488,13 @@ function ovClose() {
   const iconEl   = document.getElementById('ovIcon');
   if (candleEl) candleEl.style.display = 'none';
   if (iconEl)   iconEl.style.display   = '';
+  // Reset instructions button and paused pill
+  const instrBtn = document.getElementById('ovInstrBtn');
+  if (instrBtn) { instrBtn.style.display = 'none'; instrBtn.classList.remove('active'); }
+  const pill = document.getElementById('ovPausedPill');
+  if (pill) pill.classList.remove('show');
+  _htpResumeMode = false;
+  _instrPreviousPanel = null;
   document.getElementById('exOv').classList.remove('open');
   _allExQueue = []; _allExIdx = -1;
 }
@@ -2219,6 +2679,14 @@ function updateProgressBars() {
   window.scrollAndFilter   = scrollAndFilter;
   window.openExercise      = openExercise;
   window.speakCard         = speakCard;
+  window.showHowToPlay        = showHowToPlay;
+  window.htpNext              = htpNext;
+  window.htpPrev              = htpPrev;
+  window.htpDoStep            = htpDoStep;
+  window.htpAdvance           = htpAdvance;
+  window.ovBeginDirect        = ovBeginDirect;
+  window.toggleInstructions   = toggleInstructions;
+  window.resumeFromInstructions = resumeFromInstructions;
   window.toggleDrawer      = toggleDrawer;
   window.startRoutine      = startRoutine;
   window.filterByGoal      = filterByGoal;
@@ -2231,6 +2699,7 @@ function updateProgressBars() {
   window.toggleVoice       = toggleVoice;
   window.ovToggle          = ovToggle;
   window.ovSkip            = ovSkip;
+  window.skipPhase         = skipPhase;
   window.ovAgain           = ovAgain;
   window.ovNext            = ovNext;
   window.ovClose           = ovClose;
