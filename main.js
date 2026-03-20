@@ -27,6 +27,23 @@ const IMG = {
 function imgSrc(id) { return GH + (IMG[id] || id); }
 
 /* ── PRODUCT DATA ───────────────────────────────────────────── */
+/* ── CLEAN URL SLUG MAP — SEO-friendly product page URLs ── */
+const PRODUCT_SLUGS = {
+  brainchamp:   'brain-champ-ayurvedic-memory-booster.html',
+  livohayaat:   'livo-hayaat-ayurvedic-liver-detox.html',
+  orthohayaat:  'ortho-hayaat-ayurvedic-joint-pain-relief.html',
+  diaease:      'dia-ease-ayurvedic-blood-sugar-control.html',
+  shahzyme:     'shah-zyme-ayurvedic-digestive-syrup.html',
+  bloodstorm:   'blood-storm-ayurvedic-iron-tonic.html',
+  fevodol:      'fevodol-ayurvedic-immunity-booster-giloy-tulsi.html',
+  panasip:      'panasip-ayurvedic-acidity-heartburn-relief.html',
+  coughxpro:    'cough-x-pro-ayurvedic-herbal-cough-syrup.html',
+  musaffakhoon: 'musaffa-khoon-ayurvedic-blood-purifier.html',
+  utrohayaat:   'utro-hayaat-ayurvedic-womens-health.html',
+  passionpulse: 'passion-pulse-ayurvedic-male-vitality.html',
+};
+function productUrl(id) { return PRODUCT_SLUGS[id] || ('product-detail.html?id=' + id); }
+
 const PRODUCTS = [
   {
     id: 'brainchamp', name: 'Brain Champ', price: 175, cat: 'brain', tag: 'Brain & Focus',
@@ -221,7 +238,7 @@ function renderProducts(container, { limit = null, cat = null } = {}) {
         <div class="product-footer">
           <div class="product-price">₹${p.price}</div>
           <div class="product-actions-row">
-            <a href="product-detail.html?id=${p.id}" class="btn btn-outline btn-sm">Details</a>
+            <a href="${productUrl(p.id)}" class="btn btn-outline btn-sm">Details</a>
             <a href="https://wa.me/917051056287?text=${encodeURIComponent(`Hi! I'd like to order ${p.name} — ₹${p.price}`)}"
                target="_blank" rel="noopener" class="btn btn-primary btn-sm">Order</a>
           </div>

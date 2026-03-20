@@ -462,7 +462,11 @@ body.nav-open{overflow:hidden}
   };
   var id=(location.search.match(/[?&]id=([^&]+)/)||[])[1]||'brainchamp';
   var p=PDATA[id]||PDATA.brainchamp;
-  var pgUrl=BASE+'product-detail.html?id='+id;
+
+  /* Clean URL slug map for canonical & schema */
+  var SLUGS={brainchamp:'brain-champ-ayurvedic-memory-booster.html',livohayaat:'livo-hayaat-ayurvedic-liver-detox.html',orthohayaat:'ortho-hayaat-ayurvedic-joint-pain-relief.html',diaease:'dia-ease-ayurvedic-blood-sugar-control.html',shahzyme:'shah-zyme-ayurvedic-digestive-syrup.html',bloodstorm:'blood-storm-ayurvedic-iron-tonic.html',fevodol:'fevodol-ayurvedic-immunity-booster-giloy-tulsi.html',panasip:'panasip-ayurvedic-acidity-heartburn-relief.html',coughxpro:'cough-x-pro-ayurvedic-herbal-cough-syrup.html',musaffakhoon:'musaffa-khoon-ayurvedic-blood-purifier.html',utrohayaat:'utro-hayaat-ayurvedic-womens-health.html',passionpulse:'passion-pulse-ayurvedic-male-vitality.html'};
+  var cleanSlug=SLUGS[id]||('product-detail.html?id='+id);
+  var pgUrl=BASE+cleanSlug;
   var imgUrl=GH+id+'1.jpg';
 
   /* Update title and meta immediately */
