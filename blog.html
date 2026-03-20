@@ -293,9 +293,9 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .page-hero p{color:rgba(255,255,255,0.65);max-width:580px;margin-top:0.5rem}
 /* Blog grid */
 .blog-grid{display:grid;gap:1.8rem;grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
-.blog-card{background:#0e2448;border-radius:2px;overflow:hidden;border:1px solid rgba(11,15,20,0.08);box-shadow:var(--shadow-xs);display:flex;flex-direction:column;transition:all var(--t) cubic-bezier(0.25,0.46,0.45,0.94);cursor:pointer}
-.blog-card:hover{;box-shadow:var(--shadow-lg)}
-.blog-card-img{height:210px;overflow:hidden;background:linear-gradient(135deg,rgba(42,70,51,0.08),rgba(184,134,11,0.08));display:flex;align-items:center;justify-content:center;font-size:3rem;flex-shrink:0}
+.blog-card{background:#FFFFFF;border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,0.08);box-shadow:0 2px 12px rgba(0,0,0,0.07);display:flex;flex-direction:column;transition:all 0.28s ease;cursor:pointer}
+.blog-card:hover{box-shadow:0 8px 28px rgba(0,0,0,0.13);transform:translateY(-3px)}
+.blog-card-img{height:180px;overflow:hidden;background:linear-gradient(135deg,#e8f5e9 0%,#c8e6c9 100%);display:flex;align-items:center;justify-content:center;font-size:3.5rem;flex-shrink:0}
 .blog-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease}
 .blog-card:hover .blog-card-img img{transform:scale(1.06)}
 .blog-body{padding:1.4rem;flex-grow:1;display:flex;flex-direction:column}
@@ -321,7 +321,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .blog-modal h2{margin-bottom:0.5rem}
 .blog-modal-cat{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
 .blog-modal-img{width:100%;height:320px;object-fit:cover;border-radius:2px;margin-bottom:1.6rem}
-.blog-modal-img-placeholder{width:100%;height:240px;background:linear-gradient(135deg,rgba(42,70,51,0.08),rgba(184,134,11,0.08));border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:4rem;margin-bottom:1.6rem}
+.blog-modal-img-placeholder{width:100%;height:240px;background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:4rem;margin-bottom:1.6rem}
 .blog-modal-body{font-size:1rem;color:var(--text-secondary);line-height:1.85;white-space:pre-wrap}
 .blog-modal-actions{display:flex;align-items:center;gap:0.6rem;margin-top:1.8rem;padding-top:1.5rem;border-top:1px solid var(--border);flex-wrap:wrap}
 /* Owner panel */
@@ -348,8 +348,9 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .sub-status{margin-top:0.8rem;font-size:0.85rem;color:rgba(255,255,255,0.7);min-height:1.2em}
 /* Filter */
 .filter-bar{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2.5rem}
-.filter-btn{padding:0.45rem 1.1rem;border-radius:50px;font-size:0.83rem;font-weight:600;background:#0e2448;border:1.5px solid var(--border);color:var(--text-secondary);cursor:pointer;transition:all 0.2s;white-space:nowrap}
-.filter-btn:hover,.filter-btn.active{background:linear-gradient(160deg,var(--navy-deep) 0%,var(--navy-mid) 55%,var(--navy-deep) 100%);border-color:var(--navy-deep);color:#fff}
+.filter-btn{padding:0.45rem 1.1rem;border-radius:50px;font-size:0.83rem;font-weight:600;background:#fff;border:1.5px solid #d0d0d0;color:#3D3D3D;cursor:pointer;transition:all 0.2s;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.filter-btn:hover{background:#f0f0f0;border-color:#aaa;color:#1C1C1C}
+.filter-btn.active{background:linear-gradient(135deg,#2A4633,#3d6b4f);border-color:#2A4633;color:#fff;box-shadow:0 2px 8px rgba(42,70,51,0.3)}
 /* Footer */
 .site-footer{background:linear-gradient(160deg,var(--navy-deep) 0%,var(--navy-mid) 55%,var(--navy-deep) 100%);color:rgba(255,255,255,0.72);padding:4rem 0 0}
 .footer-grid{display:grid;gap:2.5rem;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.09)}
@@ -404,10 +405,33 @@ p { color: #3D3D3D !important; }
 .bg-dark, .bg-navy, .section-dark { background: #F8F6F2 !important; }
 .bg-white, .bg-light, .section-light { background: #FFFFFF !important; }
 .section-cream, .bg-cream { background: #F8F6F2 !important; }
-/* Keep header + footer intentionally dark */
-.site-header, .site-footer, .page-hero, .page-header,
-.cta-section, .nav-mobile { /* intentionally dark - not overriding */ }
 
+/* ── Protect dark sections: restore correct colours ── */
+
+/* Hero — white text on dark navy */
+.page-hero { color: #fff !important; }
+.page-hero h1, .page-hero h2, .page-hero h3 { color: #fff !important; }
+.page-hero p, .page-hero .hero-sub { color: rgba(255,255,255,0.70) !important; }
+.page-hero .eyebrow { color: var(--gold-light) !important; }
+.page-hero .breadcrumb,
+.page-hero .breadcrumb a,
+.page-hero .breadcrumb span { color: rgba(255,255,255,0.52) !important; }
+
+/* Site header — uses sticky cream bg; logo should be dark navy + gold em */
+.site-header .logo { color: var(--navy-deep) !important; }
+.site-header .logo em,
+.logo em { color: var(--gold) !important; }
+
+/* Footer — dark bg, keep white text */
+.site-footer h1,.site-footer h2,.site-footer h3,
+.site-footer h4,.site-footer p { color: inherit !important; }
+
+/* Mobile nav drawer — dark bg, white text */
+.nav-mobile a { color: inherit !important; }
+
+/* Blog modal — inherits its own card bg */
+.blog-modal h1,.blog-modal h2,.blog-modal h3,
+.blog-modal p { color: inherit !important; }
 
 .nav-toggle { position:relative !important; z-index:1001 !important; pointer-events:auto !important; cursor:pointer !important; }
 .site-header { z-index:1000 !important; }
@@ -1464,6 +1488,33 @@ function catEmoji(cat) {
   return map[cat] || '📝';
 }
 
+function catColor(cat) {
+  const map = {
+    'Digestion':      'linear-gradient(135deg,#e8f5e9,#a5d6a7)',
+    'Wellness':       'linear-gradient(135deg,#e8f5e9,#a5d6a7)',
+    'Energy':         'linear-gradient(135deg,#fff8e1,#ffe082)',
+    'Skin':           'linear-gradient(135deg,#fce4ec,#f48fb1)',
+    'Joint Care':     'linear-gradient(135deg,#e3f2fd,#90caf9)',
+    'Immunity':       'linear-gradient(135deg,#e8f5e9,#66bb6a)',
+    'Female Health':  'linear-gradient(135deg,#fce4ec,#f48fb1)',
+    'Mental Health':  'linear-gradient(135deg,#ede7f6,#b39ddb)',
+    'Nutrition':      'linear-gradient(135deg,#f1f8e9,#aed581)',
+    'Lifestyle':      'linear-gradient(135deg,#fff3e0,#ffb74d)',
+    'Liver Health':   'linear-gradient(135deg,#e8f5e9,#66bb6a)',
+    'Brain Health':   'linear-gradient(135deg,#ede7f6,#b39ddb)',
+    'Diabetes Care':  'linear-gradient(135deg,#e0f2f1,#80cbc4)',
+    'Blood Health':   'linear-gradient(135deg,#ffebee,#ef9a9a)',
+    "Women's Health": 'linear-gradient(135deg,#fce4ec,#f48fb1)',
+    'Skin Care':      'linear-gradient(135deg,#fce4ec,#f48fb1)',
+    'Respiratory':    'linear-gradient(135deg,#e3f2fd,#90caf9)',
+    'Acidity':        'linear-gradient(135deg,#fff8e1,#ffe082)',
+    'Male Vitality':  'linear-gradient(135deg,#fff3e0,#ffb74d)',
+    'Ayurveda':       'linear-gradient(135deg,#e8f5e9,#a5d6a7)',
+    'Weight Loss':    'linear-gradient(135deg,#f3e5f5,#ce93d8)',
+  };
+  return map[cat] || 'linear-gradient(135deg,#e8f5e9,#c8e6c9)';
+}
+
 /* ── Build filter bar ── */
 function buildFilters() {
   const all = getAllPosts();
@@ -1500,11 +1551,11 @@ function renderGrid() {
     const r = reacts[rid] || { love:0, helpful:0, leaf:0 };
     const myR = reacts['my_' + rid] || {};
     const imgHtml = post.img
-      ? '<img src="' + escHtml(post.img) + '" alt="' + escHtml(post.title) + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<div style=height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem>' + catEmoji(post.cat) + '</div>\'">'
+      ? '<img src="' + escHtml(post.img) + '" alt="' + escHtml(post.title) + '" loading="lazy" onerror="this.parentElement.style.background=\'' + catColor(post.cat) + '\';this.style.display=\'none\'">'
       : '<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:3.5rem">' + catEmoji(post.cat) + '</div>';
 
     return '<div class="blog-card" onclick="openPost(\'' + rid + '\')">' +
-      '<div class="blog-card-img">' + imgHtml + '</div>' +
+      '<div class="blog-card-img" style="background:' + catColor(post.cat) + '">' + imgHtml + '</div>' +
       '<div class="blog-body">' +
         '<div class="blog-meta">' +
           '<span class="blog-cat">' + post.cat + '</span>' +
@@ -1543,7 +1594,7 @@ function openPost(rid) {
 
   const imgHtml = post.img
     ? '<img src="' + escHtml(post.img) + '" alt="' + escHtml(post.title) + '" class="blog-modal-img" onerror="this.style.display=\'none\'">'
-    : '<div class="blog-modal-img-placeholder">' + catEmoji(post.cat) + '</div>';
+    : '<div class="blog-modal-img-placeholder" style="background:' + catColor(post.cat) + '">' + catEmoji(post.cat) + '</div>';
 
   document.getElementById('blog-modal-content').innerHTML =
     '<div class="blog-modal-cat">' + catEmoji(post.cat) + ' ' + post.cat +
