@@ -553,8 +553,8 @@ p { color: #3D3D3D !important; }
   <div class="admin-modal">
     <h2>Owner Login</h2>
     <div class="form-group">
-      <label for="admin-pin">Admin PIN</label>
-      <input type="password" id="admin-pin" placeholder="Enter your PIN" maxlength="20"
+      <label for="admin-pin">Admin Password</label>
+      <input type="password" id="admin-pin" placeholder="Enter admin password" maxlength="40"
              onkeydown="if(event.key==='Enter') verifyLogin()">
     </div>
     <div style="display:flex;gap:0.7rem;flex-wrap:wrap;margin-top:0.5rem">
@@ -677,7 +677,7 @@ p { color: #3D3D3D !important; }
 
 const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
 const ADMIN_PIN_KEY = 'sh_admin_pin';
-const DEFAULT_PIN   = 'shah2024';
+const DEFAULT_PIN_HASH = 'ea601e7491392837e76eec3af58dd15cea3efcb2850d6b1b4cf725350bc75ec7'; // SHA-256 hash — plain password never stored
 const POSTS_KEY     = 'sh_blog_posts';
 const SUBS_KEY      = 'sh_subscribers';
 const REACTS_KEY    = 'sh_reactions';
@@ -686,16 +686,19 @@ const LOGIN_KEY     = 'sh_admin_logged_in';
 /* ── Static seed blogs (always shown) ── */
 const SEED_BLOGS = [
   { id:'seed1', title:'Feeling Bloated? 5 Ayurvedic Secrets for a Happy Gut', cat:'Digestion',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/shahzyme1.jpg',
     img: GH + 'image(3).png', date:'12 Jan 2025',
     desc:"Tired of that uncomfortable feeling after meals? Discover simple, ancient tips to improve your digestion naturally and feel lighter every day.",
     body:"Bloating and digestive discomfort are more common than ever, yet Ayurveda has addressed these issues for thousands of years.\n\nHere are five time-tested secrets:\n\n1. Sip warm water throughout the day. Cold water slows digestion, warm water keeps the digestive fire (Agni) active.\n\n2. Add Ajwain (carom seeds) to your meals. They are the fastest natural remedy for gas and bloating.\n\n3. Eat your largest meal at noon when digestive fire is strongest. Light dinners before sunset ease overnight digestion enormously.\n\n4. Chew slowly and thoroughly. Ayurveda says digestion begins in the mouth, rushing meals is the number one cause of bloat.\n\n5. Triphala before bed. This classical formula gently cleanses and tones the digestive tract overnight.\n\nConsistent practice of even two or three of these habits can transform how you feel after every meal.",
     owner: false },
   { id:'seed2', title:"Can't Switch Off? How Ashwagandha Calms Modern Stress", cat:'Wellness',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg',
     img: GH + 'image(6).png', date:'28 Jan 2025',
     desc:"In a world that never stops, finding peace can feel impossible. Learn how this powerful adaptogen helps your body manage and recover from stress.",
     body:"Chronic stress is the defining health challenge of modern life, and Ashwagandha (Withania somnifera) is Ayurveda's most studied answer to it.\n\nAshwagandha is classified as a Rasayana, a rejuvenating herb that builds long-term resilience. Unlike stimulants that push you through stress, it works by normalising cortisol levels, the primary stress hormone.\n\nClinical studies consistently show that 300–600mg of KSM-66 Ashwagandha extract per day reduces cortisol by 20–30% within 8 weeks. Users report improved sleep depth, reduced anxiety, better focus and higher energy without the crash.\n\nThe key is consistency, it is not a quick fix. Take it daily for at least 4–8 weeks to feel the full benefit. Morning or night both work; some find it easier to sleep when taken before bed.\n\nNote: It is an adaptogen, not a sedative. It helps your nervous system find its natural balance rather than forcing a state.",
     owner: false },
   { id:'seed3', title:'Beat the Afternoon Slump: Ayurvedic Tips for All-Day Energy', cat:'Energy',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg',
     img: GH + 'image(5).png', date:'5 Feb 2025',
     desc:"If you rely on coffee to get through the day, there is a better way. Discover natural Ayurvedic techniques to maintain vibrant energy from morning to night.",
     body:"The post-lunch energy crash is so universal it has its own name in multiple languages. But it is not inevitable.\n\nAccording to Ayurveda, the afternoon slump happens because of two things: poor morning routines that deplete Ojas (vital energy) and heavy midday meals that divert energy to digestion.\n\nHere is what actually works:\n\nMorning: Drink warm water with a squeeze of lemon before anything else. This activates the liver and starts metabolism gently.\n\nBreakfast: Eat before 9am. Skipping breakfast or eating late forces your body to run on stress hormones by midday.\n\nLunch: Make it your biggest meal but keep it light and digestible. Avoid fried foods, heavy curries and excess sweets at lunch.\n\nMid-afternoon: Instead of coffee, try 1 tsp of Ashwagandha or Shatavari in warm milk. The effect is slower but cleaner and lasts for hours.\n\nEvening: Finish eating by 7pm. Late dinners keep your digestive system busy when it should be resting, robbing you of morning energy.\n\nThe single highest-impact change? Consistent sleep and wake times. Every other Ayurvedic strategy works better when your circadian rhythm is stable.",
@@ -712,6 +715,7 @@ const SEED_BLOGS = [
     owner: false },
   {
     id:'seed6',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/utrohayaat1.jpg',
     title:'Hormonal Balance Naturally: An Ayurvedic Guide for Women',
     cat:'Female Health',
     img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/utrohayaat1.jpg',
@@ -728,6 +732,7 @@ Shah Hayaat's Utro Hayaat combines these powerful Ayurvedic herbs to support men
   },
   {
     id:'seed7',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg',
     title:'Why Your Liver Needs Daily Attention, The Ayurvedic Way',
     cat:'Wellness',
     img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg',
@@ -744,6 +749,7 @@ For those with fatty liver, making simple dietary changes, reducing refined oils
   },
   {
     id:'seed8',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg',
     title:'Managing Blood Sugar Naturally: Diet, Lifestyle & Herbs',
     cat:'Wellness',
     img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg',
@@ -760,6 +766,7 @@ Combined with a low-glycaemic diet (millet over wheat, vegetables over fruit jui
   }
   ,{
     id:'orig1',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg',
     title:'Best Ayurvedic Medicine for Brain Power and Memory in India (2025)',
     cat:'Mental Health',
     img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg',
@@ -784,6 +791,7 @@ Brain Champ contains all 5 herbs in a WHO-GMP certified formulation. Just Rs.175
     owner: true
   },{
     id:'orig2',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg',
     title:'Fatty Liver Diet & Ayurvedic Treatment: What Actually Works',
     cat:'Wellness',
     img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg',
@@ -806,6 +814,7 @@ Livo Hayaat by Shah Hayaat combines these herbs in a WHO-GMP certified syrup. Cu
     owner: true
   },{
     id:'orig3',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg',
     title:'Ayurvedic Remedies for Joint Pain: From Kitchen to Cure',
     cat:'Joint Care',
     img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg',
@@ -829,6 +838,7 @@ For advanced joint pain, Ortho Hayaat by Shah Hayaat combines Shallaki (Boswelli
     owner: true
   },{
     id:'orig4',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg',
     title:'How to Control Blood Sugar Naturally: Ayurvedic & Lifestyle Approach',
     cat:'Wellness',
     img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg',
@@ -858,6 +868,7 @@ Dia-Ease by Shah Hayaat combines all five, WHO-GMP certified, Rs.695.`,
     owner: true
   },{
     id:'orig5',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/musaffakhoon1.jpg',
     title:'Natural Blood Purifier: Ayurvedic Approach to Clear Skin & Healthy Blood',
     cat:'Skin',
     img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/musaffakhoon1.jpg',
@@ -886,6 +897,7 @@ Musaffa Khoon by Shah Hayaat contains all five herbs plus 7 additional botanical
   /* ── 15 SEO-targeted blog posts ── */
   {
     id: 'seo1',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg',
     title: 'Best Ayurvedic Liver Detox in India: What Actually Works in 2025',
     cat: 'Liver Health',
     date: '2025-11-10',
@@ -919,6 +931,7 @@ Livo Hayaat by Shah Hayaat combines all five of the above herbs in WHO-GMP certi
   },
   {
     id: 'seo2',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg',
     title: 'Top 7 Ayurvedic Herbs for Memory and Brain Power (Backed by Science)',
     cat: 'Brain Health',
     date: '2025-11-20',
@@ -953,6 +966,7 @@ Brain Champ by Shah Hayaat combines herbs 1, 2, 3, 4 and 5 in one tablet — ₹
   },
   {
     id: 'seo3',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg',
     title: 'Natural Cure for Joint Pain: What Ayurveda Offers Beyond Painkillers',
     cat: 'Joint Care',
     date: '2025-12-01',
@@ -984,6 +998,7 @@ Ortho Hayaat by Shah Hayaat combines Shallaki, Guggul, Rasna, Nirgundi and Ashwa
   },
   {
     id: 'seo4',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg',
     title: 'How to Control Blood Sugar Naturally: The Ayurvedic Approach to Diabetes',
     cat: 'Diabetes Care',
     date: '2025-12-10',
@@ -1017,6 +1032,7 @@ Dia-Ease by Shah Hayaat combines all four mechanisms in one formula — ₹695. 
   },
   {
     id: 'seo5',
+    img: 'https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/fevodol.png',
     title: 'Why Giloy (Guduchi) is India\'s Most Powerful Immunity Herb',
     cat: 'Immunity',
     date: '2025-12-18',
@@ -1048,6 +1064,7 @@ Fevodol by Shah Hayaat features Giloy as its primary ingredient alongside Tulsi,
   },
   {
     id: 'seo6',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg',
     title: 'Ayurvedic Diet for Weight Loss: The Agni-Centric Approach',
     cat: 'Wellness',
     date: '2026-01-05',
@@ -1079,6 +1096,7 @@ Beyond diet: wake before sunrise (Kapha increases with sleep after sunrise), eng
   },
   {
     id: 'seo7',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/musaffakhoon1.jpg',
     title: 'Acne, Pimples & Clear Skin: The Ayurvedic Blood Purification Method',
     cat: 'Skin',
     date: '2026-01-12',
@@ -1110,6 +1128,7 @@ Musaffa Khoon by Shah Hayaat combines Neem, Manjistha, Khadir, Sarsaparilla, Gil
   },
   {
     id: 'seo8',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg',
     title: 'Brahmi vs Ashwagandha: Which Is Better for Your Brain?',
     cat: 'Brain Health',
     date: '2026-01-20',
@@ -1143,6 +1162,7 @@ Brain Champ by Shah Hayaat combines Brahmi, Shankhpushpi, Ashwagandha, Jatamansi
   },
   {
     id: 'seo9',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg',
     title: 'Signs Your Liver Is Struggling: 10 Symptoms Indians Often Ignore',
     cat: 'Liver Health',
     date: '2026-01-28',
@@ -1190,6 +1210,7 @@ Livo Hayaat by Shah Hayaat is a comprehensive Ayurvedic liver protection formula
   },
   {
     id: 'seo10',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/bloodstorm1.jpg',
     title: 'How to Increase Hemoglobin Naturally: Ayurvedic Approach to Anemia',
     cat: 'Blood Health',
     date: '2026-02-05',
@@ -1228,6 +1249,7 @@ Blood Storm by Shah Hayaat combines Loha Bhasma, Punarnava, Shatavari, Ashwagand
   },
   {
     id: 'seo11',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/utrohayaat1.jpg',
     title: 'PCOD Diet and Ayurvedic Treatment: A Complete Guide for Indian Women',
     cat: 'Women\'s Health',
     date: '2026-02-14',
@@ -1268,6 +1290,7 @@ Utro Hayaat by Shah Hayaat includes Ashoka, Shatavari, Lodhra, Nagkesar, Daruhar
   },
   {
     id: 'seo12',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/shahzyme1.jpg',
     title: 'Gas, Bloating & Indigestion: 7 Immediate Ayurvedic Remedies at Home',
     cat: 'Digestion',
     date: '2026-02-22',
@@ -1306,6 +1329,7 @@ Shah Zyme by Shah Hayaat is a ready Ayurvedic digestive enzyme syrup combining A
   },
   {
     id: 'seo13',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/panasip1.jpg',
     title: 'Heartburn and Acidity at Night: Why It Happens and Ayurvedic Solutions',
     cat: 'Digestion',
     date: '2026-03-02',
@@ -1345,6 +1369,7 @@ PanaSip by Shah Hayaat provides fast-acting Ayurvedic acidity relief — Mulethi
   },
   {
     id: 'seo14',
+    img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg',
     title: 'Ashwagandha: The Complete Guide for Indians (Dosage, Benefits, Side Effects)',
     cat: 'Wellness',
     date: '2026-03-10',
@@ -1388,6 +1413,7 @@ Ashwagandha is a core ingredient in several Shah Hayaat formulas including Brain
   },
   {
     id: 'seo15',
+    img: 'https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/fevodol.png',
     title: 'Winter Immunity: The Ayurvedic Prevention Protocol for Cold & Flu Season',
     cat: 'Immunity',
     date: '2026-03-15',
@@ -1453,8 +1479,12 @@ function getReactions() {
 function saveReactions(obj) {
   try { localStorage.setItem(REACTS_KEY, JSON.stringify(obj)); } catch(e) {}
 }
-function getAdminPin() {
-  return localStorage.getItem(ADMIN_PIN_KEY) || DEFAULT_PIN;
+async function hashPin(pin) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pin));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+function getSavedHash() {
+  return localStorage.getItem(ADMIN_PIN_KEY) || DEFAULT_PIN_HASH;
 }
 
 /* ── All posts merged ── */
@@ -1678,9 +1708,11 @@ function openOwnerLogin() {
   document.getElementById('login-modal-bg').classList.remove('hidden');
 }
 
-function verifyLogin() {
-  const pin = document.getElementById('admin-pin').value;
-  if (pin === getAdminPin()) {
+async function verifyLogin() {
+  const pin = document.getElementById('admin-pin').value.trim();
+  if (!pin) return;
+  const inputHash = await hashPin(pin);
+  if (inputHash === getSavedHash()) {
     isOwner = true;
     localStorage.setItem(LOGIN_KEY, '1');
     localStorage.setItem('sh_admin_ts', Date.now().toString());
@@ -1688,7 +1720,7 @@ function verifyLogin() {
     document.getElementById('owner-bar').style.display = '';
     showToast('Welcome back, Admin!');
   } else {
-    document.getElementById('login-error').textContent = 'Incorrect PIN. Please try again.';
+    document.getElementById('login-error').textContent = 'Incorrect password. Please try again.';
   }
 }
 
