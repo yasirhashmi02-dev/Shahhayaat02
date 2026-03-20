@@ -307,9 +307,9 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .blog-body p{font-size:0.88rem;flex-grow:1;margin-bottom:1rem;line-height:1.65}
 .blog-footer{display:flex;align-items:center;justify-content:space-between;gap:0.6rem;margin-top:auto;flex-wrap:wrap}
 .blog-reactions{display:flex;gap:0.35rem}
-.react-btn{display:inline-flex;align-items:center;gap:0.25rem;padding:0.28rem 0.65rem;border-radius:50px;border:1.5px solid var(--border);background:#fff;font-size:0.8rem;cursor:pointer;transition:all 0.18s;color:var(--text-muted)}
-.react-btn:hover{border-color:var(--navy-mid);color:var(--navy-mid)}
-.react-btn.reacted{background:linear-gradient(160deg,var(--navy-deep) 0%,var(--navy-mid) 55%,var(--navy-deep) 100%);border-color:var(--navy-deep);color:#fff}
+.react-btn{display:inline-flex;align-items:center;gap:0.25rem;padding:0.28rem 0.75rem;border-radius:50px;border:1.5px solid #ddd;background:#f8f8f8;font-size:0.82rem;cursor:pointer;transition:all 0.2s;color:#555;font-weight:500}
+.react-btn:hover{border-color:#2A4633;color:#2A4633;background:#e8f5e9}
+.react-btn.reacted{background:linear-gradient(135deg,#2A4633,#3d6b4f);border-color:#2A4633;color:#fff;box-shadow:0 2px 8px rgba(42,70,51,0.25)}
 .blog-share-btn{display:inline-flex;align-items:center;gap:0.3rem;padding:0.28rem 0.7rem;border-radius:50px;border:1.5px solid var(--border);background:#fff;font-size:0.8rem;cursor:pointer;color:var(--text-muted);transition:all 0.18s}
 .blog-share-btn:hover{border-color:var(--gold);color:var(--gold)}
 /* Blog modal */
@@ -677,11 +677,15 @@ p { color: #3D3D3D !important; }
 
 const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
 const ADMIN_PIN_KEY = 'sh_admin_pin';
-const DEFAULT_PIN_HASH = 'ea601e7491392837e76eec3af58dd15cea3efcb2850d6b1b4cf725350bc75ec7'; // SHA-256 hash — plain password never stored
+const REACTIONS_API = 'https://script.google.com/macros/s/AKfycbwIiEeIHyJWonJd1QhEiLHYnUjAE5yRqxXH22CNB_Wa36xpFN0BkokebBO1g_1AVZL8xw/exec';
 const POSTS_KEY     = 'sh_blog_posts';
-const SUBS_KEY      = 'sh_subscribers';
+const SUBS_KEY      = 'sh_subs';
 const REACTS_KEY    = 'sh_reactions';
 const LOGIN_KEY     = 'sh_admin_logged_in';
+
+/* In-memory live reaction cache — populated from Google Sheets on page load */
+var _liveReacts = {};
+const DEFAULT_PIN_HASH = 'ea601e7491392837e76eec3af58dd15cea3efcb2850d6b1b4cf725350bc75ec7'; // SHA-256 hash — plain password never stored
 
 /* ── Static seed blogs (always shown) ── */
 const SEED_BLOGS = [
@@ -1474,10 +1478,30 @@ function saveSubscribers(arr) {
   try { localStorage.setItem(SUBS_KEY, JSON.stringify(arr)); } catch(e) {}
 }
 function getReactions() {
-  try { return JSON.parse(localStorage.getItem(REACTS_KEY) || '{}'); } catch(e) { return {}; }
+  /* Merge live Sheets data with any local fallback */
+  const local = (function(){ try { return JSON.parse(localStorage.getItem(REACTS_KEY) || '{}'); } catch(e) { return {}; } })();
+  /* _liveReacts is populated on page load from Google Sheets */
+  const merged = Object.assign({}, local, _liveReacts);
+  return merged;
 }
 function saveReactions(obj) {
+  /* Save local copy as instant fallback */
   try { localStorage.setItem(REACTS_KEY, JSON.stringify(obj)); } catch(e) {}
+}
+
+/* ── Load all reactions from Google Sheets on page load ── */
+function loadLiveReactions() {
+  fetch(REACTIONS_API + '?type=blog_reactions')
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      if (res.ok && res.data) {
+        _liveReacts = res.data;
+        /* Merge into localStorage cache */
+        try { localStorage.setItem(REACTS_KEY, JSON.stringify(_liveReacts)); } catch(e) {}
+        renderGrid();
+      }
+    })
+    .catch(function(){ /* silent — local fallback already shown */ });
 }
 async function hashPin(pin) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pin));
@@ -1646,20 +1670,54 @@ function closeBlogModal(e) {
 /* ── Reactions ── */
 function react(e, rid, type) {
   if (e) e.stopPropagation();
-  const reacts = getReactions();
-  const myR = reacts['my_' + rid] || {};
-  if (myR[type]) { showToast('You already reacted!'); return; }
 
+  /* Check if user already reacted (local per-device guard) */
+  var myKey = 'my_reacted_' + rid + '_' + type;
+  if (localStorage.getItem(myKey)) { showToast('Already reacted! 👍'); return; }
+
+  /* Optimistic UI — update button immediately */
+  var emojiMap = { love:'❤', helpful:'👍', leaf:'🌿' };
+  var reacts = getReactions();
   if (!reacts[rid]) reacts[rid] = { love:0, helpful:0, leaf:0 };
   reacts[rid][type] = (reacts[rid][type] || 0) + 1;
-  myR[type] = true;
-  reacts['my_' + rid] = myR;
   saveReactions(reacts);
-  renderGrid();
+  if (_liveReacts[rid]) _liveReacts[rid][type] = reacts[rid][type];
+  else _liveReacts[rid] = Object.assign({}, reacts[rid]);
 
-  /* Re-render modal if open */
-  if (!document.getElementById('blog-modal-bg').classList.contains('hidden')) openPost(rid);
-  showToast('Reaction added!');
+  /* Mark as reacted locally so same user can't double-react */
+  localStorage.setItem(myKey, '1');
+
+  /* Update all matching buttons instantly */
+  var newCount = reacts[rid][type];
+  document.querySelectorAll('[onclick*="react"][onclick*="' + rid + '"][onclick*="' + type + '"]').forEach(function(btn) {
+    btn.classList.add('reacted');
+    btn.innerHTML = emojiMap[type] + ' ' + newCount;
+  });
+
+  /* Re-render open modal */
+  var modalBg = document.getElementById('blog-modal-bg');
+  if (modalBg && !modalBg.classList.contains('hidden')) openPost(rid);
+
+  showToast('Reaction saved! ❤️');
+
+  /* Send to Google Sheets in background */
+  fetch(REACTIONS_API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type: 'blog_reaction', postId: rid, reaction: type })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(res){
+    if (res.ok && res.counts) {
+      /* Update display with authoritative server count */
+      _liveReacts[rid] = res.counts;
+      var serverCount = res.counts[type];
+      document.querySelectorAll('[onclick*="react"][onclick*="' + rid + '"][onclick*="' + type + '"]').forEach(function(btn) {
+        btn.innerHTML = emojiMap[type] + ' ' + serverCount;
+      });
+    }
+  })
+  .catch(function(){ /* local count already shown — silent fail */ });
 }
 
 /* ── Share ── */
@@ -1891,6 +1949,7 @@ document.addEventListener('DOMContentLoaded', () => {
   buildFilters();
   renderGrid();
   checkUrlPost();
+  loadLiveReactions(); /* fetch live counts from Google Sheets */
 
 /* Fallback: show any unrevealed elements after 1.2s */
 setTimeout(function(){
