@@ -666,11 +666,11 @@ body.nav-open{overflow:hidden}
         <li><a href="conditions.html?c=immunity">Immunity</a></li>
       </ul></div>
       <div class="footer-col"><h4>Products</h4><ul>
-        <li><a href="product-detail.html?id=brainchamp">Brain Champ</a></li>
-        <li><a href="product-detail.html?id=livohayaat">Livo Hayaat</a></li>
-        <li><a href="product-detail.html?id=orthohayaat">Ortho Hayaat</a></li>
-        <li><a href="product-detail.html?id=diaease">Dia-Ease</a></li>
-        <li><a href="product-detail.html?id=shahzyme">Shah Zyme</a></li>
+        <li><a href="brain-champ-ayurvedic-memory-booster.html">Brain Champ</a></li>
+        <li><a href="livo-hayaat-ayurvedic-liver-detox.html">Livo Hayaat</a></li>
+        <li><a href="ortho-hayaat-ayurvedic-joint-pain-relief.html">Ortho Hayaat</a></li>
+        <li><a href="dia-ease-ayurvedic-blood-sugar-control.html">Dia-Ease</a></li>
+        <li><a href="shah-zyme-ayurvedic-digestive-syrup.html">Shah Zyme</a></li>
         <li><a href="products.html">View All 12 →</a></li>
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
@@ -993,7 +993,7 @@ document.addEventListener('DOMContentLoaded', function() {
           '<div class="product-footer">' +
             '<div class="product-price">₹' + r.price + '</div>' +
             '<div class="product-actions-row">' +
-              '<a href="product-detail.html?id=' + r.id + '" class="btn btn-outline btn-sm">Details</a>' +
+              '<a href="' + (productUrl ? productUrl(r.id) : 'product-detail.html?id=' + r.id) + '" class="btn btn-outline btn-sm">Details</a>' +
               '<a href="https://wa.me/917051056287?text=' + rMsg + '" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Order</a>' +
             '</div>' +
           '</div>' +
