@@ -452,14 +452,6 @@ p { color: #3D3D3D !important; }
 <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa">💬 WhatsApp Us</a>
   </div>
 </nav>
-    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" style="display:none;padding:0.56rem 1.4rem;background:var(--navy-light);color:var(--gold-light);font-size:0.74rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background 0.22s" id="blog-wa-cta">WhatsApp Us</a>
-    <button id="blog-hamburger" aria-label="Menu" style="background:none;border:none;cursor:pointer;padding:4px;display:flex;flex-direction:column;gap:5px;z-index:1001">
-      <span style="display:block;width:24px;height:1.5px;background:#fff;transition:all 0.3s;transform-origin:center" id="ham1"></span>
-      <span style="display:block;width:24px;height:1.5px;background:#fff;transition:all 0.3s;transform-origin:center" id="ham2"></span>
-      <span style="display:block;width:24px;height:1.5px;background:#fff;transition:all 0.3s;transform-origin:center" id="ham3"></span>
-    </button>
-  </div>
-</header>
 <div id="blog-drawer" style="position:fixed;inset:0;z-index:950;background:linear-gradient(160deg,var(--navy-deep) 0%,var(--navy-mid) 55%,var(--navy-deep) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translateX(100%);transition:transform 0.5s cubic-bezier(0.76,0,0.24,1)">
     <button onclick="closeBlogNav()" aria-label="Close menu" style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;cursor:pointer;padding:8px;z-index:10" id="close-blog-nav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   <ul style="text-align:center;margin-bottom:2.5rem;list-style:none">
@@ -753,7 +745,7 @@ Combined with a low-glycaemic diet (millet over wheat, vegetables over fruit jui
     owner: true
   }
   ,{
-    id:'seo1',
+    id:'orig1',
     title:'Best Ayurvedic Medicine for Brain Power and Memory in India (2025)',
     cat:'Mental Health',
     img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg',
@@ -777,7 +769,7 @@ Students preparing for JEE, NEET, UPSC. Working professionals with information o
 Brain Champ contains all 5 herbs in a WHO-GMP certified formulation. Just Rs.175 per pack, one of the most affordable brain supplements in India.`,
     owner: true
   },{
-    id:'seo2',
+    id:'orig2',
     title:'Fatty Liver Diet & Ayurvedic Treatment: What Actually Works',
     cat:'Wellness',
     img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg',
@@ -799,7 +791,7 @@ Ayurvedic herbs validated for liver health:
 Livo Hayaat by Shah Hayaat combines these herbs in a WHO-GMP certified syrup. Customers have reported normalised liver enzymes after 6-8 weeks.`,
     owner: true
   },{
-    id:'seo3',
+    id:'orig3',
     title:'Ayurvedic Remedies for Joint Pain: From Kitchen to Cure',
     cat:'Joint Care',
     img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg',
@@ -822,7 +814,7 @@ Livo Hayaat by Shah Hayaat combines these herbs in a WHO-GMP certified syrup. Cu
 For advanced joint pain, Ortho Hayaat by Shah Hayaat combines Shallaki (Boswellia), Guggul, Nirgundi and Rasna, a classical combination used for centuries to rebuild cartilage and eliminate deep joint inflammation.`,
     owner: true
   },{
-    id:'seo4',
+    id:'orig4',
     title:'How to Control Blood Sugar Naturally: Ayurvedic & Lifestyle Approach',
     cat:'Wellness',
     img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/diaease1.jpg',
@@ -851,7 +843,7 @@ Ayurvedic herbs proven in clinical trials:
 Dia-Ease by Shah Hayaat combines all five, WHO-GMP certified, Rs.695.`,
     owner: true
   },{
-    id:'seo5',
+    id:'orig5',
     title:'Natural Blood Purifier: Ayurvedic Approach to Clear Skin & Healthy Blood',
     cat:'Skin',
     img: 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/musaffakhoon1.jpg',
@@ -1459,9 +1451,16 @@ function getAllPosts() {
 
 /* ── Emoji map for categories ── */
 function catEmoji(cat) {
-  const map = { 'Digestion':'🫁', 'Wellness':'🌿', 'Energy':'⚡', 'Skin':'✨',
-    'Joint Care':'🦴', 'Immunity':'🛡', 'Female Health':'🌸', 'Mental Health':'🧠',
-    'Nutrition':'🥗', 'Lifestyle':'🏡' };
+  const map = {
+    'Digestion':'🌿', 'Wellness':'🌿', 'Energy':'⚡', 'Skin':'✨',
+    'Joint Care':'🦴', 'Immunity':'🛡️', 'Female Health':'🌸', 'Mental Health':'🧠',
+    'Nutrition':'🥗', 'Lifestyle':'🏡',
+    /* SEO post categories */
+    'Liver Health':'🫀', 'Brain Health':'🧠', 'Diabetes Care':'🍃',
+    'Blood Health':'💉', "Women's Health":'🌸', 'Skin Care':'✨',
+    'Respiratory':'💨', 'Acidity':'🔥', 'Male Vitality':'⚡',
+    'Ayurveda':'🌿', 'Weight Loss':'⚖️'
+  };
   return map[cat] || '📝';
 }
 
@@ -1875,7 +1874,8 @@ function closeBlogNav() {
   if(h2){h2.style.opacity='1';h2.style.transform='';}
   if(h3){h3.style.transform='';}
 }
-document.getElementById('blog-hamburger').addEventListener('click', function() {
+var _bHam = document.getElementById('blog-hamburger');
+if (_bHam) _bHam.addEventListener('click', function() {
   _blogNavOpen ? closeBlogNav() : openBlogNav();
 });
 /* Close on nav link click */
