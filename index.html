@@ -182,7 +182,9 @@ body.nav-open{overflow:hidden}
 .hero-text h1 em{color:var(--gold-light);font-style:italic}
 .hero-badge-row{display:flex;flex-wrap:wrap;gap:0.55rem}
 @media(max-width:800px){.hero-badge-row{justify-content:center}}
-.hero-cert{display:inline-flex;align-items:center;gap:0.35rem;padding:0.35rem 0.9rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:50px;font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.75);letter-spacing:0.04em;backdrop-filter:blur(8px)}
+.hero-cert{display:inline-flex;align-items:center;gap:0.35rem;padding:0.35rem 0.9rem;background:rgba(212,160,23,0.12);border:1px solid rgba(212,160,23,0.35);border-radius:50px;font-size:0.72rem;font-weight:700;color:rgba(212,160,23,0.95);letter-spacing:0.06em;backdrop-filter:blur(8px);animation:certGlow 3s ease-in-out infinite alternate;transition:all 0.3s}
+.hero-cert:hover{background:rgba(212,160,23,0.22);border-color:rgba(212,160,23,0.65);transform:translateY(-1px)}
+@keyframes certGlow{0%{box-shadow:0 0 6px rgba(212,160,23,0.2),0 0 0 0 rgba(212,160,23,0);}100%{box-shadow:0 0 14px rgba(212,160,23,0.5),0 0 28px rgba(212,160,23,0.18);}}
 .hero-sub{color:rgba(255,255,255,0.62);max-width:460px;font-size:0.96rem}
 .hero-btns{display:flex;flex-wrap:wrap;gap:0.9rem}
 @media(max-width:800px){.hero-btns{justify-content:center}}
@@ -270,7 +272,9 @@ body.nav-open{overflow:hidden}
 
 /* TRUST */
 .trust-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-top:2.5rem}
-.trust-card{background:#0e2448;border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;transition:all 0.4s}
+.trust-card{background:#0e2448;border:1px solid rgba(212,160,23,0.25);border-radius:var(--radius);padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;transition:all 0.4s;animation:cardGlow 4s ease-in-out infinite alternate}
+.trust-card:hover{border-color:rgba(212,160,23,0.6);box-shadow:0 0 20px rgba(212,160,23,0.15),0 8px 28px rgba(0,0,0,0.3);transform:translateY(-3px)}
+@keyframes cardGlow{0%{box-shadow:0 0 0 0 rgba(212,160,23,0);}100%{box-shadow:0 0 18px rgba(212,160,23,0.22),0 4px 20px rgba(0,0,0,0.2);}}
 .trust-card:hover{border-color:var(--border-mid);transform:translateY(-2px);box-shadow:var(--shadow-md)}
 .trust-card.cert-glow{border-color:#D4A017;box-shadow:0 0 22px rgba(212,160,23,.45),0 0 6px rgba(212,160,23,.2);transform:translateY(-3px) scale(1.025);background:#112040}
 .trust-icon{font-size:1.8rem;flex-shrink:0;line-height:1;margin-top:2px}
@@ -453,8 +457,8 @@ body.nav-open{overflow:hidden}
       <a href="products.html">Products</a>
       <a href="conditions.html">Health Guides</a>
       <a href="ingredients.html">Ingredients</a>
-      <a href="exercises.html">Exercises</a>
-      <a href="wellness-lab.html">🧪 Lab</a>
+      <a href="exercises.html" style="color:rgba(212,160,23,0.85);animation:glowPulse 2.5s ease-in-out infinite alternate">Exercises</a>
+      <a href="wellness-lab.html" style="color:rgba(212,160,23,0.85);animation:glowPulse 2.5s ease-in-out infinite alternate">🧪 Lab</a>
       <a href="blog.html">Blog</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
@@ -471,8 +475,8 @@ body.nav-open{overflow:hidden}
     <a href="products.html">Products</a>
     <a href="conditions.html">Health Guides</a>
     <a href="ingredients.html">Ingredients</a>
-    <a href="exercises.html">Exercises</a>
-    <a href="wellness-lab.html">🧪 Lab</a>
+    <a href="exercises.html" style="color:rgba(212,160,23,0.85);animation:glowPulse 2.5s ease-in-out infinite alternate">Exercises</a>
+    <a href="wellness-lab.html" style="color:rgba(212,160,23,0.85);animation:glowPulse 2.5s ease-in-out infinite alternate">🧪 Lab</a>
     <a href="blog.html">Blog</a>
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
@@ -494,10 +498,10 @@ body.nav-open{overflow:hidden}
         <div class="eyebrow">WHO-GMP · ISO 9001:2015 · HACCP</div>
         <h1>Premium Ayurvedic<br>Medicines for<br><em>Complete Wellness</em></h1>
         <div class="hero-badge-row">
-          <span class="hero-cert">🌿 WHO</span>
-          <span class="hero-cert">GMP</span>
-          <span class="hero-cert">ISO 9001:2015</span>
-          <span class="hero-cert">HACCP</span>
+          <span class="hero-cert" style="animation-delay:0s">🌿 WHO</span>
+          <span class="hero-cert" style="animation-delay:0.7s">GMP</span>
+          <span class="hero-cert" style="animation-delay:1.4s">ISO 9001:2015</span>
+          <span class="hero-cert" style="animation-delay:2.1s">HACCP</span>
         </div>
         <p class="hero-sub">Certified herbal formulations for Brain, Liver, Digestion, Joints, Immunity and more. Crafted with traditional wisdom, modern standards.</p>
         <div class="hero-btns">
@@ -650,9 +654,9 @@ body.nav-open{overflow:hidden}
       <h2 class="reveal delay-1" id="trust-heading">Why People Trust Shah Hayaat</h2>
     </div>
     <div class="trust-grid">
-      <div class="trust-card reveal delay-1" id="cert1"><div class="trust-icon">🌍</div><div><strong>WHO & GMP Certified Manufacturing</strong><p>Global pharmaceutical benchmark, guaranteeing purity, safety and potency in every batch we produce.</p></div></div>
-      <div class="trust-card reveal delay-2" id="cert2"><div class="trust-icon">🏆</div><div><strong>ISO 9001:2015 Quality System</strong><p>International quality management ensuring consistent excellence and full regulatory compliance across all products.</p></div></div>
-      <div class="trust-card reveal delay-3" id="cert3"><div class="trust-icon">✅</div><div><strong>HACCP Food Safety</strong><p>Hazard Analysis Critical Control Points, the gold standard for supplement and food safety throughout the production process.</p></div></div>
+      <div class="trust-card reveal delay-1" id="cert1" style="animation-delay:0s"><div class="trust-icon">🌍</div><div><strong>WHO & GMP Certified Manufacturing</strong><p>Global pharmaceutical benchmark, guaranteeing purity, safety and potency in every batch we produce.</p></div></div>
+      <div class="trust-card reveal delay-2" id="cert2" style="animation-delay:1.3s"><div class="trust-icon">🏆</div><div><strong>ISO 9001:2015 Quality System</strong><p>International quality management ensuring consistent excellence and full regulatory compliance across all products.</p></div></div>
+      <div class="trust-card reveal delay-3" id="cert3" style="animation-delay:2.6s"><div class="trust-icon">✅</div><div><strong>HACCP Food Safety</strong><p>Hazard Analysis Critical Control Points, the gold standard for supplement and food safety throughout the production process.</p></div></div>
       <div class="trust-card reveal delay-4" id="cert4"><div class="trust-icon">🌿</div><div><strong>Classical Herbal Formulations</strong><p>Every remedy is rooted in traditional Ayurvedic science, using time-tested herbs verified by modern quality protocols.</p></div></div>
       <div class="trust-card reveal delay-1" id="cert5"><div class="trust-icon">🤝</div><div><strong>50,000+ Satisfied Customers</strong><p>Trusted by wellness seekers across India and beyond for genuine, consistent and measurable health results.</p></div></div>
     </div>

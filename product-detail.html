@@ -806,7 +806,11 @@ document.addEventListener('DOMContentLoaded', function() {
   if (!mainEl) return;
 
   if (!p) {
-    var waMsg = encodeURIComponent("Hi! I'd like to order " + p.name + " — ₹" + p.price + ". Please guide me.");
+    mainEl.innerHTML = '<div style="text-align:center;padding:4rem 2rem"><h2 style="color:var(--text-primary)">Product not found</h2><p style="color:var(--text-muted)">Please check the URL or <a href="products.html" style="color:var(--gold)">view all products</a>.</p></div>';
+    return;
+  }
+
+  var waMsg = encodeURIComponent("Hi! I'd like to order " + p.name + " — ₹" + p.price + ". Please guide me.");
   var waUrl = 'https://wa.me/917051056287?text=' + waMsg;
 
   /* Exercises per category */
@@ -909,7 +913,7 @@ document.addEventListener('DOMContentLoaded', function() {
         '<div class="pd-section-grid">' +
           '<div class="card">' +
             '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">Key Ingredients</div>' +
-            '<h3 style="margin-bottom:14px">What's Inside</h3>' +
+            '<h3 style="margin-bottom:14px">What\'s Inside</h3>' +
             p.ingredients.split(',').map(function(ing){ var parts=ing.trim().split('('); return '<div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #f0f0f0"><span style="color:#4CAF50;font-size:1.1rem;flex-shrink:0">🌿</span><div><div style="font-size:14px;font-weight:600;color:#222">' + parts[0].trim() + '</div>' + (parts[1] ? '<div style="font-size:12px;color:#888">(' + parts[1].replace(')','') + ')</div>' : '') + '</div></div>'; }).join('') +
           '</div>' +
           '<div class="card">' +
