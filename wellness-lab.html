@@ -455,7 +455,7 @@ button,input,select{font-family:inherit}
       </h1>
 
       <p class="pg hero-desc au d2" style="font-size:.97rem;max-width:480px">
-        Simple self-tests that help you understand your <strong>focus, reaction speed, breathing and energy.</strong> Each test takes less than 2 minutes. Everything is guided — just tap and follow.
+        Simple self-tests that help you understand your <strong>focus, reaction speed, breathing and vision.</strong> Each check takes under 2 minutes. Fully guided — just tap and follow along.
       </p>
     </div>
 
@@ -464,92 +464,122 @@ button,input,select{font-family:inherit}
       <div class="shb-icon">🌟</div>
       <div class="shb-body">
         <div class="shb-title">New here? We recommend beginning with the Brain Lab</div>
-        <div class="shb-desc">Measure your focus, reaction speed and memory in just 5 minutes. It's the best place to begin your wellness journey.</div>
+        <div class="shb-desc">Measure your focus, reaction speed and attention in just 5 minutes. It's the best place to begin your wellness journey.</div>
       </div>
       <button class="btn btn--p" style="white-space:nowrap;flex-shrink:0" onclick="LAB.goInstr();setTimeout(()=>LAB.setGender&&LAB.beginCategory&&(LAB.gender?LAB.beginCategory('brain'):null),100)" id="startBrainBtn">
         Begin Brain Assessment →
       </button>
     </div>
 
-    <!-- ── LAB NAVIGATION GRID ──────────────────────────── -->
+    <!-- ── LAB NAVIGATION ──────────────────────────────── -->
     <div style="margin-bottom:.5rem">
-      <div style="font-size:.63rem;font-weight:700;color:var(--tq);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.9rem">Select an Assessment to Begin</div>
-      <div class="lab-nav-grid au d3">
-        <button class="lab-nav-btn" style="--lab-col:#2A7A5A" onclick="LAB.goInstr();LAB._pendingCat='brain'" aria-label="Brain Lab">
+
+      <div style="font-size:.7rem;font-weight:700;color:var(--tq);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1rem;text-align:center">Choose a Lab to Begin</div>
+
+      <!-- Row 1: Main / Most Popular -->
+      <div class="lab-section-title">Most Popular</div>
+      <div class="lab-nav-grid au d3" style="grid-template-columns:repeat(2,1fr);gap:.75rem;margin-bottom:.9rem">
+
+        <button class="lab-nav-btn lab-nav-btn--featured" style="--lab-col:#2A7A5A"
+          onclick="LAB.goInstr();LAB._pendingCat='brain'" aria-label="Brain Lab">
           <span class="lnb-ico">🧠</span>
           <span class="lnb-name">Brain Lab</span>
-          <span class="lnb-sub">Focus · Memory · Reaction</span>
-          <span class="lnb-dur">~5 min</span>
+          <span class="lnb-sub">Focus · Reaction · Attention</span>
+          <span class="lnb-dur">~5 min · 5 checks</span>
         </button>
-        <button class="lab-nav-btn" style="--lab-col:#2563EB" onclick="LAB.goInstr();LAB._pendingCat='eye'" aria-label="Eye Lab">
+
+        <button class="lab-nav-btn lab-nav-btn--featured" style="--lab-col:#059669"
+          onclick="LAB.goInstr();LAB._pendingCat='breathing'" aria-label="Breathing Lab">
+          <span class="lnb-ico">🌬</span>
+          <span class="lnb-name">Breathing Lab</span>
+          <span class="lnb-sub">Lung capacity · Calm · Control</span>
+          <span class="lnb-dur">~3 min · 4 checks</span>
+        </button>
+
+      </div>
+
+      <!-- Row 2: Body checks -->
+      <div class="lab-section-title">Body Checks</div>
+      <div class="lab-nav-grid au d3" style="grid-template-columns:repeat(3,1fr);gap:.65rem;margin-bottom:.9rem">
+
+        <button class="lab-nav-btn" style="--lab-col:#2563EB"
+          onclick="LAB.goInstr();LAB._pendingCat='eye'" aria-label="Eye Lab">
           <span class="lnb-ico">👁</span>
           <span class="lnb-name">Eye Lab</span>
-          <span class="lnb-sub">Vision · Tracking</span>
+          <span class="lnb-sub">Vision · Colour · Tracking</span>
           <span class="lnb-dur">~4 min</span>
         </button>
-        <button class="lab-nav-btn" style="--lab-col:#059669" onclick="LAB.goInstr();LAB._pendingCat='breathing'" aria-label="Breathing Lab">
-          <span class="lnb-ico">🌬</span>
-          <span class="lnb-name">Breath Lab</span>
-          <span class="lnb-sub">Lungs · Control</span>
-          <span class="lnb-dur">~3 min</span>
-        </button>
-        <button class="lab-nav-btn" style="--lab-col:#C97010" onclick="LAB.goInstr();LAB._pendingCat='stress'" aria-label="Stress Lab">
-          <span class="lnb-ico">🔥</span>
-          <span class="lnb-name">Stress Lab</span>
-          <span class="lnb-sub">Breathing · Calm</span>
-          <span class="lnb-dur">~3 min</span>
-        </button>
-        <button class="lab-nav-btn" style="--lab-col:#8B5CF6" onclick="LAB.goInstr();LAB._pendingCat='energy'" aria-label="Energy Lab">
-          <span class="lnb-ico">⚡</span>
-          <span class="lnb-name">Energy Lab</span>
-          <span class="lnb-sub">Alertness · Vitality</span>
-          <span class="lnb-dur">~3 min</span>
-        </button>
-        <button class="lab-nav-btn" style="--lab-col:#7C3AED" onclick="LAB.goInstr();LAB._pendingCat='stability'" aria-label="Stability Lab">
-          <span class="lnb-ico">📱</span>
-          <span class="lnb-name">Stability Lab</span>
-          <span class="lnb-sub">Tremor · Balance</span>
-          <span class="lnb-dur">~2 min</span>
-        </button>
-        <button class="lab-nav-btn" style="--lab-col:#C0392B" onclick="LAB.goInstr();LAB._pendingCat='lifestyle'" aria-label="Lifestyle Lab">
-          <span class="lnb-ico">🌿</span>
-          <span class="lnb-name">Lifestyle Lab</span>
-          <span class="lnb-sub">Sleep · Habits</span>
-          <span class="lnb-dur">~2 min</span>
-        </button>
-        <button class="lab-nav-btn" style="--lab-col:#E74C3C" onclick="LAB.goInstr();LAB._pendingCat='heart'" aria-label="Heart Lab">
+
+        <button class="lab-nav-btn" style="--lab-col:#E74C3C"
+          onclick="LAB.goInstr();LAB._pendingCat='heart'" aria-label="Heart Lab">
           <span class="lnb-ico">❤️</span>
           <span class="lnb-name">Heart Lab</span>
           <span class="lnb-sub">Pulse · Cardiovascular</span>
           <span class="lnb-dur">~2 min</span>
         </button>
-        <button class="lab-nav-btn" style="--lab-col:#F39C12" onclick="LAB.goInstr();LAB._pendingCat='gut'" aria-label="Gut Lab">
-          <span class="lnb-ico">🍽</span>
-          <span class="lnb-name">Gut Lab</span>
-          <span class="lnb-sub">Digestion · Comfort</span>
-          <span class="lnb-dur">~2 min</span>
-        </button>
-        <button class="lab-nav-btn" style="--lab-col:#8E44AD" onclick="LAB.goInstr();LAB._pendingCat='hearing'" aria-label="Hearing Lab">
+
+        <button class="lab-nav-btn" style="--lab-col:#8E44AD"
+          onclick="LAB.goInstr();LAB._pendingCat='hearing'" aria-label="Hearing Lab">
           <span class="lnb-ico">👂</span>
           <span class="lnb-name">Hearing Lab</span>
           <span class="lnb-sub">Tone · Detection</span>
           <span class="lnb-dur">~2 min</span>
         </button>
+
+        <button class="lab-nav-btn" style="--lab-col:#7C3AED"
+          onclick="LAB.goInstr();LAB._pendingCat='stability'" aria-label="Stability Lab">
+          <span class="lnb-ico">📱</span>
+          <span class="lnb-name">Stability Lab</span>
+          <span class="lnb-sub">Tremor · Balance</span>
+          <span class="lnb-dur">~2 min</span>
+        </button>
+
+        <button class="lab-nav-btn" style="--lab-col:#F39C12"
+          onclick="LAB.goInstr();LAB._pendingCat='gut'" aria-label="Gut Lab">
+          <span class="lnb-ico">🍽</span>
+          <span class="lnb-name">Gut Lab</span>
+          <span class="lnb-sub">Digestion · Comfort</span>
+          <span class="lnb-dur">~2 min</span>
+        </button>
+
+        <button class="lab-nav-btn" style="--lab-col:#C0392B"
+          onclick="LAB.goInstr();LAB._pendingCat='lifestyle'" aria-label="Lifestyle Lab">
+          <span class="lnb-ico">🌿</span>
+          <span class="lnb-name">Lifestyle Lab</span>
+          <span class="lnb-sub">Sleep · Habits · Recovery</span>
+          <span class="lnb-dur">~2 min</span>
+        </button>
+
       </div>
 
-      <div style="text-align:center;margin-top:.6rem">
-        <button class="btn btn--p btn--lg btn--cta" onclick="LAB.goInstr()" id="mainStartBtn" style="font-size:.9rem">
-          ▶ Begin Full Wellness Assessment
+      <!-- Row 3: Women's Health (conditionally shown) -->
+      <div class="lab-section-title" id="femaleNavLabel" style="display:none">Women's Health</div>
+      <div class="lab-nav-grid" id="femaleNavRow" style="grid-template-columns:1fr;gap:.65rem;margin-bottom:.9rem;display:none">
+        <button class="lab-nav-btn lab-nav-btn--featured" style="--lab-col:#B83060"
+          onclick="LAB.goInstr();LAB._pendingCat='female'" aria-label="Women's Health Lab">
+          <span class="lnb-ico">🌸</span>
+          <span class="lnb-name">Women's Health Lab</span>
+          <span class="lnb-sub">Hormonal rhythm · Energy · Sleep comfort</span>
+          <span class="lnb-dur">~5 min · 3 checks</span>
         </button>
-        <div style="font-size:.72rem;color:var(--tq);margin-top:.5rem;animation:arrowBob 1.8s ease-in-out infinite">
-          ~15 minutes · 8 labs · Free PDF report
+      </div>
+
+      <!-- Full assessment CTA -->
+      <div style="text-align:center;margin-top:.8rem">
+        <button class="btn btn--p btn--lg btn--cta" onclick="LAB.goInstr()" id="mainStartBtn" style="font-size:.9rem;width:100%;max-width:360px">
+          ▶ Start Full Wellness Assessment
+        </button>
+        <div style="font-size:.72rem;color:var(--tq);margin-top:.5rem">
+          ~15 minutes · 8 labs · Complete report
         </div>
       </div>
+
     </div>
+
 
     <!-- ── STATS ROW ──────────────────────────────────────── -->
     <div class="stats-row" role="list">
-      <div class="stat-box" role="listitem"><span class="stat-n">10</span><span class="stat-l">Labs</span></div>
+      <div class="stat-box" role="listitem"><span class="stat-n">8</span><span class="stat-l">Labs</span></div>
       <div class="stat-box" role="listitem"><span class="stat-n">20+</span><span class="stat-l">Checks</span></div>
       <div class="stat-box" role="listitem"><span class="stat-n">&lt;2</span><span class="stat-l">Min / Test</span></div>
       <div class="stat-box" role="listitem"><span class="stat-n" style="font-size:1.1rem">🔐</span><span class="stat-l">Private</span></div>
@@ -968,6 +998,11 @@ const LAB = {
 
   setGender(g) {
     this.gender = g;
+    /* Show/hide female nav row on welcome screen */
+    const femRow = document.getElementById('femaleNavRow');
+    const femLbl = document.getElementById('femaleNavLabel');
+    if (femRow) { femRow.style.display = g === 'F' ? 'grid' : 'none'; }
+    if (femLbl) { femLbl.style.display = g === 'F' ? 'flex' : 'none'; }
     ['M','F'].forEach(x => {
       const c = this.el('g'+x);
       if (!c) return;
@@ -990,7 +1025,7 @@ const LAB = {
   categories: {
     brain: {
       id:'brain', name:'Brain & Cognitive', icon:'🧠', color:'#2A7A5A',
-      tests:['mod_reactionSpeed','mod_workingMemory','mod_sustainedAttention','mod_cogUnderPressure','mod_numberSequence','mod_goNoGo'],
+      tests:['mod_reactionSpeed','mod_sustainedAttention','mod_cogUnderPressure','mod_numberSequence','mod_goNoGo'],
       scoreKey:'cognitive', time:'~5 min', desc:'Memory, focus, reaction speed and mental agility'
     },
     eye: {
@@ -1023,20 +1058,11 @@ const LAB = {
       tests:['mod_gutHealth'],
       scoreKey:'gut', time:'~2 min', desc:'Digestive comfort, bloating and bowel health patterns'
     },
-    stress: {
-      id:'stress', name:'Stress & Regulation', icon:'🔥', color:'#C97010',
-      tests:['mod_breathSync','mod_co2Tolerance','mod_calmTimer','mod_stressRecovery'],
-      scoreKey:'stress', time:'~3 min', desc:'Stress response, impulse control and calm regulation'
-    },
+
     hearing: {
       id:'hearing', name:'Hearing Check', icon:'👂', color:'#8E44AD',
       tests:['mod_hearingCheck'],
       scoreKey:'hearing', time:'~2 min', desc:'High-frequency tone detection — best with headphones'
-    },
-    energy: {
-      id:'energy', name:'Energy', icon:'⚡', color:'#8B5CF6',
-      tests:['mod_handSpeed','mod_energyCheck'],
-      scoreKey:'energy', time:'~3 min', desc:'Hand speed, motor alertness and daily energy self-check'
     },
     female: {
       id:'female', name:"Women's Health", icon:'🌸', color:'#B83060',
@@ -1083,7 +1109,7 @@ const LAB = {
           </button>`).join('')}
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
-          <button class="btn btn--p" style="font-size:.82rem" onclick="document.getElementById('_addMoreModal').remove();LAB.showResults()">
+          <button class="btn btn--p" style="font-size:.82rem" onclick="document.getElementById('_addMoreModal').remove();LAB.showDashboard()">
             📊 See My Results
           </button>
           <button class="btn btn--o" style="font-size:.82rem;color:var(--g)" onclick="document.getElementById('_addMoreModal').remove();LAB.beginModules()">
@@ -6775,6 +6801,18 @@ LAB.generatePDF = function () {
 
   .rpt-footer{display:flex;justify-content:space-between;align-items:center;margin-top:16px;
     padding-top:12px;border-top:1px solid #D4E8DC;font-size:10.5px;color:#6A8A6A}
+
+/* ── Featured nav button (larger, 2-col) ────────────────────── */
+.lab-nav-btn--featured {
+  padding: 1rem 1.1rem;
+  flex-direction: row;
+  align-items: center;
+  gap: .8rem;
+  text-align: left;
+}
+.lab-nav-btn--featured .lnb-ico { font-size: 2rem; }
+.lab-nav-btn--featured .lnb-name { font-size: .88rem; }
+.lab-nav-btn--featured .lnb-sub { font-size: .67rem; }
 </style>
 </head>
 <body>
