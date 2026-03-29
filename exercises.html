@@ -377,6 +377,9 @@ body.nav-open{overflow:hidden}
 .done-score-pill strong{display:block;font-size:1.2rem;font-weight:900;color:var(--gold-l);font-family:var(--font-h)}
 .done-score-pill span{font-size:.62rem;color:rgba(255,255,255,.4);letter-spacing:.06em}
 .ov-done-row{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-top:.5rem}
+.rank-box{width:100%;max-width:280px;margin:0 auto;padding:12px 16px;border-radius:12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);text-align:center;font-weight:700;color:#22C55E;opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease;display:none}
+.rank-box.show{opacity:1;transform:translateY(0);display:block}
+.rank-box.rank-top{background:linear-gradient(135deg,rgba(184,134,11,.15),rgba(212,160,23,.1));border-color:rgba(212,160,23,.5);color:var(--gold-l)}
 .ov-btn-next{padding:.8rem 2.2rem;border-radius:50px;font-size:.95rem;font-weight:800;background:linear-gradient(135deg,#166534,#22C55E);color:#fff;border:none;cursor:pointer}
 .ov-btn-again{padding:.75rem 1.4rem;border-radius:50px;font-size:.85rem;font-weight:700;background:rgba(212,160,23,.1);color:#D4A017;border:1.5px solid rgba(212,160,23,.3);cursor:pointer}
 .ov-btn-close{padding:.75rem 1.1rem;border-radius:50px;font-size:.85rem;font-weight:700;background:rgba(255,255,255,.06);color:rgba(255,255,255,.4);border:1.5px solid rgba(255,255,255,.12);cursor:pointer}
@@ -1174,6 +1177,7 @@ body.nav-open{overflow:hidden}
     <div class="ov-done-ttl" id="ovDoneTtl">Well Done!</div>
     <div class="ov-done-sub" id="ovDoneSub"></div>
     <div class="ov-done-scores" id="ovDoneScores"></div>
+    <div id="globalRank" class="rank-box"></div>
     <button class="ov-btn-challenge" id="ovChallengeBtn" onclick="openChallenge()" style="display:none">🏆 Challenge a Friend</button>
     <div class="ov-done-row">
       <button class="ov-btn-next" id="ovNextBtn" onclick="ovNext()" style="display:none">▶ Next Activity</button>
@@ -2009,21 +2013,41 @@ function _lbPost(name, taps, time) {
   })
   .then(function(r) { return r.json(); })
   .then(function(json) {
+    var rankEl = document.getElementById('globalRank');
     if (json.ok && json.rank) {
       _lbMyRank = json.rank;
       var myRankEl = document.getElementById('lbMyRank');
       if (myRankEl) { myRankEl.textContent = 'Your rank: #' + json.rank; myRankEl.style.display = ''; }
-      // Show rank banner at top of leaderboard list
+      // Show rank banner inside leaderboard panel
       var lbList = document.getElementById('lbList');
       if (lbList) {
         var prev = document.getElementById('lbRankBanner');
         if (prev) prev.remove();
-        var scoreLabel = json.score ? ' (score: ' + json.score + ')' : '';
         lbList.insertAdjacentHTML('afterbegin',
           '<div id="lbRankBanner" style="padding:10px;background:rgba(34,197,94,.2);margin-bottom:10px;border-radius:8px;font-weight:bold;text-align:center;font-size:.85rem;color:#fff">' +
-          '&#128293; You are #' + json.rank + ' globally!' + scoreLabel +
+          '&#128293; You are #' + json.rank + ' globally!' +
           '</div>'
         );
+      }
+      // ── Populate #globalRank on the done screen ──
+      if (rankEl) {
+        var rank  = json.rank;
+        var score = json.score || 0;
+        var medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '🏅';
+        rankEl.innerHTML =
+          '<div style="font-size:1.4rem;margin-bottom:4px">' + medal + ' Rank <strong>#' + rank + '</strong></div>' +
+          '<div style="font-size:.9rem;margin-bottom:2px">⭐ Score: <strong>' + score + '</strong></div>' +
+          '<div style="font-size:.72rem;color:rgba(255,255,255,.45)">' +
+            (rank <= 3 ? '🔥 Top 3 — incredible!' : 'Keep tapping to climb higher!') +
+          '</div>';
+        if (rank <= 3) rankEl.classList.add('rank-top');
+        rankEl.classList.add('show');
+      }
+    } else if (json.ok) {
+      // Score saved but not in top 100
+      if (rankEl) {
+        rankEl.innerHTML = '<div style="font-size:1rem">⚡ Score saved!</div><div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Not in Top 100 yet — keep practising!</div>';
+        rankEl.classList.add('show');
       }
     }
     lbLoad();
@@ -2051,6 +2075,9 @@ function resetWakeGame() {
 
 function gStart() {
   if (_wgRunning) return;
+  // Reset rank display before new game
+  const _rankEl = document.getElementById('globalRank');
+  if (_rankEl) { _rankEl.className = 'rank-box'; _rankEl.innerHTML = ''; }
   _wgRunning = true; _wgCount = 0; _wgSec = 15;
   _wgStartTime = Date.now();
   const $ = id => document.getElementById(id);
