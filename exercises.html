@@ -2573,6 +2573,48 @@ function _showDone(scoreHTML) {
   _showPanel('done');
   speak(isLast ? 'All done! Excellent!' : 'Well done! Tap Next Activity when you are ready.');
 
+  // ── WIN / LOSE card for challenge deep-links ──────────────────
+  // _challengeCtx is set by handleChallengeDeepLink() when the URL
+  // contains ?challenge=... params. We only show the card when the
+  // finished exercise matches the challenged exercise.
+  try {
+    const ctx = window._challengeCtx;
+    if (ctx && _ex && _ex.id === ctx.exId && _lastChallengeScore > 0) {
+      const myScore        = _lastChallengeScore;
+      const { challengerScore, metric, lowerIsBetter } = ctx;
+      const won  = lowerIsBetter ? myScore < challengerScore : myScore > challengerScore;
+      const tied = myScore === challengerScore;
+
+      const bg  = won ? 'rgba(34,197,94,.12)'   : tied ? 'rgba(99,102,241,.12)'  : 'rgba(239,68,68,.10)';
+      const bd  = won ? '#22C55E'               : tied ? '#6366f1'               : '#EF4444';
+      const ico = won ? '🥇'                    : tied ? '🤝'                   : '😤';
+      const ttl = won ? 'You Won!'              : tied ? "It's a Tie!"           : 'Not This Time!';
+      const ttlColor = won ? '#22C55E'          : tied ? '#a5b4fc'              : '#EF4444';
+      const sub = won
+        ? 'You beat ' + challengerScore + ' ' + metric + ' — champion!'
+        : tied
+        ? 'Both scored ' + challengerScore + ' ' + metric + ' — try again!'
+        : 'The target was ' + challengerScore + ' ' + metric + '. Keep practising!';
+
+      // Remove any previous result card so replaying shows fresh result
+      const prev = document.getElementById('challengeResultCard');
+      if (prev) prev.remove();
+
+      const card = document.createElement('div');
+      card.id = 'challengeResultCard';
+      card.style.cssText =
+        'margin:1rem auto 0;padding:.9rem 1rem;border-radius:14px;text-align:center;' +
+        'background:' + bg + ';border:1.5px solid ' + bd + ';max-width:320px';
+      card.innerHTML =
+        '<div style="font-size:1.8rem;margin-bottom:.2rem">' + ico + '</div>' +
+        '<div style="font-weight:800;color:' + ttlColor + ';font-size:1rem;margin-bottom:.25rem">' + ttl + '</div>' +
+        '<div style="font-size:.76rem;color:rgba(255,255,255,.55);line-height:1.5">' + sub + '</div>';
+
+      const scoresEl = document.getElementById('ovDoneScores');
+      if (scoresEl) scoresEl.after(card);
+    }
+  } catch(e) {}
+
   // Show completion toast with positive reinforcement + next-exercise suggestion
   try {
     const data = JSON.parse(localStorage.getItem('sh_wellness') || '{}');
@@ -3137,14 +3179,11 @@ function shareChallenge(method) {
   if (typeof window.__drainQueue === 'function') window.__drainQueue();
 
   /* ── CHALLENGE DEEP-LINK HANDLER ──────────────────────────────
-     When someone receives a challenge link such as:
-       exercises.html?challenge=number-sequence&score=42&metric=seconds
-     we:
-       1. Show a "You've been challenged!" banner at the top
-       2. Auto-open the specific exercise so they play right away
-       3. After they finish, patch _showDone to compare their result
-          against the challenger's score and announce win or loss
+     Link format: exercises.html?challenge=reaction-test&score=42&metric=taps%20in%2015%20sec
+     _challengeCtx is read by _showDone on every finish — no fragile patching.
   ──────────────────────────────────────────────────────────────── */
+  window._challengeCtx = null; // set below if URL params present
+
   (function handleChallengeDeepLink() {
     try {
       const params   = new URLSearchParams(window.location.search);
@@ -3157,74 +3196,35 @@ function shareChallenge(method) {
       const ex = EXERCISES.find(e => e.id === exId);
       if (!ex) return;
 
-      // Determine whether lower or higher score wins for this exercise
-      // number-sequence uses seconds (lower = better), others use higher = better
-      const lowerIsBetter = (exId === 'number-sequence');
+      // number-sequence is time-based (lower = better); everything else higher = better
+      window._challengeCtx = {
+        exId,
+        challengerScore,
+        metric,
+        lowerIsBetter: exId === 'number-sequence'
+      };
 
-      // ── 1. Show "You've been challenged!" top banner ──
+      // ── 1. Banner ──
       const banner = document.createElement('div');
       banner.id = 'challengeBanner';
-      banner.style.cssText = `
-        position:fixed;top:0;left:0;right:0;z-index:2000;
-        background:linear-gradient(135deg,#92400e,var(--gold-l));
-        color:#fff;padding:.6rem 1rem;text-align:center;
-        font-size:.82rem;font-weight:700;
-        display:flex;align-items:center;justify-content:center;gap:.6rem;
-        box-shadow:0 2px 12px rgba(184,134,11,.45)`;
-      banner.innerHTML = `
-        <span>🏆 You've been challenged in <strong>${ex.title}</strong>!
-        Beat <strong>${challengerScore} ${metric}</strong> to win.</span>
-        <button onclick="openExercise('${exId}')"
-          style="padding:.3rem .85rem;border-radius:50px;background:#fff;
-                 color:#92400e;border:none;font-weight:800;font-size:.78rem;cursor:pointer;
-                 white-space:nowrap">▶ Play Now</button>
-        <button onclick="this.parentElement.remove()"
-          style="background:none;border:none;color:rgba(255,255,255,.6);font-size:1rem;cursor:pointer">✕</button>`;
-      document.body.prepend(banner);
+      banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:2000;' +
+        'background:linear-gradient(135deg,#92400e,var(--gold-l));' +
+        'color:#fff;padding:.55rem .8rem;font-size:.82rem;font-weight:700;' +
+        'display:flex;align-items:center;justify-content:center;gap:.55rem;flex-wrap:wrap;' +
+        'box-shadow:0 2px 12px rgba(184,134,11,.45)';
+      banner.innerHTML = (
+        '<span>&#127942; You&#39;ve been challenged in <strong>' + ex.title + '</strong>! '
+        + 'Beat <strong>' + challengerScore + ' ' + metric + '</strong> to win.</span>'
+        + '<button onclick="openExercise(\'' + exId + '\')"'
+        + ' style="padding:.28rem .8rem;border-radius:50px;background:#fff;'
+          + 'color:#92400e;border:none;font-weight:800;font-size:.76rem;cursor:pointer;white-space:nowrap">'
+        + '&#9654; Play Now</button>'
+        + '<button onclick="this.parentElement.remove()"'
+        + ' style="background:none;border:none;color:rgba(255,255,255,.55);font-size:1rem;cursor:pointer;padding:0 .2rem">&#x2715;</button>'
+      );
 
-      // Push page content down so the fixed banner doesn't overlap the fixed header
-      document.documentElement.style.scrollPaddingTop = '110px';
-
-      // ── 2. Auto-open the exercise after a short delay ──
-      setTimeout(() => openExercise(exId), 900);
-
-      // ── 3. Intercept _showDone to append win/lose result ──
-      const _origShowDone = _showDone;
-      window._showDone = function(scoreHTML) {
-        _origShowDone(scoreHTML);
-
-        // Restore
-        window._showDone = _origShowDone;
-
-        // Get the player's score from the global challenge vars
-        const myScore = _lastChallengeScore;
-        const won = lowerIsBetter ? myScore < challengerScore : myScore > challengerScore;
-        const tied = myScore === challengerScore;
-
-        const resultEl = document.createElement('div');
-        resultEl.style.cssText = `
-          margin-top:.8rem;padding:1rem;border-radius:14px;text-align:center;
-          background:${won ? 'rgba(34,197,94,.12)' : tied ? 'rgba(99,102,241,.12)' : 'rgba(239,68,68,.10)'};
-          border:1.5px solid ${won ? '#22C55E' : tied ? '#6366f1' : '#EF4444'}`;
-        resultEl.innerHTML = won
-          ? `<div style="font-size:1.8rem">🥇</div>
-             <div style="font-weight:800;color:#22C55E;font-size:1rem;margin:.25rem 0">You Won!</div>
-             <div style="font-size:.78rem;color:rgba(255,255,255,.55)">You beat the challenge of ${challengerScore} ${metric}</div>`
-          : tied
-          ? `<div style="font-size:1.8rem">🤝</div>
-             <div style="font-weight:800;color:#a5b4fc;font-size:1rem;margin:.25rem 0">It's a Tie!</div>
-             <div style="font-size:.78rem;color:rgba(255,255,255,.55)">Both scored ${challengerScore} ${metric} — try again to break the tie!</div>`
-          : `<div style="font-size:1.8rem">😤</div>
-             <div style="font-weight:800;color:#EF4444;font-size:1rem;margin:.25rem 0">Not This Time!</div>
-             <div style="font-size:.78rem;color:rgba(255,255,255,.55)">The challenge was ${challengerScore} ${metric}. Keep practising!</div>`;
-
-        const doneEl = document.getElementById('ovDone');
-        if (doneEl) {
-          const scoresEl = doneEl.querySelector('#ovDoneScores');
-          if (scoresEl) scoresEl.after(resultEl);
-          else doneEl.appendChild(resultEl);
-        }
-      };
+      // ── 2. Auto-open the exercise ──
+      setTimeout(function() { openExercise(exId); }, 900);
     } catch(e) {}
   })();
 })();
