@@ -25,7 +25,7 @@
              'startNextFromToast','toggleVoice','ovToggle','ovSkip','skipPhase','ovAgain','ovNext',
              'ovClose','ovBegin','showHowToPlay','htpDoStep','htpAdvance','ovBeginDirect','toggleInstructions','resumeFromInstructions',
              'gStart','gTap','mathStart','mathAnswer','memStart','memFlip',
-             'seqStart','seqKey','seqCheck','seqTap','openChallenge','closeChallenge','shareChallenge','gSetDiff'];
+             'seqStart','seqKey','seqCheck','seqTap','openChallenge','closeChallenge','shareChallenge'];
   fns.forEach(function(n){ window[n] = stub(n); });
   window.__drainQueue = function(){
     _q.forEach(function(item){
@@ -1116,12 +1116,6 @@ body.nav-open{overflow:hidden}
     </div>
     <!-- Label -->
     <div class="ov-game-lbl" id="ovGameLbl">Tap anywhere as FAST as you can!</div>
-    <!-- Difficulty selector (hidden during play) -->
-    <div id="gDiffRow" style="display:flex;gap:.4rem;justify-content:center;width:100%;flex-shrink:0">
-      <button onclick="gSetDiff(this,20)" data-secs="20" class="g-diff-btn" style="flex:1;max-width:90px;padding:.45rem .3rem;border-radius:50px;font-size:.72rem;font-weight:700;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s">Easy<br><span style="font-size:.65rem;opacity:.7">20s</span></button>
-      <button onclick="gSetDiff(this,15)" data-secs="15" class="g-diff-btn active-diff" style="flex:1;max-width:90px;padding:.45rem .3rem;border-radius:50px;font-size:.72rem;font-weight:700;border:1.5px solid var(--gold);background:rgba(184,134,11,.18);color:var(--gold-l);cursor:pointer;transition:all .2s">Normal<br><span style="font-size:.65rem;opacity:.7">15s</span></button>
-      <button onclick="gSetDiff(this,10)" data-secs="10" class="g-diff-btn" style="flex:1;max-width:90px;padding:.45rem .3rem;border-radius:50px;font-size:.72rem;font-weight:700;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s">Pro<br><span style="font-size:.65rem;opacity:.7">10s</span></button>
-    </div>
     <!-- Start / Skip buttons (shown before game begins, hidden during play) -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem;width:100%;flex-shrink:0">
       <button id="gStartBtn" onclick="gStart()" style="display:none;padding:.85rem 2.4rem;border-radius:50px;font-size:1rem;font-weight:800;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(184,134,11,.4);width:100%;max-width:280px">▶ Start Challenge</button>
@@ -1138,8 +1132,6 @@ body.nav-open{overflow:hidden}
         <span class="lb-title">🌍 Global Top Scores</span>
         <span class="lb-live">Live</span>
       </div>
-      <!-- Top 3 podium preview (visible before playing) -->
-      <div id="lbPodium" style="display:flex;gap:.4rem;justify-content:center;margin-bottom:.5rem"></div>
       <div class="lb-list" id="lbList"><div class="lb-loading">Loading…</div></div>
       <div class="lb-myrank" id="lbMyRank" style="display:none"></div>
     </div>
@@ -1890,8 +1882,7 @@ function startRoutine(name) {
 /* ─────────────────────────────────────────────────────
    TAP GAME
 ───────────────────────────────────────────────────── */
-let _wgRunning = false, _wgTimer = null, _wgCount = 0, _wgSec = 0, _wgDuration = 15;
-let _wgCountdown = null; // countdown interval handle
+let _wgRunning = false, _wgTimer = null, _wgCount = 0, _wgSec = 0;
 let _wgStartTime = 0; // track when game started for reaction-time ms
 let _wgActivePointerId = null; // single-pointer anti-cheat
 
@@ -1947,21 +1938,6 @@ function _lbShowEmpty() {
 function lbRender(rows) {
   const list = document.getElementById('lbList');
   const myRankEl = document.getElementById('lbMyRank');
-  const podium = document.getElementById('lbPodium');
-
-  // ── Top 3 podium preview ──
-  if (podium) {
-    const medals = ['🥇','🥈','🥉'];
-    const top3 = rows.slice(0, 3);
-    podium.innerHTML = top3.map((r, i) =>
-      '<div style="flex:1;text-align:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:.4rem .3rem">' +
-        '<div style="font-size:1.1rem">' + medals[i] + '</div>' +
-        '<div style="font-size:.7rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px;margin:0 auto">' + _esc(r.name) + '</div>' +
-        '<div style="font-size:.65rem;color:var(--gold-l);font-weight:600">' + (r.score || r.taps) + ' pts</div>' +
-      '</div>'
-    ).join('');
-  }
-
   if (!list) return;
   if (!rows.length) {
     list.innerHTML = '<div class="lb-empty">No scores yet — be first! 🏆</div>';
@@ -1970,6 +1946,7 @@ function lbRender(rows) {
   list.innerHTML = rows.slice(0, 100).map(r => {
     const rankCls = r.rank === 1 ? 'top1' : r.rank === 2 ? 'top2' : r.rank === 3 ? 'top3' : '';
     const isMe    = _lbMyRank && r.rank === _lbMyRank;
+    // Support both old (taps) and new (score) API response shapes
     const displayVal = r.score !== undefined ? r.score : r.taps;
     const displayLbl = r.score !== undefined ? 'pts' : 'taps';
     return '<div class="lb-row' + (isMe ? ' me' : '') + '">' +
@@ -2028,51 +2005,91 @@ function _lbCloseModal() {
   if (modal) modal.classList.remove('show');
 }
 
-function _lbPost(name, taps, time) {
-  var submittedName = name || 'Anonymous';
-  var el = document.getElementById('globalRank');
-  if (el) {
-    el.innerHTML = '<div style="font-size:.85rem;color:rgba(255,255,255,.55)">⏳ Saving score…</div>';
-    el.classList.add('show');
-  }
-  fetch(LB_API, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify({
-      type: 'reaction_score',
-      name: submittedName,
-      taps: taps,
-      time: time
-    })
-  })
-  .then(function() {
-    setTimeout(function() { _lbFetchRank(submittedName, taps); }, 1800);
-  })
-  .catch(function(err) {
-    console.error('LB POST error:', err);
-    if (el) {
-      el.innerHTML = '<div style="font-size:.9rem;color:rgba(239,68,68,.8)">⚠️ Could not reach server — check connection</div>';
-    }
-    lbLoad();
+// ═══════════════════════════════════════════════════════════════
+// SCORE QUEUE — never lose a score, even if page is closed
+// Scores are written to localStorage immediately, then flushed
+// to the server. On next page load any unsent scores are retried.
+// ═══════════════════════════════════════════════════════════════
+var LB_QUEUE_KEY = 'sh_lb_queue';
+
+function _lbQueueGet() {
+  try { return JSON.parse(localStorage.getItem(LB_QUEUE_KEY) || '[]'); } catch(e) { return []; }
+}
+function _lbQueueSave(q) {
+  try { localStorage.setItem(LB_QUEUE_KEY, JSON.stringify(q)); } catch(e) {}
+}
+function _lbQueueAdd(name, taps, time) {
+  var q = _lbQueueGet();
+  q.push({ name: name, taps: taps, time: time, ts: Date.now() });
+  _lbQueueSave(q);
+}
+function _lbQueueRemoveFirst() {
+  var q = _lbQueueGet();
+  if (q.length) { q.shift(); _lbQueueSave(q); }
+}
+
+// Called on page load — retries any scores that failed to send last session
+function _lbFlushQueue() {
+  var q = _lbQueueGet();
+  if (!q.length) return;
+  console.log('LB queue: retrying', q.length, 'unsent score(s)');
+  // Send silently without touching UI — these are from a previous session
+  q.forEach(function(item) {
+    _lbSendToServer(item.name, item.taps, item.time, false);
   });
 }
 
-function _lbFetchRank(name, taps) {
-  fetch(LB_API + '?type=reaction_scores', {
-    method: 'GET',
-    redirect: 'follow',
-    mode: 'cors'
+// Low-level send — no-cors so it never throws a CORS error.
+// keepalive:true means the request survives page close.
+// updateUI: whether to show rank on screen after success.
+function _lbSendToServer(name, taps, time, updateUI) {
+  fetch(LB_API, {
+    method: 'POST',
+    mode: 'no-cors',       // avoids CORS preflight; GAS receives the data
+    keepalive: true,       // request survives if user closes the tab
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify({ type: 'reaction_score', name: name, taps: taps, time: time })
   })
+  .then(function() {
+    _lbQueueRemoveFirst();           // mark as sent
+    if (updateUI) {
+      setTimeout(function() { _lbFetchRank(name, taps); }, 1800);
+    }
+  })
+  .catch(function(err) {
+    console.warn('LB send failed, will retry next visit:', err);
+    // Leave item in queue — it will be retried on next page load
+  });
+}
+
+function _lbPost(name, taps, time) {
+  var submittedName = name || 'Anonymous';
+
+  // 1. Save to queue IMMEDIATELY — score is now safe regardless of network
+  _lbQueueAdd(submittedName, taps, time);
+
+  // 2. Show instant "queued" feedback — user sees something right away
+  var el = document.getElementById('globalRank');
+  if (el) {
+    el.innerHTML = '<div style="font-size:.85rem;color:rgba(255,255,255,.55)">⏳ Submitting score…</div>';
+    el.classList.add('show');
+  }
+
+  // 3. Try to send now (keepalive = survives page close)
+  _lbSendToServer(submittedName, taps, time, true);
+}
+
+function _lbFetchRank(name, taps) {
+  fetch(LB_API + '?type=reaction_scores', { method: 'GET', redirect: 'follow', mode: 'cors' })
   .then(function(r) { return r.json(); })
   .then(function(json) {
     var el = document.getElementById('globalRank');
     if (!json.ok || !json.data || !json.data.length) {
       if (el) {
-        el.innerHTML = '<div style="font-size:1rem">⚡ Score saved!</div><div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Leaderboard updating…</div>';
+        el.innerHTML = '<div style="font-size:1rem">⚡ Score saved!</div>' +
+          '<div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Leaderboard updating…</div>';
       }
-      lbLoad();
-      return;
+      lbLoad(); return;
     }
     lbRender(json.data);
     var matched = json.data.filter(function(r) {
@@ -2088,8 +2105,7 @@ function _lbFetchRank(name, taps) {
           '<div style="font-size:1.4rem;margin-bottom:4px">' + medal + ' Rank <strong>#' + rank + '</strong></div>' +
           '<div style="font-size:.9rem;margin-bottom:2px">⭐ Score: <strong>' + (score || taps * 10) + '</strong></div>' +
           '<div style="font-size:.72rem;color:rgba(255,255,255,.45)">' +
-            (rank <= 3 ? '🔥 Top 3 — incredible!' : 'Keep tapping to climb higher!') +
-          '</div>';
+            (rank <= 3 ? '🔥 Top 3 — incredible!' : 'Keep tapping to climb higher!') + '</div>';
         if (rank <= 3) el.classList.add('rank-top');
         el.classList.add('show');
         var myRankEl = document.getElementById('lbMyRank');
@@ -2099,12 +2115,13 @@ function _lbFetchRank(name, taps) {
           var prev = document.getElementById('lbRankBanner');
           if (prev) prev.remove();
           lbList.insertAdjacentHTML('afterbegin',
-            '<div id="lbRankBanner" style="padding:10px;background:rgba(34,197,94,.2);margin-bottom:10px;border-radius:8px;font-weight:bold;text-align:center;font-size:.85rem;color:#fff">' +
-            '🔥 You are #' + rank + ' globally!</div>'
-          );
+            '<div id="lbRankBanner" style="padding:10px;background:rgba(34,197,94,.2);margin-bottom:10px;' +
+            'border-radius:8px;font-weight:bold;text-align:center;font-size:.85rem;color:#fff">' +
+            '🔥 You are #' + rank + ' globally!</div>');
         }
       } else {
-        el.innerHTML = '<div style="font-size:1rem">⚡ Score saved!</div><div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Not in Top 100 yet — keep practising!</div>';
+        el.innerHTML = '<div style="font-size:1rem">⚡ Score saved!</div>' +
+          '<div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Not in Top 100 yet — keep practising!</div>';
         el.classList.add('show');
       }
     }
@@ -2115,72 +2132,36 @@ function _lbFetchRank(name, taps) {
 /* ── Game functions ── */
 function resetWakeGame() {
   clearInterval(_wgTimer);
-  clearInterval(_wgCountdown);
-  _wgRunning = false; _wgCount = 0; _wgSec = _wgDuration;
-  _wgActivePointerId = null;
-  _lastTapTime = 0;
+  _wgRunning = false; _wgCount = 0; _wgSec = 15;
+  _wgActivePointerId = null; // clear stale pointer lock
+  _lastTapTime = 0;          // clear stale debounce timestamp
   const $ = id => document.getElementById(id);
   $('ovTaps').textContent = '0';
-  $('ovGameSecs').textContent = _wgDuration + 's';
+  $('ovGameSecs').textContent = '15s';
   $('ovGameLbl').textContent = 'Tap anywhere as FAST as you can!';
   $('gStartBtn').style.display = '';
   $('gStartBtn').textContent = '▶ Start Challenge';
   $('gSkipBtn').style.display = _allExQueue.length > 1 ? '' : 'none';
-  const diffRow = $('gDiffRow');
-  if (diffRow) diffRow.style.display = 'flex';
+  // Disable tap area
   const ta = $('tapArea');
   if (ta) { ta.classList.add('disabled'); }
   _refreshBestDisplay();
   lbStartPoll();
 }
 
-function gSetDiff(btn, secs) {
-  _wgDuration = secs;
-  document.querySelectorAll('.g-diff-btn').forEach(b => {
-    const active = b === btn;
-    b.style.border        = active ? '1.5px solid var(--gold)' : '1.5px solid rgba(255,255,255,.15)';
-    b.style.background    = active ? 'rgba(184,134,11,.18)'    : 'rgba(255,255,255,.06)';
-    b.style.color         = active ? 'var(--gold-l)'           : 'rgba(255,255,255,.5)';
-  });
-  const $ = id => document.getElementById(id);
-  $('ovGameSecs').textContent = secs + 's';
-}
-
 function gStart() {
   if (_wgRunning) return;
+  // Reset rank display before new game
   const _rankEl = document.getElementById('globalRank');
   if (_rankEl) { _rankEl.className = 'rank-box'; _rankEl.innerHTML = ''; }
-  const $ = id => document.getElementById(id);
-
-  // Hide difficulty + start button, hide diff row during countdown
-  $('gStartBtn').style.display = 'none';
-  const diffRow = $('gDiffRow');
-  if (diffRow) diffRow.style.display = 'none';
-
-  // ── Countdown 3…2…1…GO ──
-  let cd = 3;
-  $('ovGameLbl').textContent = cd + '…';
-  $('ovGameSecs').textContent = _wgDuration + 's';
-  clearInterval(_wgCountdown);
-  _wgCountdown = setInterval(() => {
-    cd--;
-    if (cd > 0) {
-      $('ovGameLbl').textContent = cd + '…';
-    } else {
-      clearInterval(_wgCountdown);
-      _launchGame();
-    }
-  }, 700);
-}
-
-function _launchGame() {
-  const $ = id => document.getElementById(id);
-  _wgRunning = true; _wgCount = 0; _wgSec = _wgDuration;
-  _wgActivePointerId = null;
-  _lastTapTime = 0;
+  _wgRunning = true; _wgCount = 0; _wgSec = 15;
+  _wgActivePointerId = null; // reset pointer lock
+  _lastTapTime = 0;          // reset debounce so first tap is never blocked
   _wgStartTime = Date.now();
-  $('ovGameLbl').textContent = '🔥 TAP! TAP! TAP!';
-  $('ovGameSecs').textContent = _wgDuration + 's';
+  const $ = id => document.getElementById(id);
+  $('ovGameLbl').textContent = 'TAP! TAP! TAP! GO!';
+  $('gStartBtn').style.display = 'none';
+  // Enable full tap area
   const ta = $('tapArea');
   if (ta) ta.classList.remove('disabled');
   _refreshBestDisplay();
@@ -2190,22 +2171,25 @@ function _launchGame() {
     $('ovGameSecs').textContent = _wgSec + 's';
     if (_wgSec <= 0) {
       clearInterval(_wgTimer); _wgRunning = false;
+      // Disable tap area
       if (ta) ta.classList.add('disabled');
       const s = _wgCount;
+      // Update personal best
       if (s > _getPB()) { _setPB(s); _refreshBestDisplay(); }
       const r = s >= 70 ? '🔥 Lightning fast!' : s >= 50 ? '💪 Excellent!' : s >= 30 ? '👍 Good effort!' : '😊 Keep practising!';
       $('ovGameLbl').textContent = s + ' taps — ' + r;
       speak(s + ' taps. ' + r);
-      savePB('reaction', Math.round(_wgDuration * 1000 / Math.max(s, 1)));
-      saveScore('brain', Math.min(100, Math.round(s / (_wgDuration * 0.0467))));
-      const reactionMs = Math.min(3000, Math.max(100, Math.round(_wgDuration * 1000 / Math.max(s, 1))));
+      savePB('reaction', Math.round(15000 / Math.max(s, 1)));
+      saveScore('brain', Math.min(100, Math.round(s / 0.7)));
       const scoreHTML = '<div class="done-score-pill"><strong>' + s + '</strong><span>TAPS</span></div>' +
-        '<div class="done-score-pill"><strong>' + reactionMs + 'ms</strong><span>REACT</span></div>' +
-        '<div class="done-score-pill"><strong>' + _wgDuration + 's</strong><span>MODE</span></div>';
+        '<div class="done-score-pill"><strong>' + Math.round(15000 / Math.max(s,1)) + 'ms</strong><span>REACT</span></div>';
       _lastChallengeScore = s;
-      _lastChallengeName  = 'taps in ' + _wgDuration + ' sec';
+      _lastChallengeName  = 'taps in 15 sec';
       _lastChallengeExId  = 'reaction-test';
       lbStopPoll();
+      // Reaction time = ms per tap (avg), clamped to match backend validation range
+      const reactionMs = Math.min(3000, Math.max(100, Math.round(15000 / Math.max(s, 1))));
+      // Show name modal first, then done screen
       setTimeout(() => {
         lbShowNameModal(s, reactionMs);
         setTimeout(() => _showDone(scoreHTML), 2200);
@@ -3589,6 +3573,9 @@ function shareChallenge(method) {
 
   // Drain any onclick calls that fired before the main script was ready
   if (typeof window.__drainQueue === 'function') window.__drainQueue();
+
+  // Retry any scores that failed to send in a previous session
+  setTimeout(_lbFlushQueue, 3000);
 
   // ── Wire full-screen tap area (pointerdown = iPhone-safe) ──
   (function() {
