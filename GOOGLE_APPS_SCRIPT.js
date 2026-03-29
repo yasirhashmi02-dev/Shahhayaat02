@@ -1,121 +1,87 @@
-// ─────────────────────────────────────────────
-// CONFIG
-// ─────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════════
+// SHAH HAYAAT — FINAL WORKING VERSION (WEB APP SAFE)
+// ════════════════════════════════════════════════════════════════
+
+// 🔥 YOUR GOOGLE SHEET ID
 const SPREADSHEET_ID = '1h1ogNP_cjfBwF_Yad2SR7QVgjFxXB1eiI5mSXLDfxLA';
+
+const SHEET_NAME_REVIEWS    = 'SiteReviews';
+const SHEET_NAME_PROD       = 'ProductRatings';
+const SHEET_NAME_RATELIMIT  = 'RateLimit';
+const SHEET_NAME_REACTIONS  = 'BlogReactions';
 const SHEET_NAME_LEADERBOARD = 'ReactionLeaderboard';
 
-// ─────────────────────────────────────────────
-// SAFE SPREADSHEET ACCESS
-// ─────────────────────────────────────────────
-function getSpreadsheetSafe() {
-  try {
-    return SpreadsheetApp.openById(SPREADSHEET_ID);
-  } catch (e) {
-    throw new Error("Spreadsheet access failed. Please run init once.");
-  }
+// ── ALWAYS USE THIS (NO ACTIVE SPREADSHEET)
+function getSpreadsheet() {
+  return SpreadsheetApp.openById(SPREADSHEET_ID);
 }
 
-// ─────────────────────────────────────────────
-// INIT (AUTO CREATE + AUTHORIZE)
-// ─────────────────────────────────────────────
-function initApp() {
-  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+// ── JSON RESPONSE
+function jsonResponse(data) {
+  return ContentService
+    .createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
+}
 
-  let sheet = ss.getSheetByName(SHEET_NAME_LEADERBOARD);
+// ── SHEET HELPER (FIXED)
+function getOrCreateSheet(name, headers) {
+  const ss = getSpreadsheet();
+
+  let sheet = ss.getSheetByName(name);
 
   if (!sheet) {
-    sheet = ss.insertSheet(SHEET_NAME_LEADERBOARD);
-    sheet.appendRow(['Name','Score','Timestamp','IP']);
-  }
-
-  return "Initialized successfully";
-}
-
-// ─────────────────────────────────────────────
-// GET HANDLER
-// ─────────────────────────────────────────────
-function doGet(e) {
-
-  try {
-
-    // 🔥 INIT TRIGGER
-    if (e.parameter.init === "1") {
-      return ContentService
-        .createTextOutput(JSON.stringify({ ok:true, msg:initApp() }))
-        .setMimeType(ContentService.MimeType.JSON);
-    }
-
-    const type = e.parameter.type;
-
-    if (type === 'reaction_scores') {
-      return ContentService
-        .createTextOutput(JSON.stringify({
-          ok:true,
-          data: getReactionScores()
-        }))
-        .setMimeType(ContentService.MimeType.JSON);
-    }
-
-    return ContentService
-      .createTextOutput(JSON.stringify({ ok:false }))
-      .setMimeType(ContentService.MimeType.JSON);
-
-  } catch (err) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ ok:false, error: err.message }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-// ─────────────────────────────────────────────
-// POST HANDLER
-// ─────────────────────────────────────────────
-function doPost(e) {
-
-  try {
-
-    const body = JSON.parse(e.postData.contents);
-
-    if (body.type === 'reaction_score') {
-
-      const result = saveReactionScore({
-        name: body.name || 'Anonymous',
-        taps: body.taps,
-        time: body.time,
-        ip: e.parameter.userIp || 'unknown'
-      });
-
-      return ContentService
-        .createTextOutput(JSON.stringify(result))
-        .setMimeType(ContentService.MimeType.JSON);
-    }
-
-    return ContentService
-      .createTextOutput(JSON.stringify({ ok:false }))
-      .setMimeType(ContentService.MimeType.JSON);
-
-  } catch (err) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ ok:false, error: err.message }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-// ─────────────────────────────────────────────
-// LEADERBOARD LOGIC
-// ─────────────────────────────────────────────
-function getLeaderboardSheet() {
-
-  const ss = getSpreadsheetSafe();
-
-  let sheet = ss.getSheetByName(SHEET_NAME_LEADERBOARD);
-
-  if (!sheet) {
-    sheet = ss.insertSheet(SHEET_NAME_LEADERBOARD);
-    sheet.appendRow(['Name','Score','Timestamp','IP']);
+    sheet = ss.insertSheet(name);
+    sheet.appendRow(headers);
+    sheet.setFrozenRows(1);
   }
 
   return sheet;
+}
+
+// ── GET HANDLER
+function doGet(e) {
+  try {
+    const type = (e.parameter.type || '').toLowerCase();
+
+    if (type === 'reaction_scores') {
+      return jsonResponse({ ok:true, data:getReactionScores() });
+    }
+
+    return jsonResponse({ ok:false });
+
+  } catch(err) {
+    return jsonResponse({ ok:false, error:err.message });
+  }
+}
+
+// ── POST HANDLER
+function doPost(e) {
+  try {
+    const body = JSON.parse(e.postData.contents);
+
+    if (body.type === 'reaction_score') {
+      return jsonResponse(saveReactionScore({
+        name: body.name || 'Anonymous',
+        taps: body.taps,
+        time: body.time,
+        ip: 'user'
+      }));
+    }
+
+    return jsonResponse({ ok:false });
+
+  } catch(err) {
+    return jsonResponse({ ok:false, error:err.message });
+  }
+}
+
+// ════════════════════════════════════════════════════════════════
+// LEADERBOARD
+// ════════════════════════════════════════════════════════════════
+
+function getLeaderboardSheet() {
+  return getOrCreateSheet(SHEET_NAME_LEADERBOARD,
+    ['Name','Score','Timestamp','IP']);
 }
 
 function saveReactionScore(d) {
@@ -160,8 +126,8 @@ function getReactionScores() {
   if (rows.length <= 1) return [];
 
   return rows.slice(1).map((r,i)=>({
-    rank: i+1,
-    name: r[0],
-    score: Number(r[1])
+    rank:i+1,
+    name:r[0],
+    score:Number(r[1])
   }));
 }
