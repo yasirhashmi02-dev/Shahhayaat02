@@ -102,9 +102,19 @@ function saveReactionScore(d) {
   if (taps < 1 || taps > 500) return { ok:false, error:'taps_out_of_range', taps:taps };
   if (time < 100 || time > 3000) return { ok:false, error:'time_out_of_range', time:time };
 
-  // Score: always positive. taps weighted heavily, faster reaction = bonus.
-  const timeBonus = Math.max(0, 1000 - time); // 0 to 880 bonus
-  const score = (taps * 10) + timeBonus;
+  // Score: taps are the primary metric (weighted 20x), reaction speed is a
+  // small bonus (max 200pts) so fast tappers always beat slow tappers.
+  // Formula: (taps × 20) + reactionBonus
+  // reactionBonus = 200 − clamp((time − 100) / 5, 0, 200)
+  //   • time 100ms  → bonus 200  (inhuman fast, theoretical max)
+  //   • time 150ms  → bonus 190  (world-class)
+  //   • time 200ms  → bonus 180  (excellent)
+  //   • time 600ms  → bonus 100  (average)
+  //   • time 1100ms → bonus 0    (slow)
+  // Example: 100 taps, 150ms → 2000 + 190 = 2190
+  //          120 taps, 200ms → 2400 + 180 = 2580
+  const reactionBonus = Math.max(0, 200 - Math.floor(Math.max(0, time - 100) / 5));
+  const score = (taps * 20) + reactionBonus;
 
   // Use a unique token per submission so rank detection is unambiguous
   const token = Date.now() + '_' + Math.random().toString(36).slice(2, 8);
