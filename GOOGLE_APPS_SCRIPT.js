@@ -41,7 +41,7 @@ function getOrCreateSheet(name, headers) {
 // ── GET HANDLER
 function doGet(e) {
   try {
-    const type = (e.parameter.type || '').toLowerCase();
+    const type = ((e && e.parameter && e.parameter.type) || '').toLowerCase();
 
     if (type === 'reaction_scores') {
       return jsonResponse({ ok:true, data:getReactionScores() });
@@ -57,6 +57,10 @@ function doGet(e) {
 // ── POST HANDLER
 function doPost(e) {
   try {
+    if (!e || !e.postData || !e.postData.contents) {
+      return jsonResponse({ ok:false, error:'empty body' });
+    }
+
     const body = JSON.parse(e.postData.contents);
 
     if (body.type === 'reaction_score') {
@@ -94,9 +98,12 @@ function saveReactionScore(d) {
 
   const score = (taps * 5) + (1000 - time);
 
+  // Use a unique token per submission so rank detection is unambiguous
+  const token = Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+
   const sheet = getLeaderboardSheet();
 
-  sheet.appendRow([d.name, score, new Date().toISOString(), d.ip]);
+  sheet.appendRow([d.name, score, new Date().toISOString(), token]);
 
   let all = sheet.getDataRange().getValues().slice(1);
 
@@ -111,9 +118,8 @@ function saveReactionScore(d) {
     sheet.getRange(2,1,top.length,4).setValues(top);
   }
 
-  const rank = top.findIndex(r =>
-    Number(r[1]) === score && r[3] === d.ip
-  ) + 1;
+  // Find rank by matching the unique token
+  const rank = top.findIndex(r => r[3] === token) + 1;
 
   return { ok:true, rank: rank || null, score };
 }
