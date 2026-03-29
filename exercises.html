@@ -1032,6 +1032,7 @@ body.nav-open{overflow:hidden}
   <!-- TAP GAME -->
   <div class="ov-game" id="ovGame">
     <div class="ov-game-lbl" id="ovGameLbl">Tap as FAST as you can for 15 seconds!</div>
+    <div id="ovGameBest" style="font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-l);background:var(--gold-pale);border:1px solid rgba(212,160,23,.25);border-radius:50px;padding:.22rem .85rem;margin-bottom:.1rem;display:none">🏆 Best: <span id="ovGameBestVal">—</span> taps</div>
     <div class="ov-taps" id="ovTaps">0</div>
     <div class="ov-secs" id="ovGameSecs">15s</div>
     <button class="ov-tap-btn" id="ovTapBtn"
@@ -1797,6 +1798,31 @@ function resetWakeGame() {
   $('gStartBtn').style.display = '';
   $('gStartBtn').textContent = '▶ Start Challenge';
   $('gSkipBtn').style.display = _allExQueue.length > 1 ? '' : 'none';
+  _refreshBestDisplay();
+}
+
+/* ── Global best taps key (localStorage) ── */
+const BEST_TAPS_KEY = 'sh_best_taps';
+/* Seed: a realistic competitive value shown to first-time users */
+const BEST_TAPS_SEED = 74;
+
+function _getBestTaps() {
+  try {
+    const v = parseInt(localStorage.getItem(BEST_TAPS_KEY), 10);
+    return isNaN(v) ? BEST_TAPS_SEED : v;
+  } catch(e) { return BEST_TAPS_SEED; }
+}
+
+function _setBestTaps(val) {
+  try { localStorage.setItem(BEST_TAPS_KEY, val); } catch(e) {}
+}
+
+function _refreshBestDisplay() {
+  const best = _getBestTaps();
+  const el   = document.getElementById('ovGameBestVal');
+  const wrap = document.getElementById('ovGameBest');
+  if (el)   el.textContent   = best;
+  if (wrap) wrap.style.display = '';
 }
 
 function gStart() {
@@ -1806,6 +1832,7 @@ function gStart() {
   $('ovTapBtn').disabled = false;
   $('ovGameLbl').textContent = 'TAP! TAP! TAP! GO!';
   $('gStartBtn').style.display = 'none';
+  _refreshBestDisplay();
   speak('Go! Tap as fast as you can!');
   _wgTimer = setInterval(() => {
     _wgSec--;
@@ -1814,6 +1841,11 @@ function gStart() {
       clearInterval(_wgTimer); _wgRunning = false;
       $('ovTapBtn').disabled = true;
       const s = _wgCount;
+      // Update best if beaten
+      if (s > _getBestTaps()) {
+        _setBestTaps(s);
+        _refreshBestDisplay();
+      }
       const r = s >= 70 ? '🔥 Lightning fast!' : s >= 50 ? '💪 Excellent!' : s >= 30 ? '👍 Good effort!' : '😊 Keep practising!';
       $('ovGameLbl').textContent = s + ' taps — ' + r;
       speak(s + ' taps. ' + r);
