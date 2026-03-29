@@ -1874,6 +1874,7 @@ function startRoutine(name) {
    TAP GAME
 ───────────────────────────────────────────────────── */
 let _wgRunning = false, _wgTimer = null, _wgCount = 0, _wgSec = 0;
+let _wgStartTime = 0; // track when game started for reaction-time ms
 
 /* ══════════════════════════════════════════════════════════
    REACTION TEST — GLOBAL LEADERBOARD
@@ -1887,6 +1888,7 @@ const LB_PB_SEED = 74; // shown to first-time users
 let   _lbPollTimer = null;
 let   _lbMyRank    = null;
 let   _lbPendingScore = 0;
+let   _lbPendingTime  = 500;
 
 /* ── Personal best helpers ── */
 function _getPB() {
@@ -1903,13 +1905,24 @@ function _refreshBestDisplay() {
 
 /* ── Fetch & render leaderboard ── */
 function lbLoad() {
-  fetch(LB_API + '?type=reaction_scores')
-    .then(r => r.json())
-    .then(json => {
-      if (!json.ok || !json.data) return;
+  fetch(LB_API + '?type=reaction_scores', {
+    method: 'GET',
+    redirect: 'follow',
+    mode: 'cors'
+  })
+    .then(function(r) { return r.json(); })
+    .then(function(json) {
+      if (!json.ok || !json.data) { _lbShowEmpty(); return; }
       lbRender(json.data);
     })
-    .catch(() => {}); // silent fail — no API key yet
+    .catch(function() { _lbShowEmpty(); });
+}
+
+function _lbShowEmpty() {
+  const list = document.getElementById('lbList');
+  if (list && list.querySelector('.lb-loading')) {
+    list.innerHTML = '<div class="lb-empty">No scores yet — be first! 🏆</div>';
+  }
 }
 
 function lbRender(rows) {
@@ -1923,10 +1936,13 @@ function lbRender(rows) {
   list.innerHTML = rows.slice(0, 100).map(r => {
     const rankCls = r.rank === 1 ? 'top1' : r.rank === 2 ? 'top2' : r.rank === 3 ? 'top3' : '';
     const isMe    = _lbMyRank && r.rank === _lbMyRank;
+    // Support both old (taps) and new (score) API response shapes
+    const displayVal = r.score !== undefined ? r.score : r.taps;
+    const displayLbl = r.score !== undefined ? 'pts' : 'taps';
     return '<div class="lb-row' + (isMe ? ' me' : '') + '">' +
       '<span class="lb-rank ' + rankCls + '">' + (r.rank <= 3 ? ['🥇','🥈','🥉'][r.rank-1] : '#'+r.rank) + '</span>' +
       '<span class="lb-name">' + _esc(r.name) + '</span>' +
-      '<span class="lb-score">' + r.taps + ' taps</span>' +
+      '<span class="lb-score">' + displayVal + ' ' + displayLbl + '</span>' +
       '</div>';
   }).join('');
   if (_lbMyRank && myRankEl) {
@@ -1950,8 +1966,9 @@ function lbStopPoll() {
 }
 
 /* ── Submit score flow ── */
-function lbShowNameModal(taps) {
+function lbShowNameModal(taps, reactionMs) {
   _lbPendingScore = taps;
+  _lbPendingTime  = reactionMs || 500;
   const sv = document.getElementById('lbnScoreVal');
   const inp = document.getElementById('lbnInput');
   if (sv)  sv.textContent = taps;
@@ -1965,12 +1982,12 @@ function lbSubmitName() {
   const inp  = document.getElementById('lbnInput');
   const name = (inp ? inp.value.trim() : '') || 'Anonymous';
   _lbCloseModal();
-  _lbPost(name, _lbPendingScore);
+  _lbPost(name, _lbPendingScore, _lbPendingTime);
 }
 
 function lbSkipName() {
   _lbCloseModal();
-  _lbPost('Anonymous', _lbPendingScore);
+  _lbPost('Anonymous', _lbPendingScore, _lbPendingTime);
 }
 
 function _lbCloseModal() {
@@ -1978,22 +1995,40 @@ function _lbCloseModal() {
   if (modal) modal.classList.remove('show');
 }
 
-function _lbPost(name, taps) {
+function _lbPost(name, taps, time) {
+  // Google Apps Script requires no-cors for POST from browser,
+  // but we use a form-encoded GET workaround for rank return.
+  // Primary: POST with JSON. Fallback: silent (score saved server-side).
+  var payload = JSON.stringify({ type: 'reaction_score', name: name, taps: taps, time: (time || 500) });
   fetch(LB_API, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ type: 'reaction_score', name, taps })
+    redirect: 'follow',
+    mode: 'cors',
+    headers: { 'Content-Type': 'text/plain' }, // GAS accepts text/plain, avoids preflight
+    body: payload
   })
-  .then(r => r.json())
-  .then(json => {
+  .then(function(r) { return r.json(); })
+  .then(function(json) {
     if (json.ok && json.rank) {
       _lbMyRank = json.rank;
-      const myRankEl = document.getElementById('lbMyRank');
+      var myRankEl = document.getElementById('lbMyRank');
       if (myRankEl) { myRankEl.textContent = 'Your rank: #' + json.rank; myRankEl.style.display = ''; }
+      // Show rank banner at top of leaderboard list
+      var lbList = document.getElementById('lbList');
+      if (lbList) {
+        var prev = document.getElementById('lbRankBanner');
+        if (prev) prev.remove();
+        var scoreLabel = json.score ? ' (score: ' + json.score + ')' : '';
+        lbList.insertAdjacentHTML('afterbegin',
+          '<div id="lbRankBanner" style="padding:10px;background:rgba(34,197,94,.2);margin-bottom:10px;border-radius:8px;font-weight:bold;text-align:center;font-size:.85rem;color:#fff">' +
+          '&#128293; You are #' + json.rank + ' globally!' + scoreLabel +
+          '</div>'
+        );
+      }
     }
-    lbLoad(); // refresh immediately
+    lbLoad();
   })
-  .catch(() => {});
+  .catch(function() { lbLoad(); }); // still refresh even if rank fails
 }
 
 /* ── Game functions ── */
@@ -2017,6 +2052,7 @@ function resetWakeGame() {
 function gStart() {
   if (_wgRunning) return;
   _wgRunning = true; _wgCount = 0; _wgSec = 15;
+  _wgStartTime = Date.now();
   const $ = id => document.getElementById(id);
   $('ovGameLbl').textContent = 'TAP! TAP! TAP! GO!';
   $('gStartBtn').style.display = 'none';
@@ -2046,9 +2082,11 @@ function gStart() {
       _lastChallengeName  = 'taps in 15 sec';
       _lastChallengeExId  = 'reaction-test';
       lbStopPoll();
+      // Reaction time = ms per tap (avg), clamped to valid range for backend
+      const reactionMs = Math.min(2000, Math.max(120, Math.round(15000 / Math.max(s, 1))));
       // Show name modal first, then done screen
       setTimeout(() => {
-        lbShowNameModal(s);
+        lbShowNameModal(s, reactionMs);
         setTimeout(() => _showDone(scoreHTML), 2200);
       }, 800);
     }
@@ -2695,8 +2733,9 @@ function resumeFromInstructions() {
         _lastChallengeName  = 'taps in 15 sec';
         _lastChallengeExId  = 'reaction-test';
         lbStopPoll();
+        const reactionMs2 = Math.min(2000, Math.max(120, Math.round(15000 / Math.max(s, 1))));
         setTimeout(() => {
-          lbShowNameModal(s);
+          lbShowNameModal(s, reactionMs2);
           setTimeout(() => _showDone(scoreHTML), 2200);
         }, 800);
       }

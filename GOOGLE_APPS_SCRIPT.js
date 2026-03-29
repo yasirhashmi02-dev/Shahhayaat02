@@ -85,8 +85,7 @@ function doPost(e) {
     // ── Reaction leaderboard submission ──
     if (type === 'reaction_score') {
       const name = sanitize(body.name || 'Anonymous', 30);
-      const taps = parseInt(body.taps, 10);
-      return jsonResponse(saveReactionScore({ name, taps, ip }));
+      return jsonResponse(saveReactionScore({ name, taps: body.taps, time: body.time, ip }));
     }
 
     // Blog reactions — no rate limit
@@ -127,7 +126,7 @@ function doPost(e) {
 // ════════════════════════════════════════════════════════════════
 
 function getLeaderboardSheet() {
-  return getOrCreateSheet(SHEET_NAME_LEADERBOARD, ['Name','Taps','Timestamp','IP']);
+  return getOrCreateSheet(SHEET_NAME_LEADERBOARD, ['Name','Score','Timestamp','IP']);
 }
 
 function isValidTaps(taps) {
@@ -135,7 +134,15 @@ function isValidTaps(taps) {
 }
 
 function saveReactionScore(d) {
-  if (!isValidTaps(d.taps)) return { ok: false, error: 'Invalid tap count' };
+  const taps = Number(d.taps || 0);
+  const time = Number(d.time || 0);
+
+  // Validation: taps 5–200, reaction time 120–2000 ms
+  if (!isValidTaps(taps)) return { ok: false, error: 'Invalid tap count' };
+  if (time < 120 || time > 2000) return { ok: false, error: 'Invalid reaction time' };
+
+  // 🎯 Combined score: reward both speed AND accuracy
+  const score = (taps * 5) + (1000 - time);
 
   const sheet = getLeaderboardSheet();
   const rows  = sheet.getDataRange().getValues().slice(1);
@@ -143,29 +150,29 @@ function saveReactionScore(d) {
   // Prevent spam: same IP cannot submit identical score within 1 hour
   const oneHourAgo = Date.now() - 3600000;
   const duplicate = rows.some(r =>
-    r[3] === d.ip && Number(r[1]) === d.taps &&
+    r[3] === d.ip && Number(r[1]) === score &&
     new Date(r[2]).getTime() > oneHourAgo
   );
   if (duplicate) return { ok: true, skipped: true };
 
   // Append new score
-  sheet.appendRow([d.name, d.taps, new Date().toISOString(), d.ip]);
+  sheet.appendRow([d.name, score, new Date().toISOString(), d.ip]);
 
-  // Re-read, sort descending by taps, keep top 100
+  // Re-read, sort descending by score, keep top 100
   let all = sheet.getDataRange().getValues().slice(1);
   all.sort((a, b) => Number(b[1]) - Number(a[1]));
   const top100 = all.slice(0, 100);
 
   // Rewrite sheet
   sheet.clearContents();
-  sheet.appendRow(['Name', 'Taps', 'Timestamp', 'IP']);
+  sheet.appendRow(['Name', 'Score', 'Timestamp', 'IP']);
   if (top100.length) {
     sheet.getRange(2, 1, top100.length, 4).setValues(top100);
   }
 
   // Find submitted score's rank (1-based)
-  const rank = top100.findIndex(r => Number(r[1]) === d.taps && r[3] === d.ip) + 1;
-  return { ok: true, rank: rank || null };
+  const rank = top100.findIndex(r => Number(r[1]) === score && r[3] === d.ip) + 1;
+  return { ok: true, rank: rank || null, score };
 }
 
 function getReactionScores() {
@@ -175,7 +182,7 @@ function getReactionScores() {
   return rows.slice(1).map((r, i) => ({
     rank: i + 1,
     name: String(r[0]),
-    taps: Number(r[1])
+    score: Number(r[1])
   }));
 }
 
