@@ -1,13 +1,20 @@
 // ════════════════════════════════════════════════════════════════
 // SHAH HAYAAT — Live Reviews + Blog Reactions + Reaction Leaderboard
-// Google Apps Script  v4
+// Google Apps Script  v5  (openById everywhere — web-app safe)
 // ════════════════════════════════════════════════════════════════
 
-const SHEET_NAME_REVIEWS    = 'SiteReviews';
-const SHEET_NAME_PROD       = 'ProductRatings';
-const SHEET_NAME_RATELIMIT  = 'RateLimit';
-const SHEET_NAME_REACTIONS  = 'BlogReactions';
-const SHEET_NAME_LEADERBOARD = 'ReactionLeaderboard'; // ← NEW
+const SHEET_NAME_REVIEWS     = 'SiteReviews';
+const SHEET_NAME_PROD        = 'ProductRatings';
+const SHEET_NAME_RATELIMIT   = 'RateLimit';
+const SHEET_NAME_REACTIONS   = 'BlogReactions';
+const SHEET_NAME_LEADERBOARD = 'ReactionLeaderboard';
+
+// ── SINGLE SOURCE OF TRUTH — never use getActiveSpreadsheet ──────
+const SPREADSHEET_ID = '1h1ogNP_cjfBwF_Yad2SR7QVgjFxXB1eiI5mSXLDfxLA';
+
+function getSpreadsheet() {
+  return SpreadsheetApp.openById(SPREADSHEET_ID);
+}
 
 // ── CORS + JSON response helper ───────────────────────────────────
 function jsonResponse(data) {
@@ -41,13 +48,9 @@ function validateStars(n) {
   return (!isNaN(num) && num >= 1 && num <= 5) ? num : 0;
 }
 
-// ── Sheet helper ──────────────────────────────────────────────────
-const SPREADSHEET_ID = '1h1ogNP_cjfBwF_Yad2SR7QVgjFxXB1eiI5mSXLDfxLA';
-
+// ── Sheet helper — uses getSpreadsheet() only ─────────────────────
 function getOrCreateSheet(name, headers) {
-  let ss;
-  try { ss = SpreadsheetApp.getActiveSpreadsheet(); } catch(e) { ss = null; }
-  if (!ss) ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const ss = getSpreadsheet();
   let sheet = ss.getSheetByName(name);
   if (!sheet) {
     sheet = ss.insertSheet(name);
@@ -65,11 +68,11 @@ function doGet(e) {
   const pid  = sanitize(e.parameter.pid || '', 30);
   let data;
   try {
-    if      (type === 'prod_ratings')              data = getProdRatings();
-    else if (type === 'prod_reviews' && pid)       data = getProdReviews(pid);
-    else if (type === 'blog_reactions')            data = getAllReactions();
-    else if (type === 'reaction_scores')           data = getReactionScores(); // ← NEW
-    else                                            data = getSiteReviews();
+    if      (type === 'prod_ratings')        data = getProdRatings();
+    else if (type === 'prod_reviews' && pid) data = getProdReviews(pid);
+    else if (type === 'blog_reactions')      data = getAllReactions();
+    else if (type === 'reaction_scores')     data = getReactionScores();
+    else                                     data = getSiteReviews();
     return jsonResponse({ ok: true, data });
   } catch(err) {
     return jsonResponse({ ok: false, error: err.message });
@@ -83,16 +86,14 @@ function doPost(e) {
     const type = (body.type || '').toLowerCase();
     const ip   = e.parameter.userIp || 'unknown';
 
-    const allowed = ['site_review','prod_review','prod_rating','blog_reaction','reaction_score']; // ← added
+    const allowed = ['site_review','prod_review','prod_rating','blog_reaction','reaction_score'];
     if (!allowed.includes(type)) return jsonResponse({ ok: false, error: 'Invalid type' });
 
-    // ── Reaction leaderboard submission ──
     if (type === 'reaction_score') {
       const name = sanitize(body.name || 'Anonymous', 30);
       return jsonResponse(saveReactionScore({ name, taps: body.taps, time: body.time, ip }));
     }
 
-    // Blog reactions — no rate limit
     if (type === 'blog_reaction') {
       const postId   = sanitize(body.postId || '', 30);
       const reaction = sanitize(body.reaction || '', 10);
@@ -101,7 +102,6 @@ function doPost(e) {
       return jsonResponse(saveBlogReaction({ postId, reaction, ip }));
     }
 
-    // Rate limit all other types
     if (!checkRateLimit(ip)) return jsonResponse({ ok: false, error: 'Rate limit exceeded. Please try again later.' });
 
     const stars = validateStars(body.stars);
@@ -111,9 +111,9 @@ function doPost(e) {
     const text = sanitize(body.text || '', 800);
     const pid  = sanitize(body.pid  || '', 30);
 
-    if      (type === 'site_review')  saveSiteReview({ name, stars, text, ip });
-    else if (type === 'prod_review')  saveProdReview({ pid, name, stars, text, ip });
-    else if (type === 'prod_rating')  saveProdRating({ pid, stars, name, ip });
+    if      (type === 'site_review') saveSiteReview({ name, stars, text, ip });
+    else if (type === 'prod_review') saveProdReview({ pid, name, stars, text, ip });
+    else if (type === 'prod_rating') saveProdRating({ pid, stars, name, ip });
 
     return jsonResponse({ ok: true });
   } catch(err) {
@@ -122,21 +122,21 @@ function doPost(e) {
 }
 
 // ════════════════════════════════════════════════════════════════
-// REACTION SPEED LEADERBOARD  (NEW)
-// Sheet: ReactionLeaderboard
-// Columns: Name | Taps | Timestamp | IP
-// Keeps top 100 rows sorted by taps descending.
-// Anti-cheat: rejects taps < 5 or > 200
+// REACTION SPEED LEADERBOARD
+// Columns: Name | Score | Timestamp | IP
+// Score = (taps x 5) + (1000 - reactionMs)
+// Anti-cheat: taps 5-200, time 120-2000 ms, top 100 only
 // ════════════════════════════════════════════════════════════════
 
 function getLeaderboardSheet() {
-  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  let sheet = ss.getSheetByName('ReactionLeaderboard');
+  const ss = getSpreadsheet();
+  let sheet = ss.getSheetByName(SHEET_NAME_LEADERBOARD);
   if (!sheet) {
-    sheet = ss.insertSheet('ReactionLeaderboard');
-    sheet.appendRow(['Name','Score','Timestamp','IP']);
+    sheet = ss.insertSheet(SHEET_NAME_LEADERBOARD);
+    sheet.appendRow(['Name', 'Score', 'Timestamp', 'IP']);
     sheet.setFrozenRows(1);
-    sheet.getRange(1,1,1,4).setBackground('#2A7A5A').setFontColor('#fff').setFontWeight('bold');
+    sheet.getRange(1, 1, 1, 4)
+         .setBackground('#2A7A5A').setFontColor('#fff').setFontWeight('bold');
   }
   return sheet;
 }
@@ -149,40 +149,34 @@ function saveReactionScore(d) {
   const taps = Number(d.taps || 0);
   const time = Number(d.time || 0);
 
-  // Validation: taps 5–200, reaction time 120–2000 ms
-  if (!isValidTaps(taps)) return { ok: false, error: 'Invalid tap count' };
+  if (!isValidTaps(taps))        return { ok: false, error: 'Invalid tap count' };
   if (time < 120 || time > 2000) return { ok: false, error: 'Invalid reaction time' };
 
-  // 🎯 Combined score: reward both speed AND accuracy
   const score = (taps * 5) + (1000 - time);
 
   const sheet = getLeaderboardSheet();
   const rows  = sheet.getDataRange().getValues().slice(1);
 
-  // Prevent spam: same IP cannot submit identical score within 1 hour
   const oneHourAgo = Date.now() - 3600000;
   const duplicate = rows.some(r =>
-    r[3] === d.ip && Number(r[1]) === score &&
+    r[3] === d.ip &&
+    Number(r[1]) === score &&
     new Date(r[2]).getTime() > oneHourAgo
   );
   if (duplicate) return { ok: true, skipped: true };
 
-  // Append new score
   sheet.appendRow([d.name, score, new Date().toISOString(), d.ip]);
 
-  // Re-read, sort descending by score, keep top 100
   let all = sheet.getDataRange().getValues().slice(1);
   all.sort((a, b) => Number(b[1]) - Number(a[1]));
   const top100 = all.slice(0, 100);
 
-  // Rewrite sheet
   sheet.clearContents();
   sheet.appendRow(['Name', 'Score', 'Timestamp', 'IP']);
   if (top100.length) {
     sheet.getRange(2, 1, top100.length, 4).setValues(top100);
   }
 
-  // Find submitted score's rank (1-based)
   const rank = top100.findIndex(r => Number(r[1]) === score && r[3] === d.ip) + 1;
   return { ok: true, rank: rank || null, score };
 }
@@ -192,8 +186,8 @@ function getReactionScores() {
   const rows  = sheet.getDataRange().getValues();
   if (rows.length <= 1) return [];
   return rows.slice(1).map((r, i) => ({
-    rank: i + 1,
-    name: String(r[0]),
+    rank:  i + 1,
+    name:  String(r[0]),
     score: Number(r[1])
   }));
 }
@@ -259,16 +253,13 @@ function getSiteReviews() {
 // ── Product Reviews ───────────────────────────────────────────────
 function saveProdReview(d) {
   if (!d.pid) return;
-  const sheetName = 'ProdReview_' + d.pid;
-  const sheet = getOrCreateSheet(sheetName,
+  const sheet = getOrCreateSheet('ProdReview_' + d.pid,
     ['Timestamp','ProductID','Name','Stars','Review','Helpful','IP','Status']);
   sheet.appendRow([new Date().toLocaleString('en-IN'), d.pid, d.name, d.stars, d.text, 0, d.ip, 'visible']);
 }
 
 function getProdReviews(pid) {
-  let ss;
-  try { ss = SpreadsheetApp.getActiveSpreadsheet(); } catch(e) { ss = null; }
-  if (!ss) ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const ss    = getSpreadsheet();
   const sheet = ss.getSheetByName('ProdReview_' + pid);
   if (!sheet) return [];
   const rows = sheet.getDataRange().getValues();
