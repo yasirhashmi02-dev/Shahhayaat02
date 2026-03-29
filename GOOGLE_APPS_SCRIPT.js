@@ -38,6 +38,11 @@ function getOrCreateSheet(name, headers) {
   return sheet;
 }
 
+// ── OPTIONS HANDLER (CORS preflight)
+function doOptions() {
+  return ContentService.createTextOutput('').setMimeType(ContentService.MimeType.JSON);
+}
+
 // ── GET HANDLER
 function doGet(e) {
   try {
@@ -47,7 +52,7 @@ function doGet(e) {
       return jsonResponse({ ok:true, data:getReactionScores() });
     }
 
-    return jsonResponse({ ok:false });
+    return jsonResponse({ ok:true, status:'alive' }); // health check
 
   } catch(err) {
     return jsonResponse({ ok:false, error:err.message });
@@ -93,10 +98,13 @@ function saveReactionScore(d) {
   const taps = Number(d.taps || 0);
   const time = Number(d.time || 0);
 
-  if (taps < 5 || taps > 200) return { ok:false };
-  if (time < 120 || time > 2000) return { ok:false };
+  // Validation — log rejected values for debugging
+  if (taps < 1 || taps > 500) return { ok:false, error:'taps_out_of_range', taps:taps };
+  if (time < 100 || time > 3000) return { ok:false, error:'time_out_of_range', time:time };
 
-  const score = (taps * 5) + (1000 - time);
+  // Score: always positive. taps weighted heavily, faster reaction = bonus.
+  const timeBonus = Math.max(0, 1000 - time); // 0 to 880 bonus
+  const score = (taps * 10) + timeBonus;
 
   // Use a unique token per submission so rank detection is unambiguous
   const token = Date.now() + '_' + Math.random().toString(36).slice(2, 8);
@@ -112,7 +120,7 @@ function saveReactionScore(d) {
   const top = all.slice(0,100);
 
   sheet.clearContents();
-  sheet.appendRow(['Name','Score','Timestamp','IP']);
+  sheet.appendRow(['Name','Score','Timestamp','Token']);
 
   if (top.length) {
     sheet.getRange(2,1,top.length,4).setValues(top);
