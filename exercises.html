@@ -1988,11 +1988,80 @@ function lbShowNameModal(taps, reactionMs) {
   setTimeout(() => { if (inp) inp.focus(); }, 300);
 }
 
+// ═══════════════════════════════════════════════════════════════
+// NAME MODERATION — client-side filter before any name goes live
+// ═══════════════════════════════════════════════════════════════
+
+// Blocked patterns: profanity roots, personal data patterns, spam
+var _LBN_BLOCKED = [
+  // Personal data fishing
+  /\b(phone|mobile|whatsapp|call|email|gmail|yahoo|hotmail|contact|address|number)\b/i,
+  /\d{5,}/,                          // 5+ digit strings (phone numbers)
+  /@/,                               // email addresses
+  /(https?:|www\.)/i,                // URLs
+  // Common profanity roots (partial list — covers variants)
+  /\bf+u+c+k/i, /\bs+h+i+t/i, /\bb+i+t+c+h/i, /\ba+s+s+h+o+l/i,
+  /\bc+u+n+t/i, /\bd+i+c+k/i, /\bp+u+s+s+y/i, /\bb+a+s+t+a+r+d/i,
+  /\bn+i+g+g/i, /\bf+a+g+g/i, /\bw+h+o+r+e/i, /\bs+l+u+t/i,
+  /\bd+a+m+n/i, /\bh+e+l+l\b/i, /\bc+r+a+p\b/i,
+  // Harassment / hate
+  /\b(hate|kill|die|rape|abuse|racist|terror)\b/i,
+];
+
+// Characters allowed in names: letters (any language), digits, spaces, hyphens, apostrophes, dots
+var _LBN_ALLOWED = /^[\p{L}\p{N}\s'\-\.]+$/u;
+
+function lbnSanitizeInput(inp) {
+  // Strip leading/trailing spaces only on blur, not while typing
+  // Remove characters that aren't letters, digits, spaces, - ' .
+  var clean = inp.value.replace(/[^\p{L}\p{N}\s'\-\.]/gu, '');
+  if (clean !== inp.value) inp.value = clean;
+  _lbnShowWarn('');
+}
+
+function _lbnValidate(raw) {
+  var name = raw.trim();
+
+  // Empty → use Anonymous
+  if (!name) return { ok: true, name: 'Anonymous' };
+
+  // Too short (single char could be a letter but useless)
+  if (name.length < 2) return { ok: false, warn: 'Name too short — min 2 characters' };
+
+  // Only allowed characters
+  if (!_LBN_ALLOWED.test(name)) return { ok: false, warn: 'Only letters, numbers and spaces allowed' };
+
+  // Blocked patterns
+  for (var i = 0; i < _LBN_BLOCKED.length; i++) {
+    if (_LBN_BLOCKED[i].test(name)) {
+      return { ok: false, warn: 'That name isn\'t allowed — please choose another' };
+    }
+  }
+
+  // Repeating chars spam (aaaaaaa)
+  if (/(.)\1{4,}/.test(name)) return { ok: false, warn: 'Please use a real name' };
+
+  return { ok: true, name: name };
+}
+
+function _lbnShowWarn(msg) {
+  var el = document.getElementById('lbnWarn');
+  if (el) el.textContent = msg;
+}
+
 function lbSubmitName() {
-  const inp  = document.getElementById('lbnInput');
-  const name = (inp ? inp.value.trim() : '') || 'Anonymous';
+  var inp  = document.getElementById('lbnInput');
+  var raw  = inp ? inp.value : '';
+  var result = _lbnValidate(raw);
+
+  if (!result.ok) {
+    _lbnShowWarn(result.warn);
+    if (inp) { inp.focus(); inp.style.borderColor = '#f87171'; setTimeout(function(){ inp.style.borderColor = ''; }, 2000); }
+    return; // don't close modal — let user fix it
+  }
+
   _lbCloseModal();
-  _lbPost(name, _lbPendingScore, _lbPendingTime);
+  _lbPost(result.name, _lbPendingScore, _lbPendingTime);
 }
 
 function lbSkipName() {
@@ -2007,126 +2076,61 @@ function _lbCloseModal() {
 
 // ═══════════════════════════════════════════════════════════════
 // SCORE QUEUE — never lose a score, even if page is closed
-// Scores are written to localStorage immediately, then flushed
-// to the server. On next page load any unsent scores are retried.
 // ═══════════════════════════════════════════════════════════════
 var LB_QUEUE_KEY = 'sh_lb_queue';
-
-function _lbQueueGet() {
-  try { return JSON.parse(localStorage.getItem(LB_QUEUE_KEY) || '[]'); } catch(e) { return []; }
-}
-function _lbQueueSave(q) {
-  try { localStorage.setItem(LB_QUEUE_KEY, JSON.stringify(q)); } catch(e) {}
-}
-function _lbQueueAdd(name, taps, time) {
-  var q = _lbQueueGet();
-  q.push({ name: name, taps: taps, time: time, ts: Date.now() });
-  _lbQueueSave(q);
-}
-function _lbQueueRemoveFirst() {
-  var q = _lbQueueGet();
-  if (q.length) { q.shift(); _lbQueueSave(q); }
-}
-
-// Called on page load — retries any scores that failed to send last session
+function _lbQueueGet() { try { return JSON.parse(localStorage.getItem(LB_QUEUE_KEY)||'[]'); } catch(e) { return []; } }
+function _lbQueueSave(q) { try { localStorage.setItem(LB_QUEUE_KEY, JSON.stringify(q)); } catch(e) {} }
+function _lbQueueAdd(name, taps, time) { var q=_lbQueueGet(); q.push({name:name,taps:taps,time:time,ts:Date.now()}); _lbQueueSave(q); }
+function _lbQueueRemoveFirst() { var q=_lbQueueGet(); if(q.length){q.shift();_lbQueueSave(q);} }
 function _lbFlushQueue() {
   var q = _lbQueueGet();
   if (!q.length) return;
-  console.log('LB queue: retrying', q.length, 'unsent score(s)');
-  // Send silently without touching UI — these are from a previous session
-  q.forEach(function(item) {
-    _lbSendToServer(item.name, item.taps, item.time, false);
-  });
+  q.forEach(function(item) { _lbSendToServer(item.name, item.taps, item.time, false); });
 }
-
-// Low-level send — no-cors so it never throws a CORS error.
-// keepalive:true means the request survives page close.
-// updateUI: whether to show rank on screen after success.
 function _lbSendToServer(name, taps, time, updateUI) {
   fetch(LB_API, {
-    method: 'POST',
-    mode: 'no-cors',       // avoids CORS preflight; GAS receives the data
-    keepalive: true,       // request survives if user closes the tab
-    headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify({ type: 'reaction_score', name: name, taps: taps, time: time })
+    method:'POST', mode:'no-cors', keepalive:true,
+    headers:{'Content-Type':'text/plain'},
+    body:JSON.stringify({type:'reaction_score',name:name,taps:taps,time:time})
   })
-  .then(function() {
-    _lbQueueRemoveFirst();           // mark as sent
-    if (updateUI) {
-      setTimeout(function() { _lbFetchRank(name, taps); }, 1800);
-    }
-  })
-  .catch(function(err) {
-    console.warn('LB send failed, will retry next visit:', err);
-    // Leave item in queue — it will be retried on next page load
-  });
+  .then(function(){ _lbQueueRemoveFirst(); if(updateUI) setTimeout(function(){ _lbFetchRank(name,taps); },1800); })
+  .catch(function(err){ console.warn('LB send failed, will retry next visit:',err); });
 }
-
 function _lbPost(name, taps, time) {
   var submittedName = name || 'Anonymous';
-
-  // 1. Save to queue IMMEDIATELY — score is now safe regardless of network
   _lbQueueAdd(submittedName, taps, time);
-
-  // 2. Show instant "queued" feedback — user sees something right away
   var el = document.getElementById('globalRank');
-  if (el) {
-    el.innerHTML = '<div style="font-size:.85rem;color:rgba(255,255,255,.55)">⏳ Submitting score…</div>';
-    el.classList.add('show');
-  }
-
-  // 3. Try to send now (keepalive = survives page close)
+  if (el) { el.innerHTML='<div style="font-size:.85rem;color:rgba(255,255,255,.55)">⏳ Submitting score…</div>'; el.classList.add('show'); }
   _lbSendToServer(submittedName, taps, time, true);
 }
-
 function _lbFetchRank(name, taps) {
-  fetch(LB_API + '?type=reaction_scores', { method: 'GET', redirect: 'follow', mode: 'cors' })
-  .then(function(r) { return r.json(); })
-  .then(function(json) {
-    var el = document.getElementById('globalRank');
-    if (!json.ok || !json.data || !json.data.length) {
-      if (el) {
-        el.innerHTML = '<div style="font-size:1rem">⚡ Score saved!</div>' +
-          '<div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Leaderboard updating…</div>';
-      }
-      lbLoad(); return;
-    }
+  fetch(LB_API+'?type=reaction_scores',{method:'GET',redirect:'follow',mode:'cors'})
+  .then(function(r){return r.json();})
+  .then(function(json){
+    var el=document.getElementById('globalRank');
+    if(!json.ok||!json.data||!json.data.length){if(el){el.innerHTML='<div style="font-size:1rem">⚡ Score saved!</div><div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Leaderboard updating…</div>';}lbLoad();return;}
     lbRender(json.data);
-    var matched = json.data.filter(function(r) {
-      return r.name && r.name.toLowerCase() === name.toLowerCase();
-    });
-    var rank  = matched.length ? matched[0].rank  : null;
-    var score = matched.length ? matched[0].score : null;
-    if (el) {
-      if (rank) {
-        _lbMyRank = rank;
-        var medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '🏅';
-        el.innerHTML =
-          '<div style="font-size:1.4rem;margin-bottom:4px">' + medal + ' Rank <strong>#' + rank + '</strong></div>' +
-          '<div style="font-size:.9rem;margin-bottom:2px">⭐ Score: <strong>' + (score || taps * 10) + '</strong></div>' +
-          '<div style="font-size:.72rem;color:rgba(255,255,255,.45)">' +
-            (rank <= 3 ? '🔥 Top 3 — incredible!' : 'Keep tapping to climb higher!') + '</div>';
-        if (rank <= 3) el.classList.add('rank-top');
-        el.classList.add('show');
-        var myRankEl = document.getElementById('lbMyRank');
-        if (myRankEl) { myRankEl.textContent = 'Your rank: #' + rank; myRankEl.style.display = ''; }
-        var lbList = document.getElementById('lbList');
-        if (lbList) {
-          var prev = document.getElementById('lbRankBanner');
-          if (prev) prev.remove();
-          lbList.insertAdjacentHTML('afterbegin',
-            '<div id="lbRankBanner" style="padding:10px;background:rgba(34,197,94,.2);margin-bottom:10px;' +
-            'border-radius:8px;font-weight:bold;text-align:center;font-size:.85rem;color:#fff">' +
-            '🔥 You are #' + rank + ' globally!</div>');
-        }
+    var matched=json.data.filter(function(r){return r.name&&r.name.toLowerCase()===name.toLowerCase();});
+    var rank=matched.length?matched[0].rank:null, score=matched.length?matched[0].score:null;
+    if(el){
+      if(rank){
+        _lbMyRank=rank;
+        var medal=rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'🏅';
+        el.innerHTML='<div style="font-size:1.4rem;margin-bottom:4px">'+medal+' Rank <strong>#'+rank+'</strong></div>'+
+          '<div style="font-size:.9rem;margin-bottom:2px">⭐ Score: <strong>'+(score||taps*10)+'</strong></div>'+
+          '<div style="font-size:.72rem;color:rgba(255,255,255,.45)">'+(rank<=3?'🔥 Top 3 — incredible!':'Keep tapping to climb higher!')+'</div>';
+        if(rank<=3)el.classList.add('rank-top');el.classList.add('show');
+        var myRankEl=document.getElementById('lbMyRank');
+        if(myRankEl){myRankEl.textContent='Your rank: #'+rank;myRankEl.style.display='';}
+        var lbList=document.getElementById('lbList');
+        if(lbList){var prev=document.getElementById('lbRankBanner');if(prev)prev.remove();
+          lbList.insertAdjacentHTML('afterbegin','<div id="lbRankBanner" style="padding:10px;background:rgba(34,197,94,.2);margin-bottom:10px;border-radius:8px;font-weight:bold;text-align:center;font-size:.85rem;color:#fff">🔥 You are #'+rank+' globally!</div>');}
       } else {
-        el.innerHTML = '<div style="font-size:1rem">⚡ Score saved!</div>' +
-          '<div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Not in Top 100 yet — keep practising!</div>';
-        el.classList.add('show');
+        el.innerHTML='<div style="font-size:1rem">⚡ Score saved!</div><div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Not in Top 100 yet — keep practising!</div>';el.classList.add('show');
       }
     }
   })
-  .catch(function() { lbLoad(); });
+  .catch(function(){lbLoad();});
 }
 
 /* ── Game functions ── */
@@ -3658,7 +3662,8 @@ function shareChallenge(method) {
     <div style="font-size:2rem;margin-bottom:.4rem">🏆</div>
     <div class="lbn-title">You scored <span id="lbnScoreVal">—</span> taps!</div>
     <div class="lbn-sub">Want your name on the global leaderboard?<br>It's optional — you can stay anonymous.</div>
-    <input class="lbn-inp" id="lbnInput" type="text" maxlength="20" placeholder="Your name (optional)" autocomplete="off" autocorrect="off" spellcheck="false">
+    <input class="lbn-inp" id="lbnInput" type="text" maxlength="16" placeholder="Your name (optional)" autocomplete="off" autocorrect="off" spellcheck="false" oninput="lbnSanitizeInput(this)">
+    <div id="lbnWarn" style="font-size:.72rem;color:#f87171;min-height:.9rem;margin-top:-.5rem;margin-bottom:.3rem;text-align:center"></div>
     <div class="lbn-btns">
       <button class="lbn-submit" onclick="lbSubmitName()">🌍 Add to Leaderboard</button>
       <button class="lbn-skip" onclick="lbSkipName()">Skip — stay anonymous</button>
