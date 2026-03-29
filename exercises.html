@@ -1892,7 +1892,7 @@ let _wgActivePointerId = null; // single-pointer anti-cheat
    Score = taps (higher is better)
    Anti-cheat: server validates 1–200 taps range
 ══════════════════════════════════════════════════════════ */
-const LB_API = 'https://script.google.com/macros/s/AKfycbyC0nFMln77cQNImXs-jA2zugRnkOmD2eia8i9Duix2/exec';
+const LB_API = 'https://script.google.com/macros/s/AKfycby12_i2scUjFeRRwglE1ZCJpcd7TI-mCo0Jb8F-B365Z2c28rmnxsWwtMuEDapE9zPVtQ/exec';
 const LB_PB_KEY  = 'sh_best_taps';
 const LB_PB_SEED = 74; // shown to first-time users
 let   _lbPollTimer = null;
@@ -2006,59 +2006,90 @@ function _lbCloseModal() {
 }
 
 function _lbPost(name, taps, time) {
-  // Google Apps Script requires no-cors for POST from browser,
-  // but we use a form-encoded GET workaround for rank return.
-  // Primary: POST with JSON. Fallback: silent (score saved server-side).
-  var payload = JSON.stringify({ type: 'reaction_score', name: name, taps: taps, time: (time || 500) });
+  var submittedName = name || 'Anonymous';
+  var el = document.getElementById('globalRank');
+  if (el) {
+    el.innerHTML = '<div style="font-size:.85rem;color:rgba(255,255,255,.55)">⏳ Saving score…</div>';
+    el.classList.add('show');
+  }
+  // no-cors avoids CORS preflight entirely — GAS receives the POST and saves data.
+  // Response is opaque so rank is recovered via a follow-up GET below.
   fetch(LB_API, {
     method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify({
+      type: 'reaction_score',
+      name: submittedName,
+      taps: taps,
+      time: time
+    })
+  })
+  .then(function() {
+    // Wait briefly for GAS to finish writing, then fetch leaderboard to find rank
+    setTimeout(function() { _lbFetchRank(submittedName, taps); }, 1800);
+  })
+  .catch(function(err) {
+    console.error('LB POST error:', err);
+    if (el) {
+      el.innerHTML = '<div style="font-size:.9rem;color:rgba(239,68,68,.8)">⚠️ Could not reach server — check connection</div>';
+    }
+    lbLoad();
+  });
+}
+
+function _lbFetchRank(name, taps) {
+  fetch(LB_API + '?type=reaction_scores', {
+    method: 'GET',
     redirect: 'follow',
-    mode: 'cors',
-    headers: { 'Content-Type': 'text/plain' }, // GAS accepts text/plain, avoids preflight
-    body: payload
+    mode: 'cors'
   })
   .then(function(r) { return r.json(); })
   .then(function(json) {
-    var rankEl = document.getElementById('globalRank');
-    if (json.ok && json.rank) {
-      _lbMyRank = json.rank;
-      var myRankEl = document.getElementById('lbMyRank');
-      if (myRankEl) { myRankEl.textContent = 'Your rank: #' + json.rank; myRankEl.style.display = ''; }
-      // Show rank banner inside leaderboard panel
-      var lbList = document.getElementById('lbList');
-      if (lbList) {
-        var prev = document.getElementById('lbRankBanner');
-        if (prev) prev.remove();
-        lbList.insertAdjacentHTML('afterbegin',
-          '<div id="lbRankBanner" style="padding:10px;background:rgba(34,197,94,.2);margin-bottom:10px;border-radius:8px;font-weight:bold;text-align:center;font-size:.85rem;color:#fff">' +
-          '&#128293; You are #' + json.rank + ' globally!' +
-          '</div>'
-        );
+    var el = document.getElementById('globalRank');
+    if (!json.ok || !json.data || !json.data.length) {
+      if (el) {
+        el.innerHTML = '<div style="font-size:1rem">⚡ Score saved!</div><div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Leaderboard updating…</div>';
       }
-      // ── Populate #globalRank on the done screen ──
-      if (rankEl) {
-        var rank  = json.rank;
-        var score = json.score || 0;
+      lbLoad();
+      return;
+    }
+    lbRender(json.data);
+    var matched = json.data.filter(function(r) {
+      return r.name && r.name.toLowerCase() === name.toLowerCase();
+    });
+    var rank  = matched.length ? matched[0].rank  : null;
+    var score = matched.length ? matched[0].score : null;
+    if (el) {
+      if (rank) {
+        _lbMyRank = rank;
         var medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '🏅';
-        rankEl.innerHTML =
+        el.innerHTML =
           '<div style="font-size:1.4rem;margin-bottom:4px">' + medal + ' Rank <strong>#' + rank + '</strong></div>' +
-          '<div style="font-size:.9rem;margin-bottom:2px">⭐ Score: <strong>' + score + '</strong></div>' +
+          '<div style="font-size:.9rem;margin-bottom:2px">⭐ Score: <strong>' + (score || taps * 10) + '</strong></div>' +
           '<div style="font-size:.72rem;color:rgba(255,255,255,.45)">' +
             (rank <= 3 ? '🔥 Top 3 — incredible!' : 'Keep tapping to climb higher!') +
           '</div>';
-        if (rank <= 3) rankEl.classList.add('rank-top');
-        rankEl.classList.add('show');
-      }
-    } else if (json.ok) {
-      // Score saved but not in top 100
-      if (rankEl) {
-        rankEl.innerHTML = '<div style="font-size:1rem">⚡ Score saved!</div><div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Not in Top 100 yet — keep practising!</div>';
-        rankEl.classList.add('show');
+        if (rank <= 3) el.classList.add('rank-top');
+        el.classList.add('show');
+        var myRankEl = document.getElementById('lbMyRank');
+        if (myRankEl) { myRankEl.textContent = 'Your rank: #' + rank; myRankEl.style.display = ''; }
+        var lbList = document.getElementById('lbList');
+        if (lbList) {
+          var prev = document.getElementById('lbRankBanner');
+          if (prev) prev.remove();
+          lbList.insertAdjacentHTML('afterbegin',
+            '<div id="lbRankBanner" style="padding:10px;background:rgba(34,197,94,.2);margin-bottom:10px;border-radius:8px;font-weight:bold;text-align:center;font-size:.85rem;color:#fff">' +
+            '🔥 You are #' + rank + ' globally!</div>'
+          );
+        }
+      } else {
+        el.innerHTML = '<div style="font-size:1rem">⚡ Score saved!</div><div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Not in Top 100 yet — keep practising!</div>';
+        el.classList.add('show');
       }
     }
-    lbLoad();
   })
-  .catch(function() { lbLoad(); }); // still refresh even if rank fails
+  .catch(function() { lbLoad(); });
 }
 
 /* ── Game functions ── */
@@ -2119,8 +2150,8 @@ function gStart() {
       _lastChallengeName  = 'taps in 15 sec';
       _lastChallengeExId  = 'reaction-test';
       lbStopPoll();
-      // Reaction time = ms per tap (avg), clamped to valid range for backend
-      const reactionMs = Math.min(2000, Math.max(120, Math.round(15000 / Math.max(s, 1))));
+      // Reaction time = ms per tap (avg), clamped to match backend validation range
+      const reactionMs = Math.min(3000, Math.max(100, Math.round(15000 / Math.max(s, 1))));
       // Show name modal first, then done screen
       setTimeout(() => {
         lbShowNameModal(s, reactionMs);
@@ -2783,7 +2814,7 @@ function resumeFromInstructions() {
         _lastChallengeName  = 'taps in 15 sec';
         _lastChallengeExId  = 'reaction-test';
         lbStopPoll();
-        const reactionMs2 = Math.min(2000, Math.max(120, Math.round(15000 / Math.max(s, 1))));
+        const reactionMs2 = Math.min(3000, Math.max(100, Math.round(15000 / Math.max(s, 1))));
         setTimeout(() => {
           lbShowNameModal(s, reactionMs2);
           setTimeout(() => _showDone(scoreHTML), 2200);
