@@ -51,6 +51,33 @@
   --sh-md:0 10px 30px rgba(0,0,0,.40);--sh-lg:0 20px 50px rgba(0,0,0,.50);
   --green:#22C55E;--green-d:#166534;
 }
+/* ── THEMES ── */
+[data-theme="midnight"]{--bg:#071830;--bg2:#0a1f3c;--bg3:#0e2448;--bg4:#0e2d54;--gold:#B8860B;--gold-l:#D4A017;--gold-pale:rgba(180,134,20,.10);--text:#E8ECF0;--text-m:#A8B4C4;--text-mu:#5A6A7E;--border:rgba(255,255,255,.08);--border-m:rgba(255,255,255,.13)}
+[data-theme="forest"]{--bg:#0a1a0e;--bg2:#0d2211;--bg3:#102a14;--bg4:#143318;--gold:#4ade80;--gold-l:#86efac;--gold-pale:rgba(74,222,128,.10);--text:#e4f4e8;--text-m:#a7c4ae;--text-mu:#4a7a55;--border:rgba(255,255,255,.07);--border-m:rgba(255,255,255,.12)}
+[data-theme="sunset"]{--bg:#1a0a00;--bg2:#2a1200;--bg3:#331800;--bg4:#3d1f00;--gold:#fb923c;--gold-l:#fdba74;--gold-pale:rgba(251,146,60,.10);--text:#fef3e2;--text-m:#d4a97a;--text-mu:#7a5030;--border:rgba(255,255,255,.07);--border-m:rgba(255,255,255,.12)}
+[data-theme="ocean"]{--bg:#020b18;--bg2:#041525;--bg3:#061c30;--bg4:#082540;--gold:#38bdf8;--gold-l:#7dd3fc;--gold-pale:rgba(56,189,248,.10);--text:#e0f2fe;--text-m:#93c5d8;--text-mu:#3a7090;--border:rgba(255,255,255,.07);--border-m:rgba(255,255,255,.12)}
+[data-theme="rose"]{--bg:#1a0810;--bg2:#250d18;--bg3:#2e101f;--bg4:#381428;--gold:#f472b6;--gold-l:#f9a8d4;--gold-pale:rgba(244,114,182,.10);--text:#fce7f3;--text-m:#d4a0bb;--text-mu:#7a4060;--border:rgba(255,255,255,.07);--border-m:rgba(255,255,255,.12)}
+[data-theme="slate"]{--bg:#0f1117;--bg2:#161820;--bg3:#1e2130;--bg4:#252840;--gold:#a78bfa;--gold-l:#c4b5fd;--gold-pale:rgba(167,139,250,.10);--text:#e2e8f0;--text-m:#94a3b8;--text-mu:#475569;--border:rgba(255,255,255,.07);--border-m:rgba(255,255,255,.12)}
+[data-theme="ember"]{--bg:#110505;--bg2:#1c0808;--bg3:#240b0b;--bg4:#2e0f0f;--gold:#ef4444;--gold-l:#f87171;--gold-pale:rgba(239,68,68,.10);--text:#fee2e2;--text-m:#d4a0a0;--text-mu:#7a3030;--border:rgba(255,255,255,.07);--border-m:rgba(255,255,255,.12)}
+[data-theme="arctic"]{--bg:#0a0f1a;--bg2:#0f1625;--bg3:#141e32;--bg4:#1a2640;--gold:#67e8f9;--gold-l:#a5f3fc;--gold-pale:rgba(103,232,249,.10);--text:#ecfeff;--text-m:#a0d4dc;--text-mu:#3a7080;--border:rgba(255,255,255,.07);--border-m:rgba(255,255,255,.12)}
+[data-theme="gold"]{--bg:#0f0c00;--bg2:#1a1400;--bg3:#221b00;--bg4:#2b2200;--gold:#eab308;--gold-l:#fde047;--gold-pale:rgba(234,179,8,.10);--text:#fefce8;--text-m:#d4c060;--text-mu:#7a6020;--border:rgba(255,255,255,.07);--border-m:rgba(255,255,255,.12)}
+[data-theme="sage"]{--bg:#080f0a;--bg2:#0d1810;--bg3:#112015;--bg4:#15281a;--gold:#a3e635;--gold-l:#bef264;--gold-pale:rgba(163,230,53,.10);--text:#f0fdf4;--text-m:#a0c878;--text-mu:#3a6030;--border:rgba(255,255,255,.07);--border-m:rgba(255,255,255,.12)}
+/* ── THEME SWITCHER ── */
+#themeSwitcher{position:fixed;bottom:5.8rem;right:1.15rem;z-index:900;display:none;flex-direction:column;gap:.35rem;background:rgba(6,14,30,.96);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:.75rem;box-shadow:0 8px 32px rgba(0,0,0,.6);backdrop-filter:blur(12px)}
+#themeSwitcher.open{display:flex}
+#themeToggleBtn{position:fixed;bottom:7.8rem;right:1.15rem;z-index:900;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:1.1rem;cursor:pointer;transition:all .25s;box-shadow:0 2px 12px rgba(0,0,0,.4)}
+#themeToggleBtn:hover{background:rgba(255,255,255,.15)}
+.theme-dot{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .2s;flex-shrink:0;position:relative}
+.theme-dot.active{border-color:#fff;transform:scale(1.2)}
+.theme-dot[title]:hover::after{content:attr(title);position:absolute;right:36px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.85);color:#fff;font-size:.65rem;padding:.2rem .45rem;border-radius:6px;white-space:nowrap;pointer-events:none}
+/* ── PROMO CARD ── */
+#promoCard{margin:.8rem auto 0;padding:1rem 1.1rem;border-radius:16px;background:linear-gradient(135deg,rgba(184,134,11,.12),rgba(212,160,23,.06));border:1.5px solid rgba(212,160,23,.3);max-width:320px;text-align:center;animation:promoIn .5s ease}
+@keyframes promoIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.promo-emoji{font-size:1.6rem;margin-bottom:.3rem}
+.promo-ttl{font-family:var(--font-h);font-size:.95rem;font-weight:700;color:var(--gold-l);margin-bottom:.3rem;font-style:italic}
+.promo-body{font-size:.76rem;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:.7rem}
+.promo-btn{display:inline-block;padding:.5rem 1.2rem;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;border-radius:50px;font-size:.78rem;font-weight:800;text-decoration:none;box-shadow:0 3px 14px rgba(184,134,11,.35);transition:all .2s}
+.promo-btn:hover{transform:translateY(-1px);box-shadow:0 5px 20px rgba(184,134,11,.5)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{max-width:100vw;overflow-x:hidden;width:100%}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
@@ -1184,6 +1211,7 @@ body.nav-open{overflow:hidden}
     <div class="ov-done-scores" id="ovDoneScores"></div>
     <div id="globalRank" class="rank-box"></div>
     <button class="ov-btn-challenge" id="ovChallengeBtn" onclick="openChallenge()" style="display:none">🏆 Challenge a Friend</button>
+    <div id="promoCard" style="display:none"></div>
     <div class="ov-done-row">
       <button class="ov-btn-next" id="ovNextBtn" onclick="ovNext()" style="display:none">▶ Next Activity</button>
       <button class="ov-btn-again" onclick="ovAgain()">🔄 Do Again</button>
@@ -1893,6 +1921,92 @@ let _wgActivePointerId = null; // single-pointer anti-cheat
    Anti-cheat: server validates 1–200 taps range
 ══════════════════════════════════════════════════════════ */
 const LB_API = 'https://script.google.com/macros/s/AKfycby12_i2scUjFeRRwglE1ZCJpcd7TI-mCo0Jb8F-B365Z2c28rmnxsWwtMuEDapE9zPVtQ/exec';
+
+// ═══════════════════════════════════════════════════════
+// THEME SYSTEM
+// ═══════════════════════════════════════════════════════
+var THEMES = ['midnight','forest','sunset','ocean','rose','slate','ember','arctic','gold','sage'];
+function setTheme(name) {
+  document.documentElement.setAttribute('data-theme', name);
+  try { localStorage.setItem('sh_theme', name); } catch(e) {}
+  document.querySelectorAll('.theme-dot').forEach(function(d,i) {
+    d.classList.toggle('active', THEMES[i] === name);
+  });
+  var panel = document.getElementById('themeSwitcher');
+  if (panel) panel.classList.remove('open');
+}
+function toggleThemePanel() {
+  var panel = document.getElementById('themeSwitcher');
+  if (panel) panel.classList.toggle('open');
+}
+(function initTheme() {
+  try {
+    var saved = localStorage.getItem('sh_theme') || 'midnight';
+    document.documentElement.setAttribute('data-theme', saved);
+    // Dots will be marked active after DOM ready in DOMContentLoaded
+  } catch(e) {}
+})();
+
+// ═══════════════════════════════════════════════════════
+// PROMO SYSTEM — shown on 1st, 6th, 11th… reaction-test finish
+// ═══════════════════════════════════════════════════════
+var PROMO_MESSAGES = [
+  {
+    emoji: '🌿',
+    title: 'Your mind just performed — now give your body the same care.',
+    body: 'Shah Hayaat blends ancient Unani wisdom with modern wellness. Explore handcrafted products trusted for generations.',
+    cta: 'Explore Wellness Products →'
+  },
+  {
+    emoji: '⚡',
+    title: 'Fast hands, sharp mind — and a body that deserves the best.',
+    body: 'Discover natural formulas at Shah Hayaat that support energy, focus and everyday vitality. Crafted with purpose, not shortcuts.',
+    cta: 'See What\'s Waiting for You →'
+  },
+  {
+    emoji: '🏆',
+    title: 'You train your reflexes. Train your wellness too.',
+    body: 'The same dedication you bring to this game can transform your health. Shah Hayaat\'s collection is your next step.',
+    cta: 'Start Your Wellness Journey →'
+  },
+  {
+    emoji: '🌙',
+    title: 'Great performance starts from within.',
+    body: 'Quality sleep, balanced energy and a calm mind are not luxuries — they\'re foundations. Find yours at Shah Hayaat.',
+    cta: 'Discover the Collection →'
+  },
+  {
+    emoji: '✨',
+    title: 'You just proved you\'re someone who takes health seriously.',
+    body: 'Shah Hayaat rewards that mindset with products rooted in 200 years of healing tradition — and loved by thousands today.',
+    cta: 'Explore Shah Hayaat →'
+  }
+];
+var _promoKey = 'sh_reaction_tries';
+function _getPromoCount() { try { return parseInt(localStorage.getItem(_promoKey)||'0',10)||0; } catch(e) { return 0; } }
+function _incPromoCount() { try { localStorage.setItem(_promoKey, _getPromoCount()+1); } catch(e) {} }
+
+function _maybeShowPromo() {
+  _incPromoCount();
+  var count = _getPromoCount(); // 1,2,3…
+  // Show on 1st, 6th, 11th, 16th… (count % 5 === 1)
+  if (count % 5 !== 1) return;
+  var msg = PROMO_MESSAGES[(count-1)/5 % PROMO_MESSAGES.length | 0];
+  var card = document.getElementById('promoCard');
+  if (!card) return;
+  card.innerHTML =
+    '<div class="promo-emoji">'+msg.emoji+'</div>'+
+    '<div class="promo-ttl">'+msg.title+'</div>'+
+    '<div class="promo-body">'+msg.body+'</div>'+
+    '<a class="promo-btn" href="https://www.shahhayaat.com/products.html" target="_blank" rel="noopener">'+msg.cta+'</a>';
+  card.style.display = 'block';
+  // Speak the promo message after a short delay
+  setTimeout(function() {
+    speak(msg.title + ' ' + msg.body + ' Visit Shah Hayaat dot com to explore.');
+  }, 3500);
+}
+
+
 const LB_PB_KEY  = 'sh_best_taps';
 const LB_PB_SEED = 74; // shown to first-time users
 let   _lbPollTimer = null;
@@ -1988,80 +2102,43 @@ function lbShowNameModal(taps, reactionMs) {
   setTimeout(() => { if (inp) inp.focus(); }, 300);
 }
 
-// ═══════════════════════════════════════════════════════════════
-// NAME MODERATION — client-side filter before any name goes live
-// ═══════════════════════════════════════════════════════════════
-
-// Blocked patterns: profanity roots, personal data patterns, spam
+// ═══════════════════════════════════════════════════════
+// NAME MODERATION
+// ═══════════════════════════════════════════════════════
 var _LBN_BLOCKED = [
-  // Personal data fishing
   /\b(phone|mobile|whatsapp|call|email|gmail|yahoo|hotmail|contact|address|number)\b/i,
-  /\d{5,}/,                          // 5+ digit strings (phone numbers)
-  /@/,                               // email addresses
-  /(https?:|www\.)/i,                // URLs
-  // Common profanity roots (partial list — covers variants)
-  /\bf+u+c+k/i, /\bs+h+i+t/i, /\bb+i+t+c+h/i, /\ba+s+s+h+o+l/i,
-  /\bc+u+n+t/i, /\bd+i+c+k/i, /\bp+u+s+s+y/i, /\bb+a+s+t+a+r+d/i,
-  /\bn+i+g+g/i, /\bf+a+g+g/i, /\bw+h+o+r+e/i, /\bs+l+u+t/i,
-  /\bd+a+m+n/i, /\bh+e+l+l\b/i, /\bc+r+a+p\b/i,
-  // Harassment / hate
+  /\d{5,}/,/@/,/(https?:|www\.)/i,
+  /\bf+u+c+k/i,/\bs+h+i+t/i,/\bb+i+t+c+h/i,/\ba+s+s+h+o+l/i,
+  /\bc+u+n+t/i,/\bd+i+c+k/i,/\bp+u+s+s+y/i,/\bb+a+s+t+a+r+d/i,
+  /\bn+i+g+g/i,/\bf+a+g+g/i,/\bw+h+o+r+e/i,/\bs+l+u+t/i,
   /\b(hate|kill|die|rape|abuse|racist|terror)\b/i,
 ];
-
-// Characters allowed in names: letters (any language), digits, spaces, hyphens, apostrophes, dots
 var _LBN_ALLOWED = /^[\p{L}\p{N}\s'\-\.]+$/u;
-
 function lbnSanitizeInput(inp) {
-  // Strip leading/trailing spaces only on blur, not while typing
-  // Remove characters that aren't letters, digits, spaces, - ' .
-  var clean = inp.value.replace(/[^\p{L}\p{N}\s'\-\.]/gu, '');
+  var clean = inp.value.replace(/[^\p{L}\p{N}\s'\-\.]/gu,'');
   if (clean !== inp.value) inp.value = clean;
   _lbnShowWarn('');
 }
-
 function _lbnValidate(raw) {
   var name = raw.trim();
-
-  // Empty → use Anonymous
-  if (!name) return { ok: true, name: 'Anonymous' };
-
-  // Too short (single char could be a letter but useless)
-  if (name.length < 2) return { ok: false, warn: 'Name too short — min 2 characters' };
-
-  // Only allowed characters
-  if (!_LBN_ALLOWED.test(name)) return { ok: false, warn: 'Only letters, numbers and spaces allowed' };
-
-  // Blocked patterns
-  for (var i = 0; i < _LBN_BLOCKED.length; i++) {
-    if (_LBN_BLOCKED[i].test(name)) {
-      return { ok: false, warn: 'That name isn\'t allowed — please choose another' };
-    }
-  }
-
-  // Repeating chars spam (aaaaaaa)
-  if (/(.)\1{4,}/.test(name)) return { ok: false, warn: 'Please use a real name' };
-
-  return { ok: true, name: name };
+  if (!name) return {ok:true,name:'Anonymous'};
+  if (name.length < 2) return {ok:false,warn:'Name too short — min 2 characters'};
+  if (!_LBN_ALLOWED.test(name)) return {ok:false,warn:'Only letters, numbers and spaces allowed'};
+  for (var i=0;i<_LBN_BLOCKED.length;i++) { if(_LBN_BLOCKED[i].test(name)) return {ok:false,warn:"That name isn't allowed — please choose another"}; }
+  if (/(.)\1{4,}/.test(name)) return {ok:false,warn:'Please use a real name'};
+  return {ok:true,name:name};
 }
-
-function _lbnShowWarn(msg) {
-  var el = document.getElementById('lbnWarn');
-  if (el) el.textContent = msg;
-}
-
+function _lbnShowWarn(msg) { var el=document.getElementById('lbnWarn'); if(el) el.textContent=msg; }
 function lbSubmitName() {
-  var inp  = document.getElementById('lbnInput');
-  var raw  = inp ? inp.value : '';
-  var result = _lbnValidate(raw);
-
+  var inp=document.getElementById('lbnInput');
+  var result=_lbnValidate(inp?inp.value:'');
   if (!result.ok) {
     _lbnShowWarn(result.warn);
-    if (inp) { inp.focus(); inp.style.borderColor = '#f87171'; setTimeout(function(){ inp.style.borderColor = ''; }, 2000); }
-    return; // don't close modal — let user fix it
+    if(inp){inp.focus();inp.style.borderColor='#f87171';setTimeout(function(){inp.style.borderColor='';},2000);}
+    return;
   }
-
   _lbCloseModal();
-  _lbPost(result.name, _lbPendingScore, _lbPendingTime);
+  _lbPost(result.name,_lbPendingScore,_lbPendingTime);
 }
 
 function lbSkipName() {
@@ -2074,36 +2151,35 @@ function _lbCloseModal() {
   if (modal) modal.classList.remove('show');
 }
 
-// ═══════════════════════════════════════════════════════════════
-// SCORE QUEUE — never lose a score, even if page is closed
-// ═══════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+// SCORE QUEUE — score saved to localStorage instantly,
+// sent to server with keepalive, retried on next visit
+// ═══════════════════════════════════════════════════════
 var LB_QUEUE_KEY = 'sh_lb_queue';
-function _lbQueueGet() { try { return JSON.parse(localStorage.getItem(LB_QUEUE_KEY)||'[]'); } catch(e) { return []; } }
-function _lbQueueSave(q) { try { localStorage.setItem(LB_QUEUE_KEY, JSON.stringify(q)); } catch(e) {} }
-function _lbQueueAdd(name, taps, time) { var q=_lbQueueGet(); q.push({name:name,taps:taps,time:time,ts:Date.now()}); _lbQueueSave(q); }
-function _lbQueueRemoveFirst() { var q=_lbQueueGet(); if(q.length){q.shift();_lbQueueSave(q);} }
-function _lbFlushQueue() {
-  var q = _lbQueueGet();
-  if (!q.length) return;
-  q.forEach(function(item) { _lbSendToServer(item.name, item.taps, item.time, false); });
+function _lbQueueGet(){try{return JSON.parse(localStorage.getItem(LB_QUEUE_KEY)||'[]');}catch(e){return[];}}
+function _lbQueueSave(q){try{localStorage.setItem(LB_QUEUE_KEY,JSON.stringify(q));}catch(e){}}
+function _lbQueueAdd(n,t,ms){var q=_lbQueueGet();q.push({name:n,taps:t,time:ms,ts:Date.now()});_lbQueueSave(q);}
+function _lbQueueRemoveFirst(){var q=_lbQueueGet();if(q.length){q.shift();_lbQueueSave(q);}}
+function _lbFlushQueue(){
+  var q=_lbQueueGet();if(!q.length)return;
+  q.forEach(function(item){_lbSendToServer(item.name,item.taps,item.time,false);});
 }
-function _lbSendToServer(name, taps, time, updateUI) {
-  fetch(LB_API, {
-    method:'POST', mode:'no-cors', keepalive:true,
+function _lbSendToServer(name,taps,time,updateUI){
+  fetch(LB_API,{method:'POST',mode:'no-cors',keepalive:true,
     headers:{'Content-Type':'text/plain'},
     body:JSON.stringify({type:'reaction_score',name:name,taps:taps,time:time})
   })
-  .then(function(){ _lbQueueRemoveFirst(); if(updateUI) setTimeout(function(){ _lbFetchRank(name,taps); },1800); })
-  .catch(function(err){ console.warn('LB send failed, will retry next visit:',err); });
+  .then(function(){_lbQueueRemoveFirst();if(updateUI)setTimeout(function(){_lbFetchRank(name,taps);},1800);})
+  .catch(function(err){console.warn('LB send failed, will retry:',err);});
 }
 function _lbPost(name, taps, time) {
-  var submittedName = name || 'Anonymous';
-  _lbQueueAdd(submittedName, taps, time);
+  var n = name || 'Anonymous';
+  _lbQueueAdd(n, taps, time);
   var el = document.getElementById('globalRank');
-  if (el) { el.innerHTML='<div style="font-size:.85rem;color:rgba(255,255,255,.55)">⏳ Submitting score…</div>'; el.classList.add('show'); }
-  _lbSendToServer(submittedName, taps, time, true);
+  if(el){el.innerHTML='<div style="font-size:.85rem;color:rgba(255,255,255,.55)">⏳ Submitting score…</div>';el.classList.add('show');}
+  _lbSendToServer(n, taps, time, true);
 }
-function _lbFetchRank(name, taps) {
+function _lbFetchRank(name,taps){
   fetch(LB_API+'?type=reaction_scores',{method:'GET',redirect:'follow',mode:'cors'})
   .then(function(r){return r.json();})
   .then(function(json){
@@ -2111,7 +2187,7 @@ function _lbFetchRank(name, taps) {
     if(!json.ok||!json.data||!json.data.length){if(el){el.innerHTML='<div style="font-size:1rem">⚡ Score saved!</div><div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Leaderboard updating…</div>';}lbLoad();return;}
     lbRender(json.data);
     var matched=json.data.filter(function(r){return r.name&&r.name.toLowerCase()===name.toLowerCase();});
-    var rank=matched.length?matched[0].rank:null, score=matched.length?matched[0].score:null;
+    var rank=matched.length?matched[0].rank:null,score=matched.length?matched[0].score:null;
     if(el){
       if(rank){
         _lbMyRank=rank;
@@ -2125,7 +2201,7 @@ function _lbFetchRank(name, taps) {
         var lbList=document.getElementById('lbList');
         if(lbList){var prev=document.getElementById('lbRankBanner');if(prev)prev.remove();
           lbList.insertAdjacentHTML('afterbegin','<div id="lbRankBanner" style="padding:10px;background:rgba(34,197,94,.2);margin-bottom:10px;border-radius:8px;font-weight:bold;text-align:center;font-size:.85rem;color:#fff">🔥 You are #'+rank+' globally!</div>');}
-      } else {
+      }else{
         el.innerHTML='<div style="font-size:1rem">⚡ Score saved!</div><div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Not in Top 100 yet — keep practising!</div>';el.classList.add('show');
       }
     }
@@ -2196,7 +2272,7 @@ function gStart() {
       // Show name modal first, then done screen
       setTimeout(() => {
         lbShowNameModal(s, reactionMs);
-        setTimeout(() => _showDone(scoreHTML), 2200);
+        setTimeout(() => { _showDone(scoreHTML); _maybeShowPromo(); }, 2200);
       }, 800);
     }
   }, 1000);
@@ -2205,22 +2281,11 @@ function gStart() {
 let _lastTapTime = 0;
 function gTap(e) {
   if (!_wgRunning) return;
-
-  // ── Single-pointer enforcement: block a SECOND SIMULTANEOUS finger only ──
-  // _wgActivePointerId is set when finger goes down, cleared when it lifts.
-  // This means each new tap gets a fresh lock — only concurrent fingers are blocked.
-  if (e && e.pointerId !== undefined) {
-    if (_wgActivePointerId === null) {
-      _wgActivePointerId = e.pointerId;
-    } else if (e.pointerId !== _wgActivePointerId) {
-      return; // a different finger is already held down — ignore
-    }
-  }
-
+  // Pointer-lock anti-cheat is now handled entirely in the tapArea wiring
+  // (doTap/releaseLock with watchdog). gTap just needs the debounce + count.
   const now = Date.now();
   if (now - _lastTapTime < 30) return;
   _lastTapTime = now;
-
   _wgCount++;
   document.getElementById('ovTaps').textContent = _wgCount;
 }
@@ -2858,7 +2923,7 @@ function resumeFromInstructions() {
         const reactionMs2 = Math.min(3000, Math.max(100, Math.round(15000 / Math.max(s, 1))));
         setTimeout(() => {
           lbShowNameModal(s, reactionMs2);
-          setTimeout(() => _showDone(scoreHTML), 2200);
+          setTimeout(() => { _showDone(scoreHTML); _maybeShowPromo(); }, 2200);
         }, 800);
       }
     }, 1000);
@@ -2952,6 +3017,9 @@ function _showDone(scoreHTML) {
   document.getElementById('ovDoneSub').textContent = isLast
     ? 'Excellent! You completed all activities.' : (_ex ? _ex.title : '') + ' complete. Tap Next when you are ready.';
   document.getElementById('ovDoneScores').innerHTML = scoreHTML || '';
+  // Hide promo by default; show only for reaction-test via _maybeShowPromo
+  var promoCard = document.getElementById('promoCard');
+  if (promoCard) promoCard.style.display = 'none';
   if (nb) {
     nb.style.display = (isQueue && !isLast) ? '' : 'none';
     nb.textContent = '▶ Next Activity';
@@ -3578,31 +3646,89 @@ function shareChallenge(method) {
   // Drain any onclick calls that fired before the main script was ready
   if (typeof window.__drainQueue === 'function') window.__drainQueue();
 
-  // Retry any scores that failed to send in a previous session
+  // ── Init saved theme ──
+  (function() {
+    try {
+      var saved = localStorage.getItem('sh_theme') || 'midnight';
+      document.documentElement.setAttribute('data-theme', saved);
+      document.querySelectorAll('.theme-dot').forEach(function(d,i) {
+        d.classList.toggle('active', THEMES[i] === saved);
+      });
+    } catch(e) {}
+  })();
+
+  // ── Retry any scores that failed to send last session ──
   setTimeout(_lbFlushQueue, 3000);
 
-  // ── Wire full-screen tap area (pointerdown = iPhone-safe) ──
+  // ── Wire full-screen tap area — iPhone-hardened ──────────────────
+  // iOS Safari issues:
+  // 1. pointercancel fires when system interrupts (scroll, notification, call)
+  //    but doesn't always fire pointerup → lock gets stuck forever.
+  // 2. Safari sometimes loses pointer capture silently mid-game.
+  // 3. touchstart/touchend are more reliable than pointer events on older iOS.
+  // Fix: dual-listener (pointerdown + touchstart), auto-clear stale locks
+  //      with a watchdog timer, and always clear on any cancel/end event.
   (function() {
     const ta = document.getElementById('tapArea');
     if (!ta) return;
-    ta.addEventListener('pointerdown', function(e) {
-      gTap(e);
+
+    // Prevent default on touchstart to stop 300ms click delay and scroll-jank
+    ta.style.touchAction = 'none';
+    ta.style.userSelect  = 'none';
+    ta.style.webkitUserSelect = 'none';
+
+    var _lockClearTimer = null;
+
+    function doTap(pointerId) {
+      // If a different pointer is actively held, ignore
+      if (_wgActivePointerId !== null && _wgActivePointerId !== pointerId) return;
+      _wgActivePointerId = pointerId;
+      // Auto-release stale lock after 200ms — catches missed pointerup on iOS
+      clearTimeout(_lockClearTimer);
+      _lockClearTimer = setTimeout(function() { _wgActivePointerId = null; }, 200);
+      gTap({ pointerId: pointerId });
       ta.classList.add('tapped');
       setTimeout(function() { ta.classList.remove('tapped'); }, 60);
-    });
-    // Release pointer lock when finger lifts so next tap gets a fresh lock
-    function releaseLock(e) {
-      if (e.pointerId === _wgActivePointerId) {
+    }
+
+    function releaseLock(pointerId) {
+      if (pointerId === undefined || _wgActivePointerId === pointerId || _wgActivePointerId === null) {
         _wgActivePointerId = null;
+        clearTimeout(_lockClearTimer);
       }
     }
-    ta.addEventListener('pointerup',     releaseLock);
-    ta.addEventListener('pointercancel', releaseLock);
+
+    // Pointer events (desktop + modern mobile)
+    ta.addEventListener('pointerdown', function(e) {
+      e.preventDefault();
+      doTap(e.pointerId);
+    }, { passive: false });
+    ta.addEventListener('pointerup',     function(e) { releaseLock(e.pointerId); });
+    ta.addEventListener('pointercancel', function(e) { releaseLock(e.pointerId); });
+    ta.addEventListener('pointerleave',  function(e) { releaseLock(e.pointerId); });
+
+    // Touch events — fallback for older iOS where pointer events are unreliable
+    // Guard with a flag so we don't double-count on devices that fire both
+    var _lastPointerTs = 0;
+    ta.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      var now = Date.now();
+      if (now - _lastPointerTs < 50) return; // pointer event already handled this
+      var t = e.changedTouches[0];
+      doTap(t ? t.identifier : 99);
+    }, { passive: false });
+    ta.addEventListener('touchend',    function(e) { var t=e.changedTouches[0]; releaseLock(t?t.identifier:99); });
+    ta.addEventListener('touchcancel', function(e) { var t=e.changedTouches[0]; releaseLock(t?t.identifier:99); });
+
+    // Track last pointerdown timestamp to suppress duplicate touchstart
+    ta.addEventListener('pointerdown', function() { _lastPointerTs = Date.now(); }, { passive: true, capture: true });
   })();
 
-  // ── Expose leaderboard helpers globally ──
   window.lbSubmitName = lbSubmitName;
   window.lbSkipName   = lbSkipName;
+  window.setTheme         = setTheme;
+  window.toggleThemePanel = toggleThemePanel;
+  window.lbnSanitizeInput = lbnSanitizeInput;
 
   /* ── CHALLENGE DEEP-LINK HANDLER ──────────────────────────────
      Link format: exercises.html?challenge=reaction-test&score=42&metric=taps%20in%2015%20sec
@@ -3656,6 +3782,21 @@ function shareChallenge(method) {
 })();
 </script>
 
+<!-- THEME SWITCHER -->
+<button id="themeToggleBtn" onclick="toggleThemePanel()" title="Change theme">🎨</button>
+<div id="themeSwitcher">
+  <div class="theme-dot" title="Midnight"  onclick="setTheme('midnight')" style="background:linear-gradient(135deg,#071830,#B8860B)"></div>
+  <div class="theme-dot" title="Forest"    onclick="setTheme('forest')"   style="background:linear-gradient(135deg,#0a1a0e,#4ade80)"></div>
+  <div class="theme-dot" title="Sunset"    onclick="setTheme('sunset')"   style="background:linear-gradient(135deg,#1a0a00,#fb923c)"></div>
+  <div class="theme-dot" title="Ocean"     onclick="setTheme('ocean')"    style="background:linear-gradient(135deg,#020b18,#38bdf8)"></div>
+  <div class="theme-dot" title="Rose"      onclick="setTheme('rose')"     style="background:linear-gradient(135deg,#1a0810,#f472b6)"></div>
+  <div class="theme-dot" title="Slate"     onclick="setTheme('slate')"    style="background:linear-gradient(135deg,#0f1117,#a78bfa)"></div>
+  <div class="theme-dot" title="Ember"     onclick="setTheme('ember')"    style="background:linear-gradient(135deg,#110505,#ef4444)"></div>
+  <div class="theme-dot" title="Arctic"    onclick="setTheme('arctic')"   style="background:linear-gradient(135deg,#0a0f1a,#67e8f9)"></div>
+  <div class="theme-dot" title="Gold"      onclick="setTheme('gold')"     style="background:linear-gradient(135deg,#0f0c00,#eab308)"></div>
+  <div class="theme-dot" title="Sage"      onclick="setTheme('sage')"     style="background:linear-gradient(135deg,#080f0a,#a3e635)"></div>
+</div>
+
 <!-- LEADERBOARD NAME MODAL -->
 <div id="lbNameModal">
   <div class="lbn-box">
@@ -3663,7 +3804,7 @@ function shareChallenge(method) {
     <div class="lbn-title">You scored <span id="lbnScoreVal">—</span> taps!</div>
     <div class="lbn-sub">Want your name on the global leaderboard?<br>It's optional — you can stay anonymous.</div>
     <input class="lbn-inp" id="lbnInput" type="text" maxlength="16" placeholder="Your name (optional)" autocomplete="off" autocorrect="off" spellcheck="false" oninput="lbnSanitizeInput(this)">
-    <div id="lbnWarn" style="font-size:.72rem;color:#f87171;min-height:.9rem;margin-top:-.5rem;margin-bottom:.3rem;text-align:center"></div>
+    <div id="lbnWarn" style="font-size:.72rem;color:#f87171;min-height:.9rem;margin-top:-.4rem;margin-bottom:.3rem;text-align:center"></div>
     <div class="lbn-btns">
       <button class="lbn-submit" onclick="lbSubmitName()">🌍 Add to Leaderboard</button>
       <button class="lbn-skip" onclick="lbSkipName()">Skip — stay anonymous</button>
