@@ -3,7 +3,7 @@
 // ════════════════════════════════════════════════════════════════
 
 // 🔥 YOUR GOOGLE SHEET ID
-const SPREADSHEET_ID = '1h1ogNP_cjfBwF_Yad2SR7QVgjFxXB1eiI5mSXLDfxLA';
+const SPREADSHEET_ID = '1JzFvfZRwsk4sfed6r1R0i_5i5wA96UH-wE4VYVY2Se8';
 
 const SHEET_NAME_REVIEWS    = 'SiteReviews';
 const SHEET_NAME_PROD       = 'ProductRatings';
