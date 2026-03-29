@@ -314,7 +314,7 @@ body.nav-open{overflow:hidden}
   touch-action:manipulation;
 }
 .ex-ov.open{display:flex}
-.ov-game{flex:1;display:none;flex-direction:column;align-items:center;justify-content:flex-start;gap:.35rem;padding:.6rem .8rem .4rem;text-align:center;overflow-y:auto;
+.ov-game{flex:1;display:none;flex-direction:column;align-items:center;justify-content:flex-start;gap:.35rem;padding:.6rem .8rem .4rem;text-align:center;overflow:hidden;
   touch-action:manipulation;
   -webkit-user-select:none;user-select:none;
 }
@@ -538,7 +538,7 @@ body.nav-open{overflow:hidden}
   display:flex;align-items:center;justify-content:center;flex-direction:column;
   background:rgba(212,160,23,.06);border-radius:16px;border:2px dashed rgba(212,160,23,.2);
   cursor:pointer;
-  touch-action:manipulation;
+  touch-action:none;
   -webkit-user-select:none;user-select:none;
   -webkit-tap-highlight-color:transparent;
   transition:background .08s;
@@ -1116,6 +1116,11 @@ body.nav-open{overflow:hidden}
     </div>
     <!-- Label -->
     <div class="ov-game-lbl" id="ovGameLbl">Tap anywhere as FAST as you can!</div>
+    <!-- Start / Skip buttons (shown before game begins, hidden during play) -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem;width:100%;flex-shrink:0">
+      <button id="gStartBtn" onclick="gStart()" style="display:none;padding:.85rem 2.4rem;border-radius:50px;font-size:1rem;font-weight:800;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(184,134,11,.4);width:100%;max-width:280px">▶ Start Challenge</button>
+      <button id="gSkipBtn"  onclick="ovSkip()"  style="display:none;padding:.6rem 1.4rem;border-radius:50px;font-size:.82rem;font-weight:700;background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);border:1.5px solid rgba(255,255,255,.12);cursor:pointer">⏭ Skip this exercise</button>
+    </div>
     <!-- Full-area tap zone -->
     <div id="tapArea" class="disabled">
       <div class="tap-icon">⚡</div>
@@ -1879,6 +1884,7 @@ function startRoutine(name) {
 ───────────────────────────────────────────────────── */
 let _wgRunning = false, _wgTimer = null, _wgCount = 0, _wgSec = 0;
 let _wgStartTime = 0; // track when game started for reaction-time ms
+let _wgActivePointerId = null; // single-pointer anti-cheat
 
 /* ══════════════════════════════════════════════════════════
    REACTION TEST — GLOBAL LEADERBOARD
@@ -1886,7 +1892,7 @@ let _wgStartTime = 0; // track when game started for reaction-time ms
    Score = taps (higher is better)
    Anti-cheat: server validates 1–200 taps range
 ══════════════════════════════════════════════════════════ */
-const LB_API = 'https://script.google.com/macros/s/AKfycbxx5y17kEwmI5DEu1uUqyb0f7PC1UUyK3zw7u4SpBcrK52Y_qzanqwBDc574xte7_SPHA/exec';
+const LB_API = 'https://script.google.com/macros/s/AKfycbyC0nFMln77cQNImXs-jA2zugRnkOmD2eia8i9Duix2/exec';
 const LB_PB_KEY  = 'sh_best_taps';
 const LB_PB_SEED = 74; // shown to first-time users
 let   _lbPollTimer = null;
@@ -2059,6 +2065,8 @@ function _lbPost(name, taps, time) {
 function resetWakeGame() {
   clearInterval(_wgTimer);
   _wgRunning = false; _wgCount = 0; _wgSec = 15;
+  _wgActivePointerId = null; // clear stale pointer lock
+  _lastTapTime = 0;          // clear stale debounce timestamp
   const $ = id => document.getElementById(id);
   $('ovTaps').textContent = '0';
   $('ovGameSecs').textContent = '15s';
@@ -2079,6 +2087,8 @@ function gStart() {
   const _rankEl = document.getElementById('globalRank');
   if (_rankEl) { _rankEl.className = 'rank-box'; _rankEl.innerHTML = ''; }
   _wgRunning = true; _wgCount = 0; _wgSec = 15;
+  _wgActivePointerId = null; // reset pointer lock
+  _lastTapTime = 0;          // reset debounce so first tap is never blocked
   _wgStartTime = Date.now();
   const $ = id => document.getElementById(id);
   $('ovGameLbl').textContent = 'TAP! TAP! TAP! GO!';
@@ -2121,11 +2131,24 @@ function gStart() {
 }
 
 let _lastTapTime = 0;
-function gTap() {
+function gTap(e) {
   if (!_wgRunning) return;
+
+  // ── Single-pointer enforcement: block a SECOND SIMULTANEOUS finger only ──
+  // _wgActivePointerId is set when finger goes down, cleared when it lifts.
+  // This means each new tap gets a fresh lock — only concurrent fingers are blocked.
+  if (e && e.pointerId !== undefined) {
+    if (_wgActivePointerId === null) {
+      _wgActivePointerId = e.pointerId;
+    } else if (e.pointerId !== _wgActivePointerId) {
+      return; // a different finger is already held down — ignore
+    }
+  }
+
   const now = Date.now();
-  if (now - _lastTapTime < 40) return; // debounce
+  if (now - _lastTapTime < 30) return;
   _lastTapTime = now;
+
   _wgCount++;
   document.getElementById('ovTaps').textContent = _wgCount;
 }
@@ -2942,8 +2965,9 @@ function _showDone(scoreHTML) {
 }
 
 function ovSkip() {
-  clearInterval(_timer); clearInterval(_mTimer); clearInterval(_memTimer);
+  clearInterval(_timer); clearInterval(_mTimer); clearInterval(_memTimer); clearInterval(_wgTimer);
   _running = false; _mRunning = false; _memRunning = false; _seqRunning = false;
+  _wgRunning = false;
   stopSpeech();
   if (_allExQueue.length > 1 && _allExIdx < _allExQueue.length - 1) ovNext();
   else ovClose();
@@ -2965,9 +2989,13 @@ function ovNext() {
 
 function ovClose() {
   lbStopPoll();
-  clearInterval(_timer); clearInterval(_mTimer); clearInterval(_memTimer);
+  clearInterval(_timer); clearInterval(_mTimer); clearInterval(_memTimer); clearInterval(_wgTimer);
   _running = false; _mRunning = false; _memRunning = false; _seqRunning = false;
+  _wgRunning = false; _wgActivePointerId = null;
   _sec = 0; _phaseIdx = 0; _round = 1; stopSpeech();
+  // Re-disable tap area so it starts clean next time
+  const ta = document.getElementById('tapArea');
+  if (ta) ta.classList.add('disabled');
   // Reset candle display
   const candleEl = document.getElementById('candleDisplay');
   const iconEl   = document.getElementById('ovIcon');
@@ -3483,12 +3511,18 @@ function shareChallenge(method) {
     const ta = document.getElementById('tapArea');
     if (!ta) return;
     ta.addEventListener('pointerdown', function(e) {
-      e.preventDefault();
-      gTap();
-      // brief visual feedback
+      gTap(e);
       ta.classList.add('tapped');
       setTimeout(function() { ta.classList.remove('tapped'); }, 60);
     });
+    // Release pointer lock when finger lifts so next tap gets a fresh lock
+    function releaseLock(e) {
+      if (e.pointerId === _wgActivePointerId) {
+        _wgActivePointerId = null;
+      }
+    }
+    ta.addEventListener('pointerup',     releaseLock);
+    ta.addEventListener('pointercancel', releaseLock);
   })();
 
   // ── Expose leaderboard helpers globally ──
