@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Mind & Body Wellness Clinic | Shah Hayaat</title>
 <meta name="description" content="Free guided wellness exercises — brain training, breathing, eye care, digestion, body movement and daily routines. Voice-guided with timers. No equipment needed.">
 <link rel="canonical" href="https://shahhayaat.com/exercises.html">
@@ -314,7 +314,7 @@ body.nav-open{overflow:hidden}
   touch-action:manipulation;
 }
 .ex-ov.open{display:flex}
-.ov-game{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;padding:1.2rem;text-align:center;
+.ov-game{flex:1;display:none;flex-direction:column;align-items:center;justify-content:flex-start;gap:.35rem;padding:.6rem .8rem .4rem;text-align:center;overflow-y:auto;
   touch-action:manipulation;
   -webkit-user-select:none;user-select:none;
 }
@@ -337,23 +337,10 @@ body.nav-open{overflow:hidden}
 .ov-ring.out{display:flex;transform:scale(.8);background:rgba(100,160,255,.07);border-color:#6CB4FF;box-shadow:0 0 20px rgba(100,160,255,.1)}
 .ov-ring-txt{font-size:clamp(.85rem,3vw,1rem);font-weight:800;letter-spacing:.07em}
 .ov-game.on{display:flex}
-.ov-game-lbl{font-size:clamp(1rem,4vw,1.2rem);color:rgba(255,255,255,.7);font-weight:500}
+.ov-game-lbl{font-size:clamp(.82rem,3.5vw,.95rem);color:rgba(255,255,255,.7);font-weight:500}
 .ov-taps{font-size:clamp(4rem,16vw,6rem);font-weight:900;color:#D4A017;line-height:1}
 .ov-secs{font-size:2rem;font-weight:800;color:#D4A017}
-.ov-tap-btn{
-  width:clamp(120px,32vw,150px);height:clamp(120px,32vw,150px);
-  border-radius:50%;background:linear-gradient(135deg,#B8860B,#F5C842);border:none;
-  font-size:3rem;cursor:pointer;box-shadow:0 6px 28px rgba(184,134,11,.5);
-  transition:transform .07s;
-  /* iPhone fix: prevent double-tap zoom and text selection on rapid tap */
-  touch-action:manipulation;
-  -webkit-touch-callout:none;
-  -webkit-user-select:none;
-  user-select:none;
-  -webkit-tap-highlight-color:transparent;
-}
-.ov-tap-btn:active{transform:scale(.92)}
-.ov-tap-btn:disabled{opacity:.35;pointer-events:none}
+/* .ov-tap-btn removed — replaced by #tapArea */
 
 /* ── MATH GAME ── */
 .ov-math{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;padding:1.2rem;text-align:center}
@@ -538,6 +525,84 @@ body.nav-open{overflow:hidden}
 .ftg-btn{width:100%;padding:.9rem;border-radius:50px;font-size:.95rem;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(184,134,11,.35);transition:all .2s;margin-bottom:.6rem}
 .ftg-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(184,134,11,.5)}
 .ftg-skip{width:100%;background:none;border:none;font-size:.78rem;color:rgba(255,255,255,.3);cursor:pointer;text-decoration:underline;padding:.3rem}
+
+/* ── LEADERBOARD + FULL-SCREEN TAP AREA ── */
+.ov-game{position:relative}
+
+/* Full-screen tap area replacing the small button */
+#tapArea{
+  width:100%;flex:1;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  background:rgba(212,160,23,.06);border-radius:16px;border:2px dashed rgba(212,160,23,.2);
+  cursor:pointer;
+  touch-action:manipulation;
+  -webkit-user-select:none;user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  transition:background .08s;
+  min-height:180px;margin:.4rem 0;
+}
+#tapArea:active,#tapArea.tapped{background:rgba(212,160,23,.18);}
+#tapArea.disabled{opacity:.35;pointer-events:none;}
+.tap-icon{font-size:2.8rem;line-height:1;margin-bottom:.3rem;pointer-events:none}
+.tap-text{font-size:.85rem;color:rgba(212,160,23,.7);font-weight:600;letter-spacing:.05em;pointer-events:none}
+
+/* Leaderboard panel inside overlay */
+#reactionLB{
+  width:100%;max-width:340px;margin:.5rem auto 0;
+  background:rgba(0,0,0,.3);border:1px solid rgba(212,160,23,.18);
+  border-radius:14px;overflow:hidden;
+}
+.lb-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.45rem .8rem;background:rgba(212,160,23,.08);
+  border-bottom:1px solid rgba(212,160,23,.15);
+}
+.lb-title{font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-l)}
+.lb-live{font-size:.58rem;color:#22C55E;font-weight:700;display:flex;align-items:center;gap:.3rem}
+.lb-live::before{content:'';width:5px;height:5px;border-radius:50%;background:#22C55E;display:inline-block;animation:lbPulse 1.4s ease-in-out infinite}
+@keyframes lbPulse{0%,100%{opacity:1}50%{opacity:.3}}
+.lb-list{max-height:160px;overflow-y:auto;scrollbar-width:none}
+.lb-list::-webkit-scrollbar{display:none}
+.lb-row{display:flex;align-items:center;gap:.5rem;padding:.38rem .8rem;border-bottom:1px solid rgba(255,255,255,.04);font-size:.78rem;transition:background .2s}
+.lb-row.me{background:rgba(212,160,23,.08);}
+.lb-rank{width:22px;font-weight:800;color:rgba(255,255,255,.35);font-size:.72rem;flex-shrink:0;text-align:right}
+.lb-rank.top1{color:#FFD700}
+.lb-rank.top2{color:#C0C0C0}
+.lb-rank.top3{color:#CD7F32}
+.lb-name{flex:1;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-score{font-weight:800;color:var(--gold-l);flex-shrink:0;font-size:.8rem}
+.lb-empty{padding:.8rem;text-align:center;font-size:.75rem;color:rgba(255,255,255,.3)}
+.lb-loading{padding:.6rem;text-align:center;font-size:.72rem;color:rgba(255,255,255,.3)}
+.lb-myrank{padding:.38rem .8rem;background:rgba(212,160,23,.06);border-top:1px solid rgba(212,160,23,.15);font-size:.72rem;color:var(--gold-l);font-weight:700;text-align:center}
+
+/* Name input modal */
+#lbNameModal{
+  display:none;position:fixed;inset:0;z-index:4000;
+  background:rgba(6,18,32,.92);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;padding:1.5rem;
+}
+#lbNameModal.show{display:flex}
+.lbn-box{
+  background:linear-gradient(145deg,#0e2448,#071830);
+  border:1.5px solid rgba(212,160,23,.3);border-radius:22px;
+  padding:1.8rem;max-width:340px;width:100%;text-align:center;
+  box-shadow:0 24px 60px rgba(0,0,0,.6);
+}
+.lbn-title{font-family:var(--font-h);font-size:1.2rem;color:#fff;margin-bottom:.3rem}
+.lbn-sub{font-size:.8rem;color:rgba(255,255,255,.45);margin-bottom:1.1rem;line-height:1.6}
+.lbn-score-pill{display:inline-flex;align-items:center;gap:.4rem;background:rgba(212,160,23,.12);border:1px solid rgba(212,160,23,.3);border-radius:50px;padding:.35rem 1rem;margin-bottom:1rem;font-size:.85rem;font-weight:800;color:var(--gold-l)}
+.lbn-inp{
+  width:100%;padding:.75rem .9rem;border-radius:50px;
+  background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);
+  color:#fff;font-size:.95rem;outline:none;text-align:center;
+  margin-bottom:.9rem;font-family:var(--font-b);
+  -webkit-appearance:none;
+}
+.lbn-inp:focus{border-color:var(--gold-l)}
+.lbn-inp::placeholder{color:rgba(255,255,255,.3)}
+.lbn-btns{display:flex;flex-direction:column;gap:.5rem}
+.lbn-submit{width:100%;padding:.85rem;border-radius:50px;font-size:.92rem;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(184,134,11,.35)}
+.lbn-skip{width:100%;padding:.7rem;border-radius:50px;font-size:.82rem;font-weight:700;background:rgba(255,255,255,.05);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1);cursor:pointer}
 </style>
 </head>
 <body id="top">
@@ -1031,14 +1096,37 @@ body.nav-open{overflow:hidden}
 
   <!-- TAP GAME -->
   <div class="ov-game" id="ovGame">
-    <div class="ov-game-lbl" id="ovGameLbl">Tap as FAST as you can for 15 seconds!</div>
-    <div id="ovGameBest" style="font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-l);background:var(--gold-pale);border:1px solid rgba(212,160,23,.25);border-radius:50px;padding:.22rem .85rem;margin-bottom:.1rem;display:none">🏆 Best: <span id="ovGameBestVal">—</span> taps</div>
-    <div class="ov-taps" id="ovTaps">0</div>
-    <div class="ov-secs" id="ovGameSecs">15s</div>
-    <button class="ov-tap-btn" id="ovTapBtn"
-      ontouchstart="event.preventDefault();gTap()"
-      onclick="gTap()"
-      disabled>⚡</button>
+    <!-- Status row -->
+    <div style="display:flex;align-items:center;justify-content:space-between;width:100%;gap:.5rem;flex-shrink:0">
+      <div style="text-align:center;flex:1">
+        <div class="ov-taps" id="ovTaps" style="font-size:clamp(2.8rem,11vw,4rem)">0</div>
+        <div style="font-size:.6rem;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:-.2rem">taps</div>
+      </div>
+      <div style="text-align:center;flex:1">
+        <div class="ov-secs" id="ovGameSecs" style="font-size:clamp(1.6rem,6vw,2.2rem)">15s</div>
+        <div style="font-size:.6rem;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:-.1rem">left</div>
+      </div>
+      <div style="text-align:center;flex:1">
+        <div id="ovGameBestVal" style="font-size:clamp(1.6rem,6vw,2.2rem);font-weight:900;color:var(--gold-l)">—</div>
+        <div style="font-size:.6rem;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:-.1rem">🏆 best</div>
+      </div>
+    </div>
+    <!-- Label -->
+    <div class="ov-game-lbl" id="ovGameLbl">Tap anywhere as FAST as you can!</div>
+    <!-- Full-area tap zone -->
+    <div id="tapArea" class="disabled">
+      <div class="tap-icon">⚡</div>
+      <div class="tap-text">Tap Anywhere</div>
+    </div>
+    <!-- Global leaderboard -->
+    <div id="reactionLB">
+      <div class="lb-header">
+        <span class="lb-title">🌍 Global Top Scores</span>
+        <span class="lb-live">Live</span>
+      </div>
+      <div class="lb-list" id="lbList"><div class="lb-loading">Loading…</div></div>
+      <div class="lb-myrank" id="lbMyRank" style="display:none"></div>
+    </div>
   </div>
 
   <!-- MATH GAME -->
@@ -1787,51 +1875,154 @@ function startRoutine(name) {
 ───────────────────────────────────────────────────── */
 let _wgRunning = false, _wgTimer = null, _wgCount = 0, _wgSec = 0;
 
+/* ══════════════════════════════════════════════════════════
+   REACTION TEST — GLOBAL LEADERBOARD
+   API: Google Apps Script (deployed as web app)
+   Score = taps (higher is better)
+   Anti-cheat: server validates 1–200 taps range
+══════════════════════════════════════════════════════════ */
+const LB_API = 'https://script.google.com/macros/s/AKfycbxx5y17kEwmI5DEu1uUqyb0f7PC1UUyK3zw7u4SpBcrK52Y_qzanqwBDc574xte7_SPHA/exec';
+const LB_PB_KEY  = 'sh_best_taps';
+const LB_PB_SEED = 74; // shown to first-time users
+let   _lbPollTimer = null;
+let   _lbMyRank    = null;
+let   _lbPendingScore = 0;
+
+/* ── Personal best helpers ── */
+function _getPB() {
+  try { const v = parseInt(localStorage.getItem(LB_PB_KEY), 10); return isNaN(v) ? LB_PB_SEED : v; }
+  catch(e) { return LB_PB_SEED; }
+}
+function _setPB(val) {
+  try { localStorage.setItem(LB_PB_KEY, val); } catch(e) {}
+}
+function _refreshBestDisplay() {
+  const el = document.getElementById('ovGameBestVal');
+  if (el) el.textContent = _getPB();
+}
+
+/* ── Fetch & render leaderboard ── */
+function lbLoad() {
+  fetch(LB_API + '?type=reaction_scores')
+    .then(r => r.json())
+    .then(json => {
+      if (!json.ok || !json.data) return;
+      lbRender(json.data);
+    })
+    .catch(() => {}); // silent fail — no API key yet
+}
+
+function lbRender(rows) {
+  const list = document.getElementById('lbList');
+  const myRankEl = document.getElementById('lbMyRank');
+  if (!list) return;
+  if (!rows.length) {
+    list.innerHTML = '<div class="lb-empty">No scores yet — be first! 🏆</div>';
+    return;
+  }
+  list.innerHTML = rows.slice(0, 100).map(r => {
+    const rankCls = r.rank === 1 ? 'top1' : r.rank === 2 ? 'top2' : r.rank === 3 ? 'top3' : '';
+    const isMe    = _lbMyRank && r.rank === _lbMyRank;
+    return '<div class="lb-row' + (isMe ? ' me' : '') + '">' +
+      '<span class="lb-rank ' + rankCls + '">' + (r.rank <= 3 ? ['🥇','🥈','🥉'][r.rank-1] : '#'+r.rank) + '</span>' +
+      '<span class="lb-name">' + _esc(r.name) + '</span>' +
+      '<span class="lb-score">' + r.taps + ' taps</span>' +
+      '</div>';
+  }).join('');
+  if (_lbMyRank && myRankEl) {
+    myRankEl.textContent = 'Your rank: #' + _lbMyRank;
+    myRankEl.style.display = '';
+  }
+}
+
+function _esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ── Start polling when game panel is open ── */
+function lbStartPoll() {
+  lbLoad();
+  clearInterval(_lbPollTimer);
+  _lbPollTimer = setInterval(lbLoad, 4000);
+}
+function lbStopPoll() {
+  clearInterval(_lbPollTimer);
+}
+
+/* ── Submit score flow ── */
+function lbShowNameModal(taps) {
+  _lbPendingScore = taps;
+  const sv = document.getElementById('lbnScoreVal');
+  const inp = document.getElementById('lbnInput');
+  if (sv)  sv.textContent = taps;
+  if (inp) inp.value = '';
+  const modal = document.getElementById('lbNameModal');
+  if (modal) modal.classList.add('show');
+  setTimeout(() => { if (inp) inp.focus(); }, 300);
+}
+
+function lbSubmitName() {
+  const inp  = document.getElementById('lbnInput');
+  const name = (inp ? inp.value.trim() : '') || 'Anonymous';
+  _lbCloseModal();
+  _lbPost(name, _lbPendingScore);
+}
+
+function lbSkipName() {
+  _lbCloseModal();
+  _lbPost('Anonymous', _lbPendingScore);
+}
+
+function _lbCloseModal() {
+  const modal = document.getElementById('lbNameModal');
+  if (modal) modal.classList.remove('show');
+}
+
+function _lbPost(name, taps) {
+  fetch(LB_API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type: 'reaction_score', name, taps })
+  })
+  .then(r => r.json())
+  .then(json => {
+    if (json.ok && json.rank) {
+      _lbMyRank = json.rank;
+      const myRankEl = document.getElementById('lbMyRank');
+      if (myRankEl) { myRankEl.textContent = 'Your rank: #' + json.rank; myRankEl.style.display = ''; }
+    }
+    lbLoad(); // refresh immediately
+  })
+  .catch(() => {});
+}
+
+/* ── Game functions ── */
 function resetWakeGame() {
   clearInterval(_wgTimer);
   _wgRunning = false; _wgCount = 0; _wgSec = 15;
   const $ = id => document.getElementById(id);
   $('ovTaps').textContent = '0';
   $('ovGameSecs').textContent = '15s';
-  $('ovTapBtn').disabled = true;
-  $('ovGameLbl').textContent = 'Tap the button as FAST as you can for 15 seconds!';
+  $('ovGameLbl').textContent = 'Tap anywhere as FAST as you can!';
   $('gStartBtn').style.display = '';
   $('gStartBtn').textContent = '▶ Start Challenge';
   $('gSkipBtn').style.display = _allExQueue.length > 1 ? '' : 'none';
+  // Disable tap area
+  const ta = $('tapArea');
+  if (ta) { ta.classList.add('disabled'); }
   _refreshBestDisplay();
-}
-
-/* ── Global best taps key (localStorage) ── */
-const BEST_TAPS_KEY = 'sh_best_taps';
-/* Seed: a realistic competitive value shown to first-time users */
-const BEST_TAPS_SEED = 74;
-
-function _getBestTaps() {
-  try {
-    const v = parseInt(localStorage.getItem(BEST_TAPS_KEY), 10);
-    return isNaN(v) ? BEST_TAPS_SEED : v;
-  } catch(e) { return BEST_TAPS_SEED; }
-}
-
-function _setBestTaps(val) {
-  try { localStorage.setItem(BEST_TAPS_KEY, val); } catch(e) {}
-}
-
-function _refreshBestDisplay() {
-  const best = _getBestTaps();
-  const el   = document.getElementById('ovGameBestVal');
-  const wrap = document.getElementById('ovGameBest');
-  if (el)   el.textContent   = best;
-  if (wrap) wrap.style.display = '';
+  lbStartPoll();
 }
 
 function gStart() {
   if (_wgRunning) return;
   _wgRunning = true; _wgCount = 0; _wgSec = 15;
   const $ = id => document.getElementById(id);
-  $('ovTapBtn').disabled = false;
   $('ovGameLbl').textContent = 'TAP! TAP! TAP! GO!';
   $('gStartBtn').style.display = 'none';
+  // Enable full tap area
+  const ta = $('tapArea');
+  if (ta) ta.classList.remove('disabled');
   _refreshBestDisplay();
   speak('Go! Tap as fast as you can!');
   _wgTimer = setInterval(() => {
@@ -1839,26 +2030,27 @@ function gStart() {
     $('ovGameSecs').textContent = _wgSec + 's';
     if (_wgSec <= 0) {
       clearInterval(_wgTimer); _wgRunning = false;
-      $('ovTapBtn').disabled = true;
+      // Disable tap area
+      if (ta) ta.classList.add('disabled');
       const s = _wgCount;
-      // Update best if beaten
-      if (s > _getBestTaps()) {
-        _setBestTaps(s);
-        _refreshBestDisplay();
-      }
+      // Update personal best
+      if (s > _getPB()) { _setPB(s); _refreshBestDisplay(); }
       const r = s >= 70 ? '🔥 Lightning fast!' : s >= 50 ? '💪 Excellent!' : s >= 30 ? '👍 Good effort!' : '😊 Keep practising!';
       $('ovGameLbl').textContent = s + ' taps — ' + r;
       speak(s + ' taps. ' + r);
-      // save PB and score
       savePB('reaction', Math.round(15000 / Math.max(s, 1)));
       saveScore('brain', Math.min(100, Math.round(s / 0.7)));
-      const scoreHTML = `<div class="done-score-pill"><strong>${s}</strong><span>TAPS</span></div>
-        <div class="done-score-pill"><strong>${Math.round(15000 / Math.max(s,1))}ms</strong><span>REACT</span></div>`;
-      // Store for challenge
+      const scoreHTML = '<div class="done-score-pill"><strong>' + s + '</strong><span>TAPS</span></div>' +
+        '<div class="done-score-pill"><strong>' + Math.round(15000 / Math.max(s,1)) + 'ms</strong><span>REACT</span></div>';
       _lastChallengeScore = s;
       _lastChallengeName  = 'taps in 15 sec';
       _lastChallengeExId  = 'reaction-test';
-      setTimeout(() => _showDone(scoreHTML), 1500);
+      lbStopPoll();
+      // Show name modal first, then done screen
+      setTimeout(() => {
+        lbShowNameModal(s);
+        setTimeout(() => _showDone(scoreHTML), 2200);
+      }, 800);
     }
   }, 1000);
 }
@@ -1866,9 +2058,8 @@ function gStart() {
 let _lastTapTime = 0;
 function gTap() {
   if (!_wgRunning) return;
-  // Prevent double-fire: touchstart fires then click fires ~300ms later on some devices
   const now = Date.now();
-  if (now - _lastTapTime < 50) return;
+  if (now - _lastTapTime < 40) return; // debounce
   _lastTapTime = now;
   _wgCount++;
   document.getElementById('ovTaps').textContent = _wgCount;
@@ -2481,25 +2672,33 @@ function resumeFromInstructions() {
     _timer = setInterval(tick, 1000);
     speak((_ex.phaseVoice && _ex.phaseVoice[_phaseIdx]) || (_ex.phases[_phaseIdx]?.label || ''));
   } else if (prev === 'game' && !_wgRunning && _wgSec > 0) {
-    // Tap game was mid-run — restart its timer
+    // Tap game was mid-run — restart its timer + re-enable tap area
     _wgRunning = true;
+    const rta = document.getElementById('tapArea');
+    if (rta) rta.classList.remove('disabled');
     _wgTimer = setInterval(() => {
       _wgSec--;
       document.getElementById('ovGameSecs').textContent = _wgSec + 's';
       if (_wgSec <= 0) {
         clearInterval(_wgTimer); _wgRunning = false;
+        if (rta) rta.classList.add('disabled');
         const s = _wgCount;
+        if (s > _getPB()) { _setPB(s); _refreshBestDisplay(); }
         const r = s >= 70 ? '🔥 Lightning fast!' : s >= 50 ? '💪 Excellent!' : s >= 30 ? '👍 Good effort!' : '😊 Keep practising!';
         document.getElementById('ovGameLbl').textContent = s + ' taps — ' + r;
         speak(s + ' taps. ' + r);
         savePB('reaction', Math.round(15000 / Math.max(s, 1)));
         saveScore('brain', Math.min(100, Math.round(s / 0.7)));
-        const scoreHTML = `<div class="done-score-pill"><strong>${s}</strong><span>TAPS</span></div>
-          <div class="done-score-pill"><strong>${Math.round(15000/Math.max(s,1))}ms</strong><span>REACT</span></div>`;
+        const scoreHTML = '<div class="done-score-pill"><strong>' + s + '</strong><span>TAPS</span></div>' +
+          '<div class="done-score-pill"><strong>' + Math.round(15000/Math.max(s,1)) + 'ms</strong><span>REACT</span></div>';
         _lastChallengeScore = s;
         _lastChallengeName  = 'taps in 15 sec';
         _lastChallengeExId  = 'reaction-test';
-        setTimeout(() => _showDone(scoreHTML), 1500);
+        lbStopPoll();
+        setTimeout(() => {
+          lbShowNameModal(s);
+          setTimeout(() => _showDone(scoreHTML), 2200);
+        }, 800);
       }
     }, 1000);
     speak('Resuming. Keep tapping!');
@@ -2685,6 +2884,8 @@ function ovSkip() {
 }
 
 function ovAgain() {
+  // If replaying the reaction test, restart poll
+  if (_ex && _ex.isTapGame) { lbStartPoll(); }
   _phaseIdx = 0; _sec = 0; _round = 1; _running = false;
   clearInterval(_timer); clearInterval(_mTimer); clearInterval(_memTimer);
   openExercise(_ex.id);
@@ -2697,6 +2898,7 @@ function ovNext() {
 }
 
 function ovClose() {
+  lbStopPoll();
   clearInterval(_timer); clearInterval(_mTimer); clearInterval(_memTimer);
   _running = false; _mRunning = false; _memRunning = false; _seqRunning = false;
   _sec = 0; _phaseIdx = 0; _round = 1; stopSpeech();
@@ -3210,6 +3412,23 @@ function shareChallenge(method) {
   // Drain any onclick calls that fired before the main script was ready
   if (typeof window.__drainQueue === 'function') window.__drainQueue();
 
+  // ── Wire full-screen tap area (pointerdown = iPhone-safe) ──
+  (function() {
+    const ta = document.getElementById('tapArea');
+    if (!ta) return;
+    ta.addEventListener('pointerdown', function(e) {
+      e.preventDefault();
+      gTap();
+      // brief visual feedback
+      ta.classList.add('tapped');
+      setTimeout(function() { ta.classList.remove('tapped'); }, 60);
+    });
+  })();
+
+  // ── Expose leaderboard helpers globally ──
+  window.lbSubmitName = lbSubmitName;
+  window.lbSkipName   = lbSkipName;
+
   /* ── CHALLENGE DEEP-LINK HANDLER ──────────────────────────────
      Link format: exercises.html?challenge=reaction-test&score=42&metric=taps%20in%2015%20sec
      _challengeCtx is read by _showDone on every finish — no fragile patching.
@@ -3261,5 +3480,19 @@ function shareChallenge(method) {
   })();
 })();
 </script>
+
+<!-- LEADERBOARD NAME MODAL -->
+<div id="lbNameModal">
+  <div class="lbn-box">
+    <div style="font-size:2rem;margin-bottom:.4rem">🏆</div>
+    <div class="lbn-title">You scored <span id="lbnScoreVal">—</span> taps!</div>
+    <div class="lbn-sub">Want your name on the global leaderboard?<br>It's optional — you can stay anonymous.</div>
+    <input class="lbn-inp" id="lbnInput" type="text" maxlength="20" placeholder="Your name (optional)" autocomplete="off" autocorrect="off" spellcheck="false">
+    <div class="lbn-btns">
+      <button class="lbn-submit" onclick="lbSubmitName()">🌍 Add to Leaderboard</button>
+      <button class="lbn-skip" onclick="lbSkipName()">Skip — stay anonymous</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
