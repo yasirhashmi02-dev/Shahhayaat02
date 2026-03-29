@@ -25,7 +25,7 @@
              'startNextFromToast','toggleVoice','ovToggle','ovSkip','skipPhase','ovAgain','ovNext',
              'ovClose','ovBegin','showHowToPlay','htpDoStep','htpAdvance','ovBeginDirect','toggleInstructions','resumeFromInstructions',
              'gStart','gTap','mathStart','mathAnswer','memStart','memFlip',
-             'seqStart','seqKey','seqCheck','openChallenge','closeChallenge','shareChallenge'];
+             'seqStart','seqKey','seqCheck','seqTap','openChallenge','closeChallenge','shareChallenge'];
   fns.forEach(function(n){ window[n] = stub(n); });
   window.__drainQueue = function(){
     _q.forEach(function(item){
@@ -1055,19 +1055,28 @@ body.nav-open{overflow:hidden}
     <div class="mem-grid" id="memGrid"></div>
   </div>
 
-  <!-- NUMBER SEQUENCE GAME -->
+  <!-- NUMBER SEQUENCE GAME (tap 1→25 in order) -->
   <div class="ov-seq" id="ovSeq">
-    <div class="ov-seq-level" id="seqLevel">Level 1 — 3 digits</div>
-    <div class="ov-seq-display" id="seqDisplay">
-      <div class="ov-seq-nums" id="seqNums">···</div>
-      <div class="ov-seq-hint" id="seqHint">Memorise these numbers</div>
+    <div class="ov-seq-level" id="seqLevel" style="margin-bottom:.35rem">Find &amp; tap 1 → 2 → 3 … → 25</div>
+    <!-- Status bar -->
+    <div id="seqStatusBar" style="display:flex;justify-content:space-between;align-items:center;width:100%;max-width:340px;padding:.5rem .7rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;margin-bottom:.5rem">
+      <div style="text-align:center">
+        <div style="font-size:.62rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em">Next</div>
+        <div id="seqNext" style="font-size:1.4rem;font-weight:900;color:var(--gold-l);font-family:var(--font-h)">1</div>
+        <div id="seqStartHint" style="font-size:.62rem;color:#6CB4FF;font-weight:600">← tap first</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:.62rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em">Time</div>
+        <div id="seqTime" style="font-size:1.1rem;font-weight:700;color:rgba(255,255,255,.6)">⏸ Ready</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:.62rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em">Found</div>
+        <div id="seqDone" style="font-size:1.1rem;font-weight:700;color:rgba(255,255,255,.6)">0/25</div>
+      </div>
     </div>
-    <div class="ov-seq-input" id="seqInputArea" style="display:none">
-      <div class="ov-seq-entered" id="seqEntered">_</div>
-      <div class="ov-seq-feedback" id="seqFeedback"></div>
-      <div class="ov-seq-pad" id="seqPad"></div>
-    </div>
-    <div class="ov-seq-score">Best level: <strong id="seqBest">—</strong></div>
+    <!-- Number grid -->
+    <div id="seqGrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:100%;max-width:340px"></div>
+    <div class="ov-seq-score" style="margin-top:.5rem">Best time: <strong id="seqBest">—</strong></div>
   </div>
 
   <!-- DONE SCREEN -->
@@ -1114,7 +1123,7 @@ body.nav-open{overflow:hidden}
       <button onclick="shareChallenge('whatsapp')" style="width:100%;padding:.85rem;border-radius:50px;font-size:.92rem;font-weight:800;background:#25D366;color:#fff;border:none;cursor:pointer">💬 Share on WhatsApp</button>
       <button onclick="shareChallenge('copy')" id="copyShareBtn" style="width:100%;padding:.8rem;border-radius:50px;font-size:.88rem;font-weight:700;background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.15);cursor:pointer">📋 Copy Challenge Text</button>
     </div>
-    <div style="font-size:.68rem;color:rgba(255,255,255,.25);text-align:center;margin-top:.9rem">Send to any friend — they open the website and try to beat your score!</div>
+    <div style="font-size:.68rem;color:rgba(255,255,255,.25);text-align:center;margin-top:.9rem">Your friend taps the link, plays the same game, and instantly sees if they beat you!</div>
   </div>
 </div>
 
@@ -1167,18 +1176,18 @@ const EXERCISES = [
     benefit:'Improves', benefitVal:'concentration & focus',
     herbal:{name:'Brain Champ', product:'brainchamp', icon:'🧠', desc:'Supports focus and mental clarity.', herbs:['Brahmi','Shankhpushpi','Ashwagandha']} },
 
-  { id:'number-sequence', cat:'brain', emoji:'🔢', title:'Number Sequence Memory',
-    tag:'Brain & Mind', tagClass:'tag-brain', dur:'3 min', isSeqGame:true,
-    desc:'A number sequence is flashed on screen — memorise it, then type it back. Each correct answer adds one more digit. Trains working memory and concentration.',
+  { id:'number-sequence', cat:'brain', emoji:'🔢', title:'Number Sequence',
+    tag:'Brain & Mind', tagClass:'tag-brain', dur:'2 min', isSeqGame:true,
+    desc:'25 numbers are scattered on screen — tap them in order from 1 to 25, as fast as you can! Trains visual search speed, attention and focus.',
     steps:[
-      'A sequence of numbers will flash on screen for a few seconds.',
-      'Watch carefully and memorise every digit in order.',
-      'When the numbers disappear, tap each digit in the correct order.',
-      'Each correct answer adds one more digit. How far can you go?'
+      '25 numbers (1–25) will appear scrambled across the screen.',
+      'Your timer starts the moment you tap the number 1.',
+      'Tap 1, then 2, then 3… all the way up to 25 in order.',
+      'Wrong taps flash red — only correct taps in sequence count. Race the clock!'
     ],
     avoid:'No restrictions — suitable for everyone.',
-    voiceIntro:'Number Sequence Memory. Watch the numbers carefully, then repeat them in order.',
-    benefit:'Trains', benefitVal:'working memory & concentration',
+    voiceIntro:'Number Sequence. 25 numbers are scattered on screen. Find and tap 1, 2, 3, all the way to 25, as fast as you can!',
+    benefit:'Trains', benefitVal:'visual search speed & attention',
     herbal:{name:'Brain Champ', product:'brainchamp', icon:'🧠', desc:'Traditionally used to support memory and focus.', herbs:['Brahmi','Shankhpushpi','Jatamansi']} },
 
   /* ── 2. BREATHING & RELAXATION ── */
@@ -2022,8 +2031,10 @@ function openExercise(id) {
   _ex = EXERCISES.find(e => e.id === id);
   if (!_ex) return;
   clearInterval(_timer); clearInterval(_mTimer); clearInterval(_memTimer);
+  clearInterval(_seqTimerInt); clearTimeout(_seqTimeoutId);
   _running = false; _phaseIdx = 0; _sec = 0; _round = 1;
   _mRunning = false; _memRunning = false; _seqRunning = false;
+  _seqDone = false; _seqStartTime = 0; _seqNextExpected = 1;
   stopSpeech();
 
   // Top bar
@@ -2300,10 +2311,19 @@ function ovBeginDirect() {
     if (skipStepBtn) skipStepBtn.style.display = 'none';
     const instrBtn = document.getElementById('ovInstrBtn');
     if (instrBtn) instrBtn.style.display = '';
-    _showPanel('coach');
-    document.getElementById('ovCoach').style.display = 'none';
+    _showPanel('seq');
     document.getElementById('seqStartBtn').style.display = '';
     document.getElementById('ovCtrl').style.display = '';
+    const nextEl2 = document.getElementById('seqNext');
+    const timeEl2 = document.getElementById('seqTime');
+    const doneEl2 = document.getElementById('seqDone');
+    const hintEl2 = document.getElementById('seqStartHint');
+    const gridEl2 = document.getElementById('seqGrid');
+    if (nextEl2) nextEl2.textContent = '1';
+    if (timeEl2) { timeEl2.textContent = '⏸ Ready'; timeEl2.style.color = 'rgba(255,255,255,.6)'; }
+    if (doneEl2) doneEl2.textContent = '0/25';
+    if (hintEl2) hintEl2.style.display = '';
+    if (gridEl2) gridEl2.innerHTML = '';
     speak(_ex.voiceIntro || _ex.title);
   } else {
     // Timed phase exercises — Skip Step is meaningful
@@ -2444,6 +2464,9 @@ function resumeFromInstructions() {
         saveScore('brain', Math.min(100, Math.round(s / 0.7)));
         const scoreHTML = `<div class="done-score-pill"><strong>${s}</strong><span>TAPS</span></div>
           <div class="done-score-pill"><strong>${Math.round(15000/Math.max(s,1))}ms</strong><span>REACT</span></div>`;
+        _lastChallengeScore = s;
+        _lastChallengeName  = 'taps in 15 sec';
+        _lastChallengeExId  = 'reaction-test';
         setTimeout(() => _showDone(scoreHTML), 1500);
       }
     }, 1000);
@@ -2783,136 +2806,191 @@ function updateProgressBars() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   NUMBER SEQUENCE GAME
+   NUMBER SEQUENCE GAME  (tap 1 → 25 in order, as fast as possible)
+   Replaces the old memorise-and-type digit game.
+   Matches the wellness-lab Trail Making mechanic.
 ═══════════════════════════════════════════════════════ */
-let _seqLevel = 3, _seqTarget = [], _seqEntered = [], _seqRunning = false, _seqBestLevel = 0;
+const SEQ_TOTAL     = 25;
+const SEQ_TIME_LIMIT = 120; // 2 minutes cap (seconds)
+let _seqRunning = false, _seqNums = [], _seqNextExpected = 1;
+let _seqStartTime = 0, _seqTimerInt = null, _seqTimeoutId = null, _seqDone = false;
 
 function seqStart() {
-  _seqLevel   = 3;
-  _seqEntered = [];
-  _seqRunning = true;
+  // Reset state
+  _seqRunning      = true;
+  _seqDone         = false;
+  _seqNextExpected = 1;
+  _seqStartTime    = 0;
+  clearInterval(_seqTimerInt);
+  clearTimeout(_seqTimeoutId);
+
   document.getElementById('seqStartBtn').style.display = 'none';
+
   // Load personal best
   try {
     const pb = JSON.parse(localStorage.getItem('sh_wellness') || '{}');
-    _seqBestLevel = (pb.pb && pb.pb.sequence) || 0;
-    document.getElementById('seqBest').textContent = _seqBestLevel ? _seqBestLevel + ' digits' : '—';
+    const best = (pb.pb && pb.pb.sequence) || 0;
+    document.getElementById('seqBest').textContent = best ? best + 's' : '—';
   } catch(e) {}
-  speak('Number Sequence Game. Watch the numbers carefully. Ready?');
-  setTimeout(() => _seqRound(), 1200);
-}
 
-function _seqRound() {
-  // Generate new sequence
-  _seqTarget  = Array.from({length: _seqLevel}, () => Math.floor(Math.random() * 9) + 1);
-  _seqEntered = [];
-  document.getElementById('seqLevel').textContent   = 'Level ' + (_seqLevel - 2) + ' — ' + _seqLevel + ' digits';
-  document.getElementById('seqInputArea').style.display = 'none';
-  document.getElementById('seqDisplay').style.display   = '';
-
-  const numsEl = document.getElementById('seqNums');
-  const hintEl = document.getElementById('seqHint');
-
-  // Flash each digit one at a time
-  numsEl.classList.remove('hide');
-  hintEl.textContent = 'Watch carefully…';
-  speak('Watch carefully. ' + _seqTarget.join('. '));
-
-  let i = 0;
-  function showNext() {
-    if (i < _seqTarget.length) {
-      numsEl.textContent = _seqTarget[i];
-      i++;
-      setTimeout(showNext, 900);
-    } else {
-      // All shown — now hide and ask for input
-      numsEl.classList.add('hide');
-      hintEl.textContent = 'Now enter what you saw…';
-      setTimeout(() => {
-        document.getElementById('seqDisplay').style.display   = 'none';
-        document.getElementById('seqInputArea').style.display = '';
-        document.getElementById('seqEntered').textContent     = '_';
-        document.getElementById('seqFeedback').textContent    = '';
-        document.getElementById('seqFeedback').className      = 'ov-seq-feedback';
-        _seqBuildPad();
-        speak('Enter the sequence now.');
-      }, 600);
-    }
+  // Shuffle 1–25
+  _seqNums = Array.from({length: SEQ_TOTAL}, (_, i) => i + 1);
+  for (let i = _seqNums.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [_seqNums[i], _seqNums[j]] = [_seqNums[j], _seqNums[i]];
   }
-  setTimeout(showNext, 800);
+
+  // Reset status bar
+  const nextEl = document.getElementById('seqNext');
+  const timeEl = document.getElementById('seqTime');
+  const doneEl = document.getElementById('seqDone');
+  const hintEl = document.getElementById('seqStartHint');
+  if (nextEl) nextEl.textContent = '1';
+  if (timeEl) { timeEl.textContent = '⏸ Ready'; timeEl.style.color = 'rgba(255,255,255,.6)'; }
+  if (doneEl) doneEl.textContent = '0/' + SEQ_TOTAL;
+  if (hintEl) hintEl.style.display = '';
+
+  // Build grid
+  _seqBuildGrid();
+
+  speak('Number Sequence. Find and tap 1, then 2, then 3, all the way to 25, as fast as you can. Timer starts when you tap 1!');
 }
 
-function _seqBuildPad() {
-  const pad = document.getElementById('seqPad');
-  const digits = [1,2,3,4,5,6,7,8,9,'✕',0,'⌫'];
-  pad.innerHTML = digits.map(d => {
-    const isDel = d === '⌫';
-    const isClear = d === '✕';
-    return `<button class="ov-seq-key${isDel||isClear?' del':''}" onclick="seqKey(${JSON.stringify(String(d))})">${d}</button>`;
+function _seqBuildGrid() {
+  const grid = document.getElementById('seqGrid');
+  if (!grid) return;
+  grid.innerHTML = _seqNums.map(n => {
+    const isFirst = n === 1;
+    return `<button id="seqBtn_${n}"
+      style="background:${isFirst ? 'rgba(99,102,241,.25)' : 'rgba(255,255,255,.06)'};
+             border:1.5px solid ${isFirst ? '#6366f1' : 'rgba(255,255,255,.12)'};
+             border-radius:10px;padding:.55rem .1rem;font-weight:800;font-size:.92rem;
+             color:${isFirst ? '#a5b4fc' : 'rgba(255,255,255,.8)'};cursor:pointer;
+             transition:background .1s,border-color .1s,transform .1s;
+             -webkit-tap-highlight-color:transparent;min-height:40px"
+      ontouchstart="event.preventDefault();seqTap(${n})"
+      onclick="seqTap(${n})"
+      aria-label="Number ${n}">${n}</button>`;
   }).join('');
 }
 
-function seqKey(k) {
-  if (!_seqRunning) return;
-  if (k === '✕') { _seqEntered = []; _renderSeqEntered(); return; }
-  if (k === '⌫') { _seqEntered.pop(); _renderSeqEntered(); return; }
-  if (_seqEntered.length >= _seqTarget.length) return;
-  _seqEntered.push(parseInt(k));
-  _renderSeqEntered();
-  // Auto-check when full
-  if (_seqEntered.length === _seqTarget.length) {
-    setTimeout(seqCheck, 300);
-  }
-}
-
-function _renderSeqEntered() {
-  const el = document.getElementById('seqEntered');
-  const display = _seqEntered.join(' ') + (_seqEntered.length < _seqTarget.length ? ' _' : '');
-  el.textContent = display || '_';
-}
-
-function seqCheck() {
-  const correct = _seqEntered.every((n, i) => n === _seqTarget[i]);
-  const fb = document.getElementById('seqFeedback');
-  if (correct) {
-    fb.textContent = '✅ Correct! +1 digit';
-    fb.className   = 'ov-seq-feedback correct';
-    speak('Correct! Well done.');
-    // Save PB
-    if (_seqLevel > _seqBestLevel) {
-      _seqBestLevel = _seqLevel;
-      savePB('sequence', _seqLevel);
-      document.getElementById('seqBest').textContent = _seqLevel + ' digits';
+function seqTap(n) {
+  if (!_seqRunning || _seqDone) return;
+  if (n !== _seqNextExpected) {
+    // Wrong tap — flash red
+    const btn = document.getElementById('seqBtn_' + n);
+    if (btn) {
+      const origBg = btn.style.background;
+      const origBd = btn.style.borderColor;
+      btn.style.background   = 'rgba(239,68,68,.25)';
+      btn.style.borderColor  = '#EF4444';
+      btn.style.transform    = 'scale(0.88)';
+      setTimeout(() => {
+        if (!btn) return;
+        btn.style.background  = origBg;
+        btn.style.borderColor = origBd;
+        btn.style.transform   = '';
+      }, 280);
     }
-    _seqLevel++;
-    setTimeout(() => {
-      if (_seqLevel > 12) {
-        // Max level reached — show done
-        saveScore('brain', 100);
-        const scoreHTML = `<div class="done-score-pill"><strong>${_seqLevel - 3}</strong><span>LEVELS</span></div>
-          <div class="done-score-pill"><strong>${_seqLevel - 1}</strong><span>DIGITS</span></div>`;
-        _lastChallengeScore  = _seqLevel - 1;
-        _lastChallengeName   = 'digits';
-        _lastChallengeExId   = 'number-sequence';
-        _showDone(scoreHTML);
-      } else {
-        _seqRound();
-      }
-    }, 1000);
-  } else {
-    fb.textContent = '❌ Wrong! Try again';
-    fb.className   = 'ov-seq-feedback wrong';
-    speak('Incorrect. The sequence was ' + _seqTarget.join(', '));
-    const finalLevel = _seqLevel - 1;
-    saveScore('brain', Math.min(100, Math.round(finalLevel / 0.12)));
-    const scoreHTML = `<div class="done-score-pill"><strong>${Math.max(0,finalLevel-2)}</strong><span>LEVELS</span></div>
-      <div class="done-score-pill"><strong>${finalLevel}</strong><span>BEST DIGITS</span></div>`;
-    _lastChallengeScore = finalLevel;
-    _lastChallengeName  = 'digits';
-    _lastChallengeExId  = 'number-sequence';
-    setTimeout(() => _showDone(scoreHTML), 1200);
+    return;
+  }
+
+  // ── Correct tap ──
+  // Start timer on the very first tap (tap of "1")
+  if (!_seqStartTime) {
+    _seqStartTime = performance.now();
+    const hintEl = document.getElementById('seqStartHint');
+    if (hintEl) hintEl.style.display = 'none';
+    // Start countdown
+    _seqTimerInt = setInterval(() => {
+      if (_seqDone) { clearInterval(_seqTimerInt); return; }
+      const timeEl = document.getElementById('seqTime');
+      if (!timeEl) { clearInterval(_seqTimerInt); return; }
+      const rem = Math.max(0, SEQ_TIME_LIMIT - Math.floor((performance.now() - _seqStartTime) / 1000));
+      timeEl.textContent = rem + 's';
+      timeEl.style.color = rem <= 10 ? '#EF4444' : rem <= 30 ? '#F59E0B' : 'rgba(255,255,255,.8)';
+      if (rem <= 0) { clearInterval(_seqTimerInt); _seqFinish(true); }
+    }, 500);
+    // Hard stop
+    _seqTimeoutId = setTimeout(() => _seqFinish(true), SEQ_TIME_LIMIT * 1000 + 600);
+  }
+
+  // Mark tile as done
+  const btn = document.getElementById('seqBtn_' + n);
+  if (btn) {
+    btn.style.background  = 'rgba(34,197,94,.3)';
+    btn.style.borderColor = '#22C55E';
+    btn.style.color       = '#86efac';
+    btn.disabled          = true;
+    btn.style.transform   = 'scale(0.93)';
+  }
+
+  _seqNextExpected++;
+
+  const nextEl = document.getElementById('seqNext');
+  const doneEl = document.getElementById('seqDone');
+  if (nextEl) nextEl.textContent = _seqNextExpected <= SEQ_TOTAL ? _seqNextExpected : '✓';
+  if (doneEl) doneEl.textContent = (_seqNextExpected - 1) + '/' + SEQ_TOTAL;
+
+  if (_seqNextExpected > SEQ_TOTAL) {
+    clearInterval(_seqTimerInt);
+    clearTimeout(_seqTimeoutId);
+    _seqFinish(false);
   }
 }
+
+function _seqFinish(timedOut) {
+  if (_seqDone) return;
+  _seqDone    = true;
+  _seqRunning = false;
+  clearInterval(_seqTimerInt);
+  clearTimeout(_seqTimeoutId);
+
+  const elapsed = _seqStartTime ? Math.round((performance.now() - _seqStartTime) / 100) / 10 : SEQ_TIME_LIMIT;
+  const found   = _seqNextExpected - 1;
+  let sc;
+  if (timedOut) {
+    sc = Math.max(5, Math.min(80, Math.round((found / SEQ_TOTAL) * 80)));
+  } else {
+    // 100 at ≤30 s, -1.5 per extra second, floor 25
+    sc = Math.max(25, Math.min(100, Math.round(100 - Math.max(0, elapsed - 30) * 1.5)));
+  }
+
+  saveScore('brain', sc);
+
+  // Save personal best (lower time is better)
+  try {
+    const data = JSON.parse(localStorage.getItem('sh_wellness') || '{}');
+    const prev = (data.pb && data.pb.sequence) || Infinity;
+    if (!timedOut && elapsed < prev) {
+      if (!data.pb) data.pb = {};
+      data.pb.sequence = elapsed;
+      localStorage.setItem('sh_wellness', JSON.stringify(data));
+      document.getElementById('seqBest').textContent = elapsed + 's';
+    }
+  } catch(e) {}
+
+  const scoreHTML = timedOut
+    ? `<div class="done-score-pill"><strong>${found}</strong><span>FOUND</span></div>
+       <div class="done-score-pill"><strong>${SEQ_TIME_LIMIT}s</strong><span>TIME UP</span></div>`
+    : `<div class="done-score-pill"><strong>${SEQ_TOTAL}/${SEQ_TOTAL}</strong><span>COMPLETE</span></div>
+       <div class="done-score-pill"><strong>${elapsed}s</strong><span>TIME</span></div>`;
+
+  _lastChallengeScore = timedOut ? found : elapsed;
+  _lastChallengeName  = timedOut ? 'numbers found' : 'seconds';
+  _lastChallengeExId  = 'number-sequence';
+
+  const msg = timedOut
+    ? `Time's up! You found ${found} of ${SEQ_TOTAL} numbers. Keep practising!`
+    : `Brilliant! All ${SEQ_TOTAL} numbers in ${elapsed} seconds!`;
+  speak(msg);
+
+  setTimeout(() => _showDone(scoreHTML), timedOut ? 600 : 800);
+}
+
+// Legacy stubs (no longer used but keep to avoid errors if called)
+function seqKey() {}
+function seqCheck() {}
 
 /* ═══════════════════════════════════════════════════════
    CHALLENGE FRIENDS
@@ -2941,7 +3019,13 @@ function closeChallenge() {
 function shareChallenge(method) {
   const ex   = EXERCISES.find(e => e.id === _lastChallengeExId);
   const name = ex ? ex.title : 'an exercise';
-  const msg  = `🏆 I scored ${_lastChallengeScore} ${_lastChallengeName} in "${name}" on Shah Hayaat Wellness Clinic!\n\nCan you beat me? 💪\nTry it free here: https://shahhayaat.com/exercises.html\n\n🌿 Shah Hayaat — Free guided wellness exercises`;
+  // Build a deep-link URL that opens the exact game and encodes the challenger's score
+  const baseUrl = 'https://shahhayaat.com/exercises.html';
+  const deepLink = baseUrl
+    + '?challenge=' + encodeURIComponent(_lastChallengeExId)
+    + '&score='     + encodeURIComponent(_lastChallengeScore)
+    + '&metric='    + encodeURIComponent(_lastChallengeName);
+  const msg  = `🏆 I scored ${_lastChallengeScore} ${_lastChallengeName} in "${name}" on Shah Hayaat Wellness Clinic!\n\nCan you beat me? 💪\nTap the link to play the same game — you'll instantly see if you won or lost!\n👉 ${deepLink}\n\n🌿 Shah Hayaat — Free guided wellness exercises`;
   if (method === 'whatsapp') {
     window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
   } else {
@@ -3004,6 +3088,7 @@ function shareChallenge(method) {
   window.seqStart          = seqStart;
   window.seqKey            = seqKey;
   window.seqCheck          = seqCheck;
+  window.seqTap            = seqTap;
   window.openChallenge     = openChallenge;
   window.closeChallenge    = closeChallenge;
   window.shareChallenge    = shareChallenge;
@@ -3050,6 +3135,98 @@ function shareChallenge(method) {
 
   // Drain any onclick calls that fired before the main script was ready
   if (typeof window.__drainQueue === 'function') window.__drainQueue();
+
+  /* ── CHALLENGE DEEP-LINK HANDLER ──────────────────────────────
+     When someone receives a challenge link such as:
+       exercises.html?challenge=number-sequence&score=42&metric=seconds
+     we:
+       1. Show a "You've been challenged!" banner at the top
+       2. Auto-open the specific exercise so they play right away
+       3. After they finish, patch _showDone to compare their result
+          against the challenger's score and announce win or loss
+  ──────────────────────────────────────────────────────────────── */
+  (function handleChallengeDeepLink() {
+    try {
+      const params   = new URLSearchParams(window.location.search);
+      const exId     = params.get('challenge');
+      const rawScore = params.get('score');
+      const metric   = params.get('metric');
+      if (!exId || rawScore === null) return;
+
+      const challengerScore = parseFloat(rawScore);
+      const ex = EXERCISES.find(e => e.id === exId);
+      if (!ex) return;
+
+      // Determine whether lower or higher score wins for this exercise
+      // number-sequence uses seconds (lower = better), others use higher = better
+      const lowerIsBetter = (exId === 'number-sequence');
+
+      // ── 1. Show "You've been challenged!" top banner ──
+      const banner = document.createElement('div');
+      banner.id = 'challengeBanner';
+      banner.style.cssText = `
+        position:fixed;top:0;left:0;right:0;z-index:2000;
+        background:linear-gradient(135deg,#92400e,var(--gold-l));
+        color:#fff;padding:.6rem 1rem;text-align:center;
+        font-size:.82rem;font-weight:700;
+        display:flex;align-items:center;justify-content:center;gap:.6rem;
+        box-shadow:0 2px 12px rgba(184,134,11,.45)`;
+      banner.innerHTML = `
+        <span>🏆 You've been challenged in <strong>${ex.title}</strong>!
+        Beat <strong>${challengerScore} ${metric}</strong> to win.</span>
+        <button onclick="openExercise('${exId}')"
+          style="padding:.3rem .85rem;border-radius:50px;background:#fff;
+                 color:#92400e;border:none;font-weight:800;font-size:.78rem;cursor:pointer;
+                 white-space:nowrap">▶ Play Now</button>
+        <button onclick="this.parentElement.remove()"
+          style="background:none;border:none;color:rgba(255,255,255,.6);font-size:1rem;cursor:pointer">✕</button>`;
+      document.body.prepend(banner);
+
+      // Push page content down so the fixed banner doesn't overlap the fixed header
+      document.documentElement.style.scrollPaddingTop = '110px';
+
+      // ── 2. Auto-open the exercise after a short delay ──
+      setTimeout(() => openExercise(exId), 900);
+
+      // ── 3. Intercept _showDone to append win/lose result ──
+      const _origShowDone = _showDone;
+      window._showDone = function(scoreHTML) {
+        _origShowDone(scoreHTML);
+
+        // Restore
+        window._showDone = _origShowDone;
+
+        // Get the player's score from the global challenge vars
+        const myScore = _lastChallengeScore;
+        const won = lowerIsBetter ? myScore < challengerScore : myScore > challengerScore;
+        const tied = myScore === challengerScore;
+
+        const resultEl = document.createElement('div');
+        resultEl.style.cssText = `
+          margin-top:.8rem;padding:1rem;border-radius:14px;text-align:center;
+          background:${won ? 'rgba(34,197,94,.12)' : tied ? 'rgba(99,102,241,.12)' : 'rgba(239,68,68,.10)'};
+          border:1.5px solid ${won ? '#22C55E' : tied ? '#6366f1' : '#EF4444'}`;
+        resultEl.innerHTML = won
+          ? `<div style="font-size:1.8rem">🥇</div>
+             <div style="font-weight:800;color:#22C55E;font-size:1rem;margin:.25rem 0">You Won!</div>
+             <div style="font-size:.78rem;color:rgba(255,255,255,.55)">You beat the challenge of ${challengerScore} ${metric}</div>`
+          : tied
+          ? `<div style="font-size:1.8rem">🤝</div>
+             <div style="font-weight:800;color:#a5b4fc;font-size:1rem;margin:.25rem 0">It's a Tie!</div>
+             <div style="font-size:.78rem;color:rgba(255,255,255,.55)">Both scored ${challengerScore} ${metric} — try again to break the tie!</div>`
+          : `<div style="font-size:1.8rem">😤</div>
+             <div style="font-weight:800;color:#EF4444;font-size:1rem;margin:.25rem 0">Not This Time!</div>
+             <div style="font-size:.78rem;color:rgba(255,255,255,.55)">The challenge was ${challengerScore} ${metric}. Keep practising!</div>`;
+
+        const doneEl = document.getElementById('ovDone');
+        if (doneEl) {
+          const scoresEl = doneEl.querySelector('#ovDoneScores');
+          if (scoresEl) scoresEl.after(resultEl);
+          else doneEl.appendChild(resultEl);
+        }
+      };
+    } catch(e) {}
+  })();
 })();
 </script>
 </body>
