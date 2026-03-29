@@ -42,8 +42,12 @@ function validateStars(n) {
 }
 
 // ── Sheet helper ──────────────────────────────────────────────────
+const SPREADSHEET_ID = '1h1ogNP_cjfBwF_Yad2SR7QVgjFxXB1eiI5mSXLDfxLA';
+
 function getOrCreateSheet(name, headers) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let ss;
+  try { ss = SpreadsheetApp.getActiveSpreadsheet(); } catch(e) { ss = null; }
+  if (!ss) ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   let sheet = ss.getSheetByName(name);
   if (!sheet) {
     sheet = ss.insertSheet(name);
@@ -126,7 +130,15 @@ function doPost(e) {
 // ════════════════════════════════════════════════════════════════
 
 function getLeaderboardSheet() {
-  return getOrCreateSheet(SHEET_NAME_LEADERBOARD, ['Name','Score','Timestamp','IP']);
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  let sheet = ss.getSheetByName('ReactionLeaderboard');
+  if (!sheet) {
+    sheet = ss.insertSheet('ReactionLeaderboard');
+    sheet.appendRow(['Name','Score','Timestamp','IP']);
+    sheet.setFrozenRows(1);
+    sheet.getRange(1,1,1,4).setBackground('#2A7A5A').setFontColor('#fff').setFontWeight('bold');
+  }
+  return sheet;
 }
 
 function isValidTaps(taps) {
@@ -254,7 +266,9 @@ function saveProdReview(d) {
 }
 
 function getProdReviews(pid) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let ss;
+  try { ss = SpreadsheetApp.getActiveSpreadsheet(); } catch(e) { ss = null; }
+  if (!ss) ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   const sheet = ss.getSheetByName('ProdReview_' + pid);
   if (!sheet) return [];
   const rows = sheet.getDataRange().getValues();
