@@ -23,7 +23,9 @@
              'showHowToPlay','htpNext','htpPrev','htpDoStep','htpAdvance','ovBeginDirect','toggleInstructions','resumeFromInstructions',
              'startAllExercises','dismissWelcome','dismissGuide','markDone','hideToast',
              'startNextFromToast','toggleVoice','ovToggle','ovSkip','skipPhase','ovAgain','ovNext',
-             'ovClose','ovBegin','gStart','gTap','mathStart','mathAnswer','memStart','memFlip'];
+             'ovClose','ovBegin','showHowToPlay','htpDoStep','htpAdvance','ovBeginDirect','toggleInstructions','resumeFromInstructions',
+             'gStart','gTap','mathStart','mathAnswer','memStart','memFlip',
+             'seqStart','seqKey','seqCheck','openChallenge','closeChallenge','shareChallenge'];
   fns.forEach(function(n){ window[n] = stub(n); });
   window.__drainQueue = function(){
     _q.forEach(function(item){
@@ -215,6 +217,30 @@ body.nav-open{overflow:hidden}
 .score-display .score-val{font-size:1.6rem;font-weight:900;color:#a5b4fc;font-family:var(--font-h);line-height:1}
 .score-display .score-lbl{font-size:.65rem;color:var(--text-mu);letter-spacing:.08em;text-transform:uppercase}
 
+/* ── NUMBER SEQUENCE GAME ── */
+.ov-seq{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;padding:1.2rem;text-align:center}
+.ov-seq.on{display:flex}
+.ov-seq-level{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-l);background:var(--gold-pale);border:1px solid rgba(212,160,23,.2);padding:.22rem .8rem;border-radius:50px}
+.ov-seq-display{width:100%;max-width:320px}
+.ov-seq-nums{font-size:clamp(2.5rem,12vw,4rem);font-weight:900;color:#fff;letter-spacing:.25em;line-height:1.1;font-family:var(--font-h);min-height:1.3em;transition:all .4s}
+.ov-seq-nums.hide{opacity:0;transform:scale(.9)}
+.ov-seq-hint{font-size:.8rem;color:rgba(255,255,255,.4);margin-top:.4rem}
+.ov-seq-input{width:100%;max-width:300px;display:flex;flex-direction:column;align-items:center;gap:.65rem}
+.ov-seq-entered{font-size:clamp(1.8rem,8vw,2.8rem);font-weight:900;color:var(--gold-l);letter-spacing:.2em;min-height:1.4em;font-family:var(--font-h)}
+.ov-seq-feedback{font-size:.9rem;font-weight:700;min-height:1.4em}
+.ov-seq-feedback.correct{color:var(--green)}
+.ov-seq-feedback.wrong{color:#EF4444}
+.ov-seq-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;width:100%}
+.ov-seq-key{padding:.85rem .5rem;border-radius:12px;font-size:1.3rem;font-weight:800;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);color:#fff;cursor:pointer;transition:all .15s}
+.ov-seq-key:active{transform:scale(.92);background:rgba(212,160,23,.2);border-color:var(--gold-l)}
+.ov-seq-key.del{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.2);color:rgba(239,68,68,.8)}
+.ov-seq-score{font-size:.78rem;color:rgba(255,255,255,.35)}
+.ov-seq-score strong{color:var(--gold-l)}
+
+/* ── CHALLENGE BUTTON ── */
+.ov-btn-challenge{padding:.75rem 1.8rem;border-radius:50px;font-size:.9rem;font-weight:800;background:linear-gradient(135deg,#92400e,var(--gold-l));color:#fff;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(184,134,11,.35);transition:all .2s;margin-bottom:.4rem}
+.ov-btn-challenge:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(184,134,11,.5)}
+
 /* ── DAILY ROUTINE SECTION ── */
 .routine-section{background:var(--bg2);border-top:1px solid var(--border)}
 .routine-grid{display:grid;grid-template-columns:1fr;gap:1.2rem}
@@ -283,8 +309,15 @@ body.nav-open{overflow:hidden}
 .daily-tip strong{color:var(--gold-l);display:block;margin-bottom:.35rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
 
 /* ── EXERCISE OVERLAY ── */
-.ex-ov{display:none;position:fixed;inset:0;z-index:2000;background:#061220;flex-direction:column;font-family:var(--font-b)}
+.ex-ov{display:none;position:fixed;inset:0;z-index:2000;background:#061220;flex-direction:column;font-family:var(--font-b);
+  /* Prevent iOS pinch-zoom and double-tap zoom inside the overlay */
+  touch-action:manipulation;
+}
 .ex-ov.open{display:flex}
+.ov-game{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;padding:1.2rem;text-align:center;
+  touch-action:manipulation;
+  -webkit-user-select:none;user-select:none;
+}
 .ov-bar{display:flex;align-items:center;gap:.5rem;padding:.55rem .9rem;background:rgba(0,0,0,.5);border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
 .ov-bar-name{flex:1;font-size:.9rem;font-weight:700;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ov-bar-q{font-size:.65rem;color:#D4A017;font-weight:600}
@@ -303,12 +336,22 @@ body.nav-open{overflow:hidden}
 .ov-ring.hold{display:flex;transform:scale(1.3);background:rgba(34,197,94,.1);border-color:#22C55E;box-shadow:0 0 30px rgba(34,197,94,.2)}
 .ov-ring.out{display:flex;transform:scale(.8);background:rgba(100,160,255,.07);border-color:#6CB4FF;box-shadow:0 0 20px rgba(100,160,255,.1)}
 .ov-ring-txt{font-size:clamp(.85rem,3vw,1rem);font-weight:800;letter-spacing:.07em}
-.ov-game{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;padding:1.2rem;text-align:center}
 .ov-game.on{display:flex}
 .ov-game-lbl{font-size:clamp(1rem,4vw,1.2rem);color:rgba(255,255,255,.7);font-weight:500}
 .ov-taps{font-size:clamp(4rem,16vw,6rem);font-weight:900;color:#D4A017;line-height:1}
 .ov-secs{font-size:2rem;font-weight:800;color:#D4A017}
-.ov-tap-btn{width:clamp(120px,32vw,150px);height:clamp(120px,32vw,150px);border-radius:50%;background:linear-gradient(135deg,#B8860B,#F5C842);border:none;font-size:3rem;cursor:pointer;box-shadow:0 6px 28px rgba(184,134,11,.5);transition:transform .07s}
+.ov-tap-btn{
+  width:clamp(120px,32vw,150px);height:clamp(120px,32vw,150px);
+  border-radius:50%;background:linear-gradient(135deg,#B8860B,#F5C842);border:none;
+  font-size:3rem;cursor:pointer;box-shadow:0 6px 28px rgba(184,134,11,.5);
+  transition:transform .07s;
+  /* iPhone fix: prevent double-tap zoom and text selection on rapid tap */
+  touch-action:manipulation;
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+}
 .ov-tap-btn:active{transform:scale(.92)}
 .ov-tap-btn:disabled{opacity:.35;pointer-events:none}
 
@@ -991,7 +1034,10 @@ body.nav-open{overflow:hidden}
     <div class="ov-game-lbl" id="ovGameLbl">Tap as FAST as you can for 15 seconds!</div>
     <div class="ov-taps" id="ovTaps">0</div>
     <div class="ov-secs" id="ovGameSecs">15s</div>
-    <button class="ov-tap-btn" id="ovTapBtn" onclick="gTap()" disabled>⚡</button>
+    <button class="ov-tap-btn" id="ovTapBtn"
+      ontouchstart="event.preventDefault();gTap()"
+      onclick="gTap()"
+      disabled>⚡</button>
   </div>
 
   <!-- MATH GAME -->
@@ -1009,12 +1055,28 @@ body.nav-open{overflow:hidden}
     <div class="mem-grid" id="memGrid"></div>
   </div>
 
+  <!-- NUMBER SEQUENCE GAME -->
+  <div class="ov-seq" id="ovSeq">
+    <div class="ov-seq-level" id="seqLevel">Level 1 — 3 digits</div>
+    <div class="ov-seq-display" id="seqDisplay">
+      <div class="ov-seq-nums" id="seqNums">···</div>
+      <div class="ov-seq-hint" id="seqHint">Memorise these numbers</div>
+    </div>
+    <div class="ov-seq-input" id="seqInputArea" style="display:none">
+      <div class="ov-seq-entered" id="seqEntered">_</div>
+      <div class="ov-seq-feedback" id="seqFeedback"></div>
+      <div class="ov-seq-pad" id="seqPad"></div>
+    </div>
+    <div class="ov-seq-score">Best level: <strong id="seqBest">—</strong></div>
+  </div>
+
   <!-- DONE SCREEN -->
   <div class="ov-done" id="ovDone">
     <div class="ov-done-ico" id="ovDoneIco">🎉</div>
     <div class="ov-done-ttl" id="ovDoneTtl">Well Done!</div>
     <div class="ov-done-sub" id="ovDoneSub"></div>
     <div class="ov-done-scores" id="ovDoneScores"></div>
+    <button class="ov-btn-challenge" id="ovChallengeBtn" onclick="openChallenge()" style="display:none">🏆 Challenge a Friend</button>
     <div class="ov-done-row">
       <button class="ov-btn-next" id="ovNextBtn" onclick="ovNext()" style="display:none">▶ Next Activity</button>
       <button class="ov-btn-again" onclick="ovAgain()">🔄 Do Again</button>
@@ -1031,8 +1093,29 @@ body.nav-open{overflow:hidden}
     <button class="ov-btn-skip" id="gSkipBtn"      onclick="ovSkip()"    style="display:none">⏭ Skip Exercise</button>
     <button class="ov-btn-go"   id="mathStartBtn"  onclick="mathStart()" style="display:none">▶ Start Math Challenge</button>
     <button class="ov-btn-go"   id="memStartBtn"   onclick="memStart()"  style="display:none">▶ Start Memory Game</button>
+    <button class="ov-btn-go"   id="seqStartBtn"   onclick="seqStart()"  style="display:none">▶ Start Sequence Game</button>
   </div>
 
+</div>
+
+<!-- CHALLENGE FRIENDS MODAL -->
+<div id="challengeModal" style="display:none;position:fixed;inset:0;z-index:3500;background:rgba(6,18,32,.92);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1.5rem">
+  <div style="background:linear-gradient(145deg,#0e2448,#071830);border:1.5px solid rgba(212,160,23,.3);border-radius:22px;padding:1.8rem;max-width:360px;width:100%;position:relative;box-shadow:0 24px 60px rgba(0,0,0,.6)">
+    <button onclick="closeChallenge()" style="position:absolute;top:.7rem;right:.8rem;background:none;border:none;color:rgba(255,255,255,.35);font-size:1.1rem;cursor:pointer">✕</button>
+    <div style="font-size:2.5rem;text-align:center;margin-bottom:.5rem">🏆</div>
+    <div style="font-family:var(--font-h);font-size:1.3rem;color:#fff;text-align:center;margin-bottom:.3rem">Challenge a Friend!</div>
+    <div style="font-size:.82rem;color:rgba(255,255,255,.5);text-align:center;margin-bottom:1.2rem;line-height:1.6" id="challengeDesc">Share your score and challenge your friend to beat it!</div>
+    <div style="background:rgba(212,160,23,.08);border:1px solid rgba(212,160,23,.2);border-radius:12px;padding:.9rem;text-align:center;margin-bottom:1.1rem">
+      <div style="font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.3rem">Your Score</div>
+      <div id="challengeScoreDisplay" style="font-family:var(--font-h);font-size:1.8rem;font-weight:900;color:var(--gold-l)">—</div>
+      <div id="challengeScoreLbl" style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.15rem">—</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.55rem">
+      <button onclick="shareChallenge('whatsapp')" style="width:100%;padding:.85rem;border-radius:50px;font-size:.92rem;font-weight:800;background:#25D366;color:#fff;border:none;cursor:pointer">💬 Share on WhatsApp</button>
+      <button onclick="shareChallenge('copy')" id="copyShareBtn" style="width:100%;padding:.8rem;border-radius:50px;font-size:.88rem;font-weight:700;background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.15);cursor:pointer">📋 Copy Challenge Text</button>
+    </div>
+    <div style="font-size:.68rem;color:rgba(255,255,255,.25);text-align:center;margin-top:.9rem">Send to any friend — they open the website and try to beat your score!</div>
+  </div>
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
@@ -1084,17 +1167,19 @@ const EXERCISES = [
     benefit:'Improves', benefitVal:'concentration & focus',
     herbal:{name:'Brain Champ', product:'brainchamp', icon:'🧠', desc:'Supports focus and mental clarity.', herbs:['Brahmi','Shankhpushpi','Ashwagandha']} },
 
-  { id:'dual-task', cat:'brain', emoji:'🎯', title:'Dual-Task Brain Challenge',
-    tag:'Brain & Mind', tagClass:'tag-brain', dur:'4 min',
-    desc:'Doing two mental tasks simultaneously forces both sides of your brain to work together, improving thinking speed, focus and memory connections.',
-    phases:[{label:'Count backwards by 7',sec:60},{label:'Count AND tap together',sec:60},{label:'Spell a word backwards',sec:60},{label:'Picture your home in detail',sec:60}],
-    rounds:1,
-    steps:['Start at 200. Subtract 7 each time. Say each number OUT LOUD: 200 → 193 → 186...','Keep counting backwards AND tap your left hand on your knee at the same time.','Spell a 6-letter word backwards. Example: MENTAL → L-A-T-N-E-M. Say it out loud.','Close your eyes. Picture your home — every room, door, window and furniture in detail.'],
-    avoid:'No restrictions. Go at your own pace.',
-    voiceIntro:'Dual Task Brain Challenge. Count backwards from two hundred, subtracting seven each time.',
-    phaseVoice:['Count backwards from two hundred by sevens. Say each number out loud.','Keep counting backwards AND tap your left knee at the same time. Both together.','Spell the word mental backwards. L. A. T. N. E. M. Say each letter out loud.','Close your eyes. Picture your home in detail. Every room, every door, every window.'],
-    benefit:'Builds', benefitVal:'focus & memory speed',
-    herbal:{name:'Brain Champ', product:'brainchamp', icon:'🧠', desc:'Supports mental performance.', herbs:['Brahmi','Ashwagandha','Shankhpushpi']} },
+  { id:'number-sequence', cat:'brain', emoji:'🔢', title:'Number Sequence Memory',
+    tag:'Brain & Mind', tagClass:'tag-brain', dur:'3 min', isSeqGame:true,
+    desc:'A number sequence is flashed on screen — memorise it, then type it back. Each correct answer adds one more digit. Trains working memory and concentration.',
+    steps:[
+      'A sequence of numbers will flash on screen for a few seconds.',
+      'Watch carefully and memorise every digit in order.',
+      'When the numbers disappear, tap each digit in the correct order.',
+      'Each correct answer adds one more digit. How far can you go?'
+    ],
+    avoid:'No restrictions — suitable for everyone.',
+    voiceIntro:'Number Sequence Memory. Watch the numbers carefully, then repeat them in order.',
+    benefit:'Trains', benefitVal:'working memory & concentration',
+    herbal:{name:'Brain Champ', product:'brainchamp', icon:'🧠', desc:'Traditionally used to support memory and focus.', herbs:['Brahmi','Shankhpushpi','Jatamansi']} },
 
   /* ── 2. BREATHING & RELAXATION ── */
   { id:'nadi-shodhana', cat:'breath', emoji:'🌬️', title:'Alternate Nostril Breathing',
@@ -1728,13 +1813,22 @@ function gStart() {
       saveScore('brain', Math.min(100, Math.round(s / 0.7)));
       const scoreHTML = `<div class="done-score-pill"><strong>${s}</strong><span>TAPS</span></div>
         <div class="done-score-pill"><strong>${Math.round(15000 / Math.max(s,1))}ms</strong><span>REACT</span></div>`;
+      // Store for challenge
+      _lastChallengeScore = s;
+      _lastChallengeName  = 'taps in 15 sec';
+      _lastChallengeExId  = 'reaction-test';
       setTimeout(() => _showDone(scoreHTML), 1500);
     }
   }, 1000);
 }
 
+let _lastTapTime = 0;
 function gTap() {
   if (!_wgRunning) return;
+  // Prevent double-fire: touchstart fires then click fires ~300ms later on some devices
+  const now = Date.now();
+  if (now - _lastTapTime < 50) return;
+  _lastTapTime = now;
   _wgCount++;
   document.getElementById('ovTaps').textContent = _wgCount;
 }
@@ -1762,6 +1856,10 @@ function mathStart() {
       const scoreHTML = `<div class="done-score-pill"><strong>${_mCorrect}</strong><span>CORRECT</span></div>
         <div class="done-score-pill"><strong>${_mWrong}</strong><span>WRONG</span></div>
         <div class="done-score-pill"><strong>${pct}%</strong><span>ACCURACY</span></div>`;
+      // Store for challenge
+      _lastChallengeScore = _mCorrect;
+      _lastChallengeName  = 'correct answers';
+      _lastChallengeExId  = 'math-challenge';
       _showDone(scoreHTML);
     }
   }, 1000);
@@ -1853,6 +1951,10 @@ function memFlip(i) {
           <div class="done-score-pill"><strong>${_memAttempts}</strong><span>ATTEMPTS</span></div>
           <div class="done-score-pill"><strong>${_memSec}s</strong><span>TIME</span></div>`;
         speak('Excellent! You matched all pairs in ' + _memAttempts + ' attempts!');
+        // Store for challenge
+        _lastChallengeScore = _memAttempts;
+        _lastChallengeName  = 'attempts to match all pairs';
+        _lastChallengeExId  = 'memory-match';
         setTimeout(() => _showDone(scoreHTML), 800);
       }
     } else {
@@ -1872,16 +1974,16 @@ let _ex = null, _phaseIdx = 0, _sec = 0, _round = 1, _running = false, _timer = 
 let _allExQueue = [], _allExIdx = -1;
 
 function _showPanel(name) {
-  const ids = {choice:'ovChoice',htp:'ovHtp',coach:'ovCoach',game:'ovGame',math:'ovMath',mem:'ovMem',done:'ovDone'};
+  const ids = {choice:'ovChoice',htp:'ovHtp',coach:'ovCoach',game:'ovGame',math:'ovMath',mem:'ovMem',seq:'ovSeq',done:'ovDone'};
   const ctrl = document.getElementById('ovCtrl');
   Object.entries(ids).forEach(([k, id]) => {
     const el = document.getElementById(id);
     if (!el) return;
     const vis = k === name;
-    if (k === 'game' || k === 'math' || k === 'mem' || k === 'done') el.classList.toggle('on', vis);
+    if (k === 'game' || k === 'math' || k === 'mem' || k === 'seq' || k === 'done') el.classList.toggle('on', vis);
     else el.style.display = vis ? 'flex' : 'none';
   });
-  const showCtrl = ['coach','game','math','mem'].includes(name);
+  const showCtrl = ['coach','game','math','mem','seq'].includes(name);
   if (ctrl) ctrl.style.display = showCtrl ? '' : 'none';
 }
 
@@ -1921,7 +2023,7 @@ function openExercise(id) {
   if (!_ex) return;
   clearInterval(_timer); clearInterval(_mTimer); clearInterval(_memTimer);
   _running = false; _phaseIdx = 0; _sec = 0; _round = 1;
-  _mRunning = false; _memRunning = false;
+  _mRunning = false; _memRunning = false; _seqRunning = false;
   stopSpeech();
 
   // Top bar
@@ -1954,6 +2056,7 @@ function openExercise(id) {
   const startLabel = _ex.isTapGame ? '▶ Start Tap Challenge'
     : _ex.isMathGame ? '▶ Start Math Challenge'
     : _ex.isMemoryGame ? '▶ Start Memory Game'
+    : _ex.isSeqGame ? '▶ Start Sequence Game'
     : '▶ I\'m Ready — Start';
   document.getElementById('ovChoiceStart').textContent  = startLabel;
   document.getElementById('ovHtpStartBtn').textContent  = startLabel;
@@ -1987,7 +2090,8 @@ let _htpResumeMode = false; // true = came from mid-exercise 📋
 /* Called when user taps "📋 Yes, show me how" from choice screen */
 function showHowToPlay() {
   _htpIdx        = 0;
-  _htpGuided     = _ex.phases && _ex.phases.length > 0 && !_ex.isTapGame && !_ex.isMathGame && !_ex.isMemoryGame;
+  _htpGuided = _ex.phases && _ex.phases.length > 0
+    && !_ex.isTapGame && !_ex.isMathGame && !_ex.isMemoryGame && !_ex.isSeqGame;
   _htpResumeMode = false;
   _renderHtpStep();
   _showPanel('htp');
@@ -2158,7 +2262,7 @@ function htpPrev() {
 /* User tapped "Start right away" or "I'm Ready" from how-to screen */
 function ovBeginDirect() {
   // Reset game buttons
-  ['gStartBtn','gSkipBtn','mathStartBtn','memStartBtn'].forEach(bid => {
+  ['gStartBtn','gSkipBtn','mathStartBtn','memStartBtn','seqStartBtn'].forEach(bid => {
     const el = document.getElementById(bid);
     if (el) el.style.display = 'none';
   });
@@ -2190,6 +2294,15 @@ function ovBeginDirect() {
     _showPanel('coach');
     document.getElementById('ovCoach').style.display = 'none';
     document.getElementById('memStartBtn').style.display = '';
+    document.getElementById('ovCtrl').style.display = '';
+    speak(_ex.voiceIntro || _ex.title);
+  } else if (_ex.isSeqGame) {
+    if (skipStepBtn) skipStepBtn.style.display = 'none';
+    const instrBtn = document.getElementById('ovInstrBtn');
+    if (instrBtn) instrBtn.style.display = '';
+    _showPanel('coach');
+    document.getElementById('ovCoach').style.display = 'none';
+    document.getElementById('seqStartBtn').style.display = '';
     document.getElementById('ovCtrl').style.display = '';
     speak(_ex.voiceIntro || _ex.title);
   } else {
@@ -2428,6 +2541,12 @@ function _showDone(scoreHTML) {
     nb.style.display = (isQueue && !isLast) ? '' : 'none';
     nb.textContent = '▶ Next Activity';
   }
+  // Show Challenge button only for scoreable exercises with a real score
+  const challengeBtn = document.getElementById('ovChallengeBtn');
+  if (challengeBtn) {
+    const isChallengeable = _ex && CHALLENGEABLE.includes(_ex.id) && _lastChallengeScore > 0;
+    challengeBtn.style.display = isChallengeable ? '' : 'none';
+  }
   _showPanel('done');
   speak(isLast ? 'All done! Excellent!' : 'Well done! Tap Next Activity when you are ready.');
 
@@ -2462,7 +2581,8 @@ function _showDone(scoreHTML) {
 
 function ovSkip() {
   clearInterval(_timer); clearInterval(_mTimer); clearInterval(_memTimer);
-  _running = false; _mRunning = false; _memRunning = false; stopSpeech();
+  _running = false; _mRunning = false; _memRunning = false; _seqRunning = false;
+  stopSpeech();
   if (_allExQueue.length > 1 && _allExIdx < _allExQueue.length - 1) ovNext();
   else ovClose();
 }
@@ -2481,7 +2601,7 @@ function ovNext() {
 
 function ovClose() {
   clearInterval(_timer); clearInterval(_mTimer); clearInterval(_memTimer);
-  _running = false; _mRunning = false; _memRunning = false;
+  _running = false; _mRunning = false; _memRunning = false; _seqRunning = false;
   _sec = 0; _phaseIdx = 0; _round = 1; stopSpeech();
   // Reset candle display
   const candleEl = document.getElementById('candleDisplay');
@@ -2662,9 +2782,180 @@ function updateProgressBars() {
   } catch(e) {}
 }
 
-/* ─────────────────────────────────────────────────────
-   INIT
-───────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════
+   NUMBER SEQUENCE GAME
+═══════════════════════════════════════════════════════ */
+let _seqLevel = 3, _seqTarget = [], _seqEntered = [], _seqRunning = false, _seqBestLevel = 0;
+
+function seqStart() {
+  _seqLevel   = 3;
+  _seqEntered = [];
+  _seqRunning = true;
+  document.getElementById('seqStartBtn').style.display = 'none';
+  // Load personal best
+  try {
+    const pb = JSON.parse(localStorage.getItem('sh_wellness') || '{}');
+    _seqBestLevel = (pb.pb && pb.pb.sequence) || 0;
+    document.getElementById('seqBest').textContent = _seqBestLevel ? _seqBestLevel + ' digits' : '—';
+  } catch(e) {}
+  speak('Number Sequence Game. Watch the numbers carefully. Ready?');
+  setTimeout(() => _seqRound(), 1200);
+}
+
+function _seqRound() {
+  // Generate new sequence
+  _seqTarget  = Array.from({length: _seqLevel}, () => Math.floor(Math.random() * 9) + 1);
+  _seqEntered = [];
+  document.getElementById('seqLevel').textContent   = 'Level ' + (_seqLevel - 2) + ' — ' + _seqLevel + ' digits';
+  document.getElementById('seqInputArea').style.display = 'none';
+  document.getElementById('seqDisplay').style.display   = '';
+
+  const numsEl = document.getElementById('seqNums');
+  const hintEl = document.getElementById('seqHint');
+
+  // Flash each digit one at a time
+  numsEl.classList.remove('hide');
+  hintEl.textContent = 'Watch carefully…';
+  speak('Watch carefully. ' + _seqTarget.join('. '));
+
+  let i = 0;
+  function showNext() {
+    if (i < _seqTarget.length) {
+      numsEl.textContent = _seqTarget[i];
+      i++;
+      setTimeout(showNext, 900);
+    } else {
+      // All shown — now hide and ask for input
+      numsEl.classList.add('hide');
+      hintEl.textContent = 'Now enter what you saw…';
+      setTimeout(() => {
+        document.getElementById('seqDisplay').style.display   = 'none';
+        document.getElementById('seqInputArea').style.display = '';
+        document.getElementById('seqEntered').textContent     = '_';
+        document.getElementById('seqFeedback').textContent    = '';
+        document.getElementById('seqFeedback').className      = 'ov-seq-feedback';
+        _seqBuildPad();
+        speak('Enter the sequence now.');
+      }, 600);
+    }
+  }
+  setTimeout(showNext, 800);
+}
+
+function _seqBuildPad() {
+  const pad = document.getElementById('seqPad');
+  const digits = [1,2,3,4,5,6,7,8,9,'✕',0,'⌫'];
+  pad.innerHTML = digits.map(d => {
+    const isDel = d === '⌫';
+    const isClear = d === '✕';
+    return `<button class="ov-seq-key${isDel||isClear?' del':''}" onclick="seqKey(${JSON.stringify(String(d))})">${d}</button>`;
+  }).join('');
+}
+
+function seqKey(k) {
+  if (!_seqRunning) return;
+  if (k === '✕') { _seqEntered = []; _renderSeqEntered(); return; }
+  if (k === '⌫') { _seqEntered.pop(); _renderSeqEntered(); return; }
+  if (_seqEntered.length >= _seqTarget.length) return;
+  _seqEntered.push(parseInt(k));
+  _renderSeqEntered();
+  // Auto-check when full
+  if (_seqEntered.length === _seqTarget.length) {
+    setTimeout(seqCheck, 300);
+  }
+}
+
+function _renderSeqEntered() {
+  const el = document.getElementById('seqEntered');
+  const display = _seqEntered.join(' ') + (_seqEntered.length < _seqTarget.length ? ' _' : '');
+  el.textContent = display || '_';
+}
+
+function seqCheck() {
+  const correct = _seqEntered.every((n, i) => n === _seqTarget[i]);
+  const fb = document.getElementById('seqFeedback');
+  if (correct) {
+    fb.textContent = '✅ Correct! +1 digit';
+    fb.className   = 'ov-seq-feedback correct';
+    speak('Correct! Well done.');
+    // Save PB
+    if (_seqLevel > _seqBestLevel) {
+      _seqBestLevel = _seqLevel;
+      savePB('sequence', _seqLevel);
+      document.getElementById('seqBest').textContent = _seqLevel + ' digits';
+    }
+    _seqLevel++;
+    setTimeout(() => {
+      if (_seqLevel > 12) {
+        // Max level reached — show done
+        saveScore('brain', 100);
+        const scoreHTML = `<div class="done-score-pill"><strong>${_seqLevel - 3}</strong><span>LEVELS</span></div>
+          <div class="done-score-pill"><strong>${_seqLevel - 1}</strong><span>DIGITS</span></div>`;
+        _lastChallengeScore  = _seqLevel - 1;
+        _lastChallengeName   = 'digits';
+        _lastChallengeExId   = 'number-sequence';
+        _showDone(scoreHTML);
+      } else {
+        _seqRound();
+      }
+    }, 1000);
+  } else {
+    fb.textContent = '❌ Wrong! Try again';
+    fb.className   = 'ov-seq-feedback wrong';
+    speak('Incorrect. The sequence was ' + _seqTarget.join(', '));
+    const finalLevel = _seqLevel - 1;
+    saveScore('brain', Math.min(100, Math.round(finalLevel / 0.12)));
+    const scoreHTML = `<div class="done-score-pill"><strong>${Math.max(0,finalLevel-2)}</strong><span>LEVELS</span></div>
+      <div class="done-score-pill"><strong>${finalLevel}</strong><span>BEST DIGITS</span></div>`;
+    _lastChallengeScore = finalLevel;
+    _lastChallengeName  = 'digits';
+    _lastChallengeExId  = 'number-sequence';
+    setTimeout(() => _showDone(scoreHTML), 1200);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   CHALLENGE FRIENDS
+   Scoreable exercises: reaction-test, math-challenge,
+   memory-match, number-sequence
+═══════════════════════════════════════════════════════ */
+const CHALLENGEABLE = ['reaction-test','math-challenge','memory-match','number-sequence'];
+let _lastChallengeScore = 0, _lastChallengeName = '', _lastChallengeExId = '';
+
+function openChallenge() {
+  const modal = document.getElementById('challengeModal');
+  if (modal) modal.style.display = 'flex';
+  document.getElementById('challengeScoreDisplay').textContent = _lastChallengeScore;
+  document.getElementById('challengeScoreLbl').textContent     = _lastChallengeName;
+  const ex = EXERCISES.find(e => e.id === _lastChallengeExId);
+  document.getElementById('challengeDesc').textContent =
+    'Can your friend beat ' + _lastChallengeScore + ' ' + _lastChallengeName
+    + ' in ' + (ex ? ex.title : 'this exercise') + '? Share and find out!';
+}
+
+function closeChallenge() {
+  const modal = document.getElementById('challengeModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function shareChallenge(method) {
+  const ex   = EXERCISES.find(e => e.id === _lastChallengeExId);
+  const name = ex ? ex.title : 'an exercise';
+  const msg  = `🏆 I scored ${_lastChallengeScore} ${_lastChallengeName} in "${name}" on Shah Hayaat Wellness Clinic!\n\nCan you beat me? 💪\nTry it free here: https://shahhayaat.com/exercises.html\n\n🌿 Shah Hayaat — Free guided wellness exercises`;
+  if (method === 'whatsapp') {
+    window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+  } else {
+    try {
+      navigator.clipboard.writeText(msg).then(() => {
+        const btn = document.getElementById('copyShareBtn');
+        if (btn) { btn.textContent = '✅ Copied!'; setTimeout(() => { btn.textContent = '📋 Copy Challenge Text'; }, 2000); }
+      });
+    } catch(e) {
+      const btn = document.getElementById('copyShareBtn');
+      if (btn) btn.textContent = '⚠️ Copy manually';
+    }
+  }
+}
 (function init() {
   const recIds = loadLabResults();
   renderCards('all', recIds);
@@ -2710,6 +3001,12 @@ function updateProgressBars() {
   window.mathAnswer        = mathAnswer;
   window.memStart          = memStart;
   window.memFlip           = memFlip;
+  window.seqStart          = seqStart;
+  window.seqKey            = seqKey;
+  window.seqCheck          = seqCheck;
+  window.openChallenge     = openChallenge;
+  window.closeChallenge    = closeChallenge;
+  window.shareChallenge    = shareChallenge;
 
   document.getElementById('filterBar').addEventListener('click', e => {
     const btn = e.target.closest('.filter-btn');
