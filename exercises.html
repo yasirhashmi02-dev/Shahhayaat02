@@ -2043,21 +2043,22 @@ function _maybeShowPromo() {
 // ═══════════════════════════════════════════════════════
 // GOOGLE REVIEW — shown once, on the 2nd reaction-test attempt only
 // ═══════════════════════════════════════════════════════
-var _reviewKey = 'sh_review_shown';
+var _reviewKey     = 'sh_review_shown';
+var _reviewTryKey  = 'sh_review_tries';
 function _hasShownReview() { try { return !!localStorage.getItem(_reviewKey); } catch(e) { return false; } }
 function _markReviewShown() { try { localStorage.setItem(_reviewKey, '1'); } catch(e) {} }
+function _getReviewTries() { try { return parseInt(localStorage.getItem(_reviewTryKey)||'0',10)||0; } catch(e) { return 0; } }
+function _incReviewTries() { try { localStorage.setItem(_reviewTryKey, _getReviewTries()+1); } catch(e) {} }
 
 function _maybeShowReview() {
-  // Fire only on exactly the 2nd attempt, and only if never shown before
-  var count = _getPromoCount(); // already incremented by _maybeShowPromo
-  if (count !== 2) return;
-  if (_hasShownReview()) return;
-  _markReviewShown(); // mark immediately so it never shows again
-  // Delay slightly so the done screen settles first
+  if (_hasShownReview()) return; // already shown once in lifetime — never again
+  _incReviewTries();
+  var tries = _getReviewTries();
+  if (tries !== 2) return; // only on the 2nd attempt
+  _markReviewShown(); // mark before showing so network/close can't cause double-show
   setTimeout(function() {
     var modal = document.getElementById('reviewModal');
     if (modal) modal.classList.add('show');
-    // Voice invite — warm and personal
     setTimeout(function() {
       speak('You have been wonderful! Could we ask one small favour? A 5-star review on Google would help Shah Hayaat reach more people who need natural healing. It takes just 30 seconds and means the world to us.');
     }, 600);
