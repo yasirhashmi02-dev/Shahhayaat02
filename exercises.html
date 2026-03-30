@@ -2333,6 +2333,12 @@ function gStart() {
       setTimeout(() => {
         lbShowNameModal(s, reactionMs);
         setTimeout(() => { _showDone(scoreHTML); _maybeShowPromo(); _maybeShowReview(); }, 2200);
+      }, 800);
+    }
+  }, 1000);
+}
+
+let _lastTapTime = 0;
 function gTap(e) {
   if (!_wgRunning) return;
   // Pointer-lock anti-cheat is now handled entirely in the tapArea wiring
