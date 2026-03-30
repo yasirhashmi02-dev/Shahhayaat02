@@ -2067,7 +2067,9 @@ function _maybeShowReview() {
 function reviewDone() {
   var modal = document.getElementById('reviewModal');
   if (modal) modal.classList.remove('show');
-}  = 'sh_best_taps';
+}
+
+const LB_PB_KEY  = 'sh_best_taps';
 const LB_PB_SEED = 74; // shown to first-time users
 let   _lbPollTimer = null;
 let   _lbMyRank    = null;
