@@ -245,6 +245,8 @@ body.nav-open{overflow:hidden}
 .score-display .score-lbl{font-size:.65rem;color:var(--text-mu);letter-spacing:.08em;text-transform:uppercase}
 
 /* ── NUMBER SEQUENCE GAME ── */
+.ov-typing{flex:1;display:none;flex-direction:column;align-items:center;justify-content:flex-start;gap:.3rem;padding:.6rem .8rem .4rem;text-align:center;overflow-y:auto}
+.ov-typing.on{display:flex}
 .ov-seq{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;padding:1.2rem;text-align:center}
 .ov-seq.on{display:flex}
 .ov-seq-level{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-l);background:var(--gold-pale);border:1px solid rgba(212,160,23,.2);padding:.22rem .8rem;border-radius:50px}
@@ -1213,6 +1215,61 @@ body.nav-open{overflow:hidden}
     <div class="mem-grid" id="memGrid"></div>
   </div>
 
+  <!-- TYPING SPEED GAME -->
+  <div class="ov-typing" id="ovTyping">
+    <!-- Stats row -->
+    <div style="display:flex;align-items:flex-end;justify-content:center;gap:1.2rem;width:100%;flex-shrink:0;margin-bottom:.5rem">
+      <div style="text-align:center">
+        <div id="tyOvWPM" style="font-size:clamp(2rem,9vw,3rem);font-weight:900;color:var(--gold-l);line-height:1">0</div>
+        <div style="font-size:.55rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em">WPM</div>
+      </div>
+      <div style="text-align:center">
+        <div id="tyOvAcc" style="font-size:clamp(1.4rem,6vw,2rem);font-weight:800;color:rgba(255,255,255,.7);line-height:1">—</div>
+        <div style="font-size:.55rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em">Accuracy</div>
+      </div>
+      <div style="text-align:center">
+        <div id="tyOvTimer" style="font-size:clamp(1.4rem,6vw,2rem);font-weight:800;color:#D4A017;line-height:1">30</div>
+        <div style="font-size:.55rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em">Secs left</div>
+      </div>
+    </div>
+    <!-- Progress bar -->
+    <div style="width:100%;max-width:340px;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;margin-bottom:.6rem;flex-shrink:0">
+      <div id="tyOvBar" style="height:100%;background:linear-gradient(90deg,#D4A017,#F0C040);width:0%;transition:width .7s linear;border-radius:2px"></div>
+    </div>
+    <!-- Passage display -->
+    <div id="tyOvPassage" style="width:100%;max-width:340px;font-size:clamp(.65rem,1.9vw,.78rem);line-height:1.75;padding:.65rem .8rem;
+         background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;
+         margin-bottom:.55rem;font-family:var(--font-mono,monospace);letter-spacing:.02em;
+         word-break:break-word;overflow-wrap:anywhere;max-height:110px;overflow-y:auto;
+         user-select:none;-webkit-user-select:none;flex-shrink:0"></div>
+    <!-- Input -->
+    <textarea id="tyOvInput" placeholder="Start typing here..."
+      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+      style="width:100%;max-width:340px;padding:.6rem .8rem;border:1.5px solid rgba(255,255,255,.15);border-radius:9px;
+             background:rgba(255,255,255,.08);color:#fff;font-family:var(--font-mono,monospace);
+             font-size:clamp(.7rem,2vw,.82rem);line-height:1.6;resize:none;outline:none;
+             min-height:68px;box-sizing:border-box;flex-shrink:0"
+      rows="3"></textarea>
+    <!-- Leaderboard -->
+    <div id="tyOvLb" style="width:100%;max-width:340px;margin-top:.5rem;flex-shrink:0">
+      <div style="font-size:.62rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem;text-align:center">🌍 Global Top Scores</div>
+      <div id="tyOvLbList" style="max-height:120px;overflow-y:auto">
+        <div style="text-align:center;font-size:.75rem;color:rgba(255,255,255,.3);padding:.5rem">Loading...</div>
+      </div>
+    </div>
+    <!-- Start / rank row -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:.4rem;width:100%;flex-shrink:0;margin-top:.4rem">
+      <button id="tyOvStartBtn" onclick="tyStart()"
+        style="padding:.75rem 2.2rem;border-radius:50px;font-size:.95rem;font-weight:800;
+               background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border:none;cursor:pointer;
+               box-shadow:0 4px 18px rgba(184,134,11,.4);width:100%;max-width:260px">▶ Start Typing</button>
+      <div id="tyOvRank" style="display:none;padding:.55rem 1rem;background:rgba(212,160,23,.15);border:1px solid rgba(212,160,23,.3);border-radius:8px;text-align:center;width:100%;max-width:260px"></div>
+      <button id="tyOvSkipBtn" onclick="ovSkip()"
+        style="display:none;padding:.5rem 1.2rem;border-radius:50px;font-size:.8rem;font-weight:700;
+               background:rgba(255,255,255,.07);color:rgba(255,255,255,.45);border:1.5px solid rgba(255,255,255,.1);cursor:pointer">⏭ Skip this exercise</button>
+    </div>
+  </div>
+
   <!-- NUMBER SEQUENCE GAME (tap 1→25 in order) -->
   <div class="ov-seq" id="ovSeq">
     <div class="ov-seq-level" id="seqLevel" style="margin-bottom:.35rem">Find &amp; tap 1 → 2 → 3 … → 25</div>
@@ -1349,6 +1406,15 @@ const EXERCISES = [
     voiceIntro:'Number Sequence. 25 numbers are scattered on screen. Find and tap 1, 2, 3, all the way to 25, as fast as you can!',
     benefit:'Trains', benefitVal:'visual search speed & attention',
     herbal:{name:'Brain Champ', product:'brainchamp', icon:'🧠', desc:'Traditionally used to support memory and focus.', herbs:['Brahmi','Shankhpushpi','Jatamansi']} },
+
+  { id:'typing-speed', cat:'brain', emoji:'⌨️', title:'Typing Speed Test',
+    tag:'Brain & Mind', tagClass:'tag-brain', dur:'30 sec', isTypingGame:true,
+    desc:'Type a Shah Hayaat wellness passage as fast and accurately as you can in 30 seconds. Trains finger agility, focus and hand-brain coordination. Compete on the global leaderboard.',
+    steps:['A wellness passage appears on screen. Read it first.','Start typing into the box — the timer starts on your first keystroke.','Type as accurately and quickly as you can. Copy-paste is disabled to keep it fair.','Your WPM score and global rank will be shown when the 30 seconds end.'],
+    avoid:'No restrictions — suitable for everyone.',
+    voiceIntro:'Typing Speed Test. A passage appears on screen. Type it as fast and accurately as you can. The timer starts when you begin.',
+    benefit:'Trains', benefitVal:'finger agility & hand-brain coordination',
+    herbal:{name:'Brain Champ', product:'brainchamp', icon:'🧠', desc:'Supports focus, memory and mental clarity — ideal for those who rely on sharp cognitive performance daily.', herbs:['Brahmi','Shankhpushpi','Ashwagandha']} },
 
   /* ── 2. BREATHING & RELAXATION ── */
   { id:'nadi-shodhana', cat:'breath', emoji:'🌬️', title:'Alternate Nostril Breathing',
@@ -2201,12 +2267,12 @@ function lbSubmitName() {
     return;
   }
   _lbCloseModal();
-  _lbPost(result.name,_lbPendingScore,_lbPendingTime);
+  _lbUpdateName(result.name, _lbPendingScore, _lbPendingTime);
 }
 
 function lbSkipName() {
   _lbCloseModal();
-  _lbPost('Anonymous', _lbPendingScore, _lbPendingTime);
+  // Already auto-saved anonymously — just close
 }
 
 function _lbCloseModal() {
@@ -2242,6 +2308,21 @@ function _lbPost(name, taps, time) {
   if(el){el.innerHTML='<div style="font-size:.85rem;color:rgba(255,255,255,.55)">⏳ Submitting score…</div>';el.classList.add('show');}
   _lbSendToServer(n, taps, time, true);
 }
+/* ── Auto-save: immediately save with temp name, update if user enters name ── */
+var _lbAutoKey = 'sh_lb_auto_token';
+function _lbAutoSave(taps, time) {
+  // Generate a unique anon token for this session
+  var token = 'auto_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
+  try { localStorage.setItem(_lbAutoKey, JSON.stringify({token:token, taps:taps, time:time})); } catch(e){}
+  _lbQueueAdd('__auto__' + token, taps, time);
+  _lbSendToServer('__auto__' + token, taps, time, false);
+}
+function _lbUpdateName(name, taps, time) {
+  // Send a proper named entry — the backend keeps the best score per name
+  _lbQueueAdd(name, taps, time);
+  _lbSendToServer(name, taps, time, true);
+}
+
 function _lbFetchRank(name,taps){
   fetch(LB_API+'?type=reaction_scores',{method:'GET',redirect:'follow',mode:'cors'})
   .then(function(r){return r.json();})
@@ -2334,8 +2415,11 @@ function gStart() {
       const reactionMs = Math.min(3000, Math.max(100, Math.round(15000 / Math.max(s, 1))));
       // Show name modal first, then done screen
       setTimeout(() => {
-        lbShowNameModal(s, reactionMs);
-        setTimeout(() => { _showDone(scoreHTML); _maybeShowPromo(); _maybeShowReview(); }, 2200);
+        // Auto-save immediately with a temp anonymous ID
+        _lbAutoSave(s, reactionMs);
+        _showDone(scoreHTML); _maybeShowPromo(); _maybeShowReview();
+        // Ask for name after done screen — non-blocking
+        setTimeout(() => lbShowNameModal(s, reactionMs), 1200);
       }, 800);
     }
   }, 1000);
@@ -2494,16 +2578,16 @@ let _ex = null, _phaseIdx = 0, _sec = 0, _round = 1, _running = false, _timer = 
 let _allExQueue = [], _allExIdx = -1;
 
 function _showPanel(name) {
-  const ids = {choice:'ovChoice',htp:'ovHtp',coach:'ovCoach',game:'ovGame',math:'ovMath',mem:'ovMem',seq:'ovSeq',done:'ovDone'};
+  const ids = {choice:'ovChoice',htp:'ovHtp',coach:'ovCoach',game:'ovGame',math:'ovMath',mem:'ovMem',seq:'ovSeq',typing:'ovTyping',done:'ovDone'};
   const ctrl = document.getElementById('ovCtrl');
   Object.entries(ids).forEach(([k, id]) => {
     const el = document.getElementById(id);
     if (!el) return;
     const vis = k === name;
-    if (k === 'game' || k === 'math' || k === 'mem' || k === 'seq' || k === 'done') el.classList.toggle('on', vis);
+    if (k === 'game' || k === 'math' || k === 'mem' || k === 'seq' || k === 'typing' || k === 'done') el.classList.toggle('on', vis);
     else el.style.display = vis ? 'flex' : 'none';
   });
-  const showCtrl = ['coach','game','math','mem','seq'].includes(name);
+  const showCtrl = ['coach','game','math','mem','seq','typing'].includes(name);
   if (ctrl) ctrl.style.display = showCtrl ? '' : 'none';
 }
 
@@ -2579,6 +2663,7 @@ function openExercise(id) {
     : _ex.isMathGame ? '▶ Start Math Challenge'
     : _ex.isMemoryGame ? '▶ Start Memory Game'
     : _ex.isSeqGame ? '▶ Start Sequence Game'
+    : _ex.isTypingGame ? '▶ Start Typing Test'
     : '▶ I\'m Ready — Start';
   document.getElementById('ovChoiceStart').textContent  = startLabel;
   document.getElementById('ovHtpStartBtn').textContent  = startLabel;
@@ -2613,7 +2698,7 @@ let _htpResumeMode = false; // true = came from mid-exercise 📋
 function showHowToPlay() {
   _htpIdx        = 0;
   _htpGuided = _ex.phases && _ex.phases.length > 0
-    && !_ex.isTapGame && !_ex.isMathGame && !_ex.isMemoryGame && !_ex.isSeqGame;
+    && !_ex.isTapGame && !_ex.isMathGame && !_ex.isMemoryGame && !_ex.isSeqGame && !_ex.isTypingGame;
   _htpResumeMode = false;
   _renderHtpStep();
   _showPanel('htp');
@@ -2836,6 +2921,17 @@ function ovBeginDirect() {
     if (hintEl2) hintEl2.style.display = '';
     if (gridEl2) gridEl2.innerHTML = '';
     speak(_ex.voiceIntro || _ex.title);
+  } else if (_ex.isTypingGame) {
+    if (skipStepBtn) skipStepBtn.style.display = 'none';
+    const instrBtn = document.getElementById('ovInstrBtn');
+    if (instrBtn) instrBtn.style.display = '';
+    _showPanel('typing');
+    tyInit();
+    document.getElementById('tyOvStartBtn').style.display = '';
+    const skipB = document.getElementById('tyOvSkipBtn');
+    if (skipB) skipB.style.display = _allExQueue.length > 1 ? '' : 'none';
+    document.getElementById('ovCtrl').style.display = '';
+    speak(_ex.voiceIntro || _ex.title);
   } else {
     // Timed phase exercises — Skip Step is meaningful
     if (skipStepBtn) skipStepBtn.style.display = '';
@@ -2985,8 +3081,9 @@ function resumeFromInstructions() {
         lbStopPoll();
         const reactionMs2 = Math.min(3000, Math.max(100, Math.round(15000 / Math.max(s, 1))));
         setTimeout(() => {
-          lbShowNameModal(s, reactionMs2);
-          setTimeout(() => { _showDone(scoreHTML); _maybeShowPromo(); _maybeShowReview(); }, 2200);
+          _lbAutoSave(s, reactionMs2);
+          _showDone(scoreHTML); _maybeShowPromo(); _maybeShowReview();
+          setTimeout(() => lbShowNameModal(s, reactionMs2), 1200);
         }, 800);
       }
     }, 1000);
@@ -3844,6 +3941,395 @@ function shareChallenge(method) {
     } catch(e) {}
   })();
 })();
+
+
+/* ═══════════════════════════════════════════════════════
+   TYPING SPEED GAME — exercises.html
+   Global leaderboard via Sheet2: TypingLeaderboard
+   Copy-paste disabled, 30 seconds, 100 unique passages
+   ═══════════════════════════════════════════════════════ */
+
+const TY_LB_API   = 'https://script.google.com/macros/s/AKfycby12_i2scUjFeRRwglE1ZCJpcd7TI-mCo0Jb8F-B365Z2c28rmnxsWwtMuEDapE9zPVtQ/exec';
+const TY_DURATION = 30;
+const TY_PB_KEY   = 'sh_typing_pb';
+const TY_HIST_KEY = 'sh_typing_hist_ex';
+const TY_QUEUE_KEY = 'sh_typing_queue_ex';
+
+const TY_PASSAGES = [
+  "Shah Hayaat was founded on a simple belief that nature already holds every answer our bodies need. The mission has always been to make those answers available to every family in the most honest way possible.",
+  "Brain Champ by Shah Hayaat is made for people who feel their memory slipping or their focus fading. Students love it before exams and professionals rely on it during demanding work seasons.",
+  "Ortho Hayaat has helped thousands of people walk without pain again. Joint stiffness and chronic aches can quietly take away quality of life, and Shah Hayaat created this formula to give freedom of movement back.",
+  "Fevodol from Shah Hayaat builds the kind of immunity that does not collapse every time the season changes. Families across India have made it part of their daily routine because they felt the difference firsthand.",
+  "Shah Hayaat believes Ayurveda is not outdated. It is the oldest living health science on earth and its principles of balance, nature and prevention are more relevant today than they have ever been.",
+  "Blood Storm by Shah Hayaat was created for people who feel tired no matter how much they sleep. Low iron and poor energy are quiet problems that affect millions, and this formula addresses both at the root.",
+  "Livohayaat is the product Shah Hayaat recommends most to people with busy and irregular lifestyles. The liver works hard every single day and this formula supports it so the rest of the body can function well.",
+  "Dia-Ease from Shah Hayaat is a natural companion that supports healthier glucose balance and helps the body respond better to the demands of everyday life without harsh synthetic intervention.",
+  "Calm Plus by Shah Hayaat was developed for people who lie awake at night with a busy mind. Stress is the silent root of so many health problems and this formula gently addresses it at the source.",
+  "Musaffa Khoon by Shah Hayaat clears what builds up inside when we eat poorly and sleep badly. Skin problems are often an outward sign of internal imbalance, and this formula works from within.",
+  "Cough X Pro from Shah Hayaat is something parents reach for when the family gets a cough that lingers. It works gently and does not cause drowsiness, making it practical for both children and adults.",
+  "Panasip by Shah Hayaat brings real relief to people who deal with constant acidity, heartburn or that uncomfortable heaviness after meals. Digestive wellness is central to overall health.",
+  "Shahzyme from Shah Hayaat was designed for people whose bodies struggle to get full nutrition from food. Poor absorption leads to fatigue and deficiencies that no supplement can fix unless digestion improves first.",
+  "Utro Hayaat by Shah Hayaat addresses the specific health needs of women that mainstream wellness often overlooks. Hormonal balance and cycle regularity deserve the same focused attention as any other health domain.",
+  "Every Shah Hayaat product goes through quality testing before it reaches a customer. Trust is earned through consistency and every product must meet the same standard without any exception whatsoever.",
+  "Ayurveda teaches that health is not just the absence of illness. It is a state of complete harmony between the body, mind and environment. Shah Hayaat products are designed to support all three together.",
+  "Shah Hayaat sources herbs from responsible growers who follow traditional cultivation methods. The quality of raw material is everything in Ayurvedic medicine and compromising it would compromise the product entirely.",
+  "The Ayush Ministry of India recognises and certifies Ayurvedic products that meet strict safety and efficacy standards. Shah Hayaat is proud to hold these certifications as proof of its commitment to genuine quality.",
+  "GMP certification means that every step of manufacturing at Shah Hayaat follows internationally accepted good practices. Cleanliness, consistency and accuracy are not optional, they are the foundation of everything.",
+  "Shah Hayaat does not believe in quick fixes or dramatic promises. Healing with nature takes time, consistency and the right formula. The products are designed to work gently and build lasting results over weeks.",
+  "Brain Champ is something many teachers recommend to students who want to improve retention during exam season. The formula supports calm focused mental energy that makes studying more productive and less exhausting.",
+  "Ortho Hayaat works best when paired with gentle daily movement. Shah Hayaat always encourages customers to see natural formulas as partners in their wellness journey rather than replacements for healthy daily habits.",
+  "Fevodol is one of Shah Hayaats most loved products because immunity is something everyone wants but few know how to build naturally. This formula fills that gap with traditional wisdom that has stood the test of time.",
+  "Shah Hayaat was built by people who grew up watching Ayurveda work in their own families. That personal connection to the healing tradition is what makes the brand different from companies that simply market herbal products.",
+  "Livohayaat supports the liver which is responsible for over five hundred functions in the human body. When the liver is healthy everything else tends to follow, and Shah Hayaat recognised this important connection early.",
+  "Shah Hayaat products are available across India because the founders believe that quality natural wellness care should not be a luxury only available to people in big cities. Accessibility has always been part of the mission.",
+  "Blood Storm is particularly meaningful to Shah Hayaat because anaemia is one of the most common and most ignored health problems in India, especially among women and young people who push through exhaustion silently.",
+  "Calm Plus addresses something that modern life creates in abundance, which is chronic low-level stress that accumulates quietly and eventually affects sleep, digestion, focus and almost every other aspect of daily health.",
+  "Shah Hayaat Wellness Lab is the brands way of giving back. By offering free health assessments online, the team hopes to help people understand their health better and take the first steps toward lasting natural wellness.",
+  "Musaffa Khoon was inspired by the classical Ayurvedic understanding that many skin and energy problems begin with blood that is overloaded with impurities. Addressing the root produces better results than treating the surface.",
+  "Dia-Ease supports people who are watching their blood sugar levels carefully. The formula is gentle enough for daily use and works alongside dietary changes to help the body maintain a healthier internal balance naturally.",
+  "Shah Hayaat believes that honest communication builds more loyalty than any advertising campaign. The brand shares real customer stories and explains how products work without making claims it cannot fully support.",
+  "Cough X Pro is the result of Shah Hayaats research into why respiratory infections keep recurring in the same people season after season. Building resilience in the airways was the primary goal of the development team.",
+  "Utro Hayaat fills a gap that many women have felt for years. Quality herbal support for female reproductive health has often been hard to find in a form that is both effective and safe for extended daily use.",
+  "Shah Hayaat products are recommended by Ayurvedic doctors, used by athletes, trusted by elders and given to children because the formulas are crafted to be both powerful enough to work and gentle enough to be safe.",
+  "Shahzyme reminds us that what we absorb matters as much as what we eat. Two people can have the same diet and one will thrive while the other struggles, often because of differences in digestive efficiency and function.",
+  "Shah Hayaat takes customer feedback seriously. Many product improvements over the years came directly from listening to people who used the formulas daily and noticed patterns the laboratory alone could never reveal.",
+  "Ayurveda has a concept called agni which refers to digestive fire. When agni is strong the body extracts full nutrition from food, resists illness and maintains energy. When it weakens, everything slowly begins to suffer.",
+  "Panasip was developed because so many people suffer from acidity in silence, treating it with antacids that only mask the problem. Shah Hayaat wanted to create something that addressed why acidity keeps coming back.",
+  "Shah Hayaat is not a company that chases trends. Every product in the range has a clear purpose rooted in Ayurvedic principles, clinical observation and decades of experience with what actually helps real people feel better.",
+  "Fevodol reminds us that immunity is built daily through what we eat, how we sleep, how we manage stress and whether we support our body with the right natural inputs. No single product can replace that daily commitment.",
+  "Ortho Hayaat has changed the daily lives of people who had accepted chronic joint pain as an inevitable part of getting older. Shah Hayaat believes that many age-related complaints are actually lifestyle and nutrition problems.",
+  "Brain Champ works best when the person using it also prioritises sleep and reduces excessive screen time. Shah Hayaat always shares lifestyle guidance alongside product recommendations because context always matters greatly.",
+  "Shah Hayaat follows classical Ayurvedic texts that have guided Indian medicine for thousands of years. These texts describe not just which herbs to use but how to combine them, in what proportions and at what times.",
+  "Livohayaat is recommended for people who eat late, drink tea or coffee heavily, take frequent medications or simply feel that their energy recovery after sleep is never quite complete. The liver often lies at the root.",
+  "Shah Hayaat products come with clear dosage guidance because the founders believe that informed customers get better results. Knowing how and when to take a formula is as important as choosing the right one in the first place.",
+  "Calm Plus was tested by people who had tried everything for their sleep and found that synthetic options left them groggy while other herbal options were too mild. The formula strikes a balance that actually works well.",
+  "Ayurveda says that prevention is always cheaper, easier and more effective than cure. Shah Hayaat designs products with this in mind, supporting the body before problems become serious rather than only responding to crisis.",
+  "Blood Storm supports the kind of energy that comes from within. Not the temporary boost of caffeine or sugar, but the steady sustainable vitality that comes when the body has exactly what it actually needs to thrive.",
+  "Musaffa Khoon has loyal customers who have used it for years because they noticed that when they stopped their skin and energy would gradually decline again. This kind of consistent response is what Shah Hayaat aims for.",
+  "Dia-Ease supports the pancreas and helps reduce the cravings that make managing blood sugar so difficult. The formula addresses multiple aspects of glucose balance together rather than targeting just one symptom at a time.",
+  "Cough X Pro does not just suppress the cough reflex. It works to soothe inflammation, clear airways and strengthen the mucous membrane so recovery is faster and the cough is less likely to return soon after treatment.",
+  "Shah Hayaat invests in education because the founders believe that a customer who understands their health will always make better choices. The Wellness Lab, the blog and the product guides all reflect this daily commitment.",
+  "Utro Hayaat supports the natural hormonal rhythm that guides female health throughout the month. When this rhythm is disrupted sleep suffers, mood changes, energy drops and the body sends out many quiet distress signals.",
+  "Shahzyme is for people who notice they feel tired after eating, bloated regularly or find that even a good diet does not seem to produce the energy they expect. Digestive efficiency is often the missing piece of the puzzle.",
+  "Shah Hayaat operates with a belief that Ayurveda deserves the same respect, rigour and quality standards that modern medicine demands of itself. The ancient wisdom is real but it must be delivered with modern care.",
+  "Panasip works because it does not fight against the body. Excess stomach acid is often a signal that something deeper needs attention, and the formula helps recalibrate the digestive system rather than just neutralise acid.",
+  "Fevodol supports the immune system in a way that builds lasting resilience rather than simply fighting current infection. Regular use creates a baseline of natural protection the body maintains even during challenging seasons.",
+  "Ortho Hayaat is chosen by both older people managing arthritis and younger people who have strained joints through sport or physical work. The formula supports the joints whatever the underlying cause of the discomfort.",
+  "Shah Hayaat knows that the best review is a customer who comes back and brings their family with them. That kind of loyalty cannot be bought with advertising and the brand has worked hard to earn it every single day.",
+  "Brain Champ is sometimes described by customers as the thing that helped them feel like themselves again mentally. Brain fog, forgetfulness and slow thinking are more common than most people admit and they respond to support.",
+  "Ayurveda divides the causes of disease into three categories, which are diet, lifestyle and the mind. Shah Hayaat products address all three dimensions by supporting the body, calming stress and improving daily function.",
+  "Blood Storm is appreciated by women who find standard iron supplements cause constipation and discomfort. This formula delivers iron support in a form the body accepts gently and without the typical uncomfortable side effects.",
+  "Livohayaat is the formula Shah Hayaat most often recommends to people who have just completed a course of antibiotics or other medications. Supporting liver recovery after medication use is something that is often overlooked.",
+  "Calm Plus is for the people who say they are fine but wake up at three in the morning with a racing mind. That pattern of broken sleep is one of the clearest signs that the nervous system needs some gentle daily support.",
+  "Shah Hayaat has built its reputation one customer at a time over many years. The founders did not start with large investment or celebrity endorsements. They started with genuine products and trust grew naturally from there.",
+  "Musaffa Khoon is popular in areas where processed food and high pollution create a higher load on the blood and skin. The formula helps the body clear what accumulates and restore internal clarity gradually over time.",
+  "Cough X Pro is used by teachers, singers and anyone whose voice is central to their profession because it not only treats the cough but soothes and strengthens the throat and vocal tissue for longer-lasting comfort.",
+  "Utro Hayaat is taken by young women dealing with irregular cycles, by those with painful periods and by those approaching middle age who want to support their hormonal transition with natural care rather than synthetic hormones.",
+  "Dia-Ease works best when combined with reduced sugar intake and regular walking after meals. Shah Hayaat always shares practical lifestyle tips because natural formulas work best when the surrounding environment supports them.",
+  "Shah Hayaat Wellness Lab shows you where your health stands today. Use those results as a map, not a verdict. Health changes with effort and the right support, and Shah Hayaat is committed to providing both for everyone.",
+  "Shahzyme is the kind of formula that makes other supplements more effective because when digestion improves the body actually uses what it receives. Many people find their energy rises simply by fixing how they absorb nutrients.",
+  "Shah Hayaat has never paid for fake reviews. The ratings the brand carries are from real people who used the products and chose to share their experience. Authenticity is treated as completely non-negotiable by the whole team.",
+  "Panasip customers include people who have dealt with gastric discomfort and chronic bloating for years without finding lasting relief. The formula approaches these conditions from the Ayurvedic understanding of root cause.",
+  "Ayurveda teaches us to listen to the body before it shouts. Small signals like fatigue, skin changes, poor sleep and mood shifts are the body whispering that something needs attention. Shah Hayaat helps you respond early.",
+  "Shah Hayaat exists because its founders saw too many people turning to expensive synthetic drugs for problems that natural formulas had been solving effectively for centuries. The mission was to bridge that gap with integrity.",
+  "Shah Hayaat Ortho Hayaat is a product the team is particularly proud of because it represents years of refining the formula based on real feedback from people with real pain who needed real results, not just empty promises.",
+  "Fevodol shows best results when taken consistently through the season changes when immunity tends to drop. The formula is most valuable in the weeks before illness as a steady line of natural daily immune defence.",
+  "Blood Storm customers often report that within weeks their nails become stronger, their hair feels healthier and they stop feeling cold all the time. These are classic signs that iron and energy levels are normalising.",
+  "Shah Hayaat believes that every rupee a customer spends on a product should return multiple times that value in genuine health benefit. The pricing reflects the commitment to accessibility without compromising on quality.",
+  "Livohayaat is described by many customers as the product that helped them lose the constant sense of sluggishness they had accepted as normal. A burdened liver makes everything feel heavier and clearing it changes the baseline.",
+  "Calm Plus works over weeks, not overnight. The formula builds a cumulative calming effect on the nervous system that grows with consistent use. People often notice it most when they skip a few days and feel the clear difference.",
+  "Musaffa Khoon addresses something Ayurveda has understood for thousands of years, which is that clear blood means clear skin, clear eyes and a clearer mind. Internal purity is the foundation of genuine external vitality.",
+  "Shah Hayaat products are the result of collaboration between traditional Ayurvedic scholars, practicing physicians and modern quality scientists. This combination ensures ancient wisdom is delivered with contemporary reliability.",
+  "Cough X Pro combines multiple actions in one formula. Clearing mucus, reducing inflammation and strengthening airways are all addressed together so recovery is faster and more complete than with single-action remedies.",
+  "Utro Hayaat reminds us that womens health requires its own focused attention. The same herbal blend that supports general wellness in a man does not address the specific hormonal and reproductive needs of a woman.",
+  "Brain Champ, Ortho Hayaat, Fevodol, Blood Storm, Livohayaat, Calm Plus, Musaffa Khoon, Shahzyme, Panasip, Cough X Pro, Utro Hayaat and Dia-Ease form a complete wellness system designed to support you at every stage of life."
+];
+
+/* Smart rotation — avoid last 8 shown */
+function tyPickPassage() {
+  try {
+    var hist = JSON.parse(localStorage.getItem(TY_HIST_KEY) || '[]');
+    var recent = {};
+    hist.slice(-8).forEach(function(i){ recent[i] = true; });
+    var pool = [];
+    for (var i = 0; i < TY_PASSAGES.length; i++) { if (!recent[i]) pool.push(i); }
+    if (!pool.length) pool = [0];
+    var idx = pool[Math.floor(Math.random() * pool.length)];
+    hist.push(idx); if (hist.length > 20) hist = hist.slice(-20);
+    localStorage.setItem(TY_HIST_KEY, JSON.stringify(hist));
+    return TY_PASSAGES[idx];
+  } catch(e) { return TY_PASSAGES[Math.floor(Math.random() * TY_PASSAGES.length)]; }
+}
+
+/* PB helpers */
+function tyGetPB(){ try{ var v=parseInt(localStorage.getItem(TY_PB_KEY),10); return isNaN(v)?0:v; }catch(e){return 0;} }
+function tySetPB(v){ try{ localStorage.setItem(TY_PB_KEY,String(v)); }catch(e){} }
+
+/* Queue helpers */
+function tyQGet(){ try{ return JSON.parse(localStorage.getItem(TY_QUEUE_KEY)||'[]'); }catch(e){ return []; } }
+function tyQSave(q){ try{ localStorage.setItem(TY_QUEUE_KEY,JSON.stringify(q)); }catch(e){} }
+function tyQAdd(n,wpm,acc){ var q=tyQGet(); q.push({name:n,wpm:wpm,acc:acc,ts:Date.now()}); tyQSave(q); }
+function tyQRemoveFirst(){ var q=tyQGet(); if(q.length){ q.shift(); tyQSave(q); } }
+function tyQFlush(){ tyQGet().forEach(function(item){ tySendToServer(item.name,item.wpm,item.acc,false); }); }
+
+/* Server */
+function tySendToServer(name, wpm, acc, updateUI) {
+  fetch(TY_LB_API, {
+    method:'POST', mode:'no-cors', keepalive:true,
+    headers:{'Content-Type':'text/plain'},
+    body: JSON.stringify({type:'typing_score', name:name, wpm:wpm, acc:acc})
+  }).then(function(){
+    tyQRemoveFirst();
+    if (updateUI) setTimeout(function(){ tyFetchRank(name,wpm); }, 1800);
+  }).catch(function(){});
+}
+
+function tySubmitScore(name, wpm, acc) {
+  tyQAdd(name, wpm, acc);
+  var rankEl = document.getElementById('tyOvRank');
+  if (rankEl) { rankEl.innerHTML='<span style="font-size:.78rem;opacity:.6">Submitting score...</span>'; rankEl.style.display='block'; }
+  tySendToServer(name, wpm, acc, true);
+}
+
+function tyFetchRank(name, wpm) {
+  fetch(TY_LB_API + '?type=typing_scores', {method:'GET', redirect:'follow', mode:'cors'})
+  .then(function(r){ return r.json(); })
+  .then(function(json){
+    var rankEl = document.getElementById('tyOvRank');
+    if (!json.ok || !json.data || !json.data.length) {
+      if (rankEl) rankEl.innerHTML='<span style="font-size:.8rem;color:var(--gold-l)">Score saved!</span>';
+      tyLbRender([]);
+      return;
+    }
+    tyLbRender(json.data);
+    var matched = json.data.filter(function(r){ return r.name && r.name.toLowerCase()===name.toLowerCase(); });
+    var rank = matched.length ? matched[0].rank : null;
+    var score = matched.length ? matched[0].score : null;
+    if (rankEl) {
+      if (rank) {
+        var medal = rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'🏅';
+        rankEl.innerHTML = '<span style="font-size:1.05rem;font-weight:800;color:var(--gold-l)">' + medal + ' Rank #' + rank + '</span>' +
+          '<span style="font-size:.7rem;color:rgba(255,255,255,.55);margin-left:.5rem">' +
+          (rank<=3?'Top 3! Incredible!':'Score: '+score+' pts') + '</span>';
+      } else {
+        rankEl.innerHTML='<span style="font-size:.78rem;color:rgba(255,255,255,.55)">Not in top 100 yet, keep practising!</span>';
+      }
+      rankEl.style.display='block';
+    }
+  }).catch(function(){ tyLbRender([]); });
+}
+
+function tyLbLoad() {
+  fetch(TY_LB_API + '?type=typing_scores', {method:'GET', redirect:'follow', mode:'cors'})
+  .then(function(r){ return r.json(); })
+  .then(function(json){ if(json.ok && json.data) tyLbRender(json.data); })
+  .catch(function(){});
+}
+
+function tyEsc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function tyLbRender(rows) {
+  var list = document.getElementById('tyOvLbList');
+  if (!list) return;
+  if (!rows.length) {
+    list.innerHTML='<div style="text-align:center;font-size:.72rem;color:rgba(255,255,255,.3);padding:.4rem">No scores yet. Be the first!</div>';
+    return;
+  }
+  var html = '';
+  var top = rows.slice(0,100);
+  for (var i=0; i<top.length; i++) {
+    var r = top[i];
+    var medal = r.rank===1?'🥇':r.rank===2?'🥈':r.rank===3?'🥉':('#'+r.rank);
+    html += '<div style="display:flex;align-items:center;gap:.5rem;padding:.3rem .6rem;border-radius:6px;' +
+      'background:' + (i<3?'rgba(212,160,23,.12)':'transparent') + '">' +
+      '<span style="font-size:.76rem;min-width:1.8rem;font-weight:700;color:' + (i<3?'var(--gold-l)':'rgba(255,255,255,.35)') + '">' + medal + '</span>' +
+      '<span style="flex:1;font-size:.74rem;color:' + (i<3?'#fff':'rgba(255,255,255,.55)') + ';overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + tyEsc(r.name) + '</span>' +
+      '<span style="font-size:.72rem;font-family:monospace;color:var(--gold-l);font-weight:700;white-space:nowrap">' + r.score + ' pts</span>' +
+      '</div>';
+  }
+  list.innerHTML = html;
+}
+
+/* Name modal for typing in exercises */
+var _tyExPendingWPM = 0, _tyExPendingAcc = 0;
+/* Auto-save token for typing — lets us submit immediately then update name */
+var _tyAutoToken = '';
+function tyShowNameModal(wpm, acc) {
+  _tyExPendingWPM = wpm; _tyExPendingAcc = acc;
+  // Auto-save with temp token immediately
+  _tyAutoToken = '__auto__ty_' + Date.now() + '_' + Math.random().toString(36).slice(2,5);
+  tySubmitScore(_tyAutoToken, wpm, acc);
+  // Then show name modal
+  var m = document.getElementById('tyExNameModal');
+  var sv = document.getElementById('tyExModalScore');
+  if (sv) sv.textContent = wpm + ' WPM, ' + acc + '% accuracy';
+  if (m) m.style.display = 'flex';
+  setTimeout(function(){ var inp=document.getElementById('tyExNameInput'); if(inp)inp.focus(); }, 400);
+}
+window._tyExSubmitName = function() {
+  var inp = document.getElementById('tyExNameInput');
+  var raw = inp ? inp.value.trim() : '';
+  var name = raw.replace(/[^a-zA-Z0-9\s]/g,'').trim();
+  if (name && name.length < 2) {
+    var w = document.getElementById('tyExNameWarn'); if(w) w.textContent='Name must be at least 2 characters'; return;
+  }
+  var m = document.getElementById('tyExNameModal'); if(m) m.style.display='none';
+  if (name && name.length >= 2) {
+    // Submit with real name (adds a proper named entry)
+    tySubmitScore(name, _tyExPendingWPM, _tyExPendingAcc);
+  }
+  tyLbLoad();
+};
+window._tyExSkipName = function() {
+  var m = document.getElementById('tyExNameModal'); if(m) m.style.display='none';
+  // Already auto-saved — just refresh lb
+  tyLbLoad();
+};
+
+/* Game state */
+var _tyPassage = '';
+var _tyStarted = false, _tyFinished = false, _tyStartTime = 0;
+var _tyTimerInt = null, _tyRemSecs = TY_DURATION;
+
+/* Called when isTypingGame overlay opens */
+function tyInit() {
+  tyQFlush();
+  _tyPassage   = tyPickPassage();
+  _tyStarted   = false;
+  _tyFinished  = false;
+  _tyStartTime = 0;
+  _tyRemSecs   = TY_DURATION;
+  clearInterval(_tyTimerInt);
+
+  /* Reset UI */
+  var wEl=document.getElementById('tyOvWPM'); if(wEl) wEl.textContent='0';
+  var aEl=document.getElementById('tyOvAcc'); if(aEl) aEl.textContent='—';
+  var tEl=document.getElementById('tyOvTimer'); if(tEl){tEl.textContent=TY_DURATION;tEl.style.color='#D4A017';}
+  var bEl=document.getElementById('tyOvBar'); if(bEl) bEl.style.width='0%';
+  var rEl=document.getElementById('tyOvRank'); if(rEl){rEl.style.display='none';rEl.innerHTML='';}
+  var inp=document.getElementById('tyOvInput'); if(inp){inp.value='';inp.disabled=false;inp.style.borderColor='rgba(255,255,255,.15)';}
+  var startBtn=document.getElementById('tyOvStartBtn'); if(startBtn) startBtn.style.display='';
+
+  tyRenderPassage('');
+  tyLbLoad();
+
+  /* Wire up textarea immediately so it's ready — timer only starts on first keystroke */
+  setTimeout(function() {
+    var inp = document.getElementById('tyOvInput');
+    if (!inp) return;
+    inp.disabled = false;
+    /* Block copy-paste and all clipboard shortcuts */
+    ['copy','cut','paste','contextmenu'].forEach(function(ev) {
+      inp.addEventListener(ev, function(e){ e.preventDefault(); e.stopPropagation(); return false; });
+    });
+    inp.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey||e.metaKey) && 'vcxa'.indexOf(e.key.toLowerCase()) !== -1) {
+        e.preventDefault(); e.stopPropagation(); return false;
+      }
+    });
+    inp.addEventListener('input', tyHandleInput);
+  }, 150);
+}
+
+function tyRenderPassage(typed) {
+  var el = document.getElementById('tyOvPassage');
+  if (!el) return;
+  var html = '';
+  for (var i=0; i<_tyPassage.length; i++) {
+    var ch = _tyPassage[i]===' ' ? '&nbsp;' : _tyPassage[i];
+    if (i < typed.length) {
+      var ok = typed[i]===_tyPassage[i];
+      html += '<span style="color:' + (ok?'#22C55E':'#F87171') + ';background:' + (ok?'transparent':'rgba(248,113,113,.15)') + '">' + ch + '</span>';
+    } else if (i===typed.length) {
+      html += '<span style="border-left:2px solid #D4A017;animation:blink .8s ease-in-out infinite">' + ch + '</span>';
+    } else {
+      html += '<span style="color:rgba(255,255,255,.3)">' + ch + '</span>';
+    }
+  }
+  el.innerHTML = html;
+}
+
+function tyStart() {
+  var startBtn = document.getElementById('tyOvStartBtn');
+  if (startBtn) startBtn.style.display = 'none';
+  var inp = document.getElementById('tyOvInput');
+  if (inp) { inp.disabled = false; inp.focus(); }
+  speak('Go! Type the passage as fast and accurately as you can. Timer starts on your first keystroke.');
+}
+
+function tyHandleInput() {
+  if (_tyFinished) return;
+  var inp = document.getElementById('tyOvInput');
+  if (!inp) return;
+  var typed = inp.value;
+
+  if (!_tyStarted && typed.length > 0) {
+    _tyStarted = true;
+    _tyStartTime = Date.now();
+    _tyTimerInt = setInterval(function(){
+      if (!document.getElementById('tyOvTimer')) { clearInterval(_tyTimerInt); return; }
+      /* FIX: always read the CURRENT textarea value — never use the stale closure */
+      var currentInp = document.getElementById('tyOvInput');
+      var currentTyped = currentInp ? currentInp.value : '';
+      var elapsed = (Date.now() - _tyStartTime) / 1000;
+      _tyRemSecs = Math.max(0, TY_DURATION - elapsed);
+      var pct = (elapsed / TY_DURATION) * 100;
+      var tEl = document.getElementById('tyOvTimer');
+      var bEl = document.getElementById('tyOvBar');
+      if (tEl) { tEl.textContent = Math.ceil(_tyRemSecs); tEl.style.color = _tyRemSecs < 8 ? '#F87171' : '#D4A017'; }
+      if (bEl) bEl.style.width = pct + '%';
+      /* Count words from live current value */
+      var words = currentTyped.trim().split(/\s+/).filter(function(w){ return w; }).length;
+      var liveWPM = elapsed > 0.5 ? Math.round((words / elapsed) * 60) : 0;
+      var wEl = document.getElementById('tyOvWPM'); if(wEl) wEl.textContent = liveWPM;
+      if (_tyRemSecs <= 0) { clearInterval(_tyTimerInt); tyFinish(currentTyped); }
+    }, 250);
+  }
+
+  if (!_tyStarted) return;
+  tyRenderPassage(typed);
+
+  var correct=0;
+  for(var i=0;i<Math.min(typed.length,_tyPassage.length);i++){ if(typed[i]===_tyPassage[i]) correct++; }
+  var acc = typed.length>0 ? Math.round((correct/typed.length)*100) : 0;
+  var aEl=document.getElementById('tyOvAcc'); if(aEl) aEl.textContent=acc+'%';
+
+  /* Also auto-finish when passage fully typed */
+  if (typed.length >= _tyPassage.length && _tyStarted) { clearInterval(_tyTimerInt); setTimeout(function(){ tyFinish(typed); }, 300); }
+}
+
+function tyFinish(typed) {
+  if (_tyFinished) return;
+  _tyFinished = true;
+  var inp = document.getElementById('tyOvInput'); if(inp) inp.disabled = true;
+
+  var elapsed = Math.max(1, (Date.now()-_tyStartTime)/1000);
+  var words = typed.trim().split(/\s+/).filter(function(w){ return w; }).length;
+  var wpm = Math.round((words/elapsed)*60);
+  var correct=0;
+  for(var i=0;i<Math.min(typed.length,_tyPassage.length);i++){ if(typed[i]===_tyPassage[i]) correct++; }
+  var acc = typed.length>0 ? Math.round((correct/typed.length)*100) : 0;
+
+  if (wpm > tyGetPB()) tySetPB(wpm);
+
+  var rating = wpm>=65?'Lightning fast!':wpm>=50?'Excellent speed!':wpm>=35?'Good pace!':'Keep practising!';
+  var scoreHTML = '<div class="done-score-pill"><strong>'+wpm+'</strong><span>WPM</span></div>' +
+    '<div class="done-score-pill"><strong>'+acc+'%</strong><span>ACCURACY</span></div>' +
+    '<div class="done-score-pill"><strong>'+rating+'</strong><span>RATING</span></div>';
+
+  saveScore('brain', Math.min(100, Math.round(wpm * (acc/100) / 0.7)));
+  speak(wpm + ' words per minute at ' + acc + ' percent accuracy. ' + rating);
+
+  _lastChallengeScore = wpm;
+  _lastChallengeName  = 'WPM typing speed';
+  _lastChallengeExId  = 'typing-speed';
+
+  setTimeout(function(){
+    _showDone(scoreHTML);
+    tyShowNameModal(wpm, acc);
+  }, 600);
+}
+
 </script>
 
 <!-- THEME SWITCHER -->
@@ -3883,12 +4369,45 @@ function shareChallenge(method) {
   <div class="lbn-box">
     <div style="font-size:2rem;margin-bottom:.4rem">🏆</div>
     <div class="lbn-title">You scored <span id="lbnScoreVal">—</span> taps!</div>
-    <div class="lbn-sub">Want your name on the global leaderboard?<br>It's optional — you can stay anonymous.</div>
+    <div class="lbn-sub">Your score is already saved. Add your name to appear on the leaderboard, or skip to stay as Anonymous.</div>
     <input class="lbn-inp" id="lbnInput" type="text" maxlength="16" placeholder="Your name (optional)" autocomplete="off" autocorrect="off" spellcheck="false" oninput="lbnSanitizeInput(this)">
     <div id="lbnWarn" style="font-size:.72rem;color:#f87171;min-height:.9rem;margin-top:-.4rem;margin-bottom:.3rem;text-align:center"></div>
     <div class="lbn-btns">
       <button class="lbn-submit" onclick="lbSubmitName()">🌍 Add to Leaderboard</button>
-      <button class="lbn-skip" onclick="lbSkipName()">Skip — stay anonymous</button>
+      <button class="lbn-skip" onclick="lbSkipName()">Skip — already saved anonymously</button>
+    </div>
+  </div>
+</div>
+
+<!-- Typing speed name modal for exercises.html -->
+<div id="tyExNameModal" style="display:none;position:fixed;inset:0;z-index:10000;
+     background:rgba(0,0,0,.72);backdrop-filter:blur(6px);
+     align-items:center;justify-content:center;padding:1rem">
+  <div style="background:#1a2332;border:1px solid rgba(255,255,255,.12);border-radius:16px;
+              padding:1.5rem 1.3rem;max-width:300px;width:100%;
+              box-shadow:0 24px 64px rgba(0,0,0,.5);text-align:center">
+    <div style="font-size:1.8rem;margin-bottom:.4rem">🏅</div>
+    <h3 style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:.25rem">Add your name to the leaderboard</h3>
+    <p style="font-size:.72rem;color:rgba(255,255,255,.45);margin-bottom:.4rem">Score: <strong id="tyExModalScore" style="color:var(--gold-l)"></strong></p><p style="font-size:.68rem;color:rgba(255,255,255,.3);margin-bottom:.8rem">Already saved. Add your name to show on the leaderboard.</p>
+    <input id="tyExNameInput" type="text" maxlength="30" placeholder="Your name (optional)"
+      autocomplete="off" autocorrect="off" spellcheck="false"
+      style="width:100%;padding:.6rem .85rem;border:1.5px solid rgba(255,255,255,.15);border-radius:8px;
+             background:rgba(255,255,255,.07);color:#fff;font-size:.88rem;font-family:inherit;
+             outline:none;margin-bottom:.25rem;box-sizing:border-box"
+      onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,.15)'"
+      onkeydown="if(event.key==='Enter')_tyExSubmitName()">
+    <div id="tyExNameWarn" style="font-size:.68rem;color:#F87171;min-height:.9rem;margin-bottom:.45rem"></div>
+    <div style="display:flex;gap:.55rem">
+      <button onclick="_tyExSubmitName()"
+        style="flex:1;padding:.62rem;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;
+               border:none;border-radius:50px;font-weight:700;font-size:.84rem;cursor:pointer">
+        Submit Score
+      </button>
+      <button onclick="_tyExSkipName()"
+        style="padding:.62rem 1rem;background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);
+               border:1.5px solid rgba(255,255,255,.12);border-radius:50px;font-size:.8rem;cursor:pointer">
+        Skip — already saved
+      </button>
     </div>
   </div>
 </div>
