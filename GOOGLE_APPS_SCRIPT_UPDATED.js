@@ -6,7 +6,7 @@
 
 const SPREADSHEET_ID         = '1JzFvfZRwsk4sfed6r1R0i_5i5wA96UH-wE4VYVY2Se8';
 const SHEET_NAME_LEADERBOARD = 'ReactionLeaderboard';   // Sheet 1
-const SHEET_NAME_TYPING      = 'TypingLeaderboard';     // Sheet 2 (auto-created)
+const SHEET_NAME_TYPING      = 'Sheet2';                // Sheet 2 — exact tab name
 const SHEET_NAME_ANON_CTR    = 'AnonCounter';           // Shared anonymous counter
 
 function getSpreadsheet() {
@@ -137,42 +137,49 @@ function saveTypingScore(d) {
   if (acc < 0 || acc > 100) return { ok:false, error:'acc_out_of_range' };
 
   const score = Math.round(wpm * (acc / 100) * 10);
-  const isAnon = !d.name || String(d.name).startsWith('__auto__') || String(d.name).trim() === '';
-  const displayName = resolveDisplayName(d.name);
-  const token = Date.now() + '_' + Math.random().toString(36).slice(2,8);
-
   const sheet = getTypingSheet();
 
-  // If this is a real named entry, remove any existing __auto__/Anonymous row
-  // that has the same WPM and accuracy from this session (dedup).
-  if (!isAnon) {
-    let existing = sheet.getDataRange().getValues().slice(1);
-    // Filter out rows where name starts with 'Anonymous' AND wpm+acc match exactly
-    const filtered = existing.filter(r => {
-      const rowName = String(r[0] || '');
-      const rowWpm  = Number(r[2]);
-      const rowAcc  = Number(r[3]);
-      const isAnonRow = rowName.startsWith('Anonymous');
-      return !(isAnonRow && rowWpm === wpm && rowAcc === acc);
+  // ── RENAME MODE: client passes the original token to update ──────────────
+  // When user enters their name after auto-save, we update the existing row
+  // in place rather than appending a new one — zero duplicates.
+  if (d.renameToken) {
+    const rToken = String(d.renameToken);
+    const realName = String(d.name || '').replace(/[^\p{L}\p{N}\s]/gu, '').trim().slice(0, 30) || 'Anonymous';
+    let all = sheet.getDataRange().getValues().slice(1);
+    let renamed = false;
+    all = all.map(r => {
+      if (String(r[5]) === rToken) {
+        renamed = true;
+        return [realName, r[1], r[2], r[3], r[4], r[5]]; // update name only, keep score/token
+      }
+      return r;
     });
-    // Rewrite sheet with duplicates removed before appending named entry
-    sheet.clearContents();
-    sheet.appendRow(['Name','Score','WPM','Accuracy','Timestamp','Token']);
-    if (filtered.length) sheet.getRange(2,1,filtered.length,6).setValues(filtered);
+    if (renamed) {
+      sheet.clearContents();
+      sheet.appendRow(['Name','Score','WPM','Accuracy','Timestamp','Token']);
+      if (all.length) sheet.getRange(2,1,all.length,6).setValues(all);
+      const rank = all.sort((a,b)=>Number(b[1])-Number(a[1])).findIndex(r=>String(r[5])===rToken) + 1;
+      return { ok:true, renamed:true, rank: rank||null, score, name: realName };
+    }
+    // Token not found — fall through to normal save (handles edge cases)
   }
+
+  // ── NORMAL SAVE (auto-save as Anonymous) ─────────────────────────────────
+  const displayName = resolveDisplayName(d.name);
+  const token = Date.now() + '_' + Math.random().toString(36).slice(2,8);
 
   sheet.appendRow([displayName, score, wpm, acc, new Date().toISOString(), token]);
 
   let all = sheet.getDataRange().getValues().slice(1);
   all.sort((a,b) => Number(b[1]) - Number(a[1]));
-  const top = all.slice(0, 100);   // keep top 100
+  const top = all.slice(0, 100);
 
   sheet.clearContents();
   sheet.appendRow(['Name','Score','WPM','Accuracy','Timestamp','Token']);
   if (top.length) sheet.getRange(2,1,top.length,6).setValues(top);
 
   const rank = top.findIndex(r => r[5] === token) + 1;
-  return { ok:true, rank: rank||null, score, name: displayName };
+  return { ok:true, rank: rank||null, score, token, name: displayName };
 }
 
 function getTypingScores() {

@@ -4171,62 +4171,127 @@ function tyLbRender(rows) {
   list.innerHTML = html;
 }
 
-/* ── Typing score: save ONCE, rename if user provides name ────────────────
+/* ── Typing score: save ONCE (auto-anon), rename in-place if user provides name ──
    Flow:
-   1. On finish → auto-save with __auto__ token (counts as Anonymous N).
+   1. On finish → auto-save as __auto__ → server returns { token } → store it.
    2. Show name modal.
-   3a. User enters name → send same score again with real name + same token so
-       GAS resolves it to one named entry (old __auto__ entry is displaced when
-       the sheet sorts top-100 and the named one replaces it by token).
-       Practically: we send type:'typing_score' with name=realName.
-       The GAS always appends then re-sorts top-100 — so we send the rename as
-       a NEW row with the real name; the anonymous row scrolls out if score is
-       the same or it stays — to truly avoid duplicates we mark the auto entry
-       with a unique session ID and skip re-sending if name is skipped.
-   3b. User skips → do nothing extra, anonymous entry already saved.
-─────────────────────────────────────────────────────────────────────────── */
-var _tyExPendingWPM = 0, _tyExPendingAcc = 0;
-var _tyAutoSaved = false; // guard: only auto-save once per game
+   3a. User enters name → send renameToken + name → server updates that row in place.
+   3b. User skips → nothing more sent; anonymous entry stays.
+   Result: exactly ONE row in sheet 2 per game session, always.
+─────────────────────────────────────────────────────────────────────────────── */
+var _tyExPendingWPM  = 0;
+var _tyExPendingAcc  = 0;
+var _tyAutoSaved     = false;   // guard: only auto-save once per game
+var _tyAutoToken     = null;    // token returned by server for this session's entry
+
+/* Send to server — returns a Promise so we can read the token back */
+function tySendToServerAsync(name, wpm, acc, renameToken) {
+  var body = { type: 'typing_score', name: name, wpm: wpm, acc: acc };
+  if (renameToken) body.renameToken = renameToken;
+  return fetch(TY_LB_API, {
+    method: 'POST',
+    mode: 'cors',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify(body)
+  }).then(function(r) { return r.json(); }).catch(function() { return {}; });
+}
 
 function tyShowNameModal(wpm, acc) {
-  _tyExPendingWPM = wpm; _tyExPendingAcc = acc;
+  _tyExPendingWPM = wpm;
+  _tyExPendingAcc = acc;
+  _tyAutoToken    = null;
 
-  // Auto-save as anonymous ONCE per completed game
+  // Auto-save as anonymous ONCE per completed game, capture token
   if (!_tyAutoSaved) {
     _tyAutoSaved = true;
-    tySendToServer('__auto__', wpm, acc, false);
+    tySendToServerAsync('__auto__', wpm, acc, null).then(function(resp) {
+      if (resp && resp.token) {
+        _tyAutoToken = resp.token;
+      }
+      // Show rank from auto-save
+      if (resp && resp.rank) {
+        _tyShowRank(resp.rank, resp.score, 'Anonymous');
+      }
+      tyLbLoad();
+    });
   }
 
-  var m = document.getElementById('tyExNameModal');
+  var m  = document.getElementById('tyExNameModal');
   var sv = document.getElementById('tyExModalScore');
   if (sv) sv.textContent = wpm + ' WPM, ' + acc + '% accuracy';
-  if (m) m.style.display = 'flex';
-  setTimeout(function(){ var inp=document.getElementById('tyExNameInput'); if(inp){ inp.value=''; inp.focus(); } }, 400);
+  if (m)  { m.style.display = 'flex'; }
+  setTimeout(function() {
+    var inp = document.getElementById('tyExNameInput');
+    if (inp) { inp.value = ''; inp.focus(); }
+  }, 400);
+}
+
+function _tyShowRank(rank, score, name) {
+  var medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '🏅';
+  var topMsg = rank <= 3 ? '🔥 Top 3 — incredible!' : 'Score: ' + score + ' pts';
+  var html =
+    '<span style="font-size:1rem;font-weight:800;color:var(--gold-l)">' + medal + ' Global Rank #' + rank + '</span>' +
+    '<span style="font-size:.72rem;color:rgba(255,255,255,.55);margin-left:.5rem">' + topMsg + '</span>';
+
+  // Show in typing panel rank bar
+  var rankEl = document.getElementById('tyOvRank');
+  if (rankEl) { rankEl.innerHTML = html; rankEl.style.display = 'block'; }
+
+  // Also populate the done-screen global rank box (shown after _showDone)
+  var doneRank = document.getElementById('globalRank');
+  if (doneRank) {
+    doneRank.innerHTML =
+      '<div style="font-size:1.3rem;margin-bottom:4px">' + medal + ' Typing Rank <strong>#' + rank + '</strong></div>' +
+      '<div style="font-size:.85rem;margin-bottom:2px">⌨️ Score: <strong>' + score + ' pts</strong></div>' +
+      '<div style="font-size:.72rem;color:rgba(255,255,255,.45)">' + topMsg + '</div>';
+    doneRank.classList.add('show');
+    if (rank <= 3) doneRank.classList.add('rank-top');
+  }
 }
 
 window._tyExSubmitName = function() {
-  var inp = document.getElementById('tyExNameInput');
-  var raw = inp ? inp.value.trim() : '';
-  var name = raw.replace(/[^a-zA-Z0-9\s]/g,'').trim();
+  var inp  = document.getElementById('tyExNameInput');
+  var raw  = inp ? inp.value.trim() : '';
+  var name = raw.replace(/[^a-zA-Z0-9\s]/g, '').trim();
   var warn = document.getElementById('tyExNameWarn');
   if (name && name.length < 2) {
     if (warn) warn.textContent = 'Name must be at least 2 characters'; return;
   }
   if (warn) warn.textContent = '';
-  var m = document.getElementById('tyExNameModal'); if(m) m.style.display='none';
+  var m = document.getElementById('tyExNameModal');
+  if (m) m.style.display = 'none';
+
   if (name && name.length >= 2) {
-    // Send named entry — replaces the anonymous slot in top-100 on the sheet
-    tySendToServer(name, _tyExPendingWPM, _tyExPendingAcc, true);
+    if (_tyAutoToken) {
+      // Rename the existing anon row in-place — no duplicate
+      tySendToServerAsync(name, _tyExPendingWPM, _tyExPendingAcc, _tyAutoToken)
+        .then(function(resp) {
+          if (resp && resp.rank) _tyShowRank(resp.rank, resp.score, name);
+          tyLbLoad();
+        });
+    } else {
+      // Token not yet back (slow network) — send as fresh named entry
+      tySendToServerAsync(name, _tyExPendingWPM, _tyExPendingAcc, null)
+        .then(function(resp) {
+          if (resp && resp.rank) _tyShowRank(resp.rank, resp.score, name);
+          tyLbLoad();
+        });
+    }
+  } else {
+    // Skipped or empty — anonymous entry already saved
+    tyLbLoad();
   }
-  // Reset guard so next game round can auto-save again
-  _tyAutoSaved = false;
-  tyLbLoad();
+
+  _tyAutoSaved = false; // reset for next game
+  _tyAutoToken = null;
 };
 
 window._tyExSkipName = function() {
-  var m = document.getElementById('tyExNameModal'); if(m) m.style.display='none';
-  // Already saved as anonymous — nothing more to send
-  _tyAutoSaved = false; // reset for next game
+  var m = document.getElementById('tyExNameModal');
+  if (m) m.style.display = 'none';
+  // Anonymous entry already saved — nothing more to send
+  _tyAutoSaved = false;
+  _tyAutoToken = null;
   tyLbLoad();
 };
 
@@ -4244,6 +4309,7 @@ function tyInit() {
   _tyStartTime = 0;
   _tyRemSecs   = TY_DURATION;
   _tyAutoSaved = false; // reset so new game can auto-save once
+  _tyAutoToken = null;  // clear previous session token
   clearInterval(_tyTimerInt);
 
   /* Reset UI */
@@ -4252,6 +4318,7 @@ function tyInit() {
   var tEl=document.getElementById('tyOvTimer'); if(tEl){tEl.textContent=TY_DURATION;tEl.style.color='#D4A017';}
   var bEl=document.getElementById('tyOvBar'); if(bEl) bEl.style.width='0%';
   var rEl=document.getElementById('tyOvRank'); if(rEl){rEl.style.display='none';rEl.innerHTML='';}
+  var grEl=document.getElementById('globalRank'); if(grEl){grEl.className='rank-box';grEl.innerHTML='';}
   var inp=document.getElementById('tyOvInput'); if(inp){inp.value='';inp.disabled=false;inp.style.borderColor='rgba(255,255,255,.15)';}
   var startBtn=document.getElementById('tyOvStartBtn'); if(startBtn) startBtn.style.display='';
 
