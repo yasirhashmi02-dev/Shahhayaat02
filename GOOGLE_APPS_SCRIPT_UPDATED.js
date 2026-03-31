@@ -1,13 +1,12 @@
 // ════════════════════════════════════════════════════════════════
-// SHAH HAYAAT — GOOGLE APPS SCRIPT (FINAL — Auto-save + Anon numbering + Top 100)
+// SHAH HAYAAT — GOOGLE APPS SCRIPT
 // Deploy as Web App: Execute as Me, Access: Anyone (anonymous)
-// Same URL — just paste and re-deploy as new version
 // ════════════════════════════════════════════════════════════════
 
 const SPREADSHEET_ID         = '1JzFvfZRwsk4sfed6r1R0i_5i5wA96UH-wE4VYVY2Se8';
 const SHEET_NAME_LEADERBOARD = 'ReactionLeaderboard';   // Sheet 1
-const SHEET_NAME_TYPING      = 'Sheet2';                // Sheet 2 — exact tab name
-const SHEET_NAME_ANON_CTR    = 'AnonCounter';           // Shared anonymous counter
+const SHEET_NAME_TYPING      = 'Sheet2';                // exact tab name
+const SHEET_NAME_ANON_CTR    = 'AnonCounter';           // shared counter
 
 function getSpreadsheet() {
   return SpreadsheetApp.openById(SPREADSHEET_ID);
@@ -27,7 +26,6 @@ function getOrCreateSheet(name, headers) {
   return sheet;
 }
 
-// ── GET next anonymous number (shared across both tests) ──────────────────
 function getNextAnonNumber() {
   const sheet = getOrCreateSheet(SHEET_NAME_ANON_CTR, ['Counter']);
   const val = sheet.getRange(2,1).getValue();
@@ -36,37 +34,49 @@ function getNextAnonNumber() {
   return next;
 }
 
-// ── Resolve display name ──────────────────────────────────────────────────
-// __auto__ prefix = auto-saved anon entry → assign "Anonymous N"
-// Empty / whitespace → assign "Anonymous N"
-// Real name → use as-is (sanitised)
 function resolveDisplayName(raw) {
   if (!raw || String(raw).trim() === '' || String(raw).startsWith('__auto__')) {
     return 'Anonymous ' + getNextAnonNumber();
   }
-  // Sanitise: strip anything that isn't letter/number/space
   var clean = String(raw).replace(/[^\p{L}\p{N}\s]/gu, '').trim().slice(0, 30);
   return clean || ('Anonymous ' + getNextAnonNumber());
 }
 
-// ── CORS preflight ────────────────────────────────────────────────────────
-function doOptions() {
-  return ContentService.createTextOutput('').setMimeType(ContentService.MimeType.JSON);
-}
-
-// ── GET ───────────────────────────────────────────────────────────────────
+// ── GET — handles reads AND the rename (GET is CORS-safe on GAS) ──────────
 function doGet(e) {
   try {
-    const type = ((e && e.parameter && e.parameter.type) || '').toLowerCase();
+    const p    = (e && e.parameter) ? e.parameter : {};
+    const type = (p.type || '').toLowerCase();
+
     if (type === 'reaction_scores') return jsonResponse({ ok:true, data: getReactionScores() });
     if (type === 'typing_scores')   return jsonResponse({ ok:true, data: getTypingScores() });
+
+    // Rename by token: ?type=rename_typing&token=XXX&name=John
+    if (type === 'rename_typing') {
+      const token   = String(p.token || '').trim();
+      const newName = String(p.name  || '').replace(/[^\p{L}\p{N}\s]/gu, '').trim().slice(0, 30);
+      if (!token)   return jsonResponse({ ok:false, error:'missing token' });
+      if (!newName) return jsonResponse({ ok:false, error:'missing name' });
+      return jsonResponse(renameTypingEntry(token, newName));
+    }
+
+    // Rename by wpm+acc match: ?type=rename_typing_by_match&name=John&wpm=X&acc=Y
+    if (type === 'rename_typing_by_match') {
+      const newName = String(p.name || '').replace(/[^\p{L}\p{N}\s]/gu, '').trim().slice(0, 30);
+      const wpm     = Number(p.wpm || 0);
+      const acc     = Number(p.acc || 0);
+      if (!newName) return jsonResponse({ ok:false, error:'missing name' });
+      if (!wpm)     return jsonResponse({ ok:false, error:'missing wpm' });
+      return jsonResponse(renameTypingByMatch(wpm, acc, newName));
+    }
+
     return jsonResponse({ ok:true, status:'alive' });
   } catch(err) {
     return jsonResponse({ ok:false, error:err.message });
   }
 }
 
-// ── POST ──────────────────────────────────────────────────────────────────
+// ── POST — saves new scores only ─────────────────────────────────────────
 function doPost(e) {
   try {
     if (!e || !e.postData || !e.postData.contents)
@@ -81,7 +91,7 @@ function doPost(e) {
 }
 
 // ════════════════════════════════════════════════════════════════
-// REACTION LEADERBOARD  (Sheet 1 — top 100)
+// REACTION LEADERBOARD  (ReactionLeaderboard — top 100)
 // ════════════════════════════════════════════════════════════════
 function getLeaderboardSheet() {
   return getOrCreateSheet(SHEET_NAME_LEADERBOARD, ['Name','Score','Timestamp','Token']);
@@ -103,14 +113,14 @@ function saveReactionScore(d) {
 
   let all = sheet.getDataRange().getValues().slice(1);
   all.sort((a,b) => Number(b[1]) - Number(a[1]));
-  const top = all.slice(0, 100);   // keep top 100
+  const top = all.slice(0, 100);
 
   sheet.clearContents();
   sheet.appendRow(['Name','Score','Timestamp','Token']);
   if (top.length) sheet.getRange(2,1,top.length,4).setValues(top);
 
   const rank = top.findIndex(r => r[3] === token) + 1;
-  return { ok:true, rank: rank||null, score, name: displayName };
+  return { ok:true, rank: rank||null, score, token, name: displayName };
 }
 
 function getReactionScores() {
@@ -123,51 +133,25 @@ function getReactionScores() {
 }
 
 // ════════════════════════════════════════════════════════════════
-// TYPING LEADERBOARD  (Sheet 2 — top 100)
-// Score = WPM × (acc/100) × 10
+// TYPING LEADERBOARD  (Sheet2 — top 100)
+// Score = WPM x (acc/100) x 10
 // ════════════════════════════════════════════════════════════════
 function getTypingSheet() {
   return getOrCreateSheet(SHEET_NAME_TYPING, ['Name','Score','WPM','Accuracy','Timestamp','Token']);
 }
 
+// Auto-save as Anonymous — returns token for rename via GET later
 function saveTypingScore(d) {
   const wpm = Number(d.wpm || 0);
   const acc = Number(d.acc || 0);
   if (wpm < 1 || wpm > 300) return { ok:false, error:'wpm_out_of_range' };
   if (acc < 0 || acc > 100) return { ok:false, error:'acc_out_of_range' };
 
-  const score = Math.round(wpm * (acc / 100) * 10);
+  const score       = Math.round(wpm * (acc / 100) * 10);
+  const displayName = resolveDisplayName('__auto__');  // always Anonymous N on auto-save
+  const token       = Date.now() + '_' + Math.random().toString(36).slice(2,8);
+
   const sheet = getTypingSheet();
-
-  // ── RENAME MODE: client passes the original token to update ──────────────
-  // When user enters their name after auto-save, we update the existing row
-  // in place rather than appending a new one — zero duplicates.
-  if (d.renameToken) {
-    const rToken = String(d.renameToken);
-    const realName = String(d.name || '').replace(/[^\p{L}\p{N}\s]/gu, '').trim().slice(0, 30) || 'Anonymous';
-    let all = sheet.getDataRange().getValues().slice(1);
-    let renamed = false;
-    all = all.map(r => {
-      if (String(r[5]) === rToken) {
-        renamed = true;
-        return [realName, r[1], r[2], r[3], r[4], r[5]]; // update name only, keep score/token
-      }
-      return r;
-    });
-    if (renamed) {
-      sheet.clearContents();
-      sheet.appendRow(['Name','Score','WPM','Accuracy','Timestamp','Token']);
-      if (all.length) sheet.getRange(2,1,all.length,6).setValues(all);
-      const rank = all.sort((a,b)=>Number(b[1])-Number(a[1])).findIndex(r=>String(r[5])===rToken) + 1;
-      return { ok:true, renamed:true, rank: rank||null, score, name: realName };
-    }
-    // Token not found — fall through to normal save (handles edge cases)
-  }
-
-  // ── NORMAL SAVE (auto-save as Anonymous) ─────────────────────────────────
-  const displayName = resolveDisplayName(d.name);
-  const token = Date.now() + '_' + Math.random().toString(36).slice(2,8);
-
   sheet.appendRow([displayName, score, wpm, acc, new Date().toISOString(), token]);
 
   let all = sheet.getDataRange().getValues().slice(1);
@@ -182,11 +166,72 @@ function saveTypingScore(d) {
   return { ok:true, rank: rank||null, score, token, name: displayName };
 }
 
+// Rename existing row by token — ZERO new rows added
+function renameTypingEntry(token, newName) {
+  const sheet = getTypingSheet();
+  const data  = sheet.getDataRange().getValues();
+  if (data.length <= 1) return { ok:false, error:'sheet empty' };
+
+  let rank = null, score = null, renamed = false;
+  for (let i = 1; i < data.length; i++) {
+    if (String(data[i][5]) === token) {
+      data[i][0] = newName;
+      renamed    = true;
+      score      = Number(data[i][1]);
+      rank       = i;  // 1-based position in sorted list
+      break;
+    }
+  }
+  if (!renamed) return { ok:false, error:'token not found' };
+
+  sheet.clearContents();
+  sheet.appendRow(['Name','Score','WPM','Accuracy','Timestamp','Token']);
+  const rows = data.slice(1);
+  if (rows.length) sheet.getRange(2,1,rows.length,6).setValues(rows);
+
+  return { ok:true, renamed:true, rank, score, name: newName };
+}
+
 function getTypingScores() {
   const sheet = getTypingSheet();
-  const rows = sheet.getDataRange().getValues();
+  const rows  = sheet.getDataRange().getValues();
   if (rows.length <= 1) return [];
   return rows.slice(1,101).map((r,i) => ({
     rank: i+1, name: r[0], score: Number(r[1]), wpm: Number(r[2]), acc: Number(r[3])
   }));
+}
+
+// ════════════════════════════════════════════════════════════════
+// RENAME BY WPM+ACC MATCH (called when user submits their name)
+// Finds the most recent Anonymous row with matching wpm+acc and
+// renames it in-place. Zero duplicate rows ever.
+// Called via GET ?type=rename_typing_by_match&name=X&wpm=Y&acc=Z
+// ════════════════════════════════════════════════════════════════
+function renameTypingByMatch(wpm, acc, newName) {
+  const sheet = getTypingSheet();
+  const data  = sheet.getDataRange().getValues();
+  if (data.length <= 1) return { ok:false, error:'sheet empty' };
+
+  let rank = null, score = null, renamed = false;
+  // Search from bottom (most recent) for Anonymous row with matching wpm+acc
+  for (let i = data.length - 1; i >= 1; i--) {
+    const rowName = String(data[i][0] || '');
+    const rowWpm  = Number(data[i][2]);
+    const rowAcc  = Number(data[i][3]);
+    if (rowName.startsWith('Anonymous') && rowWpm === wpm && rowAcc === acc) {
+      data[i][0] = newName;
+      renamed    = true;
+      score      = Number(data[i][1]);
+      rank       = i;  // 1-based sorted position
+      break;
+    }
+  }
+  if (!renamed) return { ok:false, error:'no matching anonymous entry found' };
+
+  sheet.clearContents();
+  sheet.appendRow(['Name','Score','WPM','Accuracy','Timestamp','Token']);
+  const rows = data.slice(1);
+  if (rows.length) sheet.getRange(2,1,rows.length,6).setValues(rows);
+
+  return { ok:true, renamed:true, rank, score, name: newName };
 }

@@ -2946,6 +2946,7 @@ function ovBeginDirect() {
     if (skipStepBtn) skipStepBtn.style.display = 'none';
     const instrBtn = document.getElementById('ovInstrBtn');
     if (instrBtn) instrBtn.style.display = '';
+    lbStopPoll(); // stop reaction polling — typing has its own independent LB
     _showPanel('typing');
     tyInit();
     document.getElementById('tyOvStartBtn').style.display = '';
@@ -4171,29 +4172,71 @@ function tyLbRender(rows) {
   list.innerHTML = html;
 }
 
-/* ── Typing score: save ONCE (auto-anon), rename in-place if user provides name ──
-   Flow:
-   1. On finish → auto-save as __auto__ → server returns { token } → store it.
-   2. Show name modal.
-   3a. User enters name → send renameToken + name → server updates that row in place.
-   3b. User skips → nothing more sent; anonymous entry stays.
-   Result: exactly ONE row in sheet 2 per game session, always.
-─────────────────────────────────────────────────────────────────────────────── */
-var _tyExPendingWPM  = 0;
-var _tyExPendingAcc  = 0;
-var _tyAutoSaved     = false;   // guard: only auto-save once per game
-var _tyAutoToken     = null;    // token returned by server for this session's entry
+/* ════════════════════════════════════════════════════════════
+   TYPING SCORE FLOW — one entry per session, rename in-place
+   ════════════════════════════════════════════════════════════
+   1. Game finishes → POST auto-save (no-cors, fire-and-forget)
+      Simultaneously GET the typing LB to find the saved token.
+   2. Name modal shows.
+   3a. User enters name → GET ?type=rename_typing&token=X&name=Y
+       Server renames that row in-place. Zero new rows.
+   3b. User skips → anonymous entry stays. Nothing more sent.
+   ════════════════════════════════════════════════════════════ */
 
-/* Send to server — returns a Promise so we can read the token back */
-function tySendToServerAsync(name, wpm, acc, renameToken) {
-  var body = { type: 'typing_score', name: name, wpm: wpm, acc: acc };
-  if (renameToken) body.renameToken = renameToken;
-  return fetch(TY_LB_API, {
+var _tyExPendingWPM = 0;
+var _tyExPendingAcc = 0;
+var _tyAutoSaved    = false;   // only auto-save once per game
+var _tyAutoToken    = null;    // token of the saved row (fetched after POST)
+
+/* POST auto-save — no-cors (fire-and-forget, GAS accepts this) */
+function tyAutoSavePost(wpm, acc) {
+  fetch(TY_LB_API, {
     method: 'POST',
-    mode: 'cors',
+    mode: 'no-cors',
+    keepalive: true,
     headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify(body)
-  }).then(function(r) { return r.json(); }).catch(function() { return {}; });
+    body: JSON.stringify({ type: 'typing_score', name: '__auto__', wpm: wpm, acc: acc })
+  }).catch(function() {});
+}
+
+/* After POST, wait briefly then GET the leaderboard to find our token
+   Strategy: the newest Anonymous entry with matching WPM+acc is ours */
+function tyFetchOurToken(wpm, acc, callback) {
+  setTimeout(function() {
+    fetch(TY_LB_API + '?type=typing_scores', { method: 'GET', redirect: 'follow', mode: 'cors' })
+      .then(function(r) { return r.json(); })
+      .then(function(json) {
+        if (!json.ok || !json.data || !json.data.length) { callback(null, null); return; }
+        // Find our entry: Anonymous with matching wpm+acc, most recent = highest rank among ties
+        var matched = json.data.filter(function(r) {
+          return r.name && r.name.indexOf('Anonymous') === 0 && r.wpm === wpm && r.acc === acc;
+        });
+        if (matched.length) {
+          // We need the token — GAS getTypingScores doesn't return it.
+          // Instead, store the rank+score and use that to rename by wpm+acc+anon match.
+          // Pass null token — rename will use wpm+acc+name matching on server.
+          callback(matched[0].rank, matched[0].score);
+          tyLbRender(json.data);
+        } else {
+          callback(null, null);
+          tyLbLoad();
+        }
+      }).catch(function() { callback(null, null); });
+  }, 2500); // wait for GAS to process the POST
+}
+
+/* GET-based rename — CORS works, no duplicate row */
+function tyRenameEntry(newName, wpm, acc, rank, score, callback) {
+  // Since GAS getTypingScores doesn't expose token, we use a new server action:
+  // GET ?type=rename_typing_by_match&name=John&wpm=X&acc=Y
+  fetch(TY_LB_API + '?type=rename_typing_by_match'
+    + '&name=' + encodeURIComponent(newName)
+    + '&wpm='  + encodeURIComponent(wpm)
+    + '&acc='  + encodeURIComponent(acc), {
+    method: 'GET', redirect: 'follow', mode: 'cors'
+  }).then(function(r) { return r.json(); })
+    .then(function(json) { callback(json); })
+    .catch(function() { callback({}); });
 }
 
 function tyShowNameModal(wpm, acc) {
@@ -4201,17 +4244,12 @@ function tyShowNameModal(wpm, acc) {
   _tyExPendingAcc = acc;
   _tyAutoToken    = null;
 
-  // Auto-save as anonymous ONCE per completed game, capture token
   if (!_tyAutoSaved) {
     _tyAutoSaved = true;
-    tySendToServerAsync('__auto__', wpm, acc, null).then(function(resp) {
-      if (resp && resp.token) {
-        _tyAutoToken = resp.token;
-      }
-      // Show rank from auto-save
-      if (resp && resp.rank) {
-        _tyShowRank(resp.rank, resp.score, 'Anonymous');
-      }
+    tyAutoSavePost(wpm, acc);
+    // Fetch after delay to get our rank and token
+    tyFetchOurToken(wpm, acc, function(rank, score) {
+      if (rank) { _tyShowRank(rank, score); }
       tyLbLoad();
     });
   }
@@ -4219,25 +4257,27 @@ function tyShowNameModal(wpm, acc) {
   var m  = document.getElementById('tyExNameModal');
   var sv = document.getElementById('tyExModalScore');
   if (sv) sv.textContent = wpm + ' WPM, ' + acc + '% accuracy';
-  if (m)  { m.style.display = 'flex'; }
+  if (m)  m.style.display = 'flex';
   setTimeout(function() {
     var inp = document.getElementById('tyExNameInput');
     if (inp) { inp.value = ''; inp.focus(); }
   }, 400);
 }
 
-function _tyShowRank(rank, score, name) {
-  var medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '🏅';
+function _tyShowRank(rank, score) {
+  var medal  = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '🏅';
   var topMsg = rank <= 3 ? '🔥 Top 3 — incredible!' : 'Score: ' + score + ' pts';
-  var html =
-    '<span style="font-size:1rem;font-weight:800;color:var(--gold-l)">' + medal + ' Global Rank #' + rank + '</span>' +
-    '<span style="font-size:.72rem;color:rgba(255,255,255,.55);margin-left:.5rem">' + topMsg + '</span>';
 
-  // Show in typing panel rank bar
+  /* Typing panel rank bar */
   var rankEl = document.getElementById('tyOvRank');
-  if (rankEl) { rankEl.innerHTML = html; rankEl.style.display = 'block'; }
+  if (rankEl) {
+    rankEl.innerHTML =
+      '<span style="font-size:1rem;font-weight:800;color:var(--gold-l)">' + medal + ' Global Rank #' + rank + '</span>' +
+      '<span style="font-size:.72rem;color:rgba(255,255,255,.55);margin-left:.5rem">' + topMsg + '</span>';
+    rankEl.style.display = 'block';
+  }
 
-  // Also populate the done-screen global rank box (shown after _showDone)
+  /* Done screen global rank box */
   var doneRank = document.getElementById('globalRank');
   if (doneRank) {
     doneRank.innerHTML =
@@ -4262,34 +4302,19 @@ window._tyExSubmitName = function() {
   if (m) m.style.display = 'none';
 
   if (name && name.length >= 2) {
-    if (_tyAutoToken) {
-      // Rename the existing anon row in-place — no duplicate
-      tySendToServerAsync(name, _tyExPendingWPM, _tyExPendingAcc, _tyAutoToken)
-        .then(function(resp) {
-          if (resp && resp.rank) _tyShowRank(resp.rank, resp.score, name);
-          tyLbLoad();
-        });
-    } else {
-      // Token not yet back (slow network) — send as fresh named entry
-      tySendToServerAsync(name, _tyExPendingWPM, _tyExPendingAcc, null)
-        .then(function(resp) {
-          if (resp && resp.rank) _tyShowRank(resp.rank, resp.score, name);
-          tyLbLoad();
-        });
-    }
-  } else {
-    // Skipped or empty — anonymous entry already saved
-    tyLbLoad();
+    // Rename via GET — server finds matching Anonymous row and renames in-place
+    tyRenameEntry(name, _tyExPendingWPM, _tyExPendingAcc, null, null, function(resp) {
+      if (resp && resp.rank) _tyShowRank(resp.rank, resp.score);
+      setTimeout(tyLbLoad, 500);
+    });
   }
-
-  _tyAutoSaved = false; // reset for next game
+  _tyAutoSaved = false;
   _tyAutoToken = null;
 };
 
 window._tyExSkipName = function() {
   var m = document.getElementById('tyExNameModal');
   if (m) m.style.display = 'none';
-  // Anonymous entry already saved — nothing more to send
   _tyAutoSaved = false;
   _tyAutoToken = null;
   tyLbLoad();
@@ -4308,8 +4333,8 @@ function tyInit() {
   _tyFinished  = false;
   _tyStartTime = 0;
   _tyRemSecs   = TY_DURATION;
-  _tyAutoSaved = false; // reset so new game can auto-save once
-  _tyAutoToken = null;  // clear previous session token
+  _tyAutoSaved = false;  // reset so new game can auto-save once
+  _tyAutoToken = null;   // clear previous session token
   clearInterval(_tyTimerInt);
 
   /* Reset UI */
