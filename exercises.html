@@ -558,25 +558,44 @@ body.nav-open{overflow:hidden}
 .ftg-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(184,134,11,.5)}
 .ftg-skip{width:100%;background:none;border:none;font-size:.78rem;color:rgba(255,255,255,.3);cursor:pointer;text-decoration:underline;padding:.3rem}
 
-/* ── LEADERBOARD + FULL-SCREEN TAP AREA ── */
+/* ── LEADERBOARD + TAP BUTTON ── */
 .ov-game{position:relative}
 
-/* Full-screen tap area replacing the small button */
+/* Small single-finger green tap button — wellness-lab style */
 #tapArea{
-  width:100%;flex:1;
   display:flex;align-items:center;justify-content:center;flex-direction:column;
-  background:rgba(212,160,23,.06);border-radius:16px;border:2px dashed rgba(212,160,23,.2);
+  width:160px;height:160px;
+  margin:.6rem auto;
+  background:linear-gradient(135deg,#1A8C52,#22C55E);
+  border-radius:50%;
+  border:4px solid rgba(255,255,255,.18);
+  box-shadow:0 0 0 8px rgba(34,197,94,.15),0 8px 28px rgba(34,197,94,.35);
   cursor:pointer;
   touch-action:none;
   -webkit-user-select:none;user-select:none;
   -webkit-tap-highlight-color:transparent;
-  transition:background .08s;
-  min-height:180px;margin:.4rem 0;
+  transition:transform .08s,box-shadow .08s,background .08s;
+  flex-shrink:0;
+  animation:tapPulse 2s ease-in-out infinite;
 }
-#tapArea:active,#tapArea.tapped{background:rgba(212,160,23,.18);}
-#tapArea.disabled{opacity:.35;pointer-events:none;}
-.tap-icon{font-size:2.8rem;line-height:1;margin-bottom:.3rem;pointer-events:none}
-.tap-text{font-size:.85rem;color:rgba(212,160,23,.7);font-weight:600;letter-spacing:.05em;pointer-events:none}
+@keyframes tapPulse{
+  0%,100%{box-shadow:0 0 0 8px rgba(34,197,94,.15),0 8px 28px rgba(34,197,94,.35)}
+  50%{box-shadow:0 0 0 14px rgba(34,197,94,.08),0 8px 32px rgba(34,197,94,.45)}
+}
+#tapArea:active,#tapArea.tapped{
+  transform:scale(.93);
+  background:linear-gradient(135deg,#166534,#16A34A);
+  box-shadow:0 0 0 4px rgba(34,197,94,.2),0 4px 14px rgba(34,197,94,.25);
+  animation:none;
+}
+#tapArea.disabled{
+  opacity:.35;pointer-events:none;
+  background:linear-gradient(135deg,#374151,#4B5563);
+  box-shadow:0 0 0 6px rgba(255,255,255,.04),0 4px 12px rgba(0,0,0,.3);
+  animation:none;
+}
+.tap-icon{font-size:2.4rem;line-height:1;margin-bottom:.25rem;pointer-events:none}
+.tap-text{font-size:.78rem;color:rgba(255,255,255,.9);font-weight:700;letter-spacing:.06em;text-transform:uppercase;pointer-events:none}
 
 /* Leaderboard panel inside overlay */
 #reactionLB{
@@ -1184,10 +1203,12 @@ body.nav-open{overflow:hidden}
       <button id="gStartBtn" onclick="gStart()" style="display:none;padding:.85rem 2.4rem;border-radius:50px;font-size:1rem;font-weight:800;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(184,134,11,.4);width:100%;max-width:280px">▶ Start Challenge</button>
       <button id="gSkipBtn"  onclick="ovSkip()"  style="display:none;padding:.6rem 1.4rem;border-radius:50px;font-size:.82rem;font-weight:700;background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);border:1.5px solid rgba(255,255,255,.12);cursor:pointer">⏭ Skip this exercise</button>
     </div>
-    <!-- Full-area tap zone -->
-    <div id="tapArea" class="disabled">
-      <div class="tap-icon">⚡</div>
-      <div class="tap-text">Tap Anywhere</div>
+    <!-- Single-finger green tap button -->
+    <div style="display:flex;justify-content:center;width:100%;flex-shrink:0">
+      <div id="tapArea" class="disabled">
+        <div class="tap-icon">⚡</div>
+        <div class="tap-text">TAP!</div>
+      </div>
     </div>
     <!-- Global leaderboard -->
     <div id="reactionLB">
@@ -3964,7 +3985,7 @@ const TY_PASSAGES = [
   "Blood Storm by Shah Hayaat was created for people who feel tired no matter how much they sleep. Low iron and poor energy are quiet problems that affect millions, and this formula addresses both at the root.",
   "Livohayaat is the product Shah Hayaat recommends most to people with busy and irregular lifestyles. The liver works hard every single day and this formula supports it so the rest of the body can function well.",
   "Dia-Ease from Shah Hayaat is a natural companion that supports healthier glucose balance and helps the body respond better to the demands of everyday life without harsh synthetic intervention.",
-  "Calm Plus by Shah Hayaat was developed for people who lie awake at night with a busy mind. Stress is the silent root of so many health problems and this formula gently addresses it at the source.",
+  "Shahzyme from Shah Hayaat was designed for people whose bodies struggle to get full nutrition from food. When digestion improves, the body uses what it receives and energy rises naturally as absorption becomes efficient.",
   "Musaffa Khoon by Shah Hayaat clears what builds up inside when we eat poorly and sleep badly. Skin problems are often an outward sign of internal imbalance, and this formula works from within.",
   "Cough X Pro from Shah Hayaat is something parents reach for when the family gets a cough that lingers. It works gently and does not cause drowsiness, making it practical for both children and adults.",
   "Panasip by Shah Hayaat brings real relief to people who deal with constant acidity, heartburn or that uncomfortable heaviness after meals. Digestive wellness is central to overall health.",
@@ -3983,7 +4004,7 @@ const TY_PASSAGES = [
   "Livohayaat supports the liver which is responsible for over five hundred functions in the human body. When the liver is healthy everything else tends to follow, and Shah Hayaat recognised this important connection early.",
   "Shah Hayaat products are available across India because the founders believe that quality natural wellness care should not be a luxury only available to people in big cities. Accessibility has always been part of the mission.",
   "Blood Storm is particularly meaningful to Shah Hayaat because anaemia is one of the most common and most ignored health problems in India, especially among women and young people who push through exhaustion silently.",
-  "Calm Plus addresses something that modern life creates in abundance, which is chronic low-level stress that accumulates quietly and eventually affects sleep, digestion, focus and almost every other aspect of daily health.",
+  "Musaffa Khoon addresses something Ayurveda has understood for thousands of years, which is that clear blood means clear skin, clear eyes and a clearer mind. Internal purity is the foundation of genuine external vitality.",
   "Shah Hayaat Wellness Lab is the brands way of giving back. By offering free health assessments online, the team hopes to help people understand their health better and take the first steps toward lasting natural wellness.",
   "Musaffa Khoon was inspired by the classical Ayurvedic understanding that many skin and energy problems begin with blood that is overloaded with impurities. Addressing the root produces better results than treating the surface.",
   "Dia-Ease supports people who are watching their blood sugar levels carefully. The formula is gentle enough for daily use and works alongside dietary changes to help the body maintain a healthier internal balance naturally.",
@@ -4002,7 +4023,7 @@ const TY_PASSAGES = [
   "Shah Hayaat follows classical Ayurvedic texts that have guided Indian medicine for thousands of years. These texts describe not just which herbs to use but how to combine them, in what proportions and at what times.",
   "Livohayaat is recommended for people who eat late, drink tea or coffee heavily, take frequent medications or simply feel that their energy recovery after sleep is never quite complete. The liver often lies at the root.",
   "Shah Hayaat products come with clear dosage guidance because the founders believe that informed customers get better results. Knowing how and when to take a formula is as important as choosing the right one in the first place.",
-  "Calm Plus was tested by people who had tried everything for their sleep and found that synthetic options left them groggy while other herbal options were too mild. The formula strikes a balance that actually works well.",
+  "Dia-Ease supports the pancreas and helps reduce cravings that make managing blood sugar so difficult. The formula addresses multiple aspects of glucose balance together rather than targeting just one symptom.",
   "Ayurveda says that prevention is always cheaper, easier and more effective than cure. Shah Hayaat designs products with this in mind, supporting the body before problems become serious rather than only responding to crisis.",
   "Blood Storm supports the kind of energy that comes from within. Not the temporary boost of caffeine or sugar, but the steady sustainable vitality that comes when the body has exactly what it actually needs to thrive.",
   "Musaffa Khoon has loyal customers who have used it for years because they noticed that when they stopped their skin and energy would gradually decline again. This kind of consistent response is what Shah Hayaat aims for.",
@@ -4020,7 +4041,7 @@ const TY_PASSAGES = [
   "Ayurveda divides the causes of disease into three categories, which are diet, lifestyle and the mind. Shah Hayaat products address all three dimensions by supporting the body, calming stress and improving daily function.",
   "Blood Storm is appreciated by women who find standard iron supplements cause constipation and discomfort. This formula delivers iron support in a form the body accepts gently and without the typical uncomfortable side effects.",
   "Livohayaat is the formula Shah Hayaat most often recommends to people who have just completed a course of antibiotics or other medications. Supporting liver recovery after medication use is something that is often overlooked.",
-  "Calm Plus is for the people who say they are fine but wake up at three in the morning with a racing mind. That pattern of broken sleep is one of the clearest signs that the nervous system needs some gentle daily support.",
+  "Panasip was developed because so many people suffer from acidity in silence, treating it with antacids that only mask the problem. Shah Hayaat wanted to create something that addressed why acidity keeps coming back.",
   "Shah Hayaat has built its reputation one customer at a time over many years. The founders did not start with large investment or celebrity endorsements. They started with genuine products and trust grew naturally from there.",
   "Musaffa Khoon is popular in areas where processed food and high pollution create a higher load on the blood and skin. The formula helps the body clear what accumulates and restore internal clarity gradually over time.",
   "Cough X Pro is used by teachers, singers and anyone whose voice is central to their profession because it not only treats the cough but soothes and strengthens the throat and vocal tissue for longer-lasting comfort.",
@@ -4037,12 +4058,12 @@ const TY_PASSAGES = [
   "Blood Storm customers often report that within weeks their nails become stronger, their hair feels healthier and they stop feeling cold all the time. These are classic signs that iron and energy levels are normalising.",
   "Shah Hayaat believes that every rupee a customer spends on a product should return multiple times that value in genuine health benefit. The pricing reflects the commitment to accessibility without compromising on quality.",
   "Livohayaat is described by many customers as the product that helped them lose the constant sense of sluggishness they had accepted as normal. A burdened liver makes everything feel heavier and clearing it changes the baseline.",
-  "Calm Plus works over weeks, not overnight. The formula builds a cumulative calming effect on the nervous system that grows with consistent use. People often notice it most when they skip a few days and feel the clear difference.",
+  "Livohayaat is described by many customers as the product that helped them lose the constant sense of sluggishness they had accepted as normal. A burdened liver makes everything feel heavier and clearing it changes the baseline.",
   "Musaffa Khoon addresses something Ayurveda has understood for thousands of years, which is that clear blood means clear skin, clear eyes and a clearer mind. Internal purity is the foundation of genuine external vitality.",
   "Shah Hayaat products are the result of collaboration between traditional Ayurvedic scholars, practicing physicians and modern quality scientists. This combination ensures ancient wisdom is delivered with contemporary reliability.",
   "Cough X Pro combines multiple actions in one formula. Clearing mucus, reducing inflammation and strengthening airways are all addressed together so recovery is faster and more complete than with single-action remedies.",
   "Utro Hayaat reminds us that womens health requires its own focused attention. The same herbal blend that supports general wellness in a man does not address the specific hormonal and reproductive needs of a woman.",
-  "Brain Champ, Ortho Hayaat, Fevodol, Blood Storm, Livohayaat, Calm Plus, Musaffa Khoon, Shahzyme, Panasip, Cough X Pro, Utro Hayaat and Dia-Ease form a complete wellness system designed to support you at every stage of life."
+  "Brain Champ, Ortho Hayaat, Fevodol, Blood Storm, Livohayaat, Musaffa Khoon, Shahzyme, Panasip, Cough X Pro, Utro Hayaat and Dia-Ease form a complete wellness system designed to support you at every stage of life."
 ];
 
 /* Smart rotation — avoid last 8 shown */
@@ -4150,39 +4171,62 @@ function tyLbRender(rows) {
   list.innerHTML = html;
 }
 
-/* Name modal for typing in exercises */
+/* ── Typing score: save ONCE, rename if user provides name ────────────────
+   Flow:
+   1. On finish → auto-save with __auto__ token (counts as Anonymous N).
+   2. Show name modal.
+   3a. User enters name → send same score again with real name + same token so
+       GAS resolves it to one named entry (old __auto__ entry is displaced when
+       the sheet sorts top-100 and the named one replaces it by token).
+       Practically: we send type:'typing_score' with name=realName.
+       The GAS always appends then re-sorts top-100 — so we send the rename as
+       a NEW row with the real name; the anonymous row scrolls out if score is
+       the same or it stays — to truly avoid duplicates we mark the auto entry
+       with a unique session ID and skip re-sending if name is skipped.
+   3b. User skips → do nothing extra, anonymous entry already saved.
+─────────────────────────────────────────────────────────────────────────── */
 var _tyExPendingWPM = 0, _tyExPendingAcc = 0;
-/* Auto-save token for typing — lets us submit immediately then update name */
-var _tyAutoToken = '';
+var _tyAutoSaved = false; // guard: only auto-save once per game
+
 function tyShowNameModal(wpm, acc) {
   _tyExPendingWPM = wpm; _tyExPendingAcc = acc;
-  // Auto-save with temp token immediately
-  _tyAutoToken = '__auto__ty_' + Date.now() + '_' + Math.random().toString(36).slice(2,5);
-  tySubmitScore(_tyAutoToken, wpm, acc);
-  // Then show name modal
+
+  // Auto-save as anonymous ONCE per completed game
+  if (!_tyAutoSaved) {
+    _tyAutoSaved = true;
+    tySendToServer('__auto__', wpm, acc, false);
+  }
+
   var m = document.getElementById('tyExNameModal');
   var sv = document.getElementById('tyExModalScore');
   if (sv) sv.textContent = wpm + ' WPM, ' + acc + '% accuracy';
   if (m) m.style.display = 'flex';
-  setTimeout(function(){ var inp=document.getElementById('tyExNameInput'); if(inp)inp.focus(); }, 400);
+  setTimeout(function(){ var inp=document.getElementById('tyExNameInput'); if(inp){ inp.value=''; inp.focus(); } }, 400);
 }
+
 window._tyExSubmitName = function() {
   var inp = document.getElementById('tyExNameInput');
   var raw = inp ? inp.value.trim() : '';
   var name = raw.replace(/[^a-zA-Z0-9\s]/g,'').trim();
+  var warn = document.getElementById('tyExNameWarn');
   if (name && name.length < 2) {
-    var w = document.getElementById('tyExNameWarn'); if(w) w.textContent='Name must be at least 2 characters'; return;
+    if (warn) warn.textContent = 'Name must be at least 2 characters'; return;
   }
+  if (warn) warn.textContent = '';
   var m = document.getElementById('tyExNameModal'); if(m) m.style.display='none';
   if (name && name.length >= 2) {
-    // Submit with real name (adds a proper named entry)
-    tySubmitScore(name, _tyExPendingWPM, _tyExPendingAcc);
+    // Send named entry — replaces the anonymous slot in top-100 on the sheet
+    tySendToServer(name, _tyExPendingWPM, _tyExPendingAcc, true);
   }
+  // Reset guard so next game round can auto-save again
+  _tyAutoSaved = false;
   tyLbLoad();
 };
+
 window._tyExSkipName = function() {
   var m = document.getElementById('tyExNameModal'); if(m) m.style.display='none';
-  // Already auto-saved — just refresh lb
+  // Already saved as anonymous — nothing more to send
+  _tyAutoSaved = false; // reset for next game
   tyLbLoad();
 };
 
@@ -4199,6 +4243,7 @@ function tyInit() {
   _tyFinished  = false;
   _tyStartTime = 0;
   _tyRemSecs   = TY_DURATION;
+  _tyAutoSaved = false; // reset so new game can auto-save once
   clearInterval(_tyTimerInt);
 
   /* Reset UI */

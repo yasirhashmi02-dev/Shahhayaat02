@@ -137,10 +137,30 @@ function saveTypingScore(d) {
   if (acc < 0 || acc > 100) return { ok:false, error:'acc_out_of_range' };
 
   const score = Math.round(wpm * (acc / 100) * 10);
+  const isAnon = !d.name || String(d.name).startsWith('__auto__') || String(d.name).trim() === '';
   const displayName = resolveDisplayName(d.name);
   const token = Date.now() + '_' + Math.random().toString(36).slice(2,8);
 
   const sheet = getTypingSheet();
+
+  // If this is a real named entry, remove any existing __auto__/Anonymous row
+  // that has the same WPM and accuracy from this session (dedup).
+  if (!isAnon) {
+    let existing = sheet.getDataRange().getValues().slice(1);
+    // Filter out rows where name starts with 'Anonymous' AND wpm+acc match exactly
+    const filtered = existing.filter(r => {
+      const rowName = String(r[0] || '');
+      const rowWpm  = Number(r[2]);
+      const rowAcc  = Number(r[3]);
+      const isAnonRow = rowName.startsWith('Anonymous');
+      return !(isAnonRow && rowWpm === wpm && rowAcc === acc);
+    });
+    // Rewrite sheet with duplicates removed before appending named entry
+    sheet.clearContents();
+    sheet.appendRow(['Name','Score','WPM','Accuracy','Timestamp','Token']);
+    if (filtered.length) sheet.getRange(2,1,filtered.length,6).setValues(filtered);
+  }
+
   sheet.appendRow([displayName, score, wpm, acc, new Date().toISOString(), token]);
 
   let all = sheet.getDataRange().getValues().slice(1);

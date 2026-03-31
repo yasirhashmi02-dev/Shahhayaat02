@@ -80,7 +80,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',system-ui,sans-serif;background:#F3F7F3;color:#1C2E1C;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#F3F7F3;color:#1C2E1C;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;max-width:100vw}
 a{color:inherit;text-decoration:none}
 button,input,select{font-family:inherit}
 :root{
@@ -105,9 +105,9 @@ button,input,select{font-family:inherit}
 .h3{font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.25rem);font-weight:700;color:var(--t)}
 .mono{font-family:'JetBrains Mono',monospace}
 .pg{font-size:clamp(.88rem,1.6vw,.97rem);color:var(--tm);line-height:1.8}
-.wrap{max-width:860px;margin:0 auto;padding:0 1.2rem}
+.wrap{max-width:860px;margin:0 auto;padding:0 1rem;box-sizing:border-box}
 .wrap--w{max-width:1100px}
-.card{background:var(--card);border:1.5px solid var(--b);border-radius:var(--r);padding:clamp(1.4rem,3.8vw,2.3rem);box-shadow:var(--sh)}
+.card{background:var(--card);border:1.5px solid var(--b);border-radius:var(--r);padding:clamp(1rem,3.8vw,2.3rem);box-shadow:var(--sh);overflow:hidden;word-break:break-word}
 .card--pop{animation:popIn .36s var(--ease) both}
 .card--g{border-color:rgba(42,122,90,.2);background:linear-gradient(135deg,var(--g4),#fff)}
 .card--gd{border-color:rgba(201,120,0,.2);background:linear-gradient(135deg,var(--gd3),#fff)}
@@ -148,11 +148,29 @@ button,input,select{font-family:inherit}
 .inp:focus,.sel:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(42,122,90,.1)}
 .g2c{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
 @media(max-width:480px){.g2c{grid-template-columns:1fr}}
+/* ── Global overflow fixes ── */
+*{box-sizing:border-box}
+img,canvas,svg{max-width:100%}
+.btn-row{flex-wrap:wrap}
+.sc-row{overflow:hidden}
+pre,code{white-space:pre-wrap;word-break:break-word}
+.scb .v{font-size:clamp(.85rem,2.5vw,1rem)}
+.scb .l{font-size:clamp(.5rem,1.5vw,.58rem)}
+.step-head h2,.h2{word-break:break-word;overflow-wrap:anywhere}
+.timer{font-size:clamp(2rem,6vw,3.6rem) !important}
+@media(max-width:400px){
+  .card{padding:.9rem}
+  .btn{font-size:.8rem;padding:.6rem 1.1rem}
+  .btn--lg{padding:.72rem 1.4rem;font-size:.85rem}
+  .scb{padding:.4rem .5rem;min-width:60px}
+  .sc-row{gap:.4rem}
+  .tag{font-size:.58rem;padding:.18rem .55rem}
+}
 .rng{-webkit-appearance:none;width:100%;height:5px;background:var(--g3);border-radius:3px;outline:none;border:1px solid var(--b)}
 .rng::-webkit-slider-thumb{-webkit-appearance:none;width:21px;height:21px;background:linear-gradient(135deg,var(--g),var(--g2));border-radius:50%;box-shadow:0 2px 7px rgba(42,122,90,.3)}
 .rng-l{display:flex;justify-content:space-between;font-size:.64rem;color:var(--tq);margin-top:.28rem}
 .sc-row{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
-.scb{background:var(--bg);border:1.5px solid var(--b);border-radius:var(--rs);padding:.58rem .9rem;min-width:80px}
+.scb{background:var(--bg);border:1.5px solid var(--b);border-radius:var(--rs);padding:.5rem .7rem;min-width:70px;max-width:50%}
 .scb .v{font-family:'JetBrains Mono',monospace;font-size:1.02rem;font-weight:600;color:var(--g);display:block;line-height:1}
 .scb .l{font-size:.58rem;color:var(--tq);text-transform:uppercase;letter-spacing:.09em;margin-top:.15rem;display:block}
 .div{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--b),transparent);margin:1.3rem 0}
@@ -184,6 +202,38 @@ button,input,select{font-family:inherit}
 .rz.rz-early .rz-l{color:var(--am)}
 .rz.rz-done{background:var(--g3);border-color:var(--g2);cursor:default}
 .rz.rz-done .rz-l{color:var(--t)}
+
+/* ── Reaction Speed: small single-finger green tap button ── */
+#rxBox{
+  width:150px!important;height:150px!important;border-radius:50%!important;
+  background:linear-gradient(135deg,#1A8C52,#38A87A)!important;
+  border:4px solid rgba(255,255,255,.25)!important;
+  box-shadow:0 0 0 8px rgba(42,168,122,.18),0 6px 24px rgba(42,120,90,.35)!important;
+  margin:.4rem auto!important;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:.3rem;animation:rxPulse 2s ease-in-out infinite;
+}
+@keyframes rxPulse{
+  0%,100%{box-shadow:0 0 0 8px rgba(42,168,122,.18),0 6px 24px rgba(42,120,90,.35)}
+  50%{box-shadow:0 0 0 14px rgba(42,168,122,.06),0 8px 30px rgba(42,120,90,.45)}
+}
+#rxBox .rz-l{color:#fff!important;font-size:clamp(.85rem,2.5vw,1.05rem)!important}
+#rxBox .rz-s{color:rgba(255,255,255,.75)!important;font-size:.6rem!important}
+#rxBox.rz-wait{background:linear-gradient(135deg,#7A4040,#C05050)!important;
+  border-color:rgba(255,255,255,.2)!important;
+  box-shadow:0 0 0 8px rgba(192,80,80,.15),0 6px 24px rgba(150,40,40,.3)!important;animation:none!important}
+#rxBox.rz-wait .rz-l{color:#fff!important}
+#rxBox.go{background:linear-gradient(135deg,#1A8C52,#38A87A)!important;
+  border-color:rgba(255,255,255,.3)!important;
+  box-shadow:0 0 0 10px rgba(42,168,122,.22),0 8px 28px rgba(42,120,90,.4)!important;
+  animation:rxPulse 1s ease-in-out infinite!important}
+#rxBox.go .rz-l{color:#fff!important}
+#rxBox.early{background:linear-gradient(135deg,#8A5000,#C97010)!important;
+  border-color:rgba(255,255,255,.2)!important;
+  box-shadow:0 0 0 8px rgba(201,112,16,.15),0 6px 24px rgba(180,90,0,.3)!important;animation:none!important}
+#rxBox.early .rz-l{color:#fff!important}
+#rxBox.done{background:linear-gradient(135deg,#1A5C3A,#2A7A5A)!important;
+  cursor:default!important;animation:none!important}
+#rxBox.done .rz-l{color:#fff!important}
 .rxh{display:flex;align-items:flex-end;gap:4px;height:40px;margin:.6rem 0;padding:0 .2rem}
 .rxb{flex:1;border-radius:3px 3px 0 0;min-height:3px;transition:height .4s var(--ease)}
 .timer{font-family:'JetBrains Mono',monospace;font-size:clamp(2.2rem,6.5vw,3.6rem);font-weight:600;line-height:1;text-align:center;color:var(--g);display:block;margin:.7rem 0;transition:color .3s}
@@ -1001,8 +1051,8 @@ const LAB = {
     /* Show/hide female nav row on welcome screen */
     const femRow = document.getElementById('femaleNavRow');
     const femLbl = document.getElementById('femaleNavLabel');
-    if (femRow) { femRow.style.display = g === 'F' ? 'grid' : 'none'; }
-    if (femLbl) { femLbl.style.display = g === 'F' ? 'flex' : 'none'; }
+    if (femRow) { femRow.style.display = g === 'female' ? 'grid' : 'none'; }
+    if (femLbl) { femLbl.style.display = g === 'female' ? 'flex' : 'none'; }
     ['M','F'].forEach(x => {
       const c = this.el('g'+x);
       if (!c) return;
@@ -1025,17 +1075,22 @@ const LAB = {
   categories: {
     brain: {
       id:'brain', name:'Brain & Cognitive', icon:'🧠', color:'#2A7A5A',
-      tests:['mod_reactionSpeed','mod_sustainedAttention','mod_cogUnderPressure','mod_numberSequence','mod_goNoGo'],
-      scoreKey:'cognitive', time:'~5 min', desc:'Memory, focus, reaction speed and mental agility'
+      tests:['mod_reactionSpeed','mod_sustainedAttention','mod_goNoGo'],
+      scoreKey:'cognitive', time:'~3 min', desc:'Reaction speed, sustained focus and impulse control'
+    },
+    typing: {
+      id:'typing', name:'Typing & Hand Speed', icon:'⌨️', color:'#0F766E',
+      tests:['mod_typingSpeed','mod_handSpeed'],
+      scoreKey:'energy', time:'~3 min', desc:'Words-per-minute typing speed, finger agility and hand coordination'
     },
     eye: {
       id:'eye', name:'Eye Health', icon:'👁', color:'#2563EB',
-      tests:['mod_colourBlindness','mod_visualAcuity','mod_contrastSensitivity','mod_peripheralVision','mod_eyeTracking','mod_eyeStrain'],
-      scoreKey:'eye', time:'~4 min', desc:'Colour perception, visual acuity, contrast, tracking and eye strain'
+      tests:['mod_colourBlindness','mod_visualAcuity','mod_contrastSensitivity','mod_peripheralVision','mod_eyeStrain'],
+      scoreKey:'eye', time:'~4 min', desc:'Colour perception, visual acuity, contrast and eye strain'
     },
     breathing: {
       id:'breathing', name:'Breathing & Lungs', icon:'🌬', color:'#059669',
-      tests:['mod_breathSync','mod_co2Tolerance','mod_recovery','mod_calmTimer'],
+      tests:['mod_breathSync','mod_co2Tolerance','mod_calmTimer'],
       scoreKey:'respiratory', time:'~3 min', desc:'Breath control, lung capacity and nervous system calm'
     },
     stability: {
@@ -1045,8 +1100,8 @@ const LAB = {
     },
     lifestyle: {
       id:'lifestyle', name:'Lifestyle & Recovery', icon:'🌿', color:'#C0392B',
-      tests:['mod_sleepEfficiency','mod_lifestyleLoad','mod_hydration','mod_circadian'],
-      scoreKey:'lifestyle', time:'~2 min', desc:'Sleep quality, daily habits and recovery patterns'
+      tests:['mod_sleepEfficiency','mod_lifestyleLoad','mod_stressRecovery','mod_hydration'],
+      scoreKey:'lifestyle', time:'~3 min', desc:'Sleep quality, stress recovery, daily habits and hydration'
     },
     heart: {
       id:'heart', name:'Heart & Pulse', icon:'❤️', color:'#E74C3C',
@@ -1058,7 +1113,6 @@ const LAB = {
       tests:['mod_gutHealth'],
       scoreKey:'gut', time:'~2 min', desc:'Digestive comfort, bloating and bowel health patterns'
     },
-
     hearing: {
       id:'hearing', name:'Hearing Check', icon:'👂', color:'#8E44AD',
       tests:['mod_hearingCheck'],
@@ -1180,13 +1234,12 @@ const LAB = {
     trackWL('full_lab_start');
     this.currentMode = 'full';
     /* Build queue from registry to keep it in sync automatically */
-    /* Deduplicate so shared tests (cogUnderPressure, calmTimer, goNoGo) only run once */
+    /* Deduplicate so shared tests only run once */
     const _seen = new Set();
-    this.queue = Object.values(this.categories).flatMap(c => (c.tests || []).filter(Boolean))
+    this.queue = Object.values(this.categories)
+      .filter(cat => cat.id !== 'female' || this.gender === 'female')
+      .flatMap(c => (c.tests || []).filter(Boolean))
       .filter(m => { if (_seen.has(m)) return false; _seen.add(m); return true; });
-    if (this.gender === 'female') {
-      this.queue.push('mod_hormonalRhythm','mod_energyIron','mod_femCombined');
-    }
     this.idx = 0;
     /* Reset all scores for a fresh run */
     Object.keys(this.scores).forEach(k => this.scores[k] = null);
@@ -1375,7 +1428,7 @@ const LAB = {
     mod_hydration:'💧 Hydration Risk',
     mod_circadian:'🌅 Circadian Type',
     mod_postureBalance:'⚖ Posture Balance',
-            mod_stressRecovery:'🧘 Stress Recovery',
+    mod_stressRecovery:'🧘 Stress Recovery',
     mod_multitask:'🔀 Multitask Load',
     mod_decisionSpeed:'⚡ Decision Speed',
     mod_fatigueDrift:'⚡ Fatigue Drift',
@@ -1383,44 +1436,46 @@ const LAB = {
     mod_goNoGo:'🚦 Go / No-Go',
     mod_handSpeed:'⚡ Hand Speed',
     mod_energyCheck:'⚡ Energy Check',
+    mod_typingSpeed:'⌨️ Typing Speed (WPM)',
   },
 
   _sections: {
-    mod_reactionSpeed:      {label:'🧠 Brain',     num:1, of:5},
-    mod_workingMemory:      {label:'🧠 Brain',     num:2, of:5},
-    mod_sustainedAttention: {label:'🧠 Brain',     num:3, of:5},
-    mod_wordRecall:         {label:'🧠 Brain',     num:4, of:5},
-    mod_cogUnderPressure:   {label:'🧠 Brain',     num:5, of:5},
-    mod_colourBlindness:    {label:'👁 Eyes',      num:1, of:6},
-    mod_visualAcuity:       {label:'👁 Eyes',      num:2, of:6},
-    mod_contrastSensitivity:{label:'👁 Eyes',      num:3, of:6},
-    mod_peripheralVision:   {label:'👁 Eyes',      num:4, of:6},
-    mod_eyeTracking:        {label:'👁 Eyes',      num:5, of:6},
-    mod_eyeStrain:          {label:'👁 Eyes',      num:6, of:6},
+    mod_reactionSpeed:      {label:'🧠 Brain',     num:1, of:3},
+    mod_workingMemory:      {label:'🧠 Brain',     num:1, of:3},
+    mod_sustainedAttention: {label:'🧠 Brain',     num:2, of:3},
+    mod_goNoGo:             {label:'🧠 Brain',     num:3, of:3},
+    mod_numberSequence:     {label:'🧠 Brain',     num:3, of:3},
+    mod_typingSpeed:        {label:'⌨️ Typing',    num:1, of:2},
+    mod_handSpeed:          {label:'⌨️ Typing',    num:2, of:2},
+    mod_colourBlindness:    {label:'👁 Eyes',      num:1, of:5},
+    mod_visualAcuity:       {label:'👁 Eyes',      num:2, of:5},
+    mod_contrastSensitivity:{label:'👁 Eyes',      num:3, of:5},
+    mod_peripheralVision:   {label:'👁 Eyes',      num:4, of:5},
+    mod_eyeStrain:          {label:'👁 Eyes',      num:5, of:5},
     mod_breathSync:         {label:'🌬 Breathing', num:1, of:3},
     mod_co2Tolerance:       {label:'🌬 Breathing', num:2, of:3},
     mod_calmTimer:          {label:'🌬 Breathing', num:3, of:3},
     mod_stabilityHold:      {label:'📱 Stability', num:1, of:3},
     mod_microTremor:        {label:'📱 Stability', num:2, of:3},
     mod_postureBalance:     {label:'📱 Stability', num:3, of:3},
-    mod_sleepEfficiency:    {label:'🌿 Lifestyle', num:1, of:2},
-    mod_lifestyleLoad:      {label:'🌿 Lifestyle', num:2, of:2},
+    mod_sleepEfficiency:    {label:'🌿 Lifestyle', num:1, of:4},
+    mod_lifestyleLoad:      {label:'🌿 Lifestyle', num:2, of:4},
+    mod_stressRecovery:     {label:'🌿 Lifestyle', num:3, of:4},
+    mod_hydration:          {label:'🌿 Lifestyle', num:4, of:4},
     mod_hormonalRhythm:     {label:'🌸 Female',   num:1, of:3},
     mod_energyIron:         {label:'🌸 Female',   num:2, of:3},
     mod_femCombined:        {label:'🌸 Female',   num:3, of:3},
     mod_heartRate:          {label:'❤️ Heart',     num:1, of:1},
-    mod_fatigueDrift:       {label:'🧠 Brain',     num:6, of:8},
-    mod_numberSequence:     {label:'🧠 Brain',     num:7, of:8},
-    mod_goNoGo:             {label:'🧠 Brain',     num:8, of:8},
     mod_gutHealth:          {label:'🍽 Gut',       num:1, of:1},
     mod_hearingCheck:       {label:'👂 Hearing',   num:1, of:1},
+    mod_wordRecall:         {label:'🧠 Brain',     num:4, of:5},
+    mod_cogUnderPressure:   {label:'🧠 Brain',     num:5, of:5},
+    mod_fatigueDrift:       {label:'🧠 Brain',     num:3, of:5},
+    mod_eyeTracking:        {label:'👁 Eyes',      num:5, of:6},
     mod_recovery:           {label:'🌬 Breathing', num:4, of:4},
-    mod_hydration:          {label:'🌿 Lifestyle', num:3, of:4},
     mod_circadian:          {label:'🌿 Lifestyle', num:4, of:4},
-    mod_stressRecovery:     {label:'🔥 Stress',     num:4, of:4},
     mod_multitask:          {label:'🧠 Brain',     num:9, of:10},
     mod_decisionSpeed:      {label:'🧠 Brain',     num:10, of:11},
-    mod_handSpeed:          {label:'⚡ Energy',    num:1, of:2},
     mod_energyCheck:        {label:'⚡ Energy',    num:2, of:2},
   },
 
@@ -1746,13 +1801,15 @@ window.mod_reactionSpeed = function () {
       <div class="step-head">
         <div class="tag">⚡ Cognitive · 1 of 4</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Reaction Speed</h2>
-        <p class="pg">Tap the box the <strong>instant</strong> it turns <strong style="color:var(--g)">green</strong>. 10 rounds. Tap on red = lost round!</p>
+        <p class="pg">Tap the button the <strong>instant</strong> it turns <strong style="color:var(--g)">green</strong>. 10 rounds. Tap on red = lost round!</p>
       </div>
-      <div id="rxBox" class="rz" onclick="_rxTap()" role="button" tabindex="0"
-           onkeydown="if(event.key===' '||event.key==='Enter')_rxTap()"
-           aria-label="Reaction zone">
-        <span class="rz-l" id="rxLbl">Getting ready…</span>
-        <span class="rz-s" id="rxSub">⬆ keep your finger ready above</span>
+      <div style="display:flex;justify-content:center">
+        <div id="rxBox" class="rz rz-wait" onclick="_rxTap()" role="button" tabindex="0"
+             onkeydown="if(event.key===' '||event.key==='Enter')_rxTap()"
+             aria-label="Reaction tap button">
+          <span class="rz-l" id="rxLbl">Getting ready…</span>
+          <span class="rz-s" id="rxSub">⬆ one finger only</span>
+        </div>
       </div>
       <div class="rxh" id="rxH" aria-hidden="true"></div>
       <div class="sc-row">
@@ -1769,14 +1826,14 @@ window.mod_reactionSpeed = function () {
   function _rxSchedule() {
     const z=document.getElementById('rxBox'), l=document.getElementById('rxLbl'), s=document.getElementById('rxSub');
     if (!z) return;
-    z.className='rz'; z.style.background='#FFF5F5'; z.style.borderColor='#E88080';
-    if (l) { l.textContent='🔴 Wait…'; l.style.color='#C05050'; }
+    z.className='rz rz-wait'; z.style.cssText='';
+    if (l) { l.textContent='🔴 Wait…'; l.style.color=''; }
     if (s) s.textContent='do NOT tap yet';
     st.waiting=false; st.locked=false;
     _wait = setTimeout(() => {
       const z2=document.getElementById('rxBox'), l2=document.getElementById('rxLbl');
       if (!z2) return;
-      z2.className='rz go'; z2.style.background=''; z2.style.borderColor='';
+      z2.className='rz go'; z2.style.cssText='';
       if (l2) { l2.textContent='👆 TAP NOW!'; l2.style.color=''; }
       st.waiting=true; st.startT=performance.now();
     }, 1200 + Math.random()*2800);
@@ -1787,7 +1844,7 @@ window.mod_reactionSpeed = function () {
     if (!st.waiting) {
       clearTimeout(_wait); st.locked=true;
       const z=document.getElementById('rxBox'), l=document.getElementById('rxLbl');
-      if (z) { z.className='rz early'; z.style.background=''; z.style.borderColor=''; }
+      if (z) { z.className='rz early'; z.style.cssText=''; }
       if (l) { l.textContent='⚠ Too early! Wait for green.'; l.style.color=''; }
       LAB.flash('miss');
       setTimeout(_rxSchedule, 1400);
@@ -1798,7 +1855,7 @@ window.mod_reactionSpeed = function () {
     const col = rt<250?'var(--ok)':rt<400?'var(--am)':'var(--rd)';
     const em  = rt<200?'🚀':rt<280?'⚡':rt<380?'👍':'⏳';
     const z=document.getElementById('rxBox'), l=document.getElementById('rxLbl');
-    if (z) { z.className='rz done'; z.style.background=''; z.style.borderColor=''; }
+    if (z) { z.className='rz done'; z.style.cssText=''; }
     if (l) { l.textContent=`${em} ${rt} ms`; l.style.color=col; }
     const set=(id,v,c)=>{const e=document.getElementById(id);if(!e)return;e.textContent=v;if(c)e.style.color=c;};
     set('rxRnd',st.round+'/'+ROUNDS);
@@ -4839,6 +4896,8 @@ LAB.showDashboard = function () {
     </div>
 
 
+    <!-- Typing Speed Test has been moved to exercises.html -->
+
     <!-- ═══ EXERCISES INTEGRATION BLOCK ═══ -->
     <div id="exercisesBlock" style="background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(212,160,23,.08));border:1.5px solid rgba(99,102,241,.3);border-radius:14px;padding:1.4rem 1.6rem;margin-bottom:1.6rem">
       <div style="display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap">
@@ -5518,11 +5577,251 @@ window.mod_goNoGo = function () {
 
 
 
-/* ── Radar chart (no external lib — pure canvas) ──────────── */
-/* ═══════════════════════════════════════════════════════════════
-   mod_hydration — lifestyle questionnaire, 5 questions
-   Assesses hydration risk from daily habits
-   ═══════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════════
+   mod_typingSpeed — Typing Speed Test (WPM)
+   Category: Typing & Hand Speed
+   ══════════════════════════════════════════════════════════════════════ */
+window.mod_typingSpeed = function() {
+  const PASSAGES = [
+    "Shah Hayaat Brain Champ is the ultimate brain wellness supplement for students and professionals. It sharpens memory, improves focus and boosts mental clarity. Thousands of users report better concentration and faster thinking after regular use.",
+    "Utro Hayaat by Shah Hayaat is a trusted womens health tonic recommended by thousands of satisfied users. It gently regulates hormonal balance, eases menstrual discomfort and supports overall female reproductive wellness without any harmful side effects.",
+    "Shah Hayaat Fevodol is a powerful immunity booster that defends your body against infections, reduces fever naturally and builds long-term immune resilience. It is completely safe for daily use and trusted by families across India.",
+    "Shah Hayaat Ortho Hayaat is a best-selling joint care formula that relieves chronic pain, reduces inflammation and restores natural mobility. It is especially effective for arthritis sufferers and those with age-related joint stiffness and discomfort.",
+    "Shah Hayaat Blood Storm is an exceptional iron and energy supplement that fights anaemia, combats chronic fatigue and restores natural vitality. It is ideal for anyone feeling consistently weak, pale or exhausted without any obvious reason.",
+    "Dia-Ease by Shah Hayaat is a thoughtfully crafted blood sugar support formula. It helps maintain healthy glucose levels, reduces sugar cravings and supports pancreatic function. A natural ally for anyone managing diabetes or pre-diabetic conditions.",
+    "Livohayaat by Shah Hayaat is a premium liver health product trusted by thousands. It protects and regenerates liver cells, helps reduce fatty liver and normalises liver enzyme levels. A must-have for anyone with a demanding lifestyle.",
+    "Shah Hayaat Musaffa Khoon is a celebrated blood purifier that clears toxins, fights skin problems like acne and gives your complexion a natural healthy glow. Customers consistently praise its visible results within just a few weeks of use.",
+    "Shah Hayaat is built on the timeless wisdom of Ayurveda, Indias five-thousand-year-old science of life and healing. Every product follows classical formulations verified by qualified Ayurvedic physicians and certified by government regulatory authorities.",
+    "Shah Hayaat Cough X Pro delivers fast and effective relief from both dry and wet cough. It soothes inflamed airways, clears mucus and strengthens the respiratory system. Parents love it as a gentle and safe choice for the whole family.",
+    "Shah Hayaat Panasip is the go-to remedy for acidity, heartburn and digestive discomfort. It neutralises excess stomach acid quickly, soothes the gut lining and promotes comfortable digestion. Relief is typically felt within minutes of taking it.",
+    "Shah Hayaat Shahzyme improves digestion and nutrient absorption naturally. It reduces bloating, gas and heaviness after meals and supports a healthier gut microbiome. Regular users report feeling lighter, more energetic and significantly more comfortable daily.",
+    "All Shah Hayaat products are manufactured in certified GMP facilities under strict quality control standards. Every batch is tested for purity, potency and safety before reaching customers. This is our promise and commitment to your health.",
+    "Shah Hayaat holds government-approved licenses and certifications from Indias Ayush Ministry. Our formulations are reviewed by qualified doctors and Ayurvedic experts. We are proud to be a brand that millions trust for safe and effective healing.",
+    "The philosophy of Shah Hayaat is simple and powerful. We believe nature provides everything the body needs to heal itself. Our job is to deliver those healing gifts in the purest and most effective form possible to every household.",
+    "Shah Hayaat products are proudly made in India using responsibly sourced herbs of the highest quality. We support local farmers and follow sustainable practices that respect both human health and the natural environment around us.",
+    "Ayurveda is not just medicine. It is a complete system of living in balance with nature. Shah Hayaat brings this ancient wisdom to modern life through products that are safe, effective, affordable and accessible to every Indian family.",
+    "Shah Hayaat Wellness Lab is completely free and requires no sign-up. It is our gift to you. Complete your wellness assessment today and let Shah Hayaat guide you toward better health, natural balance and a longer and more fulfilling life.",
+    "Thousands of happy customers across India trust Shah Hayaat every day. Our five-star reviews reflect genuine results, real relief and restored health. When you choose Shah Hayaat you are choosing quality, trust, nature and a healthier tomorrow.",
+  ];
+
+  // Smart rotation: never show same passage twice in a row; avoid last 5 shown
+  function _pickPassage() {
+    try {
+      const raw = localStorage.getItem('wl_typing_history');
+      const history = raw ? JSON.parse(raw) : [];
+      const recentSet = new Set(history.slice(-5));
+      const available = PASSAGES.map((_,i)=>i).filter(i=>!recentSet.has(i));
+      const pool = available.length > 0 ? available : PASSAGES.map((_,i)=>i).filter(i=>i!==history[history.length-1]);
+      const idx = pool[Math.floor(Math.random() * pool.length)];
+      const newHistory = [...history, idx].slice(-15);
+      localStorage.setItem('wl_typing_history', JSON.stringify(newHistory));
+      return PASSAGES[idx];
+    } catch(e) {
+      return PASSAGES[Math.floor(Math.random() * PASSAGES.length)];
+    }
+  }
+
+  const passage = _pickPassage();
+  const DURATION = 30; // 30 seconds
+
+  LAB.showDemo({
+    title: '⌨️ Typing Speed (WPM)',
+    txt: 'Type the passage shown as <strong>fast and accurately</strong> as you can for <strong>30 seconds</strong>. Your Words Per Minute (WPM) score reflects your typing speed and finger agility.',
+    hint: '30 seconds · measures WPM & accuracy',
+    voiceEN: 'Typing speed test! Type the text shown as fast and accurately as you can. You have 30 seconds. Ready?',
+    btnLabel: 'Start Typing Test →',
+    vis: `<div style="text-align:center;padding:.5rem">
+      <div style="font-size:2.5rem;margin-bottom:.4rem">⌨️</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--tq)">WPM · Accuracy · Agility</div>
+    </div>`,
+    anim(vis) {
+      const el = vis.querySelector('div');
+      const icons = ['⌨️', '📝', '🏃', '⌨️'];
+      let i = 0;
+      const id = setInterval(() => { i=(i+1)%icons.length; const d=el?.querySelector('div'); if(d)d.textContent=icons[i]; }, 700);
+      return id;
+    }
+  }, () => {
+    let started = false, finished = false, startTime = 0, timerInt = null, remSecs = DURATION;
+    let wpmVal = 0, accuracy = 0;
+
+    function renderTypingUI() {
+      LAB.render(`<div class="mwrap"><div class="card card--pop" style="border-color:rgba(15,118,110,.25);background:linear-gradient(135deg,#F0FDFA,#fff)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem;overflow:hidden">
+          <div class="tag" style="background:#CCFBF1;border-color:rgba(15,118,110,.3);color:#0F766E;flex-shrink:0">⌨️ Typing · 1 of 2</div>
+          <div style="display:flex;gap:.5rem;align-items:center;flex-shrink:0">
+            <div style="text-align:center;min-width:42px">
+              <div id="tsWPM" style="font-family:'JetBrains Mono',monospace;font-size:clamp(1.1rem,4vw,1.5rem);font-weight:700;color:#0F766E;line-height:1">0</div>
+              <div style="font-size:.52rem;color:var(--tq);text-transform:uppercase;letter-spacing:.06em">WPM</div>
+            </div>
+            <div style="text-align:center;min-width:42px">
+              <div id="tsAcc" style="font-family:'JetBrains Mono',monospace;font-size:clamp(1.1rem,4vw,1.5rem);font-weight:700;color:var(--g);line-height:1">—</div>
+              <div style="font-size:.52rem;color:var(--tq);text-transform:uppercase;letter-spacing:.06em">Accuracy</div>
+            </div>
+            <div style="text-align:center;min-width:42px">
+              <div id="tsTimer" style="font-family:'JetBrains Mono',monospace;font-size:clamp(1.1rem,4vw,1.5rem);font-weight:700;color:var(--am);line-height:1">${DURATION}</div>
+              <div style="font-size:.52rem;color:var(--tq);text-transform:uppercase;letter-spacing:.06em">Secs</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:5px;background:var(--g3);border-radius:3px;overflow:hidden;margin-bottom:1rem">
+          <div id="tsProgBar" style="height:100%;background:linear-gradient(90deg,#0F766E,#14B8A6);width:0%;transition:width 1s linear;border-radius:3px"></div>
+        </div>
+
+        <!-- Passage display -->
+        <div id="tsPassage" style="font-size:clamp(.72rem,.88rem + .2vw,.82rem);line-height:1.75;padding:.75rem .9rem;
+             background:#F8FFFE;border:1.5px solid rgba(15,118,110,.2);border-radius:var(--rs);
+             margin-bottom:.8rem;font-family:'JetBrains Mono',monospace;letter-spacing:.02em;
+             user-select:none;pointer-events:none;word-break:break-word;overflow-wrap:anywhere;
+             max-height:140px;overflow-y:auto"></div>
+
+        <!-- Input area -->
+        <textarea id="tsInput" placeholder="Start typing here when ready…"
+          style="width:100%;padding:.7rem .9rem;border:2px solid var(--b);border-radius:var(--rs);
+                 font-family:'JetBrains Mono',monospace;font-size:clamp(.78rem,2vw,.88rem);line-height:1.65;
+                 resize:none;outline:none;color:var(--t);min-height:80px;transition:border-color .2s;
+                 box-sizing:border-box"
+          rows="3" oninput="window._tsType(this.value)" onfocus="this.style.borderColor='#0F766E'" onblur="this.style.borderColor='var(--b)'"></textarea>
+
+        <div class="notice" style="margin-top:.7rem;background:#F0FDFA;border-color:rgba(15,118,110,.2)">
+          <div class="ni">⌨️</div>
+          <p>Start typing and the timer begins automatically. Type as fast and accurately as possible.</p>
+        </div>
+        <div style="text-align:center;margin-top:.7rem">
+          <button class="btn btn--g" style="font-size:.75rem" onclick="LAB.skip()">Skip →</button>
+        </div>
+      </div></div>`);
+
+      // Render passage with coloured spans
+      _renderPassage('');
+    }
+
+    function _renderPassage(typed) {
+      const el = document.getElementById('tsPassage');
+      if (!el) return;
+      let html = '';
+      for (let i = 0; i < passage.length; i++) {
+        if (i < typed.length) {
+          const correct = typed[i] === passage[i];
+          html += `<span style="color:${correct?'#0F766E':'#C0392B'};${!correct?'text-decoration:underline;':''}background:${correct?'transparent':'#FEE2E2'}">${passage[i]==' '?'&nbsp;':passage[i]}</span>`;
+        } else if (i === typed.length) {
+          html += `<span style="border-left:2px solid #0F766E;animation:blink .8s ease-in-out infinite">${passage[i]==' '?'&nbsp;':passage[i]}</span>`;
+        } else {
+          html += `<span style="color:var(--tq)">${passage[i]==' '?'&nbsp;':passage[i]}</span>`;
+        }
+      }
+      el.innerHTML = html;
+    }
+
+    window._tsType = function(val) {
+      if (finished) return;
+      if (!started && val.length > 0) {
+        started = true;
+        startTime = Date.now();
+        timerInt = setInterval(() => {
+          if (!document.getElementById('tsTimer')) { clearInterval(timerInt); return; }
+          const elapsed = (Date.now() - startTime) / 1000;
+          remSecs = Math.max(0, DURATION - elapsed);
+          const pct = (elapsed / DURATION) * 100;
+          const t = document.getElementById('tsTimer');
+          const b = document.getElementById('tsProgBar');
+          if (t) { t.textContent = Math.ceil(remSecs); t.style.color = remSecs < 10 ? '#C0392B' : 'var(--am)'; }
+          if (b) b.style.width = pct + '%';
+          // Live WPM calculation
+          const wordsTyped = val.trim().split(/\s+/).filter(w=>w).length;
+          const liveWPM = elapsed > 1 ? Math.round((wordsTyped / elapsed) * 60) : 0;
+          const wEl = document.getElementById('tsWPM');
+          if (wEl) wEl.textContent = liveWPM;
+          if (remSecs <= 0) { clearInterval(timerInt); _tsFinish(val); }
+        }, 300);
+      }
+
+      if (!started) return;
+      _renderPassage(val);
+
+      // Accuracy
+      let correct = 0;
+      for (let i = 0; i < Math.min(val.length, passage.length); i++) {
+        if (val[i] === passage[i]) correct++;
+      }
+      const acc = val.length > 0 ? Math.round((correct / val.length) * 100) : 0;
+      const aEl = document.getElementById('tsAcc');
+      if (aEl) aEl.textContent = acc + '%';
+
+      // Auto-finish if passage complete
+      if (val.length >= passage.length && started) {
+        clearInterval(timerInt);
+        setTimeout(() => _tsFinish(val), 400);
+      }
+    };
+
+    function _tsFinish(typedText) {
+      if (finished) return;
+      finished = true;
+      const elapsed = Math.max(1, (Date.now() - startTime) / 1000);
+      const wordsTyped = typedText.trim().split(/\s+/).filter(w=>w).length;
+      wpmVal = Math.round((wordsTyped / elapsed) * 60);
+      let correct = 0;
+      for (let i = 0; i < Math.min(typedText.length, passage.length); i++) {
+        if (typedText[i] === passage[i]) correct++;
+      }
+      accuracy = typedText.length > 0 ? Math.round((correct / typedText.length) * 100) : 0;
+
+      // Score: WPM 20=30pts, 40=60pts, 60=80pts, 80+=100pts; adjusted by accuracy
+      const wpmScore = Math.min(100, Math.round(wpmVal < 20 ? wpmVal*1.5 : wpmVal < 40 ? 30+(wpmVal-20)*1.5 : wpmVal < 60 ? 60+(wpmVal-40) : wpmVal < 80 ? 80+(wpmVal-60)*.5 : 90));
+      const sc = Math.round(wpmScore * (accuracy / 100) * 0.6 + wpmScore * 0.4);
+
+      LAB.raw.typingWPM = wpmVal;
+      LAB.raw.typingAccuracy = accuracy;
+      LAB.raw.typingScore = sc;
+
+      const energyComps = [sc, LAB.raw.handSpeedScore].filter(x=>x!=null);
+      if (energyComps.length) LAB.scores.energy = Math.round(LAB.avg(energyComps));
+
+      const rating = wpmVal >= 70 ? '🏆 Fast Typist' : wpmVal >= 50 ? '✅ Good Speed' : wpmVal >= 30 ? '📈 Average' : '🐢 Slow — practise daily!';
+      const rCol = wpmVal >= 70 ? '#2A7A5A' : wpmVal >= 50 ? '#1A8C52' : wpmVal >= 30 ? '#C97010' : '#C0392B';
+
+      LAB._saveToHistory('Typing WPM', wpmVal, 'WPM');
+      LAB.celebrate();
+      LAB.say(`Typing complete! ${wpmVal} words per minute at ${accuracy} percent accuracy. ${rating}.`);
+
+      LAB.render(`<div class="mwrap"><div class="card card--pop" style="text-align:center;border-color:rgba(15,118,110,.25)">
+        <div class="tag" style="background:#CCFBF1;border-color:rgba(15,118,110,.3);color:#0F766E;margin:0 auto .8rem">⌨️ Typing Speed · Result</div>
+        <div style="display:flex;justify-content:center;gap:1.2rem;margin:1rem 0;flex-wrap:wrap">
+          <div style="min-width:100px;text-align:center">
+            <div style="font-family:'Playfair Display',serif;font-size:clamp(2.2rem,7vw,3.5rem);font-weight:700;color:#0F766E;line-height:1">${wpmVal}</div>
+            <div style="font-size:.62rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--tq)">Words Per Minute</div>
+          </div>
+          <div style="min-width:100px;text-align:center">
+            <div style="font-family:'Playfair Display',serif;font-size:clamp(2.2rem,7vw,3.5rem);font-weight:700;color:${rCol};line-height:1">${accuracy}%</div>
+            <div style="font-size:.62rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--tq)">Accuracy</div>
+          </div>
+        </div>
+        <div style="font-size:1.05rem;font-weight:700;color:${rCol};margin-bottom:.4rem">${rating}</div>
+        <div style="max-width:320px;margin:.6rem auto;background:${rCol}10;border:1px solid ${rCol}33;border-radius:10px;padding:.75rem;font-size:.78rem;color:var(--tm);line-height:1.65;text-align:left">
+          ${wpmVal >= 70 ? '🏆 Excellent speed! Professional typists average 65–75 WPM. You\'re in the top tier.'
+            : wpmVal >= 50 ? '✅ Good typing speed. Average office workers type 40–60 WPM. Keep practising to push higher.'
+            : wpmVal >= 30 ? '📈 Average speed. Daily 10-minute typing practice can significantly improve your WPM within weeks.'
+            : '💡 Slow typing affects productivity. Try free typing tools like Keybr or 10FastFingers daily to improve.'}
+        </div>
+        <div style="margin:1rem auto;max-width:220px">
+          <div style="height:8px;background:var(--g3);border-radius:4px;overflow:hidden">
+            <div style="height:100%;width:${Math.min(100,sc)}%;background:${rCol};border-radius:4px;transition:width 1.2s ease"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:.6rem;color:var(--tq);margin-top:.3rem"><span>0</span><span>Wellness Score: ${sc}</span><span>100</span></div>
+        </div>
+        <button class="btn btn--p" style="margin-top:.5rem;background:linear-gradient(135deg,#0F766E,#14B8A6)" onclick="LAB.idx++;LAB.next()">Continue →</button>
+      </div></div>`);
+      setTimeout(() => { LAB.idx++; LAB.next(); }, 4000);
+    }
+
+    renderTypingUI();
+    LAB.say('Type the passage shown as fast and accurately as you can. The timer starts when you begin typing!');
+  });
+};
+
+
 /* ══════════════════════════════════════════════════════════
    STRESS RECOVERY TEST
    Category: Stress · measures autonomic recovery / HRV proxy
@@ -8666,6 +8965,7 @@ LAB.showLeaderboard = async function(testId, unit) {
     const historyItems = [
       { key: 'wl_hist_reaction_speed',  label: 'Reaction Speed',  unit: 'ms',   lowerBetter: true  },
       { key: 'wl_hist_memory_score',    label: 'Memory Score',    unit: '%',    lowerBetter: false },
+      { key: 'wl_hist_typing_wpm',      label: 'Typing Speed',    unit: ' WPM', lowerBetter: false },
       { key: 'wl_hist_hand_speed',      label: 'Hand Speed',      unit: ' taps',lowerBetter: false },
       { key: 'wl_hist_energy_score',    label: 'Energy Score',    unit: '%',    lowerBetter: false },
       { key: 'wl_hist_breath_hold',     label: 'Breath Hold',     unit: 's',    lowerBetter: false },
@@ -8800,5 +9100,8 @@ LAB._fireConfetti = function() {
 
 </script>
 
+
+<!-- Typing Speed Test moved to exercises.html -->
 </body>
 </html>
+
