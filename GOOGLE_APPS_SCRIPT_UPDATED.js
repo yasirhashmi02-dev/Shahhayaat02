@@ -15,6 +15,10 @@ function jsonResponse(data) {
   return ContentService.createTextOutput(JSON.stringify(data))
     .setMimeType(ContentService.MimeType.JSON);
 }
+// Note: GAS automatically handles CORS for web apps deployed as
+// "Execute as Me, Access: Anyone". No manual headers needed.
+// POST must use Content-Type: text/plain (not application/json)
+// and redirect:follow to receive the response correctly.
 function getOrCreateSheet(name, headers) {
   const ss = getSpreadsheet();
   let sheet = ss.getSheetByName(name);
