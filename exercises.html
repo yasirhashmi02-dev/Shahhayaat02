@@ -1322,6 +1322,7 @@ body.nav-open{overflow:hidden}
     <div class="ov-done-sub" id="ovDoneSub"></div>
     <div class="ov-done-scores" id="ovDoneScores"></div>
     <div id="globalRank" class="rank-box"></div>
+    <div id="tyGlobalRank" class="rank-box"></div>
     <button class="ov-btn-challenge" id="ovChallengeBtn" onclick="openChallenge()" style="display:none">🏆 Challenge a Friend</button>
     <div id="promoCard" style="display:none"></div>
     <div class="ov-done-row">
@@ -2312,7 +2313,12 @@ function _lbQueueAdd(n,t,ms){var q=_lbQueueGet();q.push({name:n,taps:t,time:ms,t
 function _lbQueueRemoveFirst(){var q=_lbQueueGet();if(q.length){q.shift();_lbQueueSave(q);}}
 function _lbFlushQueue(){
   var q=_lbQueueGet();if(!q.length)return;
-  q.forEach(function(item){_lbSendToServer(item.name,item.taps,item.time,false);});
+  // Skip stale __auto__ entries — replaying them creates duplicate Anonymous rows
+  var filtered = q.filter(function(item){ return !String(item.name||'').startsWith('__auto__'); });
+  filtered.forEach(function(item){ _lbSendToServer(item.name,item.taps,item.time,false); });
+  // Clear auto entries from queue without sending
+  var cleaned = q.filter(function(item){ return !String(item.name||'').startsWith('__auto__'); });
+  if (cleaned.length !== q.length) _lbQueueSave(cleaned);
 }
 function _lbSendToServer(name,taps,time,updateUI){
   fetch(LB_API,{method:'POST',mode:'no-cors',keepalive:true,
@@ -2329,19 +2335,42 @@ function _lbPost(name, taps, time) {
   if(el){el.innerHTML='<div style="font-size:.85rem;color:rgba(255,255,255,.55)">⏳ Submitting score…</div>';el.classList.add('show');}
   _lbSendToServer(n, taps, time, true);
 }
-/* ── Auto-save: immediately save with temp name, update if user enters name ── */
-var _lbAutoKey = 'sh_lb_auto_token';
+/* ── Auto-save: fire-and-forget POST as Anonymous — NOT queued for retry ──
+   Queuing auto-saves causes duplicate rows on the next visit if the page
+   was closed before _lbQueueRemoveFirst fired. The rename-by-match GET
+   handles the name update separately and is idempotent. ── */
+var _lbAutoKey  = 'sh_lb_auto_token';
+var _lbAutoTaps = 0, _lbAutoTime = 0; // store for rename lookup
 function _lbAutoSave(taps, time) {
-  // Generate a unique anon token for this session
-  var token = 'auto_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
-  try { localStorage.setItem(_lbAutoKey, JSON.stringify({token:token, taps:taps, time:time})); } catch(e){}
-  _lbQueueAdd('__auto__' + token, taps, time);
-  _lbSendToServer('__auto__' + token, taps, time, false);
+  _lbAutoTaps = taps;
+  _lbAutoTime = time;
+  // Fire-and-forget — do NOT queue for retry to prevent duplicate rows
+  fetch(LB_API, {
+    method: 'POST', mode: 'no-cors', keepalive: true,
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify({ type: 'reaction_score', name: '__auto__', taps: taps, time: time })
+  }).catch(function() {});
 }
 function _lbUpdateName(name, taps, time) {
-  // Send a proper named entry — the backend keeps the best score per name
-  _lbQueueAdd(name, taps, time);
-  _lbSendToServer(name, taps, time, true);
+  // Calculate the score the GAS backend assigned (must match saveReactionScore formula)
+  var reactionBonus = Math.max(0, 200 - Math.floor(Math.max(0, time - 100) / 5));
+  var score = (taps * 20) + reactionBonus;
+  // Rename the saved anonymous row in-place — no new POST, no duplicate row
+  fetch(LB_API + '?type=rename_reaction_by_match'
+    + '&name='  + encodeURIComponent(name)
+    + '&taps='  + encodeURIComponent(taps)
+    + '&score=' + encodeURIComponent(score), {
+    method: 'GET', redirect: 'follow', mode: 'cors'
+  }).then(function(r) { return r.json(); })
+    .then(function(json) {
+      if (json && json.ok && json.rank) {
+        _lbMyRank = json.rank;
+      }
+      // Refresh the leaderboard display with the new name
+      setTimeout(function() { _lbFetchRank(name, taps); }, 600);
+    }).catch(function() {
+      setTimeout(function() { _lbFetchRank(name, taps); }, 600);
+    });
 }
 
 function _lbFetchRank(name,taps){
@@ -3199,6 +3228,11 @@ function _showDone(scoreHTML) {
   document.getElementById('ovDoneSub').textContent = isLast
     ? 'Excellent! You completed all activities.' : (_ex ? _ex.title : '') + ' complete. Tap Next when you are ready.';
   document.getElementById('ovDoneScores').innerHTML = scoreHTML || '';
+  // Reset both rank boxes on each new done screen — prevents bleed-over between games
+  var grReaction = document.getElementById('globalRank');
+  var grTyping   = document.getElementById('tyGlobalRank');
+  if (grReaction) { grReaction.className = 'rank-box'; grReaction.innerHTML = ''; }
+  if (grTyping)   { grTyping.className   = 'rank-box'; grTyping.innerHTML   = ''; }
   // Hide promo by default; show only for reaction-test via _maybeShowPromo
   var promoCard = document.getElementById('promoCard');
   if (promoCard) promoCard.style.display = 'none';
@@ -4202,27 +4236,34 @@ function tyAutoSavePost(wpm, acc) {
 /* After POST, wait briefly then GET the leaderboard to find our token
    Strategy: the newest Anonymous entry with matching WPM+acc is ours */
 function tyFetchOurToken(wpm, acc, callback) {
-  setTimeout(function() {
+  function doFetch(retriesLeft) {
     fetch(TY_LB_API + '?type=typing_scores', { method: 'GET', redirect: 'follow', mode: 'cors' })
       .then(function(r) { return r.json(); })
       .then(function(json) {
-        if (!json.ok || !json.data || !json.data.length) { callback(null, null); return; }
-        // Find our entry: Anonymous with matching wpm+acc, most recent = highest rank among ties
+        if (!json.ok || !json.data || !json.data.length) {
+          if (retriesLeft > 0) { setTimeout(function(){ doFetch(retriesLeft - 1); }, 2500); return; }
+          callback(null, null); return;
+        }
         var matched = json.data.filter(function(r) {
           return r.name && r.name.indexOf('Anonymous') === 0 && r.wpm === wpm && r.acc === acc;
         });
         if (matched.length) {
-          // We need the token — GAS getTypingScores doesn't return it.
-          // Instead, store the rank+score and use that to rename by wpm+acc+anon match.
-          // Pass null token — rename will use wpm+acc+name matching on server.
           callback(matched[0].rank, matched[0].score);
           tyLbRender(json.data);
+        } else if (retriesLeft > 0) {
+          // GAS may not have processed the POST yet — retry once after 2.5s
+          setTimeout(function(){ doFetch(retriesLeft - 1); }, 2500);
         } else {
           callback(null, null);
           tyLbLoad();
         }
-      }).catch(function() { callback(null, null); });
-  }, 2500); // wait for GAS to process the POST
+      }).catch(function() {
+        if (retriesLeft > 0) { setTimeout(function(){ doFetch(retriesLeft - 1); }, 2500); }
+        else { callback(null, null); }
+      });
+  }
+  // Wait 4.5s for GAS to process the POST, then try up to 2 times
+  setTimeout(function() { doFetch(1); }, 4500);
 }
 
 /* GET-based rename — CORS works, no duplicate row */
@@ -4277,8 +4318,8 @@ function _tyShowRank(rank, score) {
     rankEl.style.display = 'block';
   }
 
-  /* Done screen global rank box */
-  var doneRank = document.getElementById('globalRank');
+  /* Done screen global rank box — typing uses its own element (#tyGlobalRank) */
+  var doneRank = document.getElementById('tyGlobalRank');
   if (doneRank) {
     doneRank.innerHTML =
       '<div style="font-size:1.3rem;margin-bottom:4px">' + medal + ' Typing Rank <strong>#' + rank + '</strong></div>' +
@@ -4343,7 +4384,7 @@ function tyInit() {
   var tEl=document.getElementById('tyOvTimer'); if(tEl){tEl.textContent=TY_DURATION;tEl.style.color='#D4A017';}
   var bEl=document.getElementById('tyOvBar'); if(bEl) bEl.style.width='0%';
   var rEl=document.getElementById('tyOvRank'); if(rEl){rEl.style.display='none';rEl.innerHTML='';}
-  var grEl=document.getElementById('globalRank'); if(grEl){grEl.className='rank-box';grEl.innerHTML='';}
+  var grEl=document.getElementById('tyGlobalRank'); if(grEl){grEl.className='rank-box';grEl.innerHTML='';}
   var inp=document.getElementById('tyOvInput'); if(inp){inp.value='';inp.disabled=false;inp.style.borderColor='rgba(255,255,255,.15)';}
   var startBtn=document.getElementById('tyOvStartBtn'); if(startBtn) startBtn.style.display='';
 
