@@ -2322,7 +2322,7 @@ function _lbSaveWithName(name, taps, time) {
   })
   .then(function(r) { return r.json(); })
   .then(function(json) {
-    if (json.ok && json.rank) {
+    if (json.ok && json.rank >= 1) {
       var rank  = json.rank;
       var score = json.score;
       var medal = rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'🏅';
@@ -4187,12 +4187,11 @@ function tySaveScore(name, wpm, acc) {
   })
   .then(function(r) { return r.json(); })
   .then(function(json) {
-    if (json.ok && json.rank && json.score !== undefined) {
-      // Got valid rank back — show it
+    if (json.ok && json.rank >= 1) {
       _tyShowRank(json.rank, json.score);
     } else {
-      // Saved but no rank returned (or GAS error) — show confirmation on done screen
-      var score = json.score || Math.round(wpm * (acc / 100) * 10);
+      // GAS error or unexpected response — show score summary
+      var pts = json.score || Math.round(wpm * (acc / 100) * 10);
       if (doneRank) {
         doneRank.style.cssText =
           'display:block;opacity:1;transform:translateY(0);width:100%;max-width:280px;margin:.5rem auto 0;' +
@@ -4200,7 +4199,7 @@ function tySaveScore(name, wpm, acc) {
           'border:1px solid rgba(34,197,94,.25);color:#22C55E;font-weight:700;';
         doneRank.innerHTML =
           '<div style="font-size:1rem;font-weight:700;color:var(--gold-l)">✅ Score saved!</div>' +
-          '<div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">⌨️ ' + wpm + ' WPM · ' + acc + '% accuracy · ' + score + ' pts</div>';
+          '<div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">⌨️ ' + wpm + ' WPM · ' + acc + '% accuracy · ' + pts + ' pts</div>';
       }
     }
     setTimeout(tyLbLoad, 800);

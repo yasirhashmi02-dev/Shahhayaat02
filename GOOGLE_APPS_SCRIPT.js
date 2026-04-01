@@ -4,12 +4,21 @@
 // ════════════════════════════════════════════════════════════════
 
 const SPREADSHEET_ID         = '1JzFvfZRwsk4sfed6r1R0i_5i5wA96UH-wE4VYVY2Se8';
-const SHEET_NAME_LEADERBOARD = 'ReactionLeaderboard';   // Sheet 1
-const SHEET_NAME_TYPING      = 'TypingLeaderboard';     // exact tab name
-const SHEET_NAME_ANON_CTR    = 'AnonCounter';           // shared counter
+const SHEET_NAME_LEADERBOARD = 'Leaderboard';           // reaction tab
+const SHEET_NAME_TYPING      = 'TypingLeaderboard';     // typing tab
+const SHEET_NAME_ANON_CTR    = 'Sheet3';                // counter tab
 
 function getSpreadsheet() {
   return SpreadsheetApp.openById(SPREADSHEET_ID);
+}
+
+// ── RUN THIS FIRST to see all tab names in your spreadsheet ──────────────
+// Select testSheets in the dropdown and click Run — check the Logs output
+function testSheets() {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const sheets = ss.getSheets();
+  sheets.forEach(s => Logger.log('Tab name: "' + s.getName() + '"'));
+  Logger.log('Total tabs: ' + sheets.length);
 }
 function jsonResponse(data) {
   return ContentService.createTextOutput(JSON.stringify(data))
@@ -135,8 +144,17 @@ function saveReactionScore(d) {
   sheet.appendRow(['Name','Score','Timestamp','Token']);
   if (top.length) sheet.getRange(2,1,top.length,4).setValues(top);
 
-  const rank = top.findIndex(r => r[3] === token) + 1;
-  return { ok:true, rank: rank||null, score, token, name: displayName };
+  // Rank by score+name match — more reliable than token search
+  let rank = 0;
+  for (let i = 0; i < top.length; i++) {
+    if (Number(top[i][1]) === score && String(top[i][0]) === displayName) {
+      rank = i + 1;
+      break;
+    }
+  }
+  if (!rank) rank = top.filter(r => Number(r[1]) > score).length + 1;
+
+  return { ok:true, rank, score, token, name: displayName };
 }
 
 function getReactionScores() {
@@ -167,12 +185,12 @@ function saveTypingScore(d) {
   const score       = Math.round(wpm * (acc / 100) * 10);
   const displayName = resolveDisplayName(d.name || '__auto__');
   const token       = Date.now() + '_' + Math.random().toString(36).slice(2,8);
+  const timestamp   = new Date().toISOString();
 
   const sheet = getTypingSheet();
-  sheet.appendRow([displayName, score, wpm, acc, new Date().toISOString(), token]);
+  sheet.appendRow([displayName, score, wpm, acc, timestamp, token]);
 
   let all = sheet.getDataRange().getValues().slice(1);
-  // Purge any stale __auto__ rows left by old auto-save system
   all = all.filter(r => !String(r[0]||'').startsWith('__auto__'));
   all.sort((a,b) => Number(b[1]) - Number(a[1]));
   const top = all.slice(0, 100);
@@ -181,8 +199,18 @@ function saveTypingScore(d) {
   sheet.appendRow(['Name','Score','WPM','Accuracy','Timestamp','Token']);
   if (top.length) sheet.getRange(2,1,top.length,6).setValues(top);
 
-  const rank = top.findIndex(r => r[5] === token) + 1;
-  return { ok:true, rank: rank||null, score, token, name: displayName };
+  // Rank = position in sorted list (1-based) — find by score+name match, most reliable
+  let rank = 0;
+  for (let i = 0; i < top.length; i++) {
+    if (Number(top[i][1]) === score && String(top[i][0]) === displayName) {
+      rank = i + 1;
+      break;
+    }
+  }
+  // Fallback: count how many entries have a higher score
+  if (!rank) rank = top.filter(r => Number(r[1]) > score).length + 1;
+
+  return { ok:true, rank, score, token, name: displayName };
 }
 
 // Rename existing row by token — ZERO new rows added
