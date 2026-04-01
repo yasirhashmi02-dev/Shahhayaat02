@@ -1227,6 +1227,12 @@ body.nav-open{overflow:hidden}
     <div class="ov-math-q" id="mathQ">?</div>
     <div class="ov-math-score" id="mathScore">Correct: 0 &nbsp;|&nbsp; Wrong: 0</div>
     <div class="ov-math-opts" id="mathOpts"></div>
+    <div style="width:100%;max-width:320px;margin-top:.6rem;flex-shrink:0">
+      <div style="font-size:.62rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem;text-align:center">🌍 Global Top Scores</div>
+      <div id="gameLbList_math_challenge" style="max-height:100px;overflow-y:auto">
+        <div style="text-align:center;font-size:.72rem;color:rgba(255,255,255,.3);padding:.3rem">No scores yet. Be the first!</div>
+      </div>
+    </div>
   </div>
 
   <!-- MEMORY GAME -->
@@ -1234,6 +1240,12 @@ body.nav-open{overflow:hidden}
     <div class="ov-mem-info" id="memInfo">Find all matching pairs</div>
     <div class="ov-mem-stats"><span>Matches: <strong id="memMatches">0</strong>/8</span><span>Attempts: <strong id="memAttempts">0</strong></span><span id="memTimeEl">Time: <strong id="memTime">0s</strong></span></div>
     <div class="mem-grid" id="memGrid"></div>
+    <div style="width:100%;max-width:320px;margin-top:.6rem;flex-shrink:0">
+      <div style="font-size:.62rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem;text-align:center">🌍 Global Top Scores</div>
+      <div id="gameLbList_memory_match" style="max-height:80px;overflow-y:auto">
+        <div style="text-align:center;font-size:.72rem;color:rgba(255,255,255,.3);padding:.3rem">No scores yet. Be the first!</div>
+      </div>
+    </div>
   </div>
 
   <!-- TYPING SPEED GAME -->
@@ -1313,6 +1325,12 @@ body.nav-open{overflow:hidden}
     <!-- Number grid -->
     <div id="seqGrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:100%;max-width:340px"></div>
     <div class="ov-seq-score" style="margin-top:.5rem">Best time: <strong id="seqBest">—</strong></div>
+    <div style="width:100%;max-width:320px;margin-top:.6rem;flex-shrink:0">
+      <div style="font-size:.62rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem;text-align:center">🌍 Global Top Scores</div>
+      <div id="gameLbList_number_sequence" style="max-height:80px;overflow-y:auto">
+        <div style="text-align:center;font-size:.72rem;color:rgba(255,255,255,.3);padding:.3rem">No scores yet. Be the first!</div>
+      </div>
+    </div>
   </div>
 
   <!-- DONE SCREEN -->
@@ -1322,7 +1340,8 @@ body.nav-open{overflow:hidden}
     <div class="ov-done-sub" id="ovDoneSub"></div>
     <div class="ov-done-scores" id="ovDoneScores"></div>
     <div id="globalRank" class="rank-box"></div>
-    <div id="tyGlobalRank" class="rank-box"></div>
+    <div id="tyGlobalRank" style="display:none;width:100%;max-width:320px;margin:.4rem auto 0;padding:14px 18px;border-radius:12px;text-align:center;font-weight:700"></div>
+    <div id="gameGlobalRank" style="display:none;width:100%;max-width:320px;margin:.4rem auto 0;padding:14px 18px;border-radius:12px;text-align:center;font-weight:700"></div>
     <button class="ov-btn-challenge" id="ovChallengeBtn" onclick="openChallenge()" style="display:none">🏆 Challenge a Friend</button>
     <div id="promoCard" style="display:none"></div>
     <div class="ov-done-row">
@@ -2476,6 +2495,7 @@ function mathStart() {
   _showPanel('math');
   nextMathQ();
   speak('Math Speed Challenge. Answer as fast as you can. Go!');
+  gameLbLoad('math-challenge');
   _mTimer = setInterval(() => {
     _mSec--;
     document.getElementById('mathTimer').textContent = '⏱ ' + _mSec + 's';
@@ -2493,6 +2513,7 @@ function mathStart() {
       _lastChallengeName  = 'correct answers';
       _lastChallengeExId  = 'math-challenge';
       _showDone(scoreHTML);
+      setTimeout(() => gameLbShowModal('math-challenge', _mCorrect, 'correct in 60s'), 600);
     }
   }, 1000);
 }
@@ -2551,6 +2572,7 @@ function memStart() {
   ).join('');
 
   speak('Memory Match Game. Find all matching pairs. Good luck!');
+  gameLbLoad('memory-match');
   _memRunning = true;
   _memTimer = setInterval(() => {
     _memSec++;
@@ -2587,7 +2609,9 @@ function memFlip(i) {
         _lastChallengeScore = _memAttempts;
         _lastChallengeName  = 'attempts to match all pairs';
         _lastChallengeExId  = 'memory-match';
+        const memScore = Math.max(0, 1000 - (_memAttempts * 30) - (_memSec * 3));
         setTimeout(() => _showDone(scoreHTML), 800);
+        setTimeout(() => gameLbShowModal('memory-match', memScore, _memAttempts + ' attempts · ' + _memSec + 's'), 1400);
       }
     } else {
       setTimeout(() => {
@@ -3209,7 +3233,9 @@ function _showDone(scoreHTML) {
   var grReaction = document.getElementById('globalRank');
   var grTyping   = document.getElementById('tyGlobalRank');
   if (grReaction) { grReaction.className = 'rank-box'; grReaction.style.cssText = ''; grReaction.innerHTML = ''; }
-  if (grTyping)   { grTyping.className   = 'rank-box'; grTyping.style.cssText   = ''; grTyping.innerHTML   = ''; }
+  if (grTyping)   { grTyping.style.display = 'none'; grTyping.innerHTML = ''; }
+  var grGame = document.getElementById('gameGlobalRank');
+  if (grGame) { grGame.style.display = 'none'; grGame.innerHTML = ''; }
   // Hide promo by default; show only for reaction-test via _maybeShowPromo
   var promoCard = document.getElementById('promoCard');
   if (promoCard) promoCard.style.display = 'none';
@@ -3557,6 +3583,7 @@ function seqStart() {
   _seqBuildGrid();
 
   speak('Number Sequence. Find and tap 1, then 2, then 3, all the way to 25, as fast as you can. Timer starts when you tap 1!');
+  gameLbLoad('number-sequence');
 }
 
 function _seqBuildGrid() {
@@ -3689,6 +3716,10 @@ function _seqFinish(timedOut) {
   speak(msg);
 
   setTimeout(() => _showDone(scoreHTML), timedOut ? 600 : 800);
+  if (!timedOut) {
+    const seqScore = Math.round(10000 / elapsed);
+    setTimeout(() => gameLbShowModal('number-sequence', seqScore, elapsed + 's'), timedOut ? 1200 : 1400);
+  }
 }
 
 // Legacy stubs (no longer used but keep to avoid errors if called)
@@ -3982,6 +4013,7 @@ function shareChallenge(method) {
    ═══════════════════════════════════════════════════════ */
 
 const TY_LB_API   = 'https://script.google.com/macros/s/AKfycby12_i2scUjFeRRwglE1ZCJpcd7TI-mCo0Jb8F-B365Z2c28rmnxsWwtMuEDapE9zPVtQ/exec';
+const GAME_LB_API = TY_LB_API; // same GAS deployment
 const TY_DURATION = 30;
 const TY_PB_KEY   = 'sh_typing_pb';
 const TY_HIST_KEY = 'sh_typing_hist_ex';
@@ -4142,6 +4174,140 @@ function tyLbRender(rows) {
 }
 
 /* ════════════════════════════════════════════════════════════
+   GAME LEADERBOARD — Math, Memory, Number Sequence
+   Each game saves {name, score, game, metric} via POST
+   and shows rank on the done screen via #gameGlobalRank
+   ════════════════════════════════════════════════════════════ */
+
+var _gameLbPendingData = null; // {game, score, metric, wpm, acc} set by each game finish
+
+/* Show the game name modal (reuses #tyExNameModal styling) */
+function gameLbShowModal(game, score, metric) {
+  _gameLbPendingData = { game: game, score: score, metric: metric };
+  var m  = document.getElementById('tyExNameModal');
+  var sv = document.getElementById('tyExModalScore');
+  if (sv) sv.textContent = score + ' ' + metric;
+  // Update modal title for context
+  var ttl = document.querySelector('#tyExNameModal h3');
+  if (ttl) ttl.textContent = 'Save your score to the leaderboard';
+  if (m)  m.style.display = 'flex';
+  setTimeout(function() {
+    var inp = document.getElementById('tyExNameInput');
+    if (inp) { inp.value = ''; inp.focus(); }
+  }, 300);
+}
+
+/* POST the game score and show rank */
+function gameLbSave(name, data) {
+  if (!data) return;
+  var displayName = (name && name.length >= 2) ? name : 'Anonymous';
+  var el = document.getElementById('gameGlobalRank');
+
+  function show(html, bg, border) {
+    if (!el) return;
+    el.style.display    = 'block';
+    el.style.background = bg || 'rgba(34,197,94,.12)';
+    el.style.border     = '1.5px solid ' + (border || 'rgba(34,197,94,.4)');
+    el.innerHTML = html;
+  }
+
+  show('<div style="font-size:.85rem;color:rgba(255,255,255,.5)">⏳ Saving score…</div>',
+    'rgba(255,255,255,.04)', 'rgba(255,255,255,.12)');
+
+  fetch(GAME_LB_API, {
+    method: 'POST', redirect: 'follow',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify({ type:'game_score', name:displayName, score:data.score, game:data.game, metric:data.metric })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(json){
+    if (json.ok && json.rank >= 1) {
+      var rank   = json.rank;
+      var medal  = rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'🏅';
+      var isTop3 = rank <= 3;
+      var color  = isTop3 ? '#D4A017' : '#22C55E';
+      show(
+        '<div style="font-size:1.8rem">' + medal + '</div>' +
+        '<div style="font-size:1.15rem;font-weight:900;color:' + color + ';margin:4px 0">Rank #' + rank + '</div>' +
+        '<div style="font-size:.82rem;color:rgba(255,255,255,.65)">' + data.score + ' ' + data.metric + '</div>' +
+        '<div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:3px">' + (isTop3?'🔥 Top 3!':'Keep going! 💪') + '</div>',
+        isTop3?'rgba(184,134,11,.18)':'rgba(34,197,94,.12)',
+        isTop3?'rgba(212,160,23,.6)':'rgba(34,197,94,.5)'
+      );
+      // Refresh leaderboard list
+      setTimeout(function(){ gameLbLoad(data.game); }, 800);
+    } else {
+      show('<div style="font-size:.95rem;color:var(--gold-l)">✅ Score saved! ' + data.score + ' ' + data.metric + '</div>',
+        'rgba(34,197,94,.1)', 'rgba(34,197,94,.4)');
+    }
+  })
+  .catch(function(){
+    show('<div style="font-size:.85rem;color:#F87171">⚠️ Could not save — check connection</div>',
+      'rgba(239,68,68,.08)', 'rgba(239,68,68,.3)');
+  });
+}
+
+/* Load and render game leaderboard into a container */
+function gameLbLoad(game) {
+  if (!game) return;
+  fetch(GAME_LB_API + '?type=game_scores&game=' + encodeURIComponent(game),
+    { method:'GET', redirect:'follow', mode:'cors' })
+  .then(function(r){ return r.json(); })
+  .then(function(json){
+    if (json.ok && json.data) gameLbRender(game, json.data);
+  }).catch(function(){});
+}
+
+function gameLbRender(game, rows) {
+  var listId = 'gameLbList_' + game.replace(/[^a-z0-9]/gi,'_');
+  var list   = document.getElementById(listId);
+  if (!list) return;
+  if (!rows || !rows.length) {
+    list.innerHTML = '<div style="text-align:center;font-size:.72rem;color:rgba(255,255,255,.3);padding:.4rem">No scores yet. Be the first!</div>';
+    return;
+  }
+  list.innerHTML = rows.slice(0,10).map(function(r,i){
+    var medal = r.rank===1?'🥇':r.rank===2?'🥈':r.rank===3?'🥉':('#'+r.rank);
+    return '<div style="display:flex;align-items:center;gap:.5rem;padding:.3rem .6rem;border-radius:6px;' +
+      'background:' + (i<3?'rgba(212,160,23,.1)':'transparent') + '">' +
+      '<span style="font-size:.76rem;min-width:1.8rem;font-weight:700;color:' + (i<3?'var(--gold-l)':'rgba(255,255,255,.35)') + '">' + medal + '</span>' +
+      '<span style="flex:1;font-size:.74rem;color:' + (i<3?'#fff':'rgba(255,255,255,.55)') + ';overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + tyEsc(r.name) + '</span>' +
+      '<span style="font-size:.72rem;color:var(--gold-l);font-weight:700">' + r.metric + '</span>' +
+      '</div>';
+  }).join('');
+}
+
+/* Override _tyExSubmitName and _tyExSkipName to also handle game saves */
+var _origTyExSubmit = window._tyExSubmitName;
+var _origTyExSkip   = window._tyExSkipName;
+window._tyExSubmitName = function() {
+  if (_gameLbPendingData) {
+    var inp  = document.getElementById('tyExNameInput');
+    var raw  = inp ? inp.value.trim() : '';
+    var name = raw.replace(/[^a-zA-Z0-9\s]/g,'').trim();
+    var warn = document.getElementById('tyExNameWarn');
+    if (name && name.length < 2) { if(warn) warn.textContent='Min 2 characters'; return; }
+    if (warn) warn.textContent = '';
+    var m = document.getElementById('tyExNameModal');
+    if (m) m.style.display = 'none';
+    gameLbSave(name, _gameLbPendingData);
+    _gameLbPendingData = null;
+  } else {
+    _origTyExSubmit();
+  }
+};
+window._tyExSkipName = function() {
+  if (_gameLbPendingData) {
+    var m = document.getElementById('tyExNameModal');
+    if (m) m.style.display = 'none';
+    gameLbSave('Anonymous', _gameLbPendingData);
+    _gameLbPendingData = null;
+  } else {
+    _origTyExSkip();
+  }
+};
+
+/* ════════════════════════════════════════════════════════════
    TYPING SCORE FLOW — name first, then single POST
    1. Game finishes → show name modal immediately (nothing saved yet)
    2a. User enters name → POST {name, wpm, acc} → show rank from response
@@ -4169,21 +4335,11 @@ function tySaveScore(name, wpm, acc) {
   var displayName = (name && name.length >= 2) ? name : 'Anonymous';
 
   function showOnDone(html, bg, border) {
-    // Always fetch fresh reference — element may have been re-rendered
     var el = document.getElementById('tyGlobalRank');
     if (!el) return;
     el.style.display    = 'block';
-    el.style.opacity    = '1';
-    el.style.transform  = 'translateY(0)';
-    el.style.width      = '100%';
-    el.style.maxWidth   = '320px';
-    el.style.margin     = '.5rem auto 0';
-    el.style.padding    = '14px 18px';
-    el.style.borderRadius = '12px';
-    el.style.textAlign  = 'center';
-    el.style.fontWeight = '700';
-    el.style.background = bg || 'rgba(34,197,94,.1)';
-    el.style.border     = '1.5px solid ' + (border || 'rgba(34,197,94,.35)');
+    el.style.background = bg || 'rgba(34,197,94,.12)';
+    el.style.border     = '1.5px solid ' + (border || 'rgba(34,197,94,.4)');
     el.innerHTML = html;
   }
 
@@ -4219,41 +4375,29 @@ function tySaveScore(name, wpm, acc) {
 function _tyShowRank(rank, score) {
   var medal  = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '🏅';
   var isTop3 = rank <= 3;
-  var topMsg = isTop3 ? '🔥 Top 3 — incredible!' : 'Keep practising!';
+  var color  = isTop3 ? '#D4A017' : '#22C55E';
+  var bg     = isTop3 ? 'rgba(184,134,11,.18)' : 'rgba(34,197,94,.12)';
+  var border = isTop3 ? 'rgba(212,160,23,.6)'  : 'rgba(34,197,94,.5)';
+  var msg    = isTop3 ? '🔥 Top 3 — incredible!' : 'Keep climbing! 💪';
 
-  /* Typing panel rank bar */
-  var rankEl = document.getElementById('tyOvRank');
-  if (rankEl) {
-    rankEl.innerHTML =
-      '<span style="font-size:1rem;font-weight:800;color:var(--gold-l)">' + medal + ' Rank #' + rank + '</span>' +
-      '<span style="font-size:.72rem;color:rgba(255,255,255,.55);margin-left:.5rem">' + topMsg + '</span>';
-    rankEl.style.display = 'block';
+  /* Typing panel bar */
+  var bar = document.getElementById('tyOvRank');
+  if (bar) {
+    bar.innerHTML = '<span style="font-size:.95rem;font-weight:800;color:var(--gold-l)">' + medal + ' Rank #' + rank + '</span>';
+    bar.style.display = 'block';
   }
 
-  /* Done screen — always fetch fresh, force all styles inline */
+  /* Done screen box — simple and direct */
   var el = document.getElementById('tyGlobalRank');
   if (!el) return;
-  el.style.display     = 'block';
-  el.style.opacity     = '1';
-  el.style.transform   = 'translateY(0)';
-  el.style.width       = '100%';
-  el.style.maxWidth    = '320px';
-  el.style.margin      = '.5rem auto 0';
-  el.style.padding     = '14px 18px';
-  el.style.borderRadius = '12px';
-  el.style.textAlign   = 'center';
-  el.style.fontWeight  = '700';
-  el.style.background  = isTop3
-    ? 'linear-gradient(135deg,rgba(184,134,11,.2),rgba(212,160,23,.12))'
-    : 'rgba(34,197,94,.1)';
-  el.style.border      = '1.5px solid ' + (isTop3 ? 'rgba(212,160,23,.6)' : 'rgba(34,197,94,.4)');
+  el.style.display    = 'block';
+  el.style.background = bg;
+  el.style.border     = '1.5px solid ' + border;
+  el.style.color      = color;
   el.innerHTML =
-    '<div style="font-size:1.6rem;margin-bottom:2px">' + medal + '</div>' +
-    '<div style="font-size:1.1rem;color:' + (isTop3 ? 'var(--gold-l)' : '#22C55E') + ';margin-bottom:4px">' +
-      'Typing Rank <strong>#' + rank + '</strong>' +
-    '</div>' +
-    '<div style="font-size:.82rem;color:rgba(255,255,255,.6)">⌨️ Score: <strong style="color:var(--gold-l)">' + score + ' pts</strong></div>' +
-    '<div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:3px">' + topMsg + '</div>';
+    '<div style="font-size:1.8rem">' + medal + '</div>' +
+    '<div style="font-size:1.15rem;font-weight:900;color:' + color + ';margin:4px 0">Rank #' + rank + '</div>' +
+    '<div style="font-size:.82rem;color:rgba(255,255,255,.65)">⌨️ ' + score + ' pts &nbsp;·&nbsp; ' + msg + '</div>';
 }
 
 window._tyExSubmitName = function() {

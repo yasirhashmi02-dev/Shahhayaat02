@@ -7,6 +7,7 @@ const SPREADSHEET_ID         = '1JzFvfZRwsk4sfed6r1R0i_5i5wA96UH-wE4VYVY2Se8';
 const SHEET_NAME_LEADERBOARD = 'Leaderboard';           // reaction tab
 const SHEET_NAME_TYPING      = 'TypingLeaderboard';     // typing tab
 const SHEET_NAME_ANON_CTR    = 'Sheet3';                // counter tab
+const SHEET_NAME_GAMES       = 'GameLeaderboard';        // math/memory/sequence
 
 function getSpreadsheet() {
   return SpreadsheetApp.openById(SPREADSHEET_ID);
@@ -63,6 +64,7 @@ function doGet(e) {
 
     if (type === 'reaction_scores') return jsonResponse({ ok:true, data: getReactionScores() });
     if (type === 'typing_scores')   return jsonResponse({ ok:true, data: getTypingScores() });
+    if (type === 'game_scores')     return jsonResponse({ ok:true, data: getGameScores(p.game || '') });
 
     // Rename by token: ?type=rename_typing&token=XXX&name=John
     if (type === 'rename_typing') {
@@ -107,6 +109,7 @@ function doPost(e) {
     const body = JSON.parse(e.postData.contents);
     if (body.type === 'reaction_score') return jsonResponse(saveReactionScore(body));
     if (body.type === 'typing_score')   return jsonResponse(saveTypingScore(body));
+    if (body.type === 'game_score')     return jsonResponse(saveGameScore(body));
     return jsonResponse({ ok:false, error:'unknown type' });
   } catch(err) {
     return jsonResponse({ ok:false, error:err.message });
@@ -318,6 +321,59 @@ function renameTypingByMatch(wpm, acc, newName) {
 
   return { ok:true, renamed:true, rank, score, name: newName };
 }
+
+// ════════════════════════════════════════════════════════════════
+// GAME LEADERBOARD — Math, Memory, Number Sequence (GameLeaderboard)
+// Columns: Name, Score, Game, Metric, Timestamp
+// ════════════════════════════════════════════════════════════════
+function getGameSheet() {
+  return getOrCreateSheet(SHEET_NAME_GAMES, ['Name','Score','Game','Metric','Timestamp']);
+}
+
+function saveGameScore(d) {
+  const game   = String(d.game   || '').slice(0, 30);
+  const score  = Number(d.score  || 0);
+  const metric = String(d.metric || '').slice(0, 50);
+  const name   = String(d.name   || '').trim();
+
+  if (!game)        return { ok:false, error:'missing game'  };
+  if (score < 0)    return { ok:false, error:'invalid score' };
+
+  const displayName = resolveDisplayName(name || '__auto__');
+  const sheet = getGameSheet();
+  sheet.appendRow([displayName, score, game, metric, new Date().toISOString()]);
+
+  // Get all rows for this game, sort by score desc, keep top 100
+  let all = sheet.getDataRange().getValues().slice(1);
+  all = all.filter(r => String(r[2]) === game && !String(r[0]||'').startsWith('__auto__'));
+  all.sort((a,b) => Number(b[1]) - Number(a[1]));
+  const top100 = all.slice(0, 100);
+
+  // Rank = position among entries for this game
+  let rank = 0;
+  for (let i = 0; i < top100.length; i++) {
+    if (Number(top100[i][1]) === score && String(top100[i][0]) === displayName) {
+      rank = i + 1; break;
+    }
+  }
+  if (!rank) rank = top100.filter(r => Number(r[1]) > score).length + 1;
+
+  return { ok:true, rank, score, name: displayName, game };
+}
+
+function getGameScores(game) {
+  if (!game) return [];
+  const sheet = getGameSheet();
+  const rows  = sheet.getDataRange().getValues();
+  if (rows.length <= 1) return [];
+  const clean = rows.slice(1)
+    .filter(r => String(r[2]) === game && !String(r[0]||'').startsWith('__auto__'));
+  clean.sort((a,b) => Number(b[1]) - Number(a[1]));
+  return clean.slice(0,100).map((r,i) => ({
+    rank: i+1, name: r[0], score: Number(r[1]), metric: r[3]
+  }));
+}
+
 
 // ════════════════════════════════════════════════════════════════
 // ONE-TIME CLEANUP — Run this once from the GAS editor to purge
