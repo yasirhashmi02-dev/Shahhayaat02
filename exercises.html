@@ -1275,7 +1275,7 @@ body.nav-open{overflow:hidden}
     <div id="tyOvLb" style="width:100%;max-width:340px;margin-top:.5rem;flex-shrink:0">
       <div style="font-size:.62rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem;text-align:center">🌍 Global Top Scores</div>
       <div id="tyOvLbList" style="max-height:120px;overflow-y:auto">
-        <div style="text-align:center;font-size:.75rem;color:rgba(255,255,255,.3);padding:.5rem">Loading...</div>
+        <div style="text-align:center;font-size:.72rem;color:rgba(255,255,255,.3);padding:.4rem">No scores yet. Be the first!</div>
       </div>
     </div>
     <!-- Start / rank row -->
@@ -4103,13 +4103,13 @@ function tyLbLoad() {
   fetch(TY_LB_API + '?type=typing_scores', {method:'GET', redirect:'follow', mode:'cors'})
   .then(function(r){ return r.json(); })
   .then(function(json){
-    if (!json.ok || !json.data) return;
+    if (!json.ok || !json.data) { tyLbRender([]); return; }
     // Verify these are actually typing scores (must have wpm field)
-    // Reaction scores don't have wpm — reject them to prevent cross-contamination
+    // Reaction scores don't have wpm — reject and show empty state
     var isTypingData = json.data.length === 0 || json.data[0].wpm !== undefined;
-    if (isTypingData) tyLbRender(json.data);
+    tyLbRender(isTypingData ? json.data : []);
   })
-  .catch(function(){});
+  .catch(function(){ tyLbRender([]); });
 }
 
 function tyEsc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -4167,8 +4167,14 @@ function tyShowNameModal(wpm, acc) {
 /* POST score with name, show rank from GAS response */
 function tySaveScore(name, wpm, acc) {
   var displayName = (name && name.length >= 2) ? name : 'Anonymous';
-  var rankEl  = document.getElementById('tyOvRank');
-  if (rankEl) { rankEl.innerHTML = '<span style="font-size:.78rem;opacity:.6">Saving…</span>'; rankEl.style.display = 'block'; }
+  var rankEl   = document.getElementById('tyOvRank');
+  var doneRank = document.getElementById('tyGlobalRank');
+
+  // Show saving state on done screen immediately
+  if (doneRank) {
+    doneRank.innerHTML = '<div style="font-size:.85rem;color:rgba(255,255,255,.55)">⏳ Saving score…</div>';
+    doneRank.classList.add('show');
+  }
 
   fetch(TY_LB_API, {
     method: 'POST',
@@ -4178,20 +4184,27 @@ function tySaveScore(name, wpm, acc) {
   })
   .then(function(r) { return r.json(); })
   .then(function(json) {
-    // Verify this is actually a typing score response (check for wpm in name or score shape)
-    // json.token is present for both; json.score for typing is wpm*(acc/100)*10 not taps*20+bonus
     if (json.ok && json.rank && json.score !== undefined) {
+      // Got valid rank back — show it
       _tyShowRank(json.rank, json.score);
-    } else if (json.ok) {
-      if (rankEl) { rankEl.innerHTML = '<span style="font-size:.78rem;color:var(--gold-l)">Score saved!</span>'; }
     } else {
-      // POST failed — GAS may be old version; show saved message
-      if (rankEl) { rankEl.innerHTML = '<span style="font-size:.78rem;color:rgba(255,255,255,.4)">Score saved!</span>'; }
+      // Saved but no rank returned (or GAS error) — show confirmation on done screen
+      var score = json.score || Math.round(wpm * (acc / 100) * 10);
+      if (doneRank) {
+        doneRank.innerHTML =
+          '<div style="font-size:1rem;font-weight:700;color:var(--gold-l)">✅ Score saved!</div>' +
+          '<div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">⌨️ ' + wpm + ' WPM · ' + acc + '% accuracy · ' + score + ' pts</div>';
+        doneRank.classList.add('show');
+      }
     }
     setTimeout(tyLbLoad, 800);
   })
   .catch(function() {
-    if (rankEl) { rankEl.innerHTML = '<span style="font-size:.78rem;color:rgba(255,255,255,.4)">Saved (offline)</span>'; }
+    if (doneRank) {
+      doneRank.innerHTML =
+        '<div style="font-size:.9rem;color:rgba(255,255,255,.45)">⚠️ Could not connect — score not saved</div>';
+      doneRank.classList.add('show');
+    }
     setTimeout(tyLbLoad, 800);
   });
 }
