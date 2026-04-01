@@ -2204,8 +2204,8 @@ function lbRender(rows) {
   const list = document.getElementById('lbList');
   const myRankEl = document.getElementById('lbMyRank');
   if (!list) return;
-  // Filter out stale __auto__ entries
-  const clean = rows.filter(r => !String(r.name||'').startsWith('__auto__'));
+  // Filter out stale __auto__ entries AND any typing-data rows (have wpm field)
+  const clean = rows.filter(r => !String(r.name||'').startsWith('__auto__') && r.wpm === undefined);
   if (!clean.length) {
     list.innerHTML = '<div class="lb-empty">No scores yet — be first! 🏆</div>';
     return;
@@ -4102,7 +4102,13 @@ function tySetPB(v){ try{ localStorage.setItem(TY_PB_KEY,String(v)); }catch(e){}
 function tyLbLoad() {
   fetch(TY_LB_API + '?type=typing_scores', {method:'GET', redirect:'follow', mode:'cors'})
   .then(function(r){ return r.json(); })
-  .then(function(json){ if(json.ok && json.data) tyLbRender(json.data); })
+  .then(function(json){
+    if (!json.ok || !json.data) return;
+    // Verify these are actually typing scores (must have wpm field)
+    // Reaction scores don't have wpm — reject them to prevent cross-contamination
+    var isTypingData = json.data.length === 0 || json.data[0].wpm !== undefined;
+    if (isTypingData) tyLbRender(json.data);
+  })
   .catch(function(){});
 }
 
@@ -4111,8 +4117,10 @@ function tyEsc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').r
 function tyLbRender(rows) {
   var list = document.getElementById('tyOvLbList');
   if (!list) return;
-  // Filter out stale __auto__ junk entries from old auto-save system
-  var clean = rows.filter(function(r){ return !String(r.name||'').startsWith('__auto__'); });
+  // Filter out stale __auto__ entries AND reaction data (reaction rows have no wpm field)
+  var clean = rows.filter(function(r){
+    return !String(r.name||'').startsWith('__auto__') && r.wpm !== undefined;
+  });
   if (!clean.length) {
     list.innerHTML='<div style="text-align:center;font-size:.72rem;color:rgba(255,255,255,.3);padding:.4rem">No scores yet. Be the first!</div>';
     return;
@@ -4170,10 +4178,15 @@ function tySaveScore(name, wpm, acc) {
   })
   .then(function(r) { return r.json(); })
   .then(function(json) {
-    if (json.ok && json.rank) {
+    // Verify this is actually a typing score response (check for wpm in name or score shape)
+    // json.token is present for both; json.score for typing is wpm*(acc/100)*10 not taps*20+bonus
+    if (json.ok && json.rank && json.score !== undefined) {
       _tyShowRank(json.rank, json.score);
     } else if (json.ok) {
       if (rankEl) { rankEl.innerHTML = '<span style="font-size:.78rem;color:var(--gold-l)">Score saved!</span>'; }
+    } else {
+      // POST failed — GAS may be old version; show saved message
+      if (rankEl) { rankEl.innerHTML = '<span style="font-size:.78rem;color:rgba(255,255,255,.4)">Score saved!</span>'; }
     }
     setTimeout(tyLbLoad, 800);
   })
