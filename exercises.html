@@ -4167,17 +4167,28 @@ function tyShowNameModal(wpm, acc) {
 /* POST score with name, show rank from GAS response */
 function tySaveScore(name, wpm, acc) {
   var displayName = (name && name.length >= 2) ? name : 'Anonymous';
-  var rankEl   = document.getElementById('tyOvRank');
-  var doneRank = document.getElementById('tyGlobalRank');
 
-  // Show saving state on done screen immediately — force visible with inline styles
-  if (doneRank) {
-    doneRank.style.cssText =
-      'display:block;opacity:1;transform:translateY(0);width:100%;max-width:280px;margin:.5rem auto 0;' +
-      'padding:12px 16px;border-radius:12px;text-align:center;background:rgba(255,255,255,.05);' +
-      'border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.55);font-weight:700;';
-    doneRank.innerHTML = '<div style="font-size:.85rem">⏳ Saving score…</div>';
+  function showOnDone(html, bg, border) {
+    // Always fetch fresh reference — element may have been re-rendered
+    var el = document.getElementById('tyGlobalRank');
+    if (!el) return;
+    el.style.display    = 'block';
+    el.style.opacity    = '1';
+    el.style.transform  = 'translateY(0)';
+    el.style.width      = '100%';
+    el.style.maxWidth   = '320px';
+    el.style.margin     = '.5rem auto 0';
+    el.style.padding    = '14px 18px';
+    el.style.borderRadius = '12px';
+    el.style.textAlign  = 'center';
+    el.style.fontWeight = '700';
+    el.style.background = bg || 'rgba(34,197,94,.1)';
+    el.style.border     = '1.5px solid ' + (border || 'rgba(34,197,94,.35)');
+    el.innerHTML = html;
   }
+
+  showOnDone('<div style="font-size:.85rem;color:rgba(255,255,255,.5)">⏳ Saving score…</div>',
+    'rgba(255,255,255,.04)', 'rgba(255,255,255,.12)');
 
   fetch(TY_LB_API, {
     method: 'POST',
@@ -4190,61 +4201,59 @@ function tySaveScore(name, wpm, acc) {
     if (json.ok && json.rank >= 1) {
       _tyShowRank(json.rank, json.score);
     } else {
-      // GAS error or unexpected response — show score summary
       var pts = json.score || Math.round(wpm * (acc / 100) * 10);
-      if (doneRank) {
-        doneRank.style.cssText =
-          'display:block;opacity:1;transform:translateY(0);width:100%;max-width:280px;margin:.5rem auto 0;' +
-          'padding:12px 16px;border-radius:12px;text-align:center;background:rgba(34,197,94,.08);' +
-          'border:1px solid rgba(34,197,94,.25);color:#22C55E;font-weight:700;';
-        doneRank.innerHTML =
-          '<div style="font-size:1rem;font-weight:700;color:var(--gold-l)">✅ Score saved!</div>' +
-          '<div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">⌨️ ' + wpm + ' WPM · ' + acc + '% accuracy · ' + pts + ' pts</div>';
-      }
+      showOnDone(
+        '<div style="font-size:1.1rem;color:var(--gold-l)">✅ Score Saved!</div>' +
+        '<div style="font-size:.82rem;color:rgba(255,255,255,.6);margin-top:6px">⌨️ ' + wpm + ' WPM &nbsp;·&nbsp; ' + acc + '% accuracy</div>' +
+        '<div style="font-size:.78rem;color:var(--gold-l);margin-top:2px;font-weight:800">' + pts + ' pts</div>',
+        'rgba(34,197,94,.1)', 'rgba(34,197,94,.4)');
     }
-    setTimeout(tyLbLoad, 800);
+    setTimeout(tyLbLoad, 1000);
   })
   .catch(function() {
-    if (doneRank) {
-      doneRank.style.cssText =
-        'display:block;opacity:1;transform:translateY(0);width:100%;max-width:280px;margin:.5rem auto 0;' +
-        'padding:12px 16px;border-radius:12px;text-align:center;background:rgba(239,68,68,.08);' +
-        'border:1px solid rgba(239,68,68,.25);color:rgba(255,255,255,.45);font-weight:700;';
-      doneRank.innerHTML =
-        '<div style="font-size:.9rem">⚠️ Could not connect — score not saved</div>';
-    }
-    setTimeout(tyLbLoad, 800);
+    showOnDone('<div style="font-size:.9rem;color:#F87171">⚠️ Could not save — check connection</div>',
+      'rgba(239,68,68,.08)', 'rgba(239,68,68,.3)');
   });
 }
 
 function _tyShowRank(rank, score) {
   var medal  = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '🏅';
-  var topMsg = rank <= 3 ? '🔥 Top 3 — incredible!' : 'Score: ' + score + ' pts';
-  var color  = rank <= 3 ? 'var(--gold-l)' : '#22C55E';
+  var isTop3 = rank <= 3;
+  var topMsg = isTop3 ? '🔥 Top 3 — incredible!' : 'Keep practising!';
 
-  /* Typing panel rank bar (shown while still on typing panel) */
+  /* Typing panel rank bar */
   var rankEl = document.getElementById('tyOvRank');
   if (rankEl) {
     rankEl.innerHTML =
-      '<span style="font-size:1rem;font-weight:800;color:var(--gold-l)">' + medal + ' Global Rank #' + rank + '</span>' +
+      '<span style="font-size:1rem;font-weight:800;color:var(--gold-l)">' + medal + ' Rank #' + rank + '</span>' +
       '<span style="font-size:.72rem;color:rgba(255,255,255,.55);margin-left:.5rem">' + topMsg + '</span>';
     rankEl.style.display = 'block';
   }
 
-  /* Done screen rank box — force visible with inline styles, no CSS class dependency */
-  var doneRank = document.getElementById('tyGlobalRank');
-  if (doneRank) {
-    doneRank.style.cssText =
-      'display:block;opacity:1;transform:translateY(0);width:100%;max-width:280px;margin:.5rem auto 0;' +
-      'padding:12px 16px;border-radius:12px;text-align:center;font-weight:700;' +
-      'background:' + (rank <= 3 ? 'linear-gradient(135deg,rgba(184,134,11,.15),rgba(212,160,23,.1))' : 'rgba(34,197,94,.08)') + ';' +
-      'border:1px solid ' + (rank <= 3 ? 'rgba(212,160,23,.5)' : 'rgba(34,197,94,.25)') + ';' +
-      'color:' + color + ';';
-    doneRank.innerHTML =
-      '<div style="font-size:1.3rem;margin-bottom:4px">' + medal + ' Typing Rank <strong>#' + rank + '</strong></div>' +
-      '<div style="font-size:.85rem;margin-bottom:2px;color:' + color + '">⌨️ Score: <strong>' + score + ' pts</strong></div>' +
-      '<div style="font-size:.72rem;color:rgba(255,255,255,.45)">' + topMsg + '</div>';
-  }
+  /* Done screen — always fetch fresh, force all styles inline */
+  var el = document.getElementById('tyGlobalRank');
+  if (!el) return;
+  el.style.display     = 'block';
+  el.style.opacity     = '1';
+  el.style.transform   = 'translateY(0)';
+  el.style.width       = '100%';
+  el.style.maxWidth    = '320px';
+  el.style.margin      = '.5rem auto 0';
+  el.style.padding     = '14px 18px';
+  el.style.borderRadius = '12px';
+  el.style.textAlign   = 'center';
+  el.style.fontWeight  = '700';
+  el.style.background  = isTop3
+    ? 'linear-gradient(135deg,rgba(184,134,11,.2),rgba(212,160,23,.12))'
+    : 'rgba(34,197,94,.1)';
+  el.style.border      = '1.5px solid ' + (isTop3 ? 'rgba(212,160,23,.6)' : 'rgba(34,197,94,.4)');
+  el.innerHTML =
+    '<div style="font-size:1.6rem;margin-bottom:2px">' + medal + '</div>' +
+    '<div style="font-size:1.1rem;color:' + (isTop3 ? 'var(--gold-l)' : '#22C55E') + ';margin-bottom:4px">' +
+      'Typing Rank <strong>#' + rank + '</strong>' +
+    '</div>' +
+    '<div style="font-size:.82rem;color:rgba(255,255,255,.6)">⌨️ Score: <strong style="color:var(--gold-l)">' + score + ' pts</strong></div>' +
+    '<div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:3px">' + topMsg + '</div>';
 }
 
 window._tyExSubmitName = function() {
