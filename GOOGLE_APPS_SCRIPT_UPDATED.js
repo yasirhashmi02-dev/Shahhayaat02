@@ -126,6 +126,8 @@ function saveReactionScore(d) {
   sheet.appendRow([displayName, score, new Date().toISOString(), token]);
 
   let all = sheet.getDataRange().getValues().slice(1);
+  // Purge stale __auto__ entries
+  all = all.filter(r => !String(r[0]||'').startsWith('__auto__'));
   all.sort((a,b) => Number(b[1]) - Number(a[1]));
   const top = all.slice(0, 100);
 
@@ -141,7 +143,9 @@ function getReactionScores() {
   const sheet = getLeaderboardSheet();
   const rows = sheet.getDataRange().getValues();
   if (rows.length <= 1) return [];
-  return rows.slice(1,101).map((r,i) => ({
+  // Filter out stale __auto__ entries
+  const clean = rows.slice(1).filter(r => !String(r[0]||'').startsWith('__auto__'));
+  return clean.slice(0,100).map((r,i) => ({
     rank: i+1, name: r[0], score: Number(r[1])
   }));
 }
@@ -154,7 +158,6 @@ function getTypingSheet() {
   return getOrCreateSheet(SHEET_NAME_TYPING, ['Name','Score','WPM','Accuracy','Timestamp','Token']);
 }
 
-// Auto-save as Anonymous — returns token for rename via GET later
 function saveTypingScore(d) {
   const wpm = Number(d.wpm || 0);
   const acc = Number(d.acc || 0);
@@ -162,13 +165,15 @@ function saveTypingScore(d) {
   if (acc < 0 || acc > 100) return { ok:false, error:'acc_out_of_range' };
 
   const score       = Math.round(wpm * (acc / 100) * 10);
-  const displayName = resolveDisplayName(d.name || '__auto__');  // use passed name if provided, else Anonymous N
+  const displayName = resolveDisplayName(d.name || '__auto__');
   const token       = Date.now() + '_' + Math.random().toString(36).slice(2,8);
 
   const sheet = getTypingSheet();
   sheet.appendRow([displayName, score, wpm, acc, new Date().toISOString(), token]);
 
   let all = sheet.getDataRange().getValues().slice(1);
+  // Purge any stale __auto__ rows left by old auto-save system
+  all = all.filter(r => !String(r[0]||'').startsWith('__auto__'));
   all.sort((a,b) => Number(b[1]) - Number(a[1]));
   const top = all.slice(0, 100);
 
@@ -210,7 +215,9 @@ function getTypingScores() {
   const sheet = getTypingSheet();
   const rows  = sheet.getDataRange().getValues();
   if (rows.length <= 1) return [];
-  return rows.slice(1,101).map((r,i) => ({
+  // Filter out stale __auto__ entries left by old auto-save system
+  const clean = rows.slice(1).filter(r => !String(r[0]||'').startsWith('__auto__'));
+  return clean.slice(0,100).map((r,i) => ({
     rank: i+1, name: r[0], score: Number(r[1]), wpm: Number(r[2]), acc: Number(r[3])
   }));
 }
@@ -282,4 +289,33 @@ function renameTypingByMatch(wpm, acc, newName) {
   if (rows.length) sheet.getRange(2,1,rows.length,6).setValues(rows);
 
   return { ok:true, renamed:true, rank, score, name: newName };
+}
+
+// ════════════════════════════════════════════════════════════════
+// ONE-TIME CLEANUP — Run this once from the GAS editor to purge
+// all stale __auto__ entries from both sheets.
+// Select this function and click Run in the Apps Script editor.
+// ════════════════════════════════════════════════════════════════
+function purgeAutoEntries() {
+  // Clean typing sheet (Sheet2)
+  const tySheet = getTypingSheet();
+  const tyData  = tySheet.getDataRange().getValues();
+  if (tyData.length > 1) {
+    const tyClean = tyData.slice(1).filter(r => !String(r[0]||'').startsWith('__auto__'));
+    tySheet.clearContents();
+    tySheet.appendRow(['Name','Score','WPM','Accuracy','Timestamp','Token']);
+    if (tyClean.length) tySheet.getRange(2,1,tyClean.length,6).setValues(tyClean);
+  }
+
+  // Clean reaction sheet (ReactionLeaderboard)
+  const rxSheet = getLeaderboardSheet();
+  const rxData  = rxSheet.getDataRange().getValues();
+  if (rxData.length > 1) {
+    const rxClean = rxData.slice(1).filter(r => !String(r[0]||'').startsWith('__auto__'));
+    rxSheet.clearContents();
+    rxSheet.appendRow(['Name','Score','Timestamp','Token']);
+    if (rxClean.length) rxSheet.getRange(2,1,rxClean.length,4).setValues(rxClean);
+  }
+
+  Logger.log('Cleanup done. Typing rows remaining: ' + (tyData.length - 1) + ', Reaction rows remaining: ' + (rxData.length - 1));
 }

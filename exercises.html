@@ -2204,18 +2204,20 @@ function lbRender(rows) {
   const list = document.getElementById('lbList');
   const myRankEl = document.getElementById('lbMyRank');
   if (!list) return;
-  if (!rows.length) {
+  // Filter out stale __auto__ entries
+  const clean = rows.filter(r => !String(r.name||'').startsWith('__auto__'));
+  if (!clean.length) {
     list.innerHTML = '<div class="lb-empty">No scores yet — be first! 🏆</div>';
     return;
   }
-  list.innerHTML = rows.slice(0, 100).map(r => {
-    const rankCls = r.rank === 1 ? 'top1' : r.rank === 2 ? 'top2' : r.rank === 3 ? 'top3' : '';
-    const isMe    = _lbMyRank && r.rank === _lbMyRank;
-    // Support both old (taps) and new (score) API response shapes
+  list.innerHTML = clean.slice(0, 100).map((r, i) => {
+    const pos     = i + 1;
+    const rankCls = pos === 1 ? 'top1' : pos === 2 ? 'top2' : pos === 3 ? 'top3' : '';
+    const isMe    = _lbMyRank && pos === _lbMyRank;
     const displayVal = r.score !== undefined ? r.score : r.taps;
     const displayLbl = r.score !== undefined ? 'pts' : 'taps';
     return '<div class="lb-row' + (isMe ? ' me' : '') + '">' +
-      '<span class="lb-rank ' + rankCls + '">' + (r.rank <= 3 ? ['🥇','🥈','🥉'][r.rank-1] : '#'+r.rank) + '</span>' +
+      '<span class="lb-rank ' + rankCls + '">' + (pos <= 3 ? ['🥇','🥈','🥉'][pos-1] : '#'+pos) + '</span>' +
       '<span class="lb-name">' + _esc(r.name) + '</span>' +
       '<span class="lb-score">' + displayVal + ' ' + displayLbl + '</span>' +
       '</div>';
@@ -4109,15 +4111,18 @@ function tyEsc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').r
 function tyLbRender(rows) {
   var list = document.getElementById('tyOvLbList');
   if (!list) return;
-  if (!rows.length) {
+  // Filter out stale __auto__ junk entries from old auto-save system
+  var clean = rows.filter(function(r){ return !String(r.name||'').startsWith('__auto__'); });
+  if (!clean.length) {
     list.innerHTML='<div style="text-align:center;font-size:.72rem;color:rgba(255,255,255,.3);padding:.4rem">No scores yet. Be the first!</div>';
     return;
   }
   var html = '';
-  var top = rows.slice(0,100);
+  var top = clean.slice(0,100);
   for (var i=0; i<top.length; i++) {
     var r = top[i];
-    var medal = r.rank===1?'🥇':r.rank===2?'🥈':r.rank===3?'🥉':('#'+r.rank);
+    var pos = i + 1; // re-number after filtering
+    var medal = pos===1?'🥇':pos===2?'🥈':pos===3?'🥉':('#'+pos);
     html += '<div style="display:flex;align-items:center;gap:.5rem;padding:.3rem .6rem;border-radius:6px;' +
       'background:' + (i<3?'rgba(212,160,23,.12)':'transparent') + '">' +
       '<span style="font-size:.76rem;min-width:1.8rem;font-weight:700;color:' + (i<3?'var(--gold-l)':'rgba(255,255,255,.35)') + '">' + medal + '</span>' +
