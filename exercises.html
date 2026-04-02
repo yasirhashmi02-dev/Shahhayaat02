@@ -1311,7 +1311,7 @@ body.nav-open{overflow:hidden}
       <div style="text-align:center">
         <div style="font-size:.62rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em">Next</div>
         <div id="seqNext" style="font-size:1.4rem;font-weight:900;color:var(--gold-l);font-family:var(--font-h)">1</div>
-        <div id="seqStartHint" style="font-size:.62rem;color:#6CB4FF;font-weight:600">← tap first</div>
+        <div id="seqStartHint" style="font-size:.62rem;color:#6CB4FF;font-weight:600">Tap 1 to reveal & start</div>
       </div>
       <div style="text-align:center">
         <div style="font-size:.62rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em">Time</div>
@@ -2982,7 +2982,7 @@ function ovBeginDirect() {
     if (nextEl2) nextEl2.textContent = '1';
     if (timeEl2) { timeEl2.textContent = '⏸ Ready'; timeEl2.style.color = 'rgba(255,255,255,.6)'; }
     if (doneEl2) doneEl2.textContent = '0/25';
-    if (hintEl2) hintEl2.style.display = '';
+    if (hintEl2) hintEl2.textContent = 'Tap 1 to reveal & start';
     if (gridEl2) gridEl2.innerHTML = '';
     speak(_ex.voiceIntro || _ex.title);
   } else if (_ex.isTypingGame) {
@@ -3606,18 +3606,33 @@ function _seqBuildGrid() {
   const grid = document.getElementById('seqGrid');
   if (!grid) return;
   grid.innerHTML = _seqNums.map(n => {
-    const isFirst = n === 1;
+    // Numbers are hidden before game starts — show '?' placeholder
+    // They are revealed the moment the user taps 1 (timer starts)
     return `<button id="seqBtn_${n}"
-      style="background:${isFirst ? 'rgba(99,102,241,.25)' : 'rgba(255,255,255,.06)'};
-             border:1.5px solid ${isFirst ? '#6366f1' : 'rgba(255,255,255,.12)'};
+      data-num="${n}"
+      style="background:rgba(255,255,255,.06);
+             border:1.5px solid rgba(255,255,255,.12);
              border-radius:10px;padding:.55rem .1rem;font-weight:800;font-size:.92rem;
-             color:${isFirst ? '#a5b4fc' : 'rgba(255,255,255,.8)'};cursor:pointer;
-             transition:background .1s,border-color .1s,transform .1s;
+             color:rgba(255,255,255,.25);cursor:pointer;
+             transition:background .1s,border-color .1s,transform .1s,color .15s;
              -webkit-tap-highlight-color:transparent;min-height:40px"
       ontouchstart="event.preventDefault();seqTap(${n})"
       onclick="seqTap(${n})"
-      aria-label="Number ${n}">${n}</button>`;
+      aria-label="Number ${n}">?</button>`;
   }).join('');
+}
+
+function _seqRevealGrid() {
+  // Called on first correct tap — reveal all numbers at once
+  document.querySelectorAll('#seqGrid button[data-num]').forEach(btn => {
+    const n = parseInt(btn.getAttribute('data-num'));
+    if (btn.disabled) return; // already matched, leave green
+    const isNext = n === _seqNextExpected;
+    btn.textContent   = n;
+    btn.style.color   = isNext ? '#a5b4fc' : 'rgba(255,255,255,.8)';
+    btn.style.background   = isNext ? 'rgba(99,102,241,.25)' : 'rgba(255,255,255,.06)';
+    btn.style.borderColor  = isNext ? '#6366f1' : 'rgba(255,255,255,.12)';
+  });
 }
 
 function seqTap(n) {
@@ -3647,6 +3662,8 @@ function seqTap(n) {
     _seqStartTime = performance.now();
     const hintEl = document.getElementById('seqStartHint');
     if (hintEl) hintEl.style.display = 'none';
+    // Reveal all numbers now that the game has started
+    _seqRevealGrid();
     // Start countdown
     _seqTimerInt = setInterval(() => {
       if (_seqDone) { clearInterval(_seqTimerInt); return; }
