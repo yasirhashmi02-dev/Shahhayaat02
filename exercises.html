@@ -4290,7 +4290,7 @@ function gameLbLoad(gameKey) {
       memory_scores:   function(r){ return (r.attempts||'')+' attempts'; },
       sequence_scores: function(r){ return (r.elapsed||'')?r.elapsed+'s':r.score+' pts'; }
     }[scoreType] || function(r){ return r.score+' pts'; };
-    list.innerHTML = rows.slice(0,10).map(function(r,i){
+    list.innerHTML = rows.slice(0,100).map(function(r,i){
       var medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':('#'+(i+1));
       return '<div style="display:flex;align-items:center;gap:.5rem;padding:.28rem .5rem;border-radius:6px;background:'+(i<3?'rgba(212,160,23,.1)':'transparent')+'">' +
         '<span style="font-size:.75rem;min-width:1.8rem;font-weight:700;color:'+(i<3?'var(--gold-l)':'rgba(255,255,255,.35)')+'">'+medal+'</span>'+
