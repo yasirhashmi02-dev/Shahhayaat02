@@ -1270,10 +1270,11 @@ body.nav-open{overflow:hidden}
       <div id="tyOvBar" style="height:100%;background:linear-gradient(90deg,#D4A017,#F0C040);width:0%;transition:width .7s linear;border-radius:2px"></div>
     </div>
     <!-- Passage display -->
-    <div id="tyOvPassage" style="width:100%;max-width:340px;font-size:clamp(.65rem,1.9vw,.78rem);line-height:1.75;padding:.65rem .8rem;
-         background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;
-         margin-bottom:.55rem;font-family:var(--font-mono,monospace);letter-spacing:.02em;
-         word-break:break-word;overflow-wrap:anywhere;max-height:110px;overflow-y:auto;
+    <div id="tyOvPassage" style="width:100%;max-width:340px;font-size:clamp(.82rem,2.4vw,.92rem);line-height:2;padding:.75rem .9rem;
+         background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:12px;
+         margin-bottom:.55rem;font-family:var(--font-b,sans-serif);letter-spacing:.01em;
+         word-break:normal;overflow-wrap:normal;word-wrap:normal;
+         max-height:140px;overflow-y:auto;
          user-select:none;-webkit-user-select:none;flex-shrink:0"></div>
     <!-- Input -->
     <textarea id="tyOvInput" placeholder="Start typing here..."
@@ -3606,20 +3607,19 @@ function _seqBuildGrid() {
   const grid = document.getElementById('seqGrid');
   if (!grid) return;
   grid.innerHTML = _seqNums.map(n => {
-    // Number 1 is shown so the player knows where to start; all others hidden as '?'
-    // All numbers are revealed the moment the user taps 1 (timer starts)
-    const isOne = n === 1;
+    // Numbers are hidden before game starts — show '?' placeholder
+    // They are revealed the moment the user taps 1 (timer starts)
     return `<button id="seqBtn_${n}"
       data-num="${n}"
-      style="background:${isOne ? 'rgba(99,102,241,.25)' : 'rgba(255,255,255,.06)'};
-             border:1.5px solid ${isOne ? '#6366f1' : 'rgba(255,255,255,.12)'};
+      style="background:rgba(255,255,255,.06);
+             border:1.5px solid rgba(255,255,255,.12);
              border-radius:10px;padding:.55rem .1rem;font-weight:800;font-size:.92rem;
-             color:${isOne ? '#a5b4fc' : 'rgba(255,255,255,.25)'};cursor:pointer;
+             color:rgba(255,255,255,.25);cursor:pointer;
              transition:background .1s,border-color .1s,transform .1s,color .15s;
              -webkit-tap-highlight-color:transparent;min-height:40px"
       ontouchstart="event.preventDefault();seqTap(${n})"
       onclick="seqTap(${n})"
-      aria-label="Number ${n}">${isOne ? '1' : '?'}</button>`;
+      aria-label="Number ${n}">?</button>`;
   }).join('');
 }
 
@@ -4511,16 +4511,44 @@ function tyInit() {
 function tyRenderPassage(typed) {
   var el = document.getElementById('tyOvPassage');
   if (!el) return;
+  // Split into word/space tokens so words never break mid-character
+  var tokens = _tyPassage.split(/(\s+)/);
   var html = '';
-  for (var i=0; i<_tyPassage.length; i++) {
-    var ch = _tyPassage[i]===' ' ? '&nbsp;' : _tyPassage[i];
-    if (i < typed.length) {
-      var ok = typed[i]===_tyPassage[i];
-      html += '<span style="color:' + (ok?'#22C55E':'#F87171') + ';background:' + (ok?'transparent':'rgba(248,113,113,.15)') + '">' + ch + '</span>';
-    } else if (i===typed.length) {
-      html += '<span style="border-left:2px solid #D4A017;animation:blink .8s ease-in-out infinite">' + ch + '</span>';
+  var gi = 0; // global char index
+  for (var t = 0; t < tokens.length; t++) {
+    var token = tokens[t];
+    if (!token) continue;
+    if (/^\s+$/.test(token)) {
+      // Spaces: render individually, allow line-break opportunity here
+      for (var s = 0; s < token.length; s++) {
+        var si = gi + s;
+        if (si < typed.length) {
+          var sok = typed[si] === _tyPassage[si];
+          html += '<span style="color:' + (sok ? '#22C55E' : '#F87171') + '">&nbsp;</span>';
+        } else if (si === typed.length) {
+          html += '<span style="border-left:2px solid #D4A017;animation:blink .8s ease-in-out infinite"> </span>';
+        } else {
+          html += ' ';
+        }
+      }
+      gi += token.length;
     } else {
-      html += '<span style="color:rgba(255,255,255,.3)">' + ch + '</span>';
+      // Word: wrap in inline-block so it never splits across lines
+      var wordHtml = '';
+      for (var c = 0; c < token.length; c++) {
+        var ci = gi + c;
+        var ch = token[c];
+        if (ci < typed.length) {
+          var ok = typed[ci] === _tyPassage[ci];
+          wordHtml += '<span style="color:' + (ok ? '#22C55E' : '#F87171') + ';background:' + (ok ? 'transparent' : 'rgba(248,113,113,.15)') + '">' + ch + '</span>';
+        } else if (ci === typed.length) {
+          wordHtml += '<span style="border-left:2px solid #D4A017;animation:blink .8s ease-in-out infinite">' + ch + '</span>';
+        } else {
+          wordHtml += '<span style="color:rgba(255,255,255,.75)">' + ch + '</span>';
+        }
+      }
+      html += '<span style="display:inline-block;white-space:nowrap">' + wordHtml + '</span>';
+      gi += token.length;
     }
   }
   el.innerHTML = html;
