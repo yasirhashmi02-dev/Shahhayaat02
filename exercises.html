@@ -2061,7 +2061,8 @@ let _wgActivePointerId = null; // single-pointer anti-cheat
    Score = taps (higher is better)
    Anti-cheat: server validates 1–200 taps range
 ══════════════════════════════════════════════════════════ */
-const LB_API = 'https://script.google.com/macros/s/AKfycby12_i2scUjFeRRwglE1ZCJpcd7TI-mCo0Jb8F-B365Z2c28rmnxsWwtMuEDapE9zPVtQ/exec';
+const GAS_API = 'https://script.google.com/macros/s/AKfycby12_i2scUjFeRRwglE1ZCJpcd7TI-mCo0Jb8F-B365Z2c28rmnxsWwtMuEDapE9zPVtQ/exec';
+const LB_API = GAS_API;
 
 // ═══════════════════════════════════════════════════════
 // THEME SYSTEM
@@ -2328,53 +2329,56 @@ function _lbCloseModal() {
 /* ── Single POST with name — no auto-save, no rename, no duplicates ── */
 function _lbSaveWithName(name, taps, time) {
   var displayName = (name && name !== 'Anonymous') ? name : 'Anonymous';
-  var el = document.getElementById('globalRank');
-  if (el) {
-    el.innerHTML = '<div style="font-size:.85rem;color:rgba(255,255,255,.55)">⏳ Saving score…</div>';
-    el.classList.add('show');
+
+  // Only show on done screen if still on reaction exercise
+  function rxShow(html, addShow) {
+    if (!_ex || _ex.id !== 'reaction-test') return; // guard: don't bleed into other games
+    var el = document.getElementById('globalRank');
+    if (!el) return;
+    el.innerHTML = html;
+    if (addShow) el.classList.add('show');
   }
+
+  rxShow('<div style="font-size:.85rem;color:rgba(255,255,255,.55)">⏳ Saving score…</div>', true);
+
   fetch(LB_API, {
-    method: 'POST',
-    redirect: 'follow',
+    method: 'POST', redirect: 'follow',
     headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify({ type: 'reaction_score', name: displayName, taps: taps, time: time })
   })
   .then(function(r) { return r.json(); })
   .then(function(json) {
     if (json.ok && json.rank >= 1) {
-      var rank  = json.rank;
-      var score = json.score;
+      var rank = json.rank, score = json.score;
       var medal = rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'🏅';
       _lbMyRank = rank;
-      if (el) {
-        el.innerHTML =
-          '<div style="font-size:1.4rem;margin-bottom:4px">' + medal + ' Rank <strong>#' + rank + '</strong></div>' +
-          '<div style="font-size:.9rem;margin-bottom:2px">⭐ Score: <strong>' + score + '</strong></div>' +
-          '<div style="font-size:.72rem;color:rgba(255,255,255,.45)">' + (rank<=3?'🔥 Top 3 — incredible!':'Keep tapping to climb higher!') + '</div>';
-        if (rank <= 3) el.classList.add('rank-top');
-        el.classList.add('show');
-      }
+      rxShow(
+        '<div style="font-size:1.4rem;margin-bottom:4px">' + medal + ' Rank <strong>#' + rank + '</strong></div>' +
+        '<div style="font-size:.9rem;margin-bottom:2px">⭐ Score: <strong>' + score + '</strong></div>' +
+        '<div style="font-size:.72rem;color:rgba(255,255,255,.45)">' + (rank<=3?'🔥 Top 3!':'Keep tapping!') + '</div>',
+        true
+      );
+      if (rank <= 3) { var el=document.getElementById('globalRank'); if(el && _ex && _ex.id === 'reaction-test') el.classList.add('rank-top'); }
       var myRankEl = document.getElementById('lbMyRank');
       if (myRankEl) { myRankEl.textContent = 'Your rank: #' + rank; myRankEl.style.display = ''; }
       var lbList = document.getElementById('lbList');
       if (lbList) {
-        var prev = document.getElementById('lbRankBanner');
-        if (prev) prev.remove();
+        var prev = document.getElementById('lbRankBanner'); if(prev) prev.remove();
         lbList.insertAdjacentHTML('afterbegin','<div id="lbRankBanner" style="padding:10px;background:rgba(34,197,94,.2);margin-bottom:10px;border-radius:8px;font-weight:bold;text-align:center;font-size:.85rem;color:#fff">🔥 You are #'+rank+' globally!</div>');
       }
       setTimeout(lbLoad, 800);
     } else {
-      if (el) { el.innerHTML = '<div style="font-size:.9rem">⚡ Score saved!</div>'; el.classList.add('show'); }
+      rxShow('<div style="font-size:.9rem">⚡ Score saved!</div>', true);
       setTimeout(lbLoad, 800);
     }
   })
   .catch(function() {
-    if (el) { el.innerHTML = '<div style="font-size:.9rem">⚡ Score saved!</div>'; el.classList.add('show'); }
+    rxShow('<div style="font-size:.9rem">⚡ Score saved!</div>', true);
     setTimeout(lbLoad, 1500);
   });
 }
 
-function _lbFetchRank(name,taps){
+function _lbFetchRank(name,taps){ return; // disabled — rank now comes from POST response directly
   fetch(LB_API+'?type=reaction_scores',{method:'GET',redirect:'follow',mode:'cors'})
   .then(function(r){return r.json();})
   .then(function(json){
@@ -2513,7 +2517,10 @@ function mathStart() {
       _lastChallengeName  = 'correct answers';
       _lastChallengeExId  = 'math-challenge';
       _showDone(scoreHTML);
-      setTimeout(() => gameLbShowModal('math-challenge', _mCorrect, 'correct in 60s'), 600);
+      setTimeout(() => gameLbShowModal(
+        'math_score', _mCorrect + ' correct in 60s',
+        { correct: _mCorrect, wrong: _mWrong }
+      ), 600);
     }
   }, 1000);
 }
@@ -2609,9 +2616,11 @@ function memFlip(i) {
         _lastChallengeScore = _memAttempts;
         _lastChallengeName  = 'attempts to match all pairs';
         _lastChallengeExId  = 'memory-match';
-        const memScore = Math.max(0, 1000 - (_memAttempts * 30) - (_memSec * 3));
         setTimeout(() => _showDone(scoreHTML), 800);
-        setTimeout(() => gameLbShowModal('memory-match', memScore, _memAttempts + ' attempts · ' + _memSec + 's'), 1400);
+        setTimeout(() => gameLbShowModal(
+          'memory_score', _memAttempts + ' attempts in ' + _memSec + 's',
+          { attempts: _memAttempts, time: _memSec }
+        ), 1400);
       }
     } else {
       setTimeout(() => {
@@ -2677,6 +2686,9 @@ function _setPhase(phIdx, label) {
 function openExercise(id) {
   _ex = EXERCISES.find(e => e.id === id);
   if (!_ex) return;
+  // Wipe all rank boxes immediately — prevents any stale rank from a previous exercise
+  _resetAllRankBoxes();
+  lbStopPoll(); // always stop reaction poll when opening any exercise
   clearInterval(_timer); clearInterval(_mTimer); clearInterval(_memTimer);
   clearInterval(_seqTimerInt); clearTimeout(_seqTimeoutId);
   _running = false; _phaseIdx = 0; _sec = 0; _round = 1;
@@ -3220,6 +3232,15 @@ function tick() {
   }
 }
 
+function _resetAllRankBoxes() {
+  var grReaction = document.getElementById('globalRank');
+  var grTyping   = document.getElementById('tyGlobalRank');
+  var grGame     = document.getElementById('gameGlobalRank');
+  if (grReaction) { grReaction.className = 'rank-box'; grReaction.style.cssText = ''; grReaction.innerHTML = ''; }
+  if (grTyping)   { grTyping.style.cssText = 'display:none;width:100%;max-width:320px;margin:.4rem auto 0;padding:14px 18px;border-radius:12px;text-align:center;font-weight:700'; grTyping.innerHTML = ''; }
+  if (grGame)     { grGame.style.cssText   = 'display:none;width:100%;max-width:320px;margin:.4rem auto 0;padding:14px 18px;border-radius:12px;text-align:center;font-weight:700'; grGame.innerHTML = ''; }
+}
+
 function _showDone(scoreHTML) {
   const isQueue = _allExQueue.length > 1;
   const isLast  = !isQueue || _allExIdx >= _allExQueue.length - 1;
@@ -3229,13 +3250,8 @@ function _showDone(scoreHTML) {
   document.getElementById('ovDoneSub').textContent = isLast
     ? 'Excellent! You completed all activities.' : (_ex ? _ex.title : '') + ' complete. Tap Next when you are ready.';
   document.getElementById('ovDoneScores').innerHTML = scoreHTML || '';
-  // Reset both rank boxes on each new done screen — prevents bleed-over between games
-  var grReaction = document.getElementById('globalRank');
-  var grTyping   = document.getElementById('tyGlobalRank');
-  if (grReaction) { grReaction.className = 'rank-box'; grReaction.style.cssText = ''; grReaction.innerHTML = ''; }
-  if (grTyping)   { grTyping.style.display = 'none'; grTyping.innerHTML = ''; }
-  var grGame = document.getElementById('gameGlobalRank');
-  if (grGame) { grGame.style.display = 'none'; grGame.innerHTML = ''; }
+  // Reset ALL rank boxes on each new done screen — prevents bleed-over between games
+  _resetAllRankBoxes();
   // Hide promo by default; show only for reaction-test via _maybeShowPromo
   var promoCard = document.getElementById('promoCard');
   if (promoCard) promoCard.style.display = 'none';
@@ -3717,8 +3733,10 @@ function _seqFinish(timedOut) {
 
   setTimeout(() => _showDone(scoreHTML), timedOut ? 600 : 800);
   if (!timedOut) {
-    const seqScore = Math.round(10000 / elapsed);
-    setTimeout(() => gameLbShowModal('number-sequence', seqScore, elapsed + 's'), timedOut ? 1200 : 1400);
+    setTimeout(() => gameLbShowModal(
+      'sequence_score', 'Completed in ' + elapsed + 's',
+      { elapsed: elapsed }
+    ), 1400);
   }
 }
 
@@ -4012,8 +4030,8 @@ function shareChallenge(method) {
    Copy-paste disabled, 30 seconds, 100 unique passages
    ═══════════════════════════════════════════════════════ */
 
-const TY_LB_API   = 'https://script.google.com/macros/s/AKfycby12_i2scUjFeRRwglE1ZCJpcd7TI-mCo0Jb8F-B365Z2c28rmnxsWwtMuEDapE9zPVtQ/exec';
-const GAME_LB_API = TY_LB_API; // same GAS deployment
+const TY_LB_API = GAS_API;
+const GAME_LB_API = GAS_API;
 const TY_DURATION = 30;
 const TY_PB_KEY   = 'sh_typing_pb';
 const TY_HIST_KEY = 'sh_typing_hist_ex';
@@ -4182,130 +4200,105 @@ function tyLbRender(rows) {
 var _gameLbPendingData = null; // {game, score, metric, wpm, acc} set by each game finish
 
 /* Show the game name modal (reuses #tyExNameModal styling) */
-function gameLbShowModal(game, score, metric) {
-  _gameLbPendingData = { game: game, score: score, metric: metric };
-  var m  = document.getElementById('tyExNameModal');
-  var sv = document.getElementById('tyExModalScore');
-  if (sv) sv.textContent = score + ' ' + metric;
-  // Update modal title for context
-  var ttl = document.querySelector('#tyExNameModal h3');
-  if (ttl) ttl.textContent = 'Save your score to the leaderboard';
-  if (m)  m.style.display = 'flex';
-  setTimeout(function() {
-    var inp = document.getElementById('tyExNameInput');
-    if (inp) { inp.value = ''; inp.focus(); }
-  }, 300);
+/* ═══════════════════════════════════════════════════════
+   GAME LEADERBOARDS — Math, Memory, Number Sequence
+   Each uses its own POST type and its own sheet in GAS
+   ═══════════════════════════════════════════════════════ */
+var _gameLbPendingData = null;
+
+function _gameShowBox(html, bg, border) {
+  var gameIds = ['math-challenge','memory-match','number-sequence'];
+  if (!_ex || gameIds.indexOf(_ex.id) === -1) return; // only show on game done screens
+  var el = document.getElementById('gameGlobalRank');
+  if (!el) return;
+  el.style.display    = 'block';
+  el.style.background = bg  || 'rgba(34,197,94,.12)';
+  el.style.border     = '1.5px solid ' + (border || 'rgba(34,197,94,.4)');
+  el.innerHTML = html;
 }
 
-/* POST the game score and show rank */
-function gameLbSave(name, data) {
-  if (!data) return;
+function gameLbShowModal(postType, label, extraData) {
+  // extraData = extra fields beyond name (correct, wrong, attempts, time, elapsed)
+  _gameLbPendingData = { postType:postType, label:label, extra:extraData };
+  var m  = document.getElementById('tyExNameModal');
+  var sv = document.getElementById('tyExModalScore');
+  if (sv) sv.textContent = label;
+  var ttl = document.querySelector('#tyExNameModal h3');
+  if (ttl) ttl.textContent = 'Save your score to the leaderboard';
+  if (m) m.style.display = 'flex';
+  setTimeout(function(){ var inp=document.getElementById('tyExNameInput'); if(inp){inp.value='';inp.focus();} },300);
+}
+
+function _gameDoSave(name, data) {
   var displayName = (name && name.length >= 2) ? name : 'Anonymous';
-  var el = document.getElementById('gameGlobalRank');
-
-  function show(html, bg, border) {
-    if (!el) return;
-    el.style.display    = 'block';
-    el.style.background = bg || 'rgba(34,197,94,.12)';
-    el.style.border     = '1.5px solid ' + (border || 'rgba(34,197,94,.4)');
-    el.innerHTML = html;
-  }
-
-  show('<div style="font-size:.85rem;color:rgba(255,255,255,.5)">⏳ Saving score…</div>',
+  var payload = Object.assign({ type: data.postType, name: displayName }, data.extra);
+  var savedExId = _ex ? _ex.id : null; // capture at call time — guard stale async responses
+  _gameShowBox('<div style="font-size:.85rem;color:rgba(255,255,255,.45)">⏳ Saving…</div>',
     'rgba(255,255,255,.04)', 'rgba(255,255,255,.12)');
-
   fetch(GAME_LB_API, {
-    method: 'POST', redirect: 'follow',
-    headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify({ type:'game_score', name:displayName, score:data.score, game:data.game, metric:data.metric })
+    method:'POST', redirect:'follow',
+    headers:{'Content-Type':'text/plain'},
+    body: JSON.stringify(payload)
   })
   .then(function(r){ return r.json(); })
   .then(function(json){
+    var gameIds = ['math-challenge','memory-match','number-sequence'];
+    if (!_ex || _ex.id !== savedExId || gameIds.indexOf(_ex.id) === -1) return; // stale response guard
     if (json.ok && json.rank >= 1) {
-      var rank   = json.rank;
-      var medal  = rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'🏅';
-      var isTop3 = rank <= 3;
-      var color  = isTop3 ? '#D4A017' : '#22C55E';
-      show(
-        '<div style="font-size:1.8rem">' + medal + '</div>' +
-        '<div style="font-size:1.15rem;font-weight:900;color:' + color + ';margin:4px 0">Rank #' + rank + '</div>' +
-        '<div style="font-size:.82rem;color:rgba(255,255,255,.65)">' + data.score + ' ' + data.metric + '</div>' +
-        '<div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:3px">' + (isTop3?'🔥 Top 3!':'Keep going! 💪') + '</div>',
-        isTop3?'rgba(184,134,11,.18)':'rgba(34,197,94,.12)',
-        isTop3?'rgba(212,160,23,.6)':'rgba(34,197,94,.5)'
+      var rank=json.rank, medal=rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'🏅', top=rank<=3;
+      _gameShowBox(
+        '<div style="font-size:1.8rem">'+medal+'</div>'+
+        '<div style="font-size:1.15rem;font-weight:900;color:'+(top?'#D4A017':'#22C55E')+';margin:4px 0">Rank #'+rank+'</div>'+
+        '<div style="font-size:.82rem;color:rgba(255,255,255,.65)">'+data.label+'</div>'+
+        '<div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:2px">'+(top?'🔥 Top 3 — incredible!':'Keep going! 💪')+'</div>',
+        top?'rgba(184,134,11,.18)':'rgba(34,197,94,.12)',
+        top?'rgba(212,160,23,.6)':'rgba(34,197,94,.5)'
       );
-      // Refresh leaderboard list
-      setTimeout(function(){ gameLbLoad(data.game); }, 800);
     } else {
-      show('<div style="font-size:.95rem;color:var(--gold-l)">✅ Score saved! ' + data.score + ' ' + data.metric + '</div>',
-        'rgba(34,197,94,.1)', 'rgba(34,197,94,.4)');
+      _gameShowBox(
+        '<div style="font-size:1rem;color:var(--gold-l)">✅ Score Saved!</div>'+
+        '<div style="font-size:.8rem;color:rgba(255,255,255,.55);margin-top:4px">'+data.label+'</div>',
+        'rgba(34,197,94,.1)', 'rgba(34,197,94,.4)'
+      );
     }
+    setTimeout(function(){ gameLbLoad(data.postType.replace('_score','')); }, 800);
   })
   .catch(function(){
-    show('<div style="font-size:.85rem;color:#F87171">⚠️ Could not save — check connection</div>',
+    _gameShowBox('<div style="font-size:.85rem;color:#F87171">⚠️ Could not connect</div>',
       'rgba(239,68,68,.08)', 'rgba(239,68,68,.3)');
   });
 }
 
-/* Load and render game leaderboard into a container */
-function gameLbLoad(game) {
-  if (!game) return;
-  fetch(GAME_LB_API + '?type=game_scores&game=' + encodeURIComponent(game),
-    { method:'GET', redirect:'follow', mode:'cors' })
+function gameLbLoad(gameKey) {
+  // gameKey = 'math' | 'memory' | 'sequence'
+  var typeMap = {'math':'math_scores','memory':'memory_scores','sequence':'sequence_scores',
+                 'math-challenge':'math_scores','memory-match':'memory_scores','number-sequence':'sequence_scores'};
+  var listMap = {'math':'gameLbList_math_challenge','memory':'gameLbList_memory_match','sequence':'gameLbList_number_sequence',
+                 'math-challenge':'gameLbList_math_challenge','memory-match':'gameLbList_memory_match','number-sequence':'gameLbList_number_sequence'};
+  var scoreType = typeMap[gameKey];
+  var listId    = listMap[gameKey];
+  if (!scoreType || !listId) return;
+  fetch(GAME_LB_API + '?type=' + scoreType, {method:'GET', redirect:'follow', mode:'cors'})
   .then(function(r){ return r.json(); })
   .then(function(json){
-    if (json.ok && json.data) gameLbRender(game, json.data);
+    var list = document.getElementById(listId);
+    if (!list) return;
+    var rows = (json.ok && json.data) ? json.data.filter(function(r){ return r.name && !r.name.startsWith('__auto__'); }) : [];
+    if (!rows.length) { list.innerHTML='<div style="text-align:center;font-size:.72rem;color:rgba(255,255,255,.3);padding:.4rem">No scores yet. Be the first!</div>'; return; }
+    var metricFn = {
+      math_scores:     function(r){ return (r.correct||r.score)+' correct'; },
+      memory_scores:   function(r){ return (r.attempts||'')+' attempts'; },
+      sequence_scores: function(r){ return (r.elapsed||'')?r.elapsed+'s':r.score+' pts'; }
+    }[scoreType] || function(r){ return r.score+' pts'; };
+    list.innerHTML = rows.slice(0,10).map(function(r,i){
+      var medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':('#'+(i+1));
+      return '<div style="display:flex;align-items:center;gap:.5rem;padding:.28rem .5rem;border-radius:6px;background:'+(i<3?'rgba(212,160,23,.1)':'transparent')+'">' +
+        '<span style="font-size:.75rem;min-width:1.8rem;font-weight:700;color:'+(i<3?'var(--gold-l)':'rgba(255,255,255,.35)')+'">'+medal+'</span>'+
+        '<span style="flex:1;font-size:.73rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:'+(i<3?'#fff':'rgba(255,255,255,.55)')+'">'+_esc(r.name)+'</span>'+
+        '<span style="font-size:.71rem;color:var(--gold-l);font-weight:700">'+metricFn(r)+'</span></div>';
+    }).join('');
   }).catch(function(){});
 }
-
-function gameLbRender(game, rows) {
-  var listId = 'gameLbList_' + game.replace(/[^a-z0-9]/gi,'_');
-  var list   = document.getElementById(listId);
-  if (!list) return;
-  if (!rows || !rows.length) {
-    list.innerHTML = '<div style="text-align:center;font-size:.72rem;color:rgba(255,255,255,.3);padding:.4rem">No scores yet. Be the first!</div>';
-    return;
-  }
-  list.innerHTML = rows.slice(0,10).map(function(r,i){
-    var medal = r.rank===1?'🥇':r.rank===2?'🥈':r.rank===3?'🥉':('#'+r.rank);
-    return '<div style="display:flex;align-items:center;gap:.5rem;padding:.3rem .6rem;border-radius:6px;' +
-      'background:' + (i<3?'rgba(212,160,23,.1)':'transparent') + '">' +
-      '<span style="font-size:.76rem;min-width:1.8rem;font-weight:700;color:' + (i<3?'var(--gold-l)':'rgba(255,255,255,.35)') + '">' + medal + '</span>' +
-      '<span style="flex:1;font-size:.74rem;color:' + (i<3?'#fff':'rgba(255,255,255,.55)') + ';overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + tyEsc(r.name) + '</span>' +
-      '<span style="font-size:.72rem;color:var(--gold-l);font-weight:700">' + r.metric + '</span>' +
-      '</div>';
-  }).join('');
-}
-
-/* Override _tyExSubmitName and _tyExSkipName to also handle game saves */
-var _origTyExSubmit = window._tyExSubmitName;
-var _origTyExSkip   = window._tyExSkipName;
-window._tyExSubmitName = function() {
-  if (_gameLbPendingData) {
-    var inp  = document.getElementById('tyExNameInput');
-    var raw  = inp ? inp.value.trim() : '';
-    var name = raw.replace(/[^a-zA-Z0-9\s]/g,'').trim();
-    var warn = document.getElementById('tyExNameWarn');
-    if (name && name.length < 2) { if(warn) warn.textContent='Min 2 characters'; return; }
-    if (warn) warn.textContent = '';
-    var m = document.getElementById('tyExNameModal');
-    if (m) m.style.display = 'none';
-    gameLbSave(name, _gameLbPendingData);
-    _gameLbPendingData = null;
-  } else {
-    _origTyExSubmit();
-  }
-};
-window._tyExSkipName = function() {
-  if (_gameLbPendingData) {
-    var m = document.getElementById('tyExNameModal');
-    if (m) m.style.display = 'none';
-    gameLbSave('Anonymous', _gameLbPendingData);
-    _gameLbPendingData = null;
-  } else {
-    _origTyExSkip();
-  }
-};
 
 /* ════════════════════════════════════════════════════════════
    TYPING SCORE FLOW — name first, then single POST
@@ -4335,6 +4328,7 @@ function tySaveScore(name, wpm, acc) {
   var displayName = (name && name.length >= 2) ? name : 'Anonymous';
 
   function showOnDone(html, bg, border) {
+    if (!_ex || _ex.id !== 'typing-speed') return; // only show on typing done screen
     var el = document.getElementById('tyGlobalRank');
     if (!el) return;
     el.style.display    = 'block';
@@ -4387,7 +4381,8 @@ function _tyShowRank(rank, score) {
     bar.style.display = 'block';
   }
 
-  /* Done screen box — simple and direct */
+  /* Done screen box — only show if still on typing game */
+  if (!_ex || _ex.id !== 'typing-speed') return;
   var el = document.getElementById('tyGlobalRank');
   if (!el) return;
   el.style.display    = 'block';
@@ -4403,22 +4398,29 @@ function _tyShowRank(rank, score) {
 window._tyExSubmitName = function() {
   var inp  = document.getElementById('tyExNameInput');
   var raw  = inp ? inp.value.trim() : '';
-  var name = raw.replace(/[^a-zA-Z0-9\s]/g, '').trim();
+  var name = raw.replace(/[^a-zA-Z0-9 ]/g, '').trim();
   var warn = document.getElementById('tyExNameWarn');
-  if (name && name.length < 2) {
-    if (warn) warn.textContent = 'Name must be at least 2 characters'; return;
-  }
+  if (name && name.length < 2) { if(warn) warn.textContent='Min 2 characters'; return; }
   if (warn) warn.textContent = '';
   var m = document.getElementById('tyExNameModal');
   if (m) m.style.display = 'none';
-  tySaveScore(name, _tyExPendingWPM, _tyExPendingAcc);
+  if (_gameLbPendingData) {
+    _gameDoSave(name, _gameLbPendingData);
+    _gameLbPendingData = null;
+  } else {
+    tySaveScore(name || 'Anonymous', _tyExPendingWPM, _tyExPendingAcc);
+  }
 };
 
 window._tyExSkipName = function() {
   var m = document.getElementById('tyExNameModal');
   if (m) m.style.display = 'none';
-  // Save as Anonymous silently
-  tySaveScore('Anonymous', _tyExPendingWPM, _tyExPendingAcc);
+  if (_gameLbPendingData) {
+    _gameDoSave('Anonymous', _gameLbPendingData);
+    _gameLbPendingData = null;
+  } else {
+    tySaveScore('Anonymous', _tyExPendingWPM, _tyExPendingAcc);
+  }
 };
 
 /* Game state */
