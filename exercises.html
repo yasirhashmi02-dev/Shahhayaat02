@@ -3596,10 +3596,10 @@ function seqStart() {
   if (doneEl) doneEl.textContent = '0/' + SEQ_TOTAL;
   if (hintEl) hintEl.style.display = '';
 
-  // Build grid
+  // Build grid — show 1 visible, all others as '?'
   _seqBuildGrid();
 
-  speak('Number Sequence. Find and tap 1, then 2, then 3, all the way to 25, as fast as you can. Timer starts when you tap 1!');
+  speak('Number Sequence. Find number 1 and tap it to start the timer, then find 2, 3, all the way to 25!');
   gameLbLoad('number-sequence');
 }
 
@@ -3607,19 +3607,18 @@ function _seqBuildGrid() {
   const grid = document.getElementById('seqGrid');
   if (!grid) return;
   grid.innerHTML = _seqNums.map(n => {
-    // Numbers are hidden before game starts — show '?' placeholder
-    // They are revealed the moment the user taps 1 (timer starts)
+    const isOne = n === 1;
     return `<button id="seqBtn_${n}"
       data-num="${n}"
-      style="background:rgba(255,255,255,.06);
-             border:1.5px solid rgba(255,255,255,.12);
+      style="background:${isOne ? 'rgba(99,102,241,.25)' : 'rgba(255,255,255,.06)'};
+             border:1.5px solid ${isOne ? '#6366f1' : 'rgba(255,255,255,.12)'};
              border-radius:10px;padding:.55rem .1rem;font-weight:800;font-size:.92rem;
-             color:rgba(255,255,255,.25);cursor:pointer;
+             color:${isOne ? '#a5b4fc' : 'rgba(255,255,255,.25)'};cursor:pointer;
              transition:background .1s,border-color .1s,transform .1s,color .15s;
              -webkit-tap-highlight-color:transparent;min-height:40px"
       ontouchstart="event.preventDefault();seqTap(${n})"
       onclick="seqTap(${n})"
-      aria-label="Number ${n}">?</button>`;
+      aria-label="Number ${n}">${isOne ? '1' : '?'}</button>`;
   }).join('');
 }
 
@@ -3658,14 +3657,13 @@ function seqTap(n) {
   }
 
   // ── Correct tap ──
-  // Start timer on the very first tap (tap of "1")
+
+  // On tap of 1: start timer and reveal all numbers
   if (!_seqStartTime) {
     _seqStartTime = performance.now();
     const hintEl = document.getElementById('seqStartHint');
     if (hintEl) hintEl.style.display = 'none';
-    // Reveal all numbers now that the game has started
     _seqRevealGrid();
-    // Start countdown
     _seqTimerInt = setInterval(() => {
       if (_seqDone) { clearInterval(_seqTimerInt); return; }
       const timeEl = document.getElementById('seqTime');
@@ -3675,7 +3673,6 @@ function seqTap(n) {
       timeEl.style.color = rem <= 10 ? '#EF4444' : rem <= 30 ? '#F59E0B' : 'rgba(255,255,255,.8)';
       if (rem <= 0) { clearInterval(_seqTimerInt); _seqFinish(true); }
     }, 500);
-    // Hard stop
     _seqTimeoutId = setTimeout(() => _seqFinish(true), SEQ_TIME_LIMIT * 1000 + 600);
   }
 
