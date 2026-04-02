@@ -3606,19 +3606,20 @@ function _seqBuildGrid() {
   const grid = document.getElementById('seqGrid');
   if (!grid) return;
   grid.innerHTML = _seqNums.map(n => {
-    // Numbers are hidden before game starts — show '?' placeholder
-    // They are revealed the moment the user taps 1 (timer starts)
+    // Number 1 is shown so the player knows where to start; all others hidden as '?'
+    // All numbers are revealed the moment the user taps 1 (timer starts)
+    const isOne = n === 1;
     return `<button id="seqBtn_${n}"
       data-num="${n}"
-      style="background:rgba(255,255,255,.06);
-             border:1.5px solid rgba(255,255,255,.12);
+      style="background:${isOne ? 'rgba(99,102,241,.25)' : 'rgba(255,255,255,.06)'};
+             border:1.5px solid ${isOne ? '#6366f1' : 'rgba(255,255,255,.12)'};
              border-radius:10px;padding:.55rem .1rem;font-weight:800;font-size:.92rem;
-             color:rgba(255,255,255,.25);cursor:pointer;
+             color:${isOne ? '#a5b4fc' : 'rgba(255,255,255,.25)'};cursor:pointer;
              transition:background .1s,border-color .1s,transform .1s,color .15s;
              -webkit-tap-highlight-color:transparent;min-height:40px"
       ontouchstart="event.preventDefault();seqTap(${n})"
       onclick="seqTap(${n})"
-      aria-label="Number ${n}">?</button>`;
+      aria-label="Number ${n}">${isOne ? '1' : '?'}</button>`;
   }).join('');
 }
 
