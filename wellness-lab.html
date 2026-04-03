@@ -5644,6 +5644,7 @@ window.mod_typingSpeed = function() {
   }, () => {
     let started = false, finished = false, startTime = 0, timerInt = null, remSecs = DURATION;
     let wpmVal = 0, accuracy = 0;
+    let _currentVal = ''; // tracks latest textarea value — fixes stale closure bug
 
     function renderTypingUI() {
       LAB.render(`<div class="mwrap"><div class="card card--pop" style="border-color:rgba(15,118,110,.25);background:linear-gradient(135deg,#F0FDFA,#fff)">
@@ -5716,6 +5717,7 @@ window.mod_typingSpeed = function() {
 
     window._tsType = function(val) {
       if (finished) return;
+      _currentVal = val; // always update — critical so interval reads current text
       if (!started && val.length > 0) {
         started = true;
         startTime = Date.now();
@@ -5728,12 +5730,15 @@ window.mod_typingSpeed = function() {
           const b = document.getElementById('tsProgBar');
           if (t) { t.textContent = Math.ceil(remSecs); t.style.color = remSecs < 10 ? '#C0392B' : 'var(--am)'; }
           if (b) b.style.width = pct + '%';
-          // Live WPM calculation
-          const wordsTyped = val.trim().split(/\s+/).filter(w=>w).length;
-          const liveWPM = elapsed > 1 ? Math.round((wordsTyped / elapsed) * 60) : 0;
+          // Live WPM — read _currentVal not stale closure val
+          const cv = _currentVal;
+          const wordsTyped = cv.trim().split(/\s+/).filter(w=>w).length;
+          const charWPM = elapsed > 1 ? Math.round((cv.length / 5) / (elapsed / 60)) : 0;
+          const wordWPM = elapsed > 1 ? Math.round((wordsTyped / elapsed) * 60) : 0;
+          const liveWPM = Math.max(charWPM, wordWPM);
           const wEl = document.getElementById('tsWPM');
           if (wEl) wEl.textContent = liveWPM;
-          if (remSecs <= 0) { clearInterval(timerInt); _tsFinish(val); }
+          if (remSecs <= 0) { clearInterval(timerInt); _tsFinish(_currentVal); }
         }, 300);
       }
 
@@ -5761,7 +5766,10 @@ window.mod_typingSpeed = function() {
       finished = true;
       const elapsed = Math.max(1, (Date.now() - startTime) / 1000);
       const wordsTyped = typedText.trim().split(/\s+/).filter(w=>w).length;
-      wpmVal = Math.round((wordsTyped / elapsed) * 60);
+      // Use chars/5 method (industry standard) + word count — take the higher
+      const charWPM = Math.round((typedText.length / 5) / (elapsed / 60));
+      const wordWPM = Math.round((wordsTyped / elapsed) * 60);
+      wpmVal = Math.max(charWPM, wordWPM);
       let correct = 0;
       for (let i = 0; i < Math.min(typedText.length, passage.length); i++) {
         if (typedText[i] === passage[i]) correct++;

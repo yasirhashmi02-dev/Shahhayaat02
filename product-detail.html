@@ -357,6 +357,21 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 @media(max-width:640px){.detail-actions{flex-direction:column}.detail-actions .btn{width:100%;justify-content:center}.rating-summary{flex-direction:column;gap:1.2rem}}
 .page-hero .reveal,.page-hero .reveal-l{opacity:1 !important;transform:none !important}
 .page-hero-inner{opacity:1 !important;transform:none !important}
+/* ═══ DARK MODE PREVENTION ═══ */
+html{color-scheme:light}
+#product-main section{background:#F8F6F2 !important}
+#product-main .card{background:#FFFFFF !important;border-color:rgba(0,0,0,.1) !important}
+#product-main h1,#product-main h2,#product-main h3,#product-main h4{color:#1C1C1C !important}
+#product-main p{color:#3D3D3D !important}
+#related-wrap{background:#F8F6F2 !important}
+#related-wrap .product-card{background:#FFFFFF !important;border-color:rgba(0,0,0,.1) !important}
+#related-wrap h3{color:#1C1C1C !important}
+#related-wrap .product-desc{color:#555 !important}
+#related-wrap .product-price{color:#B8860B !important}
+.reviews-section{background:#F8F6F2 !important}
+.review-card{background:#FFFFFF !important}
+.reviewer-name,.rating-big .score{color:#1C1C1C !important}
+.write-review-card{background:#FFFFFF !important}
 /* ═══ LIGHT CREAM THEME ═══ */
 body{background:#F8F6F2 !important;color:#1C1C1C !important}
 .card,.form-card,.info-box,.feature-box,.step-card,.benefit-card,
@@ -865,14 +880,14 @@ document.addEventListener('DOMContentLoaded', function() {
           '<div class="pd-info-col">' +
             '<div style="margin-bottom:10px"><span class="pd-tag">' + p.tag + '</span></div>' +
             '<h1 style="font-size:clamp(24px,4vw,34px);margin-bottom:8px">' + p.name + '</h1>' +
-            '<p style="font-size:15px;color:#444;margin-bottom:16px">' + p.desc + '</p>' +
+            '<p style="font-size:15px;color:#333;margin-bottom:16px">' + p.desc + '</p>' +
             '<div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">' +
               '<span style="color:#D4A017;font-size:16px">★★★★★</span>' +
               '<span style="font-size:13px;color:#666">Trusted by 50,000+ customers</span>' +
             '</div>' +
             '<div style="margin-bottom:16px">' +
               '<div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:#4CAF50;margin-bottom:8px">Key Benefits</div>' +
-              p.benefits.map(function(b){ return '<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:14px;color:#444"><span style="color:#4CAF50;font-weight:700;flex-shrink:0">✓</span>' + b + '</div>'; }).join('') +
+              p.benefits.map(function(b){ return '<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid #e8e8e8;font-size:14px;color:#333"><span style="color:#4CAF50;font-weight:700;flex-shrink:0">✓</span>' + b + '</div>'; }).join('') +
             '</div>' +
             '<div style="font-size:30px;font-weight:700;color:#388E3C;margin-bottom:20px">₹' + p.price + ' <span style="font-size:14px;color:#999;font-weight:400">/ pack</span></div>' +
             '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px">' +
@@ -893,15 +908,15 @@ document.addEventListener('DOMContentLoaded', function() {
     '<section style="padding:40px 0;background:#F8FAF8;border-top:1px solid #E8EDE8;border-bottom:1px solid #E8EDE8">' +
       '<div class="container">' +
         '<div class="pd-section-grid">' +
-          '<div class="card">' +
+          '<div class="card" style="background:#FFFFFF!important;color:#1C1C1C!important">' +
             '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">Who Is This For?</div>' +
-            '<h3 style="margin-bottom:14px">Is This Right for You?</h3>' +
-            audience.map(function(a){ return '<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f0f0f0;font-size:14px;color:#444"><span style="font-size:1.1rem">👤</span>' + a + '</div>'; }).join('') +
+            '<h3 style="margin-bottom:14px;color:#1C1C1C">Is This Right for You?</h3>' +
+            audience.map(function(a){ return '<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #e8e8e8;font-size:14px;color:#333"><span style="font-size:1.1rem">👤</span>' + a + '</div>'; }).join('') +
           '</div>' +
-          '<div class="card">' +
+          '<div class="card" style="background:#FFFFFF!important;color:#1C1C1C!important">' +
             '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">How It Works</div>' +
-            '<h3 style="margin-bottom:10px">Natural Approach</h3>' +
-            '<p style="font-size:14px;color:#555;line-height:1.75;margin-bottom:14px">' + p.full + '</p>' +
+            '<h3 style="margin-bottom:10px;color:#1C1C1C">Natural Approach</h3>' +
+            '<p style="font-size:14px;color:#444;line-height:1.75;margin-bottom:14px">' + p.full + '</p>' +
           '</div>' +
         '</div>' +
       '</div>' +
@@ -911,15 +926,15 @@ document.addEventListener('DOMContentLoaded', function() {
     '<section style="padding:40px 0">' +
       '<div class="container">' +
         '<div class="pd-section-grid">' +
-          '<div class="card">' +
+          '<div class="card" style="background:#FFFFFF!important;color:#1C1C1C!important">' +
             '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">Key Ingredients</div>' +
-            '<h3 style="margin-bottom:14px">What\'s Inside</h3>' +
-            p.ingredients.split(',').map(function(ing){ var parts=ing.trim().split('('); return '<div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #f0f0f0"><span style="color:#4CAF50;font-size:1.1rem;flex-shrink:0">🌿</span><div><div style="font-size:14px;font-weight:600;color:#222">' + parts[0].trim() + '</div>' + (parts[1] ? '<div style="font-size:12px;color:#888">(' + parts[1].replace(')','') + ')</div>' : '') + '</div></div>'; }).join('') +
+            '<h3 style="margin-bottom:14px;color:#1C1C1C">What\'s Inside</h3>' +
+            p.ingredients.split(',').map(function(ing){ var parts=ing.trim().split('('); return '<div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #e8e8e8"><span style="color:#4CAF50;font-size:1.1rem;flex-shrink:0">🌿</span><div><div style="font-size:14px;font-weight:600;color:#1C1C1C">' + parts[0].trim() + '</div>' + (parts[1] ? '<div style="font-size:12px;color:#666">(' + parts[1].replace(')','') + ')</div>' : '') + '</div></div>'; }).join('') +
           '</div>' +
-          '<div class="card">' +
+          '<div class="card" style="background:#FFFFFF!important;color:#1C1C1C!important">' +
             '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">How to Use</div>' +
-            '<h3 style="margin-bottom:10px">Dosage Instructions</h3>' +
-            '<p style="font-size:14px;color:#555;line-height:1.75;margin-bottom:16px">' + p.dosage + '</p>' +
+            '<h3 style="margin-bottom:10px;color:#1C1C1C">Dosage Instructions</h3>' +
+            '<p style="font-size:14px;color:#444;line-height:1.75;margin-bottom:16px">' + p.dosage + '</p>' +
             '<div style="background:#FFF8E1;border:1px solid rgba(212,160,23,0.25);border-radius:8px;padding:12px 14px;font-size:13px;color:#7A5500;line-height:1.6"><strong>⚠️ Precautions:</strong> ' + p.precautions + '</div>' +
           '</div>' +
         '</div>' +
@@ -929,12 +944,12 @@ document.addEventListener('DOMContentLoaded', function() {
     /* 4. Improve Results with Daily Practice */
     '<section style="padding:40px 0;background:#F8FAF8;border-top:1px solid #E8EDE8">' +
       '<div class="container">' +
-        '<div class="card" style="max-width:720px">' +
+        '<div class="card" style="max-width:720px;background:#FFFFFF!important;color:#1C1C1C!important">' +
           '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">Supporting Tools</div>' +
-          '<h3 style="margin-bottom:8px">Improve Results with Daily Practice</h3>' +
+          '<h3 style="margin-bottom:8px;color:#1C1C1C">Improve Results with Daily Practice</h3>' +
           '<p style="font-size:14px;color:#555;margin-bottom:16px">These simple exercises are designed to support the effects of ' + p.name + ' — combining herbal support with daily practice delivers better outcomes.</p>' +
           '<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">' +
-            exercises.map(function(ex){ return '<a href="exercises.html" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border:1px solid #E8EDE8;border-radius:8px;text-decoration:none;transition:all 0.2s;font-size:14px;font-weight:500;color:#222"><span style="font-size:1.2rem">🧘</span>' + ex.name + '<span style="margin-left:auto;font-size:12px;color:#999;font-weight:400">' + ex.dur + '</span></a>'; }).join('') +
+            exercises.map(function(ex){ return '<a href="exercises.html" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#F8FAF8;border:1px solid #E8EDE8;border-radius:8px;text-decoration:none;transition:all 0.2s;font-size:14px;font-weight:500;color:#1C1C1C"><span style="font-size:1.2rem">🧘</span>' + ex.name + '<span style="margin-left:auto;font-size:12px;color:#666;font-weight:400">' + ex.dur + '</span></a>'; }).join('') +
           '</div>' +
           '<a href="exercises.html" class="btn btn-secondary btn-sm">View All Exercises →</a>' +
         '</div>' +
@@ -944,10 +959,10 @@ document.addEventListener('DOMContentLoaded', function() {
     /* 5. Optional Wellness Check */
     '<section style="padding:40px 0;border-top:1px solid #E8EDE8">' +
       '<div class="container">' +
-        '<div class="card" style="max-width:720px;background:#E8F5E9;border-color:#C8E6C9">' +
+        '<div class="card" style="max-width:720px;background:#E8F5E9!important;border-color:#C8E6C9!important;color:#1C1C1C!important">' +
           '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">Optional</div>' +
-          '<h3 style="margin-bottom:8px">Check Your Wellness Level</h3>' +
-          '<p style="font-size:14px;color:#444;margin-bottom:16px">Take a quick 2-minute self-assessment to understand your current ' + p.tag.toLowerCase() + ' level and see if ' + p.name + ' is the right fit for you.</p>' +
+          '<h3 style="margin-bottom:8px;color:#1C1C1C">Check Your Wellness Level</h3>' +
+          '<p style="font-size:14px;color:#2E7D32;margin-bottom:16px">Take a quick 2-minute self-assessment to understand your current ' + p.tag.toLowerCase() + ' level and see if ' + p.name + ' is the right fit for you.</p>' +
           '<a href="wellness-lab.html" class="btn btn-secondary btn-sm">Start Wellness Lab →</a>' +
         '</div>' +
       '</div>' +
@@ -956,11 +971,11 @@ document.addEventListener('DOMContentLoaded', function() {
     /* 6. FAQ */
     '<section style="padding:40px 0;background:#F8FAF8;border-top:1px solid #E8EDE8">' +
       '<div class="container" style="max-width:720px">' +
-        '<h3 style="margin-bottom:16px">Frequently Asked Questions</h3>' +
+        '<h3 style="margin-bottom:16px;color:#1C1C1C">Frequently Asked Questions</h3>' +
         '<div style="border:1px solid #E8EDE8;border-radius:12px;overflow:hidden;background:#fff">' +
-          '<div style="padding:16px 20px;border-bottom:1px solid #f0f0f0"><strong style="font-size:14px">Is ' + p.name + ' safe to use?</strong><p style="font-size:13px;color:#666;margin-top:6px;margin-bottom:0">Yes. ' + p.name + ' is formulated using traditional Ayurvedic herbs. ' + p.precautions + '</p></div>' +
-          '<div style="padding:16px 20px;border-bottom:1px solid #f0f0f0"><strong style="font-size:14px">When will I see results?</strong><p style="font-size:13px;color:#666;margin-top:6px;margin-bottom:0">Some users report changes over time. Individual results may vary of consistent use. For best results, a full 6–8 week course is recommended.</p></div>' +
-          '<div style="padding:16px 20px"><strong style="font-size:14px">How do I order?</strong><p style="font-size:13px;color:#666;margin-top:6px;margin-bottom:0">The easiest way is WhatsApp — message +91 70510 56287 with the product name. You can also find it on Amazon India and IndiaMART.</p></div>' +
+          '<div style="padding:16px 20px;border-bottom:1px solid #e8e8e8;background:#fff"><strong style="font-size:14px;color:#1C1C1C">Is ' + p.name + ' safe to use?</strong><p style="font-size:13px;color:#555;margin-top:6px;margin-bottom:0">Yes. ' + p.name + ' is formulated using traditional Ayurvedic herbs. ' + p.precautions + '</p></div>' +
+          '<div style="padding:16px 20px;border-bottom:1px solid #e8e8e8;background:#fff"><strong style="font-size:14px;color:#1C1C1C">When will I see results?</strong><p style="font-size:13px;color:#555;margin-top:6px;margin-bottom:0">Some users report changes over time. Individual results may vary of consistent use. For best results, a full 6–8 week course is recommended.</p></div>' +
+          '<div style="padding:16px 20px"><strong style="font-size:14px">How do I order?</strong><p style="font-size:13px;color:#555;margin-top:6px;margin-bottom:0">The easiest way is WhatsApp — message +91 70510 56287 with the product name. You can also find it on Amazon India and IndiaMART.</p></div>' +
         '</div>' +
       '</div>' +
     '</section>' +
@@ -986,16 +1001,16 @@ document.addEventListener('DOMContentLoaded', function() {
     if (relWrap) relWrap.style.display = '';
     if (relGrid) relGrid.innerHTML = related.map(function(r) {
       var rMsg = encodeURIComponent("Hi! I'd like to order " + r.name + ", ₹" + r.price);
-      return '<div class="product-card">' +
+      return '<div class="product-card" style="background:#FFFFFF!important;border-color:rgba(0,0,0,.1)!important">' +
         '<div class="product-card-img">' +
           '<img src="' + imgSrc(r.id) + '" alt="' + r.name + '" loading="lazy">' +
           '<span class="product-cat-tag">' + r.tag + '</span>' +
         '</div>' +
         '<div class="product-body">' +
-          '<h3>' + r.name + '</h3>' +
-          '<p class="product-desc">' + r.desc + '</p>' +
+          '<h3 style="color:#1C1C1C!important">' + r.name + '</h3>' +
+          '<p class="product-desc" style="color:#555!important">' + r.desc + '</p>' +
           '<div class="product-footer">' +
-            '<div class="product-price">₹' + r.price + '</div>' +
+            '<div class="product-price" style="color:#B8860B!important">₹' + r.price + '</div>' +
             '<div class="product-actions-row">' +
               '<a href="' + (productUrl ? productUrl(r.id) : 'product-detail.html?id=' + r.id) + '" class="btn btn-outline btn-sm">Details</a>' +
               '<a href="https://wa.me/917051056287?text=' + rMsg + '" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Order</a>' +

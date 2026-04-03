@@ -4,22 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Free Guided Wellness Exercises — Brain, Breathing, Eye & Body | Shah Hayaat</title>
-<meta name="description" content="30 free guided wellness exercises for brain training, breathing (pranayama), eye care, digestion, body movement and daily routines. Voice-guided with timers. No equipment needed. From Shah Hayaat.">
-<meta name="keywords" content="free guided breathing exercises, pranayama online, brain training exercises, ayurvedic wellness exercises, eye yoga, digestion exercises, bhramari breathing">
+<meta name="description" content="30 free guided wellness exercises for brain training, pranayama breathing, eye care, digestion and body movement. Voice-guided with live timers. No equipment needed. From Shah Hayaat.">
+<meta name="keywords" content="free pranayama exercises online, brain training exercises, ayurvedic wellness exercises, eye yoga, bhramari breathing, box breathing, digestion exercises india">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://www.shahhayaat.com/exercises.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Shah Hayaat">
 <meta property="og:title" content="Free Guided Wellness Exercises — Brain, Breathing & Body | Shah Hayaat">
-<meta property="og:description" content="30 free voice-guided wellness activities for brain, breathing, eyes, digestion and body. No equipment needed. Backed by Ayurvedic tradition.">
+<meta property="og:description" content="30 free voice-guided wellness activities for brain, breathing, eyes, digestion and body. No equipment needed.">
 <meta property="og:image" content="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg">
 <meta property="og:url" content="https://www.shahhayaat.com/exercises.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Free Guided Wellness Exercises | Shah Hayaat">
 <meta name="twitter:description" content="30 free voice-guided wellness exercises — brain, breathing, eye care, digestion and more.">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","name":"Mind & Body Wellness Clinic","url":"https://www.shahhayaat.com/exercises.html","description":"Free guided wellness exercises for brain training, pranayama breathing, eye care, digestion and body movement. Voice-guided with timers.","isPartOf":{"@type":"WebSite","name":"Shah Hayaat","url":"https://www.shahhayaat.com"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.shahhayaat.com/"},{"@type":"ListItem","position":2,"name":"Wellness Exercises","item":"https://www.shahhayaat.com/exercises.html"}]}}
-</script>
 <link rel="icon" href="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" type="image/jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1044,7 +1041,7 @@ body.nav-open{overflow:hidden}
           <img src="https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy">
           <span>Shah <em>Hayaat</em></span>
         </a>
-        <p>WHO-GMP, ISO 9001:2015 and HACCP certified Ayurvedic medicines for complete wellness. Est. 2024.</p>
+        <p>WHO-GMP, ISO 9001:2015 and HACCP certified Ayurvedic medicines for complete wellness. Trusted by 50,000+ families across India.</p>
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
@@ -1103,7 +1100,7 @@ body.nav-open{overflow:hidden}
     </div>
     <button class="toast-next-btn" id="toastNextBtn" onclick="startNextFromToast()">Start Now</button>
   </div>
-  <button id="toastWaShare" onclick="shareOnWhatsApp()" style="display:none;margin-top:.5rem;width:100%;padding:.55rem;background:#25D366;color:#fff;border:none;border-radius:50px;font-size:.8rem;font-weight:700;cursor:pointer;letter-spacing:.02em">💬 Share my progress on WhatsApp</button>
+  <button id="toastWaShare" onclick="shareOnWhatsApp()" style="display:none;margin-top:.5rem;width:100%;padding:.55rem;background:#25D366;color:#fff;border:none;border-radius:50px;font-size:.8rem;font-weight:700;cursor:pointer">💬 Share my progress on WhatsApp</button>
 </div>
 
 <!-- FIRST-TIME USER GUIDE -->
@@ -3475,7 +3472,7 @@ function showToast(title, sub, pills, icon, nextEx) {
   document.getElementById('toastPills').innerHTML  = (pills || []).map(p =>
     `<span class="toast-pill${p.gold ? ' gold' : ''}">${p.text}</span>`
   ).join('');
-  // Track exercise name for WhatsApp share
+  // Track name for WA share & show share button
   _lastCompletedExName = title || 'a wellness exercise';
   const waBtn = document.getElementById('toastWaShare');
   if (waBtn) waBtn.style.display = '';
@@ -4663,69 +4660,43 @@ function tyFinish(typed) {
   }, 600);
 }
 
+
 /* ── BOOST GRID — product cross-links per exercise goal ── */
 (function(){
   var BOOSTS = [
-    {
-      icon:'🧠', goal:'Brain & Memory',
-      text:'Pair brain exercises with <strong>Brain Champ</strong> — Brahmi, Shankhpushpi & Ashwagandha to support focus and recall.',
-      name:'Brain Champ', price:'₹175', url:'brain-champ-ayurvedic-memory-booster.html', waText:'Hi Shah Hayaat! I want to order Brain Champ (₹175). Please guide me.'
-    },
-    {
-      icon:'🌬️', goal:'Breathing & Stress',
-      text:'Support your pranayama practice with <strong>Fevodol</strong> — Giloy & Tulsi to strengthen respiratory immunity.',
-      name:'Fevodol', price:'₹165', url:'fevodol-ayurvedic-immunity-booster-giloy-tulsi.html', waText:'Hi Shah Hayaat! I want to order Fevodol (₹165). Please guide me.'
-    },
-    {
-      icon:'🍃', goal:'Digestion',
-      text:'Enhance your digestive exercises with <strong>Shah Zyme</strong> — herbal enzymes for gas, bloating and nutrient absorption.',
-      name:'Shah Zyme', price:'₹165', url:'shah-zyme-ayurvedic-digestive-syrup.html', waText:'Hi Shah Hayaat! I want to order Shah Zyme (₹165). Please guide me.'
-    },
-    {
-      icon:'🦴', goal:'Joint & Body',
-      text:'Pair mobility exercises with <strong>Ortho Hayaat</strong> — Shallaki & Guggul to reduce inflammation and support joint health.',
-      name:'Ortho Hayaat', price:'₹649', url:'ortho-hayaat-ayurvedic-joint-pain-relief.html', waText:'Hi Shah Hayaat! I want to order Ortho Hayaat (₹649). Please guide me.'
-    },
-    {
-      icon:'👁️', goal:'Eye Care',
-      text:'Support your eye yoga with <strong>Brain Champ</strong> — antioxidant herbs that help protect vision and reduce eye fatigue.',
-      name:'Brain Champ', price:'₹175', url:'brain-champ-ayurvedic-memory-booster.html', waText:'Hi Shah Hayaat! I want to order Brain Champ (₹175). Please guide me.'
-    },
-    {
-      icon:'⚡', goal:'Energy & Wake-Up',
-      text:'Fuel your morning routine with <strong>Blood Storm</strong> — iron and Ashwagandha to combat fatigue and boost daily vitality.',
-      name:'Blood Storm', price:'₹165', url:'blood-storm-ayurvedic-iron-tonic.html', waText:'Hi Shah Hayaat! I want to order Blood Storm (₹165). Please guide me.'
-    }
+    {icon:'🧠',goal:'Brain & Memory',text:'Pair brain exercises with <strong>Brain Champ</strong> — Brahmi, Shankhpushpi & Ashwagandha to support focus and recall.',name:'Brain Champ',price:'₹175',url:'brain-champ-ayurvedic-memory-booster.html',wa:'Hi Shah Hayaat! I want to order Brain Champ (₹175). Please guide me.'},
+    {icon:'🌬️',goal:'Breathing & Stress',text:'Support pranayama with <strong>Fevodol</strong> — Giloy & Tulsi to strengthen respiratory immunity.',name:'Fevodol',price:'₹165',url:'fevodol-ayurvedic-immunity-booster-giloy-tulsi.html',wa:'Hi Shah Hayaat! I want to order Fevodol (₹165). Please guide me.'},
+    {icon:'🍃',goal:'Digestion',text:'Enhance digestive exercises with <strong>Shah Zyme</strong> — herbal enzymes for gas, bloating and absorption.',name:'Shah Zyme',price:'₹165',url:'shah-zyme-ayurvedic-digestive-syrup.html',wa:'Hi Shah Hayaat! I want to order Shah Zyme (₹165). Please guide me.'},
+    {icon:'🦴',goal:'Joint & Body',text:'Pair mobility exercises with <strong>Ortho Hayaat</strong> — Shallaki & Guggul to reduce inflammation.',name:'Ortho Hayaat',price:'₹649',url:'ortho-hayaat-ayurvedic-joint-pain-relief.html',wa:'Hi Shah Hayaat! I want to order Ortho Hayaat (₹649). Please guide me.'},
+    {icon:'👁️',goal:'Eye Care',text:'Support eye yoga with <strong>Brain Champ</strong> — antioxidant herbs that help protect vision and reduce eye fatigue.',name:'Brain Champ',price:'₹175',url:'brain-champ-ayurvedic-memory-booster.html',wa:'Hi Shah Hayaat! I want to order Brain Champ (₹175). Please guide me.'},
+    {icon:'⚡',goal:'Energy & Wake-Up',text:'Fuel morning routines with <strong>Blood Storm</strong> — iron and Ashwagandha to combat fatigue and boost vitality.',name:'Blood Storm',price:'₹165',url:'blood-storm-ayurvedic-iron-tonic.html',wa:'Hi Shah Hayaat! I want to order Blood Storm (₹165). Please guide me.'}
   ];
-
   var grid = document.getElementById('boostGrid');
   if (!grid) return;
   grid.innerHTML = BOOSTS.map(function(b){
     return '<div style="background:var(--bg3);border:1px solid rgba(212,160,23,0.18);border-radius:14px;padding:1.2rem 1.3rem;display:flex;flex-direction:column;gap:.7rem">' +
-      '<div style="display:flex;align-items:center;gap:.6rem">' +
-        '<span style="font-size:1.6rem;line-height:1">' + b.icon + '</span>' +
-        '<span style="font-family:var(--font-h);font-size:.95rem;font-weight:700;color:var(--text)">' + b.goal + '</span>' +
-      '</div>' +
-      '<p style="font-size:.82rem;color:var(--text-m);line-height:1.6;margin:0">' + b.text + '</p>' +
+      '<div style="display:flex;align-items:center;gap:.6rem"><span style="font-size:1.6rem;line-height:1">'+b.icon+'</span><span style="font-family:var(--font-h);font-size:.95rem;font-weight:700;color:var(--text)">'+b.goal+'</span></div>' +
+      '<p style="font-size:.82rem;color:var(--text-m);line-height:1.6;margin:0">'+b.text+'</p>' +
       '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:.5rem;border-top:1px solid rgba(255,255,255,.06)">' +
-        '<span style="font-family:var(--font-h);font-size:1rem;font-weight:700;color:var(--gold-l)">' + b.price + '</span>' +
+        '<span style="font-family:var(--font-h);font-size:1rem;font-weight:700;color:var(--gold-l)">'+b.price+'</span>' +
         '<div style="display:flex;gap:.5rem">' +
-          '<a href="' + b.url + '" style="padding:.42rem .85rem;background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.14);border-radius:50px;font-size:.75rem;font-weight:600;text-decoration:none;transition:all .2s" onmouseover="this.style.background=\'rgba(255,255,255,.13)\'" onmouseout="this.style.background=\'rgba(255,255,255,.07)\'">Details</a>' +
-          '<a href="https://wa.me/917051056287?text=' + encodeURIComponent(b.waText) + '" target="_blank" rel="noopener" style="padding:.42rem .85rem;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border-radius:50px;font-size:.75rem;font-weight:700;text-decoration:none;transition:all .2s">Order ₹' + b.price.replace('₹','') + '</a>' +
+          '<a href="'+b.url+'" style="padding:.42rem .85rem;background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.14);border-radius:50px;font-size:.75rem;font-weight:600;text-decoration:none">Details</a>' +
+          '<a href="https://wa.me/917051056287?text='+encodeURIComponent_safe(b.wa)+'" target="_blank" rel="noopener" style="padding:.42rem .85rem;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border-radius:50px;font-size:.75rem;font-weight:700;text-decoration:none">Order</a>' +
         '</div>' +
       '</div>' +
     '</div>';
   }).join('');
+  function encodeURIComponent_safe(s){ try{ return encodeURIComponent(s); }catch(e){ return s; } }
 })();
 
 /* ── WHATSAPP SHARE after exercise completion ── */
 var _lastCompletedExName = '';
-
 function shareOnWhatsApp() {
-  var streak = parseInt(localStorage.getItem('sh_streak_cur') || '0');
-  var msg = '🌿 I just completed "' + (_lastCompletedExName || 'a wellness exercise') + '" on Shah Hayaat Wellness Clinic!' +
+  var streak = 0;
+  try{ streak = parseInt(localStorage.getItem('sh_streak_cur')||'0'); }catch(e){}
+  var msg = '🌿 I just completed "' + (_lastCompletedExName||'a wellness exercise') + '" on Shah Hayaat Wellness Clinic!' +
     (streak > 1 ? ' 🔥 Day ' + streak + ' streak!' : '') +
-    '\n\nFree guided exercises for brain, breathing & body: https://www.shahhayaat.com/exercises.html';
+    '\n\nFree guided exercises for brain, breathing & body:\nhttps://www.shahhayaat.com/exercises.html';
   window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank', 'noopener');
 }
 
