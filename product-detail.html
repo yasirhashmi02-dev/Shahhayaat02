@@ -70,8 +70,8 @@ ul{list-style:none}
 .container{max-width:1160px;margin:0 auto;padding:0 clamp(16px,4vw,28px)}
 .section{padding:clamp(60px,9vw,100px) 0}
 .section-sm{padding:clamp(36px,5vw,56px) 0}
-/* removed dark override */
-/* removed dark override */
+.bg-white{background:#0e2448}
+.bg-cream{background:var(--bg-dark)}
 .bg-navy{background:linear-gradient(135deg,#071830 0%,#071830 55%,#071830 100%)}
 .text-center{text-align:center}
 
@@ -143,7 +143,7 @@ body.nav-open{overflow:hidden}
 .breadcrumb span{opacity:0.35}
 
 /* CARDS */
-.card{border-radius:var(--radius-lg);overflow:hidden;transition:transform 0.25s var(--ease),box-shadow 0.25s}/* dark bg removed */
+.card{background:#0e2448;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);border:1px solid var(--border-dark);overflow:hidden;transition:transform 0.25s var(--ease),box-shadow 0.25s}
 .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
 
 /* CTA BANNER SECTIONS */
@@ -220,8 +220,8 @@ p{font-size:clamp(0.92rem,1.6vw,1.02rem);color:var(--text-muted);line-height:1.7
 p:last-child{margin-bottom:0}
 .section-label{display:block;font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem}
 .divider{width:52px;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:2px;margin:0.9rem 0 1.8rem}
-/* removed dark override */
-/* removed dark override */
+.bg-white{background:#0e2448}
+.bg-cream{background:var(--bg-dark)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:0.45rem;padding:0.8rem 2rem;border-radius:1px;font-weight:700;font-size:0.92rem;letter-spacing:0.02em;transition:all var(--t) var(--ease);cursor:pointer;border:2px solid transparent;white-space:nowrap}
 .btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;box-shadow:0 4px 16px rgba(184,134,11,0.25)}
 .btn-primary:hover{transform:translateY(-1px) scale(1.03);box-shadow:0 8px 28px rgba(184,134,11,0.38)}
@@ -270,7 +270,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .detail-img img{width:100%;height:100%;object-fit:contain;padding:16px;transition:transform 0.4s ease}
 .detail-img-placeholder{width:100%;aspect-ratio:1;background:linear-gradient(135deg,rgba(42,70,51,0.08),rgba(184,134,11,0.08));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;color:var(--text-muted);font-size:0.9rem}
 .detail-img-placeholder span{font-size:3rem}
-.detail-price{font-family:var(--font-head);font-size:2.2rem;font-weight:700;color:#1C1C1C;margin-bottom:0.3rem;line-height:1}
+.detail-price{font-family:var(--font-head);font-size:2.2rem;font-weight:700;color:var(--navy-mid);margin-bottom:0.3rem;line-height:1}
 .detail-price sub{font-size:0.9rem;font-weight:400;color:var(--text-muted);vertical-align:baseline}
 .detail-actions{display:flex;gap:0.75rem;flex-wrap:wrap;margin:1.2rem 0 2rem}
 .info-block{margin-bottom:1.8rem}
@@ -296,19 +296,19 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .product-body h3{font-size:1rem;margin-bottom:0.4rem}
 .product-desc{font-size:0.86rem;color:var(--text-muted);flex-grow:1;margin-bottom:1rem;line-height:1.6}
 .product-footer{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;margin-top:auto}
-.product-price{font-size:1.25rem;font-weight:800;color:#B8860B}
+.product-price{font-size:1.25rem;font-weight:800;color:var(--navy-mid)}
 .product-actions-row{display:flex;gap:0.4rem}
 /* Reviews */
 .reviews-section{background:var(--bg-dark);padding:3.5rem 0}
 .rating-summary{display:flex;align-items:center;gap:2.5rem;padding:1.8rem;background:#0e2448;border-radius:2px;box-shadow:var(--shadow-xs);border:1px solid rgba(11,15,20,0.08);margin-bottom:2rem;flex-wrap:wrap}
 .rating-big{text-align:center;flex-shrink:0}
-.rating-big .score{font-family:var(--font-head);font-size:3.8rem;font-weight:700;color:#B8860B;line-height:1}
+.rating-big .score{font-family:var(--font-head);font-size:3.8rem;font-weight:700;color:var(--navy-mid);line-height:1}
 .rating-big .out-of{font-size:0.8rem;color:var(--text-muted);margin-top:0.2rem}
 .stars-display{display:flex;gap:2px;font-size:1.1rem;margin:0.25rem 0}
 .star-full{color:var(--gold)}
 .star-empty{color:#ddd}
 .rating-bars{flex:1;min-width:200px}
-.bar-row{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.4rem;font-size:0.82rem;color:#666}
+.bar-row{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.4rem;font-size:0.82rem;color:var(--text-muted)}
 .bar-row .label{width:36px;text-align:right;flex-shrink:0}
 .bar-track{flex:1;height:7px;background:#eee;border-radius:4px;overflow:hidden}
 .bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:4px;transition:width 0.6s ease}
@@ -316,10 +316,10 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .review-list{display:flex;flex-direction:column;gap:1.2rem;margin-bottom:2.5rem}
 .review-card{background:#0e2448;border-radius:2px;padding:1.4rem 1.6rem;border:1px solid rgba(11,15,20,0.08);box-shadow:var(--shadow-xs)}
 .review-header{display:flex;align-items:flex-start;justify-content:space-between;gap:0.8rem;margin-bottom:0.6rem;flex-wrap:wrap}
-.reviewer-name{font-weight:700;font-size:0.95rem;color:#1C1C1C}
+.reviewer-name{font-weight:700;font-size:0.95rem;color:var(--navy-mid)}
 .review-date{font-size:0.76rem;color:var(--text-muted)}
 .review-stars{color:var(--gold);font-size:0.9rem;letter-spacing:1px;margin-bottom:0.5rem}
-.review-text{font-size:0.9rem;color:#444;line-height:1.7}
+.review-text{font-size:0.9rem;color:var(--text-secondary);line-height:1.7}
 .review-helpful{display:inline-flex;align-items:center;gap:0.35rem;margin-top:0.7rem;font-size:0.78rem;color:var(--text-muted);cursor:pointer;border:none;background:none;padding:0.28rem 0.7rem;border-radius:1px;border:1px solid rgba(11,15,20,0.08);transition:all 0.2s}
 .review-helpful:hover{border-color:var(--navy-light);color:var(--navy-light)}
 .review-helpful.liked{background:var(--navy-mid);color:#fff;border-color:var(--navy-mid)}
@@ -355,7 +355,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 #loading-msg{text-align:center;padding:6rem 2rem;font-size:1rem;color:var(--text-muted)}
 .toast{position:fixed;bottom:6rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy-mid);color:#fff;padding:0.7rem 1.4rem;border-radius:1px;font-size:0.88rem;font-weight:600;box-shadow:var(--shadow-md);opacity:0;transition:all 0.3s;z-index:9999;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media(max-width:640px){.detail-actions{flex-direction:column}.detail-actions .btn{width:100%;justify-content:center}.rating-summary{flex-direction:column;gap:1.2rem}}
+@media(max-width:640px){body{padding-bottom:72px}.detail-actions{flex-direction:column}.detail-actions .btn{width:100%;justify-content:center}.rating-summary{flex-direction:column;gap:1.2rem}}
 .page-hero .reveal,.page-hero .reveal-l{opacity:1 !important;transform:none !important}
 .page-hero-inner{opacity:1 !important;transform:none !important}
 /* ═══ LIGHT CREAM THEME ═══ */
@@ -409,13 +409,13 @@ body.nav-open{overflow:hidden}
 .btn-secondary:hover{background:var(--primary-light)}
 .btn-sm{padding:9px 18px;font-size:13px}
 .btn-lg{padding:16px 32px;font-size:16px}
-.card{background:#fff !important;color:#1C1C1C !important;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);padding:20px;border:1px solid #E8EDE8 !important}
-.pd-hero{background:linear-gradient(160deg,#F1F8E9 0%,#fff 70%);padding:clamp(80px,12vw,110px) 0 40px;border-bottom:1px solid #E8EDE8;-webkit-overflow-scrolling:touch}
+.card{background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);padding:20px;border:1px solid #E8EDE8}
+.pd-hero{background:linear-gradient(160deg,#F1F8E9 0%,#fff 70%);padding:clamp(80px,12vw,110px) 0 40px;border-bottom:1px solid #E8EDE8}
 .pd-hero-grid{display:grid;gap:32px;align-items:start;margin-top:20px}
 @media(min-width:760px){.pd-hero-grid{grid-template-columns:1fr 1fr}}
 .pd-img-col{}
-.pd-img-wrap{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.09);border:1px solid #E8EDE8;display:flex;align-items:center;justify-content:center;min-height:280px;padding:16px}
-.pd-img-wrap img{width:100%;max-height:320px;object-fit:contain;-webkit-user-drag:none}
+.pd-img-wrap{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.09);border:1px solid #E8EDE8;display:flex;align-items:center;justify-content:center;min-height:260px;padding:16px}
+.pd-img-wrap img{width:100%;max-height:300px;object-fit:contain;touch-action:pan-y}
 .pd-tag{display:inline-flex;align-items:center;padding:4px 12px;background:var(--primary-light);border:1px solid var(--primary-mid);border-radius:50px;font-size:12px;font-weight:700;color:var(--primary-dark);letter-spacing:0.04em}
 .pd-info-col{}
 .pd-section-grid{display:grid;gap:16px}
@@ -426,27 +426,8 @@ body.nav-open{overflow:hidden}
 .breadcrumb .sep{opacity:0.4}
 /* sticky mobile buy */
 .sticky-pd-buy{display:none}
-@media(max-width:640px){.sticky-pd-buy{display:block;position:fixed;bottom:0;left:0;right:0;z-index:470;background:#fff;border-top:1px solid #E8EDE8;padding:10px 16px;box-shadow:0 -4px 16px rgba(0,0,0,0.08)}}@media(max-width:640px){body{padding-bottom:80px}}
+@media(max-width:640px){.sticky-pd-buy{display:block;position:fixed;bottom:0;left:0;right:0;z-index:470;background:#fff;border-top:1px solid #E8EDE8;padding:10px 16px;box-shadow:0 -4px 16px rgba(0,0,0,0.08)}}
 
-
-/* ═══ NUCLEAR LIGHT OVERRIDE — prevents any dark mode from affecting product sections ═══ */
-html, body { color-scheme: light only !important; }
-body { background: #F8F6F2 !important; color: #1C1C1C !important; }
-.card { background: #FFFFFF !important; color: #1C1C1C !important; border-color: rgba(0,0,0,0.08) !important; }
-.card *, .card p, .card h1, .card h2, .card h3, .card h4, .card span, .card div { 
-  color: inherit !important; 
-}
-#product-main { background: #F8F6F2 !important; color: #1C1C1C !important; }
-#product-main section { background: #F8F6F2 !important; }
-#product-main .card { background: #FFFFFF !important; color: #1C1C1C !important; }
-#product-main h1, #product-main h2, #product-main h3, #product-main h4 { color: #1C1C1C !important; }
-#product-main p { color: #3D3D3D !important; }
-#related-wrap .product-card { background: #FFFFFF !important; }
-#related-wrap h3 { color: #1C1C1C !important; }
-#related-wrap .product-price { color: #B8860B !important; }
-.reviews-section { background: #F8F6F2 !important; }
-.review-card { background: #FFFFFF !important; color: #1C1C1C !important; }
-.write-review-card { background: #FFFFFF !important; }
 </style>
 <meta name="description" content="Buy Shah Hayaat certified Ayurvedic medicine online. WHO-GMP & ISO certified herbal formulations. made with natural herbal ingredients. Order on WhatsApp: +91 70510 56287.">
 <meta name="keywords" content="ayurvedic medicine buy online, herbal syrup india, certified ayurvedic product, shah hayaat product">
@@ -910,77 +891,78 @@ document.addEventListener('DOMContentLoaded', function() {
     '</div>' +
 
     /* 2. Who Is This For */
-    '<section style="padding:40px 0;background:#ffffff;border-top:1px solid #E8EDE8;border-bottom:1px solid #E8EDE8">' +
+    '<section style="padding:40px 0;background:#F1F8E9;border-top:3px solid #4CAF50;border-bottom:3px solid #4CAF50">' +
       '<div class="container">' +
         '<div class="pd-section-grid">' +
-          '<div style="background:#FFFFFF;color:#1C1C1C;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);padding:20px;border:1px solid #E8EDE8">' +
-            '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">Who Is This For?</div>' +
-            '<h3 style="margin-bottom:14px;color:#1C1C1C">Is This Right for You?</h3>' +
-            audience.map(function(a){ return '<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f0f0f0;font-size:14px;color:#444"><span style="font-size:1.1rem">👤</span>' + a + '</div>'; }).join('') +
+          '<div style="background:#ffffff;color:#1C1C1C;border-radius:14px;padding:24px;border:2px solid #A5D6A7;box-shadow:0 2px 12px rgba(76,175,80,0.12)">' +
+            '<div style="font-size:11px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#2E7D32;margin-bottom:10px;background:#E8F5E9;display:inline-block;padding:4px 10px;border-radius:50px">WHO IS THIS FOR?</div>' +
+            '<h3 style="margin-bottom:14px;color:#1B5E20;font-size:18px;font-weight:700">Is This Right for You?</h3>' +
+            audience.map(function(a){ return '<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #C8E6C9;font-size:14px;color:#1C1C1C;font-weight:500"><span style="width:28px;height:28px;background:#4CAF50;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">✓</span>' + a + '</div>'; }).join('') +
           '</div>' +
-          '<div style="background:#FFFFFF;color:#1C1C1C;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);padding:20px;border:1px solid #E8EDE8">' +
-            '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">How It Works</div>' +
-            '<h3 style="margin-bottom:10px;color:#1C1C1C">Natural Approach</h3>' +
-            '<p style="font-size:14px;color:#555;line-height:1.75;margin-bottom:14px">' + p.full + '</p>' +
+          '<div style="background:#ffffff;color:#1C1C1C;border-radius:14px;padding:24px;border:2px solid #A5D6A7;box-shadow:0 2px 12px rgba(76,175,80,0.12)">' +
+            '<div style="font-size:11px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#2E7D32;margin-bottom:10px;background:#E8F5E9;display:inline-block;padding:4px 10px;border-radius:50px">HOW IT WORKS</div>' +
+            '<h3 style="margin-bottom:10px;color:#1B5E20;font-size:18px;font-weight:700">Natural Approach</h3>' +
+            '<p style="font-size:14px;color:#333;line-height:1.8;margin-bottom:0">' + p.full + '</p>' +
           '</div>' +
         '</div>' +
       '</div>' +
     '</section>' +
 
     /* 3. Key Ingredients */
-    '<section style="padding:40px 0">' +
+    '<section style="padding:40px 0;background:#ffffff;border-top:1px solid #C8E6C9">' +
       '<div class="container">' +
         '<div class="pd-section-grid">' +
-          '<div style="background:#FFFFFF;color:#1C1C1C;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);padding:20px;border:1px solid #E8EDE8">' +
-            '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">Key Ingredients</div>' +
-            '<h3 style="margin-bottom:14px;color:#1C1C1C">What\'s Inside</h3>' +
-            p.ingredients.split(',').map(function(ing){ var parts=ing.trim().split('('); return '<div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #f0f0f0"><span style="color:#4CAF50;font-size:1.1rem;flex-shrink:0">🌿</span><div><div style="font-size:14px;font-weight:600;color:#222">' + parts[0].trim() + '</div>' + (parts[1] ? '<div style="font-size:12px;color:#888">(' + parts[1].replace(')','') + ')</div>' : '') + '</div></div>'; }).join('') +
+          '<div style="background:#F1F8E9;color:#1C1C1C;border-radius:14px;padding:24px;border:2px solid #A5D6A7">' +
+            '<div style="font-size:11px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#2E7D32;margin-bottom:10px;background:#C8E6C9;display:inline-block;padding:4px 10px;border-radius:50px">KEY INGREDIENTS</div>' +
+            '<h3 style="margin-bottom:16px;color:#1B5E20;font-size:18px;font-weight:700">What\'s Inside</h3>' +
+            p.ingredients.split(',').map(function(ing){ var parts=ing.trim().split('('); return '<div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid #C8E6C9"><span style="width:28px;height:28px;background:#4CAF50;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:#fff">🌿</span><div><div style="font-size:14px;font-weight:700;color:#1B5E20">' + parts[0].trim() + '</div>' + (parts[1] ? '<div style="font-size:12px;color:#388E3C">(' + parts[1].replace(')','') + ')</div>' : '') + '</div></div>'; }).join('') +
           '</div>' +
-          '<div style="background:#FFFFFF;color:#1C1C1C;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);padding:20px;border:1px solid #E8EDE8">' +
-            '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">How to Use</div>' +
-            '<h3 style="margin-bottom:10px;color:#1C1C1C">Dosage Instructions</h3>' +
-            '<p style="font-size:14px;color:#555;line-height:1.75;margin-bottom:16px">' + p.dosage + '</p>' +
-            '<div style="background:#FFF8E1;border:1px solid rgba(212,160,23,0.25);border-radius:8px;padding:12px 14px;font-size:13px;color:#7A5500;line-height:1.6"><strong>⚠️ Precautions:</strong> ' + p.precautions + '</div>' +
+          '<div style="background:#ffffff;color:#1C1C1C;border-radius:14px;padding:24px;border:2px solid #A5D6A7">' +
+            '<div style="font-size:11px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#2E7D32;margin-bottom:10px;background:#E8F5E9;display:inline-block;padding:4px 10px;border-radius:50px">HOW TO USE</div>' +
+            '<h3 style="margin-bottom:12px;color:#1B5E20;font-size:18px;font-weight:700">Dosage Instructions</h3>' +
+            '<div style="background:#F1F8E9;border-left:4px solid #4CAF50;padding:14px 16px;border-radius:0 8px 8px 0;font-size:14px;color:#1C1C1C;line-height:1.8;margin-bottom:16px">📋 ' + p.dosage + '</div>' +
+            '<div style="background:#FFF8E1;border:2px solid #FFD54F;border-radius:10px;padding:14px 16px;font-size:13px;color:#5D4037;line-height:1.7"><strong style="color:#E65100">⚠️ Precautions:</strong> ' + p.precautions + '</div>' +
           '</div>' +
         '</div>' +
       '</div>' +
     '</section>' +
 
     /* 4. Improve Results with Daily Practice */
-    '<section style="padding:40px 0;background:#ffffff;border-top:1px solid #E8EDE8">' +
+    '<section style="padding:40px 0;background:#E8F5E9;border-top:3px solid #4CAF50">' +
       '<div class="container">' +
-        '<div style="background:#FFFFFF;color:#1C1C1C;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);padding:20px;border:1px solid #E8EDE8;max-width:720px">' +
-          '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">Supporting Tools</div>' +
-          '<h3 style="margin-bottom:8px;color:#1C1C1C">Improve Results with Daily Practice</h3>' +
-          '<p style="font-size:14px;color:#555;margin-bottom:16px">These simple exercises are designed to support the effects of ' + p.name + ' — combining herbal support with daily practice delivers better outcomes.</p>' +
-          '<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">' +
-            exercises.map(function(ex){ return '<a href="exercises.html" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border:1px solid #E8EDE8;border-radius:8px;text-decoration:none;transition:all 0.2s;font-size:14px;font-weight:500;color:#222"><span style="font-size:1.2rem">🧘</span>' + ex.name + '<span style="margin-left:auto;font-size:12px;color:#999;font-weight:400">' + ex.dur + '</span></a>'; }).join('') +
+        '<div style="max-width:720px;background:#ffffff;color:#1C1C1C;border-radius:14px;padding:24px;border:2px solid #A5D6A7;box-shadow:0 2px 12px rgba(76,175,80,0.1)">' +
+          '<div style="font-size:11px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#2E7D32;margin-bottom:10px;background:#C8E6C9;display:inline-block;padding:4px 10px;border-radius:50px">SUPPORTING TOOLS</div>' +
+          '<h3 style="margin-bottom:10px;color:#1B5E20;font-size:18px;font-weight:700">Improve Results with Daily Practice</h3>' +
+          '<p style="font-size:14px;color:#333;margin-bottom:18px">Combine ' + p.name + ' with these guided exercises for faster, more lasting results.</p>' +
+          '<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:18px">' +
+            exercises.map(function(ex){ return '<a href="exercises.html" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:#F1F8E9;border:1px solid #A5D6A7;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;color:#1B5E20"><span style="font-size:1.2rem">🧘</span>' + ex.name + '<span style="margin-left:auto;font-size:12px;color:#388E3C;font-weight:500;background:#C8E6C9;padding:2px 8px;border-radius:50px">' + ex.dur + '</span></a>'; }).join('') +
           '</div>' +
-          '<a href="exercises.html" class="btn btn-secondary btn-sm">View All Exercises →</a>' +
+          '<a href="exercises.html" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:#4CAF50;color:#fff;border-radius:50px;font-size:13px;font-weight:700;text-decoration:none">View All Exercises →</a>' +
         '</div>' +
       '</div>' +
     '</section>' +
 
     /* 5. Optional Wellness Check */
-    '<section style="padding:40px 0;border-top:1px solid #E8EDE8">' +
+    '<section style="padding:40px 0;background:#ffffff;border-top:1px solid #C8E6C9">' +
       '<div class="container">' +
-        '<div style="background:#E8F5E9;color:#1C1C1C;border-radius:12px;padding:20px;border:1px solid #C8E6C9;max-width:720px">' +
-          '<div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4CAF50;margin-bottom:10px">Optional</div>' +
-          '<h3 style="margin-bottom:8px;color:#1C1C1C">Check Your Wellness Level</h3>' +
-          '<p style="font-size:14px;color:#444;margin-bottom:16px">Take a quick 2-minute self-assessment to understand your current ' + p.tag.toLowerCase() + ' level and see if ' + p.name + ' is the right fit for you.</p>' +
-          '<a href="wellness-lab.html" class="btn btn-secondary btn-sm">Start Wellness Lab →</a>' +
+        '<div style="max-width:720px;background:#F1F8E9;color:#1C1C1C;border-radius:14px;padding:24px;border:2px solid #4CAF50">' +
+          '<div style="font-size:11px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#2E7D32;margin-bottom:10px;background:#C8E6C9;display:inline-block;padding:4px 10px;border-radius:50px">FREE SELF-ASSESSMENT</div>' +
+          '<h3 style="margin-bottom:10px;color:#1B5E20;font-size:18px;font-weight:700">🧪 Check Your Wellness Level</h3>' +
+          '<p style="font-size:14px;color:#2E7D32;margin-bottom:18px;line-height:1.7">Take a free 2-minute self-assessment to understand your current ' + p.tag.toLowerCase() + ' health and confirm that ' + p.name + ' is the right remedy for you.</p>' +
+          '<a href="wellness-lab.html" style="display:inline-flex;align-items:center;gap:6px;padding:12px 22px;background:#4CAF50;color:#fff;border-radius:50px;font-size:14px;font-weight:700;text-decoration:none">Start Free Assessment →</a>' +
         '</div>' +
       '</div>' +
     '</section>' +
 
     /* 6. FAQ */
-    '<section style="padding:40px 0;background:#ffffff;border-top:1px solid #E8EDE8">' +
+    '<section style="padding:40px 0;background:#F1F8E9;border-top:3px solid #4CAF50">' +
       '<div class="container" style="max-width:720px">' +
-        '<h3 style="margin-bottom:16px;color:#1C1C1C">Frequently Asked Questions</h3>' +
-        '<div style="border:1px solid #E8EDE8;border-radius:12px;overflow:hidden;background:#fff">' +
-          '<div style="padding:16px 20px;border-bottom:1px solid #f0f0f0"><strong style="font-size:14px">Is ' + p.name + ' safe to use?</strong><p style="font-size:13px;color:#666;margin-top:6px;margin-bottom:0">Yes. ' + p.name + ' is formulated using traditional Ayurvedic herbs. ' + p.precautions + '</p></div>' +
-          '<div style="padding:16px 20px;border-bottom:1px solid #f0f0f0"><strong style="font-size:14px">When will I see results?</strong><p style="font-size:13px;color:#666;margin-top:6px;margin-bottom:0">Some users report changes over time. Individual results may vary of consistent use. For best results, a full 6–8 week course is recommended.</p></div>' +
-          '<div style="padding:16px 20px"><strong style="font-size:14px">How do I order?</strong><p style="font-size:13px;color:#666;margin-top:6px;margin-bottom:0">The easiest way is WhatsApp — message +91 70510 56287 with the product name. You can also find it on Amazon India and IndiaMART.</p></div>' +
+        '<div style="font-size:11px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#2E7D32;margin-bottom:10px;background:#C8E6C9;display:inline-block;padding:4px 10px;border-radius:50px">COMMON QUESTIONS</div>' +
+        '<h3 style="margin-bottom:20px;color:#1B5E20;font-size:20px;font-weight:700">Frequently Asked Questions</h3>' +
+        '<div style="border-radius:14px;overflow:hidden;border:2px solid #A5D6A7">' +
+          '<div style="padding:18px 20px;border-bottom:2px solid #C8E6C9;background:#ffffff"><strong style="font-size:14px;color:#1B5E20">Is ' + p.name + ' safe to use?</strong><p style="font-size:13px;color:#333;margin-top:8px;margin-bottom:0;line-height:1.7">Yes. ' + p.name + ' is a WHO-GMP certified Ayurvedic herbal formulation. ' + p.precautions + '</p></div>' +
+          '<div style="padding:18px 20px;border-bottom:2px solid #C8E6C9;background:#F9FBF9"><strong style="font-size:14px;color:#1B5E20">When will I see results?</strong><p style="font-size:13px;color:#333;margin-top:8px;margin-bottom:0;line-height:1.7">Many users notice improvements within 3–6 weeks of consistent use. For best results, a full 6–8 week course is recommended.</p></div>' +
+          '<div style="padding:18px 20px;background:#ffffff"><strong style="font-size:14px;color:#1B5E20">How do I order?</strong><p style="font-size:13px;color:#333;margin-top:8px;margin-bottom:0;line-height:1.7">The easiest way is WhatsApp — message +91 70510 56287 with the product name. Also available on Amazon India and IndiaMART.</p></div>' +
         '</div>' +
       '</div>' +
     '</section>' +
