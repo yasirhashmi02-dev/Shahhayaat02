@@ -2730,6 +2730,7 @@ function _lbSaveWithName(name, taps, time) {
     if (!el) return;
     el.innerHTML = html;
     el.className = 'rank-box' + (cls ? ' ' + cls : '');
+    el.removeAttribute('style');
     if (addShow) {
       el.style.display = 'block';
       void el.offsetHeight;
@@ -2773,14 +2774,12 @@ function _lbSaveWithName(name, taps, time) {
 function _showAnimatedRank(rank, score, name, rawMetric, exId, elId) {
   var el = document.getElementById(elId);
   if (!el) return;
-  // Guard: only show if we're still on the same exercise (skip guard for non-exercise contexts)
   if (exId && _ex && _ex.id !== exId) return;
 
-  var isTop3  = rank <= 3;
-  var isTop10 = rank <= 10;
-  var isTop100= rank <= 100;
-  var isTop500= rank <= 500;
-
+  var isTop3   = rank <= 3;
+  var isTop10  = rank <= 10;
+  var isTop100 = rank <= 100;
+  var isTop500 = rank <= 500;
   var medal, rankCls, mainColor, msg, particles;
 
   if (rank === 1) {
@@ -2802,7 +2801,6 @@ function _showAnimatedRank(rank, score, name, rawMetric, exId, elId) {
     medal = '🏅'; rankCls = ''; mainColor = '#22C55E';
     msg = '✅ Top 500 — well done!'; particles = false;
   } else {
-    // Rank > 500 — comeback message
     var comebacks = [
       '💪 Not in Top 500 yet — but the climb starts NOW!',
       '🔥 Outside Top 500 — every legend started here!',
@@ -2810,13 +2808,12 @@ function _showAnimatedRank(rank, score, name, rawMetric, exId, elId) {
       '😤 Not this time — come back stronger!',
       '⚡ The leaderboard is waiting for you — try again!',
       '🎯 Keep practising — your moment is coming!',
-      '🚀 You\'re warming up — better luck next time!'
+      '🚀 Warming up — better luck next time!'
     ];
     medal = '🎮'; rankCls = 'rank-comeback'; mainColor = '#a5b4fc';
     msg = comebacks[Math.floor(Math.random() * comebacks.length)]; particles = false;
   }
 
-  // Build particle HTML for top-3
   var particleHtml = '';
   if (particles) {
     var colors = ['#FFD700','#FF6B6B','#4ADE80','#60A5FA','#F472B6','#FBBF24'];
@@ -2835,22 +2832,13 @@ function _showAnimatedRank(rank, score, name, rawMetric, exId, elId) {
     '<div class="rank-num-anim" style="font-size:' + (isTop3 ? '1.5rem' : '1.2rem') + ';font-weight:900;color:' + mainColor + ';margin:4px 0">Rank <span style="font-size:' + (isTop3 ? '2rem' : '1.5rem') + '">#' + rank + '</span></div>' +
     '<div style="font-size:.78rem;color:rgba(255,255,255,.7);line-height:1.5;margin-top:4px">' + msg + '</div>';
 
-  // ── Robust display: force block FIRST, then trigger animation on next paint ──
+  // CRITICAL: set class (display:none), then override to block, reflow, THEN add .show
+  // Never set inline opacity/transform — they override the CSS @keyframes
   el.className = 'rank-box' + (rankCls ? ' ' + rankCls : '');
-  el.style.display = 'block';   // override display:none immediately
-  el.style.opacity = '0';       // start transparent
-  el.style.transform = 'translateY(20px) scale(0.92)';
-  // Force reflow so the browser registers the starting state
-  void el.offsetHeight;
-  // Now add .show which triggers the CSS animation
-  el.classList.add('show');
-  // Belt-and-suspenders: if CSS animation somehow doesn't fire, ensure visibility after delay
-  setTimeout(function(){
-    if (el && el.classList.contains('show')) {
-      el.style.opacity = '';
-      el.style.transform = '';
-    }
-  }, 900);
+  el.removeAttribute('style');     // wipe any leftover inline styles
+  el.style.display = 'block';      // make it visible before animation starts
+  void el.offsetHeight;            // force reflow — animation starts fresh
+  el.classList.add('show');        // triggers @keyframes rankReveal
 }
 
 function _lbFetchRank(name,taps){ return; // disabled — rank now comes from POST response directly
@@ -3733,7 +3721,7 @@ function tick() {
 function _resetAllRankBoxes() {
   ['globalRank','tyGlobalRank','gameGlobalRank'].forEach(function(id){
     var el = document.getElementById(id);
-    if (el) { el.className = 'rank-box'; el.style.cssText = ''; el.innerHTML = ''; }
+    if (el) { el.className = 'rank-box'; el.removeAttribute('style'); el.innerHTML = ''; }
   });
 }
 
@@ -4747,10 +4735,12 @@ function _gameShowBox(html, bg, border) {
   if (!_ex || gameIds.indexOf(_ex.id) === -1) return;
   var el = document.getElementById('gameGlobalRank');
   if (!el) return;
-  el.className = 'rank-box';
-  if (bg)     el.style.background = bg;
-  if (border) el.style.border = '1.5px solid ' + border;
   el.innerHTML = html;
+  el.className = 'rank-box';
+  el.removeAttribute('style');
+  if (bg)     el.style.background = bg;
+  if (border) el.style.borderColor = border;
+  el.style.display = 'block';
   void el.offsetHeight;
   el.classList.add('show');
 }
@@ -4773,8 +4763,10 @@ function _gameDoSave(name, data) {
   var savedExId = _ex ? _ex.id : null; // capture at call time — guard stale async responses
   var el2 = document.getElementById('gameGlobalRank');
   if (el2) {
-    el2.className = 'rank-box';
     el2.innerHTML = '<div style="font-size:.85rem;color:rgba(255,255,255,.45)">⏳ Saving…</div>';
+    el2.className = 'rank-box';
+    el2.removeAttribute('style');
+    el2.style.display = 'block';
     void el2.offsetHeight;
     el2.classList.add('show');
   }
@@ -4867,8 +4859,9 @@ function tySaveScore(name, wpm, acc) {
     if (!_ex || _ex.id !== 'typing-speed') return;
     var el = document.getElementById('tyGlobalRank');
     if (!el) return;
-    el.className = 'rank-box' + (extraCls ? ' ' + extraCls : '');
     el.innerHTML = html;
+    el.className = 'rank-box' + (extraCls ? ' ' + extraCls : '');
+    el.removeAttribute('style');
     el.style.display = 'block';
     void el.offsetHeight;
     el.classList.add('show');
