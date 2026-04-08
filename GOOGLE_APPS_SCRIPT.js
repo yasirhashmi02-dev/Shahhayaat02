@@ -80,7 +80,7 @@ function readSheet(sheetKey, mapFn) {
   const rows  = sheet.getDataRange().getValues();
   if (rows.length <= 1) return [];
   const clean = rows.slice(1).filter(r => !String(r[0]||'').startsWith('__auto__'));
-  return clean.slice(0,100).map((r,i) => mapFn(r, i+1));
+  return clean.slice(0,500).map((r,i) => mapFn(r, i+1));
 }
 
 // ════════════════════════════════════════════════════════════════
