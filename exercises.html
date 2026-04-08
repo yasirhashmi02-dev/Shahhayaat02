@@ -553,18 +553,12 @@ body.nav-open{overflow:hidden}
 .done-score-pill strong{display:block;font-size:1.25rem;font-weight:900;color:var(--gold-l);font-family:var(--font-h)}
 .done-score-pill span{font-size:.62rem;color:rgba(255,255,255,.4);letter-spacing:.08em}
 .ov-done-row{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-top:.5rem}
-.rank-box{width:100%;max-width:300px;margin:0 auto;padding:14px 18px;border-radius:16px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);text-align:center;font-weight:700;color:#22C55E;display:none;position:relative;overflow:hidden}
-.rank-box.show{display:block;animation:rankReveal .7s cubic-bezier(.34,1.56,.64,1) both}
+.rank-box{width:100%;max-width:300px;margin:0 auto;padding:14px 18px;border-radius:16px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);text-align:center;font-weight:700;color:#22C55E;display:none;position:relative;overflow:hidden;transition:opacity .4s ease,transform .4s ease}
+.rank-box.show{display:block}
 .rank-box.rank-top{background:linear-gradient(135deg,rgba(184,134,11,.2),rgba(212,160,23,.12));border-color:rgba(212,160,23,.6);color:var(--gold-l);box-shadow:0 0 30px rgba(212,160,23,.2)}
 .rank-box.rank-comeback{background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.4);color:#a5b4fc}
-@keyframes rankReveal{0%{opacity:0;transform:translateY(30px) scale(0.8)}60%{transform:translateY(-4px) scale(1.04)}80%{transform:translateY(2px) scale(0.98)}100%{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes confettiBurst{0%{transform:scale(0) rotate(0deg);opacity:1}80%{opacity:1}100%{transform:scale(1.5) rotate(360deg);opacity:0}}
-@keyframes medalBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.25) rotate(-5deg)}}
-@keyframes rankCountUp{from{opacity:0;transform:scale(0.5)}to{opacity:1;transform:scale(1)}}
-.rank-medal-anim{display:inline-block;animation:medalBounce .8s ease-in-out .4s 2}
-.rank-num-anim{display:inline-block;animation:rankCountUp .5s cubic-bezier(.34,1.56,.64,1) .3s both}
-.rank-particles{position:absolute;top:0;left:50%;transform:translateX(-50%);width:100%;height:100%;pointer-events:none;overflow:hidden}
-.rank-particle{position:absolute;top:10px;width:6px;height:6px;border-radius:50%;animation:confettiBurst .8s ease-out forwards;opacity:0}
+@keyframes medalBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.22) rotate(-6deg)}}
+.rank-medal-anim{display:inline-block;animation:medalBounce .7s ease-in-out .5s 2}
 .ov-btn-next{padding:.8rem 2.2rem;border-radius:50px;font-size:.95rem;font-weight:800;background:linear-gradient(135deg,#166534,#22C55E);color:#fff;border:none;cursor:pointer}
 .ov-btn-again{padding:.75rem 1.4rem;border-radius:50px;font-size:.85rem;font-weight:700;background:rgba(212,160,23,.1);color:#D4A017;border:1.5px solid rgba(212,160,23,.3);cursor:pointer}
 .ov-btn-close{padding:.75rem 1.1rem;border-radius:50px;font-size:.85rem;font-weight:700;background:rgba(255,255,255,.06);color:rgba(255,255,255,.4);border:1.5px solid rgba(255,255,255,.12);cursor:pointer}
@@ -2618,13 +2612,13 @@ function lbRender(rows) {
   const list = document.getElementById('lbList');
   const myRankEl = document.getElementById('lbMyRank');
   if (!list) return;
-  // Filter out stale __auto__ entries AND any typing-data rows (have wpm field)
   const clean = rows.filter(r => !String(r.name||'').startsWith('__auto__') && r.wpm === undefined);
   if (!clean.length) {
     list.innerHTML = '<div class="lb-empty">No scores yet — be first! 🏆</div>';
     return;
   }
-  list.innerHTML = clean.slice(0, 500).map((r, i) => {
+  const display = clean.slice(0, 500);
+  list.innerHTML = display.map((r, i) => {
     const pos     = i + 1;
     const rankCls = pos === 1 ? 'top1' : pos === 2 ? 'top2' : pos === 3 ? 'top3' : '';
     const isMe    = _lbMyRank && pos === _lbMyRank;
@@ -2635,7 +2629,8 @@ function lbRender(rows) {
       '<span class="lb-name">' + _esc(r.name) + '</span>' +
       '<span class="lb-score">' + displayVal + ' ' + displayLbl + '</span>' +
       '</div>';
-  }).join('');
+  }).join('') +
+  '<div style="text-align:center;font-size:.62rem;color:rgba(255,255,255,.25);padding:.4rem 0">Showing ' + display.length + ' of ' + clean.length + ' entries</div>';
   if (_lbMyRank && myRankEl) {
     myRankEl.textContent = 'Your rank: #' + _lbMyRank;
     myRankEl.style.display = '';
@@ -2729,13 +2724,7 @@ function _lbSaveWithName(name, taps, time) {
     var el = document.getElementById('globalRank');
     if (!el) return;
     el.innerHTML = html;
-    el.className = 'rank-box' + (cls ? ' ' + cls : '');
-    el.removeAttribute('style');
-    if (addShow) {
-      el.style.display = 'block';
-      void el.offsetHeight;
-      el.classList.add('show');
-    }
+    if (addShow) _rankBoxShow(el, cls, '', '');
   }
 
   rxShow('<div style="font-size:.85rem;color:rgba(255,255,255,.55)">⏳ Saving score…</div>', '', true);
@@ -2806,7 +2795,7 @@ function _showAnimatedRank(rank, score, name, rawMetric, exId, elId) {
       '🔥 Outside Top 500 — every legend started here!',
       '🌱 Great start! Train harder and storm the charts!',
       '😤 Not this time — come back stronger!',
-      '⚡ The leaderboard is waiting for you — try again!',
+      '⚡ The leaderboard is waiting — try again!',
       '🎯 Keep practising — your moment is coming!',
       '🚀 Warming up — better luck next time!'
     ];
@@ -2814,32 +2803,72 @@ function _showAnimatedRank(rank, score, name, rawMetric, exId, elId) {
     msg = comebacks[Math.floor(Math.random() * comebacks.length)]; particles = false;
   }
 
+  // Build confetti for top-3
   var particleHtml = '';
   if (particles) {
-    var colors = ['#FFD700','#FF6B6B','#4ADE80','#60A5FA','#F472B6','#FBBF24'];
-    for (var p = 0; p < 12; p++) {
-      var color = colors[p % colors.length];
-      var delay = (p * 0.05).toFixed(2);
-      particleHtml += '<div class="rank-particle" style="background:' + color +
-        ';left:' + (20 + Math.random() * 60) + '%;animation-delay:' + delay + 's;' +
-        'animation-duration:' + (0.6 + Math.random() * 0.4) + 's"></div>';
+    var pcolors = ['#FFD700','#FF6B6B','#4ADE80','#60A5FA','#F472B6','#FBBF24'];
+    for (var p = 0; p < 10; p++) {
+      var pc = pcolors[p % pcolors.length];
+      particleHtml += '<span style="position:absolute;width:7px;height:7px;border-radius:50%;' +
+        'background:' + pc + ';left:' + (10 + Math.random() * 80) + '%;top:' + (10 + Math.random() * 80) + '%;' +
+        'opacity:0;transition:all ' + (0.4 + Math.random() * 0.4).toFixed(2) + 's ease ' + (p * 0.06).toFixed(2) + 's"></span>';
     }
   }
 
   el.innerHTML =
-    (particles ? '<div class="rank-particles">' + particleHtml + '</div>' : '') +
-    '<div class="rank-medal-anim" style="font-size:' + (isTop3 ? '2.5rem' : '2rem') + ';margin-bottom:4px">' + medal + '</div>' +
-    '<div class="rank-num-anim" style="font-size:' + (isTop3 ? '1.5rem' : '1.2rem') + ';font-weight:900;color:' + mainColor + ';margin:4px 0">Rank <span style="font-size:' + (isTop3 ? '2rem' : '1.5rem') + '">#' + rank + '</span></div>' +
-    '<div style="font-size:.78rem;color:rgba(255,255,255,.7);line-height:1.5;margin-top:4px">' + msg + '</div>';
+    (particles ? '<span style="position:absolute;inset:0;pointer-events:none;overflow:hidden">' + particleHtml + '</span>' : '') +
+    '<div class="rank-medal-anim" style="font-size:' + (isTop3 ? '2.6rem' : '2rem') + ';display:block;margin-bottom:6px">' + medal + '</div>' +
+    '<div style="font-size:' + (isTop3 ? '2rem' : '1.5rem') + ';font-weight:900;color:' + mainColor + ';margin:4px 0 6px">Rank #' + rank + '</div>' +
+    '<div style="font-size:.8rem;color:rgba(255,255,255,.75);line-height:1.55">' + msg + '</div>';
 
-  // CRITICAL: set class (display:none), then override to block, reflow, THEN add .show
-  // Never set inline opacity/transform — they override the CSS @keyframes
+  // ── JS-driven reveal — no CSS keyframes, works on all mobile browsers ──
   el.className = 'rank-box' + (rankCls ? ' ' + rankCls : '');
-  el.removeAttribute('style');     // wipe any leftover inline styles
-  el.style.display = 'block';      // make it visible before animation starts
-  void el.offsetHeight;            // force reflow — animation starts fresh
-  el.classList.add('show');        // triggers @keyframes rankReveal
+  // display:block FIRST, then set opacity/transform, then force layout, then animate
+  el.style.display    = 'block';
+  el.style.transition = 'none';
+  el.style.opacity    = '0';
+  el.style.transform  = 'translateY(22px) scale(0.85)';
+  el.getBoundingClientRect(); // force layout flush
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
+  setTimeout(function() {
+    el.style.opacity   = '1';
+    el.style.transform = 'translateY(0) scale(1)';
+    el.classList.add('show');
+    // Confetti for top 3
+    if (particles) {
+      var dots = el.querySelectorAll('span[style*="position:absolute"][style*="border-radius:50%"]');
+      dots.forEach(function(d, i) {
+        setTimeout(function() {
+          d.style.opacity = '1';
+          d.style.transform = 'scale(2.5) translateY(-12px)';
+          setTimeout(function() { d.style.opacity = '0'; }, 350);
+        }, i * 55);
+      });
+    }
+  }, 20);
 }
+
+function _rankBoxShow(el, extraClass, bg, borderColor) {
+  if (!el) return;
+  // Step 1: set class and make visible at starting position
+  el.className = 'rank-box' + (extraClass ? ' ' + extraClass : '');
+  if (bg)          el.style.background = bg;
+  if (borderColor) el.style.borderColor = borderColor;
+  // Step 2: display:block FIRST so element is in layout
+  el.style.display   = 'block';
+  el.style.transition = 'none'; // disable transition briefly
+  el.style.opacity   = '0';
+  el.style.transform = 'translateY(18px) scale(0.88)';
+  // Step 3: force browser to register the starting state
+  el.getBoundingClientRect();
+  // Step 4: re-enable transition and animate to final state
+  el.style.transition = 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.34,1.56,0.64,1)';
+  setTimeout(function() {
+    el.style.opacity   = '1';
+    el.style.transform = 'translateY(0) scale(1)';
+  }, 20);
+}
+
 
 function _lbFetchRank(name,taps){ return; // disabled — rank now comes from POST response directly
   fetch(LB_API+'?type=reaction_scores',{method:'GET',redirect:'follow',mode:'cors'})
@@ -3721,7 +3750,11 @@ function tick() {
 function _resetAllRankBoxes() {
   ['globalRank','tyGlobalRank','gameGlobalRank'].forEach(function(id){
     var el = document.getElementById(id);
-    if (el) { el.className = 'rank-box'; el.removeAttribute('style'); el.innerHTML = ''; }
+    if (el) {
+      el.className = 'rank-box';
+      el.style.cssText = 'display:none'; // hard reset
+      el.innerHTML = '';
+    }
   });
 }
 
@@ -4736,13 +4769,7 @@ function _gameShowBox(html, bg, border) {
   var el = document.getElementById('gameGlobalRank');
   if (!el) return;
   el.innerHTML = html;
-  el.className = 'rank-box';
-  el.removeAttribute('style');
-  if (bg)     el.style.background = bg;
-  if (border) el.style.borderColor = border;
-  el.style.display = 'block';
-  void el.offsetHeight;
-  el.classList.add('show');
+  _rankBoxShow(el, '', bg || '', border || '');
 }
 
 function gameLbShowModal(postType, label, extraData) {
@@ -4763,12 +4790,8 @@ function _gameDoSave(name, data) {
   var savedExId = _ex ? _ex.id : null; // capture at call time — guard stale async responses
   var el2 = document.getElementById('gameGlobalRank');
   if (el2) {
-    el2.innerHTML = '<div style="font-size:.85rem;color:rgba(255,255,255,.45)">⏳ Saving…</div>';
-    el2.className = 'rank-box';
-    el2.removeAttribute('style');
-    el2.style.display = 'block';
-    void el2.offsetHeight;
-    el2.classList.add('show');
+    el2.innerHTML = '<div style="font-size:.85rem;color:rgba(255,255,255,.5)">⏳ Saving…</div>';
+    _rankBoxShow(el2, '', '', '');
   }
   fetch(GAME_LB_API, {
     method:'POST', redirect:'follow',
@@ -4860,11 +4883,7 @@ function tySaveScore(name, wpm, acc) {
     var el = document.getElementById('tyGlobalRank');
     if (!el) return;
     el.innerHTML = html;
-    el.className = 'rank-box' + (extraCls ? ' ' + extraCls : '');
-    el.removeAttribute('style');
-    el.style.display = 'block';
-    void el.offsetHeight;
-    el.classList.add('show');
+    _rankBoxShow(el, extraCls, '', '');
   }
 
   showOnDone('<div style="font-size:.85rem;color:rgba(255,255,255,.5)">⏳ Saving score…</div>', '');
