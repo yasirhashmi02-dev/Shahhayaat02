@@ -329,11 +329,13 @@ body.nav-open{overflow:hidden}
 @media(min-width:960px){.ex-grid{grid-template-columns:repeat(4,1fr)}}
 
 /* ── CARD — clean minimal ── */
-.ex-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-lg);display:flex;flex-direction:column;align-items:center;text-align:center;padding:1.2rem .9rem 1rem;gap:.45rem;transition:all .25s var(--ease);position:relative;cursor:pointer}
-.ex-card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);border-color:var(--border-m)}
+.ex-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-lg);display:flex;flex-direction:column;align-items:center;text-align:center;padding:1.2rem .9rem 1rem;gap:.45rem;transition:all .28s var(--ease);position:relative;cursor:pointer;overflow:hidden}
+.ex-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(212,160,23,.06),transparent 70%);opacity:0;transition:opacity .3s;pointer-events:none}
+.ex-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,.4),0 0 0 1px rgba(212,160,23,.15);border-color:rgba(212,160,23,.3)}
+.ex-card:hover::before{opacity:1}
 .ex-card:active{transform:scale(.97)}
-.ex-card.recommended{border:1.5px solid rgba(42,122,90,.45)}
-.ex-card.wake-special{border:1.5px solid rgba(239,68,68,.3)}
+.ex-card.recommended{border:1.5px solid rgba(42,122,90,.5);box-shadow:0 4px 20px rgba(34,197,94,.1)}
+.ex-card.wake-special{border:1.5px solid rgba(239,68,68,.35);box-shadow:0 4px 20px rgba(239,68,68,.1)}
 .badge-strip{position:absolute;top:.6rem;right:.6rem;display:flex;flex-direction:column;align-items:flex-end;gap:.25rem;z-index:2}
 .badge{font-size:.52rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .5rem;border-radius:50px}
 .badge-rec{background:rgba(42,122,90,.85);color:#fff}
@@ -353,8 +355,8 @@ body.nav-open{overflow:hidden}
 .ex-card-dur{font-size:.65rem;color:var(--text-mu);font-weight:600;letter-spacing:.05em}
 .ex-card-benefit{font-size:.72rem;color:var(--text-m);line-height:1.4}
 .ex-card-benefit strong{color:var(--gold-l)}
-.ex-card-start{width:100%;margin-top:.5rem;padding:.65rem;border-radius:50px;font-size:.82rem;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;border:none;transition:all .22s;letter-spacing:.02em}
-.ex-card-start:hover{box-shadow:0 4px 18px rgba(184,134,11,.45)}
+.ex-card-start{width:100%;margin-top:.5rem;padding:.7rem;border-radius:50px;font-size:.84rem;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;border:none;transition:all .22s;letter-spacing:.03em;box-shadow:0 3px 14px rgba(184,134,11,.3)}
+.ex-card-start:hover{box-shadow:0 5px 22px rgba(184,134,11,.5);transform:scale(1.03)}
 /* Info toggle — detail drawer */
 .ex-card-info{width:100%;background:none;border:none;font-size:.68rem;color:var(--text-mu);cursor:pointer;padding:.2rem 0;margin-top:.1rem;transition:color .2s}
 .ex-card-info:hover{color:var(--text-m)}
@@ -505,49 +507,64 @@ body.nav-open{overflow:hidden}
 .ov-ring.out{display:flex;transform:scale(.8);background:rgba(100,160,255,.07);border-color:#6CB4FF;box-shadow:0 0 20px rgba(100,160,255,.1)}
 .ov-ring-txt{font-size:clamp(.85rem,3vw,1rem);font-weight:800;letter-spacing:.07em}
 .ov-game.on{display:flex}
-.ov-game-lbl{font-size:clamp(.82rem,3.5vw,.95rem);color:rgba(255,255,255,.7);font-weight:500}
-.ov-taps{font-size:clamp(4rem,16vw,6rem);font-weight:900;color:#D4A017;line-height:1}
-.ov-secs{font-size:2rem;font-weight:800;color:#D4A017}
+.ov-game-lbl{font-size:clamp(.85rem,3.5vw,1rem);color:rgba(255,255,255,.85);font-weight:600;letter-spacing:.02em}
+.ov-taps{font-size:clamp(4.5rem,18vw,6.5rem);font-weight:900;color:#22C55E;line-height:1;text-shadow:0 0 30px rgba(34,197,94,.5);transition:transform .1s,color .3s}
+.ov-taps.bump{transform:scale(1.12);color:#4ADE80}
+.ov-secs{font-size:2rem;font-weight:800;color:#D4A017;letter-spacing:.04em}
 /* .ov-tap-btn removed — replaced by #tapArea */
 
 /* ── MATH GAME ── */
 .ov-math{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;padding:1.2rem;text-align:center}
 .ov-math.on{display:flex}
-.ov-math-q{font-size:clamp(2rem,9vw,3rem);font-weight:900;color:#fff;line-height:1}
-.ov-math-score{font-size:1rem;color:rgba(255,255,255,.5)}
-.ov-math-opts{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;width:100%;max-width:300px;margin-top:.3rem}
-.ov-math-opt{padding:.75rem;border-radius:12px;font-size:1.1rem;font-weight:800;border:2px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;cursor:pointer;transition:all .18s}
-.ov-math-opt:hover{border-color:var(--gold-l);background:var(--gold-pale)}
-.ov-math-opt.correct{background:rgba(34,197,94,.25);border-color:#22C55E;color:#22C55E}
-.ov-math-opt.wrong{background:rgba(239,68,68,.2);border-color:#EF4444;color:#EF4444}
-.ov-math-timer{font-size:.8rem;color:var(--gold-l);font-weight:700;letter-spacing:.06em}
+.ov-math-q{font-size:clamp(2.2rem,10vw,3.2rem);font-weight:900;color:#fff;line-height:1;text-shadow:0 2px 16px rgba(255,255,255,.12);padding:.5rem 1rem;background:rgba(255,255,255,.04);border-radius:16px;border:1px solid rgba(255,255,255,.08);width:100%;max-width:300px}
+.ov-math-score{font-size:.88rem;color:rgba(255,255,255,.55);font-weight:500}
+.ov-math-opts{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;width:100%;max-width:300px;margin-top:.4rem}
+.ov-math-opt{padding:.88rem;border-radius:14px;font-size:1.15rem;font-weight:800;border:2px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;cursor:pointer;transition:all .18s;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.ov-math-opt:hover{border-color:var(--gold-l);background:var(--gold-pale);transform:scale(1.04)}
+.ov-math-opt:active{transform:scale(.94)}
+.ov-math-opt.correct{background:rgba(34,197,94,.2);border-color:#22C55E;color:#4ADE80;box-shadow:0 0 16px rgba(34,197,94,.3)}
+.ov-math-opt.wrong{background:rgba(239,68,68,.18);border-color:#EF4444;color:#F87171}
+.ov-math-timer{font-size:.82rem;color:var(--gold-l);font-weight:700;letter-spacing:.06em;padding:.3rem .9rem;background:rgba(212,160,23,.1);border:1px solid rgba(212,160,23,.2);border-radius:50px}
 
 /* ── MEMORY GAME ── */
 .ov-mem{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;padding:1rem;text-align:center;overflow-y:auto}
 .ov-mem.on{display:flex}
 .ov-mem-info{font-size:.85rem;color:rgba(255,255,255,.6)}
 .mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;width:100%;max-width:320px}
-.mem-card{aspect-ratio:1;border-radius:10px;border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:clamp(1.3rem,5vw,1.8rem);cursor:pointer;transition:all .22s;user-select:none}
-.mem-card.flipped{background:rgba(212,160,23,.12);border-color:rgba(212,160,23,.4);transform:rotateY(0deg)}
-.mem-card.matched{background:rgba(34,197,94,.15);border-color:rgba(34,197,94,.4);pointer-events:none;opacity:.7}
+.mem-card{aspect-ratio:1;border-radius:12px;border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:clamp(1.3rem,5vw,1.8rem);cursor:pointer;transition:all .25s;user-select:none;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.mem-card:hover{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.1);transform:scale(1.05)}
+.mem-card.flipped{background:rgba(212,160,23,.14);border-color:rgba(212,160,23,.5);transform:scale(1.06);box-shadow:0 4px 16px rgba(212,160,23,.25)}
+.mem-card.matched{background:rgba(34,197,94,.18);border-color:rgba(34,197,94,.5);pointer-events:none;opacity:.8;animation:matchPop .35s cubic-bezier(.34,1.56,.64,1)}
+@keyframes matchPop{0%{transform:scale(1)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
 .mem-card.hidden{visibility:hidden}
 .ov-mem-stats{display:flex;gap:1.2rem;font-size:.8rem;color:rgba(255,255,255,.6)}
 .ov-mem-stats span strong{color:var(--gold-l)}
 
 /* ── DONE SCREEN ── */
-.ov-done{display:none;position:absolute;inset:0;background:#061220;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;gap:.7rem;z-index:5;overflow-y:auto}
+.ov-done{display:none;position:absolute;inset:0;background:linear-gradient(180deg,#061220 0%,#071830 60%,#0a1f3c 100%);flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;gap:.7rem;z-index:5;overflow-y:auto}
 .ov-done.on{display:flex}
-.ov-done-ico{font-size:4.5rem;line-height:1}
-.ov-done-ttl{font-family:var(--font-h);font-size:clamp(1.6rem,6vw,2.2rem);color:#fff}
-.ov-done-sub{font-size:.95rem;color:rgba(255,255,255,.5);max-width:300px;line-height:1.6}
-.ov-done-scores{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin:.5rem 0}
-.done-score-pill{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:.5rem .9rem;text-align:center;min-width:80px}
-.done-score-pill strong{display:block;font-size:1.2rem;font-weight:900;color:var(--gold-l);font-family:var(--font-h)}
-.done-score-pill span{font-size:.62rem;color:rgba(255,255,255,.4);letter-spacing:.06em}
+.ov-done-ico{font-size:4.5rem;line-height:1;filter:drop-shadow(0 4px 16px rgba(212,160,23,.4));animation:doneIcoBounce .6s cubic-bezier(.34,1.56,.64,1) .1s both}
+@keyframes doneIcoBounce{from{transform:scale(0) rotate(-15deg)}to{transform:scale(1) rotate(0deg)}}
+.ov-done-ttl{font-family:var(--font-h);font-size:clamp(1.6rem,6vw,2.2rem);color:#fff;animation:fadeSlideUp .5s ease .25s both}
+.ov-done-sub{font-size:.95rem;color:rgba(255,255,255,.5);max-width:300px;line-height:1.6;animation:fadeSlideUp .5s ease .35s both}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.ov-done-scores{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin:.5rem 0;animation:fadeSlideUp .5s ease .45s both}
+.done-score-pill{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:.6rem 1rem;text-align:center;min-width:85px;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.done-score-pill strong{display:block;font-size:1.25rem;font-weight:900;color:var(--gold-l);font-family:var(--font-h)}
+.done-score-pill span{font-size:.62rem;color:rgba(255,255,255,.4);letter-spacing:.08em}
 .ov-done-row{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-top:.5rem}
-.rank-box{width:100%;max-width:280px;margin:0 auto;padding:12px 16px;border-radius:12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);text-align:center;font-weight:700;color:#22C55E;opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease;display:none}
-.rank-box.show{opacity:1;transform:translateY(0);display:block}
-.rank-box.rank-top{background:linear-gradient(135deg,rgba(184,134,11,.15),rgba(212,160,23,.1));border-color:rgba(212,160,23,.5);color:var(--gold-l)}
+.rank-box{width:100%;max-width:300px;margin:0 auto;padding:14px 18px;border-radius:16px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);text-align:center;font-weight:700;color:#22C55E;opacity:0;transform:translateY(20px) scale(0.92);display:none;position:relative;overflow:hidden}
+.rank-box.show{opacity:1;transform:translateY(0) scale(1);display:block;animation:rankReveal .7s cubic-bezier(.34,1.56,.64,1) forwards}
+.rank-box.rank-top{background:linear-gradient(135deg,rgba(184,134,11,.2),rgba(212,160,23,.12));border-color:rgba(212,160,23,.6);color:var(--gold-l);box-shadow:0 0 30px rgba(212,160,23,.2)}
+.rank-box.rank-comeback{background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.4);color:#a5b4fc}
+@keyframes rankReveal{0%{opacity:0;transform:translateY(30px) scale(0.8)}60%{transform:translateY(-4px) scale(1.04)}80%{transform:translateY(2px) scale(0.98)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes confettiBurst{0%{transform:scale(0) rotate(0deg);opacity:1}80%{opacity:1}100%{transform:scale(1.5) rotate(360deg);opacity:0}}
+@keyframes medalBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.25) rotate(-5deg)}}
+@keyframes rankCountUp{from{opacity:0;transform:scale(0.5)}to{opacity:1;transform:scale(1)}}
+.rank-medal-anim{display:inline-block;animation:medalBounce .8s ease-in-out .4s 2}
+.rank-num-anim{display:inline-block;animation:rankCountUp .5s cubic-bezier(.34,1.56,.64,1) .3s both}
+.rank-particles{position:absolute;top:0;left:50%;transform:translateX(-50%);width:100%;height:100%;pointer-events:none;overflow:hidden}
+.rank-particle{position:absolute;top:10px;width:6px;height:6px;border-radius:50%;animation:confettiBurst .8s ease-out forwards;opacity:0}
 .ov-btn-next{padding:.8rem 2.2rem;border-radius:50px;font-size:.95rem;font-weight:800;background:linear-gradient(135deg,#166534,#22C55E);color:#fff;border:none;cursor:pointer}
 .ov-btn-again{padding:.75rem 1.4rem;border-radius:50px;font-size:.85rem;font-weight:700;background:rgba(212,160,23,.1);color:#D4A017;border:1.5px solid rgba(212,160,23,.3);cursor:pointer}
 .ov-btn-close{padding:.75rem 1.1rem;border-radius:50px;font-size:.85rem;font-weight:700;background:rgba(255,255,255,.06);color:rgba(255,255,255,.4);border:1.5px solid rgba(255,255,255,.12);cursor:pointer}
@@ -700,70 +717,85 @@ body.nav-open{overflow:hidden}
 /* ── LEADERBOARD + TAP BUTTON ── */
 .ov-game{position:relative}
 
-/* Small single-finger green tap button — wellness-lab style */
+/* Big glowing tap button — maximally attractive */
 #tapArea{
   display:flex;align-items:center;justify-content:center;flex-direction:column;
-  width:160px;height:160px;
-  margin:.6rem auto;
-  background:linear-gradient(135deg,#1A8C52,#22C55E);
+  width:180px;height:180px;
+  margin:.5rem auto;
+  background:radial-gradient(circle at 35% 35%,#34D399,#059669 55%,#065F46);
   border-radius:50%;
-  border:4px solid rgba(255,255,255,.18);
-  box-shadow:0 0 0 8px rgba(34,197,94,.15),0 8px 28px rgba(34,197,94,.35);
+  border:4px solid rgba(255,255,255,.25);
+  box-shadow:0 0 0 10px rgba(34,197,94,.18),0 0 0 20px rgba(34,197,94,.08),0 10px 36px rgba(34,197,94,.45);
   cursor:pointer;
   touch-action:none;
   -webkit-user-select:none;user-select:none;
   -webkit-tap-highlight-color:transparent;
   transition:transform .08s,box-shadow .08s,background .08s;
   flex-shrink:0;
-  animation:tapPulse 2s ease-in-out infinite;
+  animation:tapPulse 1.8s ease-in-out infinite;
+  position:relative;
+  overflow:hidden;
+}
+#tapArea::before{
+  content:'';position:absolute;top:-30%;left:-30%;width:60%;height:60%;
+  background:rgba(255,255,255,.18);border-radius:50%;
+  pointer-events:none;
 }
 @keyframes tapPulse{
-  0%,100%{box-shadow:0 0 0 8px rgba(34,197,94,.15),0 8px 28px rgba(34,197,94,.35)}
-  50%{box-shadow:0 0 0 14px rgba(34,197,94,.08),0 8px 32px rgba(34,197,94,.45)}
+  0%,100%{box-shadow:0 0 0 10px rgba(34,197,94,.18),0 0 0 20px rgba(34,197,94,.08),0 10px 36px rgba(34,197,94,.45)}
+  50%{box-shadow:0 0 0 16px rgba(34,197,94,.12),0 0 0 32px rgba(34,197,94,.04),0 10px 48px rgba(34,197,94,.6)}
 }
 #tapArea:active,#tapArea.tapped{
-  transform:scale(.93);
-  background:linear-gradient(135deg,#166534,#16A34A);
-  box-shadow:0 0 0 4px rgba(34,197,94,.2),0 4px 14px rgba(34,197,94,.25);
+  transform:scale(.88);
+  background:radial-gradient(circle at 35% 35%,#22C55E,#16A34A 55%,#166534);
+  box-shadow:0 0 0 5px rgba(34,197,94,.25),0 4px 18px rgba(34,197,94,.3);
   animation:none;
 }
 #tapArea.disabled{
-  opacity:.35;pointer-events:none;
-  background:linear-gradient(135deg,#374151,#4B5563);
+  opacity:.3;pointer-events:none;
+  background:radial-gradient(circle at 35% 35%,#6B7280,#374151);
   box-shadow:0 0 0 6px rgba(255,255,255,.04),0 4px 12px rgba(0,0,0,.3);
   animation:none;
 }
-.tap-icon{font-size:2.4rem;line-height:1;margin-bottom:.25rem;pointer-events:none}
-.tap-text{font-size:.78rem;color:rgba(255,255,255,.9);font-weight:700;letter-spacing:.06em;text-transform:uppercase;pointer-events:none}
+.tap-icon{font-size:2.8rem;line-height:1;margin-bottom:.2rem;pointer-events:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.3))}
+.tap-text{font-size:.82rem;color:rgba(255,255,255,.95);font-weight:800;letter-spacing:.1em;text-transform:uppercase;pointer-events:none;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+/* Tap ripple effect */
+@keyframes tapRipple{0%{transform:scale(0);opacity:.6}100%{transform:scale(4);opacity:0}}
+.tap-ripple{position:absolute;width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.4);pointer-events:none;animation:tapRipple .5s ease-out forwards;transform-origin:center;margin-left:-25px;margin-top:-25px}
+
 
 /* Leaderboard panel inside overlay */
 #reactionLB{
   width:100%;max-width:340px;margin:.5rem auto 0;
-  background:rgba(0,0,0,.3);border:1px solid rgba(212,160,23,.18);
+  background:rgba(0,0,0,.35);border:1px solid rgba(212,160,23,.2);
   border-radius:14px;overflow:hidden;
 }
 .lb-header{
   display:flex;align-items:center;justify-content:space-between;
-  padding:.45rem .8rem;background:rgba(212,160,23,.08);
-  border-bottom:1px solid rgba(212,160,23,.15);
+  padding:.45rem .8rem;background:rgba(212,160,23,.1);
+  border-bottom:1px solid rgba(212,160,23,.18);
 }
 .lb-title{font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-l)}
 .lb-live{font-size:.58rem;color:#22C55E;font-weight:700;display:flex;align-items:center;gap:.3rem}
 .lb-live::before{content:'';width:5px;height:5px;border-radius:50%;background:#22C55E;display:inline-block;animation:lbPulse 1.4s ease-in-out infinite}
 @keyframes lbPulse{0%,100%{opacity:1}50%{opacity:.3}}
-.lb-list{max-height:160px;overflow-y:auto;scrollbar-width:none}
+.lb-list{max-height:165px;overflow-y:auto;scrollbar-width:none}
 .lb-list::-webkit-scrollbar{display:none}
 .lb-row{display:flex;align-items:center;gap:.5rem;padding:.38rem .8rem;border-bottom:1px solid rgba(255,255,255,.04);font-size:.78rem;transition:background .2s}
-.lb-row.me{background:rgba(212,160,23,.08);}
+.lb-row:nth-child(1){background:rgba(255,215,0,.07);border-bottom-color:rgba(255,215,0,.08)}
+.lb-row:nth-child(2){background:rgba(192,192,192,.05)}
+.lb-row:nth-child(3){background:rgba(205,127,50,.05)}
+.lb-row.me{background:rgba(212,160,23,.1);outline:1px solid rgba(212,160,23,.2)}
 .lb-rank{width:22px;font-weight:800;color:rgba(255,255,255,.35);font-size:.72rem;flex-shrink:0;text-align:right}
-.lb-rank.top1{color:#FFD700}
+.lb-rank.top1{color:#FFD700;text-shadow:0 0 8px rgba(255,215,0,.5)}
 .lb-rank.top2{color:#C0C0C0}
 .lb-rank.top3{color:#CD7F32}
 .lb-name{flex:1;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .lb-score{font-weight:800;color:var(--gold-l);flex-shrink:0;font-size:.8rem}
 .lb-empty{padding:.8rem;text-align:center;font-size:.75rem;color:rgba(255,255,255,.3)}
-.lb-loading{padding:.6rem;text-align:center;font-size:.72rem;color:rgba(255,255,255,.3)}
-.lb-myrank{padding:.38rem .8rem;background:rgba(212,160,23,.06);border-top:1px solid rgba(212,160,23,.15);font-size:.72rem;color:var(--gold-l);font-weight:700;text-align:center}
+.lb-loading{padding:.6rem;text-align:center;font-size:.72rem;color:rgba(255,255,255,.3);animation:loadPulse 1.2s ease-in-out infinite}
+@keyframes loadPulse{0%,100%{opacity:.5}50%{opacity:1}}
+.lb-myrank{padding:.38rem .8rem;background:rgba(212,160,23,.08);border-top:1px solid rgba(212,160,23,.15);font-size:.72rem;color:var(--gold-l);font-weight:700;text-align:center}
 
 /* Name input modal */
 #lbNameModal{
@@ -1542,29 +1574,29 @@ body.nav-open{overflow:hidden}
 
   <!-- TAP GAME -->
   <div class="ov-game" id="ovGame">
-    <!-- Status row -->
-    <div style="display:flex;align-items:center;justify-content:space-between;width:100%;gap:.5rem;flex-shrink:0">
-      <div style="text-align:center;flex:1">
-        <div class="ov-taps" id="ovTaps" style="font-size:clamp(2.8rem,11vw,4rem)">0</div>
-        <div style="font-size:.6rem;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:-.2rem">taps</div>
+    <!-- Scoreboard row -->
+    <div style="display:flex;align-items:stretch;justify-content:center;gap:.5rem;width:100%;flex-shrink:0;padding:.2rem 0">
+      <div style="flex:1;text-align:center;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:12px;padding:.5rem .3rem">
+        <div class="ov-taps" id="ovTaps" style="font-size:clamp(2.4rem,10vw,3.5rem);text-shadow:0 0 20px rgba(34,197,94,.6)">0</div>
+        <div style="font-size:.58rem;color:rgba(34,197,94,.7);letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-top:-.15rem">TAPS</div>
       </div>
-      <div style="text-align:center;flex:1">
-        <div class="ov-secs" id="ovGameSecs" style="font-size:clamp(1.6rem,6vw,2.2rem)">15s</div>
-        <div style="font-size:.6rem;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:-.1rem">left</div>
+      <div style="flex:1;text-align:center;background:rgba(212,160,23,.08);border:1px solid rgba(212,160,23,.2);border-radius:12px;padding:.5rem .3rem">
+        <div class="ov-secs" id="ovGameSecs" style="font-size:clamp(1.5rem,5.5vw,2.1rem);text-shadow:0 0 16px rgba(212,160,23,.4)">15s</div>
+        <div style="font-size:.58rem;color:rgba(212,160,23,.7);letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-top:-.05rem">LEFT</div>
       </div>
-      <div style="text-align:center;flex:1">
-        <div id="ovGameBestVal" style="font-size:clamp(1.6rem,6vw,2.2rem);font-weight:900;color:var(--gold-l)">—</div>
-        <div style="font-size:.6rem;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:-.1rem">🏆 best</div>
+      <div style="flex:1;text-align:center;background:rgba(184,134,11,.08);border:1px solid rgba(184,134,11,.2);border-radius:12px;padding:.5rem .3rem">
+        <div id="ovGameBestVal" style="font-size:clamp(1.5rem,5.5vw,2.1rem);font-weight:900;color:var(--gold-l);text-shadow:0 0 16px rgba(212,160,23,.3)">—</div>
+        <div style="font-size:.58rem;color:rgba(212,160,23,.5);letter-spacing:.12em;text-transform:uppercase;font-weight:700">🏆 BEST</div>
       </div>
     </div>
     <!-- Label -->
-    <div class="ov-game-lbl" id="ovGameLbl">Tap anywhere as FAST as you can!</div>
+    <div class="ov-game-lbl" id="ovGameLbl" style="min-height:1.2rem">Tap the button as FAST as you can!</div>
     <!-- Start / Skip buttons (shown before game begins, hidden during play) -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem;width:100%;flex-shrink:0">
-      <button id="gStartBtn" onclick="gStart()" style="display:none;padding:.85rem 2.4rem;border-radius:50px;font-size:1rem;font-weight:800;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(184,134,11,.4);width:100%;max-width:280px">▶ Start Challenge</button>
+      <button id="gStartBtn" onclick="gStart()" style="display:none;padding:.9rem 2.6rem;border-radius:50px;font-size:1.05rem;font-weight:800;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 22px rgba(184,134,11,.45),0 0 0 1px rgba(255,255,255,.1) inset;width:100%;max-width:280px;letter-spacing:.02em">⚡ Start Challenge</button>
       <button id="gSkipBtn"  onclick="ovSkip()"  style="display:none;padding:.6rem 1.4rem;border-radius:50px;font-size:.82rem;font-weight:700;background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);border:1.5px solid rgba(255,255,255,.12);cursor:pointer">⏭ Skip this exercise</button>
     </div>
-    <!-- Single-finger green tap button -->
+    <!-- Big glowing tap button -->
     <div style="display:flex;justify-content:center;width:100%;flex-shrink:0">
       <div id="tapArea" class="disabled">
         <div class="tap-icon">⚡</div>
@@ -1574,7 +1606,7 @@ body.nav-open{overflow:hidden}
     <!-- Global leaderboard -->
     <div id="reactionLB">
       <div class="lb-header">
-        <span class="lb-title">🌍 Global Top Scores</span>
+        <span class="lb-title">🌍 Global Top 500</span>
         <span class="lb-live">Live</span>
       </div>
       <div class="lb-list" id="lbList"><div class="lb-loading">Loading…</div></div>
@@ -1702,8 +1734,8 @@ body.nav-open{overflow:hidden}
     <div class="ov-done-sub" id="ovDoneSub"></div>
     <div class="ov-done-scores" id="ovDoneScores"></div>
     <div id="globalRank" class="rank-box"></div>
-    <div id="tyGlobalRank" style="display:none;width:100%;max-width:320px;margin:.4rem auto 0;padding:14px 18px;border-radius:12px;text-align:center;font-weight:700"></div>
-    <div id="gameGlobalRank" style="display:none;width:100%;max-width:320px;margin:.4rem auto 0;padding:14px 18px;border-radius:12px;text-align:center;font-weight:700"></div>
+    <div id="tyGlobalRank" class="rank-box"></div>
+    <div id="gameGlobalRank" class="rank-box"></div>
     <button class="ov-btn-challenge" id="ovChallengeBtn" onclick="openChallenge()" style="display:none">🏆 Challenge a Friend</button>
     <div id="promoCard" style="display:none"></div>
     <div class="ov-done-row">
@@ -2687,21 +2719,21 @@ function _lbCloseModal() {
   if (modal) modal.classList.remove('show');
 }
 
-/* Reaction score queue removed — scores now sent directly via _lbSaveWithName() */
 /* ── Single POST with name — no auto-save, no rename, no duplicates ── */
 function _lbSaveWithName(name, taps, time) {
   var displayName = (name && name !== 'Anonymous') ? name : 'Anonymous';
 
   // Only show on done screen if still on reaction exercise
-  function rxShow(html, addShow) {
-    if (!_ex || _ex.id !== 'reaction-test') return; // guard: don't bleed into other games
+  function rxShow(html, cls, addShow) {
+    if (!_ex || _ex.id !== 'reaction-test') return;
     var el = document.getElementById('globalRank');
     if (!el) return;
     el.innerHTML = html;
-    if (addShow) el.classList.add('show');
+    el.className = 'rank-box' + (cls ? ' ' + cls : '');
+    if (addShow) setTimeout(function(){ el.classList.add('show'); }, 50);
   }
 
-  rxShow('<div style="font-size:.85rem;color:rgba(255,255,255,.55)">⏳ Saving score…</div>', true);
+  rxShow('<div style="font-size:.85rem;color:rgba(255,255,255,.55)">⏳ Saving score…</div>', '', true);
 
   fetch(LB_API, {
     method: 'POST', redirect: 'follow',
@@ -2712,15 +2744,8 @@ function _lbSaveWithName(name, taps, time) {
   .then(function(json) {
     if (json.ok && json.rank >= 1) {
       var rank = json.rank, score = json.score;
-      var medal = rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'🏅';
       _lbMyRank = rank;
-      rxShow(
-        '<div style="font-size:1.4rem;margin-bottom:4px">' + medal + ' Rank <strong>#' + rank + '</strong></div>' +
-        '<div style="font-size:.9rem;margin-bottom:2px">⭐ Score: <strong>' + score + '</strong></div>' +
-        '<div style="font-size:.72rem;color:rgba(255,255,255,.45)">' + (rank<=3?'🔥 Top 3!':'Keep tapping!') + '</div>',
-        true
-      );
-      if (rank <= 3) { var el=document.getElementById('globalRank'); if(el && _ex && _ex.id === 'reaction-test') el.classList.add('rank-top'); }
+      _showAnimatedRank(rank, score, displayName, taps, 'reaction-test', 'globalRank');
       var myRankEl = document.getElementById('lbMyRank');
       if (myRankEl) { myRankEl.textContent = 'Your rank: #' + rank; myRankEl.style.display = ''; }
       var lbList = document.getElementById('lbList');
@@ -2730,14 +2755,91 @@ function _lbSaveWithName(name, taps, time) {
       }
       setTimeout(lbLoad, 800);
     } else {
-      rxShow('<div style="font-size:.9rem">⚡ Score saved!</div>', true);
+      rxShow('<div style="font-size:.9rem">⚡ Score saved!</div>', '', true);
       setTimeout(lbLoad, 800);
     }
   })
   .catch(function() {
-    rxShow('<div style="font-size:.9rem">⚡ Score saved!</div>', true);
+    rxShow('<div style="font-size:.9rem">⚡ Score saved!</div>', '', true);
     setTimeout(lbLoad, 1500);
   });
+}
+
+/* ── Animated rank reveal — shared by all games ── */
+function _showAnimatedRank(rank, score, name, rawMetric, exId, elId) {
+  var el = document.getElementById(elId);
+  if (!el) return;
+  if (exId && _ex && _ex.id !== exId) return;
+
+  var isTop3  = rank <= 3;
+  var isTop10 = rank <= 10;
+  var isTop100= rank <= 100;
+  var isTop500= rank <= 500;
+
+  var medal, rankCls, mainColor, msg, particles;
+
+  if (rank === 1) {
+    medal = '🥇'; rankCls = 'rank-top'; mainColor = '#FFD700';
+    msg = '🔥 CHAMPION! You are #1 in the world!'; particles = true;
+  } else if (rank === 2) {
+    medal = '🥈'; rankCls = 'rank-top'; mainColor = '#C0C0C0';
+    msg = '🚀 Silver! So close to the top!'; particles = true;
+  } else if (rank === 3) {
+    medal = '🥉'; rankCls = 'rank-top'; mainColor = '#CD7F32';
+    msg = '🔥 Bronze podium! Incredible!'; particles = true;
+  } else if (isTop10) {
+    medal = '🏅'; rankCls = 'rank-top'; mainColor = '#D4A017';
+    msg = '⭐ Top 10 worldwide — elite!'; particles = false;
+  } else if (isTop100) {
+    medal = '🏅'; rankCls = ''; mainColor = '#22C55E';
+    msg = '💪 Top 100 — keep climbing!'; particles = false;
+  } else if (isTop500) {
+    medal = '🏅'; rankCls = ''; mainColor = '#22C55E';
+    msg = '✅ Top 500 — well done!'; particles = false;
+  } else {
+    // Rank > 500 — comeback message
+    var comebacks = [
+      '💪 Not in Top 500 yet — but the climb starts NOW!',
+      '🔥 Outside Top 500 — every legend started here!',
+      '🌱 Great start! Train harder and storm the charts!',
+      '😤 Not this time — come back stronger!',
+      '⚡ The leaderboard is waiting for you — try again!',
+      '🎯 Keep practising — your moment is coming!',
+      '🚀 You\'re warming up — better luck next time!'
+    ];
+    medal = '🎮'; rankCls = 'rank-comeback'; mainColor = '#a5b4fc';
+    msg = comebacks[Math.floor(Math.random() * comebacks.length)]; particles = false;
+    el.innerHTML =
+      '<div style="font-size:2rem;margin-bottom:4px">' + medal + '</div>' +
+      '<div style="font-size:.95rem;font-weight:800;color:' + mainColor + ';margin:4px 0">Rank #' + rank + '</div>' +
+      '<div style="font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.5;margin-top:4px">' + msg + '</div>';
+    el.className = 'rank-box ' + rankCls;
+    setTimeout(function(){ el.classList.add('show'); }, 80);
+    return;
+  }
+
+  // Build particle HTML for top-3
+  var particleHtml = '';
+  if (particles) {
+    var colors = ['#FFD700','#FF6B6B','#4ADE80','#60A5FA','#F472B6','#FBBF24'];
+    for (var p = 0; p < 12; p++) {
+      var angle = (p / 12) * 360;
+      var color = colors[p % colors.length];
+      var delay = (p * 0.05).toFixed(2);
+      particleHtml += '<div class="rank-particle" style="background:' + color +
+        ';left:' + (20 + Math.random() * 60) + '%;animation-delay:' + delay + 's;' +
+        'animation-duration:' + (0.6 + Math.random() * 0.4) + 's"></div>';
+    }
+  }
+
+  el.innerHTML =
+    (particles ? '<div class="rank-particles">' + particleHtml + '</div>' : '') +
+    '<div class="rank-medal-anim" style="font-size:' + (isTop3 ? '2.5rem' : '2rem') + ';margin-bottom:4px">' + medal + '</div>' +
+    '<div class="rank-num-anim" style="font-size:' + (isTop3 ? '1.5rem' : '1.2rem') + ';font-weight:900;color:' + mainColor + ';margin:4px 0">Rank <span style="font-size:' + (isTop3 ? '2rem' : '1.5rem') + '">#' + rank + '</span></div>' +
+    '<div style="font-size:.78rem;color:rgba(255,255,255,.7);line-height:1.5;margin-top:4px">' + msg + '</div>';
+
+  el.className = 'rank-box ' + rankCls;
+  setTimeout(function(){ el.classList.add('show'); }, 80);
 }
 
 function _lbFetchRank(name,taps){ return; // disabled — rank now comes from POST response directly
@@ -2763,7 +2865,7 @@ function _lbFetchRank(name,taps){ return; // disabled — rank now comes from PO
         if(lbList){var prev=document.getElementById('lbRankBanner');if(prev)prev.remove();
           lbList.insertAdjacentHTML('afterbegin','<div id="lbRankBanner" style="padding:10px;background:rgba(34,197,94,.2);margin-bottom:10px;border-radius:8px;font-weight:bold;text-align:center;font-size:.85rem;color:#fff">🔥 You are #'+rank+' globally!</div>');}
       }else{
-        el.innerHTML='<div style="font-size:1rem">⚡ Score saved!</div><div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Not in Top 100 yet — keep practising!</div>';el.classList.add('show');
+        el.innerHTML='<div style="font-size:1rem">⚡ Score saved!</div><div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Not in Top 500 yet — keep practising!</div>';el.classList.add('show');
       }
     }
   })
@@ -2809,15 +2911,19 @@ function gStart() {
   speak('Go! Tap as fast as you can!');
   _wgTimer = setInterval(() => {
     _wgSec--;
-    $('ovGameSecs').textContent = _wgSec + 's';
+    const secsEl = document.getElementById('ovGameSecs');
+    if (secsEl) {
+      secsEl.textContent = _wgSec + 's';
+      secsEl.style.color = _wgSec <= 5 ? '#F87171' : _wgSec <= 10 ? '#FB923C' : '#D4A017';
+    }
     if (_wgSec <= 0) {
       clearInterval(_wgTimer); _wgRunning = false;
       // Disable tap area
       if (ta) ta.classList.add('disabled');
-      const s = _wgCount;
+      const s = Math.min(_wgCount, 140); // cap at 140 — competitive ceiling
       // Update personal best
       if (s > _getPB()) { _setPB(s); _refreshBestDisplay(); }
-      const r = s >= 70 ? '🔥 Lightning fast!' : s >= 50 ? '💪 Excellent!' : s >= 30 ? '👍 Good effort!' : '😊 Keep practising!';
+      const r = s >= 120 ? '🔥 SUPERHUMAN!' : s >= 100 ? '⚡ Lightning!' : s >= 70 ? '💥 Incredible!' : s >= 50 ? '💪 Excellent!' : s >= 30 ? '👍 Good effort!' : '😊 Keep practising!';
       $('ovGameLbl').textContent = s + ' taps — ' + r;
       speak(s + ' taps. ' + r);
       savePB('reaction', Math.round(15000 / Math.max(s, 1)));
@@ -2847,7 +2953,26 @@ function gTap(e) {
   if (now - _lastTapTime < 30) return;
   _lastTapTime = now;
   _wgCount++;
-  document.getElementById('ovTaps').textContent = _wgCount;
+  const tapsEl = document.getElementById('ovTaps');
+  if (tapsEl) {
+    tapsEl.textContent = _wgCount;
+    tapsEl.classList.remove('bump');
+    void tapsEl.offsetWidth; // reflow to restart animation
+    tapsEl.classList.add('bump');
+    setTimeout(() => tapsEl.classList.remove('bump'), 120);
+  }
+  // Ripple on tap area
+  const ta = document.getElementById('tapArea');
+  if (ta && e) {
+    const r = document.createElement('div');
+    r.className = 'tap-ripple';
+    const rect = ta.getBoundingClientRect();
+    const cx = (e.clientX || rect.left + rect.width/2) - rect.left;
+    const cy = (e.clientY || rect.top + rect.height/2) - rect.top;
+    r.style.left = cx + 'px'; r.style.top = cy + 'px';
+    ta.appendChild(r);
+    setTimeout(() => r.remove(), 500);
+  }
 }
 
 /* ─────────────────────────────────────────────────────
@@ -3493,9 +3618,9 @@ function resumeFromInstructions() {
       if (_wgSec <= 0) {
         clearInterval(_wgTimer); _wgRunning = false;
         if (rta) rta.classList.add('disabled');
-        const s = _wgCount;
+        const s = Math.min(_wgCount, 140);
         if (s > _getPB()) { _setPB(s); _refreshBestDisplay(); }
-        const r = s >= 70 ? '🔥 Lightning fast!' : s >= 50 ? '💪 Excellent!' : s >= 30 ? '👍 Good effort!' : '😊 Keep practising!';
+        const r = s >= 120 ? '🔥 SUPERHUMAN!' : s >= 100 ? '⚡ Lightning!' : s >= 70 ? '💥 Incredible!' : s >= 50 ? '💪 Excellent!' : s >= 30 ? '👍 Good effort!' : '😊 Keep practising!';
         document.getElementById('ovGameLbl').textContent = s + ' taps — ' + r;
         speak(s + ' taps. ' + r);
         savePB('reaction', Math.round(15000 / Math.max(s, 1)));
@@ -3595,12 +3720,10 @@ function tick() {
 }
 
 function _resetAllRankBoxes() {
-  var grReaction = document.getElementById('globalRank');
-  var grTyping   = document.getElementById('tyGlobalRank');
-  var grGame     = document.getElementById('gameGlobalRank');
-  if (grReaction) { grReaction.className = 'rank-box'; grReaction.style.cssText = ''; grReaction.innerHTML = ''; }
-  if (grTyping)   { grTyping.style.cssText = 'display:none;width:100%;max-width:320px;margin:.4rem auto 0;padding:14px 18px;border-radius:12px;text-align:center;font-weight:700'; grTyping.innerHTML = ''; }
-  if (grGame)     { grGame.style.cssText   = 'display:none;width:100%;max-width:320px;margin:.4rem auto 0;padding:14px 18px;border-radius:12px;text-align:center;font-weight:700'; grGame.innerHTML = ''; }
+  ['globalRank','tyGlobalRank','gameGlobalRank'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) { el.className = 'rank-box'; el.style.cssText = ''; el.innerHTML = ''; }
+  });
 }
 
 function _showDone(scoreHTML) {
@@ -4635,8 +4758,8 @@ function _gameDoSave(name, data) {
   var displayName = (name && name.length >= 2) ? name : 'Anonymous';
   var payload = Object.assign({ type: data.postType, name: displayName }, data.extra);
   var savedExId = _ex ? _ex.id : null; // capture at call time — guard stale async responses
-  _gameShowBox('<div style="font-size:.85rem;color:rgba(255,255,255,.45)">⏳ Saving…</div>',
-    'rgba(255,255,255,.04)', 'rgba(255,255,255,.12)');
+  var el2 = document.getElementById('gameGlobalRank');
+  if (el2) { el2.className='rank-box'; el2.innerHTML='<div style="font-size:.85rem;color:rgba(255,255,255,.45)">⏳ Saving…</div>'; el2.classList.add('show'); }
   fetch(GAME_LB_API, {
     method:'POST', redirect:'follow',
     headers:{'Content-Type':'text/plain'},
@@ -4644,18 +4767,11 @@ function _gameDoSave(name, data) {
   })
   .then(function(r){ return r.json(); })
   .then(function(json){
-    var gameIds = ['math-challenge','memory-match','number-sequence'];
-    if (!_ex || _ex.id !== savedExId || gameIds.indexOf(_ex.id) === -1) return; // stale response guard
     if (json.ok && json.rank >= 1) {
-      var rank=json.rank, medal=rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'🏅', top=rank<=3;
-      _gameShowBox(
-        '<div style="font-size:1.8rem">'+medal+'</div>'+
-        '<div style="font-size:1.15rem;font-weight:900;color:'+(top?'#D4A017':'#22C55E')+';margin:4px 0">Rank #'+rank+'</div>'+
-        '<div style="font-size:.82rem;color:rgba(255,255,255,.65)">'+data.label+'</div>'+
-        '<div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:2px">'+(top?'🔥 Top 3 — incredible!':'Keep going! 💪')+'</div>',
-        top?'rgba(184,134,11,.18)':'rgba(34,197,94,.12)',
-        top?'rgba(212,160,23,.6)':'rgba(34,197,94,.5)'
-      );
+      var rank=json.rank, savedExId2=savedExId;
+      var gameIds = ['math-challenge','memory-match','number-sequence'];
+      if (!_ex || _ex.id !== savedExId2 || gameIds.indexOf(_ex.id) === -1) return;
+      _showAnimatedRank(rank, json.score, '', 0, savedExId2, 'gameGlobalRank');
     } else {
       _gameShowBox(
         '<div style="font-size:1rem;color:var(--gold-l)">✅ Score Saved!</div>'+
@@ -4729,18 +4845,16 @@ function tyShowNameModal(wpm, acc) {
 function tySaveScore(name, wpm, acc) {
   var displayName = (name && name.length >= 2) ? name : 'Anonymous';
 
-  function showOnDone(html, bg, border) {
-    if (!_ex || _ex.id !== 'typing-speed') return; // only show on typing done screen
+  function showOnDone(html, extraCls) {
+    if (!_ex || _ex.id !== 'typing-speed') return;
     var el = document.getElementById('tyGlobalRank');
     if (!el) return;
-    el.style.display    = 'block';
-    el.style.background = bg || 'rgba(34,197,94,.12)';
-    el.style.border     = '1.5px solid ' + (border || 'rgba(34,197,94,.4)');
+    el.className = 'rank-box' + (extraCls ? ' ' + extraCls : '');
     el.innerHTML = html;
+    setTimeout(function(){ el.classList.add('show'); }, 50);
   }
 
-  showOnDone('<div style="font-size:.85rem;color:rgba(255,255,255,.5)">⏳ Saving score…</div>',
-    'rgba(255,255,255,.04)', 'rgba(255,255,255,.12)');
+  showOnDone('<div style="font-size:.85rem;color:rgba(255,255,255,.5)">⏳ Saving score…</div>', '');
 
   fetch(TY_LB_API, {
     method: 'POST',
@@ -4757,44 +4871,26 @@ function tySaveScore(name, wpm, acc) {
       showOnDone(
         '<div style="font-size:1.1rem;color:var(--gold-l)">✅ Score Saved!</div>' +
         '<div style="font-size:.82rem;color:rgba(255,255,255,.6);margin-top:6px">⌨️ ' + wpm + ' WPM &nbsp;·&nbsp; ' + acc + '% accuracy</div>' +
-        '<div style="font-size:.78rem;color:var(--gold-l);margin-top:2px;font-weight:800">' + pts + ' pts</div>',
-        'rgba(34,197,94,.1)', 'rgba(34,197,94,.4)');
+        '<div style="font-size:.78rem;color:var(--gold-l);margin-top:2px;font-weight:800">' + pts + ' pts</div>', '');
     }
     setTimeout(tyLbLoad, 1000);
   })
   .catch(function() {
-    showOnDone('<div style="font-size:.9rem;color:#F87171">⚠️ Could not save — check connection</div>',
-      'rgba(239,68,68,.08)', 'rgba(239,68,68,.3)');
+    showOnDone('<div style="font-size:.9rem;color:#F87171">⚠️ Could not save — check connection</div>', '');
   });
 }
 
 function _tyShowRank(rank, score) {
-  var medal  = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '🏅';
-  var isTop3 = rank <= 3;
-  var color  = isTop3 ? '#D4A017' : '#22C55E';
-  var bg     = isTop3 ? 'rgba(184,134,11,.18)' : 'rgba(34,197,94,.12)';
-  var border = isTop3 ? 'rgba(212,160,23,.6)'  : 'rgba(34,197,94,.5)';
-  var msg    = isTop3 ? '🔥 Top 3 — incredible!' : 'Keep climbing! 💪';
-
   /* Typing panel bar */
+  var medal  = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '🏅';
   var bar = document.getElementById('tyOvRank');
   if (bar) {
     bar.innerHTML = '<span style="font-size:.95rem;font-weight:800;color:var(--gold-l)">' + medal + ' Rank #' + rank + '</span>';
     bar.style.display = 'block';
   }
-
-  /* Done screen box — only show if still on typing game */
+  /* Done screen animated reveal */
   if (!_ex || _ex.id !== 'typing-speed') return;
-  var el = document.getElementById('tyGlobalRank');
-  if (!el) return;
-  el.style.display    = 'block';
-  el.style.background = bg;
-  el.style.border     = '1.5px solid ' + border;
-  el.style.color      = color;
-  el.innerHTML =
-    '<div style="font-size:1.8rem">' + medal + '</div>' +
-    '<div style="font-size:1.15rem;font-weight:900;color:' + color + ';margin:4px 0">Rank #' + rank + '</div>' +
-    '<div style="font-size:.82rem;color:rgba(255,255,255,.65)">⌨️ ' + score + ' pts &nbsp;·&nbsp; ' + msg + '</div>';
+  _showAnimatedRank(rank, score, '', 0, 'typing-speed', 'tyGlobalRank');
 }
 
 window._tyExSubmitName = function() {

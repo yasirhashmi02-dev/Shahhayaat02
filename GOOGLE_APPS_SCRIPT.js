@@ -64,7 +64,7 @@ function saveToSheet(sheetKey, headers, cols, score, displayName) {
   let all = sheet.getDataRange().getValues().slice(1);
   all = all.filter(r => !String(r[0]||'').startsWith('__auto__') && !String(r[0]||'').startsWith('Anonymous __'));
   all.sort((a,b) => Number(b[1]) - Number(a[1]));
-  const top = all.slice(0, 100);
+  const top = all.slice(0, 500);
 
   sheet.clearContents();
   sheet.appendRow(headers);
@@ -129,7 +129,7 @@ function doPost(e) {
 function saveReaction(d) {
   const taps = Number(d.taps || 0);
   const time = Number(d.time || 0);
-  if (taps < 1 || taps > 135)   return { ok:false, error:'taps_out_of_range' };
+  if (taps < 1 || taps > 140)   return { ok:false, error:'taps_out_of_range' };
   if (time < 100 || time > 3000) return { ok:false, error:'time_out_of_range' };
   const bonus = Math.max(0, 200 - Math.floor(Math.max(0, time - 100) / 5));
   const score = (taps * 20) + bonus;
