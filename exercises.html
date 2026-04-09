@@ -1732,6 +1732,15 @@ body.nav-open{overflow:hidden}
     <div id="gameGlobalRank" class="rank-box"></div>
     <button class="ov-btn-challenge" id="ovChallengeBtn" onclick="openChallenge()" style="display:none">🏆 Challenge a Friend</button>
     <div id="promoCard" style="display:none"></div>
+    <div class="near-rank-nudge" id="nearRankNudge"></div>
+    <button class="wa-rank-share" id="waRankShare" onclick="shareRankOnWhatsApp()">
+      💬 Share my rank on WhatsApp
+    </button>
+    <div id="dailyChallengeBanner">
+      <div class="dc-title">🗓️ Daily Challenge</div>
+      <div class="dc-desc" id="dcBannerDesc">Play today's challenge!</div>
+      <button class="dc-btn" onclick="startDailyChallenge()">▶ Play Now</button>
+    </div>
     <div class="ov-done-row">
       <button class="ov-btn-next" id="ovNextBtn" onclick="ovNext()" style="display:none">▶ Next Activity</button>
       <button class="ov-btn-again" onclick="ovAgain()">🔄 Do Again</button>
@@ -2164,6 +2173,17 @@ const DAILY_TIPS = [
 /* ─────────────────────────────────────────────────────
    RENDER CARDS — minimal, action-first
 ───────────────────────────────────────────────────── */
+function _getRankBadgeForExercise(exId) {
+  try {
+    var ranks = JSON.parse(localStorage.getItem('sh_my_ranks') || '[]');
+    // Map exercise IDs to game titles
+    var ex = EXERCISES.find(function(e){ return e.id === exId; });
+    if (!ex) return null;
+    var r = ranks.find(function(r){ return r.game === ex.title; });
+    return r ? r.rank : null;
+  } catch(e) { return null; }
+}
+
 function renderCards(filter, recIds) {
   const grid = document.getElementById('exGrid');
   if (!grid) return;
@@ -2830,10 +2850,25 @@ function _showAnimatedRank(rank, score, name, rawMetric, exId, elId) {
   el.style.transform  = 'translateY(22px) scale(0.85)';
   el.getBoundingClientRect(); // force layout flush
   el.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
+  // Save rank to personal stats
+  _lastRevealedRank = rank;
+  _lastRevealedGame = exId || '';
+  if (_ex) _saveMyRank(_ex.title, rank);
+  // Mark daily challenge done if applicable
+  if (_ex && _ex.id === _getDailyChallengeGame()) _markDailyChallengeDone(score);
   setTimeout(function() {
     el.style.opacity   = '1';
     el.style.transform = 'translateY(0) scale(1)';
     el.classList.add('show');
+    // Play rank sound
+    soundRankReveal(rank);
+    // Show near-rank nudge
+    _showNearRankNudge(rank);
+    // Show WA share button
+    var waBtn = document.getElementById('waRankShare');
+    if (waBtn && rank <= 500) waBtn.classList.add('show');
+    // Show daily challenge banner
+    _showDailyChallengeOnDone();
     // Confetti for top 3
     if (particles) {
       var dots = el.querySelectorAll('span[style*="position:absolute"][style*="border-radius:50%"]');
@@ -2944,14 +2979,24 @@ function gStart() {
       secsEl.textContent = _wgSec + 's';
       secsEl.style.color = _wgSec <= 5 ? '#F87171' : _wgSec <= 10 ? '#FB923C' : '#D4A017';
     }
+    if (_wgSec <= 5 && _wgSec > 0) soundCountdown(_wgSec);
+    // Change tap area urgency color
+    var _taEl = document.getElementById('tapArea');
+    if (_taEl && _wgRunning) {
+      if (_wgSec <= 3)      _taEl.style.background = 'radial-gradient(circle at 35% 35%,#F87171,#EF4444 55%,#B91C1C)';
+      else if (_wgSec <= 7) _taEl.style.background = 'radial-gradient(circle at 35% 35%,#FCD34D,#F59E0B 55%,#D97706)';
+      else                  _taEl.style.background = '';
+    }
     if (_wgSec <= 0) {
       clearInterval(_wgTimer); _wgRunning = false;
       // Disable tap area
       if (ta) ta.classList.add('disabled');
       const s = Math.min(_wgCount, 140); // cap at 140 — competitive ceiling
       // Update personal best
-      if (s > _getPB()) { _setPB(s); _refreshBestDisplay(); }
+      var wasPB = s > _getPB();
+      if (wasPB) { _setPB(s); _refreshBestDisplay(); setTimeout(function(){ showPBBurst(s + ' taps'); }, 900); }
       const r = s >= 120 ? '🔥 SUPERHUMAN!' : s >= 100 ? '⚡ Lightning!' : s >= 70 ? '💥 Incredible!' : s >= 50 ? '💪 Excellent!' : s >= 30 ? '👍 Good effort!' : '😊 Keep practising!';
+      soundGameEnd();
       $('ovGameLbl').textContent = s + ' taps — ' + r;
       speak(s + ' taps. ' + r);
       savePB('reaction', Math.round(15000 / Math.max(s, 1)));
@@ -2981,6 +3026,7 @@ function gTap(e) {
   if (now - _lastTapTime < 30) return;
   _lastTapTime = now;
   _wgCount++;
+  soundTap();
   const tapsEl = document.getElementById('ovTaps');
   if (tapsEl) {
     tapsEl.textContent = _wgCount;
@@ -3022,7 +3068,10 @@ function mathStart() {
       clearInterval(_mTimer); _mRunning = false;
       const pct = Math.round(_mCorrect / Math.max(_mCorrect + _mWrong, 1) * 100);
       speak(_mCorrect + ' correct answers. ' + (pct >= 80 ? 'Excellent!' : 'Good effort!'));
+      var data_math = JSON.parse(localStorage.getItem('sh_wellness')||'{}');
+      var prevMath = (data_math.pb && data_math.pb.math) || 0;
       savePB('math', _mCorrect);
+      if (_mCorrect > prevMath) setTimeout(function(){ showPBBurst(_mCorrect + ' correct'); }, 900);
       saveScore('brain', pct);
       const scoreHTML = `<div class="done-score-pill"><strong>${_mCorrect}</strong><span>CORRECT</span></div>
         <div class="done-score-pill"><strong>${_mWrong}</strong><span>WRONG</span></div>
@@ -3070,7 +3119,7 @@ function mathAnswer(val) {
     if (parseInt(b.textContent) === _mAnswer) b.classList.add('correct');
     else if (parseInt(b.textContent) === val && val !== _mAnswer) b.classList.add('wrong');
   });
-  if (val === _mAnswer) _mCorrect++; else _mWrong++;
+  if (val === _mAnswer) { _mCorrect++; soundCorrect(); } else { _mWrong++; soundWrong(); }
   setTimeout(() => { if (_mRunning) nextMathQ(); }, 500);
 }
 
@@ -3115,7 +3164,7 @@ function memFlip(i) {
     const [a, b] = _memFlipped;
     const ca = document.getElementById('mc' + a), cb = document.getElementById('mc' + b);
     if (ca.dataset.val === cb.dataset.val) {
-      ca.classList.add('matched'); cb.classList.add('matched');
+      soundMatch(); ca.classList.add('matched'); cb.classList.add('matched');
       _memMatched++;
       document.getElementById('memMatches').textContent = _memMatched;
       _memFlipped = [];
@@ -3140,7 +3189,7 @@ function memFlip(i) {
     } else {
       setTimeout(() => {
         ca.textContent = '❓'; cb.textContent = '❓';
-        ca.classList.remove('flipped'); cb.classList.remove('flipped');
+        soundWrong(); ca.classList.remove('flipped'); cb.classList.remove('flipped');
         _memFlipped = [];
       }, 900);
     }
@@ -3752,10 +3801,18 @@ function _resetAllRankBoxes() {
     var el = document.getElementById(id);
     if (el) {
       el.className = 'rank-box';
-      el.style.cssText = 'display:none'; // hard reset
+      el.style.cssText = 'display:none';
       el.innerHTML = '';
     }
   });
+  // Reset WA share, nudge, daily banner
+  var waBtn = document.getElementById('waRankShare');
+  if (waBtn) waBtn.classList.remove('show');
+  var nudge = document.getElementById('nearRankNudge');
+  if (nudge) nudge.classList.remove('show');
+  var banner = document.getElementById('dailyChallengeBanner');
+  if (banner) banner.style.display = 'none';
+  _lastRevealedRank = 0;
 }
 
 function _showDone(scoreHTML) {
@@ -3766,6 +3823,19 @@ function _showDone(scoreHTML) {
   document.getElementById('ovDoneTtl').textContent = isLast ? 'All Done! 🏆' : 'Well Done!';
   document.getElementById('ovDoneSub').textContent = isLast
     ? 'Excellent! You completed all activities.' : (_ex ? _ex.title : '') + ' complete. Tap Next when you are ready.';
+  // Streak bonus pill
+  var _sbExisting = document.getElementById('streakBonusPill');
+  if (_sbExisting) _sbExisting.remove();
+  var _sb = _getStreakBonus();
+  if (_sb.label) {
+    var _sbPill = document.createElement('div');
+    _sbPill.id = 'streakBonusPill';
+    _sbPill.className = 'streak-bonus-pill';
+    _sbPill.style.cssText = 'margin:.3rem auto 0;display:inline-flex';
+    _sbPill.textContent = _sb.label;
+    var _sbSub = document.getElementById('ovDoneSub');
+    if (_sbSub) _sbSub.after(_sbPill);
+  }
   document.getElementById('ovDoneScores').innerHTML = scoreHTML || '';
   // Reset ALL rank boxes on each new done screen — prevents bleed-over between games
   _resetAllRankBoxes();
@@ -4197,6 +4267,7 @@ function seqTap(n) {
   }
 
   // Mark tile as done
+  soundTap();
   const btn = document.getElementById('seqBtn_' + n);
   if (btn) {
     btn.style.background  = 'rgba(34,197,94,.3)';
@@ -4334,6 +4405,7 @@ function shareChallenge(method) {
   updateProgressBars();
   initFirstTimeGuide();
   initWelcomeBack();
+  _initSound();
 
   // Expose all onclick-called functions to global scope
   // (needed because 'use strict' + deferred script can cause ReferenceError
@@ -4500,8 +4572,13 @@ function shareChallenge(method) {
     ta.addEventListener('pointerdown', function() { _lastPointerTs = Date.now(); }, { passive: true, capture: true });
   })();
 
-  window.lbSubmitName = lbSubmitName;
-  window.lbSkipName   = lbSkipName;
+  window.lbSubmitName       = lbSubmitName;
+  window.lbSkipName         = lbSkipName;
+  window.toggleSound        = toggleSound;
+  window.openStatsPanel     = openStatsPanel;
+  window.closeStatsPanel    = closeStatsPanel;
+  window.shareRankOnWhatsApp= shareRankOnWhatsApp;
+  window.startDailyChallenge= startDailyChallenge;
   window.setTheme         = setTheme;
   window.toggleThemePanel = toggleThemePanel;
   window.lbnSanitizeInput = lbnSanitizeInput;
@@ -5154,6 +5231,275 @@ function tyFinish(typed) {
   function encodeURIComponent_safe(s){ try{ return encodeURIComponent(s); }catch(e){ return s; } }
 })();
 
+/* ═══════════════════════════════════════════════════════════
+   SOUND ENGINE — Web Audio API, no files needed
+   ═══════════════════════════════════════════════════════════ */
+var _soundEnabled = true;
+var _audioCtx = null;
+
+function _getAudioCtx() {
+  if (!_audioCtx) {
+    try { _audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+  }
+  return _audioCtx;
+}
+
+function _playTone(freq, type, duration, vol, startDelay) {
+  if (!_soundEnabled) return;
+  try {
+    var ctx = _getAudioCtx();
+    if (!ctx) return;
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = type || 'sine';
+    osc.frequency.value = freq;
+    var t = ctx.currentTime + (startDelay || 0);
+    gain.gain.setValueAtTime(vol || 0.18, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + duration);
+    osc.start(t);
+    osc.stop(t + duration);
+  } catch(e) {}
+}
+
+function soundTap()     { _playTone(880, 'sine',     0.04, 0.12); }
+function soundCorrect() { _playTone(660, 'sine',     0.12, 0.18); _playTone(880, 'sine', 0.12, 0.18, 0.1); }
+function soundWrong()   { _playTone(220, 'sawtooth', 0.15, 0.2); }
+function soundMatch()   { _playTone(523, 'sine', 0.1, 0.2); _playTone(659, 'sine', 0.1, 0.2, 0.1); _playTone(784, 'sine', 0.12, 0.22, 0.2); }
+function soundGameEnd() { [523,659,784,1047].forEach(function(f,i){ _playTone(f,'sine',0.2,0.2,i*0.12); }); }
+function soundPB()      { [784,988,1175,1568].forEach(function(f,i){ _playTone(f,'triangle',0.25,0.25,i*0.1); }); }
+function soundCountdown(n) { _playTone(n <= 3 ? 660 : 440, 'square', 0.08, 0.15); }
+function soundRankReveal(rank) {
+  if (rank <= 3)  { [523,659,784,1047,1319].forEach(function(f,i){ _playTone(f,'sine',0.3,0.25,i*0.09); }); }
+  else if (rank <= 10) { [523,659,784].forEach(function(f,i){ _playTone(f,'sine',0.2,0.2,i*0.1); }); }
+  else { _playTone(440,'sine',0.2,0.18); }
+}
+
+function toggleSound() {
+  _soundEnabled = !_soundEnabled;
+  var btn = document.getElementById('soundToggleBtn');
+  if (btn) { btn.textContent = _soundEnabled ? '🔊' : '🔇'; btn.classList.toggle('muted', !_soundEnabled); }
+  try { localStorage.setItem('sh_sound', _soundEnabled ? '1' : '0'); } catch(e) {}
+}
+
+function _initSound() {
+  try { _soundEnabled = localStorage.getItem('sh_sound') !== '0'; } catch(e) {}
+  var btn = document.getElementById('soundToggleBtn');
+  if (btn) { btn.textContent = _soundEnabled ? '🔊' : '🔇'; btn.classList.toggle('muted', !_soundEnabled); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PERSONAL BEST CONFETTI BURST
+   ═══════════════════════════════════════════════════════════ */
+function showPBBurst(label) {
+  soundPB();
+  var el = document.getElementById('pbBurst');
+  if (!el) return;
+  var colors = ['#FFD700','#FF6B6B','#4ADE80','#60A5FA','#F472B6','#FBBF24','#A78BFA'];
+  var particles = '';
+  for (var i = 0; i < 18; i++) {
+    var x = 10 + Math.random() * 80;
+    var y = 10 + Math.random() * 80;
+    var size = 6 + Math.random() * 10;
+    var color = colors[i % colors.length];
+    var delay = (Math.random() * 0.4).toFixed(2);
+    particles += '<div class="pb-particle" style="width:' + size + 'px;height:' + size + 'px;background:' + color +
+      ';left:' + x + '%;top:' + y + '%;animation-delay:' + delay + 's;animation-duration:' + (0.8 + Math.random() * 0.6).toFixed(2) + 's"></div>';
+  }
+  el.innerHTML = '<div class="pb-burst-txt">🏆 New Personal Best!<br><span style="font-size:.7em;color:#fff">' + (label||'') + '</span></div>' + particles;
+  el.classList.add('show');
+  setTimeout(function() { el.classList.remove('show'); el.innerHTML = ''; }, 1800);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NEAR-RANK NUDGE — show if rank 11-20 or just outside top X
+   ═══════════════════════════════════════════════════════════ */
+function _showNearRankNudge(rank) {
+  var el = document.getElementById('nearRankNudge');
+  if (!el) return;
+  var msg = '';
+  if (rank >= 11 && rank <= 15)      msg = '🔥 So close! Just ' + (rank-10) + ' spot' + (rank-10>1?'s':'') + ' away from Top 10!';
+  else if (rank >= 16 && rank <= 20) msg = '💪 You are in Top 20 — keep pushing!';
+  else if (rank >= 4 && rank <= 5)   msg = '⭐ Just ' + (rank-3) + ' step' + (rank-3>1?'s':'') + ' from the podium!';
+  else if (rank === 101)             msg = '😤 Just missed Top 100 — one more try!';
+  else if (rank >= 96 && rank <= 100) msg = '🎯 You are in Top 100 — almost Top 50!';
+  if (msg) {
+    el.textContent = msg;
+    el.classList.add('show');
+  } else {
+    el.classList.remove('show');
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WHATSAPP RANK SHARE
+   ═══════════════════════════════════════════════════════════ */
+var _lastRevealedRank = 0;
+var _lastRevealedGame = '';
+
+function shareRankOnWhatsApp() {
+  if (!_lastRevealedRank) return;
+  var medal = _lastRevealedRank===1?'🥇':_lastRevealedRank===2?'🥈':_lastRevealedRank===3?'🥉':'🏅';
+  var gameTitle = _ex ? _ex.title : (_lastRevealedGame || 'Shah Hayaat');
+  var msg = medal + ' I just ranked #' + _lastRevealedRank + ' globally in "' + gameTitle + '" on Shah Hayaat Wellness Clinic!\n\n' +
+    '🧠 Free brain training & wellness exercises — no login, no cost.\n' +
+    '👉 https://www.shahhayaat.com/exercises.html\n\nCan you beat my rank? 💪';
+  window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   STREAK BONUS MULTIPLIER
+   ═══════════════════════════════════════════════════════════ */
+function _getStreakBonus() {
+  try {
+    var data = JSON.parse(localStorage.getItem('sh_wellness') || '{}');
+    var streak = data.streak || 0;
+    if (streak >= 7)  return { mult: 1.5, label: '🔥 7-day streak bonus: ×1.5!' };
+    if (streak >= 3)  return { mult: 1.2, label: '🔥 3-day streak bonus: ×1.2!' };
+    return { mult: 1, label: '' };
+  } catch(e) { return { mult: 1, label: '' }; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DAILY CHALLENGE — seeded by date so everyone gets same game
+   ═══════════════════════════════════════════════════════════ */
+var _dcGames = ['reaction-test','math-challenge','memory-match','number-sequence'];
+
+function _getDailyChallengeGame() {
+  var today = new Date();
+  var seed = today.getFullYear() * 10000 + (today.getMonth()+1) * 100 + today.getDate();
+  return _dcGames[seed % _dcGames.length];
+}
+
+function _getDailyChallengeKey() {
+  var today = new Date();
+  return 'sh_dc_' + today.getFullYear() + '_' + (today.getMonth()+1) + '_' + today.getDate();
+}
+
+function _hasDoneDailyChallenge() {
+  try { return !!localStorage.getItem(_getDailyChallengeKey()); } catch(e) { return false; }
+}
+
+function _markDailyChallengeDone(score) {
+  try { localStorage.setItem(_getDailyChallengeKey(), String(score)); } catch(e) {}
+}
+
+function startDailyChallenge() {
+  var gameId = _getDailyChallengeGame();
+  var banner = document.getElementById('dailyChallengeBanner');
+  if (banner) banner.style.display = 'none';
+  openExercise(gameId);
+}
+
+function _showDailyChallengeOnDone() {
+  var banner = document.getElementById('dailyChallengeBanner');
+  var desc   = document.getElementById('dcBannerDesc');
+  if (!banner || !desc) return;
+  var gameId = _getDailyChallengeGame();
+  var ex = EXERCISES.find(function(e){ return e.id === gameId; });
+  var done = _hasDoneDailyChallenge();
+  if (done) {
+    banner.style.display = 'none';
+    return;
+  }
+  desc.textContent = "Today's challenge: " + (ex ? ex.title : gameId) + " — play now to earn your daily badge!";
+  banner.style.display = 'block';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PERSONAL STATS PANEL
+   ═══════════════════════════════════════════════════════════ */
+function openStatsPanel() {
+  var panel = document.getElementById('statsPanel');
+  if (!panel) return;
+  _renderStatsPanel();
+  panel.classList.add('show');
+}
+
+function closeStatsPanel() {
+  var panel = document.getElementById('statsPanel');
+  if (panel) panel.classList.remove('show');
+}
+
+function _renderStatsPanel() {
+  try {
+    var data = JSON.parse(localStorage.getItem('sh_wellness') || '{}');
+    var pb   = data.pb || {};
+    var streak = data.streak || 0;
+    var best   = data.bestStreak || 0;
+
+    // Stats grid
+    var grid = document.getElementById('statsGrid');
+    if (grid) {
+      var items = [
+        { icon:'⚡', val: pb.reaction ? pb.reaction + ' ms' : '—', lbl:'Best Reaction' },
+        { icon:'🧠', val: pb.math     ? pb.math + ' correct' : '—', lbl:'Best Math' },
+        { icon:'🃏', val: pb.memory   ? pb.memory + ' attempts' : '—', lbl:'Best Memory' },
+        { icon:'⌨️', val: pb.typing   ? pb.typing + ' WPM' : '—', lbl:'Best Typing' },
+        { icon:'🔢', val: pb.sequence ? pb.sequence + 's' : '—', lbl:'Best Sequence' },
+        { icon:'🔥', val: streak + ' days', lbl:'Current Streak' },
+        { icon:'🏆', val: best + ' days', lbl:'Best Streak' },
+        { icon:'📅', val: data.lastActive ? data.lastActive.split(' ').slice(1,3).join(' ') : '—', lbl:'Last Active' }
+      ];
+      grid.innerHTML = items.map(function(it) {
+        return '<div class="stats-card"><div class="stats-card-icon">' + it.icon + '</div>' +
+          '<div class="stats-card-val">' + it.val + '</div>' +
+          '<div class="stats-card-lbl">' + it.lbl + '</div></div>';
+      }).join('');
+    }
+
+    // Streak display
+    var streakEl = document.getElementById('statsStreak');
+    if (streakEl) {
+      var bonus = _getStreakBonus();
+      streakEl.innerHTML = '<div style="font-size:2rem">🔥</div>' +
+        '<div style="font-size:1.6rem;font-weight:900;color:var(--gold-l);font-family:var(--font-h)">' + streak + ' days</div>' +
+        '<div style="font-size:.75rem;color:rgba(255,255,255,.5);margin-top:.2rem">Best: ' + best + ' days</div>' +
+        (bonus.label ? '<div class="streak-bonus-pill" style="margin:.5rem auto 0">' + bonus.label + '</div>' : '');
+    }
+
+    // Rank board — pull from localStorage cache
+    var ranksEl = document.getElementById('statsRanks');
+    if (ranksEl) {
+      var ranks = [];
+      try { ranks = JSON.parse(localStorage.getItem('sh_my_ranks') || '[]'); } catch(e) {}
+      if (!ranks.length) {
+        ranksEl.innerHTML = '<div style="font-size:.78rem;color:rgba(255,255,255,.35);text-align:center;padding:.6rem">Play games to see your global ranks here</div>';
+      } else {
+        ranksEl.innerHTML = ranks.map(function(r) {
+          var medal = r.rank===1?'🥇':r.rank===2?'🥈':r.rank===3?'🥉':'#'+r.rank;
+          return '<div class="stats-lb-row"><span class="stats-lb-game">' + r.game + '</span>' +
+            '<span class="stats-lb-rank">' + medal + ' Rank ' + r.rank + '</span></div>';
+        }).join('');
+      }
+    }
+  } catch(e) {}
+}
+
+function _saveMyRank(gameTitle, rank) {
+  try {
+    var ranks = JSON.parse(localStorage.getItem('sh_my_ranks') || '[]');
+    // Update or insert
+    var idx = ranks.findIndex(function(r){ return r.game === gameTitle; });
+    var entry = { game: gameTitle, rank: rank, date: new Date().toDateString() };
+    if (idx >= 0) ranks[idx] = entry; else ranks.unshift(entry);
+    ranks = ranks.slice(0, 10); // keep last 10 games
+    localStorage.setItem('sh_my_ranks', JSON.stringify(ranks));
+  } catch(e) {}
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WEEKLY LEADERBOARD — stored in GAS with date prefix
+   (lightweight: just tags each score with the week number)
+   ═══════════════════════════════════════════════════════════ */
+function _getWeekKey() {
+  var d = new Date();
+  var jan1 = new Date(d.getFullYear(), 0, 1);
+  var week = Math.ceil((((d - jan1) / 86400000) + jan1.getDay() + 1) / 7);
+  return d.getFullYear() + 'W' + week;
+}
+
 /* ── WHATSAPP SHARE after exercise completion ── */
 var _lastCompletedExName = '';
 function shareOnWhatsApp() {
@@ -5245,6 +5591,25 @@ function shareOnWhatsApp() {
       </button>
     </div>
   </div>
+</div>
+
+<!-- PB BURST OVERLAY -->
+<div id="pbBurst"></div>
+
+<!-- SOUND TOGGLE -->
+<button id="soundToggleBtn" onclick="toggleSound()" title="Toggle sounds">🔊</button>
+
+<!-- PERSONAL STATS PANEL -->
+<div id="statsPanel">
+  <div class="stats-header">
+    <div class="stats-title">📊 Your Stats</div>
+    <button class="stats-close" onclick="closeStatsPanel()">✕</button>
+  </div>
+  <div class="stats-grid" id="statsGrid"></div>
+  <div class="stats-section-ttl">🏆 Your Global Ranks</div>
+  <div id="statsRanks" style="width:100%;max-width:400px"></div>
+  <div class="stats-section-ttl">🔥 Streak</div>
+  <div id="statsStreak" style="width:100%;max-width:400px;text-align:center;padding:.8rem;background:rgba(255,255,255,.04);border-radius:14px;margin-bottom:1rem"></div>
 </div>
 </body>
 </html>
