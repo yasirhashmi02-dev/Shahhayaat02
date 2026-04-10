@@ -1463,7 +1463,10 @@ body.nav-open{overflow:hidden}
     </div>
     <button class="toast-next-btn" id="toastNextBtn" onclick="startNextFromToast()">Start Now</button>
   </div>
-  <button id="toastWaShare" onclick="shareOnWhatsApp()" style="display:none;margin-top:.5rem;width:100%;padding:.55rem;background:#25D366;color:#fff;border:none;border-radius:50px;font-size:.8rem;font-weight:700;cursor:pointer">💬 Share my progress on WhatsApp</button>
+  <button id="toastWaShare" onclick="shareOnWhatsApp()" style="display:none">
+    <span style="font-size:1.05rem">📲</span>
+    <span>Share Progress</span>
+  </button>
 </div>
 
 <!-- FIRST-TIME USER GUIDE -->
@@ -1601,9 +1604,8 @@ body.nav-open{overflow:hidden}
     <div id="reactionLB">
       <div class="lb-header">
         <div style="display:flex;gap:.3rem">
-          <button class="lb-tab active" id="lbTabGlobal" onclick="lbSetTab('global')">🌍 Global</button>
+          <button class="lb-tab active" id="lbTabGlobal" onclick="lbSetTab('global')">🏆 Overall</button>
           <button class="lb-tab" id="lbTabWeekly" onclick="lbSetTab('weekly')">📅 This Week</button>
-          <button class="lb-tab" id="lbTabIndia" onclick="lbSetTab('india')">🇮🇳 India</button>
         </div>
         <span class="lb-live">Live</span>
       </div>
@@ -1725,25 +1727,6 @@ body.nav-open{overflow:hidden}
     </div>
   </div>
 
-  <!-- SPEED READING GAME -->
-  <div class="ov-speedread" id="ovSpeedRead">
-    <div class="sr-phase-lbl" id="srPhaseLbl">Get Ready</div>
-    <div class="sr-wpm-badge" id="srWpmBadge">250 WPM</div>
-    <div class="sr-progress"><div class="sr-progress-fill" id="srProgressFill" style="width:0%"></div></div>
-    <div class="sr-word-display" id="srWordDisplay">●</div>
-    <div class="sr-wpm-speed" id="srSpeedBtns" style="display:none">
-      <span style="font-size:.68rem;color:rgba(255,255,255,.4)">Speed:</span>
-      <button class="sr-speed-btn" onclick="srSetSpeed(150)">Slow</button>
-      <button class="sr-speed-btn active" onclick="srSetSpeed(250)">Normal</button>
-      <button class="sr-speed-btn" onclick="srSetSpeed(400)">Fast</button>
-      <button class="sr-speed-btn" onclick="srSetSpeed(600)">Expert</button>
-    </div>
-    <div class="sr-question" id="srQuestion" style="display:none"></div>
-    <div class="sr-opts" id="srOpts" style="display:none"></div>
-    <div id="srScore" style="display:none;font-size:.85rem;color:rgba(255,255,255,.5);margin-top:.3rem"></div>
-    <button id="srStartBtn" onclick="srStart()" style="display:none;padding:.85rem 2.4rem;border-radius:50px;font-size:1rem;font-weight:800;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border:none;cursor:pointer;width:100%;max-width:280px">▶ Start Reading</button>
-  </div>
-
   <!-- DONE SCREEN -->
   <div class="ov-done" id="ovDone">
     <div class="ov-done-ico" id="ovDoneIco">🎉</div>
@@ -1757,7 +1740,11 @@ body.nav-open{overflow:hidden}
     <div id="promoCard" style="display:none"></div>
     <div class="near-rank-nudge" id="nearRankNudge"></div>
     <button class="wa-rank-share" id="waRankShare" onclick="shareRankOnWhatsApp()">
-      💬 Share my rank on WhatsApp
+      <span style="font-size:1.2rem">📲</span>
+      <span style="display:flex;flex-direction:column;align-items:flex-start;line-height:1.25">
+        <span style="font-size:.88rem;font-weight:800">Share My Rank</span>
+        <span style="font-size:.62rem;opacity:.8;font-weight:500">via WhatsApp</span>
+      </span>
     </button>
     <div id="dailyChallengeBanner">
       <div class="dc-title">🗓️ Daily Challenge</div>
@@ -1800,7 +1787,14 @@ body.nav-open{overflow:hidden}
       <div id="challengeScoreLbl" style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.15rem">—</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:.55rem">
-      <button onclick="shareChallenge('whatsapp')" style="width:100%;padding:.85rem;border-radius:50px;font-size:.92rem;font-weight:800;background:#25D366;color:#fff;border:none;cursor:pointer">💬 Share on WhatsApp</button>
+      <button onclick="shareChallenge('whatsapp')" style="width:100%;padding:.82rem 1rem;border-radius:14px;font-size:.9rem;font-weight:800;background:linear-gradient(135deg,#075E54,#128C7E,#25D366);background-size:200% 200%;animation:waShimmer 3s ease infinite;color:#fff;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(37,211,102,.35);display:flex;align-items:center;justify-content:center;gap:.55rem;position:relative;overflow:hidden">
+        <span style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12),transparent 60%);pointer-events:none"></span>
+        <span style="font-size:1.15rem">📲</span>
+        <span style="display:flex;flex-direction:column;align-items:flex-start;line-height:1.2">
+          <span>Challenge a Friend</span>
+          <span style="font-size:.62rem;opacity:.8;font-weight:500">Send on WhatsApp</span>
+        </span>
+      </button>
       <button onclick="shareChallenge('copy')" id="copyShareBtn" style="width:100%;padding:.8rem;border-radius:50px;font-size:.88rem;font-weight:700;background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.15);cursor:pointer">📋 Copy Challenge Text</button>
     </div>
     <div style="font-size:.68rem;color:rgba(255,255,255,.25);text-align:center;margin-top:.9rem">Your friend taps the link, plays the same game, and instantly sees if they beat you!</div>
@@ -1870,14 +1864,6 @@ const EXERCISES = [
     benefit:'Trains', benefitVal:'visual search speed & attention',
     herbal:{name:'Brain Champ', product:'brainchamp', icon:'🧠', desc:'Traditionally used to support memory and focus.', herbs:['Brahmi','Shankhpushpi','Jatamansi']} },
 
-  { id:'speed-reading', cat:'brain', emoji:'📖', title:'Speed Reading',
-    tag:'Brain & Mind', tagClass:'tag-brain', dur:'2 min', isSpeedReadGame:true,
-    desc:'Words flash one at a time at high speed. Read as many as you can, then answer comprehension questions. Trains focus, visual processing and working memory.',
-    steps:['Words flash one at a time on screen at your chosen speed.','Read each word — your brain builds the sentence automatically.','When the passage ends, answer 4 quick comprehension questions.','Your score = words read × accuracy. Compete globally!'],
-    avoid:'Suitable for all ages. Try Slow speed first if new to speed reading.',
-    voiceIntro:'Speed Reading. Words will flash one at a time. Read each word carefully. Answer the questions at the end.',
-    benefit:'Trains','benefitVal':'visual processing & focus',
-    herbal:{name:'Brain Champ', product:'brainchamp', icon:'🧠', desc:'Supports focus, memory and reading speed with Brahmi and Shankhpushpi.', herbs:['Brahmi','Shankhpushpi','Ashwagandha']} },
 
   { id:'typing-speed', cat:'brain', emoji:'⌨️', title:'Typing Speed Test',
     tag:'Brain & Mind', tagClass:'tag-brain', dur:'30 sec', isTypingGame:true,
@@ -3218,16 +3204,16 @@ let _ex = null, _phaseIdx = 0, _sec = 0, _round = 1, _running = false, _timer = 
 let _allExQueue = [], _allExIdx = -1;
 
 function _showPanel(name) {
-  const ids = {choice:'ovChoice',htp:'ovHtp',coach:'ovCoach',game:'ovGame',math:'ovMath',mem:'ovMem',seq:'ovSeq',typing:'ovTyping',speedread:'ovSpeedRead',done:'ovDone'};
+  const ids = {choice:'ovChoice',htp:'ovHtp',coach:'ovCoach',game:'ovGame',math:'ovMath',mem:'ovMem',seq:'ovSeq',typing:'ovTyping',done:'ovDone'};
   const ctrl = document.getElementById('ovCtrl');
   Object.entries(ids).forEach(([k, id]) => {
     const el = document.getElementById(id);
     if (!el) return;
     const vis = k === name;
-    if (k === 'game' || k === 'math' || k === 'mem' || k === 'seq' || k === 'typing' || k === 'speedread' || k === 'done') el.classList.toggle('on', vis);
+    if (k === 'game' || k === 'math' || k === 'mem' || k === 'seq' || k === 'typing' || k === 'done') el.classList.toggle('on', vis);
     else el.style.display = vis ? 'flex' : 'none';
   });
-  const showCtrl = ['coach','game','math','mem','seq','typing','speedread'].includes(name);
+  const showCtrl = ['coach','game','math','mem','seq','typing'].includes(name);
   if (ctrl) ctrl.style.display = showCtrl ? '' : 'none';
 }
 
@@ -3311,7 +3297,6 @@ function openExercise(id) {
     : _ex.isMemoryGame ? '▶ Start Memory Game'
     : _ex.isSeqGame ? '▶ Start Sequence Game'
     : _ex.isTypingGame ? '▶ Start Typing Test'
-    : _ex.isSpeedReadGame ? '▶ Start Speed Reading'
     : '▶ I\'m Ready — Start';
   document.getElementById('ovChoiceStart').textContent  = startLabel;
   document.getElementById('ovHtpStartBtn').textContent  = startLabel;
@@ -3579,15 +3564,6 @@ function ovBeginDirect() {
     document.getElementById('tyOvStartBtn').style.display = '';
     const skipB = document.getElementById('tyOvSkipBtn');
     if (skipB) skipB.style.display = _allExQueue.length > 1 ? '' : 'none';
-    document.getElementById('ovCtrl').style.display = '';
-    speak(_ex.voiceIntro || _ex.title);
-  } else if (_ex.isSpeedReadGame) {
-    if (skipStepBtn) skipStepBtn.style.display = 'none';
-    const instrBtn2 = document.getElementById('ovInstrBtn');
-    if (instrBtn2) instrBtn2.style.display = '';
-    _showPanel('speedread');
-    srInit();
-    document.getElementById('srStartBtn').style.display = '';
     document.getElementById('ovCtrl').style.display = '';
     speak(_ex.voiceIntro || _ex.title);
   } else {
@@ -3956,9 +3932,9 @@ function _showDone(scoreHTML) {
 }
 
 function ovSkip() {
-  clearInterval(_timer); clearInterval(_mTimer); clearInterval(_memTimer); clearInterval(_wgTimer); clearInterval(_srTimer);
+  clearInterval(_timer); clearInterval(_mTimer); clearInterval(_memTimer); clearInterval(_wgTimer);
   _running = false; _mRunning = false; _memRunning = false; _seqRunning = false;
-  _wgRunning = false; _srRunning = false;
+  _wgRunning = false;
   stopSpeech();
   if (_allExQueue.length > 1 && _allExIdx < _allExQueue.length - 1) ovNext();
   else ovClose();
@@ -4384,7 +4360,7 @@ function seqCheck() {}
    Scoreable exercises: reaction-test, math-challenge,
    memory-match, number-sequence
 ═══════════════════════════════════════════════════════ */
-const CHALLENGEABLE = ['reaction-test','math-challenge','memory-match','number-sequence','speed-reading'];
+const CHALLENGEABLE = ['reaction-test','math-challenge','memory-match','number-sequence'];
 let _lastChallengeScore = 0, _lastChallengeName = '', _lastChallengeExId = '';
 
 function openChallenge() {
@@ -4609,9 +4585,7 @@ function shareChallenge(method) {
   window.shareRankOnWhatsApp= shareRankOnWhatsApp;
   window.startDailyChallenge= startDailyChallenge;
   window.lbSetTab           = lbSetTab;
-  window.srStart            = srStart;
-  window.srSetSpeed         = srSetSpeed;
-  window.srAnswer           = srAnswer;
+
   window.openAchievements   = openAchievements;
   window.closeAchievements  = closeAchievements;
   window.openShareCard      = openShareCard;
@@ -4940,11 +4914,9 @@ function _gameDoSave(name, data) {
 function gameLbLoad(gameKey) {
   // gameKey = 'math' | 'memory' | 'sequence'
   var typeMap = {'math':'math_scores','memory':'memory_scores','sequence':'sequence_scores',
-                 'math-challenge':'math_scores','memory-match':'memory_scores','number-sequence':'sequence_scores',
-                 'speedread':'math_scores','speed-reading':'math_scores'};
+                 'math-challenge':'math_scores','memory-match':'memory_scores','number-sequence':'sequence_scores',};
   var listMap = {'math':'gameLbList_math_challenge','memory':'gameLbList_memory_match','sequence':'gameLbList_number_sequence',
-                 'math-challenge':'gameLbList_math_challenge','memory-match':'gameLbList_memory_match','number-sequence':'gameLbList_number_sequence',
-                 'speedread':'gameLbList_math_challenge','speed-reading':'gameLbList_math_challenge'};
+                 'math-challenge':'gameLbList_math_challenge','memory-match':'gameLbList_memory_match','number-sequence':'gameLbList_number_sequence',};
   var scoreType = typeMap[gameKey];
   var listId    = listMap[gameKey];
   if (!scoreType || !listId) return;
@@ -5551,227 +5523,6 @@ function _getWeekKey() {
 /* ═══════════════════════════════════════════════════════════════
    SPEED READING GAME
    ═══════════════════════════════════════════════════════════════ */
-const SR_PASSAGES = [
-  {
-    text: "Brahmi is one of the most powerful herbs in Ayurveda for boosting memory and calming the mind. Regular use improves concentration and reduces mental fatigue significantly over time.",
-    questions: [
-      { q: "What does Brahmi boost?", opts: ["Physical strength", "Memory and mind", "Digestion", "Vision"], ans: 1 },
-      { q: "What does Brahmi reduce?", opts: ["Sleep", "Mental fatigue", "Appetite", "Heart rate"], ans: 1 },
-      { q: "Brahmi belongs to which tradition?", opts: ["Chinese medicine", "Greek medicine", "Ayurveda", "Unani"], ans: 2 },
-      { q: "Brahmi improves which ability?", opts: ["Running speed", "Concentration", "Flexibility", "Balance"], ans: 1 }
-    ]
-  },
-  {
-    text: "Deep breathing exercises activate the parasympathetic nervous system which slows the heart rate and lowers blood pressure. Even five minutes of practice daily creates measurable changes.",
-    questions: [
-      { q: "What system do breathing exercises activate?", opts: ["Sympathetic", "Digestive", "Parasympathetic", "Immune"], ans: 2 },
-      { q: "What happens to the heart rate?", opts: ["It increases", "It stays same", "It slows down", "It stops"], ans: 2 },
-      { q: "How much daily practice is mentioned?", opts: ["One minute", "Ten minutes", "Five minutes", "Thirty minutes"], ans: 2 },
-      { q: "What does deep breathing lower?", opts: ["Temperature", "Blood pressure", "Blood sugar", "Weight"], ans: 1 }
-    ]
-  },
-  {
-    text: "The human brain can process visual information much faster than spoken words. Speed reading trains the eyes to move efficiently across text, reducing subvocalisation and increasing retention.",
-    questions: [
-      { q: "What does speed reading train?", opts: ["Hands", "Eyes", "Ears", "Memory"], ans: 1 },
-      { q: "What does speed reading reduce?", opts: ["Vision", "Subvocalisation", "Hunger", "Fatigue"], ans: 1 },
-      { q: "What is faster than spoken words?", opts: ["Walking speed", "Typing speed", "Visual processing", "Hearing"], ans: 2 },
-      { q: "What does speed reading increase?", opts: ["Weight", "Retention", "Heart rate", "Speed only"], ans: 1 }
-    ]
-  },
-  {
-    text: "Ashwagandha is an adaptogenic herb that helps the body resist stress and anxiety. Studies show it lowers cortisol levels and improves sleep quality when taken consistently for four weeks.",
-    questions: [
-      { q: "What type of herb is Ashwagandha?", opts: ["Stimulant", "Adaptogen", "Sedative", "Diuretic"], ans: 1 },
-      { q: "What does it lower?", opts: ["Blood pressure", "Cortisol", "Heart rate", "Weight"], ans: 1 },
-      { q: "How long for results?", opts: ["One day", "One week", "Four weeks", "One year"], ans: 2 },
-      { q: "What does Ashwagandha improve?", opts: ["Vision", "Digestion", "Sleep quality", "Muscle size"], ans: 2 }
-    ]
-  },
-  {
-    text: "Eye yoga exercises strengthen the muscles around the eyes and reduce digital strain from screens. Looking at distant objects every twenty minutes refreshes focus and prevents headaches effectively.",
-    questions: [
-      { q: "What do eye exercises strengthen?", opts: ["Eyelids only", "Eye muscles", "Brain cells", "Nerves"], ans: 1 },
-      { q: "How often should you look at distance?", opts: ["Every 5 mins", "Every hour", "Every 20 mins", "Every 2 hours"], ans: 2 },
-      { q: "What does eye yoga reduce?", opts: ["Vision", "Digital strain", "Hunger", "Stress"], ans: 1 },
-      { q: "What does it prevent?", opts: ["Colds", "Headaches", "Back pain", "Weight gain"], ans: 1 }
-    ]
-  }
-];
-
-var _srRunning = false;
-var _srTimer   = null;
-var _srWords   = [];
-var _srWordIdx = 0;
-var _srWPM     = 250;
-var _srCorrect = 0;
-var _srAnswered = 0;
-var _srPassage = null;
-var _srPhase   = 'idle'; // idle | reading | questions | done
-
-function srInit() {
-  _srRunning = false; _srWordIdx = 0; _srCorrect = 0; _srAnswered = 0;
-  _srPhase = 'idle';
-  clearInterval(_srTimer);
-  _srPassage = SR_PASSAGES[Math.floor(Math.random() * SR_PASSAGES.length)];
-  _srWords = _srPassage.text.split(/\s+/);
-
-  var phLbl = document.getElementById('srPhaseLbl');
-  var wdDsp = document.getElementById('srWordDisplay');
-  var prog  = document.getElementById('srProgressFill');
-  var qEl   = document.getElementById('srQuestion');
-  var oEl   = document.getElementById('srOpts');
-  var scEl  = document.getElementById('srScore');
-  var spBtns= document.getElementById('srSpeedBtns');
-  var wpmBdg= document.getElementById('srWpmBadge');
-  var startB= document.getElementById('srStartBtn');
-
-  if (phLbl) phLbl.textContent = 'Choose Speed';
-  if (wdDsp) { wdDsp.textContent = '📖'; wdDsp.style.opacity = '1'; }
-  if (prog)  prog.style.width = '0%';
-  if (qEl)   qEl.style.display = 'none';
-  if (oEl)   oEl.style.display = 'none';
-  if (scEl)  scEl.style.display = 'none';
-  if (spBtns)spBtns.style.display = 'flex';
-  if (wpmBdg)wpmBdg.textContent = _srWPM + ' WPM';
-  if (startB)startB.style.display = '';
-}
-
-function srSetSpeed(wpm) {
-  _srWPM = wpm;
-  var badge = document.getElementById('srWpmBadge');
-  if (badge) badge.textContent = wpm + ' WPM';
-  // Highlight active button
-  document.querySelectorAll('.sr-speed-btn').forEach(function(b) {
-    b.classList.toggle('active', parseInt(b.getAttribute('onclick').match(/\d+/)[0]) === wpm);
-  });
-}
-
-function srStart() {
-  var startBtn = document.getElementById('srStartBtn');
-  var spBtns   = document.getElementById('srSpeedBtns');
-  var phLbl    = document.getElementById('srPhaseLbl');
-  if (startBtn) startBtn.style.display = 'none';
-  if (spBtns)   spBtns.style.display = 'none';
-  if (phLbl)    phLbl.textContent = 'Reading…';
-
-  _srRunning = true;
-  _srPhase = 'reading';
-  _srWordIdx = 0;
-
-  var msPerWord = Math.round(60000 / _srWPM);
-  srShowNextWord(msPerWord);
-}
-
-function srShowNextWord(msPerWord) {
-  if (!_srRunning || _srPhase !== 'reading') return;
-  if (_srWordIdx >= _srWords.length) {
-    srStartQuestions();
-    return;
-  }
-  var wdEl = document.getElementById('srWordDisplay');
-  var prog  = document.getElementById('srProgressFill');
-  var phLbl = document.getElementById('srPhaseLbl');
-
-  var pct = Math.round((_srWordIdx / _srWords.length) * 100);
-  if (prog) prog.style.width = pct + '%';
-
-  var word = _srWords[_srWordIdx];
-  if (wdEl) {
-    wdEl.style.opacity = '0';
-    setTimeout(function() {
-      wdEl.textContent = word;
-      wdEl.style.opacity = '1';
-    }, msPerWord * 0.15);
-  }
-  // Show word count
-  if (phLbl) phLbl.textContent = (_srWordIdx + 1) + ' / ' + _srWords.length + ' words';
-
-  _srWordIdx++;
-  // Pause slightly longer on punctuation
-  var pause = word.match(/[.,!?;:]$/) ? msPerWord * 1.5 : msPerWord;
-  _srTimer = setTimeout(function() { srShowNextWord(msPerWord); }, pause);
-}
-
-function srStartQuestions() {
-  _srPhase = 'questions';
-  _srAnswered = 0; _srCorrect = 0;
-  var wdEl  = document.getElementById('srWordDisplay');
-  var prog  = document.getElementById('srProgressFill');
-  var phLbl = document.getElementById('srPhaseLbl');
-  var spBtns= document.getElementById('srSpeedBtns');
-
-  if (prog)  prog.style.width = '100%';
-  if (wdEl)  { wdEl.textContent = '🧠'; wdEl.style.opacity = '1'; }
-  if (phLbl) phLbl.textContent = 'Comprehension Check';
-  if (spBtns) spBtns.style.display = 'none';
-
-  soundGameEnd();
-  srShowQuestion(0);
-}
-
-function srShowQuestion(idx) {
-  var qData = _srPassage.questions[idx];
-  if (!qData) { srFinish(); return; }
-
-  var qEl = document.getElementById('srQuestion');
-  var oEl = document.getElementById('srOpts');
-  if (!qEl || !oEl) return;
-
-  qEl.style.display = 'block';
-  qEl.textContent = 'Q' + (idx+1) + ': ' + qData.q;
-  oEl.style.display = 'flex';
-  oEl.innerHTML = qData.opts.map(function(opt, i) {
-    return '<button class="sr-opt" onclick="srAnswer(' + idx + ',' + i + ')">' + opt + '</button>';
-  }).join('');
-}
-
-function srAnswer(qIdx, chosen) {
-  if (_srPhase !== 'questions') return;
-  var qData = _srPassage.questions[qIdx];
-  var btns  = document.querySelectorAll('.sr-opt');
-  btns.forEach(function(b, i) {
-    b.disabled = true;
-    if (i === qData.ans)  b.classList.add('correct');
-    if (i === chosen && chosen !== qData.ans) b.classList.add('wrong');
-  });
-  if (chosen === qData.ans) { _srCorrect++; soundCorrect(); } else soundWrong();
-  _srAnswered++;
-  setTimeout(function() { srShowQuestion(qIdx + 1); }, 700);
-}
-
-function srFinish() {
-  _srPhase = 'done';
-  _srRunning = false;
-  var acc   = Math.round((_srCorrect / _srPassage.questions.length) * 100);
-  var score = Math.round(_srWPM * (acc / 100));
-
-  savePB('speedread', score);
-  saveScore('brain', acc);
-  checkAchievements('speedread', acc);
-
-  _lastChallengeScore = score;
-  _lastChallengeName  = 'speed-reading score';
-  _lastChallengeExId  = 'speed-reading';
-
-  var scoreHTML = '<div class="done-score-pill"><strong>' + _srWPM + '</strong><span>WPM</span></div>' +
-    '<div class="done-score-pill"><strong>' + _srCorrect + '/' + _srPassage.questions.length + '</strong><span>CORRECT</span></div>' +
-    '<div class="done-score-pill"><strong>' + acc + '%</strong><span>ACCURACY</span></div>' +
-    '<div class="done-score-pill"><strong>' + score + '</strong><span>SCORE</span></div>';
-
-  speak('Speed reading complete. ' + _srCorrect + ' out of ' + _srPassage.questions.length + ' correct. ' +
-    (acc >= 75 ? 'Excellent comprehension!' : 'Keep practising!'));
-
-  setTimeout(function() {
-    _showDone(scoreHTML);
-    // Save to leaderboard via game LB modal
-    setTimeout(function() {
-      gameLbShowModal('speedread_score', score + ' pts (' + _srWPM + ' WPM, ' + acc + '% accuracy)',
-        { wpm: _srWPM, accuracy: acc, correct: _srCorrect });
-    }, 600);
-  }, 500);
-}
-
 /* ═══════════════════════════════════════════════════════════════
    LEADERBOARD TABS — Global / This Week / India
    ═══════════════════════════════════════════════════════════════ */
@@ -5780,8 +5531,7 @@ var _lbAllRows    = []; // cache of all rows from last fetch
 
 function lbSetTab(tab) {
   _lbCurrentTab = tab;
-  // Update tab button styles
-  ['global','weekly','india'].forEach(function(t) {
+  ['global','weekly'].forEach(function(t) {
     var btn = document.getElementById('lbTab' + t.charAt(0).toUpperCase() + t.slice(1));
     if (btn) btn.classList.toggle('active', t === tab);
   });
@@ -5790,49 +5540,23 @@ function lbSetTab(tab) {
 
 function lbRenderFiltered(rows) {
   _lbAllRows = rows || _lbAllRows;
-  var tab    = _lbCurrentTab;
-  var clean  = (_lbAllRows || []).filter(function(r) {
+  var tab   = _lbCurrentTab;
+  var clean = (_lbAllRows || []).filter(function(r) {
     return !String(r.name||'').startsWith('__auto__') && r.wpm === undefined;
   });
 
-  // Weekly filter — entries tagged with this week's date prefix in name (if server supports)
-  // Since GAS doesn't tag by week, we simulate by using local submission timestamps
   if (tab === 'weekly') {
     var weekScores = _lbGetWeeklyScores();
     if (weekScores.length) {
       lbRenderRows(weekScores, true);
-      return;
     } else {
-      // No weekly data yet — show message
       var list = document.getElementById('lbList');
       if (list) list.innerHTML = '<div class="lb-empty">No scores this week yet — play to be first! 🏆</div>';
-      return;
-    }
-  }
-
-  // India filter — common Indian names heuristic + IP not available, so show note
-  if (tab === 'india') {
-    // We filter by names that look Indian (common Indian name patterns)
-    // This is a best-effort filter since we have no geo data
-    var indiaRows = clean.filter(function(r) { return _looksIndian(r.name); });
-    if (indiaRows.length >= 3) {
-      lbRenderRows(indiaRows.slice(0, 500), false);
-    } else {
-      // Not enough India-detected entries — show all with note
-      var list2 = document.getElementById('lbList');
-      if (list2) {
-        lbRenderRows(clean.slice(0, 500), false);
-        var note = document.createElement('div');
-        note.style.cssText = 'text-align:center;font-size:.6rem;color:rgba(255,255,255,.25);padding:.3rem';
-        note.textContent = 'India filter is name-based. Add 🇮🇳 to your name to be counted!';
-        list2.appendChild(note);
-      }
-      return;
     }
     return;
   }
 
-  // Global (default)
+  // Overall (default)
   lbRenderRows(clean.slice(0, 500), false);
 }
 
@@ -5864,22 +5588,7 @@ function lbRenderRows(rows, isWeekly) {
   }
 }
 
-// Check if a name looks Indian (simple heuristic)
-function _looksIndian(name) {
-  if (!name) return false;
-  var n = name.toLowerCase();
-  // Contains Indian flag emoji
-  if (name.includes('🇮🇳')) return true;
-  // Common Indian name endings/patterns
-  var patterns = ['kumar','singh','sharma','gupta','patel','rao','reddy','nair','joshi','mehta',
-    'verma','yadav','mishra','chandra','vijay','raj','priya','anil','sunil','ravi','amit','arjun',
-    'pooja','anita','sunita','rekha','deepak','rohit','rahul','neha','kajal','ayesha','fatima',
-    'khan','sheikh','ansari','qureshi','siddiqui','ali','hassan','hussain','shah','hayaat','yasir'];
-  for (var i = 0; i < patterns.length; i++) {
-    if (n.includes(patterns[i])) return true;
-  }
-  return false;
-}
+
 
 // Weekly scores stored locally (scores submitted this week)
 var _WEEKLY_KEY = 'sh_weekly_scores';
@@ -5927,9 +5636,7 @@ const ACHIEVEMENTS = [
   { id:'type_40',    icon:'⌨️', name:'Typist',            desc:'Type 40+ WPM in Typing Speed Test',      cat:'typing' },
   { id:'type_60',    icon:'💨', name:'Speed Typist',      desc:'Type 60+ WPM in Typing Speed Test',      cat:'typing' },
   { id:'type_80',    icon:'🏎️', name:'Keyboard Racer',   desc:'Type 80+ WPM in Typing Speed Test',      cat:'typing' },
-  // Speed Reading
-  { id:'sr_75',      icon:'📖', name:'Book Worm',         desc:'Score 75%+ accuracy in Speed Reading',   cat:'speedread' },
-  { id:'sr_100',     icon:'🦅', name:'Eagle Reader',      desc:'Score 100% accuracy in Speed Reading',   cat:'speedread' },
+
   // Streak
   { id:'streak_3',   icon:'🔥', name:'On Fire',           desc:'Maintain a 3-day wellness streak',        cat:'streak' },
   { id:'streak_7',   icon:'🌟', name:'Week Warrior',      desc:'Maintain a 7-day wellness streak',        cat:'streak' },
@@ -6069,12 +5776,7 @@ function checkAchievements(type, value) {
     _checkAndUnlock('first_game');
     _checkGamesPlayed();
   }
-  if (type === 'speedread') {
-    if (value >= 75)  _checkAndUnlock('sr_75');
-    if (value === 100) _checkAndUnlock('sr_100');
-    _checkAndUnlock('first_game');
-    _checkGamesPlayed();
-  }
+
   if (type === 'rank') {
     if (value <= 10) _checkAndUnlock('rank_top10');
     if (value <= 3)  _checkAndUnlock('rank_top3');
@@ -6094,7 +5796,7 @@ function _checkGamesPlayed() {
   try {
     var played = JSON.parse(localStorage.getItem('sh_games_played') || '{}');
     if (_ex) played[_ex.cat === 'brain' ? _ex.id : ''] = true;
-    var brainGames = ['reaction-test','math-challenge','memory-match','number-sequence','typing-speed','speed-reading'];
+    var brainGames = ['reaction-test','math-challenge','memory-match','number-sequence','typing-speed'];
     var allPlayed  = brainGames.every(function(id) { return !!played[id]; });
     if (allPlayed) _checkAndUnlock('all_games');
     localStorage.setItem('sh_games_played', JSON.stringify(played));
@@ -6401,7 +6103,13 @@ function shareOnWhatsApp() {
 <div id="shareCardOverlay">
   <canvas id="shareCardCanvas" width="640" height="360"></canvas>
   <div class="share-card-btns">
-    <button class="share-card-btn share-card-wa" onclick="shareCardWhatsApp()">💬 Share on WhatsApp</button>
+    <button class="share-card-btn share-card-wa" onclick="shareCardWhatsApp()" style="padding:.82rem 1rem;border-radius:14px">
+      <span style="font-size:1.15rem">📲</span>
+      <span style="display:flex;flex-direction:column;align-items:flex-start;line-height:1.2">
+        <span style="font-size:.9rem;font-weight:800">Share on WhatsApp</span>
+        <span style="font-size:.62rem;opacity:.8;font-weight:500">Send to friends</span>
+      </span>
+    </button>
     <button class="share-card-btn share-card-dl" onclick="downloadShareCard()">⬇️ Save Image</button>
     <button class="share-card-btn share-card-close" onclick="closeShareCard()">✕ Close</button>
   </div>
