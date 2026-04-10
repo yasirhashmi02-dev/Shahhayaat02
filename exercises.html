@@ -1600,7 +1600,11 @@ body.nav-open{overflow:hidden}
     <!-- Global leaderboard -->
     <div id="reactionLB">
       <div class="lb-header">
-        <span class="lb-title">🌍 Global Top 500</span>
+        <div style="display:flex;gap:.3rem">
+          <button class="lb-tab active" id="lbTabGlobal" onclick="lbSetTab('global')">🌍 Global</button>
+          <button class="lb-tab" id="lbTabWeekly" onclick="lbSetTab('weekly')">📅 This Week</button>
+          <button class="lb-tab" id="lbTabIndia" onclick="lbSetTab('india')">🇮🇳 India</button>
+        </div>
         <span class="lb-live">Live</span>
       </div>
       <div class="lb-list" id="lbList"><div class="lb-loading">Loading…</div></div>
@@ -1721,6 +1725,25 @@ body.nav-open{overflow:hidden}
     </div>
   </div>
 
+  <!-- SPEED READING GAME -->
+  <div class="ov-speedread" id="ovSpeedRead">
+    <div class="sr-phase-lbl" id="srPhaseLbl">Get Ready</div>
+    <div class="sr-wpm-badge" id="srWpmBadge">250 WPM</div>
+    <div class="sr-progress"><div class="sr-progress-fill" id="srProgressFill" style="width:0%"></div></div>
+    <div class="sr-word-display" id="srWordDisplay">●</div>
+    <div class="sr-wpm-speed" id="srSpeedBtns" style="display:none">
+      <span style="font-size:.68rem;color:rgba(255,255,255,.4)">Speed:</span>
+      <button class="sr-speed-btn" onclick="srSetSpeed(150)">Slow</button>
+      <button class="sr-speed-btn active" onclick="srSetSpeed(250)">Normal</button>
+      <button class="sr-speed-btn" onclick="srSetSpeed(400)">Fast</button>
+      <button class="sr-speed-btn" onclick="srSetSpeed(600)">Expert</button>
+    </div>
+    <div class="sr-question" id="srQuestion" style="display:none"></div>
+    <div class="sr-opts" id="srOpts" style="display:none"></div>
+    <div id="srScore" style="display:none;font-size:.85rem;color:rgba(255,255,255,.5);margin-top:.3rem"></div>
+    <button id="srStartBtn" onclick="srStart()" style="display:none;padding:.85rem 2.4rem;border-radius:50px;font-size:1rem;font-weight:800;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border:none;cursor:pointer;width:100%;max-width:280px">▶ Start Reading</button>
+  </div>
+
   <!-- DONE SCREEN -->
   <div class="ov-done" id="ovDone">
     <div class="ov-done-ico" id="ovDoneIco">🎉</div>
@@ -1745,6 +1768,8 @@ body.nav-open{overflow:hidden}
       <button class="ov-btn-next" id="ovNextBtn" onclick="ovNext()" style="display:none">▶ Next Activity</button>
       <button class="ov-btn-again" onclick="ovAgain()">🔄 Do Again</button>
       <button class="ov-btn-close" onclick="ovClose()">✕ Finish</button>
+      <button class="ov-btn-achieve" id="ovAchieveBtn" onclick="openAchievements()">🏅 <span id="ovAchieveBtnLbl">Achievements</span></button>
+      <button class="ov-btn-sharecard" id="ovShareCardBtn" onclick="openShareCard()">🎴 Share Card</button>
     </div>
   </div>
 
@@ -1844,6 +1869,15 @@ const EXERCISES = [
     voiceIntro:'Number Sequence. 25 numbers are scattered on screen. Find and tap 1, 2, 3, all the way to 25, as fast as you can!',
     benefit:'Trains', benefitVal:'visual search speed & attention',
     herbal:{name:'Brain Champ', product:'brainchamp', icon:'🧠', desc:'Traditionally used to support memory and focus.', herbs:['Brahmi','Shankhpushpi','Jatamansi']} },
+
+  { id:'speed-reading', cat:'brain', emoji:'📖', title:'Speed Reading',
+    tag:'Brain & Mind', tagClass:'tag-brain', dur:'2 min', isSpeedReadGame:true,
+    desc:'Words flash one at a time at high speed. Read as many as you can, then answer comprehension questions. Trains focus, visual processing and working memory.',
+    steps:['Words flash one at a time on screen at your chosen speed.','Read each word — your brain builds the sentence automatically.','When the passage ends, answer 4 quick comprehension questions.','Your score = words read × accuracy. Compete globally!'],
+    avoid:'Suitable for all ages. Try Slow speed first if new to speed reading.',
+    voiceIntro:'Speed Reading. Words will flash one at a time. Read each word carefully. Answer the questions at the end.',
+    benefit:'Trains','benefitVal':'visual processing & focus',
+    herbal:{name:'Brain Champ', product:'brainchamp', icon:'🧠', desc:'Supports focus, memory and reading speed with Brahmi and Shankhpushpi.', herbs:['Brahmi','Shankhpushpi','Ashwagandha']} },
 
   { id:'typing-speed', cat:'brain', emoji:'⌨️', title:'Typing Speed Test',
     tag:'Brain & Mind', tagClass:'tag-brain', dur:'30 sec', isTypingGame:true,
@@ -2410,6 +2444,7 @@ function recordActivity() {
       data.streak = (data.lastActive === yesterday.toDateString()) ? (data.streak || 0) + 1 : 1;
       data.bestStreak = Math.max(data.streak, data.bestStreak || 0);
       data.lastActive = today;
+      setTimeout(function(){ checkAchievements('streak', data.streak); }, 500);
       const dow = (new Date().getDay() + 6) % 7;
       data.weekActivity = data.weekActivity || [];
       if (!data.weekActivity.includes(dow)) data.weekActivity.push(dow);
@@ -2629,32 +2664,7 @@ function _lbShowEmpty() {
 }
 
 function lbRender(rows) {
-  const list = document.getElementById('lbList');
-  const myRankEl = document.getElementById('lbMyRank');
-  if (!list) return;
-  const clean = rows.filter(r => !String(r.name||'').startsWith('__auto__') && r.wpm === undefined);
-  if (!clean.length) {
-    list.innerHTML = '<div class="lb-empty">No scores yet — be first! 🏆</div>';
-    return;
-  }
-  const display = clean.slice(0, 500);
-  list.innerHTML = display.map((r, i) => {
-    const pos     = i + 1;
-    const rankCls = pos === 1 ? 'top1' : pos === 2 ? 'top2' : pos === 3 ? 'top3' : '';
-    const isMe    = _lbMyRank && pos === _lbMyRank;
-    const displayVal = r.score !== undefined ? r.score : r.taps;
-    const displayLbl = r.score !== undefined ? 'pts' : 'taps';
-    return '<div class="lb-row' + (isMe ? ' me' : '') + '">' +
-      '<span class="lb-rank ' + rankCls + '">' + (pos <= 3 ? ['🥇','🥈','🥉'][pos-1] : '#'+pos) + '</span>' +
-      '<span class="lb-name">' + _esc(r.name) + '</span>' +
-      '<span class="lb-score">' + displayVal + ' ' + displayLbl + '</span>' +
-      '</div>';
-  }).join('') +
-  '<div style="text-align:center;font-size:.62rem;color:rgba(255,255,255,.25);padding:.4rem 0">Showing ' + display.length + ' of ' + clean.length + ' entries</div>';
-  if (_lbMyRank && myRankEl) {
-    myRankEl.textContent = 'Your rank: #' + _lbMyRank;
-    myRankEl.style.display = '';
-  }
+  lbRenderFiltered(rows);
 }
 
 function _esc(s) {
@@ -2759,6 +2769,7 @@ function _lbSaveWithName(name, taps, time) {
     if (json.ok && json.rank >= 1) {
       var rank = json.rank, score = json.score;
       _lbMyRank = rank;
+      _lbSaveWeeklyScore(taps, score, displayName);
       _showAnimatedRank(rank, score, displayName, taps, 'reaction-test', 'globalRank');
       var myRankEl = document.getElementById('lbMyRank');
       if (myRankEl) { myRankEl.textContent = 'Your rank: #' + rank; myRankEl.style.display = ''; }
@@ -2852,6 +2863,7 @@ function _showAnimatedRank(rank, score, name, rawMetric, exId, elId) {
   el.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
   // Save rank to personal stats
   _lastRevealedRank = rank;
+  checkAchievements('rank', rank);
   _lastRevealedGame = exId || '';
   if (_ex) _saveMyRank(_ex.title, rank);
   // Mark daily challenge done if applicable
@@ -2994,13 +3006,15 @@ function gStart() {
       const s = Math.min(_wgCount, 140); // cap at 140 — competitive ceiling
       // Update personal best
       var wasPB = s > _getPB();
-      if (wasPB) { _setPB(s); _refreshBestDisplay(); setTimeout(function(){ showPBBurst(s + ' taps'); }, 900); }
+      if (wasPB) { _setPB(s); _refreshBestDisplay(); setTimeout(function(){ showPBBurst(s + ' taps'); checkAchievements('pb', s); }, 900); }
       const r = s >= 120 ? '🔥 SUPERHUMAN!' : s >= 100 ? '⚡ Lightning!' : s >= 70 ? '💥 Incredible!' : s >= 50 ? '💪 Excellent!' : s >= 30 ? '👍 Good effort!' : '😊 Keep practising!';
       soundGameEnd();
       $('ovGameLbl').textContent = s + ' taps — ' + r;
       speak(s + ' taps. ' + r);
       savePB('reaction', Math.round(15000 / Math.max(s, 1)));
       saveScore('brain', Math.min(100, Math.round(s / 0.7)));
+      checkAchievements('reaction', s);
+      if (wasPB) checkAchievements('pb', s);
       const scoreHTML = '<div class="done-score-pill"><strong>' + s + '</strong><span>TAPS</span></div>' +
         '<div class="done-score-pill"><strong>' + Math.round(15000 / Math.max(s,1)) + 'ms</strong><span>REACT</span></div>';
       _lastChallengeScore = s;
@@ -3172,6 +3186,7 @@ function memFlip(i) {
         clearInterval(_memTimer); _memRunning = false;
         savePB('memory', _memAttempts);
         saveScore('brain', Math.max(0, Math.round(100 - (_memAttempts - 8) * 5)));
+        checkAchievements('memory', _memAttempts);
         const scoreHTML = `<div class="done-score-pill"><strong>${_memMatched}/8</strong><span>MATCHED</span></div>
           <div class="done-score-pill"><strong>${_memAttempts}</strong><span>ATTEMPTS</span></div>
           <div class="done-score-pill"><strong>${_memSec}s</strong><span>TIME</span></div>`;
@@ -3203,16 +3218,16 @@ let _ex = null, _phaseIdx = 0, _sec = 0, _round = 1, _running = false, _timer = 
 let _allExQueue = [], _allExIdx = -1;
 
 function _showPanel(name) {
-  const ids = {choice:'ovChoice',htp:'ovHtp',coach:'ovCoach',game:'ovGame',math:'ovMath',mem:'ovMem',seq:'ovSeq',typing:'ovTyping',done:'ovDone'};
+  const ids = {choice:'ovChoice',htp:'ovHtp',coach:'ovCoach',game:'ovGame',math:'ovMath',mem:'ovMem',seq:'ovSeq',typing:'ovTyping',speedread:'ovSpeedRead',done:'ovDone'};
   const ctrl = document.getElementById('ovCtrl');
   Object.entries(ids).forEach(([k, id]) => {
     const el = document.getElementById(id);
     if (!el) return;
     const vis = k === name;
-    if (k === 'game' || k === 'math' || k === 'mem' || k === 'seq' || k === 'typing' || k === 'done') el.classList.toggle('on', vis);
+    if (k === 'game' || k === 'math' || k === 'mem' || k === 'seq' || k === 'typing' || k === 'speedread' || k === 'done') el.classList.toggle('on', vis);
     else el.style.display = vis ? 'flex' : 'none';
   });
-  const showCtrl = ['coach','game','math','mem','seq','typing'].includes(name);
+  const showCtrl = ['coach','game','math','mem','seq','typing','speedread'].includes(name);
   if (ctrl) ctrl.style.display = showCtrl ? '' : 'none';
 }
 
@@ -3252,6 +3267,10 @@ function openExercise(id) {
   if (!_ex) return;
   // Wipe all rank boxes immediately — prevents any stale rank from a previous exercise
   _resetAllRankBoxes();
+  // Reset share card & achievement buttons
+  var _scBtn = document.getElementById('ovShareCardBtn');
+  if (_scBtn) _scBtn.classList.add('show');
+  _updateAchieveBtnLabel();
   lbStopPoll(); // always stop reaction poll when opening any exercise
   clearInterval(_timer); clearInterval(_mTimer); clearInterval(_memTimer);
   clearInterval(_seqTimerInt); clearTimeout(_seqTimeoutId);
@@ -3292,6 +3311,7 @@ function openExercise(id) {
     : _ex.isMemoryGame ? '▶ Start Memory Game'
     : _ex.isSeqGame ? '▶ Start Sequence Game'
     : _ex.isTypingGame ? '▶ Start Typing Test'
+    : _ex.isSpeedReadGame ? '▶ Start Speed Reading'
     : '▶ I\'m Ready — Start';
   document.getElementById('ovChoiceStart').textContent  = startLabel;
   document.getElementById('ovHtpStartBtn').textContent  = startLabel;
@@ -3553,12 +3573,21 @@ function ovBeginDirect() {
     if (skipStepBtn) skipStepBtn.style.display = 'none';
     const instrBtn = document.getElementById('ovInstrBtn');
     if (instrBtn) instrBtn.style.display = '';
-    lbStopPoll(); // stop reaction polling — typing has its own independent LB
+    lbStopPoll();
     _showPanel('typing');
     tyInit();
     document.getElementById('tyOvStartBtn').style.display = '';
     const skipB = document.getElementById('tyOvSkipBtn');
     if (skipB) skipB.style.display = _allExQueue.length > 1 ? '' : 'none';
+    document.getElementById('ovCtrl').style.display = '';
+    speak(_ex.voiceIntro || _ex.title);
+  } else if (_ex.isSpeedReadGame) {
+    if (skipStepBtn) skipStepBtn.style.display = 'none';
+    const instrBtn2 = document.getElementById('ovInstrBtn');
+    if (instrBtn2) instrBtn2.style.display = '';
+    _showPanel('speedread');
+    srInit();
+    document.getElementById('srStartBtn').style.display = '';
     document.getElementById('ovCtrl').style.display = '';
     speak(_ex.voiceIntro || _ex.title);
   } else {
@@ -3927,9 +3956,9 @@ function _showDone(scoreHTML) {
 }
 
 function ovSkip() {
-  clearInterval(_timer); clearInterval(_mTimer); clearInterval(_memTimer); clearInterval(_wgTimer);
+  clearInterval(_timer); clearInterval(_mTimer); clearInterval(_memTimer); clearInterval(_wgTimer); clearInterval(_srTimer);
   _running = false; _mRunning = false; _memRunning = false; _seqRunning = false;
-  _wgRunning = false;
+  _wgRunning = false; _srRunning = false;
   stopSpeech();
   if (_allExQueue.length > 1 && _allExIdx < _allExQueue.length - 1) ovNext();
   else ovClose();
@@ -4355,7 +4384,7 @@ function seqCheck() {}
    Scoreable exercises: reaction-test, math-challenge,
    memory-match, number-sequence
 ═══════════════════════════════════════════════════════ */
-const CHALLENGEABLE = ['reaction-test','math-challenge','memory-match','number-sequence'];
+const CHALLENGEABLE = ['reaction-test','math-challenge','memory-match','number-sequence','speed-reading'];
 let _lastChallengeScore = 0, _lastChallengeName = '', _lastChallengeExId = '';
 
 function openChallenge() {
@@ -4579,6 +4608,17 @@ function shareChallenge(method) {
   window.closeStatsPanel    = closeStatsPanel;
   window.shareRankOnWhatsApp= shareRankOnWhatsApp;
   window.startDailyChallenge= startDailyChallenge;
+  window.lbSetTab           = lbSetTab;
+  window.srStart            = srStart;
+  window.srSetSpeed         = srSetSpeed;
+  window.srAnswer           = srAnswer;
+  window.openAchievements   = openAchievements;
+  window.closeAchievements  = closeAchievements;
+  window.openShareCard      = openShareCard;
+  window.closeShareCard     = closeShareCard;
+  window.shareCardWhatsApp  = shareCardWhatsApp;
+  window.downloadShareCard  = downloadShareCard;
+  window.checkAchievements  = checkAchievements;
   window.setTheme         = setTheme;
   window.toggleThemePanel = toggleThemePanel;
   window.lbnSanitizeInput = lbnSanitizeInput;
@@ -4900,9 +4940,11 @@ function _gameDoSave(name, data) {
 function gameLbLoad(gameKey) {
   // gameKey = 'math' | 'memory' | 'sequence'
   var typeMap = {'math':'math_scores','memory':'memory_scores','sequence':'sequence_scores',
-                 'math-challenge':'math_scores','memory-match':'memory_scores','number-sequence':'sequence_scores'};
+                 'math-challenge':'math_scores','memory-match':'memory_scores','number-sequence':'sequence_scores',
+                 'speedread':'math_scores','speed-reading':'math_scores'};
   var listMap = {'math':'gameLbList_math_challenge','memory':'gameLbList_memory_match','sequence':'gameLbList_number_sequence',
-                 'math-challenge':'gameLbList_math_challenge','memory-match':'gameLbList_memory_match','number-sequence':'gameLbList_number_sequence'};
+                 'math-challenge':'gameLbList_math_challenge','memory-match':'gameLbList_memory_match','number-sequence':'gameLbList_number_sequence',
+                 'speedread':'gameLbList_math_challenge','speed-reading':'gameLbList_math_challenge'};
   var scoreType = typeMap[gameKey];
   var listId    = listMap[gameKey];
   if (!scoreType || !listId) return;
@@ -5190,6 +5232,7 @@ function tyFinish(typed) {
     '<div class="done-score-pill"><strong>'+rating+'</strong><span>RATING</span></div>';
 
   saveScore('brain', Math.min(100, Math.round(wpm * (acc/100) / 0.7)));
+  checkAchievements('typing', wpm);
   speak(wpm + ' words per minute at ' + acc + ' percent accuracy. ' + rating);
 
   _lastChallengeScore = wpm;
@@ -5382,7 +5425,12 @@ function _hasDoneDailyChallenge() {
 }
 
 function _markDailyChallengeDone(score) {
-  try { localStorage.setItem(_getDailyChallengeKey(), String(score)); } catch(e) {}
+  try {
+    if (!localStorage.getItem(_getDailyChallengeKey())) {
+      checkAchievements('daily', 1);
+    }
+    localStorage.setItem(_getDailyChallengeKey(), String(score));
+  } catch(e) {}
 }
 
 function startDailyChallenge() {
@@ -5500,6 +5548,723 @@ function _getWeekKey() {
   return d.getFullYear() + 'W' + week;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   SPEED READING GAME
+   ═══════════════════════════════════════════════════════════════ */
+const SR_PASSAGES = [
+  {
+    text: "Brahmi is one of the most powerful herbs in Ayurveda for boosting memory and calming the mind. Regular use improves concentration and reduces mental fatigue significantly over time.",
+    questions: [
+      { q: "What does Brahmi boost?", opts: ["Physical strength", "Memory and mind", "Digestion", "Vision"], ans: 1 },
+      { q: "What does Brahmi reduce?", opts: ["Sleep", "Mental fatigue", "Appetite", "Heart rate"], ans: 1 },
+      { q: "Brahmi belongs to which tradition?", opts: ["Chinese medicine", "Greek medicine", "Ayurveda", "Unani"], ans: 2 },
+      { q: "Brahmi improves which ability?", opts: ["Running speed", "Concentration", "Flexibility", "Balance"], ans: 1 }
+    ]
+  },
+  {
+    text: "Deep breathing exercises activate the parasympathetic nervous system which slows the heart rate and lowers blood pressure. Even five minutes of practice daily creates measurable changes.",
+    questions: [
+      { q: "What system do breathing exercises activate?", opts: ["Sympathetic", "Digestive", "Parasympathetic", "Immune"], ans: 2 },
+      { q: "What happens to the heart rate?", opts: ["It increases", "It stays same", "It slows down", "It stops"], ans: 2 },
+      { q: "How much daily practice is mentioned?", opts: ["One minute", "Ten minutes", "Five minutes", "Thirty minutes"], ans: 2 },
+      { q: "What does deep breathing lower?", opts: ["Temperature", "Blood pressure", "Blood sugar", "Weight"], ans: 1 }
+    ]
+  },
+  {
+    text: "The human brain can process visual information much faster than spoken words. Speed reading trains the eyes to move efficiently across text, reducing subvocalisation and increasing retention.",
+    questions: [
+      { q: "What does speed reading train?", opts: ["Hands", "Eyes", "Ears", "Memory"], ans: 1 },
+      { q: "What does speed reading reduce?", opts: ["Vision", "Subvocalisation", "Hunger", "Fatigue"], ans: 1 },
+      { q: "What is faster than spoken words?", opts: ["Walking speed", "Typing speed", "Visual processing", "Hearing"], ans: 2 },
+      { q: "What does speed reading increase?", opts: ["Weight", "Retention", "Heart rate", "Speed only"], ans: 1 }
+    ]
+  },
+  {
+    text: "Ashwagandha is an adaptogenic herb that helps the body resist stress and anxiety. Studies show it lowers cortisol levels and improves sleep quality when taken consistently for four weeks.",
+    questions: [
+      { q: "What type of herb is Ashwagandha?", opts: ["Stimulant", "Adaptogen", "Sedative", "Diuretic"], ans: 1 },
+      { q: "What does it lower?", opts: ["Blood pressure", "Cortisol", "Heart rate", "Weight"], ans: 1 },
+      { q: "How long for results?", opts: ["One day", "One week", "Four weeks", "One year"], ans: 2 },
+      { q: "What does Ashwagandha improve?", opts: ["Vision", "Digestion", "Sleep quality", "Muscle size"], ans: 2 }
+    ]
+  },
+  {
+    text: "Eye yoga exercises strengthen the muscles around the eyes and reduce digital strain from screens. Looking at distant objects every twenty minutes refreshes focus and prevents headaches effectively.",
+    questions: [
+      { q: "What do eye exercises strengthen?", opts: ["Eyelids only", "Eye muscles", "Brain cells", "Nerves"], ans: 1 },
+      { q: "How often should you look at distance?", opts: ["Every 5 mins", "Every hour", "Every 20 mins", "Every 2 hours"], ans: 2 },
+      { q: "What does eye yoga reduce?", opts: ["Vision", "Digital strain", "Hunger", "Stress"], ans: 1 },
+      { q: "What does it prevent?", opts: ["Colds", "Headaches", "Back pain", "Weight gain"], ans: 1 }
+    ]
+  }
+];
+
+var _srRunning = false;
+var _srTimer   = null;
+var _srWords   = [];
+var _srWordIdx = 0;
+var _srWPM     = 250;
+var _srCorrect = 0;
+var _srAnswered = 0;
+var _srPassage = null;
+var _srPhase   = 'idle'; // idle | reading | questions | done
+
+function srInit() {
+  _srRunning = false; _srWordIdx = 0; _srCorrect = 0; _srAnswered = 0;
+  _srPhase = 'idle';
+  clearInterval(_srTimer);
+  _srPassage = SR_PASSAGES[Math.floor(Math.random() * SR_PASSAGES.length)];
+  _srWords = _srPassage.text.split(/\s+/);
+
+  var phLbl = document.getElementById('srPhaseLbl');
+  var wdDsp = document.getElementById('srWordDisplay');
+  var prog  = document.getElementById('srProgressFill');
+  var qEl   = document.getElementById('srQuestion');
+  var oEl   = document.getElementById('srOpts');
+  var scEl  = document.getElementById('srScore');
+  var spBtns= document.getElementById('srSpeedBtns');
+  var wpmBdg= document.getElementById('srWpmBadge');
+  var startB= document.getElementById('srStartBtn');
+
+  if (phLbl) phLbl.textContent = 'Choose Speed';
+  if (wdDsp) { wdDsp.textContent = '📖'; wdDsp.style.opacity = '1'; }
+  if (prog)  prog.style.width = '0%';
+  if (qEl)   qEl.style.display = 'none';
+  if (oEl)   oEl.style.display = 'none';
+  if (scEl)  scEl.style.display = 'none';
+  if (spBtns)spBtns.style.display = 'flex';
+  if (wpmBdg)wpmBdg.textContent = _srWPM + ' WPM';
+  if (startB)startB.style.display = '';
+}
+
+function srSetSpeed(wpm) {
+  _srWPM = wpm;
+  var badge = document.getElementById('srWpmBadge');
+  if (badge) badge.textContent = wpm + ' WPM';
+  // Highlight active button
+  document.querySelectorAll('.sr-speed-btn').forEach(function(b) {
+    b.classList.toggle('active', parseInt(b.getAttribute('onclick').match(/\d+/)[0]) === wpm);
+  });
+}
+
+function srStart() {
+  var startBtn = document.getElementById('srStartBtn');
+  var spBtns   = document.getElementById('srSpeedBtns');
+  var phLbl    = document.getElementById('srPhaseLbl');
+  if (startBtn) startBtn.style.display = 'none';
+  if (spBtns)   spBtns.style.display = 'none';
+  if (phLbl)    phLbl.textContent = 'Reading…';
+
+  _srRunning = true;
+  _srPhase = 'reading';
+  _srWordIdx = 0;
+
+  var msPerWord = Math.round(60000 / _srWPM);
+  srShowNextWord(msPerWord);
+}
+
+function srShowNextWord(msPerWord) {
+  if (!_srRunning || _srPhase !== 'reading') return;
+  if (_srWordIdx >= _srWords.length) {
+    srStartQuestions();
+    return;
+  }
+  var wdEl = document.getElementById('srWordDisplay');
+  var prog  = document.getElementById('srProgressFill');
+  var phLbl = document.getElementById('srPhaseLbl');
+
+  var pct = Math.round((_srWordIdx / _srWords.length) * 100);
+  if (prog) prog.style.width = pct + '%';
+
+  var word = _srWords[_srWordIdx];
+  if (wdEl) {
+    wdEl.style.opacity = '0';
+    setTimeout(function() {
+      wdEl.textContent = word;
+      wdEl.style.opacity = '1';
+    }, msPerWord * 0.15);
+  }
+  // Show word count
+  if (phLbl) phLbl.textContent = (_srWordIdx + 1) + ' / ' + _srWords.length + ' words';
+
+  _srWordIdx++;
+  // Pause slightly longer on punctuation
+  var pause = word.match(/[.,!?;:]$/) ? msPerWord * 1.5 : msPerWord;
+  _srTimer = setTimeout(function() { srShowNextWord(msPerWord); }, pause);
+}
+
+function srStartQuestions() {
+  _srPhase = 'questions';
+  _srAnswered = 0; _srCorrect = 0;
+  var wdEl  = document.getElementById('srWordDisplay');
+  var prog  = document.getElementById('srProgressFill');
+  var phLbl = document.getElementById('srPhaseLbl');
+  var spBtns= document.getElementById('srSpeedBtns');
+
+  if (prog)  prog.style.width = '100%';
+  if (wdEl)  { wdEl.textContent = '🧠'; wdEl.style.opacity = '1'; }
+  if (phLbl) phLbl.textContent = 'Comprehension Check';
+  if (spBtns) spBtns.style.display = 'none';
+
+  soundGameEnd();
+  srShowQuestion(0);
+}
+
+function srShowQuestion(idx) {
+  var qData = _srPassage.questions[idx];
+  if (!qData) { srFinish(); return; }
+
+  var qEl = document.getElementById('srQuestion');
+  var oEl = document.getElementById('srOpts');
+  if (!qEl || !oEl) return;
+
+  qEl.style.display = 'block';
+  qEl.textContent = 'Q' + (idx+1) + ': ' + qData.q;
+  oEl.style.display = 'flex';
+  oEl.innerHTML = qData.opts.map(function(opt, i) {
+    return '<button class="sr-opt" onclick="srAnswer(' + idx + ',' + i + ')">' + opt + '</button>';
+  }).join('');
+}
+
+function srAnswer(qIdx, chosen) {
+  if (_srPhase !== 'questions') return;
+  var qData = _srPassage.questions[qIdx];
+  var btns  = document.querySelectorAll('.sr-opt');
+  btns.forEach(function(b, i) {
+    b.disabled = true;
+    if (i === qData.ans)  b.classList.add('correct');
+    if (i === chosen && chosen !== qData.ans) b.classList.add('wrong');
+  });
+  if (chosen === qData.ans) { _srCorrect++; soundCorrect(); } else soundWrong();
+  _srAnswered++;
+  setTimeout(function() { srShowQuestion(qIdx + 1); }, 700);
+}
+
+function srFinish() {
+  _srPhase = 'done';
+  _srRunning = false;
+  var acc   = Math.round((_srCorrect / _srPassage.questions.length) * 100);
+  var score = Math.round(_srWPM * (acc / 100));
+
+  savePB('speedread', score);
+  saveScore('brain', acc);
+  checkAchievements('speedread', acc);
+
+  _lastChallengeScore = score;
+  _lastChallengeName  = 'speed-reading score';
+  _lastChallengeExId  = 'speed-reading';
+
+  var scoreHTML = '<div class="done-score-pill"><strong>' + _srWPM + '</strong><span>WPM</span></div>' +
+    '<div class="done-score-pill"><strong>' + _srCorrect + '/' + _srPassage.questions.length + '</strong><span>CORRECT</span></div>' +
+    '<div class="done-score-pill"><strong>' + acc + '%</strong><span>ACCURACY</span></div>' +
+    '<div class="done-score-pill"><strong>' + score + '</strong><span>SCORE</span></div>';
+
+  speak('Speed reading complete. ' + _srCorrect + ' out of ' + _srPassage.questions.length + ' correct. ' +
+    (acc >= 75 ? 'Excellent comprehension!' : 'Keep practising!'));
+
+  setTimeout(function() {
+    _showDone(scoreHTML);
+    // Save to leaderboard via game LB modal
+    setTimeout(function() {
+      gameLbShowModal('speedread_score', score + ' pts (' + _srWPM + ' WPM, ' + acc + '% accuracy)',
+        { wpm: _srWPM, accuracy: acc, correct: _srCorrect });
+    }, 600);
+  }, 500);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LEADERBOARD TABS — Global / This Week / India
+   ═══════════════════════════════════════════════════════════════ */
+var _lbCurrentTab = 'global';
+var _lbAllRows    = []; // cache of all rows from last fetch
+
+function lbSetTab(tab) {
+  _lbCurrentTab = tab;
+  // Update tab button styles
+  ['global','weekly','india'].forEach(function(t) {
+    var btn = document.getElementById('lbTab' + t.charAt(0).toUpperCase() + t.slice(1));
+    if (btn) btn.classList.toggle('active', t === tab);
+  });
+  lbRenderFiltered(_lbAllRows);
+}
+
+function lbRenderFiltered(rows) {
+  _lbAllRows = rows || _lbAllRows;
+  var tab    = _lbCurrentTab;
+  var clean  = (_lbAllRows || []).filter(function(r) {
+    return !String(r.name||'').startsWith('__auto__') && r.wpm === undefined;
+  });
+
+  // Weekly filter — entries tagged with this week's date prefix in name (if server supports)
+  // Since GAS doesn't tag by week, we simulate by using local submission timestamps
+  if (tab === 'weekly') {
+    var weekScores = _lbGetWeeklyScores();
+    if (weekScores.length) {
+      lbRenderRows(weekScores, true);
+      return;
+    } else {
+      // No weekly data yet — show message
+      var list = document.getElementById('lbList');
+      if (list) list.innerHTML = '<div class="lb-empty">No scores this week yet — play to be first! 🏆</div>';
+      return;
+    }
+  }
+
+  // India filter — common Indian names heuristic + IP not available, so show note
+  if (tab === 'india') {
+    // We filter by names that look Indian (common Indian name patterns)
+    // This is a best-effort filter since we have no geo data
+    var indiaRows = clean.filter(function(r) { return _looksIndian(r.name); });
+    if (indiaRows.length >= 3) {
+      lbRenderRows(indiaRows.slice(0, 500), false);
+    } else {
+      // Not enough India-detected entries — show all with note
+      var list2 = document.getElementById('lbList');
+      if (list2) {
+        lbRenderRows(clean.slice(0, 500), false);
+        var note = document.createElement('div');
+        note.style.cssText = 'text-align:center;font-size:.6rem;color:rgba(255,255,255,.25);padding:.3rem';
+        note.textContent = 'India filter is name-based. Add 🇮🇳 to your name to be counted!';
+        list2.appendChild(note);
+      }
+      return;
+    }
+    return;
+  }
+
+  // Global (default)
+  lbRenderRows(clean.slice(0, 500), false);
+}
+
+function lbRenderRows(rows, isWeekly) {
+  var list = document.getElementById('lbList');
+  var myRankEl = document.getElementById('lbMyRank');
+  if (!list) return;
+  if (!rows.length) {
+    list.innerHTML = '<div class="lb-empty">' + (isWeekly ? 'No scores this week yet!' : 'No scores yet — be first! 🏆') + '</div>';
+    return;
+  }
+  list.innerHTML = rows.map(function(r, i) {
+    var pos     = i + 1;
+    var rankCls = pos === 1 ? 'top1' : pos === 2 ? 'top2' : pos === 3 ? 'top3' : '';
+    var isMe    = _lbMyRank && pos === _lbMyRank;
+    var displayVal = r.score !== undefined ? r.score : r.taps;
+    var displayLbl = r.score !== undefined ? 'pts' : 'taps';
+    return '<div class="lb-row' + (isMe ? ' me' : '') + '">' +
+      '<span class="lb-rank ' + rankCls + '">' + (pos <= 3 ? ['🥇','🥈','🥉'][pos-1] : '#'+pos) + '</span>' +
+      '<span class="lb-name">' + _esc(r.name) + '</span>' +
+      '<span class="lb-score">' + displayVal + ' ' + displayLbl + '</span>' +
+      '</div>';
+  }).join('') +
+  '<div style="text-align:center;font-size:.62rem;color:rgba(255,255,255,.25);padding:.4rem 0">Showing ' + rows.length + ' entries' + (isWeekly ? ' this week' : '') + '</div>';
+
+  if (_lbMyRank && myRankEl) {
+    myRankEl.textContent = 'Your rank: #' + _lbMyRank;
+    myRankEl.style.display = '';
+  }
+}
+
+// Check if a name looks Indian (simple heuristic)
+function _looksIndian(name) {
+  if (!name) return false;
+  var n = name.toLowerCase();
+  // Contains Indian flag emoji
+  if (name.includes('🇮🇳')) return true;
+  // Common Indian name endings/patterns
+  var patterns = ['kumar','singh','sharma','gupta','patel','rao','reddy','nair','joshi','mehta',
+    'verma','yadav','mishra','chandra','vijay','raj','priya','anil','sunil','ravi','amit','arjun',
+    'pooja','anita','sunita','rekha','deepak','rohit','rahul','neha','kajal','ayesha','fatima',
+    'khan','sheikh','ansari','qureshi','siddiqui','ali','hassan','hussain','shah','hayaat','yasir'];
+  for (var i = 0; i < patterns.length; i++) {
+    if (n.includes(patterns[i])) return true;
+  }
+  return false;
+}
+
+// Weekly scores stored locally (scores submitted this week)
+var _WEEKLY_KEY = 'sh_weekly_scores';
+
+function _lbSaveWeeklyScore(taps, score, name) {
+  try {
+    var week = _getWeekKey();
+    var data = JSON.parse(localStorage.getItem(_WEEKLY_KEY) || '{}');
+    if (!data[week]) data[week] = [];
+    data[week].push({ name: name || 'You', score: score, taps: taps, ts: Date.now() });
+    // Keep only last 2 weeks
+    var keys = Object.keys(data).sort();
+    while (keys.length > 2) { delete data[keys.shift()]; keys = Object.keys(data).sort(); }
+    localStorage.setItem(_WEEKLY_KEY, JSON.stringify(data));
+  } catch(e) {}
+}
+
+function _lbGetWeeklyScores() {
+  try {
+    var week = _getWeekKey();
+    var data = JSON.parse(localStorage.getItem(_WEEKLY_KEY) || '{}');
+    return (data[week] || []).sort(function(a,b){ return b.score - a.score; });
+  } catch(e) { return []; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ACHIEVEMENT SYSTEM
+   ═══════════════════════════════════════════════════════════════ */
+const ACH_KEY = 'sh_achievements';
+
+const ACHIEVEMENTS = [
+  // Reaction
+  { id:'tap_50',     icon:'⚡', name:'Quick Fingers',    desc:'Score 50+ taps in Reaction Test',        cat:'reaction' },
+  { id:'tap_80',     icon:'🔥', name:'Speed Demon',       desc:'Score 80+ taps in Reaction Test',        cat:'reaction' },
+  { id:'tap_100',    icon:'💥', name:'Century Club',      desc:'Score 100+ taps in Reaction Test',       cat:'reaction' },
+  { id:'tap_120',    icon:'🚀', name:'Superhuman',        desc:'Score 120+ taps in Reaction Test',       cat:'reaction' },
+  // Math
+  { id:'math_20',    icon:'🧮', name:'Number Cruncher',   desc:'Answer 20+ correct in Math Challenge',   cat:'math' },
+  { id:'math_40',    icon:'📐', name:'Math Wizard',       desc:'Answer 40+ correct in Math Challenge',   cat:'math' },
+  { id:'math_60',    icon:'🎓', name:'Einstein Mode',     desc:'Answer 60+ correct in Math Challenge',   cat:'math' },
+  // Memory
+  { id:'mem_8',      icon:'🃏', name:'Perfect Memory',    desc:'Match all pairs in exactly 8 attempts',  cat:'memory' },
+  { id:'mem_12',     icon:'🧠', name:'Sharp Mind',        desc:'Match all pairs in 12 or fewer attempts',cat:'memory' },
+  // Typing
+  { id:'type_40',    icon:'⌨️', name:'Typist',            desc:'Type 40+ WPM in Typing Speed Test',      cat:'typing' },
+  { id:'type_60',    icon:'💨', name:'Speed Typist',      desc:'Type 60+ WPM in Typing Speed Test',      cat:'typing' },
+  { id:'type_80',    icon:'🏎️', name:'Keyboard Racer',   desc:'Type 80+ WPM in Typing Speed Test',      cat:'typing' },
+  // Speed Reading
+  { id:'sr_75',      icon:'📖', name:'Book Worm',         desc:'Score 75%+ accuracy in Speed Reading',   cat:'speedread' },
+  { id:'sr_100',     icon:'🦅', name:'Eagle Reader',      desc:'Score 100% accuracy in Speed Reading',   cat:'speedread' },
+  // Streak
+  { id:'streak_3',   icon:'🔥', name:'On Fire',           desc:'Maintain a 3-day wellness streak',        cat:'streak' },
+  { id:'streak_7',   icon:'🌟', name:'Week Warrior',      desc:'Maintain a 7-day wellness streak',        cat:'streak' },
+  { id:'streak_30',  icon:'💎', name:'Diamond Habit',     desc:'Maintain a 30-day wellness streak',       cat:'streak' },
+  // Rank
+  { id:'rank_top10', icon:'🏆', name:'Elite',             desc:'Reach Top 10 on any global leaderboard', cat:'rank' },
+  { id:'rank_top3',  icon:'🥇', name:'Podium Finisher',   desc:'Reach Top 3 on any global leaderboard',  cat:'rank' },
+  // General
+  { id:'first_game', icon:'🌱', name:'First Step',        desc:'Complete your first brain game',          cat:'general' },
+  { id:'all_games',  icon:'🎯', name:'All-Rounder',       desc:'Play all 5 brain games at least once',    cat:'general' },
+  { id:'daily_done', icon:'🗓️', name:'Daily Champion',   desc:'Complete the Daily Challenge',             cat:'general' },
+  { id:'pb_beat',    icon:'⭐', name:'Personal Best',     desc:'Beat your own personal best in any game', cat:'general' },
+];
+
+function _loadAchievements() {
+  try { return JSON.parse(localStorage.getItem(ACH_KEY) || '{}'); } catch(e) { return {}; }
+}
+function _saveAchievements(data) {
+  try { localStorage.setItem(ACH_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function _unlockAchievement(id) {
+  var data = _loadAchievements();
+  if (data[id]) return false; // already unlocked
+  data[id] = { date: new Date().toDateString(), ts: Date.now() };
+  _saveAchievements(data);
+  return true;
+}
+
+function _checkAndUnlock(id) {
+  if (_unlockAchievement(id)) {
+    var ach = ACHIEVEMENTS.find(function(a){ return a.id === id; });
+    if (ach) _showAchievementToast(ach);
+    _updateAchieveBtnLabel();
+    return true;
+  }
+  return false;
+}
+
+function _showAchievementToast(ach) {
+  var toast = document.getElementById('achToast');
+  var icon  = document.getElementById('achToastIcon');
+  var name  = document.getElementById('achToastName');
+  var desc  = document.getElementById('achToastDesc');
+  if (!toast) return;
+  if (icon) icon.textContent = ach.icon;
+  if (name) name.textContent = ach.name;
+  if (desc) desc.textContent = ach.desc;
+  soundPB();
+  toast.classList.add('show');
+  setTimeout(function() { toast.classList.remove('show'); }, 3500);
+}
+
+function _updateAchieveBtnLabel() {
+  var data   = _loadAchievements();
+  var count  = Object.keys(data).length;
+  var total  = ACHIEVEMENTS.length;
+  var btn    = document.getElementById('ovAchieveBtn');
+  var lbl    = document.getElementById('ovAchieveBtnLbl');
+  if (btn)   btn.classList.add('show');
+  if (lbl)   lbl.textContent = 'Achievements (' + count + '/' + total + ')';
+}
+
+function openAchievements() {
+  var panel = document.getElementById('achievementPanel');
+  if (!panel) return;
+  _renderAchievements();
+  panel.classList.add('show');
+}
+function closeAchievements() {
+  var panel = document.getElementById('achievementPanel');
+  if (panel) panel.classList.remove('show');
+}
+
+function _renderAchievements() {
+  var data  = _loadAchievements();
+  var total = ACHIEVEMENTS.length;
+  var count = Object.keys(data).length;
+  var countEl = document.getElementById('achCount');
+  var grid    = document.getElementById('achGrid');
+  if (countEl) countEl.textContent = count + ' / ' + total + ' unlocked';
+  if (!grid) return;
+
+  // Sort: unlocked first, then locked
+  var sorted = ACHIEVEMENTS.slice().sort(function(a, b) {
+    var ua = !!data[a.id], ub = !!data[b.id];
+    if (ua && !ub) return -1;
+    if (!ua && ub) return 1;
+    return 0;
+  });
+
+  grid.innerHTML = sorted.map(function(ach) {
+    var unlocked = !!data[ach.id];
+    var dateStr  = unlocked ? data[ach.id].date || '' : '';
+    return '<div class="ach-card' + (unlocked ? ' unlocked' : '') + '">' +
+      '<div class="' + (unlocked ? 'ach-icon' : 'ach-locked-icon') + '">' + ach.icon + '</div>' +
+      '<div class="ach-body">' +
+        '<div class="ach-name' + (unlocked ? '' : ' locked') + '">' + ach.name + '</div>' +
+        '<div class="ach-desc">' + (unlocked ? ach.desc : '???') + '</div>' +
+        (unlocked && dateStr ? '<div class="ach-date">Earned ' + dateStr + '</div>' : '') +
+        (!unlocked ? '<div class="ach-prog"><div class="ach-prog-fill" style="width:0%"></div></div>' : '') +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+/* Called after each game to check achievements */
+function checkAchievements(type, value) {
+  var data = JSON.parse(localStorage.getItem('sh_wellness') || '{}');
+  var pb   = data.pb || {};
+
+  if (type === 'reaction') {
+    if (value >= 50)  _checkAndUnlock('tap_50');
+    if (value >= 80)  _checkAndUnlock('tap_80');
+    if (value >= 100) _checkAndUnlock('tap_100');
+    if (value >= 120) _checkAndUnlock('tap_120');
+    _checkAndUnlock('first_game');
+    _checkGamesPlayed();
+  }
+  if (type === 'math') {
+    if (value >= 20) _checkAndUnlock('math_20');
+    if (value >= 40) _checkAndUnlock('math_40');
+    if (value >= 60) _checkAndUnlock('math_60');
+    _checkAndUnlock('first_game');
+    _checkGamesPlayed();
+  }
+  if (type === 'memory') {
+    if (value <= 8)  _checkAndUnlock('mem_8');
+    if (value <= 12) _checkAndUnlock('mem_12');
+    _checkAndUnlock('first_game');
+    _checkGamesPlayed();
+  }
+  if (type === 'typing') {
+    if (value >= 40) _checkAndUnlock('type_40');
+    if (value >= 60) _checkAndUnlock('type_60');
+    if (value >= 80) _checkAndUnlock('type_80');
+    _checkAndUnlock('first_game');
+    _checkGamesPlayed();
+  }
+  if (type === 'speedread') {
+    if (value >= 75)  _checkAndUnlock('sr_75');
+    if (value === 100) _checkAndUnlock('sr_100');
+    _checkAndUnlock('first_game');
+    _checkGamesPlayed();
+  }
+  if (type === 'rank') {
+    if (value <= 10) _checkAndUnlock('rank_top10');
+    if (value <= 3)  _checkAndUnlock('rank_top3');
+  }
+  if (type === 'streak') {
+    if (value >= 3)  _checkAndUnlock('streak_3');
+    if (value >= 7)  _checkAndUnlock('streak_7');
+    if (value >= 30) _checkAndUnlock('streak_30');
+  }
+  if (type === 'pb')    _checkAndUnlock('pb_beat');
+  if (type === 'daily') _checkAndUnlock('daily_done');
+
+  _updateAchieveBtnLabel();
+}
+
+function _checkGamesPlayed() {
+  try {
+    var played = JSON.parse(localStorage.getItem('sh_games_played') || '{}');
+    if (_ex) played[_ex.cat === 'brain' ? _ex.id : ''] = true;
+    var brainGames = ['reaction-test','math-challenge','memory-match','number-sequence','typing-speed','speed-reading'];
+    var allPlayed  = brainGames.every(function(id) { return !!played[id]; });
+    if (allPlayed) _checkAndUnlock('all_games');
+    localStorage.setItem('sh_games_played', JSON.stringify(played));
+  } catch(e) {}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SHARE CARD — Canvas-generated shareable image
+   ═══════════════════════════════════════════════════════════════ */
+var _shareCardDataUrl = '';
+
+function openShareCard() {
+  var overlay = document.getElementById('shareCardOverlay');
+  if (!overlay) return;
+  _generateShareCard();
+  overlay.classList.add('show');
+}
+function closeShareCard() {
+  var overlay = document.getElementById('shareCardOverlay');
+  if (overlay) overlay.classList.remove('show');
+}
+
+function _generateShareCard() {
+  var canvas = document.getElementById('shareCardCanvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W = 640, H = 360;
+  canvas.width = W; canvas.height = H;
+
+  // Background gradient
+  var bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0,   '#071830');
+  bg.addColorStop(0.5, '#0a1f3c');
+  bg.addColorStop(1,   '#0e2448');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // Gold border
+  ctx.strokeStyle = 'rgba(212,160,23,0.6)';
+  ctx.lineWidth   = 2.5;
+  _roundRect(ctx, 4, 4, W-8, H-8, 20);
+  ctx.stroke();
+
+  // Subtle inner glow
+  var glow = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W*0.7);
+  glow.addColorStop(0,   'rgba(184,134,11,0.06)');
+  glow.addColorStop(1,   'rgba(184,134,11,0)');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H);
+
+  // Game info
+  var gameTitle = _ex ? _ex.title : 'Brain Training';
+  var rank      = _lastRevealedRank || 0;
+  var medal     = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : rank <= 10 ? '🏅' : '#' + rank;
+
+  // Shah Hayaat logo text (top left)
+  ctx.fillStyle = 'rgba(212,160,23,0.85)';
+  ctx.font      = 'bold 18px serif';
+  ctx.fillText('🌿 Shah Hayaat', 32, 44);
+
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.font      = '13px sans-serif';
+  ctx.fillText('Wellness Clinic', 32, 62);
+
+  // Big rank display (centre)
+  if (rank > 0) {
+    ctx.textAlign = 'center';
+
+    // Medal emoji
+    ctx.font = '72px serif';
+    ctx.fillText(rank <= 3 ? (rank===1?'🥇':rank===2?'🥈':'🥉') : '🏅', W/2, H/2 - 20);
+
+    // Rank number
+    ctx.fillStyle = rank <= 3 ? '#FFD700' : rank <= 10 ? '#D4A017' : '#22C55E';
+    ctx.font      = 'bold 52px sans-serif';
+    ctx.fillText('Rank #' + rank, W/2, H/2 + 50);
+
+    // Game name
+    ctx.fillStyle = 'rgba(255,255,255,0.65)';
+    ctx.font      = '18px sans-serif';
+    ctx.fillText(gameTitle, W/2, H/2 + 78);
+
+    // Score pills (if available)
+    var scoreText = _lastChallengeScore > 0
+      ? _lastChallengeScore + ' ' + (_lastChallengeName || 'points')
+      : '';
+    if (scoreText) {
+      ctx.fillStyle = 'rgba(212,160,23,0.7)';
+      ctx.font      = '15px sans-serif';
+      ctx.fillText(scoreText, W/2, H/2 + 102);
+    }
+  } else {
+    // No rank — show wellness card
+    ctx.textAlign = 'center';
+    ctx.font = '54px serif';
+    ctx.fillText('🧠', W/2, H/2 - 10);
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 28px sans-serif';
+    ctx.fillText('Brain Training Complete!', W/2, H/2 + 40);
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.font = '17px sans-serif';
+    ctx.fillText(_ex ? _ex.title : 'Wellness Exercise', W/2, H/2 + 68);
+  }
+
+  // Achievements unlocked count (bottom left)
+  var achData  = _loadAchievements();
+  var achCount = Object.keys(achData).length;
+  if (achCount > 0) {
+    ctx.textAlign = 'left';
+    ctx.fillStyle = 'rgba(212,160,23,0.6)';
+    ctx.font      = '13px sans-serif';
+    ctx.fillText('🏅 ' + achCount + '/' + ACHIEVEMENTS.length + ' achievements', 32, H - 36);
+  }
+
+  // Streak (bottom left below achievements)
+  try {
+    var wdata  = JSON.parse(localStorage.getItem('sh_wellness') || '{}');
+    var streak = wdata.streak || 0;
+    if (streak > 1) {
+      ctx.fillStyle = 'rgba(255,140,0,0.75)';
+      ctx.font = '13px sans-serif';
+      ctx.fillText('🔥 ' + streak + '-day streak', 32, H - 18);
+    }
+  } catch(e) {}
+
+  // Website URL (bottom right)
+  ctx.textAlign = 'right';
+  ctx.fillStyle = 'rgba(255,255,255,0.25)';
+  ctx.font      = '12px sans-serif';
+  ctx.fillText('shahhayaat.com/exercises.html', W - 28, H - 18);
+
+  ctx.textAlign = 'left'; // reset
+  _shareCardDataUrl = canvas.toDataURL('image/png');
+}
+
+function _roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function shareCardWhatsApp() {
+  closeShareCard();
+  var medal   = _lastRevealedRank > 0 ? (
+    _lastRevealedRank === 1 ? '🥇' : _lastRevealedRank === 2 ? '🥈' : _lastRevealedRank === 3 ? '🥉' : '🏅'
+  ) : '🧠';
+  var game    = _ex ? _ex.title : 'brain training';
+  var rankStr = _lastRevealedRank > 0 ? ' I ranked #' + _lastRevealedRank + ' globally!' : '';
+  var msg     = medal + ' Just completed ' + game + ' on Shah Hayaat Wellness Clinic!' + rankStr +
+    '\n\n🌿 Free guided wellness exercises — brain, breathing & body.\n' +
+    '👉 https://www.shahhayaat.com/exercises.html\n\nCan you beat me? 💪';
+  window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+}
+
+function downloadShareCard() {
+  if (!_shareCardDataUrl) return;
+  var a    = document.createElement('a');
+  a.href   = _shareCardDataUrl;
+  a.download = 'shahhayaat-rank.png';
+  a.click();
+}
+
 /* ── WHATSAPP SHARE after exercise completion ── */
 var _lastCompletedExName = '';
 function shareOnWhatsApp() {
@@ -5610,6 +6375,36 @@ function shareOnWhatsApp() {
   <div id="statsRanks" style="width:100%;max-width:400px"></div>
   <div class="stats-section-ttl">🔥 Streak</div>
   <div id="statsStreak" style="width:100%;max-width:400px;text-align:center;padding:.8rem;background:rgba(255,255,255,.04);border-radius:14px;margin-bottom:1rem"></div>
+</div>
+
+<!-- ACHIEVEMENT TOAST -->
+<div id="achToast">
+  <div class="ach-toast-icon" id="achToastIcon">🏅</div>
+  <div class="ach-toast-body">
+    <div class="ach-toast-ttl">Achievement Unlocked!</div>
+    <div class="ach-toast-name" id="achToastName"></div>
+    <div class="ach-toast-desc" id="achToastDesc"></div>
+  </div>
+</div>
+
+<!-- ACHIEVEMENT PANEL -->
+<div id="achievementPanel">
+  <div class="ach-header">
+    <div class="ach-title">🏅 Achievements</div>
+    <button class="ach-close" onclick="closeAchievements()">✕</button>
+  </div>
+  <div class="ach-count" id="achCount">Loading…</div>
+  <div class="ach-grid" id="achGrid"></div>
+</div>
+
+<!-- SHARE CARD OVERLAY -->
+<div id="shareCardOverlay">
+  <canvas id="shareCardCanvas" width="640" height="360"></canvas>
+  <div class="share-card-btns">
+    <button class="share-card-btn share-card-wa" onclick="shareCardWhatsApp()">💬 Share on WhatsApp</button>
+    <button class="share-card-btn share-card-dl" onclick="downloadShareCard()">⬇️ Save Image</button>
+    <button class="share-card-btn share-card-close" onclick="closeShareCard()">✕ Close</button>
+  </div>
 </div>
 </body>
 </html>
