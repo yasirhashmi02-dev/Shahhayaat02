@@ -4072,6 +4072,8 @@ function startNextFromToast() {
    FIRST-TIME USER GUIDE
 ───────────────────────────────────────────────────── */
 function initFirstTimeGuide() {
+  // Never show first-time guide on challenge links — user must play immediately
+  if (window._isChallengeLink) return;
   try {
     if (localStorage.getItem('sh_seen_guide')) return;
     setTimeout(() => {
@@ -4092,6 +4094,8 @@ function dismissGuide(startRoutine) {
    WELCOME BACK BANNER (returning users)
 ───────────────────────────────────────────────────── */
 function initWelcomeBack() {
+  // Never show welcome back on challenge links
+  if (window._isChallengeLink) return;
   try {
     const data = JSON.parse(localStorage.getItem('sh_wellness') || '{}');
     if (!data.lastActive) return; // First-time user — guide handles this
@@ -4456,6 +4460,7 @@ function shareChallenge(method) {
   window.openChallenge     = openChallenge;
   window.closeChallenge    = closeChallenge;
   window.shareChallenge    = shareChallenge;
+  window._launchChallengeGame = _launchChallengeGame;
 
   document.getElementById('filterBar').addEventListener('click', e => {
     const btn = e.target.closest('.filter-btn');
@@ -4602,7 +4607,8 @@ function shareChallenge(method) {
      Link format: exercises.html?challenge=reaction-test&score=42&metric=taps%20in%2015%20sec
      _challengeCtx is read by _showDone on every finish — no fragile patching.
   ──────────────────────────────────────────────────────────────── */
-  window._challengeCtx = null; // set below if URL params present
+  window._challengeCtx = null;
+  window._isChallengeLink = false;
 
   (function handleChallengeDeepLink() {
     try {
@@ -4616,7 +4622,7 @@ function shareChallenge(method) {
       const ex = EXERCISES.find(e => e.id === exId);
       if (!ex) return;
 
-      // number-sequence is time-based (lower = better); everything else higher = better
+      window._isChallengeLink = true;
       window._challengeCtx = {
         exId,
         challengerScore,
@@ -4624,30 +4630,96 @@ function shareChallenge(method) {
         lowerIsBetter: exId === 'number-sequence'
       };
 
-      // ── 1. Banner ──
-      const banner = document.createElement('div');
-      banner.id = 'challengeBanner';
-      banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:2000;' +
-        'background:linear-gradient(135deg,#92400e,var(--gold-l));' +
-        'color:#fff;padding:.55rem .8rem;font-size:.82rem;font-weight:700;' +
-        'display:flex;align-items:center;justify-content:center;gap:.55rem;flex-wrap:wrap;' +
-        'box-shadow:0 2px 12px rgba(184,134,11,.45)';
-      banner.innerHTML = (
-        '<span>&#127942; You&#39;ve been challenged in <strong>' + ex.title + '</strong>! '
-        + 'Beat <strong>' + challengerScore + ' ' + metric + '</strong> to win.</span>'
-        + '<button onclick="openExercise(\'' + exId + '\')"'
-        + ' style="padding:.28rem .8rem;border-radius:50px;background:#fff;'
-          + 'color:#92400e;border:none;font-weight:800;font-size:.76rem;cursor:pointer;white-space:nowrap">'
-        + '&#9654; Play Now</button>'
-        + '<button onclick="this.parentElement.remove()"'
-        + ' style="background:none;border:none;color:rgba(255,255,255,.55);font-size:1rem;cursor:pointer;padding:0 .2rem">&#x2715;</button>'
-      );
+      // ── Full-screen challenge splash — shown instantly, covers the whole page ──
+      const splash = document.createElement('div');
+      splash.id = 'challengeSplash';
+      splash.style.cssText = [
+        'position:fixed;inset:0;z-index:99999',
+        'background:linear-gradient(160deg,#061220 0%,#071830 50%,#0a1f3c 100%)',
+        'display:flex;flex-direction:column;align-items:center;justify-content:center',
+        'padding:2rem 1.5rem;text-align:center;gap:.8rem',
+        'animation:splashIn .4s ease'
+      ].join(';');
 
-      // ── 2. Auto-open the exercise ──
-      setTimeout(function() { openExercise(exId); }, 900);
+      const medal = challengerScore > 0 ? '⚡' : '🏆';
+      const lowerMsg = exId === 'number-sequence' ? 'faster than' : 'beat';
+
+      splash.innerHTML = `
+        <style>
+          @keyframes splashIn{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:scale(1)}}
+          @keyframes pulseTarget{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+          #challengeSplash .cs-game{font-size:.65rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(212,160,23,.7);margin-bottom:.2rem}
+          #challengeSplash .cs-title{font-family:var(--font-h);font-size:clamp(1.6rem,6vw,2.2rem);color:#fff;font-weight:800;line-height:1.2}
+          #challengeSplash .cs-target{
+            margin:.4rem auto;padding:1rem 1.8rem;border-radius:18px;
+            background:linear-gradient(135deg,rgba(184,134,11,.18),rgba(212,160,23,.08));
+            border:1.5px solid rgba(212,160,23,.5);
+            animation:pulseTarget 2s ease-in-out infinite
+          }
+          #challengeSplash .cs-target-lbl{font-size:.68rem;color:rgba(255,255,255,.45);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem}
+          #challengeSplash .cs-target-val{font-family:var(--font-h);font-size:clamp(2rem,8vw,2.8rem);font-weight:900;color:var(--gold-l);line-height:1}
+          #challengeSplash .cs-target-metric{font-size:.78rem;color:rgba(255,255,255,.5);margin-top:.15rem}
+          #challengeSplash .cs-sub{font-size:.9rem;color:rgba(255,255,255,.55);max-width:300px;line-height:1.6}
+          #challengeSplash .cs-btn{
+            margin-top:.5rem;width:100%;max-width:300px;
+            padding:1rem;border-radius:16px;
+            background:linear-gradient(135deg,#166534,#22C55E);
+            color:#fff;border:none;font-size:1.05rem;font-weight:800;
+            cursor:pointer;letter-spacing:.02em;
+            box-shadow:0 6px 24px rgba(34,197,94,.4);
+            transition:transform .18s,box-shadow .18s
+          }
+          #challengeSplash .cs-btn:hover{transform:scale(1.03);box-shadow:0 8px 32px rgba(34,197,94,.55)}
+          #challengeSplash .cs-btn:active{transform:scale(.97)}
+          #challengeSplash .cs-logo{font-size:.72rem;color:rgba(255,255,255,.2);margin-top:.3rem}
+        </style>
+        <div class="cs-game">🏆 You've been challenged in</div>
+        <div class="cs-title">${ex.emoji} ${ex.title}</div>
+        <div class="cs-target">
+          <div class="cs-target-lbl">Target to beat</div>
+          <div class="cs-target-val">${challengerScore}</div>
+          <div class="cs-target-metric">${metric || 'score'}</div>
+        </div>
+        <div class="cs-sub">Can you ${lowerMsg} this score?<br>Game starts the moment you tap.</div>
+        <button class="cs-btn" id="csSplashPlayBtn">▶ Start Challenge Now</button>
+        <div class="cs-logo">🌿 Shah Hayaat Wellness Clinic</div>
+      `;
+
+      document.body.appendChild(splash);
+
+      // Wire up the play button — dismiss splash and launch game directly
+      splash.querySelector('#csSplashPlayBtn').addEventListener('click', function() {
+        splash.style.opacity = '0';
+        splash.style.transition = 'opacity .25s ease';
+        setTimeout(function() {
+          if (splash.parentNode) splash.parentNode.removeChild(splash);
+          // Launch directly into the game — skip How To Play
+          _launchChallengeGame(exId);
+        }, 250);
+      });
+
     } catch(e) {}
   })();
 })();
+
+/* ── CHALLENGE DEEP-LINK: skip all menus, go straight to game ── */
+function _launchChallengeGame(exId) {
+  openExercise(exId);
+  // After openExercise sets _ex and shows choice/htp, jump straight to game
+  setTimeout(function() {
+    if (!_ex || _ex.id !== exId) return;
+    ovBeginDirect();
+    // Also auto-press the Start button so game begins with zero taps required
+    setTimeout(function() {
+      if (!_ex) return;
+      if (_ex.isTapGame)    gStart();
+      else if (_ex.isMathGame)   mathStart();
+      else if (_ex.isMemoryGame) memStart();
+      else if (_ex.isSeqGame)    seqStart();
+      else if (_ex.isTypingGame) tyStart();
+    }, 350);
+  }, 120);
+}
 
 
 /* ═══════════════════════════════════════════════════════
