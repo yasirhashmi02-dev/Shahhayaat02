@@ -553,7 +553,7 @@ body.nav-open{overflow:hidden}
 .done-score-pill strong{display:block;font-size:1.25rem;font-weight:900;color:var(--gold-l);font-family:var(--font-h)}
 .done-score-pill span{font-size:.62rem;color:rgba(255,255,255,.4);letter-spacing:.08em}
 .ov-done-row{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-top:.5rem}
-.rank-box{width:100%;max-width:300px;margin:0 auto;padding:14px 18px;border-radius:16px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);text-align:center;font-weight:700;color:#22C55E;display:none;position:relative;overflow:hidden;transition:opacity .4s ease,transform .4s ease}
+.rank-box{width:100%;max-width:300px;margin:0 auto;padding:14px 18px;border-radius:16px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);text-align:center;font-weight:700;color:#22C55E;display:none;position:relative;overflow:hidden}
 .rank-box.show{display:block}
 .rank-box.rank-top{background:linear-gradient(135deg,rgba(184,134,11,.2),rgba(212,160,23,.12));border-color:rgba(212,160,23,.6);color:var(--gold-l);box-shadow:0 0 30px rgba(212,160,23,.2)}
 .rank-box.rank-comeback{background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.4);color:#a5b4fc}
@@ -2739,9 +2739,6 @@ function _lbSaveWithName(name, taps, time) {
     if (!_ex || _ex.id !== 'reaction-test') return;
     var el = document.getElementById('globalRank');
     if (!el) return;
-    // Hide first, then write content, then animate in
-    el.style.display = 'block';
-    el.style.opacity = '0';
     el.innerHTML = html;
     if (addShow) _rankBoxShow(el, cls, '', '');
   }
@@ -2789,27 +2786,15 @@ function _showAnimatedRank(rank, score, name, rawMetric, exId, elId) {
   var isTop10  = rank <= 10;
   var isTop100 = rank <= 100;
   var isTop500 = rank <= 500;
-  var medal, rankCls, mainColor, msg, particles;
+  var medal, rankCls, mainColor, msg;
 
-  if (rank === 1) {
-    medal = '🥇'; rankCls = 'rank-top'; mainColor = '#FFD700';
-    msg = '🔥 CHAMPION! You are #1 in the world!'; particles = true;
-  } else if (rank === 2) {
-    medal = '🥈'; rankCls = 'rank-top'; mainColor = '#C0C0C0';
-    msg = '🚀 Silver! So close to the top!'; particles = true;
-  } else if (rank === 3) {
-    medal = '🥉'; rankCls = 'rank-top'; mainColor = '#CD7F32';
-    msg = '🔥 Bronze podium! Incredible!'; particles = true;
-  } else if (isTop10) {
-    medal = '🏅'; rankCls = 'rank-top'; mainColor = '#D4A017';
-    msg = '⭐ Top 10 worldwide — elite!'; particles = false;
-  } else if (isTop100) {
-    medal = '🏅'; rankCls = ''; mainColor = '#22C55E';
-    msg = '💪 Top 100 — keep climbing!'; particles = false;
-  } else if (isTop500) {
-    medal = '🏅'; rankCls = ''; mainColor = '#22C55E';
-    msg = '✅ Top 500 — well done!'; particles = false;
-  } else {
+  if (rank === 1)       { medal='🥇'; rankCls='rank-top'; mainColor='#FFD700'; msg='🔥 CHAMPION! You are #1 in the world!'; }
+  else if (rank === 2)  { medal='🥈'; rankCls='rank-top'; mainColor='#C0C0C0'; msg='🚀 Silver! So close to the top!'; }
+  else if (rank === 3)  { medal='🥉'; rankCls='rank-top'; mainColor='#CD7F32'; msg='🔥 Bronze podium! Incredible!'; }
+  else if (isTop10)     { medal='🏅'; rankCls='rank-top'; mainColor='#D4A017'; msg='⭐ Top 10 worldwide — elite!'; }
+  else if (isTop100)    { medal='🏅'; rankCls='';         mainColor='#22C55E'; msg='💪 Top 100 — keep climbing!'; }
+  else if (isTop500)    { medal='🏅'; rankCls='';         mainColor='#22C55E'; msg='✅ Top 500 — well done!'; }
+  else {
     var comebacks = [
       '💪 Not in Top 500 yet — but the climb starts NOW!',
       '🔥 Outside Top 500 — every legend started here!',
@@ -2819,96 +2804,40 @@ function _showAnimatedRank(rank, score, name, rawMetric, exId, elId) {
       '🎯 Keep practising — your moment is coming!',
       '🚀 Warming up — better luck next time!'
     ];
-    medal = '🎮'; rankCls = 'rank-comeback'; mainColor = '#a5b4fc';
-    msg = comebacks[Math.floor(Math.random() * comebacks.length)]; particles = false;
+    medal='🎮'; rankCls='rank-comeback'; mainColor='#a5b4fc';
+    msg = comebacks[Math.floor(Math.random() * comebacks.length)];
   }
 
-  // Build confetti for top-3
-  var particleHtml = '';
-  if (particles) {
-    var pcolors = ['#FFD700','#FF6B6B','#4ADE80','#60A5FA','#F472B6','#FBBF24'];
-    for (var p = 0; p < 10; p++) {
-      var pc = pcolors[p % pcolors.length];
-      particleHtml += '<span class="rp-dot" style="position:absolute;width:7px;height:7px;border-radius:50%;' +
-        'background:' + pc + ';left:' + (10 + Math.random() * 80) + '%;top:' + (10 + Math.random() * 80) + '%;' +
-        'opacity:0;transition:all ' + (0.4 + Math.random() * 0.4).toFixed(2) + 's ease ' + (p * 0.06).toFixed(2) + 's"></span>';
-    }
-  }
-
-  // ── CRITICAL ORDER: style first, innerHTML second, animate third ──
-  // Setting innerHTML AFTER opacity:0 prevents the flash-then-hide bug on mobile
-
-  // Step 1 — apply class + starting invisible state (no transition yet)
-  el.className    = 'rank-box' + (rankCls ? ' ' + rankCls : '');
-  el.style.cssText = 'display:block;opacity:0;transform:translateY(24px) scale(0.84);transition:none';
-
-  // Step 2 — force layout so browser registers the starting state
-  void el.offsetHeight;
-
-  // Step 3 — write content (element is invisible, so no flash)
+  // Instant display — no animation, no transition, no setTimeout
+  el.className = 'rank-box show' + (rankCls ? ' ' + rankCls : '');
+  el.style.cssText = 'display:block;opacity:1;transform:none;transition:none';
   el.innerHTML =
-    (particles ? '<span style="position:absolute;inset:0;pointer-events:none;overflow:hidden">' + particleHtml + '</span>' : '') +
-    '<div class="rank-medal-anim" style="font-size:' + (isTop3 ? '2.6rem' : '2rem') + ';display:block;margin-bottom:6px">' + medal + '</div>' +
-    '<div style="font-size:' + (isTop3 ? '2rem' : '1.5rem') + ';font-weight:900;color:' + mainColor + ';margin:4px 0 6px">Rank #' + rank + '</div>' +
-    '<div style="font-size:.8rem;color:rgba(255,255,255,.75);line-height:1.55">' + msg + '</div>';
+    '<div style="font-size:' + (isTop3 ? '2.6rem' : '2rem') + ';margin-bottom:6px">' + medal + '</div>' +
+    '<div style="font-size:' + (isTop3 ? '1.8rem' : '1.4rem') + ';font-weight:900;color:' + mainColor + ';margin:4px 0 6px">Rank #' + rank + '</div>' +
+    '<div style="font-size:.82rem;color:rgba(255,255,255,.75);line-height:1.5">' + msg + '</div>';
 
-  // Step 4 — save stats (before animation so no delay)
+  // Side effects
   _lastRevealedRank = rank;
-  checkAchievements('rank', rank);
   _lastRevealedGame = exId || '';
+  checkAchievements('rank', rank);
   if (_ex) _saveMyRank(_ex.title, rank);
   if (_ex && _ex.id === _getDailyChallengeGame()) _markDailyChallengeDone(score);
-
-  // Step 5 — enable transition and animate to visible on next paint
-  requestAnimationFrame(function() {
-    requestAnimationFrame(function() {
-      // Two rAF ensures the browser has painted the starting state first
-      el.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
-      el.style.opacity    = '1';
-      el.style.transform  = 'translateY(0) scale(1)';
-      el.classList.add('show');
-
-      // Post-reveal hooks
-      soundRankReveal(rank);
-      _showNearRankNudge(rank);
-      var waBtn = document.getElementById('waRankShare');
-      if (waBtn && rank <= 500) waBtn.classList.add('show');
-      _showDailyChallengeOnDone();
-
-      // Confetti particles for top 3
-      if (particles) {
-        var dots = el.querySelectorAll('.rp-dot');
-        dots.forEach(function(d, i) {
-          setTimeout(function() {
-            d.style.opacity   = '1';
-            d.style.transform = 'scale(2.5) translateY(-12px)';
-            setTimeout(function() { d.style.opacity = '0'; }, 350);
-          }, i * 55);
-        });
-      }
-    });
-  });
+  soundRankReveal(rank);
+  _showNearRankNudge(rank);
+  var waBtn = document.getElementById('waRankShare');
+  if (waBtn && rank <= 500) waBtn.classList.add('show');
+  _showDailyChallengeOnDone();
 }
+
 
 function _rankBoxShow(el, extraClass, bg, borderColor) {
   if (!el) return;
-  el.className = 'rank-box' + (extraClass ? ' ' + extraClass : '');
-  if (bg)          el.style.background   = bg;
-  if (borderColor) el.style.borderColor  = borderColor;
-  // Set invisible state before any content renders
-  el.style.display    = 'block';
-  el.style.opacity    = '0';
-  el.style.transform  = 'translateY(18px) scale(0.88)';
-  el.style.transition = 'none';
-  void el.offsetHeight;
-  requestAnimationFrame(function() {
-    requestAnimationFrame(function() {
-      el.style.transition = 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.34,1.56,0.64,1)';
-      el.style.opacity    = '1';
-      el.style.transform  = 'translateY(0) scale(1)';
-    });
-  });
+  el.className = 'rank-box show' + (extraClass ? ' ' + extraClass : '');
+  el.style.cssText = 'display:block;opacity:1;transform:none;transition:none';
+  if (bg)          el.style.background  = bg;
+  if (borderColor) el.style.borderColor = borderColor;
 }
+
 
 
 function _lbFetchRank(name,taps){ return; // disabled — rank now comes from POST response directly
@@ -4939,8 +4868,6 @@ function _gameShowBox(html, bg, border) {
   if (!_ex || gameIds.indexOf(_ex.id) === -1) return;
   var el = document.getElementById('gameGlobalRank');
   if (!el) return;
-  el.style.display = 'block';
-  el.style.opacity = '0';
   el.innerHTML = html;
   _rankBoxShow(el, '', bg || '', border || '');
 }
@@ -4963,8 +4890,6 @@ function _gameDoSave(name, data) {
   var savedExId = _ex ? _ex.id : null; // capture at call time — guard stale async responses
   var el2 = document.getElementById('gameGlobalRank');
   if (el2) {
-    el2.style.display = 'block';
-    el2.style.opacity = '0';
     el2.innerHTML = '<div style="font-size:.85rem;color:rgba(255,255,255,.5)">⏳ Saving…</div>';
     _rankBoxShow(el2, '', '', '');
   }
@@ -5057,8 +4982,6 @@ function tySaveScore(name, wpm, acc) {
     if (!_ex || _ex.id !== 'typing-speed') return;
     var el = document.getElementById('tyGlobalRank');
     if (!el) return;
-    el.style.display = 'block';
-    el.style.opacity = '0';
     el.innerHTML = html;
     _rankBoxShow(el, extraCls, '', '');
   }
