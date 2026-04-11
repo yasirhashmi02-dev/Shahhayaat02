@@ -2739,6 +2739,9 @@ function _lbSaveWithName(name, taps, time) {
     if (!_ex || _ex.id !== 'reaction-test') return;
     var el = document.getElementById('globalRank');
     if (!el) return;
+    // Hide first, then write content, then animate in
+    el.style.display = 'block';
+    el.style.opacity = '0';
     el.innerHTML = html;
     if (addShow) _rankBoxShow(el, cls, '', '');
   }
@@ -2826,80 +2829,85 @@ function _showAnimatedRank(rank, score, name, rawMetric, exId, elId) {
     var pcolors = ['#FFD700','#FF6B6B','#4ADE80','#60A5FA','#F472B6','#FBBF24'];
     for (var p = 0; p < 10; p++) {
       var pc = pcolors[p % pcolors.length];
-      particleHtml += '<span style="position:absolute;width:7px;height:7px;border-radius:50%;' +
+      particleHtml += '<span class="rp-dot" style="position:absolute;width:7px;height:7px;border-radius:50%;' +
         'background:' + pc + ';left:' + (10 + Math.random() * 80) + '%;top:' + (10 + Math.random() * 80) + '%;' +
         'opacity:0;transition:all ' + (0.4 + Math.random() * 0.4).toFixed(2) + 's ease ' + (p * 0.06).toFixed(2) + 's"></span>';
     }
   }
 
+  // ── CRITICAL ORDER: style first, innerHTML second, animate third ──
+  // Setting innerHTML AFTER opacity:0 prevents the flash-then-hide bug on mobile
+
+  // Step 1 — apply class + starting invisible state (no transition yet)
+  el.className    = 'rank-box' + (rankCls ? ' ' + rankCls : '');
+  el.style.cssText = 'display:block;opacity:0;transform:translateY(24px) scale(0.84);transition:none';
+
+  // Step 2 — force layout so browser registers the starting state
+  void el.offsetHeight;
+
+  // Step 3 — write content (element is invisible, so no flash)
   el.innerHTML =
     (particles ? '<span style="position:absolute;inset:0;pointer-events:none;overflow:hidden">' + particleHtml + '</span>' : '') +
     '<div class="rank-medal-anim" style="font-size:' + (isTop3 ? '2.6rem' : '2rem') + ';display:block;margin-bottom:6px">' + medal + '</div>' +
     '<div style="font-size:' + (isTop3 ? '2rem' : '1.5rem') + ';font-weight:900;color:' + mainColor + ';margin:4px 0 6px">Rank #' + rank + '</div>' +
     '<div style="font-size:.8rem;color:rgba(255,255,255,.75);line-height:1.55">' + msg + '</div>';
 
-  // ── JS-driven reveal — no CSS keyframes, works on all mobile browsers ──
-  el.className = 'rank-box' + (rankCls ? ' ' + rankCls : '');
-  // display:block FIRST, then set opacity/transform, then force layout, then animate
-  el.style.display    = 'block';
-  el.style.transition = 'none';
-  el.style.opacity    = '0';
-  el.style.transform  = 'translateY(22px) scale(0.85)';
-  el.getBoundingClientRect(); // force layout flush
-  el.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
-  // Save rank to personal stats
+  // Step 4 — save stats (before animation so no delay)
   _lastRevealedRank = rank;
   checkAchievements('rank', rank);
   _lastRevealedGame = exId || '';
   if (_ex) _saveMyRank(_ex.title, rank);
-  // Mark daily challenge done if applicable
   if (_ex && _ex.id === _getDailyChallengeGame()) _markDailyChallengeDone(score);
-  setTimeout(function() {
-    el.style.opacity   = '1';
-    el.style.transform = 'translateY(0) scale(1)';
-    el.classList.add('show');
-    // Play rank sound
-    soundRankReveal(rank);
-    // Show near-rank nudge
-    _showNearRankNudge(rank);
-    // Show WA share button
-    var waBtn = document.getElementById('waRankShare');
-    if (waBtn && rank <= 500) waBtn.classList.add('show');
-    // Show daily challenge banner
-    _showDailyChallengeOnDone();
-    // Confetti for top 3
-    if (particles) {
-      var dots = el.querySelectorAll('span[style*="position:absolute"][style*="border-radius:50%"]');
-      dots.forEach(function(d, i) {
-        setTimeout(function() {
-          d.style.opacity = '1';
-          d.style.transform = 'scale(2.5) translateY(-12px)';
-          setTimeout(function() { d.style.opacity = '0'; }, 350);
-        }, i * 55);
-      });
-    }
-  }, 20);
+
+  // Step 5 — enable transition and animate to visible on next paint
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      // Two rAF ensures the browser has painted the starting state first
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
+      el.style.opacity    = '1';
+      el.style.transform  = 'translateY(0) scale(1)';
+      el.classList.add('show');
+
+      // Post-reveal hooks
+      soundRankReveal(rank);
+      _showNearRankNudge(rank);
+      var waBtn = document.getElementById('waRankShare');
+      if (waBtn && rank <= 500) waBtn.classList.add('show');
+      _showDailyChallengeOnDone();
+
+      // Confetti particles for top 3
+      if (particles) {
+        var dots = el.querySelectorAll('.rp-dot');
+        dots.forEach(function(d, i) {
+          setTimeout(function() {
+            d.style.opacity   = '1';
+            d.style.transform = 'scale(2.5) translateY(-12px)';
+            setTimeout(function() { d.style.opacity = '0'; }, 350);
+          }, i * 55);
+        });
+      }
+    });
+  });
 }
 
 function _rankBoxShow(el, extraClass, bg, borderColor) {
   if (!el) return;
-  // Step 1: set class and make visible at starting position
   el.className = 'rank-box' + (extraClass ? ' ' + extraClass : '');
-  if (bg)          el.style.background = bg;
-  if (borderColor) el.style.borderColor = borderColor;
-  // Step 2: display:block FIRST so element is in layout
-  el.style.display   = 'block';
-  el.style.transition = 'none'; // disable transition briefly
-  el.style.opacity   = '0';
-  el.style.transform = 'translateY(18px) scale(0.88)';
-  // Step 3: force browser to register the starting state
-  el.getBoundingClientRect();
-  // Step 4: re-enable transition and animate to final state
-  el.style.transition = 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.34,1.56,0.64,1)';
-  setTimeout(function() {
-    el.style.opacity   = '1';
-    el.style.transform = 'translateY(0) scale(1)';
-  }, 20);
+  if (bg)          el.style.background   = bg;
+  if (borderColor) el.style.borderColor  = borderColor;
+  // Set invisible state before any content renders
+  el.style.display    = 'block';
+  el.style.opacity    = '0';
+  el.style.transform  = 'translateY(18px) scale(0.88)';
+  el.style.transition = 'none';
+  void el.offsetHeight;
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      el.style.transition = 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.34,1.56,0.64,1)';
+      el.style.opacity    = '1';
+      el.style.transform  = 'translateY(0) scale(1)';
+    });
+  });
 }
 
 
@@ -4931,6 +4939,8 @@ function _gameShowBox(html, bg, border) {
   if (!_ex || gameIds.indexOf(_ex.id) === -1) return;
   var el = document.getElementById('gameGlobalRank');
   if (!el) return;
+  el.style.display = 'block';
+  el.style.opacity = '0';
   el.innerHTML = html;
   _rankBoxShow(el, '', bg || '', border || '');
 }
@@ -4953,6 +4963,8 @@ function _gameDoSave(name, data) {
   var savedExId = _ex ? _ex.id : null; // capture at call time — guard stale async responses
   var el2 = document.getElementById('gameGlobalRank');
   if (el2) {
+    el2.style.display = 'block';
+    el2.style.opacity = '0';
     el2.innerHTML = '<div style="font-size:.85rem;color:rgba(255,255,255,.5)">⏳ Saving…</div>';
     _rankBoxShow(el2, '', '', '');
   }
@@ -5045,6 +5057,8 @@ function tySaveScore(name, wpm, acc) {
     if (!_ex || _ex.id !== 'typing-speed') return;
     var el = document.getElementById('tyGlobalRank');
     if (!el) return;
+    el.style.display = 'block';
+    el.style.opacity = '0';
     el.innerHTML = html;
     _rankBoxShow(el, extraCls, '', '');
   }
