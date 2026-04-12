@@ -2963,9 +2963,11 @@ function gStart() {
       _lastChallengeExId  = 'reaction-test';
       lbStopPoll();
       const reactionMs = Math.min(3000, Math.max(100, Math.round(15000 / Math.max(s, 1))));
+      // Save immediately as Anonymous so rank fetch is in-flight before done screen shows
+      _lbSaveWithName('Anonymous', s, reactionMs);
       setTimeout(() => {
         _showDone(scoreHTML); _maybeShowPromo(); _maybeShowReview();
-        // Ask for name — score is saved only after user confirms
+        // Name modal still appears so user can personalise their leaderboard entry
         setTimeout(() => lbShowNameModal(s, reactionMs), 800);
       }, 800);
     }
@@ -3035,6 +3037,7 @@ function mathStart() {
       _lastChallengeScore = _mCorrect;
       _lastChallengeName  = 'correct answers';
       _lastChallengeExId  = 'math-challenge';
+      _gameDoSave('Anonymous', { postType:'math_score', label:_mCorrect+' correct in 60s', extra:{ correct:_mCorrect, wrong:_mWrong } });
       _showDone(scoreHTML);
       setTimeout(() => gameLbShowModal(
         'math_score', _mCorrect + ' correct in 60s',
@@ -3136,6 +3139,7 @@ function memFlip(i) {
         _lastChallengeScore = _memAttempts;
         _lastChallengeName  = 'attempts to match all pairs';
         _lastChallengeExId  = 'memory-match';
+        _gameDoSave('Anonymous', { postType:'memory_score', label:_memAttempts+' attempts in '+_memSec+'s', extra:{ attempts:_memAttempts, time:_memSec } });
         setTimeout(() => _showDone(scoreHTML), 800);
         setTimeout(() => gameLbShowModal(
           'memory_score', _memAttempts + ' attempts in ' + _memSec + 's',
@@ -3671,6 +3675,8 @@ function resumeFromInstructions() {
         _lastChallengeExId  = 'reaction-test';
         lbStopPoll();
         const reactionMs2 = Math.min(3000, Math.max(100, Math.round(15000 / Math.max(s, 1))));
+        // Save immediately as Anonymous so rank fetch is in-flight before done screen shows
+        _lbSaveWithName('Anonymous', s, reactionMs2);
         setTimeout(() => {
           _showDone(scoreHTML); _maybeShowPromo(); _maybeShowReview();
           setTimeout(() => lbShowNameModal(s, reactionMs2), 800);
@@ -4318,6 +4324,9 @@ function _seqFinish(timedOut) {
     : `Brilliant! All ${SEQ_TOTAL} numbers in ${elapsed} seconds!`;
   speak(msg);
 
+  if (!timedOut) {
+    _gameDoSave('Anonymous', { postType:'sequence_score', label:'Completed in '+elapsed+'s', extra:{ elapsed: elapsed } });
+  }
   setTimeout(() => _showDone(scoreHTML), timedOut ? 600 : 800);
   if (!timedOut) {
     setTimeout(() => gameLbShowModal(
@@ -5256,6 +5265,7 @@ function tyFinish(typed) {
   _lastChallengeName  = 'WPM typing speed';
   _lastChallengeExId  = 'typing-speed';
 
+  tySaveScore('Anonymous', wpm, acc);
   setTimeout(function(){
     _showDone(scoreHTML);
     tyShowNameModal(wpm, acc);
