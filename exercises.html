@@ -2813,56 +2813,33 @@ function _estimateLocalRank(metric, exId) {
 }
 
 /* ── Animated rank reveal — shared by all games ── */
+// Cache the last rendered rank so it can survive _resetAllRankBoxes
+var _cachedRankData = null;
+
 function _showAnimatedRank(rank, score, name, rawMetric, exId, elId) {
   var el = document.getElementById(elId);
   if (!el) return;
-  // NOTE: removed exId guard — it was incorrectly blocking rank display in some flows
 
-  var isTop3   = rank <= 3;
-  var isTop10  = rank <= 10;
-  var isTop100 = rank <= 100;
-  var isTop500 = rank <= 500;
-  var medal, rankCls, mainColor, msg;
+  var medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '🏅';
+  var color = rank <= 3 ? '#FFD700' : rank <= 10 ? '#D4A017' : '#22C55E';
 
-  if (rank === 1)       { medal='🥇'; rankCls='rank-top'; mainColor='#FFD700'; msg='🔥 CHAMPION! You are #1 in the world!'; }
-  else if (rank === 2)  { medal='🥈'; rankCls='rank-top'; mainColor='#C0C0C0'; msg='🚀 Silver! So close to the top!'; }
-  else if (rank === 3)  { medal='🥉'; rankCls='rank-top'; mainColor='#CD7F32'; msg='🔥 Bronze podium! Incredible!'; }
-  else if (isTop10)     { medal='🏅'; rankCls='rank-top'; mainColor='#D4A017'; msg='⭐ Top 10 worldwide — elite!'; }
-  else if (isTop100)    { medal='🏅'; rankCls='';         mainColor='#22C55E'; msg='💪 Top 100 — keep climbing!'; }
-  else if (isTop500)    { medal='🏅'; rankCls='';         mainColor='#22C55E'; msg='✅ Top 500 — well done!'; }
-  else {
-    var comebacks = [
-      '💪 Not in Top 500 yet — but the climb starts NOW!',
-      '🔥 Outside Top 500 — every legend started here!',
-      '🌱 Great start! Train harder and storm the charts!',
-      '😤 Not this time — come back stronger!',
-      '⚡ The leaderboard is waiting — try again!',
-      '🎯 Keep practising — your moment is coming!',
-      '🚀 Warming up — better luck next time!'
-    ];
-    medal='🎮'; rankCls='rank-comeback'; mainColor='#a5b4fc';
-    msg = comebacks[Math.floor(Math.random() * comebacks.length)];
-  }
-
-  // Write content first
+  // Simple instant display — no animation, no bounce, no sound delay
   el.innerHTML =
-    '<div style="font-size:' + (isTop3 ? '2.6rem' : '2rem') + ';margin-bottom:6px">' + medal + '</div>' +
-    '<div style="font-size:' + (isTop3 ? '1.8rem' : '1.4rem') + ';font-weight:900;color:' + mainColor + ';margin:4px 0 6px">Rank #' + rank + '</div>' +
-    '<div style="font-size:.82rem;color:rgba(255,255,255,.75);line-height:1.5">' + msg + '</div>';
+    '<div style="font-size:1.3rem;margin-bottom:4px">' + medal + '</div>' +
+    '<div style="font-size:1.4rem;font-weight:900;color:' + color + '">Global Rank #' + rank + '</div>';
 
-  // Apply class then force display visible — use setAttribute so nothing can override it
-  el.className = 'rank-box' + (rankCls ? ' ' + rankCls : '');
-  el.removeAttribute('style');
+  el.className = 'rank-box';
   el.setAttribute('style', 'display:block !important;visibility:visible !important;opacity:1 !important;');
 
-  // Side effects
+  // Cache for restore after _resetAllRankBoxes
+  _cachedRankData = { rank: rank, score: score, name: name, rawMetric: rawMetric, exId: exId, elId: elId };
+
+  // Side effects (no sound, no animation triggers)
   _lastRevealedRank = rank;
   _lastRevealedGame = exId || '';
   checkAchievements('rank', rank);
   if (_ex) _saveMyRank(_ex.title, rank);
   if (_ex && _ex.id === _getDailyChallengeGame()) _markDailyChallengeDone(score);
-  soundRankReveal(rank);
-  _showNearRankNudge(rank);
   var waBtn = document.getElementById('waRankShare');
   if (waBtn && rank <= 500) waBtn.classList.add('show');
   _showDailyChallengeOnDone();
@@ -3229,6 +3206,8 @@ function _setPhase(phIdx, label) {
 function openExercise(id) {
   _ex = EXERCISES.find(e => e.id === id);
   if (!_ex) return;
+  // Clear cached rank — new exercise starting, old rank no longer relevant
+  _cachedRankData = null;
   // Wipe all rank boxes immediately — prevents any stale rank from a previous exercise
   _resetAllRankBoxes();
   // Reset share card & achievement buttons
@@ -3822,6 +3801,21 @@ function _showDone(scoreHTML) {
   document.getElementById('ovDoneScores').innerHTML = scoreHTML || '';
   // Reset ALL rank boxes on each new done screen — prevents bleed-over between games
   _resetAllRankBoxes();
+  // If a rank was already computed for this exercise (e.g. async fetch resolved
+  // before this _showDone call), restore it immediately so it is never blank.
+  if (_cachedRankData) {
+    var _cr = _cachedRankData;
+    var _crEl = document.getElementById(_cr.elId);
+    if (_crEl) {
+      var _crMedal = _cr.rank === 1 ? '🥇' : _cr.rank === 2 ? '🥈' : _cr.rank === 3 ? '🥉' : '🏅';
+      var _crColor = _cr.rank <= 3 ? '#FFD700' : _cr.rank <= 10 ? '#D4A017' : '#22C55E';
+      _crEl.innerHTML =
+        '<div style="font-size:1.3rem;margin-bottom:4px">' + _crMedal + '</div>' +
+        '<div style="font-size:1.4rem;font-weight:900;color:' + _crColor + '">Global Rank #' + _cr.rank + '</div>';
+      _crEl.className = 'rank-box';
+      _crEl.setAttribute('style', 'display:block !important;visibility:visible !important;opacity:1 !important;');
+    }
+  }
   // Hide promo by default; show only for reaction-test via _maybeShowPromo
   var promoCard = document.getElementById('promoCard');
   if (promoCard) promoCard.style.display = 'none';
