@@ -4422,7 +4422,7 @@ function seqCheck() {}
    Scoreable exercises: reaction-test, math-challenge,
    memory-match, number-sequence
 ═══════════════════════════════════════════════════════ */
-const CHALLENGEABLE = ['reaction-test','math-challenge','memory-match','number-sequence'];
+const CHALLENGEABLE = ['reaction-test','math-challenge','memory-match','number-sequence','typing-speed'];
 let _lastChallengeScore = 0, _lastChallengeName = '', _lastChallengeExId = '';
 
 function openChallenge() {
@@ -7433,7 +7433,9 @@ function tyFinish(typed) {
   _lastChallengeName  = 'WPM typing speed';
   _lastChallengeExId  = 'typing-speed';
 
-  tySaveScore('Anonymous', wpm, acc);
+  // FIX: Do NOT pre-save as Anonymous. _showDone calls _resetAllRankBoxes which wipes
+  // tyGlobalRank before the async POST resolves. Rank is shown correctly AFTER the
+  // user submits or skips in tyShowNameModal (tySaveScore -> _showAnimatedRank).
   setTimeout(function(){
     _showDone(scoreHTML);
     tyShowNameModal(wpm, acc);
