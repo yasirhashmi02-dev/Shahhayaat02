@@ -324,7 +324,7 @@ body.nav-open{overflow:hidden}
 .filter-btn.active{background:var(--gold);border-color:var(--gold);color:#fff}
 
 /* ── EXERCISE GRID ── */
-.ex-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
+.ex-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem}
 @media(min-width:640px){.ex-grid{grid-template-columns:repeat(3,1fr)}}
 @media(min-width:960px){.ex-grid{grid-template-columns:repeat(4,1fr)}}
 
@@ -543,7 +543,7 @@ body.nav-open{overflow:hidden}
 /* ── DONE SCREEN ── */
 .ov-done{display:none;position:absolute;inset:0;background:linear-gradient(180deg,#061220 0%,#071830 60%,#0a1f3c 100%);flex-direction:column;align-items:center;justify-content:flex-start;padding:1.4rem 1.5rem 2rem;text-align:center;gap:.65rem;z-index:5;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .ov-done.on{display:flex}
-.ov-done-ico{font-size:clamp(3rem,10vw,4.5rem);line-height:1;filter:drop-shadow(0 4px 16px rgba(212,160,23,.4));animation:doneIcoBounce .6s cubic-bezier(.34,1.56,.64,1) .1s both}
+.ov-done-ico{font-size:clamp(3rem,10vw,4.5rem);line-height:1;filter:drop-shadow(0 6px 22px rgba(212,160,23,.55));animation:doneIcoBounce .6s cubic-bezier(.34,1.56,.64,1) .1s both}
 @keyframes doneIcoBounce{from{transform:scale(0) rotate(-15deg)}to{transform:scale(1) rotate(0deg)}}
 .ov-done-ttl{font-family:var(--font-h);font-size:clamp(1.6rem,6vw,2.2rem);color:#fff;animation:fadeSlideUp .5s ease .25s both}
 .ov-done-sub{font-size:.95rem;color:rgba(255,255,255,.5);max-width:300px;line-height:1.6;animation:fadeSlideUp .5s ease .35s both}
@@ -855,6 +855,331 @@ body.nav-open{overflow:hidden}
   font-size:.78rem;cursor:pointer;transition:color .2s;
 }
 .rvw-skip:hover{color:rgba(255,255,255,.55)}
+
+/* ══════════════════════════════════════════════════════════
+   BOLD VISUAL UPGRADE — Shah Hayaat Wellness Exercises
+   ══════════════════════════════════════════════════════════ */
+
+/* ── HERO: richer depth, animated glow ── */
+.ex-hero {
+  background: linear-gradient(145deg, #020d1e 0%, #061428 35%, #0a1f3c 65%, #0d2d5a 100%);
+}
+.ex-hero::before {
+  width: 900px; height: 900px;
+  background: radial-gradient(ellipse, rgba(180,134,20,.14) 0%, rgba(100,160,255,.05) 40%, transparent 70%);
+  animation: heroGlow 6s ease-in-out infinite alternate;
+}
+@keyframes heroGlow {
+  from { opacity:.7; transform:translateX(-50%) scale(1); }
+  to   { opacity:1;  transform:translateX(-50%) scale(1.12); }
+}
+.ex-hero h1 {
+  font-size: clamp(2.1rem, 5.5vw, 3.5rem);
+  letter-spacing: -.02em;
+}
+.eyebrow {
+  background: rgba(212,160,23,.12);
+  border: 1px solid rgba(212,160,23,.3);
+  border-radius: 50px;
+  padding: .3rem 1rem;
+  display: inline-block;
+}
+.hero-chip {
+  padding: .42rem 1.05rem !important;
+  font-size: .76rem !important;
+  font-weight: 700 !important;
+}
+.hero-chip:hover {
+  background: rgba(212,160,23,.18) !important;
+  border-color: rgba(212,160,23,.55) !important;
+  color: #F0C040 !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 18px rgba(212,160,23,.22) !important;
+}
+.hero-stat strong { font-size: 1.6rem; }
+.hero-stats {
+  padding: .85rem 1.8rem;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  display: inline-flex;
+  margin-top: 1.8rem;
+}
+
+/* ── FILTER BAR ── */
+.filter-btn {
+  font-weight: 700 !important;
+  background: rgba(255,255,255,.04) !important;
+  border: 1.5px solid rgba(255,255,255,.09) !important;
+  backdrop-filter: blur(6px);
+  transition: all .22s !important;
+}
+.filter-btn:hover {
+  background: rgba(212,160,23,.1) !important;
+  border-color: rgba(212,160,23,.4) !important;
+  color: var(--gold-l) !important;
+  transform: translateY(-1px) !important;
+}
+.filter-btn.active {
+  background: linear-gradient(135deg, var(--gold), var(--gold-l)) !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 18px rgba(184,134,11,.4) !important;
+}
+
+/* ── EXERCISE CARDS ── */
+.ex-card {
+  background: linear-gradient(160deg, var(--bg3) 0%, rgba(14,36,72,.9) 100%) !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255,255,255,.07) !important;
+  padding: 1.35rem 1rem 1.1rem !important;
+  transition: all .3s cubic-bezier(.4,0,.2,1) !important;
+}
+.ex-card::after {
+  content: ;
+  position: absolute; inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(160deg, rgba(255,255,255,.04) 0%, transparent 55%);
+  pointer-events: none;
+}
+.ex-card:hover {
+  transform: translateY(-7px) scale(1.01) !important;
+  box-shadow: 0 18px 44px rgba(0,0,0,.5), 0 0 0 1px rgba(212,160,23,.28), 0 0 32px rgba(212,160,23,.08) !important;
+  border-color: rgba(212,160,23,.38) !important;
+}
+.ex-emoji-big {
+  font-size: clamp(2.3rem, 8vw, 3rem) !important;
+  filter: drop-shadow(0 3px 10px rgba(0,0,0,.45));
+}
+.ex-card-title { font-size: .96rem !important; letter-spacing: -.01em !important; }
+.ex-card-start {
+  border-radius: 12px !important;
+  font-weight: 800 !important;
+  font-size: .87rem !important;
+  background: linear-gradient(135deg, #78350f, #B8860B, #D4A017, #F0C040) !important;
+  background-size: 200% 200% !important;
+  animation: btnShimmer 4s ease infinite !important;
+  box-shadow: 0 5px 20px rgba(184,134,11,.38) !important;
+  letter-spacing: .04em !important;
+}
+@keyframes btnShimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.ex-card-start:hover {
+  box-shadow: 0 7px 28px rgba(184,134,11,.6) !important;
+  transform: scale(1.05) !important;
+}
+
+/* ── SECTION HEADINGS ── */
+.sec-head h2 {
+  font-size: clamp(1.65rem, 4vw, 2.35rem) !important;
+  letter-spacing: -.02em !important;
+  position: relative;
+  display: inline-block;
+}
+.sec-head h2::after {
+  content: ;
+  position: absolute;
+  bottom: -7px; left: 0;
+  width: 44px; height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-l));
+  border-radius: 2px;
+}
+
+/* ── ROUTINE CARDS ── */
+.routine-card {
+  background: linear-gradient(160deg, var(--bg3) 0%, rgba(14,36,72,.7) 100%) !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255,255,255,.07) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,.3) !important;
+  position: relative;
+  overflow: hidden;
+}
+.routine-card.morning { border-top: none !important; }
+.routine-card.night   { border-top: none !important; }
+.routine-card::before {
+  content: ;
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  border-radius: 20px 20px 0 0;
+}
+.routine-card.morning::before {
+  background: linear-gradient(90deg, #92400e, #D4A017, #F0C040);
+}
+.routine-card.night::before {
+  background: linear-gradient(90deg, #1e3a8a, #6CB4FF, #93c5fd);
+}
+.routine-item {
+  border-radius: 10px !important;
+  transition: all .22s !important;
+}
+.routine-item:hover {
+  background: rgba(255,255,255,.07) !important;
+  border-color: rgba(212,160,23,.25) !important;
+  transform: translateX(4px) !important;
+}
+.routine-item-btn {
+  font-weight: 800 !important;
+  background: linear-gradient(135deg, rgba(184,134,11,.25), rgba(212,160,23,.12)) !important;
+  border: 1px solid rgba(212,160,23,.38) !important;
+  color: #F0C040 !important;
+}
+.routine-start-all {
+  box-shadow: 0 4px 18px rgba(0,0,0,.25) !important;
+  transition: all .25s !important;
+}
+.routine-start-all:hover { transform: translateY(-2px) !important; }
+
+/* ── OVERLAY BAR ── */
+.ov-bar {
+  background: rgba(4,10,22,.88) !important;
+  backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(255,255,255,.07) !important;
+}
+.ov-pbar { height: 4px !important; }
+.ov-pbar-fill {
+  background: linear-gradient(90deg, #78350f, #D4A017, #F0C040) !important;
+  background-size: 200% 100% !important;
+  animation: pbarShimmer 2s linear infinite !important;
+}
+@keyframes pbarShimmer {
+  from { background-position: 100% 0; }
+  to   { background-position: -100% 0; }
+}
+.ov-ico-btn {
+  width: 32px !important; height: 32px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(255,255,255,.1) !important;
+  transition: all .2s !important;
+}
+.ov-ico-btn:hover { background: rgba(212,160,23,.22) !important; border-color: rgba(212,160,23,.45) !important; }
+
+/* ── DONE SCREEN ── */
+.ov-done {
+  background: radial-gradient(ellipse at 50% 0%, rgba(184,134,11,.14) 0%, transparent 52%),
+              linear-gradient(180deg, #061220 0%, #071830 60%, #0a1f3c 100%) !important;
+}
+.ov-done-ttl { font-size: clamp(1.75rem, 6.5vw, 2.4rem) !important; letter-spacing: -.02em !important; }
+.done-score-pill {
+  background: linear-gradient(160deg, rgba(255,255,255,.09), rgba(255,255,255,.04)) !important;
+  border: 1px solid rgba(255,255,255,.13) !important;
+  border-radius: 16px !important;
+  padding: .8rem 1.1rem !important;
+  box-shadow: 0 4px 18px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.08) !important;
+}
+.done-score-pill strong { font-size: 1.45rem !important; }
+
+/* ── RANK BOX ── */
+.rank-box {
+  border-radius: 18px !important;
+  box-shadow: 0 4px 24px rgba(34,197,94,.12), inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+.rank-box.rank-top {
+  box-shadow: 0 6px 32px rgba(212,160,23,.22), inset 0 1px 0 rgba(255,255,255,.08) !important;
+}
+
+/* ── CHALLENGE BUTTON ── */
+.ov-btn-challenge {
+  padding: .82rem 2.4rem !important;
+  background: linear-gradient(135deg, #78350f, #92400e, #D4A017) !important;
+  background-size: 200% 200% !important;
+  animation: btnShimmer 3s ease infinite !important;
+  border-radius: 50px !important;
+  box-shadow: 0 6px 26px rgba(184,134,11,.42) !important;
+  font-size: .93rem !important;
+  letter-spacing: .05em !important;
+}
+
+/* ── ACTION BUTTONS ── */
+.ov-btn-again {
+  background: rgba(212,160,23,.09) !important;
+  border: 1.5px solid rgba(212,160,23,.32) !important;
+  color: #F0C040 !important;
+}
+.ov-btn-again:hover {
+  background: rgba(212,160,23,.2) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 18px rgba(212,160,23,.22) !important;
+}
+.ov-btn-close {
+  background: rgba(255,255,255,.05) !important;
+  border: 1.5px solid rgba(255,255,255,.1) !important;
+}
+.ov-btn-close:hover { background: rgba(255,255,255,.1) !important; }
+
+/* ── MATH ANSWER OPTIONS ── */
+.ov-math-opt {
+  border-radius: 16px !important;
+  font-weight: 900 !important;
+  background: rgba(255,255,255,.05) !important;
+  border: 2px solid rgba(255,255,255,.1) !important;
+  box-shadow: 0 2px 14px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+.ov-math-opt:hover {
+  border-color: rgba(212,160,23,.65) !important;
+  background: rgba(212,160,23,.12) !important;
+  transform: scale(1.07) !important;
+  box-shadow: 0 7px 24px rgba(212,160,23,.28) !important;
+}
+.ov-math-opt.correct { box-shadow: 0 0 22px rgba(34,197,94,.38) !important; }
+.ov-math-opt.wrong   { box-shadow: 0 0 16px rgba(239,68,68,.32) !important; }
+
+/* ── MEMORY CARDS ── */
+.mem-card {
+  border-radius: 14px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.05) !important;
+}
+.mem-card.flipped { box-shadow: 0 6px 22px rgba(212,160,23,.32) !important; }
+.mem-card.matched { box-shadow: 0 4px 18px rgba(34,197,94,.28) !important; }
+
+/* ── TAP AREA PULSE RING ── */
+#tapArea:not(.disabled) {
+  filter: drop-shadow(0 0 14px rgba(212,160,23,.35));
+  animation: tapGlow 2s ease-in-out infinite alternate;
+}
+@keyframes tapGlow {
+  from { filter: drop-shadow(0 0 8px rgba(212,160,23,.2)); }
+  to   { filter: drop-shadow(0 0 22px rgba(212,160,23,.6)); }
+}
+
+/* ── DASHBOARD CARDS ── */
+.dash-card {
+  background: linear-gradient(160deg, var(--bg3), rgba(14,45,84,.6)) !important;
+  border: 1px solid rgba(255,255,255,.07) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 6px 24px rgba(0,0,0,.28) !important;
+}
+
+/* ── WA FLOAT ── */
+.wa-float {
+  animation: waFloatPulse 3s ease-in-out infinite !important;
+}
+@keyframes waFloatPulse {
+  0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,.45); }
+  50%     { box-shadow: 0 4px 36px rgba(37,211,102,.78); }
+}
+
+/* ── COMPLETION TOAST ── */
+#completionToast {
+  border-radius: 20px !important;
+  backdrop-filter: blur(18px) !important;
+  box-shadow: 0 18px 52px rgba(0,0,0,.55), 0 0 0 1px rgba(34,197,94,.15) !important;
+}
+
+/* ── ACHIEVEMENT TOAST ── */
+#achToast {
+  border-radius: 18px !important;
+  backdrop-filter: blur(16px) !important;
+  box-shadow: 0 14px 44px rgba(0,0,0,.5), 0 0 0 1px rgba(212,160,23,.2) !important;
+}
+
+/* ── SCORE PILL STAGGER ── */
+.done-score-pill:nth-child(1) { animation: fadeSlideUp .45s ease .5s  both !important; }
+.done-score-pill:nth-child(2) { animation: fadeSlideUp .45s ease .62s both !important; }
+.done-score-pill:nth-child(3) { animation: fadeSlideUp .45s ease .74s both !important; }
+
 </style>
 
 <!-- ═══════════════════════════════════════════════════════
@@ -965,7 +1290,16 @@ body.nav-open{overflow:hidden}
 <!-- HERO -->
 <section class="ex-hero">
   <div class="container ex-hero-inner">
-    <div class="eyebrow">22 Free Exercises · Voice-Guided · Live Timer · Global Leaderboard · No Equipment · No Login · India</div>
+    <!-- Decorative floating orbs -->
+<div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0">
+  <div style="position:absolute;top:12%;left:8%;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,.07),transparent 70%);animation:orbFloat 8s ease-in-out infinite"></div>
+  <div style="position:absolute;top:30%;right:6%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(100,160,255,.06),transparent 70%);animation:orbFloat 11s ease-in-out infinite reverse"></div>
+  <div style="position:absolute;bottom:10%;left:20%;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(34,197,94,.05),transparent 70%);animation:orbFloat 9s ease-in-out infinite 2s"></div>
+</div>
+<style>
+@keyframes orbFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-22px) scale(1.06)}}
+</style>
+<div class="eyebrow">22 Free Exercises · Voice-Guided · Live Timer · Global Leaderboard · No Equipment · No Login · India</div>
     <h1>Free Guided Wellness Exercises – Brain Training, Pranayama &amp; More | <em>Wellness Clinic</em></h1>
     <p>India's only free Ayurvedic wellness exercise platform. 22 voice-guided activities: Nadi Shodhana Pranayama, Bhramari, Kapalabhati, Trataka (Candle Focus), Vajrasana, eye yoga, brain games &amp; more. Each activity explains every step in plain language with a live timer. No app download, no login — works on any phone.</p>
     <div class="hero-chips">
@@ -2302,7 +2636,10 @@ function renderCards(filter, recIds) {
     const io = new IntersectionObserver(e => e.forEach(x => {
       if (x.isIntersecting) x.target.classList.add('in');
     }), { threshold: 0.05 });
-    document.querySelectorAll('#exGrid .reveal').forEach(el => io.observe(el));
+    document.querySelectorAll('#exGrid .reveal').forEach((el, i) => {
+      el.style.transitionDelay = (i * 38) + 'ms';
+      io.observe(el);
+    });
   });
 }
 
