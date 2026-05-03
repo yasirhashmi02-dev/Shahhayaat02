@@ -225,7 +225,6 @@ body.nav-open{overflow:hidden}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 img[src*="1.jpg"]{background:var(--bg-cream);min-height:60px}
 /* ═══ LIGHT CREAM THEME ═══ */
-body{background:#F5F3EF !important;color:#1C1C1C !important}
 .card,.form-card,.info-box,.feature-box,.step-card,.benefit-card,
 .faq-item,.contact-info-card,.opening-hours,.map-section,
 .value-card,.team-card,.cert-card,.stat-card,.review-card{
@@ -272,7 +271,6 @@ body.nav-open{overflow:hidden}
    ══════════════════════════════════════════ */
 
 /* BODY & default text */
-body { background: #F5F3EF !important; color: #1C1C1C !important; }
 
 /* Default headings on light sections */
 h1,h2,h3,h4,h5,h6 { color: #1C1C1C; }
@@ -364,6 +362,23 @@ p { color: #3D3D3D; }
 .nav-mobile a, .nav-mobile-links a { color: rgba(255,255,255,0.92) !important; }
 
 
+
+/* ── Explicit visibility fixes ─────────────────────────────── */
+.filter-wrap{background:#FFFFFF}
+.filter-btn{color:#3D3D3D !important;background:#FAFAF8;border-color:#D4CFC7}
+.filter-btn:hover{color:#2A4633 !important;border-color:#2A4633;background:#F0EDE8}
+.filter-btn.active{background:#2A4633 !important;border-color:#2A4633 !important;color:#FFFFFF !important}
+.prod-count{color:#6B6B6B !important}
+.prod-count span{color:#B8860B !important;font-weight:700}
+.prod-body h3{color:#1C1C1C !important}
+.prod-desc{color:#6B6B6B !important}
+.prod-price{color:#2A4633 !important;font-weight:700}
+.prod-stars .stars{color:#B8860B}
+.prod-stars .count{color:#6B6B6B !important}
+.prod-tag{background:rgba(42,70,51,.88);color:#FFFFFF !important}
+.empty-products p{color:#6B6B6B !important}
+/* Products section background — warm cream, clearly readable */
+.products-section{background:#F7F4EF !important}
 </style>
 </head>
 <body>
@@ -371,8 +386,8 @@ p { color: #3D3D3D; }
 <header class="site-header" id="site-header">
   <div class="container header-inner">
     <a href="index.html" class="logo">
-      <img src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg" alt="Shah Hayaat" width="38" height="38" loading="eager">
-      <span>Shah <em>Hayaat</em></span>
+      <img src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg" alt="Shah Hayaat Private Limited" width="38" height="38" loading="eager">
+      <span>Shah <em>Hayaat</em><small style="display:block;font-size:.52rem;color:rgba(255,255,255,.75);letter-spacing:.08em;font-family:var(--font-body,'DM Sans',sans-serif);font-weight:400;line-height:1;margin-top:1px">Private Limited</small></span>
     </a>
     <nav class="nav-desktop" aria-label="Main navigation">
       <a href="index.html">Home</a>
@@ -454,7 +469,7 @@ p { color: #3D3D3D; }
       <p style="text-align:center;max-width:480px;margin:0 auto 2.2rem;color:rgba(255,255,255,0.65)">Our free health assessment analyses your symptoms and recommends the exact products matched to your needs.</p>
       <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
         <a href="wellness-lab.html" class="btn btn-primary">✦ Wellness Assessment</a>
-        <a href="wellness-lab.html" class="btn btn-outline-white">Quick Symptom Check</a>
+        <a href="wellness-lab.html" class="btn btn-outline-white">✦ Symptom Checker</a>
         <a href="contact.html" class="btn btn-outline-white">Ask a Question</a>
       </div>
   </div>
@@ -464,12 +479,12 @@ p { color: #3D3D3D; }
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo"><img src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy"><span>Shah <em>Hayaat</em></span></a>
+        <a href="index.html" class="logo"><img src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg" alt="Shah Hayaat Private Limited" width="34" height="34" loading="lazy"><span>Shah <em>Hayaat</em><small style="display:block;font-size:.52rem;color:rgba(255,255,255,.75);letter-spacing:.08em;font-weight:400;line-height:1;margin-top:1px">Private Limited</small></span></a>
         <p>WHO-GMP, ISO 9001:2015, HACCP certified Ayurvedic medicines, pure herbs, modern science.</p>
         <div class="footer-socials">
           <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
           <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
-          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon" aria-label="Email">✉️</a>
+          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon" aria-label="Email" target="_blank">✉️</a>
         </div>
       </div>
       <div class="footer-col"><h4>Health Guides</h4><ul>
@@ -490,14 +505,11 @@ p { color: #3D3D3D; }
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul>
         <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
-        <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287 (Primary)</a></li>
-        <li><a href="tel:+919107028786">+91 91070 28786</a></li>
-        <li><a href="tel:+916006866325">+91 60068 66325</a></li>
-        <li><a href="https://wa.me/919107028786" target="_blank">+91 91070 28786</a></li>
+        <li><a href="https://wa.me/917051056287" target="_blank" rel="noopener">+91 70510 56287</a></li>
+        <li><a href="https://wa.me/919107028786" target="_blank" rel="noopener">+91 91070 28786</a></li>
         <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
         <li><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></li>
-        <li>
-</li>
+        
       </ul></div>
     </div>
     <div class="footer-bottom">
@@ -527,7 +539,7 @@ const PRODUCT_SLUGS = {
   utrohayaat:'utro-hayaat-ayurvedic-womens-health.html',
   passionpulse:'passion-pulse-ayurvedic-male-vitality.html',
 };
-function productUrl(id){ return PRODUCT_SLUGS[id] || ('product-detail.html?id=' + id); }
+function productUrl(id){ return PRODUCT_SLUGS[id] || (id + '.html'); }
 
 const PRODUCTS = [
   {id:'brainchamp', name:'Brain Champ', price:175, cat:'brain', tag:'Brain & Focus',
