@@ -100,6 +100,54 @@ body.nav-open{overflow:hidden}
 .wa-float.show{opacity:1;pointer-events:auto}
 .back-top{position:fixed;bottom:5.5rem;right:1.8rem;z-index:480;width:38px;height:38px;border-radius:50%;background:#2A4633;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;opacity:0;visibility:hidden;transition:all .3s;cursor:pointer;border:none;text-decoration:none}
 .back-top.show{opacity:1;visibility:visible}
+
+/* ═══ NAV-MOBILE DEFINITIVE FIX ═══
+   Single authoritative block — overrides all earlier nav-mobile rules.
+   Uses !important to beat any light-theme overrides.                  */
+.nav-mobile {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9990 !important;
+  background: linear-gradient(160deg,#071830 0%,#0a2040 100%) !important;
+  padding: 5.5rem 2rem 2.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transform: translateX(100%) !important;
+  transition: transform .4s cubic-bezier(.4,0,.2,1) !important;
+  overflow-y: auto !important;
+  pointer-events: auto !important;
+}
+body.nav-open .nav-mobile {
+  transform: translateX(0) !important;
+}
+body.nav-open {
+  overflow: hidden !important;
+}
+.nav-mobile-links a,
+.nav-mobile .nav-mobile-links a {
+  color: rgba(255,255,255,0.80) !important;
+  font-size: 1.4rem !important;
+  font-style: italic !important;
+  padding: .55rem 0 !important;
+  border-bottom: 1px solid rgba(255,255,255,.09) !important;
+  display: block !important;
+  text-decoration: none !important;
+  transition: color .2s !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+}
+.nav-mobile-links a:hover,
+.nav-mobile-links a.active {
+  color: #D4A017 !important;
+}
+.nav-mobile-actions {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: .8rem !important;
+  margin-top: auto !important;
+}
+/* Ensure site-header is below nav overlay */
+.site-header { z-index: 9991 !important; }
+.nav-toggle  { z-index: 9992 !important; }
 </style>
 </head>
 <body id="top">

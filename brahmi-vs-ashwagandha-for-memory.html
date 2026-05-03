@@ -43,7 +43,55 @@
   .int-links{background:#0e2448;border-radius:14px;padding:1.5rem;margin:2.5rem 0;border:1px solid rgba(255,255,255,.1)}
   .int-links h3{color:var(--gold-light);margin-top:0}
   .int-links a{color:var(--gold);display:block;padding:.3rem 0;font-size:.9rem;text-decoration:none}
-  </style>
+  
+/* ═══ NAV-MOBILE DEFINITIVE FIX ═══
+   Single authoritative block — overrides all earlier nav-mobile rules.
+   Uses !important to beat any light-theme overrides.                  */
+.nav-mobile {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9990 !important;
+  background: linear-gradient(160deg,#071830 0%,#0a2040 100%) !important;
+  padding: 5.5rem 2rem 2.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transform: translateX(100%) !important;
+  transition: transform .4s cubic-bezier(.4,0,.2,1) !important;
+  overflow-y: auto !important;
+  pointer-events: auto !important;
+}
+body.nav-open .nav-mobile {
+  transform: translateX(0) !important;
+}
+body.nav-open {
+  overflow: hidden !important;
+}
+.nav-mobile-links a,
+.nav-mobile .nav-mobile-links a {
+  color: rgba(255,255,255,0.80) !important;
+  font-size: 1.4rem !important;
+  font-style: italic !important;
+  padding: .55rem 0 !important;
+  border-bottom: 1px solid rgba(255,255,255,.09) !important;
+  display: block !important;
+  text-decoration: none !important;
+  transition: color .2s !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+}
+.nav-mobile-links a:hover,
+.nav-mobile-links a.active {
+  color: #D4A017 !important;
+}
+.nav-mobile-actions {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: .8rem !important;
+  margin-top: auto !important;
+}
+/* Ensure site-header is below nav overlay */
+.site-header { z-index: 9991 !important; }
+.nav-toggle  { z-index: 9992 !important; }
+</style>
 </head>
 <body>
 <header class="site-header" id="site-header"><div class="container header-inner"><a href="index.html" class="logo"><img src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg" alt="Shah Hayaat" width="38" height="38">Shah <em>Hayaat</em></a><nav class="nav-desktop"><a href="index.html">Home</a><a href="products.html">Products</a><a href="conditions.html" class="active">Health Guides</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav><a href="wellness-lab.html" class="nav-cta-pill">✦ Self Assessment</a><button class="nav-toggle" id="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button></div></header>

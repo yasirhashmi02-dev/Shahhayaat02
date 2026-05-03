@@ -11,6 +11,36 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <style>
+/* PD DARK THEME FIX */
+
+/* ── Dark theme text variables (product pages) ───────────────── */
+:root,html {
+  --text-primary:   rgba(255,255,255,0.95) !important;
+  --text-secondary: rgba(255,255,255,0.72) !important;
+  --text-muted:     rgba(255,255,255,0.50) !important;
+  --bg-base:        #071830;
+  --bg-surface:     #0a1f3c;
+  --bg-card:        #0e2448;
+  --bg-card-hover:  #0e2d54;
+}
+/* Force body text white on dark product pages */
+body { background: #071830 !important; color: rgba(255,255,255,0.90) !important; }
+p { color: rgba(255,255,255,0.72) !important; }
+h1,h2,h3,h4 { color: rgba(255,255,255,0.95) !important; }
+/* Override any light-theme !important rules injected by canonical block */
+.pd-section { background: #0e2448 !important; color: rgba(255,255,255,0.90) !important; }
+.pd-section h2 { color: rgba(255,255,255,0.95) !important; }
+.pd-name { color: rgba(255,255,255,0.97) !important; }
+.pd-desc { color: rgba(255,255,255,0.72) !important; }
+.pd-benefit { color: rgba(255,255,255,0.72) !important; }
+.pd-who-item { color: rgba(255,255,255,0.72) !important; }
+.pd-dosage-box { color: rgba(255,255,255,0.75) !important; }
+.pd-faq-q { color: rgba(255,255,255,0.92) !important; }
+.pd-faq-a p { color: rgba(255,255,255,0.72) !important; }
+.pd-ing-sub { color: rgba(255,255,255,0.50) !important; }
+.pd-stars span { color: rgba(255,255,255,0.50) !important; }
+.pd-price sub { color: rgba(255,255,255,0.50) !important; }
+
 
 /* ══════════════════════════════════════════════
    SHAH HAYAAT BRAND SYSTEM, matches index.html
@@ -428,6 +458,54 @@ body.nav-open{overflow:hidden}
 .sticky-pd-buy{display:none}
 @media(max-width:640px){.sticky-pd-buy{display:block;position:fixed;bottom:0;left:0;right:0;z-index:470;background:#fff;border-top:1px solid #E8EDE8;padding:10px 16px;box-shadow:0 -4px 16px rgba(0,0,0,0.08)}}
 
+
+/* ═══ NAV-MOBILE DEFINITIVE FIX ═══
+   Single authoritative block — overrides all earlier nav-mobile rules.
+   Uses !important to beat any light-theme overrides.                  */
+.nav-mobile {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9990 !important;
+  background: linear-gradient(160deg,#071830 0%,#0a2040 100%) !important;
+  padding: 5.5rem 2rem 2.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transform: translateX(100%) !important;
+  transition: transform .4s cubic-bezier(.4,0,.2,1) !important;
+  overflow-y: auto !important;
+  pointer-events: auto !important;
+}
+body.nav-open .nav-mobile {
+  transform: translateX(0) !important;
+}
+body.nav-open {
+  overflow: hidden !important;
+}
+.nav-mobile-links a,
+.nav-mobile .nav-mobile-links a {
+  color: rgba(255,255,255,0.80) !important;
+  font-size: 1.4rem !important;
+  font-style: italic !important;
+  padding: .55rem 0 !important;
+  border-bottom: 1px solid rgba(255,255,255,.09) !important;
+  display: block !important;
+  text-decoration: none !important;
+  transition: color .2s !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+}
+.nav-mobile-links a:hover,
+.nav-mobile-links a.active {
+  color: #D4A017 !important;
+}
+.nav-mobile-actions {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: .8rem !important;
+  margin-top: auto !important;
+}
+/* Ensure site-header is below nav overlay */
+.site-header { z-index: 9991 !important; }
+.nav-toggle  { z-index: 9992 !important; }
 </style>
 <meta name="description" content="Buy Shah Hayaat certified Ayurvedic medicine online. WHO-GMP & ISO certified herbal formulations. made with natural herbal ingredients. Order on WhatsApp: +91 70510 56287.">
 <meta name="keywords" content="ayurvedic medicine buy online, herbal syrup india, certified ayurvedic product, shah hayaat product">
