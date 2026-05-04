@@ -241,11 +241,13 @@ body.nav-open {
       <img src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg" alt="Shah Hayaat" width="38" height="38">
       Shah <em>Hayaat</em>
     </a>
-    <nav class="nav-desktop" aria-label="Main navigation">
+        <nav class="nav-desktop" aria-label="Main navigation">
       <a href="index.html">Home</a>
       <a href="products.html" class="active">Products</a>
       <a href="conditions.html">Health Guides</a>
       <a href="ingredients.html">Ingredients</a>
+      <a href="exercises.html" style="color:rgba(212,160,23,0.9)">Exercises</a>
+      <a href="wellness-lab.html" style="color:rgba(212,160,23,0.9)">🧪 Lab</a>
       <a href="blog.html">Blog</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
@@ -256,10 +258,16 @@ body.nav-open {
   </div>
 </header>
 <nav class="nav-mobile" id="nav-mobile">
-  <div class="nav-mobile-links">
-    <a href="index.html">Home</a><a href="products.html">Products</a>
-    <a href="conditions.html">Health Guides</a><a href="blog.html">Blog</a>
-    <a href="about.html">About</a><a href="contact.html">Contact</a>
+    <div class="nav-mobile-links">
+    <a href="index.html">Home</a>
+    <a href="products.html" class="active">Products</a>
+    <a href="conditions.html">Health Guides</a>
+    <a href="ingredients.html">Ingredients</a>
+    <a href="exercises.html" style="color:rgba(212,160,23,0.9)">Exercises</a>
+    <a href="wellness-lab.html" style="color:rgba(212,160,23,0.9)">🧪 Lab</a>
+    <a href="blog.html">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
   </div>
   <div class="nav-mobile-actions">
     <a href="wellness-lab.html" class="btn btn-glow" style="justify-content:center;display:flex">✦ Self Assessment</a>
@@ -302,10 +310,24 @@ body.nav-open {
 
         <div class="pd-price">₹349 <sub>/ pack</sub></div>
 
+        <div class="buy-enhancements"><div class="buy-trust-row">
+          <span>✓ WHO-GMP Certified</span>
+          <span>✓ Free delivery above ₹499</span>
+          <span>✓ COD available</span>
+          <span>✓ 7-day returns</span>
+        </div>
+        <div class="bundle-nudge">
+          💡 <strong>Best results need 8 weeks</strong> — consider 2 packs to save on shipping.
+          <a href="https://wa.me/917051056287?text=Hi!+I+want+to+enquire+about+a+bundle+offer+for+Livo+Hayaat+%E2%80%94+Rs.349" target="_blank" rel="noopener">Ask for bundle deal →</a>
+        </div>
+        </div>
+
         <div class="pd-actions">
           <a href="https://wa.me/917051056287?text=Hi!%20I%20want%20to%20order%20Livo%20Hayaat%20—%20Rs.349.%20Please%20guide%20me." target="_blank" rel="noopener" class="btn btn-wa btn-lg">💬 Order on WhatsApp</a>
+          <a href="https://wa.me/917051056287?text=Hi!+I+want+to+pay+online+for+Livo+Hayaat+%E2%80%94+Rs.349+please+send+payment+link." target="_blank" rel="noopener" class="btn-pay-online">💳 Pay Online (UPI / Card)</a>
           <a href="products.html" class="btn btn-outline">← All Products</a>
         </div>
+        <div class="pd-delivery-note">🚚 Free delivery above ₹499 · Pan-India 5–7 days · COD ₹30 extra · <a href="shipping.html">Shipping &amp; Returns</a></div>
 
         <a href="ayurvedic-liver-detox.html" class="pd-guide-link">
           <span>📖 Ayurvedic Liver Detox Guide</span>
@@ -427,7 +449,7 @@ body.nav-open {
       </ul></div>
     </div>
     <div class="footer-bottom">
-      <p>© 2024–2026 Shah Hayaat. All Rights Reserved. · WHO-GMP · ISO 9001:2015 · HACCP</p>
+      <p>© <span id="year"></span> Shah Hayaat Private Limited. All Rights Reserved. · WHO-GMP · ISO 9001:2015 · HACCP</p>
       <div class="footer-btm-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a><a href="shipping.html">Shipping</a></div>
     </div>
   </div>
@@ -435,5 +457,6 @@ body.nav-open {
 <a href="https://wa.me/917051056287" class="wa-float" target="_blank" rel="noopener" aria-label="Order on WhatsApp">💬</a>
 <button class="back-top" id="back-top" aria-label="Back to top">↑</button>
 <script src="main.js"></script>
+<script>(function(){var y=document.getElementById("year");if(y)y.textContent=new Date().getFullYear();})();</script>
 </body>
 </html>
