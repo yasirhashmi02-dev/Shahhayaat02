@@ -412,6 +412,20 @@ body.nav-open {
 /* Ensure site-header is below nav overlay */
 .site-header { z-index: 9991 !important; }
 .nav-toggle  { z-index: 9992 !important; }
+
+/* ══ FOUNDER SECTION RESPONSIVE ══════════════════════════════ */
+@media(max-width:720px){
+  [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important}
+}
+@media(max-width:720px){
+  body{padding-bottom:70px}
+}
+/* Mobile bottom bar */
+.mobile-bottom-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9980;background:#fff;border-top:1.5px solid rgba(0,0,0,.1);padding:.6rem 1rem;gap:.7rem;box-shadow:0 -4px 20px rgba(0,0,0,.12)}
+@media(max-width:720px){.mobile-bottom-bar{display:flex}}
+.mbb-btn{flex:1;text-align:center;padding:.72rem .5rem;border-radius:50px;font-size:.88rem;font-weight:700;text-decoration:none;transition:all .2s}
+.mbb-buy{background:linear-gradient(135deg,#2A4633,#3B6449);color:#fff}
+.mbb-wa{background:#25D366;color:#fff}
 </style>
 </head>
 <body>
@@ -425,6 +439,8 @@ body.nav-open {
     <nav class="nav-desktop" aria-label="Main navigation">
       <a href="index.html">Home</a>
       <a href="products.html">Products</a>
+    <a href="bundles.html">🎁 Bundles</a>
+      <a href="bundles.html">🎁 Bundles</a>
       <a href="conditions.html">Health Guides</a>
       <a href="ingredients.html">Ingredients</a>
       <a href="exercises.html">Exercises</a>
@@ -611,6 +627,42 @@ body.nav-open {
 </div>
 </section>
 
+
+<!-- FOUNDER STORY -->
+<section class="section" style="background:#F7F4EF;padding:clamp(50px,7vw,80px) 0" aria-labelledby="founder-heading">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center">
+      <div class="reveal">
+        <div class="eyebrow">Our Story</div>
+        <h2 id="founder-heading" style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:#1C1C1C;margin-bottom:1rem;line-height:1.2">Why Shah Hayaat<br><em style="color:#B8860B">Was Founded</em></h2>
+        <p style="color:#3D3D3D;line-height:1.8;margin-bottom:1rem">Shah Hayaat Private Limited was born from a deeply personal experience — watching a family member struggle with chronic joint pain, liver issues and the side effects of long-term allopathic medication. We saw that modern medicine was treating symptoms, not root causes.</p>
+        <p style="color:#3D3D3D;line-height:1.8;margin-bottom:1rem">That experience drove us to explore classical Ayurvedic formulations — remedies that had worked for thousands of years, backed by traditional wisdom and now validated by modern quality standards. We set out to make these available to every Indian household at an affordable price.</p>
+        <p style="color:#3D3D3D;line-height:1.8;margin-bottom:1.5rem">Today, 50,000+ families across India trust Shah Hayaat for natural, effective wellness — with WHO-GMP certified manufacturing and zero compromise on quality.</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap">
+          <a href="products.html" class="btn" style="background:linear-gradient(135deg,#2A4633,#3B6449);color:#fff;border-radius:50px;padding:.75rem 1.6rem;font-size:.88rem;font-weight:700;text-decoration:none">🛒 Shop Our Remedies</a>
+          <a href="contact.html" class="btn" style="border:2px solid #2A4633;color:#2A4633;border-radius:50px;padding:.75rem 1.6rem;font-size:.88rem;font-weight:700;text-decoration:none">Get in Touch</a>
+        </div>
+      </div>
+      <div class="reveal delay-2">
+        <div style="background:linear-gradient(135deg,#2A4633,#3B6449);border-radius:20px;padding:2rem;color:#fff">
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1.2rem;color:#D4A017">Our Mission</h3>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.9rem">
+            <li style="display:flex;align-items:flex-start;gap:.7rem;font-size:.9rem;line-height:1.55;color:rgba(255,255,255,.85)"><span style="color:#D4A017;font-weight:700;flex-shrink:0">✓</span>Make authentic Ayurvedic medicine accessible to every Indian household</li>
+            <li style="display:flex;align-items:flex-start;gap:.7rem;font-size:.9rem;line-height:1.55;color:rgba(255,255,255,.85)"><span style="color:#D4A017;font-weight:700;flex-shrink:0">✓</span>Solve root causes of health problems, not just suppress symptoms</li>
+            <li style="display:flex;align-items:flex-start;gap:.7rem;font-size:.9rem;line-height:1.55;color:rgba(255,255,255,.85)"><span style="color:#D4A017;font-weight:700;flex-shrink:0">✓</span>Maintain WHO-GMP manufacturing standards without compromise</li>
+            <li style="display:flex;align-items:flex-start;gap:.7rem;font-size:.9rem;line-height:1.55;color:rgba(255,255,255,.85)"><span style="color:#D4A017;font-weight:700;flex-shrink:0">✓</span>Combine 5,000 years of Ayurvedic wisdom with modern quality science</li>
+            <li style="display:flex;align-items:flex-start;gap:.7rem;font-size:.9rem;line-height:1.55;color:rgba(255,255,255,.85)"><span style="color:#D4A017;font-weight:700;flex-shrink:0">✓</span>Build long-term trust through consistent, measurable results</li>
+          </ul>
+          <div style="margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.15)">
+            <div style="font-size:.72rem;color:rgba(212,160,23,.8);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem">Founded on the principle</div>
+            <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:#fff;line-height:1.5">"Nature heals. Science verifies. We deliver."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <div class="cta-banner">
   <div class="container reveal">
@@ -735,6 +787,11 @@ document.addEventListener('DOMContentLoaded',function(){
       All content is for informational purposes only. Individual results may vary. Please consult a qualified healthcare professional before use.
     </p>
   </div>
+</div>
+<!-- STICKY MOBILE BOTTOM BAR -->
+<div class="mobile-bottom-bar" id="mobileBottomBar">
+  <a href="products.html" class="mbb-btn mbb-buy">🛒 Shop Now</a>
+  <a href="https://wa.me/917051056287?text=Hi!+I+want+to+know+more+about+Shah+Hayaat." target="_blank" rel="noopener" class="mbb-btn mbb-wa">💬 WhatsApp</a>
 </div>
 </body>
 </html>

@@ -178,6 +178,22 @@ body.nav-open {
 /* Ensure site-header is below nav overlay */
 .site-header { z-index: 9991 !important; }
 .nav-toggle  { z-index: 9992 !important; }
+
+/* ══ UPSELL / ALSO BOUGHT ════════════════════════════════════ */
+.upsell-section{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.4rem;margin-top:2rem}
+.upsell-title{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(212,160,23,.8);margin-bottom:.9rem}
+.upsell-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.upsell-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.8rem;text-decoration:none;display:flex;flex-direction:column;gap:.25rem;transition:all .2s}
+.upsell-card:hover{background:rgba(255,255,255,.1);border-color:rgba(212,160,23,.35);transform:translateY(-2px)}
+.upsell-name{font-size:.82rem;font-weight:700;color:#fff}
+.upsell-price{font-size:.72rem;color:rgba(212,160,23,.9);font-weight:600}
+.upsell-cta{font-size:.68rem;color:rgba(255,255,255,.45);margin-top:.2rem}
+/* Mobile bottom bar */
+.mobile-bottom-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9980;background:#0e2448;border-top:1.5px solid rgba(255,255,255,.1);padding:.6rem 1rem;gap:.7rem;box-shadow:0 -4px 20px rgba(0,0,0,.4)}
+@media(max-width:720px){.mobile-bottom-bar{display:flex};body{padding-bottom:70px}}
+.mbb-btn{flex:1;text-align:center;padding:.72rem .5rem;border-radius:50px;font-size:.88rem;font-weight:700;text-decoration:none;transition:all .2s}
+.mbb-buy{background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff}
+.mbb-wa{background:#25D366;color:#fff}
 </style>
 
   <script type="application/ld+json">
@@ -459,5 +475,10 @@ body.nav-open {
 <button class="back-top" id="back-top" aria-label="Back to top">↑</button>
 <script src="main.js"></script>
 <script>(function(){var y=document.getElementById("year");if(y)y.textContent=new Date().getFullYear();})();</script>
+<!-- MOBILE BOTTOM BAR -->
+<div class="mobile-bottom-bar" id="mobileBottomBar">
+  <a href="shah-zyme-ayurvedic-digestive-syrup.html" class="mbb-btn mbb-buy">🛒 Buy Now ₹165</a>
+  <a href="https://wa.me/917051056287?text=Hi!+I+want+to+order+Shah+Zyme" target="_blank" rel="noopener" class="mbb-btn mbb-wa">💬 WhatsApp</a>
+</div>
 </body>
 </html>

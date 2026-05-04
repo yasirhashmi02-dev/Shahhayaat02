@@ -480,6 +480,60 @@ body.nav-open {
 /* Ensure site-header is below nav overlay */
 .site-header { z-index: 9991 !important; }
 .nav-toggle  { z-index: 9992 !important; }
+
+/* ══ PROBLEM → SOLUTION ══════════════════════════════════════ */
+.problem-card{background:#fff;border:1.5px solid rgba(42,70,51,.12);border-radius:16px;padding:1.4rem 1.2rem;text-align:center;transition:all .3s;cursor:default}
+.problem-card:hover{transform:translateY(-4px);border-color:rgba(42,70,51,.3);box-shadow:0 8px 32px rgba(42,70,51,.12)}
+.problem-icon{font-size:2.2rem;margin-bottom:.6rem}
+.problem-label{font-family:'Playfair Display',Georgia,serif;font-size:1.05rem;font-weight:700;color:#1C1C1C;margin-bottom:.35rem}
+.problem-sub{font-size:.78rem;color:#6B6B6B;line-height:1.55;margin-bottom:.8rem}
+.problem-link{display:inline-block;font-size:.75rem;font-weight:700;color:#2A4633;text-decoration:none;border-bottom:1.5px solid rgba(42,70,51,.3);padding-bottom:1px;transition:all .2s}
+.problem-link:hover{color:#B8860B;border-color:#B8860B}
+.solution-banner{background:linear-gradient(135deg,#2A4633,#3B6449);border-radius:16px;padding:1.6rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+.solution-eyebrow{font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(212,160,23,.9);margin-bottom:.4rem}
+.solution-text p{font-size:.92rem;color:rgba(255,255,255,.85);line-height:1.6;margin:0}
+.solution-text strong{color:#fff}
+
+/* ══ BESTSELLERS ═════════════════════════════════════════════ */
+.best-card{background:#fff;border:1.5px solid rgba(0,0,0,.08);border-radius:18px;overflow:hidden;transition:all .3s;position:relative}
+.best-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.12);border-color:rgba(42,70,51,.2)}
+.best-badge{position:absolute;top:10px;left:10px;z-index:2;background:rgba(180,100,20,.88);color:#fff;font-size:.65rem;font-weight:700;padding:.25rem .65rem;border-radius:50px;letter-spacing:.05em}
+.best-img-wrap{width:100%;aspect-ratio:1;overflow:hidden;background:#F5F3EF}
+.best-img-wrap img{width:100%;height:100%;object-fit:contain;padding:.8rem;transition:transform .4s}
+.best-card:hover .best-img-wrap img{transform:scale(1.05)}
+.best-body{padding:1rem 1.1rem 1.2rem}
+.best-tag{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#B8860B;margin-bottom:.3rem}
+.best-name{font-family:'Playfair Display',Georgia,serif;font-size:1.15rem;font-weight:700;color:#1C1C1C;margin-bottom:.3rem;line-height:1.2}
+.best-benefit{font-size:.8rem;color:#6B6B6B;margin-bottom:.5rem;line-height:1.5}
+.best-stars{font-size:.78rem;color:#B8860B;margin-bottom:.6rem}
+.best-stars span{color:#6B6B6B}
+.best-price{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;font-weight:700;color:#2A4633;margin-bottom:.8rem;line-height:1}
+.best-per{font-size:.72rem;color:#6B6B6B;font-family:'DM Sans',sans-serif;font-weight:400}
+.best-btns{display:flex;gap:.5rem}
+.btn-best-primary{flex:1;background:linear-gradient(135deg,#2A4633,#3B6449);color:#fff;text-align:center;padding:.65rem .5rem;border-radius:50px;font-size:.82rem;font-weight:700;text-decoration:none;transition:all .2s}
+.btn-best-primary:hover{opacity:.88;transform:translateY(-1px)}
+.btn-best-wa{width:40px;height:40px;background:#25D366;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;text-decoration:none;flex-shrink:0;transition:all .2s}
+.btn-best-wa:hover{background:#1ea855;transform:scale(1.08)}
+
+/* ══ VIDEO TESTIMONIALS ═══════════════════════════════════════ */
+.video-card{border-radius:16px;overflow:hidden}
+.video-placeholder{position:relative;aspect-ratio:9/16;max-height:340px;background:linear-gradient(135deg,#0e2448,#071830);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}
+.video-play-btn{width:56px;height:56px;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;margin-bottom:1rem;backdrop-filter:blur(8px)}
+.video-overlay-text{text-align:center;padding:0 1rem}
+.video-product-tag{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#D4A017;margin-bottom:.3rem}
+.video-caption{font-size:.9rem;color:#fff;font-style:italic;font-family:'Playfair Display',serif;margin-bottom:.3rem}
+.video-person{font-size:.72rem;color:rgba(255,255,255,.55)}
+.video-coming{position:absolute;bottom:12px;font-size:.68rem;color:rgba(255,255,255,.4)}
+
+/* ══ MOBILE BOTTOM BAR ════════════════════════════════════════ */
+.mobile-bottom-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9980;background:#fff;border-top:1.5px solid rgba(0,0,0,.1);padding:.6rem 1rem;gap:.7rem;box-shadow:0 -4px 20px rgba(0,0,0,.12)}
+@media(max-width:720px){.mobile-bottom-bar{display:flex}}
+.mbb-btn{flex:1;text-align:center;padding:.72rem .5rem;border-radius:50px;font-size:.88rem;font-weight:700;text-decoration:none;transition:all .2s}
+.mbb-buy{background:linear-gradient(135deg,#2A4633,#3B6449);color:#fff}
+.mbb-wa{background:#25D366;color:#fff}
+
+/* ══ FIX: body bottom padding for mobile bar ═════════════════ */
+@media(max-width:720px){body{padding-bottom:70px}}
 </style>
 </head>
 
@@ -515,6 +569,8 @@ body.nav-open {
     <nav class="nav-desktop" aria-label="Main navigation">
       <a href="index.html" class="active">Home</a>
       <a href="products.html">Products</a>
+    <a href="bundles.html">🎁 Bundles</a>
+      <a href="bundles.html">🎁 Bundles</a>
       <a href="conditions.html">Health Guides</a>
       <a href="ingredients.html">Ingredients</a>
       <a href="exercises.html" style="color:rgba(212,160,23,0.85);animation:glowPulse 2.5s ease-in-out infinite alternate">Exercises</a>
@@ -555,23 +611,18 @@ body.nav-open {
   <div class="container">
     <div class="hero-inner">
       <div class="hero-text">
-        <div class="eyebrow">WHO-GMP · ISO 9001:2015 · HACCP</div>
-        <h1>Premium Ayurvedic<br>Medicines for<br><em>Complete Wellness</em></h1>
-        <div class="hero-badge-row">
-          <span class="hero-cert" style="animation-delay:0s">🌿 WHO</span>
-          <span class="hero-cert" style="animation-delay:0.7s">GMP</span>
-          <span class="hero-cert" style="animation-delay:1.4s">ISO 9001:2015</span>
-          <span class="hero-cert" style="animation-delay:2.1s">HACCP</span>
-        </div>
-        <p class="hero-sub">Certified herbal formulations for Brain, Liver, Digestion, Joints, Immunity and more. Crafted with traditional wisdom, modern standards.</p>
+        <div class="eyebrow">Trusted by 50,000+ Customers · WHO-GMP Certified · Natural</div>
+        <h1>Solve Joint Pain, Liver<br>Issues &amp; Brain Fog<br><em>Naturally</em></h1>
+        <p class="hero-sub">Science-backed Ayurvedic formulations for Brain, Liver, Digestion, Joints &amp; Immunity. Crafted with traditional wisdom, modern standards.</p>
         <div class="hero-btns">
-          <a href="products.html" class="btn btn-primary btn-lg">Explore Products</a>
-          <a href="wellness-lab.html" class="btn btn-glow btn-lg">✦ Find Your Remedy</a>
+          <a href="products.html" class="btn btn-primary btn-lg">🛒 Shop Bestsellers</a>
+          <a href="wellness-lab.html" class="btn btn-glow btn-lg">✦ Free Health Assessment</a>
         </div>
         <div class="hero-trust">
-          <span class="hero-trust-item">50,000+ Customers</span>
-          <span class="hero-trust-item">12 Remedies</span>
-          <span class="hero-trust-item">WHO-GMP Certified</span>
+          <span class="hero-trust-item">🌍 WHO-GMP</span>
+          <span class="hero-trust-item">🏆 ISO 9001:2015</span>
+          <span class="hero-trust-item">✅ HACCP</span>
+          <span class="hero-trust-item">🌿 Natural</span>
         </div>
       </div>
       <div class="hero-img-col" aria-hidden="true">
@@ -603,6 +654,50 @@ body.nav-open {
   </div>
 </div>
 
+
+<!-- PROBLEM → SOLUTION -->
+<section class="section bg-white" style="padding:clamp(50px,7vw,80px) 0" aria-labelledby="problem-heading">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:2.5rem">
+      <div class="eyebrow reveal">Do Any of These Sound Familiar?</div>
+      <h2 class="reveal delay-1" id="problem-heading">Are You Facing These Issues?</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-bottom:2.5rem">
+      <div class="problem-card reveal delay-1">
+        <div class="problem-icon">🦴</div>
+        <div class="problem-label">Joint Pain / Arthritis</div>
+        <div class="problem-sub">Morning stiffness, knee pain, inflamed joints</div>
+        <a href="ortho-hayaat-ayurvedic-joint-pain-relief.html" class="problem-link">See Solution →</a>
+      </div>
+      <div class="problem-card reveal delay-2">
+        <div class="problem-icon">🫀</div>
+        <div class="problem-label">Liver / Poor Digestion</div>
+        <div class="problem-sub">Fatty liver, bloating, gas, acidity after meals</div>
+        <a href="livo-hayaat-ayurvedic-liver-detox.html" class="problem-link">See Solution →</a>
+      </div>
+      <div class="problem-card reveal delay-3">
+        <div class="problem-icon">🧠</div>
+        <div class="problem-label">Brain Fog / Low Focus</div>
+        <div class="problem-sub">Poor memory, concentration issues, mental fatigue</div>
+        <a href="brain-champ-ayurvedic-memory-booster.html" class="problem-link">See Solution →</a>
+      </div>
+      <div class="problem-card reveal delay-4">
+        <div class="problem-icon">🛡️</div>
+        <div class="problem-label">Weak Immunity</div>
+        <div class="problem-sub">Frequent colds, slow recovery, low energy</div>
+        <a href="fevodol-ayurvedic-immunity-booster-giloy-tulsi.html" class="problem-link">See Solution →</a>
+      </div>
+    </div>
+    <div class="solution-banner reveal">
+      <div class="solution-text">
+        <div class="solution-eyebrow">Our Approach</div>
+        <p>We combine <strong>Ayurveda + Modern Science</strong> to solve root causes — not just symptoms. Every formulation is WHO-GMP certified and rooted in classical herbal knowledge.</p>
+      </div>
+      <a href="wellness-lab.html" class="btn btn-glow">✦ Find My Remedy</a>
+    </div>
+  </div>
+</section>
+
 <!-- WELLNESS CATEGORIES -->
 <div class="wellness-strip" aria-label="Wellness categories">
   <div class="container" style="padding:0">
@@ -622,6 +717,96 @@ body.nav-open {
     </div>
   </div>
 </div>
+
+
+<!-- BESTSELLERS -->
+<section class="section" style="background:#F7F4EF;padding:clamp(50px,7vw,80px) 0" aria-labelledby="best-heading">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:2.2rem">
+      <div class="eyebrow reveal" style="color:#B8860B">Most Popular</div>
+      <h2 class="reveal delay-1" id="best-heading">Our Bestselling Remedies</h2>
+      <p class="reveal delay-2" style="color:#6B6B6B;max-width:480px;margin:.5rem auto 0">Trusted by thousands — pick your remedy and start your natural healing journey.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;margin-bottom:2rem">
+
+      <div class="best-card reveal delay-1">
+        <div class="best-badge">🏆 #1 Bestseller</div>
+        <div class="best-img-wrap">
+          <img src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/orthohayaat1.jpg" alt="Ortho Hayaat Joint Pain Relief" loading="lazy" onerror="this.src='https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg'">
+        </div>
+        <div class="best-body">
+          <div class="best-tag">Joints &amp; Arthritis</div>
+          <h3 class="best-name">Ortho Hayaat</h3>
+          <p class="best-benefit">Reduces joint stiffness &amp; pain naturally</p>
+          <div class="best-stars">★★★★★ <span>4.9</span></div>
+          <div class="best-price">₹649 <span class="best-per">/ pack</span></div>
+          <div class="best-btns">
+            <a href="ortho-hayaat-ayurvedic-joint-pain-relief.html" class="btn-best-primary">Buy Now</a>
+            <a href="https://wa.me/917051056287?text=Hi!+I+want+to+order+Ortho+Hayaat+Rs.649" target="_blank" rel="noopener" class="btn-best-wa">💬</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="best-card reveal delay-2">
+        <div class="best-badge" style="background:rgba(42,70,51,.9)">🌟 Top Rated</div>
+        <div class="best-img-wrap">
+          <img src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/livohayaat1.jpg" alt="Livo Hayaat Liver Detox" loading="lazy" onerror="this.src='https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg'">
+        </div>
+        <div class="best-body">
+          <div class="best-tag">Liver &amp; Detox</div>
+          <h3 class="best-name">Livo Hayaat</h3>
+          <p class="best-benefit">Detoxifies liver, reduces SGPT naturally</p>
+          <div class="best-stars">★★★★★ <span>4.8</span></div>
+          <div class="best-price">₹349 <span class="best-per">/ pack</span></div>
+          <div class="best-btns">
+            <a href="livo-hayaat-ayurvedic-liver-detox.html" class="btn-best-primary">Buy Now</a>
+            <a href="https://wa.me/917051056287?text=Hi!+I+want+to+order+Livo+Hayaat+Rs.349" target="_blank" rel="noopener" class="btn-best-wa">💬</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="best-card reveal delay-3">
+        <div class="best-badge" style="background:rgba(21,80,160,.9)">🧠 Brain Pick</div>
+        <div class="best-img-wrap">
+          <img src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/brainchamp1.jpg" alt="Brain Champ Memory Booster" loading="lazy" onerror="this.src='https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg'">
+        </div>
+        <div class="best-body">
+          <div class="best-tag">Brain &amp; Focus</div>
+          <h3 class="best-name">Brain Champ</h3>
+          <p class="best-benefit">Improves memory, focus &amp; mental clarity</p>
+          <div class="best-stars">★★★★★ <span>4.8</span></div>
+          <div class="best-price">₹175 <span class="best-per">/ pack</span></div>
+          <div class="best-btns">
+            <a href="brain-champ-ayurvedic-memory-booster.html" class="btn-best-primary">Buy Now</a>
+            <a href="https://wa.me/917051056287?text=Hi!+I+want+to+order+Brain+Champ+Rs.175" target="_blank" rel="noopener" class="btn-best-wa">💬</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="best-card reveal delay-4">
+        <div class="best-badge" style="background:rgba(15,110,86,.9)">🛡️ Immunity</div>
+        <div class="best-img-wrap">
+          <img src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/fevodol.png" alt="Fevodol Immunity Booster" loading="lazy" onerror="this.src='https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg'">
+        </div>
+        <div class="best-body">
+          <div class="best-tag">Immunity</div>
+          <h3 class="best-name">Fevodol</h3>
+          <p class="best-benefit">Giloy + Tulsi for stronger immunity</p>
+          <div class="best-stars">★★★★★ <span>4.7</span></div>
+          <div class="best-price">₹165 <span class="best-per">/ pack</span></div>
+          <div class="best-btns">
+            <a href="fevodol-ayurvedic-immunity-booster-giloy-tulsi.html" class="btn-best-primary">Buy Now</a>
+            <a href="https://wa.me/917051056287?text=Hi!+I+want+to+order+Fevodol+Rs.165" target="_blank" rel="noopener" class="btn-best-wa">💬</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center">
+      <a href="products.html" class="btn btn-outline-green">View All 12 Products →</a>
+    </div>
+  </div>
+</section>
 
 <!-- ALL 12 PRODUCTS -->
 <section class="products-section section" aria-labelledby="products-heading">
@@ -753,6 +938,55 @@ body.nav-open {
   </div>
 </section>
 
+
+<!-- VIDEO TESTIMONIALS (future-ready) -->
+<section class="section bg-white" style="padding:clamp(40px,5vw,60px) 0" aria-labelledby="video-testi-heading">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:1.8rem">
+      <div class="eyebrow reveal">Video Reviews</div>
+      <h2 class="reveal delay-1" id="video-testi-heading">Real Results, Real People</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem">
+      <div class="video-card reveal delay-1">
+        <div class="video-placeholder">
+          <div class="video-play-btn">▶</div>
+          <div class="video-overlay-text">
+            <div class="video-product-tag">Ortho Hayaat</div>
+            <div class="video-caption">"Joint pain gone in 6 weeks"</div>
+            <div class="video-person">Suresh M. · Pune</div>
+          </div>
+          <div class="video-coming">📹 Video coming soon</div>
+        </div>
+      </div>
+      <div class="video-card reveal delay-2">
+        <div class="video-placeholder">
+          <div class="video-play-btn">▶</div>
+          <div class="video-overlay-text">
+            <div class="video-product-tag">Livo Hayaat</div>
+            <div class="video-caption">"SGPT normalised in 8 weeks"</div>
+            <div class="video-person">Kavita R. · Lucknow</div>
+          </div>
+          <div class="video-coming">📹 Video coming soon</div>
+        </div>
+      </div>
+      <div class="video-card reveal delay-3">
+        <div class="video-placeholder">
+          <div class="video-play-btn">▶</div>
+          <div class="video-overlay-text">
+            <div class="video-product-tag">Brain Champ</div>
+            <div class="video-caption">"Focus improved dramatically"</div>
+            <div class="video-person">Riya S. · Delhi</div>
+          </div>
+          <div class="video-coming">📹 Video coming soon</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:1.5rem">
+      <a href="https://wa.me/917051056287?text=Hi!+I+want+to+share+my+video+testimonial+for+Shah+Hayaat." target="_blank" rel="noopener" class="btn btn-outline-green">📹 Share Your Story</a>
+    </div>
+  </div>
+</section>
+
 <!-- LIVE REVIEWS -->
 <section class="section bg-white" aria-labelledby="reviews-heading">
   <div class="container">
@@ -872,8 +1106,9 @@ body.nav-open {
     <h2 class="reveal delay-1" id="cta-heading">Start Your Natural Wellness Journey</h2>
     <p class="reveal delay-2">Explore all 12 Shah Hayaat Private Limited remedies or find the perfect formulation with our free symptom checker.</p>
     <div class="cta-btn-row reveal delay-3">
-      <a href="products.html" class="btn btn-primary btn-lg">Browse All Remedies</a>
-      <a href="wellness-lab.html" class="btn btn-outline-white btn-lg">✦ Symptom Checker</a>
+      <a href="products.html" class="btn btn-primary btn-lg">🛒 Shop Now</a>
+      <a href="https://wa.me/917051056287?text=Hi!+I+want+to+know+more+about+Shah+Hayaat+products." target="_blank" rel="noopener" class="btn btn-wa btn-lg">💬 WhatsApp Order</a>
+      <a href="wellness-lab.html" class="btn btn-outline-white btn-lg">✦ Free Assessment</a>
     </div>
   </div>
 </section>
@@ -962,10 +1197,10 @@ body.nav-open {
 <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float" id="wa-float" aria-label="Order on WhatsApp">💬</a>
 <button class="rate-fab" id="rate-fab" onclick="openRateModal()">⭐ Rate Us</button>
 
-<!-- STICKY WA (mobile) -->
-<div class="sticky-wa" id="sticky-wa">
-  <a href="https://wa.me/917051056287?text=Hi%20Shah%20Hayaat%2C%20I%20want%20to%20order.%20Please%20guide%20me." target="_blank" rel="noopener">💬 Order on WhatsApp</a>
-  <button class="sticky-wa-close" onclick="document.getElementById('sticky-wa').classList.remove('show');localStorage.setItem('wa_closed','1')" aria-label="Close">✕</button>
+<!-- STICKY MOBILE BOTTOM BAR -->
+<div class="mobile-bottom-bar" id="mobileBottomBar">
+  <a href="products.html" class="mbb-btn mbb-buy">🛒 Buy Now</a>
+  <a href="https://wa.me/917051056287?text=Hi!+I+want+to+order+Shah+Hayaat+products." target="_blank" rel="noopener" class="mbb-btn mbb-wa">💬 WhatsApp</a>
 </div>
 
 <!-- RATE MODAL -->
