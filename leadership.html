@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="midnight">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Our Leadership — Shah Hayaat Private Limited</title>
+<meta name="description" content="Meet the visionary leadership team behind Shah Hayaat Private Limited — guiding Ayurvedic excellence across India.">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+
+<style>
+/* ── THEME VARS ── */
+:root{
+  --font-h:'Playfair Display',Georgia,serif;
+  --font-b:'DM Sans',sans-serif;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+[data-theme="midnight"]{
+  --bg:#071830;--bg2:#0a1f3c;--bg3:#0e2448;--bg4:#0e2d54;
+  --gold:#B8860B;--gold-l:#D4A017;--gold-pale:rgba(180,134,20,.10);
+  --text:#E8ECF0;--text-m:#A8B4C4;--text-mu:#5A6A7E;
+  --border:rgba(255,255,255,.08);--border-m:rgba(255,255,255,.13);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* ── LAYOUT ── */
+.container{max-width:1140px;margin:0 auto;padding:0 1.5rem}
+
+/* ── HEADER (copied from site) ── */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:900;padding:1rem 0;transition:all .35s var(--ease)}
+body.scrolled .site-header{background:rgba(7,24,48,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:.65rem 0;box-shadow:0 1px 0 var(--border),0 4px 24px rgba(0,0,0,.4)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.logo{display:flex;align-items:center;gap:.75rem;font-family:var(--font-h);font-size:1.15rem;color:#fff;flex-shrink:0}
+.logo img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(212,160,23,.5)}
+.logo em{color:var(--gold-l);font-style:normal}
+.nav-desktop{display:flex;align-items:center;gap:1.6rem}
+.nav-desktop a{font-size:.85rem;font-weight:500;color:var(--text-m);transition:color .2s;white-space:nowrap}
+.nav-desktop a:hover,.nav-desktop a.active{color:#fff}
+.nav-cta-pill{background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;font-size:.78rem;font-weight:700;padding:.42rem 1.1rem;border-radius:50px;white-space:nowrap;transition:opacity .2s}
+.nav-cta-pill:hover{opacity:.85}
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:.4rem;cursor:pointer}
+.nav-toggle span{width:22px;height:2px;background:#fff;border-radius:2px;transition:.3s}
+@media(max-width:860px){.nav-desktop,.nav-cta-pill{display:none}.nav-toggle{display:flex}}
+.nav-mobile{display:none;position:fixed;inset:0;z-index:800;background:rgba(7,24,48,.98);padding:5rem 2rem 2rem;flex-direction:column}
+body.nav-open .nav-mobile{display:flex}
+.nav-mobile a{font-size:1.2rem;font-weight:600;color:var(--text);padding:.75rem 0;border-bottom:1px solid var(--border)}
+
+/* ── HERO ── */
+.ldr-hero{padding:clamp(120px,16vw,180px) 0 clamp(60px,8vw,90px);text-align:center;position:relative;overflow:hidden}
+.ldr-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(184,134,11,.18) 0%,transparent 70%);pointer-events:none}
+.ldr-hero-lines{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.ldr-hero-lines::before,.ldr-hero-lines::after{content:'';position:absolute;left:50%;width:1px;background:linear-gradient(to bottom,transparent,rgba(184,134,11,.25),transparent)}
+.ldr-hero-lines::before{height:100%;top:0;transform:translateX(-200px)}
+.ldr-hero-lines::after{height:100%;top:0;transform:translateX(200px)}
+.eyebrow{display:inline-block;font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.65rem}
+.ldr-hero h1{font-family:var(--font-h);font-size:clamp(2rem,5vw,3.4rem);font-weight:700;line-height:1.18;margin-bottom:1rem}
+.ldr-hero h1 em{color:var(--gold-l);font-style:italic}
+.ldr-hero p{font-size:clamp(.95rem,2vw,1.1rem);color:var(--text-m);max-width:540px;margin:0 auto}
+
+/* ── DECORATIVE DIVIDER ── */
+.divider{display:flex;align-items:center;gap:1rem;margin:clamp(40px,6vw,70px) 0}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border-m)}
+.divider span{font-size:1rem;color:var(--gold);letter-spacing:.15em;font-family:var(--font-h);font-style:italic;white-space:nowrap}
+
+/* ── LEADERSHIP GRID ── */
+.ldr-section{padding:0 0 clamp(80px,10vw,120px)}
+.ldr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+@media(max-width:860px){.ldr-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
+
+/* ── PROFILE CARD ── */
+.profile-card{position:relative;background:var(--bg2);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.profile-card:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 1px rgba(184,134,11,.25)}
+.profile-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(184,134,11,.06) 0%,transparent 60%);pointer-events:none;z-index:0}
+
+/* gold accent bar at top */
+.card-accent{height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-l),var(--gold));position:relative;z-index:1}
+
+.card-photo-wrap{position:relative;padding:2rem 2rem 0;z-index:1}
+.card-photo{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:top center;border-radius:14px;border:2px solid var(--border-m);box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.card-role-badge{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.32rem 1rem;border-radius:50px;white-space:nowrap;box-shadow:0 4px 16px rgba(184,134,11,.4)}
+
+.card-body{padding:1.5rem 2rem 2rem;position:relative;z-index:1}
+.card-name{font-family:var(--font-h);font-size:1.45rem;font-weight:700;color:var(--text);margin-bottom:.25rem;line-height:1.2}
+.card-title-line{font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-l);margin-bottom:1rem}
+.card-divider{width:36px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);border-radius:1px;margin-bottom:1rem}
+.card-desc{font-size:.88rem;color:var(--text-m);line-height:1.72}
+
+/* ── QUOTE STRIP ── */
+.quote-strip{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:clamp(40px,6vw,64px) 0;text-align:center;position:relative;overflow:hidden;margin-bottom:clamp(60px,8vw,90px)}
+.quote-strip::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 100% at 50% 50%,rgba(184,134,11,.07),transparent);pointer-events:none}
+.quote-mark{font-family:var(--font-h);font-size:5rem;line-height:.6;color:var(--gold);opacity:.3;margin-bottom:.5rem}
+.quote-text{font-family:var(--font-h);font-size:clamp(1.1rem,2.5vw,1.5rem);font-style:italic;color:var(--text);max-width:700px;margin:0 auto 1rem;position:relative;z-index:1}
+.quote-attr{font-size:.82rem;color:var(--gold-l);letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+
+/* ── REVEAL ANIMATION ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.22s}
+.reveal-delay-3{transition-delay:.34s}
+
+/* ── FOOTER (from site) ── */
+.site-footer{background:#071830;padding:3.5rem 0 0;border-top:1px solid var(--border)}
+.footer-grid{display:grid;gap:2.5rem;grid-template-columns:1.8fr 1fr 1fr 1.2fr;padding-bottom:3rem;border-bottom:1px solid var(--border)}
+@media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+.footer-brand p{font-size:.82rem;color:rgba(255,255,255,.88);line-height:1.72;max-width:220px}
+.footer-brand .logo{margin-bottom:.85rem}
+.footer-socials{display:flex;gap:.5rem;margin-top:1.2rem}
+.soc-icon{width:34px;height:34px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:border-color .2s,background .2s}
+.soc-icon:hover{border-color:var(--gold);background:var(--gold-pale)}
+.footer-col h4{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-l);margin-bottom:1rem}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:.55rem}
+.footer-col a{font-size:.83rem;color:var(--text-m);transition:color .2s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.4rem 0;flex-wrap:wrap}
+.footer-bottom p,.footer-bottom a{font-size:.76rem;color:var(--text-mu)}
+.footer-bottom a:hover{color:var(--text-m)}
+.footer-bottom div{display:flex;gap:1rem;flex-wrap:wrap}
+</style>
+</head>
+
+<body id="top">
+
+<!-- HEADER -->
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg" alt="Shah Hayaat" width="38" height="38" loading="eager">
+      <span>Shah <em>Hayaat</em><small style="display:block;font-size:.52rem;color:rgba(255,255,255,.75);letter-spacing:.08em;font-family:var(--font-b);font-weight:400;line-height:1;margin-top:1px">Private Limited</small></span>
+    </a>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="conditions.html">Health Guides</a>
+      <a href="exercises.html">Exercises</a>
+      <a href="wellness-lab.html">🧪 Lab</a>
+      <a href="blog.html">Blog</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="wellness-lab.html" class="nav-cta-pill">✦ Self Assessment</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE NAV -->
+<nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
+  <a href="index.html">Home</a>
+  <a href="products.html">Products</a>
+  <a href="conditions.html">Health Guides</a>
+  <a href="exercises.html">Exercises</a>
+  <a href="wellness-lab.html">🧪 Lab</a>
+  <a href="blog.html">Blog</a>
+  <a href="about.html">About</a>
+  <a href="leadership.html" style="color:var(--gold-l)">Leadership</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<!-- HERO -->
+<section class="ldr-hero">
+  <div class="ldr-hero-lines"></div>
+  <div class="container">
+    <div class="eyebrow reveal">Our Leadership</div>
+    <h1 class="reveal reveal-delay-1">Guided by <em>Vision,</em><br>Rooted in <em>Tradition</em></h1>
+    <p class="reveal reveal-delay-2">Meet the founders and directors who have shaped Shah Hayaat Private Limited into a trusted name in Ayurvedic wellness — serving 50,000+ families across India.</p>
+  </div>
+</section>
+
+<!-- QUOTE STRIP -->
+<div class="quote-strip">
+  <div class="container">
+    <div class="quote-mark reveal">"</div>
+    <p class="quote-text reveal reveal-delay-1">Ayurveda is not just medicine — it is a way of living in harmony with nature. That is the philosophy we build every product on.</p>
+    <div class="quote-attr reveal reveal-delay-2">— Shah Hayaat Leadership</div>
+  </div>
+</div>
+
+<!-- LEADERSHIP CARDS -->
+<section class="ldr-section">
+  <div class="container">
+
+    <div class="divider reveal">
+      <span>The Founding Team</span>
+    </div>
+
+    <div class="ldr-grid">
+
+      <!-- CHAIRMAN -->
+      <div class="profile-card reveal reveal-delay-1">
+        <div class="card-accent"></div>
+        <div class="card-photo-wrap">
+          <img
+            src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/chairman.png"
+            alt="Z.H. Shah — Chairman, Shah Hayaat Private Limited"
+            class="card-photo"
+            loading="lazy"
+            onerror="this.src='https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg';this.style.objectPosition='center'"
+          >
+          <div class="card-role-badge">Chairman</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Z.H. Shah</div>
+          <div class="card-title-line">Chairman &amp; Founder</div>
+          <div class="card-divider"></div>
+          <p class="card-desc">The visionary force behind Shah Hayaat, Z.H. Shah established the company with a mission to make authentic, WHO-GMP certified Ayurvedic medicines accessible to every Indian family. His deep-rooted belief in traditional wisdom combined with modern quality standards has shaped the ethos of the entire organisation.</p>
+        </div>
+      </div>
+
+      <!-- MD -->
+      <div class="profile-card reveal reveal-delay-2">
+        <div class="card-accent"></div>
+        <div class="card-photo-wrap">
+          <img
+            src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/md.jpg"
+            alt="Sajad Shah — Managing Director, Shah Hayaat Private Limited"
+            class="card-photo"
+            loading="lazy"
+            onerror="this.src='https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg';this.style.objectPosition='center'"
+          >
+          <div class="card-role-badge">Managing Director</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Sajad Shah</div>
+          <div class="card-title-line">Managing Director</div>
+          <div class="card-divider"></div>
+          <p class="card-desc">Sajad Shah leads the day-to-day operations of Shah Hayaat with precision and passion. Overseeing everything from supply chain integrity to customer experience, he ensures that every product leaving the facility upholds the highest standards of Ayurvedic purity and efficacy that the brand is trusted for.</p>
+        </div>
+      </div>
+
+      <!-- DIRECTOR -->
+      <div class="profile-card reveal reveal-delay-3">
+        <div class="card-accent"></div>
+        <div class="card-photo-wrap">
+          <img
+            src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/director.jpg"
+            alt="Abid Shah — Director, Shah Hayaat Private Limited"
+            class="card-photo"
+            loading="lazy"
+            onerror="this.src='https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg';this.style.objectPosition='center'"
+          >
+          <div class="card-role-badge">Director</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Abid Shah</div>
+          <div class="card-title-line">Director</div>
+          <div class="card-divider"></div>
+          <p class="card-desc">Abid Shah drives the strategic growth and expansion of Shah Hayaat across India. With a focus on building meaningful partnerships and expanding the company's reach — from e-commerce platforms like Amazon to IndiaMART — he ensures that genuine Ayurvedic wellness solutions reach those who need them most.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <img src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg" alt="Shah Hayaat" width="34" height="34" loading="lazy">
+          <span>Shah <em>Hayaat</em><small style="display:block;font-size:.52rem;color:rgba(255,255,255,.75);letter-spacing:.08em;font-family:var(--font-b);font-weight:400;line-height:1;margin-top:1px">Private Limited</small></span>
+        </a>
+        <p>WHO-GMP, ISO 9001:2015 and HACCP certified Ayurvedic medicines for complete wellness. Trusted by 50,000+ families across India.</p>
+        <div class="footer-socials">
+          <a href="https://instagram.com/shahhayaatofficial" target="_blank" rel="noopener" class="soc-icon" aria-label="Instagram">📷</a>
+          <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="soc-icon" aria-label="WhatsApp">💬</a>
+          <a href="mailto:shahhayaat02@gmail.com" class="soc-icon" aria-label="Email">✉️</a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Navigation</h4><ul>
+        <li><a href="products.html">All Products</a></li>
+        <li><a href="conditions.html">Health Guides</a></li>
+        <li><a href="exercises.html">Exercises</a></li>
+        <li><a href="wellness-lab.html">Symptom Checker</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="leadership.html">Leadership</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Products</h4><ul>
+        <li><a href="brain-champ-ayurvedic-memory-booster.html">Brain Champ</a></li>
+        <li><a href="shah-zyme-ayurvedic-digestive-syrup.html">Shah Zyme</a></li>
+        <li><a href="livo-hayaat-ayurvedic-liver-detox.html">Livo Hayaat</a></li>
+        <li><a href="ortho-hayaat-ayurvedic-joint-pain-relief.html">Ortho Hayaat</a></li>
+        <li><a href="dia-ease-ayurvedic-blood-sugar-control.html">Dia-Ease</a></li>
+        <li><a href="products.html">View All →</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="mailto:shahhayaat02@gmail.com">shahhayaat02@gmail.com</a></li>
+        <li><a href="https://wa.me/917051056287" target="_blank">+91 70510 56287</a></li>
+        <li><a href="https://wa.me/919107028786" target="_blank">+91 91070 28786</a></li>
+        <li><a href="https://amzn.in/d/9vsBOWH" target="_blank">Amazon India</a></li>
+        <li><a href="https://m.indiamart.com/shah-hayaat/" target="_blank">IndiaMART</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Shah Hayaat Private Limited. All Rights Reserved. · WHO-GMP · ISO 9001:2015 · HACCP</p>
+      <div>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="disclaimer.html">Disclaimer</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+'use strict';
+
+// ── Header scroll effect
+window.addEventListener('scroll', () => {
+  document.body.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// ── Mobile nav toggle
+document.getElementById('nav-toggle').addEventListener('click', () => {
+  const open = document.body.classList.toggle('nav-open');
+  document.getElementById('nav-toggle').setAttribute('aria-expanded', String(open));
+});
+document.querySelectorAll('.nav-mobile a').forEach(a => a.addEventListener('click', () => {
+  setTimeout(() => {
+    document.body.classList.remove('nav-open');
+    document.getElementById('nav-toggle').setAttribute('aria-expanded', 'false');
+  }, 200);
+}));
+
+// ── Footer year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// ── Reveal on scroll (IntersectionObserver)
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
