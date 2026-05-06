@@ -83,7 +83,7 @@ body.nav-open .nav-mobile{display:flex}
 .card-accent{height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-l),var(--gold));position:relative;z-index:1}
 
 .card-photo-wrap{position:relative;padding:2rem 2rem 0;z-index:1}
-.card-photo{width:100%;height:auto;display:block;object-fit:contain;border-radius:14px;border:2px solid var(--border-m);box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.card-photo{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;border-radius:14px;border:2px solid var(--border-m);box-shadow:0 8px 32px rgba(0,0,0,.4)}
 .card-role-badge{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.32rem 1rem;border-radius:50px;white-space:nowrap;box-shadow:0 4px 16px rgba(184,134,11,.4)}
 
 .card-body{padding:1.5rem 2rem 2rem;position:relative;z-index:1}
@@ -217,29 +217,8 @@ body.nav-open .nav-mobile{display:flex}
         </div>
       </div>
 
-      <!-- MD -->
+      <!-- DIRECTOR (middle) -->
       <div class="profile-card reveal reveal-delay-2">
-        <div class="card-accent"></div>
-        <div class="card-photo-wrap">
-          <img
-            src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/md.jpg"
-            alt="Sajad Shah — Managing Director, Shah Hayaat Private Limited"
-            class="card-photo"
-            loading="lazy"
-            onerror="this.src='https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg';this.style.objectPosition='center'"
-          >
-          <div class="card-role-badge">Managing Director</div>
-        </div>
-        <div class="card-body">
-          <div class="card-name">Sajad Shah</div>
-          <div class="card-title-line">Managing Director</div>
-          <div class="card-divider"></div>
-          <p class="card-desc">Sajad Shah leads the day-to-day operations of Shah Hayaat with precision and passion. Overseeing everything from supply chain integrity to customer experience, he ensures that every product leaving the facility upholds the highest standards of Ayurvedic purity and efficacy that the brand is trusted for.</p>
-        </div>
-      </div>
-
-      <!-- DIRECTOR -->
-      <div class="profile-card reveal reveal-delay-3">
         <div class="card-accent"></div>
         <div class="card-photo-wrap">
           <img
@@ -256,6 +235,27 @@ body.nav-open .nav-mobile{display:flex}
           <div class="card-title-line">Director</div>
           <div class="card-divider"></div>
           <p class="card-desc">Abid Shah drives the strategic growth and expansion of Shah Hayaat across India. With a focus on building meaningful partnerships and expanding the company's reach — from e-commerce platforms like Amazon to IndiaMART — he ensures that genuine Ayurvedic wellness solutions reach those who need them most.</p>
+        </div>
+      </div>
+
+      <!-- MD (end) -->
+      <div class="profile-card reveal reveal-delay-3">
+        <div class="card-accent"></div>
+        <div class="card-photo-wrap">
+          <img
+            src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/md.jpg"
+            alt="Sajad Shah — Managing Director, Shah Hayaat Private Limited"
+            class="card-photo"
+            loading="lazy"
+            onerror="this.src='https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg';this.style.objectPosition='center'"
+          >
+          <div class="card-role-badge">Managing Director</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Sajad Shah</div>
+          <div class="card-title-line">Managing Director</div>
+          <div class="card-divider"></div>
+          <p class="card-desc">Sajad Shah leads the day-to-day operations of Shah Hayaat with precision and passion. Overseeing everything from supply chain integrity to customer experience, he ensures that every product leaving the facility upholds the highest standards of Ayurvedic purity and efficacy that the brand is trusted for.</p>
         </div>
       </div>
 
