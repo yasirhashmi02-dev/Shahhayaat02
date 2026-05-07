@@ -53,7 +53,7 @@ body.nav-open .nav-mobile{display:flex}
 .nav-mobile a{font-size:1.2rem;font-weight:600;color:var(--text);padding:.75rem 0;border-bottom:1px solid var(--border)}
 
 /* ── HERO ── */
-.ldr-hero{padding:clamp(120px,16vw,180px) 0 clamp(60px,8vw,90px);text-align:center;position:relative;overflow:hidden}
+.ldr-hero{padding:clamp(40px,6vw,60px) 0 clamp(40px,6vw,60px);text-align:center;position:relative;overflow:hidden}
 .ldr-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(184,134,11,.18) 0%,transparent 70%);pointer-events:none}
 .ldr-hero-lines{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .ldr-hero-lines::before,.ldr-hero-lines::after{content:'';position:absolute;left:50%;width:1px;background:linear-gradient(to bottom,transparent,rgba(184,134,11,.25),transparent)}
@@ -70,7 +70,7 @@ body.nav-open .nav-mobile{display:flex}
 .divider span{font-size:1rem;color:var(--gold);letter-spacing:.15em;font-family:var(--font-h);font-style:italic;white-space:nowrap}
 
 /* ── LEADERSHIP GRID ── */
-.ldr-section{padding:0 0 clamp(80px,10vw,120px)}
+.ldr-section{padding:clamp(120px,16vw,160px) 0 clamp(80px,10vw,120px)}
 .ldr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
 @media(max-width:860px){.ldr-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
 
@@ -167,25 +167,6 @@ body.nav-open .nav-mobile{display:flex}
   <a href="contact.html">Contact</a>
 </nav>
 
-<!-- HERO -->
-<section class="ldr-hero">
-  <div class="ldr-hero-lines"></div>
-  <div class="container">
-    <div class="eyebrow reveal">Our Leadership</div>
-    <h1 class="reveal reveal-delay-1">Guided by <em>Vision,</em><br>Rooted in <em>Tradition</em></h1>
-    <p class="reveal reveal-delay-2">At Shah Hayaat Private Limited, leadership is built on trust, dedication, and a genuine commitment to improving people's well-being through Ayurveda. The leadership team believes that success is not only measured by business growth, but also by the trust and satisfaction of the people connected with the brand.</p>
-  </div>
-</section>
-
-<!-- QUOTE STRIP -->
-<div class="quote-strip">
-  <div class="container">
-    <div class="quote-mark reveal">"</div>
-    <p class="quote-text reveal reveal-delay-1">Ayurveda is not just medicine — it is a way of living in harmony with nature. That is the philosophy we build every product on.</p>
-    <div class="quote-attr reveal reveal-delay-2">— Shah Hayaat Leadership</div>
-  </div>
-</div>
-
 <!-- LEADERSHIP CARDS -->
 <section class="ldr-section">
   <div class="container">
@@ -201,7 +182,7 @@ body.nav-open .nav-mobile{display:flex}
         <div class="card-accent"></div>
         <div class="card-photo-wrap">
           <img
-            src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/Chairman1.png"
+            src="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/chairman.jpg"
             alt="Z.H. Shah — Chairman, Shah Hayaat Private Limited"
             class="card-photo"
             loading="lazy"
@@ -262,6 +243,25 @@ body.nav-open .nav-mobile{display:flex}
     </div>
   </div>
 </section>
+
+<!-- HERO -->
+<section class="ldr-hero">
+  <div class="ldr-hero-lines"></div>
+  <div class="container">
+    <div class="eyebrow reveal">Our Leadership</div>
+    <h1 class="reveal reveal-delay-1">Guided by <em>Vision,</em><br>Rooted in <em>Tradition</em></h1>
+    <p class="reveal reveal-delay-2">At Shah Hayaat Private Limited, leadership is built on trust, dedication, and a genuine commitment to improving people's well-being through Ayurveda. The leadership team believes that success is not only measured by business growth, but also by the trust and satisfaction of the people connected with the brand.</p>
+  </div>
+</section>
+
+<!-- QUOTE STRIP -->
+<div class="quote-strip">
+  <div class="container">
+    <div class="quote-mark reveal">"</div>
+    <p class="quote-text reveal reveal-delay-1">Ayurveda is not just medicine — it is a way of living in harmony with nature. That is the philosophy we build every product on.</p>
+    <div class="quote-attr reveal reveal-delay-2">— Shah Hayaat Leadership</div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer class="site-footer">
