@@ -6,19 +6,17 @@
   <title>Shah Hayaat - Ayurvedic Medicine</title>
   <meta name="description" content="Buy certified Ayurvedic medicine from Shah Hayaat. WHO-GMP & ISO 9001:2015 certified herbal formulations.">
   
-  <!-- Favicon with fallback -->
   <link rel="icon" href="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg" type="image/jpeg">
   <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg" type="image/jpeg">
   
-  <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
   
-  <!-- Open Graph -->
+  <link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/brainchamp1.jpg">
+  
   <meta property="og:type" content="product">
   <meta property="og:site_name" content="Shah Hayaat">
   <meta property="og:title" content="Shah Hayaat Certified Ayurvedic Medicine">
@@ -26,16 +24,14 @@
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/brainchamp1.jpg">
   <meta property="og:url" content="https://www.shahhayaat.com/product-detail.html">
   
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Shah Hayaat Certified Ayurvedic Medicine">
   <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/brainchamp1.jpg">
   
-  <!-- Canonical -->
   <link rel="canonical" href="https://www.shahhayaat.com/product-detail.html">
 
-  <!-- ========== CSS: main.css ========== -->
   <style>
+    /* ========== main.css ========== */
     :root {
       --navy: #071830;
       --navy-light: #0a1f3c;
@@ -101,7 +97,7 @@
     .hidden { display: none; }
     .section-label { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
     .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius: 2px; margin-bottom: 24px; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: var(--radius-full); font-weight: 600; font-size: 0.88rem; transition: all var(--transition); border: 2px solid transparent; white-space: nowrap; cursor: pointer; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: var(--radius-full); font-weight: 600; font-size: 0.88rem; transition: all var(--transition); border: 2px solid transparent; white-space: nowrap; cursor: pointer; text-decoration: none; }
     .btn-primary { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--white); box-shadow: 0 4px 16px rgba(184,134,11,0.30); }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,134,11,0.40); }
     .btn-outline { background: transparent; border-color: rgba(255,255,255,0.40); color: var(--white); }
@@ -113,10 +109,8 @@
     .btn-sm { padding: 8px 16px; font-size: 0.80rem; }
     .btn-lg { padding: 16px 32px; font-size: 0.95rem; }
     .btn-full { width: 100%; }
-  </style>
 
-  <!-- ========== CSS: navigation.css ========== -->
-  <style>
+    /* ========== navigation.css ========== */
     .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(7,24,48,0.97); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: box-shadow 0.35s; }
     @supports not (backdrop-filter: blur(16px)) { .site-header { background: var(--navy); } }
     .site-header.scrolled { box-shadow: var(--shadow-md); }
@@ -137,22 +131,20 @@
     .mega-col-title { color: var(--gold-light); font-size: 0.85rem; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
     .mega-link { display: block; padding: 6px 0; color: rgba(255,255,255,0.65); font-size: 0.85rem; transition: color 0.2s; }
     .mega-link:hover, .mega-link:focus { color: var(--white); outline: none; }
-    .nav-toggle { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 28px; height: 28px; background: none; border: none; padding: 4px; z-index: 1002; }
+    .nav-toggle { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 28px; height: 28px; background: none; border: none; padding: 4px; z-index: 1002; cursor: pointer; }
     @media (min-width: 960px) { .nav-toggle { display: none; } }
     .nav-toggle-line { display: block; width: 20px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; transform-origin: center; }
     .nav-open .nav-toggle-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-open .nav-toggle-line:nth-child(2) { opacity: 0; }
     .nav-open .nav-toggle-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .nav-mobile { position: fixed; inset: 0; z-index: 998; background: linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 100%); display: flex; flex-direction: column; padding: 96px 32px 40px; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; }
-    .nav-open .nav-mobile { transform: translateX(0); }
+    .nav-mobile { position: fixed; inset: 0; z-index: 998; background: linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 100%); display: flex; flex-direction: column; padding: 96px 32px 40px; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; visibility: hidden; }
+    .nav-open .nav-mobile { transform: translateX(0); visibility: visible; }
     .nav-open { overflow: hidden; }
     .nav-mobile-link { display: block; font-family: var(--font-head); font-size: 1.4rem; font-style: italic; color: rgba(255,255,255,0.65); padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s; }
     .nav-mobile-link:hover, .nav-mobile-link.active, .nav-mobile-link:focus { color: var(--gold-light); outline: none; }
     .mobile-actions { margin-top: auto; display: flex; flex-direction: column; gap: 12px; }
-  </style>
 
-  <!-- ========== CSS: product.css ========== -->
-  <style>
+    /* ========== product.css ========== */
     .pd-hero { background: var(--gray-100); padding: 40px 0; margin-top: var(--header-height); border-bottom: 1px solid var(--gray-300); }
     .pd-grid { display: grid; gap: 32px; align-items: start; }
     @media (min-width: 768px) { .pd-grid { grid-template-columns: 1fr 1fr; } }
@@ -179,10 +171,8 @@
     .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: var(--gray-600); margin-bottom: 8px; flex-wrap: wrap; }
     .breadcrumb a { color: var(--gray-600); transition: color 0.2s; }
     .breadcrumb a:hover { color: var(--green-700); }
-  </style>
 
-  <!-- ========== CSS: cards.css ========== -->
-  <style>
+    /* ========== cards.css ========== */
     .product-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
     .product-card { background: var(--navy-surface); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.08); overflow: hidden; transition: transform var(--transition), box-shadow var(--transition); }
     .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
@@ -193,10 +183,8 @@
     .product-card-desc { font-size: 0.85rem; color: rgba(255,255,255,0.50); margin-bottom: 16px; }
     .product-card-footer { display: flex; justify-content: space-between; align-items: center; }
     .product-card-price { font-size: 1.1rem; font-weight: 700; color: var(--gold-light); }
-  </style>
 
-  <!-- ========== CSS: reviews.css ========== -->
-  <style>
+    /* ========== reviews.css ========== */
     .review-summary { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; padding: 24px; background: var(--navy-surface); border-radius: var(--radius-md); margin-bottom: 24px; }
     .review-summary-score { text-align: center; flex-shrink: 0; }
     .review-summary-number { font-family: var(--font-head); font-size: 3rem; font-weight: 700; }
@@ -231,10 +219,8 @@
     .review-header-text { margin: 0; }
     .review-google-btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: #4285F4; color: var(--white); border-radius: var(--radius-sm); text-decoration: none; font-weight: 600; font-size: 0.85rem; white-space: nowrap; }
     .review-empty { text-align: center; padding: 24px; color: rgba(255,255,255,0.40); }
-  </style>
 
-  <!-- ========== CSS: footer.css ========== -->
-  <style>
+    /* ========== footer.css ========== */
     .site-footer { background: var(--navy); padding: 60px 0 0; border-top: 3px solid var(--gold); }
     .footer-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1.2fr; gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.06); }
     @media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
@@ -248,10 +234,8 @@
     .footer-links a { font-size: 0.74rem; color: rgba(255,255,255,0.25); transition: color 0.2s; }
     .footer-links a:hover { color: var(--gold-light); }
     .footer-brand-text { font-size: 0.82rem; color: rgba(255,255,255,0.35); margin-top: 12px; }
-  </style>
 
-  <!-- ========== CSS: utilities.css ========== -->
-  <style>
+    /* ========== utilities.css ========== */
     .wa-float { position: fixed; bottom: 24px; right: 24px; z-index: 800; width: 52px; height: 52px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 4px 20px rgba(37,211,102,0.40); text-decoration: none; color: var(--white); }
     .back-top { position: fixed; bottom: 88px; right: 24px; z-index: 800; width: 40px; height: 40px; background: var(--navy-surface); color: var(--white); border: none; border-radius: 50%; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; text-decoration: none; }
     .back-top.visible { opacity: 1; visibility: visible; }
@@ -261,7 +245,6 @@
     .toast.show { opacity: 1; }
   </style>
 
-  <!-- JSON-LD Structured Data -->
   <script type="application/ld+json" id="product-schema">
     {
       "@context": "https://schema.org",
@@ -284,7 +267,6 @@
 
   <a href="#product-main" class="skip-link">Skip to main content</a>
 
-  <!-- ==================== HEADER ==================== -->
   <header class="site-header" id="header">
     <div class="container header-inner">
       <a href="index.html" class="logo" aria-label="Shah Hayaat Home">
@@ -465,8 +447,8 @@
   </div>
   <div class="toast" id="toast"></div>
 
-  <!-- ========== JS: data/products.js ========== -->
   <script>
+    /* ========== data/products.js ========== */
     const PRODUCTS = {
       brainchamp: { id:'brainchamp', name:'Brain Champ', price:175, category:'brain', tag:'Brain & Focus', desc:'Enhances memory, focus and cognitive function with powerful Ayurvedic herbs.', full:'Brain Champ combines Brahmi, Shankhpushpi and Ashwagandha to support optimal brain health, reduce mental fatigue and improve concentration naturally.', benefits:['Improves memory & recall','Reduces mental fatigue & brain fog','Manages stress & anxiety naturally','Enhances focus & concentration','Adaptogen blend for long-term brain health'], ingredients:'Brahmi (Bacopa monnieri), Shankhpushpi, Ashwagandha, Jatamansi, Vacha', dosage:'10–15 ml twice daily with warm milk or water, preferably after meals.', precautions:'Not recommended during pregnancy. Consult a physician if on medication.' },
       shahzyme: { id:'shahzyme', name:'Shah Zyme', price:165, category:'digestion', tag:'Digestion', desc:'Effective digestive enzyme syrup for relief from gas, bloating and indigestion.', full:'Shah Zyme helps break down food efficiently, relieving uncomfortable gas, bloating and sluggish digestion after meals.', benefits:['Relieves gas & bloating','Improves nutrient absorption','Stimulates healthy appetite','Supports enzyme activity'], ingredients:'Ajwain, Saunf (Fennel), Jeera (Cumin), Pudina (Mint), Harad', dosage:'10–15 ml after meals, twice daily.', precautions:'Store in a cool, dry place. Not for children under 5 without medical advice.' },
@@ -481,44 +463,192 @@
       passionpulse: { id:'passionpulse', name:'Passion Pulse', price:599, category:'male', tag:'Male Vitality', desc:'Natural vitality booster for men, stamina, libido and reproductive health.', full:'Passion Pulse combines Ashwagandha, Shilajit and Safed Musli for male vitality and stamina.', benefits:['Enhances stamina & endurance','Improves libido & sexual health','Supports testosterone levels','Reduces fatigue & boosts energy'], ingredients:'Ashwagandha, Shilajit, Safed Musli, Kaunch Beej, Gokshura', dosage:'2 tablets twice daily with milk or warm water before bedtime.', precautions:'Not for use under 18 years. Consult physician with existing health conditions.' },
       fevodol: { id:'fevodol', name:'Fevodol', price:165, category:'immunity', tag:'Immunity', desc:'Powerful immunity booster to defend against fever, infections and illness.', full:'Fevodol strengthens the immune system with antipyretic and immunomodulatory herbs.', benefits:['Reduces fever naturally','Fights infections','Strengthens immune system','Prevents recurrent illness'], ingredients:'Giloy (Guduchi), Tulsi, Chirayata, Kutki, Sudarshan Churna', dosage:'2 tablets three times daily with warm water during illness.', precautions:'Continue medical treatment during severe infections. This is a supportive supplement.' }
     };
-  </script>
 
-  <!-- ========== JS: utils.js ========== -->
-  <script>
+    /* ========== utils.js ========== */
     function getQueryParam(e){return(new URLSearchParams(window.location.search)).get(e)||""}
     function getProductImage(e){return"https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/"+e+"1.jpg"}
     function getWhatsAppUrl(e,t){return"https://wa.me/917051056287?text="+encodeURIComponent("Hi! I'd like to order "+e+" — ₹"+t+". Please guide me.")}
     function escHtml(e){return String(e).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
     function showToast(e){var t=document.getElementById("toast");if(!t)return;t.textContent=e;t.classList.add("show");clearTimeout(t._timeout);t._timeout=setTimeout(function(){t.classList.remove("show")},2800)}
     function renderStars(e,t,a){for(var n="",r=0;r<5;r++)n+='<span class="review-star '+(r<e?t:a)+'">★</span>';return n}
-  </script>
 
-  <!-- ========== JS: navigation.js ========== -->
-  <script>
-    function initNavigation(){var e=document.getElementById("header"),t=document.getElementById("nav-toggle"),a=document.getElementById("nav-mobile"),n=document.getElementById("mega-trigger"),r=document.getElementById("mega-menu"),o=!1;function i(e){var t=e.querySelectorAll("a, button, [tabindex]:not([tabindex=\"-1\"])");if(t.length){var a=t[0],n=t[t.length-1];e.addEventListener("keydown",function(e){"Tab"===e.key&&(e.shiftKey&&document.activeElement===a?(e.preventDefault(),n.focus()):e.shiftKey||document.activeElement!==n||(e.preventDefault(),a.focus()))})}}function s(){document.body.classList.add("nav-open");t.setAttribute("aria-expanded","true");setTimeout(function(){if(a){var e=a.querySelector("a");e&&e.focus()}},400)}function c(){document.body.classList.remove("nav-open");t.setAttribute("aria-expanded","false");t&&t.focus()}window.addEventListener("touchstart",function(){o=!0},{once:!0});a&&i(a);t&&a&&t.addEventListener("click",function(e){e.stopPropagation();document.body.classList.contains("nav-open")?c():s()});a&&a.querySelectorAll("a").forEach(function(e){e.addEventListener("click",function(){setTimeout(c,300)})});if(n&&r){var l,d;function u(){clearTimeout(d);clearTimeout(l);l=setTimeout(function(){r.classList.add("open");n.setAttribute("aria-expanded","true")},o?0:150)}function m(){clearTimeout(l);clearTimeout(d);d=setTimeout(function(){r.classList.remove("open");n.setAttribute("aria-expanded","false")},200)}o||(n.addEventListener("mouseenter",u),e.addEventListener("mouseleave",m),r.addEventListener("mouseenter",function(){clearTimeout(d)}),r.addEventListener("mouseleave",m));n.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();r.classList.contains("open")?m():u()})}document.addEventListener("click",function(e){document.body.classList.contains("nav-open")&&a&&!a.contains(e.target)&&t&&!t.contains(e.target)&&c();r&&r.classList.contains("open")&&e&&!e.target.closest("#header")&&(r.classList.remove("open"),n&&n.setAttribute("aria-expanded","false"))});document.addEventListener("keydown",function(t){"Escape"===t.key&&(document.body.classList.contains("nav-open")&&c(),r&&r.classList.contains("open")&&(r.classList.remove("open"),n&&(n.setAttribute("aria-expanded","false"),n.focus())))});var f=!1;window.addEventListener("scroll",function(){f||(requestAnimationFrame(function(){var t=window.scrollY>40;e&&e.classList.toggle("scrolled",t);var a=document.getElementById("back-top");a&&(window.scrollY>400?a.classList.add("visible"):a.classList.remove("visible"));f=!1}),f=!0)},{passive:!0})}
-  </script>
+    /* ========== navigation.js ========== */
+    function initNavigation() {
+      var header = document.getElementById('header');
+      var toggle = document.getElementById('nav-toggle');
+      var mobileMenu = document.getElementById('nav-mobile');
+      var megaTrigger = document.getElementById('mega-trigger');
+      var megaMenu = document.getElementById('mega-menu');
+      var isTouchDevice = false;
 
-  <!-- ========== JS: product-render.js ========== -->
-  <script>
+      window.addEventListener('touchstart', function() { isTouchDevice = true; }, { once: true });
+
+      function trapFocus(element) {
+        var focusable = element.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
+        if (!focusable.length) return;
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        element.addEventListener('keydown', function(e) {
+          if (e.key === 'Tab') {
+            if (e.shiftKey && document.activeElement === first) {
+              e.preventDefault();
+              last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+              e.preventDefault();
+              first.focus();
+            }
+          }
+        });
+      }
+
+      function openMobileMenu() {
+        if (!document.body.classList.contains('nav-open')) {
+          document.body.classList.add('nav-open');
+          toggle.setAttribute('aria-expanded', 'true');
+          setTimeout(function() {
+            var firstLink = mobileMenu.querySelector('a');
+            if (firstLink) firstLink.focus();
+          }, 450);
+        }
+      }
+
+      function closeMobileMenu() {
+        if (document.body.classList.contains('nav-open')) {
+          document.body.classList.remove('nav-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.focus();
+        }
+      }
+
+      if (toggle && mobileMenu) {
+        trapFocus(mobileMenu);
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          e.preventDefault();
+          if (document.body.classList.contains('nav-open')) {
+            closeMobileMenu();
+          } else {
+            openMobileMenu();
+          }
+        });
+        mobileMenu.querySelectorAll('a').forEach(function(link) {
+          link.addEventListener('click', function() {
+            setTimeout(closeMobileMenu, 300);
+          });
+        });
+      }
+
+      if (megaTrigger && megaMenu) {
+        var openTimeout, closeTimeout;
+
+        function openMega() {
+          clearTimeout(closeTimeout);
+          clearTimeout(openTimeout);
+          openTimeout = setTimeout(function() {
+            megaMenu.classList.add('open');
+            megaTrigger.setAttribute('aria-expanded', 'true');
+          }, isTouchDevice ? 0 : 200);
+        }
+
+        function closeMega() {
+          clearTimeout(openTimeout);
+          clearTimeout(closeTimeout);
+          closeTimeout = setTimeout(function() {
+            megaMenu.classList.remove('open');
+            megaTrigger.setAttribute('aria-expanded', 'false');
+          }, 200);
+        }
+
+        if (!isTouchDevice) {
+          megaTrigger.addEventListener('mouseenter', openMega);
+          header.addEventListener('mouseleave', function(e) {
+            if (!header.contains(e.relatedTarget)) {
+              closeMega();
+            }
+          });
+          megaMenu.addEventListener('mouseenter', function() {
+            clearTimeout(closeTimeout);
+          });
+          megaMenu.addEventListener('mouseleave', closeMega);
+        }
+
+        megaTrigger.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (megaMenu.classList.contains('open')) {
+            closeMega();
+          } else {
+            openMega();
+          }
+        });
+
+        megaMenu.querySelectorAll('a').forEach(function(link) {
+          link.addEventListener('click', function() {
+            setTimeout(closeMega, 100);
+          });
+        });
+      }
+
+      document.addEventListener('click', function(e) {
+        if (document.body.classList.contains('nav-open') && 
+            mobileMenu && !mobileMenu.contains(e.target) && 
+            toggle && !toggle.contains(e.target)) {
+          closeMobileMenu();
+        }
+        if (megaMenu && megaMenu.classList.contains('open') && 
+            !e.target.closest('#header')) {
+          megaMenu.classList.remove('open');
+          if (megaTrigger) megaTrigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          if (document.body.classList.contains('nav-open')) {
+            closeMobileMenu();
+          }
+          if (megaMenu && megaMenu.classList.contains('open')) {
+            megaMenu.classList.remove('open');
+            if (megaTrigger) {
+              megaTrigger.setAttribute('aria-expanded', 'false');
+              megaTrigger.focus();
+            }
+          }
+        }
+      });
+
+      var ticking = false;
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          requestAnimationFrame(function() {
+            header.classList.toggle('scrolled', window.scrollY > 40);
+            var backTop = document.getElementById('back-top');
+            if (backTop) {
+              backTop.classList.toggle('visible', window.scrollY > 400);
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+    }
+
+    /* ========== product-render.js ========== */
     function renderHero(e,t,a){return'<div class="pd-hero section-light"><div class="container"><nav class="breadcrumb"><a href="index.html">Home</a> / <a href="products.html">Products</a> / <span>'+escHtml(e.name)+'</span></nav><div class="pd-grid"><div class="pd-image"><img src="'+a+'" alt="'+escHtml(e.name)+'" loading="eager" fetchpriority="high"></div><div><span class="pd-tag">'+escHtml(e.tag)+'</span><h1>'+escHtml(e.name)+'</h1><p>'+escHtml(e.desc)+'</p><div class="pd-price">₹'+e.price+' <span class="pd-price-unit">/ pack</span></div><div class="pd-actions"><a href="'+t+'" target="_blank" rel="noopener" class="btn btn-primary btn-lg">💬 Order on WhatsApp</a><a href="products.html" class="btn btn-outline btn-outline-dark">← All Products</a></div><div class="pd-badges"><span class="pd-badge">🌍 WHO-GMP</span><span class="pd-badge">✅ ISO 9001:2015</span><span class="pd-badge">🛡️ HACCP</span></div></div></div></div></div>'}
     function renderBenefits(e){return'<div class="pd-section section-light"><div class="container"><div class="pd-grid"><div class="pd-card"><h3 class="pd-card-title">Key Benefits</h3>'+e.benefits.map(function(e){return'<div class="pd-benefit">'+escHtml(e)+"</div>"}).join("")+'</div><div class="pd-card"><h3 class="pd-card-title">Dosage & Precautions</h3><div class="pd-info-box"><strong>📋 Dosage:</strong> '+escHtml(e.dosage)+'</div><div class="pd-warning-box"><strong>⚠️ Precautions:</strong> '+escHtml(e.precautions)+'</div><h3 class="pd-card-title pd-ingredients-title">Key Ingredients</h3><p>'+escHtml(e.ingredients)+"</p></div></div></div></div>"}
     function renderCTA(e,t){return'<div class="pd-section section-white pd-cta-section"><div class="container"><h2>Start Supporting Your '+escHtml(e.tag)+' Today</h2><p class="pd-cta-text">Join 50,000+ customers who trust Shah Hayaat for natural, certified Ayurvedic support.</p><a href="'+t+'" target="_blank" rel="noopener" class="btn btn-primary btn-lg">💬 Order on WhatsApp</a><p class="pd-disclaimer">This product is not intended to diagnose, treat, cure or prevent any disease. Consult a healthcare professional before use.</p></div></div>'}
     function renderProductPage(e,t,a){return renderHero(e,t,a)+renderBenefits(e)+renderCTA(e,t)}
     function renderRelatedProducts(e){var t=document.getElementById("related-section"),a=document.getElementById("related-grid");if(!t||!a)return;e&&e.length?(t.classList.remove("hidden"),a.innerHTML=e.map(function(e){return'<div class="product-card"><div class="product-card-image"><img src="'+getProductImage(e.id)+'" alt="'+escHtml(e.name)+'" loading="lazy"></div><div class="product-card-body"><h3>'+escHtml(e.name)+'</h3><p class="product-card-desc">'+escHtml(e.desc)+'</p><div class="product-card-footer"><span class="product-card-price">₹'+e.price+'</span><a href="?id='+e.id+'" class="btn btn-sm btn-outline">View</a></div></div></div>'}).join("")):t.classList.add("hidden")}
-  </script>
 
-  <!-- ========== JS: reviews.js ========== -->
-  <script>
+    /* ========== reviews.js ========== */
     function getStorageKey(){return"sh_reviews_"+(getQueryParam("id")||"unknown")}
     function getReviews(){try{return JSON.parse(localStorage.getItem(getStorageKey())||"[]")}catch(e){return[]}}
     function saveReviews(e){try{localStorage.setItem(getStorageKey(),JSON.stringify(e))}catch(e){}}
     function renderReviews(){var e=getReviews(),t=document.getElementById("review-list"),a=document.getElementById("avg-score"),n=document.getElementById("avg-stars"),r=document.getElementById("review-count"),o=document.getElementById("rating-bars");if(!e.length){a&&(a.textContent="-");n&&(n.innerHTML="");r&&(r.textContent="No reviews yet");o&&(o.innerHTML="");t&&(t.innerHTML='<p class="review-empty">No reviews yet. Be the first to share your experience!</p>');return}var i=e.reduce(function(e,t){return e+t.rating},0)/e.length,s=[0,0,0,0,0];e.forEach(function(e){s[e.rating-1]++});a&&(a.textContent=i.toFixed(1));r&&(r.textContent=e.length+" review"+(1!==e.length?"s":""));n&&(n.innerHTML=renderStars(Math.round(i),"review-star-filled","review-star-empty"));o&&(o.innerHTML=[5,4,3,2,1].map(function(t){var a=s[t-1],n=e.length?Math.round(a/e.length*100):0;return'<div class="review-bar-row"><span>'+t+' ★</span><div class="review-bar-track"><div class="review-bar-fill" style="width:'+n+'%"></div></div><span>'+a+"</span></div>"}).join(""));t&&(t.innerHTML=e.slice().reverse().map(function(e){return'<div class="review-card"><div class="review-card-header"><span class="review-card-name">'+escHtml(e.name||"Anonymous")+'</span><span class="review-card-date">'+e.date+'</span></div><div class="review-card-stars">'+renderStars(e.rating,"review-star-filled","review-star-empty")+'</div><p class="review-card-text">'+escHtml(e.text)+"</p></div>"}).join(""))}
     function submitReview(){var e=document.querySelector('input[name="rating"]:checked'),t=document.getElementById("rev-name"),a=document.getElementById("rev-text"),n=document.getElementById("rev-status");if(!e){n&&(n.textContent="Please select a star rating.",n.style.color="#ef4444");return}if(!a.value.trim()){n&&(n.textContent="Please write a review.",n.style.color="#ef4444");return}var r=getReviews();r.push({rating:parseInt(e.value),name:(t.value||"").trim()||"Anonymous",text:a.value.trim(),date:(new Date).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})});saveReviews(r);document.querySelectorAll('input[name="rating"]').forEach(function(e){e.checked=!1});t&&(t.value="");a&&(a.value="");n&&(n.textContent="✓ Thank you! Your review has been posted.",n.style.color="#4ade80");renderReviews();showToast("Review posted!")}
-  </script>
 
-  <!-- ========== JS: main.js ========== -->
-  <script>
-    function init(){initNavigation();var e=getQueryParam("id")||"brainchamp",t=PRODUCTS[e]||PRODUCTS.brainchamp,a=getWhatsAppUrl(t.name,t.price),n=getProductImage(t.id);document.title=t.name+" — Ayurvedic "+t.tag+" | Shah Hayaat";var r=document.querySelector('meta[name="description"]');r&&r.setAttribute("content","Buy "+t.name+" online. "+t.desc+" ₹"+t.price+". Order on WhatsApp.");var o=document.querySelector('meta[property="og:title"]');o&&o.setAttribute("content",t.name+" | Shah Hayaat");var i=document.querySelector('meta[property="og:description"]');i&&i.setAttribute("content",t.desc);var s=document.querySelector('meta[property="og:image"]');s&&s.setAttribute("content",n);var c=document.querySelector('meta[property="og:url"]');c&&c.setAttribute("content","https://www.shahhayaat.com/product-detail.html?id="+t.id);var l=document.querySelector('link[rel="canonical"]');l&&l.setAttribute("href","https://www.shahhayaat.com/product-detail.html?id="+t.id);var d=document.querySelector('meta[name="twitter:title"]');d&&d.setAttribute("content",t.name+" | Shah Hayaat");var u=document.querySelector('meta[name="twitter:image"]');u&&u.setAttribute("content",n);var m=document.getElementById("product-schema");if(m){var f={ "@context":"https://schema.org","@type":"Product",name:t.name,description:t.desc,image:n,brand:{"@type":"Brand",name:"Shah Hayaat"},offers:{"@type":"Offer",price:t.price,priceCurrency:"INR",availability:"https://schema.org/InStock",url:"https://www.shahhayaat.com/product-detail.html?id="+t.id} };m.textContent=JSON.stringify(f)}var p=document.getElementById("product-main");p&&(p.innerHTML=renderProductPage(t,a,n));var g=document.getElementById("sticky-buy-link");g&&(g.href=a);var h=Object.values(PRODUCTS).filter(function(e){return e.category===t.category&&e.id!==t.id}).slice(0,3);renderRelatedProducts(h);renderReviews();document.getElementById("submit-review").addEventListener("click",submitReview);var v=document.getElementById("year");v&&(v.textContent=(new Date).getFullYear());document.getElementById("back-top").addEventListener("click",function(e){e.preventDefault();window.scrollTo({top:0,behavior:"smooth"})})}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",init):init();
+    /* ========== main.js ========== */
+    function init(){initNavigation();var e=getQueryParam("id")||"brainchamp",t=PRODUCTS[e]||PRODUCTS.brainchamp,a=getWhatsAppUrl(t.name,t.price),n=getProductImage(t.id);document.title=t.name+" — Ayurvedic "+t.tag+" | Shah Hayaat";var r=document.querySelector('meta[name="description"]');r&&r.setAttribute("content","Buy "+t.name+" online. "+t.desc+" ₹"+t.price+". Order on WhatsApp.");var o=document.querySelector('meta[property="og:title"]');o&&o.setAttribute("content",t.name+" | Shah Hayaat");var i=document.querySelector('meta[property="og:description"]');i&&i.setAttribute("content",t.desc);var s=document.querySelector('meta[property="og:image"]');s&&s.setAttribute("content",n);var c=document.querySelector('meta[property="og:url"]');c&&c.setAttribute("content","https://www.shahhayaat.com/product-detail.html?id="+t.id);var l=document.querySelector('link[rel="canonical"]');l&&l.setAttribute("href","https://www.shahhayaat.com/product-detail.html?id="+t.id);var d=document.querySelector('meta[name="twitter:title"]');d&&d.setAttribute("content",t.name+" | Shah Hayaat");var u=document.querySelector('meta[name="twitter:image"]');u&&u.setAttribute("content",n);var m=document.getElementById("product-schema");if(m){var f={"@context":"https://schema.org","@type":"Product",name:t.name,description:t.desc,image:n,brand:{"@type":"Brand",name:"Shah Hayaat"},offers:{"@type":"Offer",price:t.price,priceCurrency:"INR",availability:"https://schema.org/InStock",url:"https://www.shahhayaat.com/product-detail.html?id="+t.id}};m.textContent=JSON.stringify(f)}var p=document.getElementById("product-main");p&&(p.innerHTML=renderProductPage(t,a,n));var g=document.getElementById("sticky-buy-link");g&&(g.href=a);var h=Object.values(PRODUCTS).filter(function(e){return e.category===t.category&&e.id!==t.id}).slice(0,3);renderRelatedProducts(h);renderReviews();document.getElementById("submit-review").addEventListener("click",submitReview);var v=document.getElementById("year");v&&(v.textContent=(new Date).getFullYear());document.getElementById("back-top").addEventListener("click",function(e){e.preventDefault();window.scrollTo({top:0,behavior:"smooth"})})}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",init):init();
   </script>
 </body>
 </html>
