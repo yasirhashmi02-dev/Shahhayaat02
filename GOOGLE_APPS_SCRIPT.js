@@ -12,7 +12,8 @@ const SHEETS = {
   math     : 'MathLeaderboard',    // math challenge
   memory   : 'MemoryLeaderboard',  // memory match
   sequence : 'SequenceLeaderboard',// number sequence
-  counter  : 'Sheet3'              // anonymous name counter
+  counter  : 'Sheet3',             // anonymous name counter
+  blog      : 'BlogReactions'       // blog reactions
 };
 
 function ss()          { return SpreadsheetApp.openById(SPREADSHEET_ID); }
@@ -96,6 +97,7 @@ function doGet(e) {
     if (type === 'math_scores')      return jsonOut({ ok:true, data: getScores('math')     });
     if (type === 'memory_scores')    return jsonOut({ ok:true, data: getScores('memory')   });
     if (type === 'sequence_scores')  return jsonOut({ ok:true, data: getScores('sequence') });
+    if (type === 'blog_reactions')   return jsonOut({ ok:true, data: getBlogReactions() });
 
     return jsonOut({ ok:true, status:'alive' });
   } catch(err) {
@@ -116,6 +118,7 @@ function doPost(e) {
     if (d.type === 'math_score')     return jsonOut(saveMath(d));
     if (d.type === 'memory_score')   return jsonOut(saveMemory(d));
     if (d.type === 'sequence_score') return jsonOut(saveSequence(d));
+    if (d.type === 'blog_reaction') return jsonOut(saveBlogReaction(d));
     return jsonOut({ ok:false, error:'unknown type: ' + d.type });
   } catch(err) {
     return jsonOut({ ok:false, error:err.message });
@@ -207,6 +210,59 @@ function saveSequence(d) {
     [name, score, elapsed, new Date().toISOString()], score, name);
 }
 
+
+// ════════════════════════════════════════════════════════════════
+// BLOG REACTIONS  (BlogReactions sheet)
+// Cols: PostId, Reaction, Timestamp
+// ════════════════════════════════════════════════════════════════
+function getBlogSheet() {
+  return getSheet('blog', ['PostId','Reaction','Timestamp']);
+}
+
+function normaliseBlogReaction(value) {
+  const v = String(value || '').trim().toLowerCase();
+  return ['love','helpful','leaf'].indexOf(v) >= 0 ? v : null;
+}
+
+function normalisePostId(value) {
+  const v = String(value || '').trim();
+  if (!v || v.length > 120) return null;
+  return v.replace(/[^a-zA-Z0-9_-]/g, '');
+}
+
+function getBlogReactions() {
+  const sheet = getBlogSheet();
+  const rows = sheet.getDataRange().getValues();
+  const out = {};
+  rows.slice(1).forEach(function(r) {
+    const postId = normalisePostId(r[0]);
+    const reaction = normaliseBlogReaction(r[1]);
+    if (!postId || !reaction) return;
+    if (!out[postId]) out[postId] = { love:0, helpful:0, leaf:0 };
+    out[postId][reaction]++;
+  });
+  return out;
+}
+
+function saveBlogReaction(d) {
+  const postId = normalisePostId(d.postId);
+  const reaction = normaliseBlogReaction(d.reaction);
+  if (!postId) return { ok:false, error:'invalid_post_id' };
+  if (!reaction) return { ok:false, error:'invalid_reaction' };
+
+  // Lock writes so simultaneous visitors cannot corrupt the sheet.
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const sheet = getBlogSheet();
+    sheet.appendRow([postId, reaction, new Date().toISOString()]);
+    const counts = getBlogReactions()[postId] || { love:0, helpful:0, leaf:0 };
+    return { ok:true, postId:postId, reaction:reaction, counts:counts };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
 // ════════════════════════════════════════════════════════════════
 // ONE-TIME SETUP — Run once to create all sheets
 // ════════════════════════════════════════════════════════════════
@@ -216,6 +272,7 @@ function setupSheets() {
   getSheet('math',     ['Name','Score','Correct','Wrong','Timestamp']);
   getSheet('memory',   ['Name','Score','Attempts','TimeSecs','Timestamp']);
   getSheet('sequence', ['Name','Score','ElapsedSecs','Timestamp']);
+  getBlogSheet();
   Logger.log('All sheets ready. Tab names:');
   Object.entries(SHEETS).forEach(([k,v]) => Logger.log(k + ' → ' + v));
 }

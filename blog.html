@@ -1744,7 +1744,7 @@ function react(e, rid, type) {
   /* Send to Google Sheets in background */
   fetch(REACTIONS_API, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
     body: JSON.stringify({ type: 'blog_reaction', postId: rid, reaction: type })
   })
   .then(function(r){ return r.json(); })
