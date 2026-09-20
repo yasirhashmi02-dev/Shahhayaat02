@@ -705,7 +705,7 @@ body.nav-open {
 
 const GH = 'https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/';
 const ADMIN_PIN_KEY = 'sh_admin_pin';
-const REACTIONS_API = 'https://script.google.com/macros/s/AKfycbwZBpKC0P7LymgIJKsVlszA5HCn7uRkee6XtiE1GNtfmVI_yCtMgY3kqF2gCnTko5d3Fg/exec';
+const REACTIONS_API = 'https://script.google.com/macros/s/AKfycby0jE5X2RLCEvbR7R9fQnlbuLsrZuub92DdhEiAQAIT0hK6yjb2soc0fuLUt3s_yvFYPg/exec';
 const POSTS_KEY     = 'sh_blog_posts';
 const SUBS_KEY      = 'sh_subs';
 const REACTS_KEY    = 'sh_reactions';
@@ -1710,116 +1710,134 @@ function closeBlogModal(e) {
 
 /* ── Reactions ── */
 function react(e, rid, type) {
-  if (e) e.stopPropagation();
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
 
-  /* Check if user already reacted (local per-device guard) */
-  var myKey = 'my_reacted_' + rid + '_' + type;
-  if (localStorage.getItem(myKey)) { showToast('Already reacted! 👍'); return; }
+  try {
+    var allowed = ['love', 'helpful', 'leaf'];
 
-  /* Optimistic UI — update button immediately */
-  var emojiMap = { love:'❤', helpful:'👍', leaf:'🌿' };
-  var reacts = getReactions();
-  if (!reacts[rid]) reacts[rid] = { love:0, helpful:0, leaf:0 };
-  reacts[rid][type] = (reacts[rid][type] || 0) + 1;
-  saveReactions(reacts);
-  if (_liveReacts[rid]) _liveReacts[rid][type] = reacts[rid][type];
-  else _liveReacts[rid] = Object.assign({}, reacts[rid]);
-
-  /* Mark as reacted locally so same user can't double-react */
-  localStorage.setItem(myKey, '1');
-
-  /* Update all matching buttons instantly */
-  var newCount = reacts[rid][type];
-  document.querySelectorAll('[onclick*="react"][onclick*="' + rid + '"][onclick*="' + type + '"]').forEach(function(btn) {
-    btn.classList.add('reacted');
-    btn.innerHTML = emojiMap[type] + ' ' + newCount;
-  });
-
-  /* Re-render open modal */
-  var modalBg = document.getElementById('blog-modal-bg');
-  if (modalBg && !modalBg.classList.contains('hidden')) openPost(rid);
-
-  showToast('Reaction saved! ❤️');
-
-  /* Send to Google Sheets in background */
-  fetch(REACTIONS_API, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({ type: 'blog_reaction', postId: rid, reaction: type })
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(res){
-    if (res.ok && res.counts) {
-      /* Update display with authoritative server count */
-      _liveReacts[rid] = res.counts;
-      var serverCount = res.counts[type];
-      document.querySelectorAll('[onclick*="react"][onclick*="' + rid + '"][onclick*="' + type + '"]').forEach(function(btn) {
-        btn.innerHTML = emojiMap[type] + ' ' + serverCount;
-      });
+    if (!allowed.includes(type)) {
+      console.error('Invalid reaction:', type);
+      return;
     }
-  })
-  .catch(function(){ /* local count already shown — silent fail */ });
-}
 
-/* ── Share ── */
-function sharePost(e, rid) {
-  if (e) e.stopPropagation();
-  const post = getAllPosts().find(p => p.id === rid);
-  if (!post) return;
-  const url = window.location.href.split('?')[0] + '?post=' + rid;
-  const text = post.title + ', Read on Shah Hayaat Wellness Journal: ' + url;
+    if (!rid) {
+      console.error('Missing post ID');
+      return;
+    }
 
-  if (navigator.share) {
-    navigator.share({ title: post.title, text: post.desc, url: url }).catch(() => {});
-  } else {
-    const wa = 'https://wa.me/?text=' + encodeURIComponent(text);
-    window.open(wa, '_blank', 'noopener');
-  }
-  showToast('Sharing...');
-}
+    var myKey = 'my_reacted_' + rid + '_' + type;
 
-/* ── Subscribe ── */
-function handleSubscribe() {
-  const input = document.getElementById('sub-email');
-  const status = document.getElementById('sub-status');
-  const email = input.value.trim();
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    status.textContent = 'Please enter a valid email address.';
-    return;
-  }
-  const subs = getSubscribers();
-  if (subs.includes(email)) {
-    status.textContent = 'You are already subscribed!';
-    return;
-  }
-  subs.push(email);
-  saveSubscribers(subs);
-  input.value = '';
-  status.textContent = 'Subscribed! You will be notified when new posts go live.';
-  showToast('Subscribed successfully!');
-}
+    if (localStorage.getItem(myKey)) {
+      showToast('Already reacted! 👍');
+      return;
+    }
 
-/* ── Owner login ── */
-function openOwnerLogin() {
-  if (isOwner) { openManage(); return; }
-  document.getElementById('admin-pin').value = '';
-  document.getElementById('login-error').textContent = '';
-  document.getElementById('login-modal-bg').classList.remove('hidden');
-}
+    var emojiMap = {
+      love: '❤',
+      helpful: '👍',
+      leaf: '🌿'
+    };
 
-async function verifyLogin() {
-  const pin = document.getElementById('admin-pin').value.trim();
-  if (!pin) return;
-  const inputHash = await hashPin(pin);
-  if (inputHash === getSavedHash()) {
-    isOwner = true;
-    localStorage.setItem(LOGIN_KEY, '1');
-    localStorage.setItem('sh_admin_ts', Date.now().toString());
-    closeModal('login-modal-bg');
-    document.getElementById('owner-bar').style.display = '';
-    showToast('Welcome back, Admin!');
-  } else {
-    document.getElementById('login-error').textContent = 'Incorrect password. Please try again.';
+    var reacts = getReactions();
+
+    if (!reacts[rid]) {
+      reacts[rid] = {
+        love: 0,
+        helpful: 0,
+        leaf: 0
+      };
+    }
+
+    if (typeof reacts[rid][type] !== 'number') {
+      reacts[rid][type] = 0;
+    }
+
+    reacts[rid][type]++;
+
+    saveReactions(reacts);
+
+    _liveReacts[rid] = Object.assign({}, reacts[rid]);
+
+    localStorage.setItem(myKey, '1');
+
+    document.querySelectorAll('.react-btn').forEach(function(btn) {
+      var onclick = btn.getAttribute('onclick') || '';
+
+      if (
+        onclick.indexOf("'" + rid + "'") !== -1 &&
+        onclick.indexOf("'" + type + "'") !== -1
+      ) {
+        btn.classList.add('reacted');
+        btn.innerHTML = emojiMap[type] + ' ' + reacts[rid][type];
+      }
+    });
+
+    var modalBg = document.getElementById('blog-modal-bg');
+
+    if (modalBg && !modalBg.classList.contains('hidden')) {
+      openPost(rid);
+    }
+
+    showToast('Reaction saved! ❤️');
+
+    fetch(REACTIONS_API, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify({
+        type: 'blog_reaction',
+        postId: String(rid),
+        reaction: String(type)
+      })
+    })
+    .then(function(response) {
+      if (!response.ok) {
+        throw new Error('HTTP ' + response.status);
+      }
+      return response.text();
+    })
+    .then(function(text) {
+      var res;
+
+      try {
+        res = JSON.parse(text);
+      } catch (err) {
+        throw new Error('Invalid API response: ' + text);
+      }
+
+      console.log('Blog reaction API response:', res);
+
+      if (res.ok && res.counts) {
+        _liveReacts[rid] = res.counts;
+
+        var serverCount = Number(res.counts[type] || 0);
+
+        document.querySelectorAll('.react-btn').forEach(function(btn) {
+          var onclick = btn.getAttribute('onclick') || '';
+
+          if (
+            onclick.indexOf("'" + rid + "'") !== -1 &&
+            onclick.indexOf("'" + type + "'") !== -1
+          ) {
+            btn.classList.add('reacted');
+            btn.innerHTML = emojiMap[type] + ' ' + serverCount;
+          }
+        });
+      } else {
+        console.error('Blog reaction API error:', res);
+      }
+    })
+    .catch(function(err) {
+      console.error('Blog reaction request failed:', err);
+    });
+
+  } catch (err) {
+    console.error('Reaction error:', err);
+    showToast('Unable to save reaction');
   }
 }
 
