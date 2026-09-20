@@ -1533,6 +1533,83 @@ function react(e, rid, type) {
   }
 }
 
+
+/* ── Share ── */
+function sharePost(e, rid) {
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  try {
+    var post = getAllPosts().find(function(p) { return String(p.id) === String(rid); });
+    if (!post) {
+      showToast('Post not found');
+      return false;
+    }
+
+    var base = window.location.href.split('?')[0].split('#')[0];
+    var url = base + '?post=' + encodeURIComponent(String(rid));
+    var title = post.title || 'Shah Hayaat Wellness Journal';
+    var text = title + ' — Read on Shah Hayaat Wellness Journal';
+
+    /* Use the native share sheet where available (especially on mobile). */
+    if (navigator.share) {
+      navigator.share({
+        title: title,
+        text: text,
+        url: url
+      }).then(function() {
+        showToast('Shared successfully!');
+      }).catch(function(err) {
+        /* User cancellation is normal; don't show an error. */
+        if (err && err.name !== 'AbortError') {
+          copyShareLink(url, text);
+        }
+      });
+      return false;
+    }
+
+    /* Desktop/browser fallback: copy the article link. */
+    copyShareLink(url, text);
+    return false;
+  } catch (err) {
+    console.error('Share error:', err);
+    showToast('Unable to share this post');
+    return false;
+  }
+}
+
+function copyShareLink(url, text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(url).then(function() {
+      showToast('Link copied! You can share it anywhere.');
+    }).catch(function() {
+      fallbackCopy(url);
+    });
+  } else {
+    fallbackCopy(url);
+  }
+}
+
+function fallbackCopy(url) {
+  try {
+    var ta = document.createElement('textarea');
+    ta.value = url;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, ta.value.length);
+    var ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast(ok ? 'Link copied! You can share it anywhere.' : 'Copy the article link from your browser.');
+  } catch (err) {
+    showToast('Copy the article link from your browser.');
+  }
+}
+
 function ownerLogout() {
   isOwner = false;
   localStorage.removeItem(LOGIN_KEY);
