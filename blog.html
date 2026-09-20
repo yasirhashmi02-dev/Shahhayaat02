@@ -1718,21 +1718,16 @@ function react(e, rid, type) {
   try {
     var allowed = ['love', 'helpful', 'leaf'];
 
-    if (!allowed.includes(type)) {
-      console.error('Invalid reaction:', type);
-      return;
-    }
-
-    if (!rid) {
-      console.error('Missing post ID');
-      return;
+    if (!rid || !allowed.includes(type)) {
+      console.error('Invalid reaction:', rid, type);
+      return false;
     }
 
     var myKey = 'my_reacted_' + rid + '_' + type;
 
     if (localStorage.getItem(myKey)) {
       showToast('Already reacted! 👍');
-      return;
+      return false;
     }
 
     var emojiMap = {
@@ -1744,42 +1739,26 @@ function react(e, rid, type) {
     var reacts = getReactions();
 
     if (!reacts[rid]) {
-      reacts[rid] = {
-        love: 0,
-        helpful: 0,
-        leaf: 0
-      };
+      reacts[rid] = { love: 0, helpful: 0, leaf: 0 };
     }
 
-    if (typeof reacts[rid][type] !== 'number') {
-      reacts[rid][type] = 0;
-    }
-
-    reacts[rid][type]++;
+    reacts[rid][type] = Number(reacts[rid][type] || 0) + 1;
 
     saveReactions(reacts);
-
     _liveReacts[rid] = Object.assign({}, reacts[rid]);
-
     localStorage.setItem(myKey, '1');
 
     document.querySelectorAll('.react-btn').forEach(function(btn) {
       var onclick = btn.getAttribute('onclick') || '';
 
       if (
-        onclick.indexOf("'" + rid + "'") !== -1 &&
-        onclick.indexOf("'" + type + "'") !== -1
+        onclick.indexOf("'" + String(rid) + "'") !== -1 &&
+        onclick.indexOf("'" + String(type) + "'") !== -1
       ) {
         btn.classList.add('reacted');
         btn.innerHTML = emojiMap[type] + ' ' + reacts[rid][type];
       }
     });
-
-    var modalBg = document.getElementById('blog-modal-bg');
-
-    if (modalBg && !modalBg.classList.contains('hidden')) {
-      openPost(rid);
-    }
 
     showToast('Reaction saved! ❤️');
 
@@ -1795,9 +1774,6 @@ function react(e, rid, type) {
       })
     })
     .then(function(response) {
-      if (!response.ok) {
-        throw new Error('HTTP ' + response.status);
-      }
       return response.text();
     })
     .then(function(text) {
@@ -1806,7 +1782,8 @@ function react(e, rid, type) {
       try {
         res = JSON.parse(text);
       } catch (err) {
-        throw new Error('Invalid API response: ' + text);
+        console.error('Invalid reaction API response:', text);
+        return;
       }
 
       console.log('Blog reaction API response:', res);
@@ -1814,30 +1791,34 @@ function react(e, rid, type) {
       if (res.ok && res.counts) {
         _liveReacts[rid] = res.counts;
 
-        var serverCount = Number(res.counts[type] || 0);
-
         document.querySelectorAll('.react-btn').forEach(function(btn) {
           var onclick = btn.getAttribute('onclick') || '';
 
           if (
-            onclick.indexOf("'" + rid + "'") !== -1 &&
-            onclick.indexOf("'" + type + "'") !== -1
+            onclick.indexOf("'" + String(rid) + "'") !== -1 &&
+            onclick.indexOf("'" + String(type) + "'") !== -1
           ) {
             btn.classList.add('reacted');
-            btn.innerHTML = emojiMap[type] + ' ' + serverCount;
+            btn.innerHTML =
+              emojiMap[type] + ' ' + Number(res.counts[type] || 0);
           }
         });
+
+        saveReactions(_liveReacts);
       } else {
-        console.error('Blog reaction API error:', res);
+        console.error('Reaction API returned an error:', res);
       }
     })
     .catch(function(err) {
-      console.error('Blog reaction request failed:', err);
+      console.error('Reaction API request failed:', err);
     });
 
+    return false;
+
   } catch (err) {
-    console.error('Reaction error:', err);
+    console.error('Reaction handler error:', err);
     showToast('Unable to save reaction');
+    return false;
   }
 }
 
@@ -1993,6 +1974,24 @@ function checkUrlPost() {
 }
 
 /* ── Init ── */
+
+/* Reaction click safety net for dynamically-rendered buttons. */
+document.addEventListener('click', function(event) {
+  var btn = event.target.closest ? event.target.closest('.react-btn') : null;
+  if (!btn) return;
+
+  var onclick = btn.getAttribute('onclick') || '';
+  var match = onclick.match(/react\((?:event|null)\s*,\s*['"]([^'"]+)['"]\s*,\s*['"]([^'"]+)['"]\s*\)/);
+
+  if (!match) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+
+  react(null, match[1], match[2]);
+}, true);
+
 document.addEventListener('DOMContentLoaded', () => {
   /* Check persistent login */
   var loginTime = parseInt(localStorage.getItem('sh_admin_ts') || '0');
