@@ -375,11 +375,7 @@ body.nav-open .nav-mobile{transform:translateX(0)}
 .empty-state .icon{font-size:3rem;margin-bottom:0.8rem}
 @media(max-width:640px){.blog-modal{padding:1.5rem 1.1rem}.admin-modal{padding:1.5rem 1.1rem}}
 
-@media(min-width:860px){
-  #blog-nav-desktop{display:flex !important;}
-  #blog-wa-cta{display:inline-block !important;}
-  #blog-hamburger{display:none !important;}
-}
+@media(min-width:860px){.nav-desktop{display:flex !important;align-items:center !important;gap:0.15rem !important;}.nav-desktop a{display:inline-flex !important;align-items:center !important;white-space:nowrap !important;}#blog-nav-desktop{display:flex !important;}#blog-wa-cta{display:inline-block !important;}#blog-hamburger{display:none !important;}}
 
 /* ══════════════════════════════════════════
    LIGHT CREAM THEME OVERRIDE
@@ -509,6 +505,36 @@ document.addEventListener('DOMContentLoaded', function () {
   document.body.style.overflowY = 'auto';
 });
 </script>
+
+
+<style id="blog-fullscreen-modal-fix">
+/* Blog article reader: use the full viewport instead of a narrow 760px modal. */
+#blog-modal-bg {
+  padding: 0 !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  background: rgba(248,246,242,0.98) !important;
+}
+#blog-modal {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  padding: clamp(2rem,5vw,4rem) clamp(1.2rem,5vw,6rem) !important;
+  overflow-y: auto !important;
+}
+#blog-modal-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+#blog-modal .blog-modal-img {
+  max-height: 520px;
+  height: auto;
+  object-fit: cover;
+}
+</style>
 
 </head>
 <body>
