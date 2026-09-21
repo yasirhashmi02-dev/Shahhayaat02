@@ -485,6 +485,31 @@ body.nav-open {
 .site-header { z-index: 9991 !important; }
 .nav-toggle  { z-index: 9992 !important; }
 </style>
+
+<style id="blog-fullscreen-fix">
+html, body {
+  min-height: 100%;
+  height: auto !important;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+}
+body {
+  width: 100%;
+}
+main, .blog-page, .blog-container, .blog-content, .container {
+  max-height: none !important;
+  height: auto;
+}
+</style>
+<script id="blog-fullscreen-fix-js">
+document.addEventListener('DOMContentLoaded', function () {
+  document.documentElement.style.height = 'auto';
+  document.body.style.height = 'auto';
+  document.body.style.minHeight = '100vh';
+  document.body.style.overflowY = 'auto';
+});
+</script>
+
 </head>
 <body>
 

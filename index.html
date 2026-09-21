@@ -1475,14 +1475,14 @@ document.addEventListener('DOMContentLoaded',function(){
       img.style.transition='opacity .58s cubic-bezier(.22,1,.36,1), transform .58s cubic-bezier(.22,1,.36,1)';
       img.style.opacity='1';
       img.style.transform='none';
-      if(label) setTimeout(function(){ label.style.opacity='1'; }, 130);
-      if(counter) setTimeout(function(){ counter.style.opacity='1'; }, 130);
+      if(label) setTimeout(function(){ label.style.opacity='1'; }, 1500);
+      if(counter) setTimeout(function(){ counter.style.opacity='1'; }, 1500);
 
       updateDots(toIdx);
       idx=toIdx;
       // Preload next
       (new Image()).src=imgSrc(slides[(toIdx+1)%TOTAL].id);
-      setTimeout(function(){ busy=false; }, 620);
+      setTimeout(function(){ busy=false; }, 1500);
     }, 240);
   }
 
@@ -1523,7 +1523,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <script type="text/javascript" data-cfasync="false">
 window.addEventListener('load',function(){
   var loader=document.getElementById('preloader');
-  setTimeout(function(){if(loader)loader.classList.add('out');},3800);
+  setTimeout(function(){if(loader)loader.classList.add('out');},1500);
 });
 
 /* ── Certification Glow Cycle ── */
@@ -1537,7 +1537,7 @@ window.addEventListener('load',function(){
     cur = (cur + 1) % ids.length;
   }
   // Start after page settles, then cycle every 1.8 seconds
-  setTimeout(function(){ glow(); setInterval(glow, 1800); }, 2000);
+  setTimeout(function(){ glow(); setInterval(glow, 1500); }, 2000);
 })();
 </script>
 
