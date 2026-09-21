@@ -1521,10 +1521,18 @@ document.addEventListener('DOMContentLoaded',function(){
 
 <!-- Preloader dismiss -->
 <script type="text/javascript" data-cfasync="false">
-window.addEventListener('load',function(){
+(function(){
   var loader=document.getElementById('preloader');
-  setTimeout(function(){if(loader)loader.classList.add('out');},1500);
-});
+  if(!loader) return;
+  var hide=function(){
+    setTimeout(function(){loader.classList.add('out');},1200);
+  };
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', hide, {once:true});
+  } else {
+    hide();
+  }
+})();
 
 /* ── Certification Glow Cycle ── */
 (function(){
