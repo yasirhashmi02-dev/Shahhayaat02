@@ -1909,6 +1909,50 @@ function deletePost(rid) {
   showToast('Post deleted.');
 }
 
+/* ── Share post ── */
+async function sharePost(event, rid) {
+  if (event) event.stopPropagation();
+
+  const post = getAllPosts().find(p => p.id === rid);
+  if (!post) return;
+
+  const shareUrl = window.location.href.split("#")[0].split("?")[0] + "?post=" + encodeURIComponent(post.id);
+  const shareData = {
+    title: post.title || "Shah Hayaat Wellness Journal",
+    text: post.desc || post.title || "Read this post from Shah Hayaat Wellness Journal.",
+    url: shareUrl
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+      return;
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(shareUrl);
+      showToast("Post link copied!");
+      return;
+    }
+
+    const input = document.createElement("input");
+    input.value = shareUrl;
+    input.setAttribute("readonly", "");
+    input.style.position = "fixed";
+    input.style.opacity = "0";
+    document.body.appendChild(input);
+    input.select();
+    input.setSelectionRange(0, input.value.length);
+    const copied = document.execCommand("copy");
+    document.body.removeChild(input);
+
+    showToast(copied ? "Post link copied!" : "Copy the post link from the address bar.");
+  } catch (err) {
+    if (err && err.name === "AbortError") return;
+    showToast("Unable to share this post.");
+  }
+}
+
 /* ── Manage posts modal ── */
 function openManage() {
   const posts = getPosts();
