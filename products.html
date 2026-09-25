@@ -572,7 +572,7 @@ body.nav-open {
 
 <script type="text/javascript" data-cfasync="false">
 'use strict';
-const GH = 'https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/';
+const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
 
 const PRODUCT_SLUGS = {
   brainchamp:'brain-champ-ayurvedic-memory-booster.html',
@@ -646,7 +646,7 @@ function buildGrid() {
     return `
     <div class="prod-card reveal">
       <div class="prod-img-wrap">
-        <img src="${GH}${encodeURI(p.image || (p.id + "1.jpg"))}" alt="${p.name}" loading="lazy"
+        <img src="${GH}images/${encodeURIComponent(p.image || (p.id + "1.jpg"))}${p.id === 'livohayaatds' || p.id === 'utrohayaatds' ? '?v=2' : ''}" alt="${p.name}" loading="lazy"
              onerror="(function(t){var p=t.src.split('/images/')[1]||'';var id=p.split('1.')[0];var tries=[GH+'images/'+id+'.jpg',GH+'images/'+id+'.png','data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22><rect fill=%22%23F5F1EA%22 width=%22200%22 height=%22200%22/><text y=%22110%22 x=%22100%22 text-anchor=%22middle%22 fill=%22%232A4633%22 font-size=%2240%22>🌿</text></svg>'];var i=0;t.onerror=function(){if(i<tries.length)t.src=tries[i++];};t.src=tries[i++];})(this)">
         <span class="prod-tag">${p.tag}</span>${p.isNew ? '<span class="prod-badge">New</span>' : ''}
       </div>
