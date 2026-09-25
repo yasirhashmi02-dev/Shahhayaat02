@@ -481,7 +481,7 @@ body.nav-open {
     </nav>
     <div class="eyebrow" style="margin-bottom:1rem">Herbal Remedies</div>
     <h1>Our Ayurvedic<br><em style="color:var(--gold)">Range</em></h1>
-    <p>12 premium, certified formulations, each crafted to restore your natural balance, energy and vitality.</p>
+    <p>18 premium, certified formulations, each crafted to support your natural balance, energy and vitality.</p>
   </div>
 </div>
 
@@ -500,12 +500,13 @@ body.nav-open {
     <button class="filter-btn" data-cat="female">Female</button>
     <button class="filter-btn" data-cat="male">Male</button>
     <button class="filter-btn" data-cat="immunity">Immunity</button>
+    <button class="filter-btn" data-cat="heart">Heart</button>
   </div>
 </div>
 
 <section class="products-section">
   <div class="container">
-    <p class="prod-count reveal">Showing <span id="prod-count-n">12</span> of 12 products</p>
+    <p class="prod-count reveal">Showing <span id="prod-count-n">18</span> of 18 products</p>
     <div class="prod-grid" id="prod-grid"></div>
   </div>
 </section>
@@ -587,9 +588,10 @@ const PRODUCT_SLUGS = {
   utrohayaat:'utro-hayaat-ayurvedic-womens-health.html',
   passionpulse:'passion-pulse-ayurvedic-male-vitality.html',
 };
-function productUrl(id){ return PRODUCT_SLUGS[id] || (id + '.html'); }
+function productUrl(id){ return PRODUCT_SLUGS[id] || ('product-detail.html?id=' + encodeURIComponent(id)); }
 
 const PRODUCTS = [
+
   {id:'brainchamp', name:'Brain Champ', price:175, cat:'brain', tag:'Brain & Focus',
    desc:'Enhances memory, focus and cognitive function with powerful Ayurvedic herbs.'},
   {id:'shahzyme', name:'Shah Zyme', price:165, cat:'digestion', tag:'Digestion',
@@ -613,30 +615,42 @@ const PRODUCTS = [
   {id:'passionpulse', name:'Passion Pulse', price:599, cat:'male', tag:'Male Vitality',
    desc:'Natural vitality booster for men, stamina, libido and reproductive health.'},
   {id:'fevodol', name:'Fevodol', price:165, cat:'immunity', tag:'Immunity',
-   desc:'Powerful immunity booster to defend against fever, infections and illness.'}
-];
+   desc:'Powerful immunity booster to defend against fever, infections and illness.'},
+  {id:'bloodstormdrops', name:'Blood Storm Drops', isNew:true, price:null, cat:'blood', tag:'Blood & Wellness', image:'Blood Storm Drops.png',
+   desc:'Ayurvedic proprietary drops formulated with selected traditional ingredients for children.'},
+  {id:'shahzymejunior', name:'Shah Zyme Junior', isNew:true, price:null, cat:'digestion', tag:'Pediatric Digestion', image:'Shah Zyme Junior.png',
+   desc:'Pediatric digestive drops in a convenient pineapple-flavoured formulation.'},
+  {id:'painflick', name:'PAINFLICK Capsule', isNew:true, price:null, cat:'joint', tag:'Joint & Muscular Care', image:'Pain Flick Cap.png',
+   desc:'Ayurvedic proprietary capsule featuring a traditional herbal combination for joint and muscular wellness.'},
+  {id:'orthohayaat_oil', name:'Ortho Hayaat Oil', isNew:true, price:null, cat:'joint', tag:'Topical Joint Care', image:'Ortho Hayaat Oil.png',
+   desc:'Ayurvedic herbal pain-relief oil for external application, featuring a traditional multi-herb formulation.'},
+  {id:'bloodstormcap', name:'Blood Storm Capsules', isNew:true, price:null, cat:'blood', tag:'Blood & Wellness', image:'Blood Storm Cap.png',
+   desc:'Ayurvedic proprietary capsules featuring a traditional formulation with iron, calcium and vitamin C.'},
+  {id:'cardohayaat', name:'Cardo Hayaat Tablets', isNew:true, price:null, cat:'heart', tag:'Cardiac Wellness', image:'Cardo Hayaat Tab.png',
+   desc:'Ayurvedic proprietary tablets featuring Arjun, Cinnamon and Black Seed for cardiac wellness support.'},
+]
 
 let currentCat = 'all';
 
 function buildGrid() {
   const grid = document.getElementById('prod-grid');
-  const visible = currentCat === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === currentCat);
+  const visible = (currentCat === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === currentCat)).slice().sort((a,b) => Number(Boolean(b.isNew)) - Number(Boolean(a.isNew)));
   document.getElementById('prod-count-n').textContent = visible.length;
 
   grid.innerHTML = visible.map(p => {
-    const waLink = 'https://wa.me/917051056287?text=' + encodeURIComponent('Hi! I want to order ' + p.name + ' (₹' + p.price + ')');
+    const waLink = 'https://wa.me/917051056287?text=' + encodeURIComponent('Hi! I want to order ' + p.name + (p.price ? ' (₹' + p.price + ')' : '') + '. Please share details and price.');
     return `
     <div class="prod-card reveal">
       <div class="prod-img-wrap">
-        <img src="${GH}${p.id}1.jpg" alt="${p.name}" loading="lazy"
+        <img src="${GH}${encodeURI(p.image || (p.id + "1.jpg"))}" alt="${p.name}" loading="lazy"
              onerror="(function(t){var p=t.src.split('/images/')[1]||'';var id=p.split('1.')[0];var tries=[GH+'images/'+id+'.jpg',GH+'images/'+id+'.png','data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22><rect fill=%22%23F5F1EA%22 width=%22200%22 height=%22200%22/><text y=%22110%22 x=%22100%22 text-anchor=%22middle%22 fill=%22%232A4633%22 font-size=%2240%22>🌿</text></svg>'];var i=0;t.onerror=function(){if(i<tries.length)t.src=tries[i++];};t.src=tries[i++];})(this)">
-        <span class="prod-tag">${p.tag}</span>
+        <span class="prod-tag">${p.tag}</span>${p.isNew ? '<span class="prod-badge">New</span>' : ''}
       </div>
       <div class="prod-body">
         <h3>${p.name}</h3>
         <p class="prod-desc">${p.desc}</p>
         <div class="prod-bottom">
-          <div class="prod-price">₹${p.price}</div>
+          <div class="prod-price">${p.price ? "₹" + p.price : "Price on request"}</div>
           <div class="prod-actions">
             <a href="${productUrl(p.id)}" class="btn btn-outline-green btn-sm">Details</a>
             <a href="${waLink}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Order</a>

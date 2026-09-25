@@ -27,6 +27,14 @@
   <url><loc>https://www.shahhayaat.com/about.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.70</priority></url>
   <url><loc>https://www.shahhayaat.com/contact.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
 
+  <!-- NEW PRODUCTS -->
+  <url><loc>https://www.shahhayaat.com/product-detail.html?id=bloodstormdrops</loc><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://www.shahhayaat.com/product-detail.html?id=shahzymejunior</loc><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://www.shahhayaat.com/product-detail.html?id=painflick</loc><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://www.shahhayaat.com/product-detail.html?id=orthohayaat_oil</loc><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://www.shahhayaat.com/product-detail.html?id=bloodstormcap</loc><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://www.shahhayaat.com/product-detail.html?id=cardohayaat</loc><changefreq>monthly</changefreq><priority>0.80</priority></url>
+
   <!-- ═══════════════════════════════════════════ -->
   <!-- SEO CONDITION / TREATMENT GUIDE PAGES -->
   <!-- Updated April 2026 — expanded content -->
