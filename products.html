@@ -501,6 +501,7 @@ body.nav-open {
     <button class="filter-btn" data-cat="male">Male</button>
     <button class="filter-btn" data-cat="immunity">Immunity</button>
     <button class="filter-btn" data-cat="heart">Heart</button>
+    <button class="filter-btn" data-cat="children">Children</button>
   </div>
 </div>
 
@@ -616,9 +617,9 @@ const PRODUCTS = [
    desc:'Natural vitality booster for men, stamina, libido and reproductive health.'},
   {id:'fevodol', name:'Fevodol', price:180, cat:'immunity', tag:'Immunity', image:'Fevodol.png',
    desc:'Powerful immunity booster to defend against fever, infections and illness.'},
-  {id:'bloodstormdrops', name:'Blood Storm Drops', isNew:true, price:70, cat:'blood', tag:'Blood & Wellness', image:'Blood Storm Drops.png',
+  {id:'bloodstormdrops', name:'Blood Storm Drops', isNew:true, price:70, cats:['blood','children'], tag:'Blood & Wellness', image:'Blood Storm Drops.png',
    desc:'Ayurvedic proprietary drops formulated with selected traditional ingredients for children.'},
-  {id:'shahzymejunior', name:'Shah Zyme Junior', isNew:true, price:60, cat:'digestion', tag:'Pediatric Digestion', image:'Shah Zyme Junior.png',
+  {id:'shahzymejunior', name:'Shah Zyme Junior', isNew:true, price:60, cats:['digestion','children'], tag:'Pediatric Digestion', image:'Shah Zyme Junior.png',
    desc:'Pediatric digestive drops in a convenient pineapple-flavoured formulation.'},
   {id:'painflick', name:'PAIN FLICK Capsule', isNew:true, price:240, cat:'joint', tag:'Joint & Muscular Care', image:'Pain Flick Cap.png',
    desc:'Ayurvedic proprietary capsule featuring a traditional herbal combination for joint and muscular wellness.'},
@@ -638,7 +639,7 @@ let currentCat = 'all';
 
 function buildGrid() {
   const grid = document.getElementById('prod-grid');
-  const visible = (currentCat === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === currentCat)).slice().sort((a,b) => Number(Boolean(b.isNew)) - Number(Boolean(a.isNew)));
+  const visible = (currentCat === 'all' ? PRODUCTS : PRODUCTS.filter(p => (p.cats || [p.cat]).includes(currentCat))).slice().sort((a,b) => Number(Boolean(b.isNew)) - Number(Boolean(a.isNew)));
   document.getElementById('prod-count-n').textContent = visible.length;
 
   grid.innerHTML = visible.map(p => {
