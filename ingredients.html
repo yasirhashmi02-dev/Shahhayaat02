@@ -515,6 +515,12 @@ body.nav-open {
 /* Ensure site-header is below nav overlay */
 .site-header { z-index: 9991 !important; }
 .nav-toggle  { z-index: 9992 !important; }
+
+/* Grouped nav dropdowns */
+.nav-dd{position:relative}
+.nav-dd-menu{display:none;position:absolute;top:100%;left:0;min-width:170px;padding:.4rem;background:rgba(20,40,28,.97);border:1px solid rgba(255,255,255,.1);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.25);z-index:200}
+.nav-dd:hover .nav-dd-menu,.nav-dd:focus-within .nav-dd-menu{display:block}
+.nav-dd-menu a{display:block;border-radius:6px!important;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -528,14 +534,25 @@ body.nav-open {
     <nav class="nav-desktop" aria-label="Main navigation">
       <a href="index.html">Home</a>
       <a href="products.html">Products</a>
-    <a href="bundles.html">🎁 Bundles</a>
       <a href="bundles.html">🎁 Bundles</a>
-      <a href="conditions.html">Health Guides</a>
-      <a href="ingredients.html" class="active">Ingredients</a>
-      <a href="wellness-lab.html">🧪 Lab</a>
-      <a href="blog.html">Blog</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+      <div class="nav-dd">
+        <a href="conditions.html" class="nav-dd-toggle active" aria-haspopup="true">Learn ▾</a>
+        <div class="nav-dd-menu">
+          <a href="conditions.html">Health Guides</a>
+          <a href="ingredients.html" class="active">Ingredients</a>
+          <a href="exercises.html">Exercises</a>
+          <a href="blog.html">Blog</a>
+        </div>
+      </div>
+      <a href="wellness-lab.html" style="color:rgba(212,160,23,0.85)">🧪 Wellness Lab</a>
+      <div class="nav-dd">
+        <a href="about.html" class="nav-dd-toggle" aria-haspopup="true">About ▾</a>
+        <div class="nav-dd-menu">
+          <a href="about.html">Our Story</a>
+          <a href="leadership.html">Leadership</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
     </nav>
     <a href="wellness-lab.html" class="nav-cta-pill">✦ Self Assessment</a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
@@ -547,6 +564,7 @@ body.nav-open {
   <div class="nav-mobile-links">
     <a href="index.html">Home</a>
     <a href="products.html">Products</a>
+    <a href="bundles.html">🎁 Bundles</a>
     <a href="conditions.html">Health Guides</a>
     <a href="ingredients.html" class="active">Ingredients</a>
     <a href="wellness-lab.html">🧪 Lab</a>
