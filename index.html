@@ -534,6 +534,12 @@ body.nav-open {
 
 /* ══ FIX: body bottom padding for mobile bar ═════════════════ */
 @media(max-width:720px){body{padding-bottom:70px}}
+
+/* Grouped nav dropdowns */
+.nav-dd{position:relative}
+.nav-dd-menu{display:none;position:absolute;top:100%;left:0;min-width:170px;padding:.4rem;background:rgba(20,40,28,.97);border:1px solid rgba(255,255,255,.1);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.25);z-index:200}
+.nav-dd:hover .nav-dd-menu,.nav-dd:focus-within .nav-dd-menu{display:block}
+.nav-dd-menu a{display:block;border-radius:6px!important;white-space:nowrap}
 </style>
 </head>
 
@@ -570,14 +576,24 @@ body.nav-open {
       <a href="index.html" class="active">Home</a>
       <a href="products.html">Products</a>
       <a href="bundles.html">🎁 Bundles</a>
-      <a href="conditions.html">Health Guides</a>
-      <a href="ingredients.html">Ingredients</a>
-      <a href="exercises.html" style="color:rgba(212,160,23,0.85);animation:glowPulse 2.5s ease-in-out infinite alternate">Exercises</a>
-      <a href="wellness-lab.html" style="color:rgba(212,160,23,0.85);animation:glowPulse 2.5s ease-in-out infinite alternate">🧪 Lab</a>
-      <a href="blog.html">Blog</a>
-      <a href="about.html">About</a>
-      <a href="leadership.html">Leadership</a>
-      <a href="contact.html">Contact</a>
+      <div class="nav-dd">
+        <a href="conditions.html" class="nav-dd-toggle" aria-haspopup="true">Learn ▾</a>
+        <div class="nav-dd-menu">
+          <a href="conditions.html">Health Guides</a>
+          <a href="ingredients.html">Ingredients</a>
+          <a href="exercises.html">Exercises</a>
+          <a href="blog.html">Blog</a>
+        </div>
+      </div>
+      <a href="wellness-lab.html" style="color:rgba(212,160,23,0.85)">🧪 Wellness Lab</a>
+      <div class="nav-dd">
+        <a href="about.html" class="nav-dd-toggle" aria-haspopup="true">About ▾</a>
+        <div class="nav-dd-menu">
+          <a href="about.html">Our Story</a>
+          <a href="leadership.html">Leadership</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
     </nav>
     <a href="wellness-lab.html" class="nav-cta-pill">✦ Self Assessment</a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
@@ -588,14 +604,15 @@ body.nav-open {
 <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
   <div class="nav-mobile-links">
     <a href="index.html" class="active">Home</a>
-    <a href="leadership.html" style="color:rgba(212,160,23,0.85)">Leadership</a>
     <a href="products.html">Products</a>
+    <a href="bundles.html">🎁 Bundles</a>
     <a href="conditions.html">Health Guides</a>
     <a href="ingredients.html">Ingredients</a>
     <a href="exercises.html" style="color:rgba(212,160,23,0.85);animation:glowPulse 2.5s ease-in-out infinite alternate">Exercises</a>
     <a href="wellness-lab.html" style="color:rgba(212,160,23,0.85);animation:glowPulse 2.5s ease-in-out infinite alternate">🧪 Lab</a>
     <a href="blog.html">Blog</a>
     <a href="about.html">About</a>
+    <a href="leadership.html">Leadership</a>
     <a href="contact.html">Contact</a>
   </div>
   <div class="nav-mobile-actions">
@@ -613,8 +630,8 @@ body.nav-open {
     <div class="hero-inner">
       <div class="hero-text">
         <div class="eyebrow">Trusted by 50,000+ Customers · WHO-GMP Certified · Natural</div>
-        <h1>Solve Joint Pain, Liver<br>Issues &amp; Brain Fog<br><em>Naturally</em></h1>
-        <p class="hero-sub">Science-backed Ayurvedic formulations for Brain, Liver, Digestion, Joints &amp; Immunity. Crafted with traditional wisdom, modern standards.</p>
+        <h1>Ayurvedic Care for Joints,<br>Liver &amp; Mind<br><em>Naturally</em></h1>
+        <p class="hero-sub">Traditional Ayurvedic formulations for Brain, Liver, Digestion, Joints &amp; Immunity. Crafted with traditional wisdom, modern standards.</p>
         <div class="hero-btns">
           <a href="products.html" class="btn btn-primary btn-lg">🛒 Shop Bestsellers</a>
           <a href="wellness-lab.html" class="btn btn-glow btn-lg">✦ Free Health Assessment</a>
@@ -738,7 +755,7 @@ body.nav-open {
         <div class="best-body">
           <div class="best-tag">Joints &amp; Arthritis</div>
           <h3 class="best-name">Ortho Hayaat</h3>
-          <p class="best-benefit">Reduces joint stiffness &amp; pain naturally</p>
+          <p class="best-benefit">Traditionally used to support joint comfort &amp; mobility</p>
           <div class="best-stars">★★★★★ <span>4.9</span></div>
           <div class="best-price">₹649 <span class="best-per">/ pack</span></div>
           <div class="best-btns">
@@ -756,7 +773,7 @@ body.nav-open {
         <div class="best-body">
           <div class="best-tag">Liver &amp; Detox</div>
           <h3 class="best-name">Livo Hayaat</h3>
-          <p class="best-benefit">Detoxifies liver, reduces SGPT naturally</p>
+          <p class="best-benefit">Traditionally used to support liver health</p>
           <div class="best-stars">★★★★★ <span>4.8</span></div>
           <div class="best-price">₹349 <span class="best-per">/ pack</span></div>
           <div class="best-btns">
@@ -774,7 +791,7 @@ body.nav-open {
         <div class="best-body">
           <div class="best-tag">Brain &amp; Focus</div>
           <h3 class="best-name">Brain Champ</h3>
-          <p class="best-benefit">Improves memory, focus &amp; mental clarity</p>
+          <p class="best-benefit">Traditionally used to support memory &amp; focus</p>
           <div class="best-stars">★★★★★ <span>4.8</span></div>
           <div class="best-price">₹175 <span class="best-per">/ pack</span></div>
           <div class="best-btns">
@@ -792,7 +809,7 @@ body.nav-open {
         <div class="best-body">
           <div class="best-tag">Immunity</div>
           <h3 class="best-name">Fevodol</h3>
-          <p class="best-benefit">Giloy + Tulsi for stronger immunity</p>
+          <p class="best-benefit">Giloy + Tulsi to support immunity</p>
           <div class="best-stars">★★★★★ <span>4.7</span></div>
           <div class="best-price">₹165 <span class="best-per">/ pack</span></div>
           <div class="best-btns">
@@ -939,54 +956,6 @@ body.nav-open {
   </div>
 </section>
 
-
-<!-- VIDEO TESTIMONIALS (future-ready) -->
-<section class="section bg-white" style="padding:clamp(40px,5vw,60px) 0" aria-labelledby="video-testi-heading">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:1.8rem">
-      <div class="eyebrow reveal">Video Reviews</div>
-      <h2 class="reveal delay-1" id="video-testi-heading">Real Results, Real People</h2>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem">
-      <div class="video-card reveal delay-1">
-        <div class="video-placeholder">
-          <div class="video-play-btn">▶</div>
-          <div class="video-overlay-text">
-            <div class="video-product-tag">Ortho Hayaat</div>
-            <div class="video-caption">"Joint pain gone in 6 weeks"</div>
-            <div class="video-person">Suresh M. · Pune</div>
-          </div>
-          <div class="video-coming">📹 Video coming soon</div>
-        </div>
-      </div>
-      <div class="video-card reveal delay-2">
-        <div class="video-placeholder">
-          <div class="video-play-btn">▶</div>
-          <div class="video-overlay-text">
-            <div class="video-product-tag">Livo Hayaat</div>
-            <div class="video-caption">"SGPT normalised in 8 weeks"</div>
-            <div class="video-person">Kavita R. · Lucknow</div>
-          </div>
-          <div class="video-coming">📹 Video coming soon</div>
-        </div>
-      </div>
-      <div class="video-card reveal delay-3">
-        <div class="video-placeholder">
-          <div class="video-play-btn">▶</div>
-          <div class="video-overlay-text">
-            <div class="video-product-tag">Brain Champ</div>
-            <div class="video-caption">"Focus improved dramatically"</div>
-            <div class="video-person">Riya S. · Delhi</div>
-          </div>
-          <div class="video-coming">📹 Video coming soon</div>
-        </div>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:1.5rem">
-      <a href="https://wa.me/917051056287?text=Hi!+I+want+to+share+my+video+testimonial+for+Shah+Hayaat." target="_blank" rel="noopener" class="btn btn-outline-green">📹 Share Your Story</a>
-    </div>
-  </div>
-</section>
 
 <!-- LIVE REVIEWS -->
 <section class="section bg-white" aria-labelledby="reviews-heading">
