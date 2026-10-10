@@ -1,0 +1,36 @@
+/* Shah Hayaat visual polish — loads after style.css; uses the site's own colour variables */
+html{scroll-behavior:smooth}
+::selection{background:var(--gold-light);color:#1c1c1c}
+:focus-visible{outline:2px solid var(--gold-light);outline-offset:3px;border-radius:6px}
+
+/* Header */
+.site-header{box-shadow:0 2px 18px rgba(42,70,51,.08);border-bottom:1px solid rgba(228,221,212,.7)}
+.nav-desktop>a,.nav-dd>a{transition:background var(--t) var(--ease),color var(--t) var(--ease)}
+.nav-desktop>a:hover,.nav-dd>a:hover{background:rgba(77,124,93,.1)}
+
+/* Buttons */
+.btn{border-radius:50px;transition:transform var(--t) var(--ease),box-shadow var(--t) var(--ease),background var(--t) var(--ease)}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.btn:active{transform:translateY(0)}
+.btn-best-primary,.btn-best-wa,.btn-wa,.btn-outline-green{border-radius:50px}
+
+/* Cards */
+.best-card,.trust-card,.problem-card,.faq-item,.pd-benefit{border-radius:var(--radius-lg);box-shadow:var(--shadow-xs);transition:transform var(--t) var(--ease),box-shadow var(--t) var(--ease),border-color var(--t) var(--ease)}
+.best-card:hover,.trust-card:hover,.problem-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:rgba(212,160,23,.45)}
+.faq-item:hover{box-shadow:var(--shadow-sm)}
+
+/* Product images */
+.best-img-wrap{overflow:hidden}
+.best-img-wrap img{transition:transform .6s var(--ease)}
+.best-card:hover .best-img-wrap img{transform:scale(1.06)}
+.pd-img-wrap img{border-radius:var(--radius-lg);transition:transform .6s var(--ease)}
+.pd-img-wrap:hover img{transform:scale(1.02)}
+
+/* Headings */
+.eyebrow,.pd-eyebrow{letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.text-center>h2::after,.text-center h2.section-title::after{content:"";display:block;width:56px;height:3px;margin:.8rem auto 0;border-radius:3px;background:linear-gradient(90deg,var(--gold-light),var(--green-light))}
+
+/* Mobile bottom bar */
+.mbb-btn{border-radius:50px;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.best-card,.trust-card,.problem-card,.best-img-wrap img,.pd-img-wrap img{transition:none!important}.best-card:hover,.trust-card:hover,.problem-card:hover,.btn:hover{transform:none}}
