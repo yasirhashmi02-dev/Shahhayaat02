@@ -243,8 +243,8 @@ const LAB = {
   categories: {
     brain: {
       id:'brain', name:'Brain & Cognitive', icon:'🧠', color:'#2A7A5A',
-      tests:['mod_reactionSpeed','mod_spatialMemory','mod_stroopTest','mod_digitSpan','mod_trailMaking'],
-      scoreKey:'cognitive', time:'~5 min', desc:'Reaction speed, memory, focus and processing speed'
+      tests:['mod_reactionSpeed','mod_spatialMemory','mod_stroopTest','mod_goNoGo','mod_digitSpan','mod_trailMaking'],
+      scoreKey:'cognitive', time:'~6 min', desc:'Reaction speed, memory, focus and processing speed'
     },
 
     eye: {
@@ -254,13 +254,13 @@ const LAB = {
     },
     breathing: {
       id:'breathing', name:'Breathing & Lungs', icon:'🌬', color:'#059669',
-      tests:['mod_breathSync','mod_co2Tolerance'],
-      scoreKey:'respiratory', time:'~2 min', desc:'Breath control and lung capacity'
+      tests:['mod_breathSync'],
+      scoreKey:'respiratory', time:'~1 min', desc:'Guided breathing and calm'
     },
     stability: {
       id:'stability', name:'Motor Stability', icon:'📱', color:'#7C3AED',
-      tests:['mod_stabilityHold','mod_microTremor'],
-      scoreKey:'stability', time:'~2 min', desc:'Hand steadiness, fine motor tremor and posture balance'
+      tests:['mod_stabilityHold','mod_oneLegStand'],
+      scoreKey:'stability', time:'~2 min', desc:'Hand steadiness and one-leg balance'
     },
     lifestyle: {
       id:'lifestyle', name:'Lifestyle & Recovery', icon:'🌿', color:'#C0392B',
@@ -589,22 +589,24 @@ const LAB = {
     mod_hearingCheck:'👂 Hearing Check',
     mod_hydration:'💧 Hydration Risk',
     mod_digitSpan:'🔢 Digit Span',
+    mod_goNoGo:'🚦 Go / No-Go',
+    mod_oneLegStand:'🧍 One-Leg Stand',
     mod_trailMaking:'🔗 Trail Making',
   },
 
   _sections: {
-    mod_reactionSpeed:      {label:'🧠 Brain',     num:1, of:5},
-    mod_spatialMemory:     {label:'🧠 Brain',     num:2, of:5},
-    mod_stroopTest:        {label:'🧠 Brain',     num:3, of:5},
-    mod_digitSpan:         {label:'🧠 Brain',     num:4, of:5},
-    mod_trailMaking:       {label:'🧠 Brain',     num:5, of:5},
+    mod_reactionSpeed:      {label:'🧠 Brain',     num:1, of:6},
+    mod_spatialMemory:     {label:'🧠 Brain',     num:2, of:6},
+    mod_stroopTest:        {label:'🧠 Brain',     num:3, of:6},
+    mod_goNoGo:           {label:'🧠 Brain',     num:4, of:6},
+    mod_digitSpan:         {label:'🧠 Brain',     num:5, of:6},
+    mod_trailMaking:       {label:'🧠 Brain',     num:6, of:6},
+    mod_oneLegStand:       {label:'📱 Stability', num:2, of:2},
     mod_bodySymptoms:      {label:'💪 Body',      num:1, of:1},
     mod_colourBlindness:    {label:'👁 Eyes', num:1, of:2},
     mod_peripheralVision:   {label:'👁 Eyes', num:2, of:2},
-    mod_breathSync:         {label:'🌬 Breathing', num:1, of:3},
-    mod_co2Tolerance:       {label:'🌬 Breathing', num:2, of:2},
-    mod_stabilityHold:      {label:'📱 Stability', num:1, of:3},
-    mod_microTremor:        {label:'📱 Stability', num:2, of:2},
+    mod_breathSync:         {label:'🌬 Breathing', num:1, of:1},
+    mod_stabilityHold:      {label:'📱 Stability', num:1, of:2},
     mod_sleepEfficiency:    {label:'🌿 Lifestyle', num:1, of:4},
     mod_lifestyleLoad:      {label:'🌿 Lifestyle', num:2, of:3},
     mod_hydration:          {label:'🌿 Lifestyle', num:3, of:3},

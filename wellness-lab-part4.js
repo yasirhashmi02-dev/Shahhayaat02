@@ -452,11 +452,11 @@ LAB.showDashboard = function () {
   const activeCat = isCategoryMode ? this.categories[this.currentMode] : null;
 
   const domAvg = (...keys) => { const v=keys.map(k=>LAB.raw[k]).filter(x=>x!=null); return v.length?Math.round(LAB.avg(v)):null; };
-  if (LAB.scores.cognitive  == null) LAB.scores.cognitive   = domAvg('rxScore','memScore','attScore','wordRecallScore','mathScore','dsScore','tmtScore');
+  if (LAB.scores.cognitive  == null) LAB.scores.cognitive   = domAvg('rxScore','memScore','attScore','wordRecallScore','mathScore','dsScore','tmtScore','gngScore');
   if (LAB.scores.eye        == null) LAB.scores.eye          = domAvg('cbScore','acuityScore','csScore','peripheralScore','eyeTrackScore');
   if (LAB.scores.respiratory== null) LAB.scores.respiratory = domAvg('breathSyncScore','breathScore');
   if (LAB.scores.stress     == null) LAB.scores.stress       = domAvg('mathScore','patternScore');
-  if (LAB.scores.stability  == null) LAB.scores.stability    = domAvg('stabilityScore','tremorScore');
+  if (LAB.scores.stability  == null) LAB.scores.stability    = domAvg('stabilityScore','tremorScore','balanceScore');
   if (LAB.scores.lifestyle  == null) LAB.scores.lifestyle    = LAB.raw.lifestyleScore ?? null;
   if (LAB.scores.heart      == null) LAB.scores.heart        = LAB.raw.heartScore    ?? null;
   if (LAB.scores.gut        == null) LAB.scores.gut          = LAB.raw.gutScore      ?? null;
@@ -1188,16 +1188,16 @@ LAB._buildBreakdownRows = function() {
     {label:'🎨 Stroop Test',           val:LAB.raw.stroopCorrect!=null?LAB.raw.stroopCorrect+'/20 correct':'—', score:LAB.raw.stroopScore},
       {label:'🔢 Digit Span',            val:LAB.raw.dsSpan!=null?LAB.raw.dsSpan+' digits':'—', score:LAB.raw.dsScore},
       {label:'🔗 Trail Making',          val:LAB.raw.tmtTime!=null?LAB.raw.tmtTime+'s, '+LAB.raw.tmtErr+' mistakes':'—', score:LAB.raw.tmtScore},
+      {label:'🚦 Go / No-Go',            val:LAB.raw.gngErr!=null?LAB.raw.gngErr+' mistakes':'—', score:LAB.raw.gngScore},
+      {label:'🧍 One-Leg Stand',         val:LAB.raw.balanceSec!=null?LAB.raw.balanceSec+'s':'—', score:LAB.raw.balanceScore},
     {label:'💪 Body Vitality',         val:LAB.raw.bodyVitality!=null?'6 domains':'—',          score:LAB.raw.bodyVitality},
     {label:'🔤 Word Recall',           val:LAB.raw.wordRecallCorrect!==undefined?LAB.raw.wordRecallCorrect+' words recalled':'—', score:LAB.raw.wordRecallScore},
     {label:'🎨 Colour Blindness',     val:LAB.raw.cbCorrect!==undefined?LAB.raw.cbCorrect+'/'+LAB.raw.cbTotal+' correct':'—', score:LAB.raw.cbScore},
     {label:'🔍 Peripheral Vision',     val:LAB.raw.peripheralHits!==undefined?LAB.raw.peripheralHits+' hits':'—', score:LAB.raw.peripheralScore},
     {label:'👀 Eye Tracking',          val:'Accuracy check', score:LAB.raw.eyeTrackScore},
     {label:'🌬 Breath Sync',          val:'Auto-timed',                                  score:LAB.raw.breathSyncScore},
-    {label:'⏱ Breath Hold',           val:LAB.raw.breathHold?LAB.raw.breathHold+'s held':'—', score:LAB.raw.breathScore},
     {label:'♻ Recovery (HRV)',        val:LAB.raw.recoveryBPM?LAB.raw.recoveryBPM+' BPM':'—', score:LAB.raw.recoveryScore},
     {label:'📱 Steady Hand',          val:'Motion analysis',                             score:LAB.raw.stabilityScore},
-    {label:'✏ Tremor Drawing',        val:LAB.raw.tremorDev!==undefined?LAB.raw.tremorDev+'px dev':'—', score:LAB.raw.tremorScore},
     {label:'💤 Sleep',                val:LAB.raw.sleepHours?LAB.raw.sleepHours+'h':'—', score:LAB.raw.sleepScore},
     {label:'⚖ Lifestyle',            val:'6 dimensions',                                score:LAB.raw.lifestyleScore},
     {label:'💧 Hydration Risk',       val:LAB.raw.hydrationScore!=null?'Completed':'—', score:LAB.raw.hydrationScore},
@@ -1992,12 +1992,10 @@ LAB.generatePDF = function () {
     ['👁 Attention',           R.attHits!==undefined?R.attHits+' hits':'Skipped', R.attScore],
     ['🎨 Colour Blindness',    R.cbCorrect!==undefined?R.cbCorrect+'/'+R.cbTotal:'Skipped', R.cbScore],
     ['🌬 Breath Sync',         'Completed', R.breathSyncScore],
-    ['⏱ Breath Hold',          R.breathHold?R.breathHold+'s held':'Skipped', R.breathScore],
     ['♻ Recovery (HRV)',       R.recoveryBPM?R.recoveryBPM+' BPM':'Skipped', R.recoveryScore],
     ['🔥 Maths Challenge',     R.mathCorrect!==undefined?R.mathCorrect+'/20':'Skipped', R.mathScore],
     ['🔷 Pattern Search',      R.patternCorrect!==undefined?R.patternCorrect+'/8':'Skipped', R.patternScore],
     ['📱 Steady Hand',         'Completed', R.stabilityScore],
-    ['✏ Tremor Drawing',       R.tremorDev!==undefined?R.tremorDev+'px deviation':'Skipped', R.tremorScore],
     ['💤 Sleep Quality',        R.sleepHours?R.sleepHours+'h':'Skipped', R.sleepScore],
     ['⚖ Lifestyle Score',      '6 dimensions', R.lifestyleScore],
     ...(isFem?[
