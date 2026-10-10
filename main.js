@@ -46,7 +46,7 @@ function productUrl(id) { return PRODUCT_SLUGS[id] || ('product-detail.html?id='
 
 const PRODUCTS = [
   {
-    id: 'brainchamp', name: 'Brain Champ', price: 175, cat: 'brain', tag: 'Brain & Focus',
+    id: 'brainchamp', name: 'Brain Champ', price: 164, cat: 'brain', tag: 'Brain & Focus',
     desc: 'Enhances memory, focus and cognitive function with powerful Ayurvedic herbs.',
     full: 'Brain Champ is a scientifically formulated Ayurvedic supplement combining Brahmi, Shankhpushpi, Ashwagandha and other classical herbs to support optimal brain health. It helps reduce mental fatigue, improve concentration and enhance memory retention naturally.',
     benefits: ['Improves memory & recall', 'Reduces mental fatigue & brain fog', 'Manages stress & anxiety naturally', 'Enhances focus & concentration', 'Adaptogen blend for long-term brain health'],
@@ -64,7 +64,7 @@ const PRODUCTS = [
     precautions: 'Store in a cool, dry place. Not for children under 5 years without medical advice.',
   },
   {
-    id: 'bloodstorm', name: 'Blood Storm', price: 165, cat: 'blood', tag: 'Blood & Immunity',
+    id: 'bloodstorm', name: 'Blood Storm', price: 164, cat: 'blood', tag: 'Blood & Immunity',
     desc: 'Revitalizing blood tonic to combat anemia, weakness and low hemoglobin.',
     full: 'Blood Storm is a premium Ayurvedic blood tonic combining iron-rich herbs with powerful rejuvenating ingredients. Formulated to naturally raise hemoglobin levels, improve circulation and restore energy to those suffering from anemia and chronic weakness.',
     benefits: ['Raises hemoglobin naturally', 'Combats iron-deficiency anemia', 'Restores energy & vitality', 'Improves blood circulation', 'Strengthens overall immunity'],
@@ -73,7 +73,7 @@ const PRODUCTS = [
     precautions: 'Keep out of reach of children. Consult a physician before use during pregnancy.',
   },
   {
-    id: 'coughxpro', name: 'Cough X Pro', price: 90, cat: 'respiratory', tag: 'Respiratory',
+    id: 'coughxpro', name: 'Cough X Pro', price: 99, cat: 'respiratory', tag: 'Respiratory',
     desc: 'Soothing herbal cough syrup for fast, lasting relief from chronic cough.',
     full: 'Cough X Pro is a time-tested Ayurvedic formulation that soothes the respiratory tract, reduces inflammation and provides lasting relief from acute and chronic cough. Its herbal ingredients work synergistically to clear mucus and calm irritated airways.',
     benefits: ['Soothes throat irritation', 'Reduces mucus congestion', 'Anti-inflammatory action', 'Fast & lasting relief', 'Safe for adults & children'],
@@ -91,7 +91,7 @@ const PRODUCTS = [
     precautions: 'Results typically visible after 4–6 weeks of consistent use.',
   },
   {
-    id: 'panasip', name: 'PanaSip', price: 165, cat: 'acidity', tag: 'Acidity',
+    id: 'panasip', name: 'PanaSip', price: 164, cat: 'acidity', tag: 'Acidity',
     desc: 'Fast-acting Ayurvedic relief from acidity, heartburn and peptic ulcers.',
     full: 'PanaSip is a powerful Ayurvedic antacid syrup that neutralises excess stomach acid naturally. Its cooling and soothing herbs form a protective layer over the stomach lining, providing rapid relief from acidity, heartburn and gastric ulcers without harsh chemical side effects.',
     benefits: ['Neutralises stomach acid', 'Soothes esophageal inflammation', 'Heals peptic ulcers naturally', 'Prevents acid reflux', 'Promotes healthy gastric pH'],
@@ -118,7 +118,7 @@ const PRODUCTS = [
     precautions: 'Monitor blood sugar regularly. Do not discontinue prescribed medication without physician guidance.',
   },
   {
-    id: 'orthohayaat', name: 'Ortho Hayaat', price: 649, cat: 'joint', tag: 'Joint Care',
+    id: 'orthohayaat', name: 'Ortho Hayaat', price: 399, cat: 'joint', tag: 'Joint Care',
     desc: 'Specialised Ayurvedic blend for joint health, pain relief and improved mobility.',
     full: 'Ortho Hayaat combines the most potent anti-inflammatory and analgesic Ayurvedic herbs for comprehensive joint care. It works to reduce inflammation, lubricate joints, strengthen bones and improve mobility — ideal for arthritis, knee pain and age-related joint degeneration.',
     benefits: ['Reduces joint inflammation', 'Relieves chronic joint pain', 'Improves mobility & flexibility', 'Strengthens bones & cartilage', 'Anti-arthritis properties'],
@@ -145,7 +145,7 @@ const PRODUCTS = [
     precautions: 'Not for use under 18 years. Consult physician if you have existing health conditions.',
   },
   {
-    id: 'fevodol', name: 'Fevodol', price: 165, cat: 'immunity', tag: 'Immunity',
+    id: 'fevodol', name: 'Fevodol', price: 180, cat: 'immunity', tag: 'Immunity',
     desc: "Powerful immunity booster to defend against fever, infections and illness.",
     full: "Fevodol is an Ayurvedic immune-strengthening formulation supporting the body's natural defence mechanisms. Its antipyretic, anti-infective and immunomodulatory herbs help reduce fever, fight infections and build long-term immunity against recurrent illness.",
     benefits: ['Reduces fever naturally', 'Fights infections', 'Strengthens immune system', 'Anti-inflammatory', 'Prevents recurrent illness'],
