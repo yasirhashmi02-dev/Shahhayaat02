@@ -568,7 +568,7 @@ const LAB = {
     this.render(`<div class="mwrap"><div class="card">
       <div class="step-head"><div class="tag">📦 Module</div>
         <h2 class="h2" style="margin-top:.75rem">${lbl}</h2></div>
-      <p class="pg">This module will be added in the next part.</p>
+      <p class="pg">This test could not load. Please refresh the page (Ctrl+F5). If it keeps happening, make sure all wellness-lab-part files are uploaded.</p>
       <div class="btn-row"><button class="btn btn--p" onclick="LAB.skip()">Continue →</button></div>
     </div></div>`);
   },
