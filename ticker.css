@@ -15,3 +15,14 @@
 @keyframes tkMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (max-width:640px){.tk{height:32px;font-size:.75rem}.tk-track{animation-duration:90s}.tk-pause{height:32px;flex-basis:36px}.tk-list li::after{margin:0 1.4rem}}
 @media (prefers-reduced-motion:reduce){.tk-track{animation:none;width:auto}.tk-view{overflow-x:auto}.tk-list[aria-hidden="true"],.tk-pause{display:none}}
+
+/* Homepage hero variant: larger, bold red, sits above the hero eyebrow */
+.tk--hero{height:auto;min-height:46px;max-width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,75,75,.4);border-radius:12px;font-size:1.0625rem;font-weight:800;color:#FF4B4B}
+.tk--hero .tk-view{-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.tk--hero .tk-list a{color:#FF4B4B;font-weight:800;padding:.7rem 0;text-decoration:underline;text-decoration-color:rgba(255,75,75,.45);text-underline-offset:4px}
+.tk--hero .tk-list a:hover{color:#FF7A7A;text-decoration-color:#FF7A7A}
+.tk--hero .tk-list a:focus-visible,.tk--hero .tk-pause:focus-visible{outline-color:#FF7A7A}
+.tk--hero .tk-list li::after{background:#FF4B4B;width:5px;height:5px;margin:0 1.6rem}
+.tk--hero .tk-pause{background:transparent;height:46px;border-left:1px solid rgba(255,75,75,.35)}
+.tk--hero .tk-pause i{border-left-color:#FF4B4B;border-right-color:#FF4B4B}
+@media (max-width:640px){.tk--hero{font-size:.9375rem;min-height:42px}.tk--hero .tk-pause{height:42px}.tk--hero .tk-list li::after{margin:0 1.2rem}}
