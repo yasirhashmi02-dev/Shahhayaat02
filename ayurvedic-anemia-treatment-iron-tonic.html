@@ -596,10 +596,14 @@ body.nav-open {
 .nav-toggle  { z-index: 9992 !important; }
 
 /* Grouped nav dropdowns */
+@media(min-width:960px){.nav-desktop{display:flex!important;align-items:center;gap:.1rem}.nav-desktop>a,.nav-dd>a{display:block;white-space:nowrap}}
 .nav-dd{position:relative}
-.nav-dd-menu{display:none;position:absolute;top:100%;left:0;min-width:170px;padding:.4rem;background:rgba(20,40,28,.97);border:1px solid rgba(255,255,255,.1);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.25);z-index:200}
+.nav-dd-menu{display:none;position:absolute;top:100%;left:0;min-width:180px;padding:.4rem;background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:9000}
 .nav-dd:hover .nav-dd-menu,.nav-dd:focus-within .nav-dd-menu{display:block}
-.nav-dd-menu a{display:block;border-radius:6px!important;white-space:nowrap}
+.nav-dd-menu a{display:block;padding:.5rem .8rem;border-radius:8px!important;white-space:nowrap;color:#1b3a2a!important;font-size:.88rem;font-weight:600}
+.nav-dd-menu a:hover{background:rgba(42,120,90,.1)}
+.nav-cta-pill{padding:.5rem 1.1rem;border-radius:50px;background:#1b5e20;color:#fff!important;font-weight:700;font-size:.85rem;white-space:nowrap}
+@media(max-width:959px){.nav-cta-pill{display:none}}
 </style>
 </head>
 <body id="top">
