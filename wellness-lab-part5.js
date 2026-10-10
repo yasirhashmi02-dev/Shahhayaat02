@@ -134,4 +134,33 @@ window.mod_oneLegStand=function(){
       $('nwMsg')&&($('nwMsg').innerHTML=`You balanced for <strong>${s.toFixed(1)}s</strong> 🎉`);finish();}
   };
 };
+/* ── Completion summary: shown once, right before the full dashboard ── */
+if(typeof LAB.showDashboard==='function'){
+  const origDash=LAB.showDashboard.bind(LAB);
+  const TIPS={cognitive:'Short daily brain games and good sleep help focus.',eye:'Follow the 20-20-20 rule: every 20 minutes, look 20 feet away for 20 seconds.',
+    respiratory:'A few minutes of slow, deep breathing each day supports calm.',stability:'Practise balance daily, for example standing on one leg while brushing your teeth.',
+    lifestyle:'Regular sleep times and steady water intake make a real difference.',gut:'Regular meals and enough fibre and water support digestion.',
+    heart:'Gentle daily movement, like a 20-minute walk, supports energy.',hearing:'Keep headphone volume moderate and take listening breaks.',hormonal:'Regular sleep and balanced meals support hormonal rhythm.'};
+  LAB.showDashboard=function(){
+    const cats=Object.values(LAB.categories||{}).map(c=>({c,v:LAB.scores?LAB.scores[c.scoreKey]:null})).filter(x=>x.v!=null);
+    if(LAB._sumDone||cats.length<2||LAB.idx<(LAB.queue||[]).length)return origDash();
+    LAB._sumDone=true;
+    cats.sort((a,b)=>b.v-a.v);const top=cats[0],low=cats[cats.length-1];
+    LAB.render(`<div class="mwrap"><div class="card card--pop" style="text-align:center;padding:2rem 1.4rem">
+      <div style="font-size:3rem">🎉</div>
+      <h2 class="h2" style="margin:.4rem 0">You completed your Wellness Lab!</h2>
+      <p class="pg">${cats.length} areas checked. Here is your quick snapshot.</p>
+      <div style="display:grid;gap:.7rem;margin:1.1rem auto;max-width:360px;text-align:left">
+        <div style="padding:.8rem 1rem;border-radius:14px;background:#E8F5EE"><div style="font-size:.72rem;font-weight:700;color:#1B5E20">💪 STRONGEST AREA</div><div style="font-weight:800;font-size:1.05rem">${top.c.icon} ${top.c.name} · ${top.v}/100</div></div>
+        <div style="padding:.8rem 1rem;border-radius:14px;background:#FFF6E5"><div style="font-size:.72rem;font-weight:700;color:#9A6200">🌱 FOCUS AREA</div><div style="font-weight:800;font-size:1.05rem">${low.c.icon} ${low.c.name} · ${low.v}/100</div>
+          <div style="font-size:.82rem;margin-top:.25rem;color:#555">${TIPS[low.c.scoreKey]||'Small daily habits add up over time.'}</div></div>
+      </div>
+      <button class="btn btn--p" onclick="LAB._origDash()">See my full report →</button>
+      <p style="font-size:.7rem;color:#777;margin-top:.9rem">Wellness indicators only — not a medical diagnosis.</p>
+    </div></div>`);
+    LAB.celebrate();LAB.say('Well done! You completed your Wellness Lab. Here is your snapshot.');
+  };
+  LAB._origDash=origDash;
+  if(typeof LAB.goWelcome==='function'){const gw=LAB.goWelcome.bind(LAB);LAB.goWelcome=function(){LAB._sumDone=false;return gw.apply(null,arguments);};}
+}
 })();
