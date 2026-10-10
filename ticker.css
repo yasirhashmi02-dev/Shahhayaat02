@@ -1,0 +1,17 @@
+/* Announcement ticker: slim, CSS-only scrolling, pausable */
+.tk{display:flex;align-items:center;height:36px;background:var(--green-dark,#2A4633);color:#fff;font-family:var(--font-body,system-ui,sans-serif);font-size:.8125rem;line-height:1;overflow:hidden}
+.tk-view{flex:1;min-width:0;overflow:hidden}
+.tk-track{display:flex;width:max-content;animation:tkMove 75s linear infinite;will-change:transform}
+.tk-list{display:flex;flex-shrink:0;margin:0;padding:0;list-style:none}
+.tk-list li{display:flex;align-items:center;white-space:nowrap}
+.tk-list li::after{content:"";width:4px;height:4px;margin:0 2rem;border-radius:50%;background:rgba(255,255,255,.55)}
+.tk-list a{color:#fff;text-decoration:none;padding:.5rem 0}
+.tk-list a:hover{text-decoration:underline;text-underline-offset:3px}
+.tk-list a:focus-visible,.tk-pause:focus-visible{outline:2px solid #fff;outline-offset:2px;border-radius:3px}
+.tk-pause{flex:0 0 40px;height:36px;border:0;background:var(--green-dark,#2A4633);cursor:pointer;display:flex;align-items:center;justify-content:center;border-left:1px solid rgba(255,255,255,.18)}
+.tk-pause i{display:block;width:10px;height:12px;border-left:3px solid #fff;border-right:3px solid #fff;box-sizing:border-box}
+.tk.is-paused .tk-pause i{width:0;height:0;border-left:10px solid #fff;border-right:0;border-top:6px solid transparent;border-bottom:6px solid transparent}
+.tk:hover .tk-track,.tk:focus-within .tk-track,.tk.is-paused .tk-track{animation-play-state:paused}
+@keyframes tkMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (max-width:640px){.tk{height:32px;font-size:.75rem}.tk-track{animation-duration:90s}.tk-pause{height:32px;flex-basis:36px}.tk-list li::after{margin:0 1.4rem}}
+@media (prefers-reduced-motion:reduce){.tk-track{animation:none;width:auto}.tk-view{overflow-x:auto}.tk-list[aria-hidden="true"],.tk-pause{display:none}}
