@@ -9,17 +9,17 @@
   <meta property="og:title" content="Livo Hayaat DS Syrup | Shah Hayaat Ayurvedic Medicine | Buy Online India">
   <meta property="og:description" content="Ayurvedic proprietary medicine presented as a liver tonic with a triple-action formula combining antacid and enzyme positioning. ₹160.">
   <meta property="og:url" content="https://www.shahhayaat.com/livo-hayaat-ds-syrup.html">
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/Livo%20Hayaat%20DS.png">
+  <meta property="og:image" content="https://www.shahhayaat.com/images/livo-hayaat-ds-200.webp">
   <meta property="og:type" content="product">
   <meta property="og:site_name" content="Shah Hayaat">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Livo Hayaat DS Syrup | Shah Hayaat Ayurvedic Medicine | Buy Online India">
   <meta name="twitter:description" content="Ayurvedic proprietary medicine presented as a liver tonic with a triple-action formula combining antacid and enzyme positioning. ₹160.">
-  <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/Livo%20Hayaat%20DS.png">
+  <meta name="twitter:image" content="https://www.shahhayaat.com/images/livo-hayaat-ds-200.webp">
   <link rel="icon" href="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "Livo Hayaat DS Syrup", "description": "Ayurvedic proprietary medicine presented as a liver tonic with a triple-action formula combining antacid and enzyme positioning.", "image": ["https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/Livo%20Hayaat%20DS.png"], "brand": {"@type": "Brand", "name": "Shah Hayaat"}, "url": "https://www.shahhayaat.com/livo-hayaat-ds-syrup.html", "offers": [{"@type": "Offer", "price": "160", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "seller": {"@type": "Organization", "name": "Shah Hayaat"}, "name": "200 ml"}, {"@type": "Offer", "price": "99", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "seller": {"@type": "Organization", "name": "Shah Hayaat"}, "name": "100 ml"}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "Livo Hayaat DS Syrup", "description": "Ayurvedic proprietary medicine presented as a liver tonic with a triple-action formula combining antacid and enzyme positioning.", "image": ["images/livo-hayaat-ds-200.webp"], "brand": {"@type": "Brand", "name": "Shah Hayaat"}, "url": "https://www.shahhayaat.com/livo-hayaat-ds-syrup.html", "offers": [{"@type": "Offer", "price": "160", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "seller": {"@type": "Organization", "name": "Shah Hayaat"}, "name": "200 ml"}, {"@type": "Offer", "price": "99", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "seller": {"@type": "Organization", "name": "Shah Hayaat"}, "name": "100 ml"}]}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What are the key ingredients?", "acceptedAnswer": {"@type": "Answer", "text": "Kutki, Kalmegh, Kasni, Kakanchi, Punarnava and Bhringraj are listed as key herbal extracts."}}, {"@type": "Question", "name": "What is the stated dosage?", "acceptedAnswer": {"@type": "Answer", "text": "10–15 ml three times a day or as directed by the physician."}}, {"@type": "Question", "name": "What is the pack size shown?", "acceptedAnswer": {"@type": "Answer", "text": "Available in 200 ml and 100 ml packs. The product image shows the 200 ml pack."}}]}</script>
 
   <link rel="stylesheet" href="style.css">
@@ -273,7 +273,7 @@ body.nav-open {
 
     <div class="pd-grid">
       <div class="pd-img-wrap">
-        <img src="images/livo-hayaat-ds.webp" alt="Livo Hayaat DS Syrup | Shah Hayaat" loading="eager" width="700" height="700">
+        <img src="images/livo-hayaat-ds-200.webp" alt="Livo Hayaat DS Syrup | Shah Hayaat" loading="eager" width="700" height="700">
         <div class="pd-badges" style="justify-content:center;margin-top:1.2rem">
           <span class="pd-badge">🌿 Ayurvedic</span>
           <span class="pd-badge">✓ Proprietary Medicine</span>
@@ -426,11 +426,13 @@ body.nav-open {
 </div>
 <script>
 (function(){
+  var IMG={'200':'images/livo-hayaat-ds-200.webp','100':'images/livo-hayaat-ds-100.webp'};
   var NAME="Livo Hayaat DS Syrup";
   var btns=document.querySelectorAll('.pd-size-btn');
   btns.forEach(function(b){b.addEventListener('click',function(){
     var ml=b.getAttribute('data-ml'),pr=b.getAttribute('data-price');
     btns.forEach(function(x){var on=x===b;x.classList.toggle('active',on);x.setAttribute('aria-pressed',on?'true':'false');});
+    var im=document.querySelector('.pd-img-wrap img');if(im){im.src=IMG[ml];im.alt=NAME+' '+ml+' ml';}
     var p=document.getElementById('pdPrice'),z=document.getElementById('pdSize');
     if(p)p.textContent='\u20B9'+pr;if(z)z.textContent=ml+' ml';
     var bb=document.querySelector('.mbb-buy');if(bb)bb.textContent='\uD83D\uDED2 Buy Now \u20B9'+pr;

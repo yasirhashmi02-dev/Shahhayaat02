@@ -782,12 +782,12 @@ LAB.showDashboard = function () {
           stress:    { product: 'Brain Champ',   id:'brainchamp',   herbs: ['Brahmi (Bacopa monnieri)', 'Ashwagandha', 'Shankhpushpi', 'Jatamansi'],               dosage: '10–15 ml twice daily with warm milk after meals' },
           breathing: { product: 'Cough X Pro',   id:'coughxpro',    herbs: ['Tulsi (Holy Basil)', 'Mulethi (Licorice)', 'Adrak (Ginger)', 'Pippali', 'Vasa'],      dosage: '10 ml three times daily' },
           eye:       { product: 'Musaffa Khoon', id:'musaffakhoon', herbs: ['Neem', 'Manjistha', 'Khadir', 'Giloy', 'Triphala', 'Sarsaparilla'],                   dosage: '10–15 ml twice daily with water before meals' },
-          heart:     { product: 'Blood Storm',   id:'bloodstorm',   herbs: ['Loha Bhasma', 'Punarnava', 'Shatavari', 'Ashwagandha', 'Amla', 'Draksha'],            dosage: '10–15 ml twice daily with water after meals' },
+          heart:     { product: 'Blood Storm',   id:'bloodstorm', image:'images/blood-storm-200.webp',   herbs: ['Loha Bhasma', 'Punarnava', 'Shatavari', 'Ashwagandha', 'Amla', 'Draksha'],            dosage: '10–15 ml twice daily with water after meals' },
           lifestyle: { product: 'Livo Hayaat',   id:'livohayaat',   herbs: ['Bhumi Amla', 'Kalmegh', 'Kutki', 'Punarnava', 'Makoy', 'Kasni'],                      dosage: '2 tablets twice daily with warm water before meals' },
           stability: { product: 'Ortho Hayaat',  id:'orthohayaat',  herbs: ['Shallaki (Boswellia)', 'Guggul', 'Rasna', 'Nirgundi', 'Ashwagandha', 'Sunthi'],       dosage: '2 tablets twice daily with warm milk after meals' },
-          gut:       { product: 'Shah Zyme',     id:'shahzyme',     herbs: ['Ajwain', 'Saunf (Fennel)', 'Jeera (Cumin)', 'Pudina (Mint)', 'Harad', 'Amla'],        dosage: '10–15 ml after meals, twice daily' },
+          gut:       { product: 'Shah Zyme',     id:'shahzyme', image:'images/shah-zyme-200.webp',     herbs: ['Ajwain', 'Saunf (Fennel)', 'Jeera (Cumin)', 'Pudina (Mint)', 'Harad', 'Amla'],        dosage: '10–15 ml after meals, twice daily' },
           hearing:   { product: 'Brain Champ',   id:'brainchamp',   herbs: ['Brahmi (Bacopa monnieri)', 'Shankhpushpi', 'Ashwagandha', 'Jatamansi'],               dosage: '10–15 ml twice daily with warm milk after meals' },
-          energy:    { product: 'Blood Storm',   id:'bloodstorm',   herbs: ['Loha Bhasma', 'Shatavari', 'Ashwagandha', 'Punarnava', 'Amla', 'Draksha'],            dosage: '10–15 ml twice daily with water after meals' },
+          energy:    { product: 'Blood Storm',   id:'bloodstorm', image:'images/blood-storm-200.webp',   herbs: ['Loha Bhasma', 'Shatavari', 'Ashwagandha', 'Punarnava', 'Amla', 'Draksha'],            dosage: '10–15 ml twice daily with water after meals' },
           female:    { product: 'Utro Hayaat',   id:'utrohayaat',   herbs: ['Ashoka', 'Lodhra', 'Shatavari', 'Nagkesar', 'Daruharidra', 'Kumari (Aloe)'],          dosage: '10–15 ml twice daily after meals with milk or water' },
         };
         const catId = activeCat?.id || '';
@@ -1736,7 +1736,7 @@ LAB._buildProductCards = function () {
 
   // Stress & Energy
   if ((S.stress ?? 100) < 70 || (R.sleepHours ?? 8) < 6)
-    selected.push({ ...P.bloodstorm, id:'bloodstorm', reason:'Low energy or stress scores detected.' });
+    selected.push({ ...P.bloodstorm, id:'bloodstorm', image:'images/blood-storm-200.webp', reason:'Low energy or stress scores detected.' });
 
   // Lifestyle & Liver
   if ((S.lifestyle ?? 100) < 65)
@@ -1752,7 +1752,7 @@ LAB._buildProductCards = function () {
 
   // Gut Health: shahzyme for digestion, panasip for acidity, livohayaat for liver
   if ((S.gut ?? 100) < 65) {
-    selected.push({ ...P.shahzyme, id:'shahzyme', reason:'Gut health scores suggest digestive enzyme support.' });
+    selected.push({ ...P.shahzyme, id:'shahzyme', image:'images/shah-zyme-200.webp', reason:'Gut health scores suggest digestive enzyme support.' });
     selected.push({ ...P.panasip,  id:'panasip',  reason:'Gut health score suggests acidity or gastric discomfort support.' });
     selected.push({ ...P.livohayaat, id:'livohayaat', reason:'Gut health scores suggest digestive and liver support.' });
   }
@@ -1763,7 +1763,7 @@ LAB._buildProductCards = function () {
 
   // Female Iron / Energy
   if (isFem && (R.ironScore ?? 100) < 70)
-    selected.push({ ...P.bloodstorm, id:'bloodstorm', reason:'Iron and energy indicators suggest blood support.' });
+    selected.push({ ...P.bloodstorm, id:'bloodstorm', image:'images/blood-storm-200.webp', reason:'Iron and energy indicators suggest blood support.' });
 
   // Male Vitality
   if (isMale && (S.stress ?? 100) < 65)
@@ -1771,7 +1771,7 @@ LAB._buildProductCards = function () {
 
   // Heart Rate
   if ((S.heart ?? 100) < 75 || (R.heartBPM ?? 72) > 90 || (R.heartBPM ?? 72) < 55)
-    selected.push({ ...P.bloodstorm, id:'bloodstorm', reason:'Heart rate indicators suggest cardiovascular and energy support.' });
+    selected.push({ ...P.bloodstorm, id:'bloodstorm', image:'images/blood-storm-200.webp', reason:'Heart rate indicators suggest cardiovascular and energy support.' });
 
   // Immunity: any low score
   const anyLow = Object.values(S).some(v => v != null && v < 60);
@@ -2277,14 +2277,14 @@ LAB.generatePDF = function () {
         const sel=[];
         if((S.cognitive??100)<75||(R.memSpan??9)<5||(R.rxAvg??0)>350) sel.push({...P.brainchamp,id:'brainchamp',reason:'Cognitive / memory support'});
         if((S.respiratory??100)<70||(R.breathHold??999)<25) sel.push({...P.coughxpro,id:'coughxpro',reason:'Respiratory support'});
-        if((S.stress??100)<70||(R.sleepHours??8)<6) sel.push({...P.bloodstorm,id:'bloodstorm',reason:'Energy & stress support'});
+        if((S.stress??100)<70||(R.sleepHours??8)<6) sel.push({...P.bloodstorm,id:'bloodstorm', image:'images/blood-storm-200.webp',reason:'Energy & stress support'});
         if((S.lifestyle??100)<65) sel.push({...P.livohayaat,id:'livohayaat',reason:'Liver & detox support'});
         if((S.stability??100)<65||(R.tremorDev??0)>30) sel.push({...P.orthohayaat,id:'orthohayaat',reason:'Joint & stability support'});
         if((S.eye??100)<70||R.cbFlag||R.acuityFlag) sel.push({...P.musaffakhoon,id:'musaffakhoon',reason:'Eye & blood health'});
         if(isFem&&(S.hormonal??100)<75) sel.push({...P.utrohayaat,id:'utrohayaat',reason:'Female hormonal support'});
         if(isMale&&(S.stress??100)<65) sel.push({...P.passionpulse,id:'passionpulse',reason:'Male vitality support'});
-        if((S.heart??100)<75||(R.heartBPM??72)>90) sel.push({...P.bloodstorm,id:'bloodstorm',reason:'Heart rate & cardiovascular support'});
-        if((S.gut??100)<65){ sel.push({...P.shahzyme,id:'shahzyme',reason:'Digestive enzyme support'}); sel.push({...P.livohayaat,id:'livohayaat',reason:'Digestive & gut health support'}); }
+        if((S.heart??100)<75||(R.heartBPM??72)>90) sel.push({...P.bloodstorm,id:'bloodstorm', image:'images/blood-storm-200.webp',reason:'Heart rate & cardiovascular support'});
+        if((S.gut??100)<65){ sel.push({...P.shahzyme,id:'shahzyme', image:'images/shah-zyme-200.webp',reason:'Digestive enzyme support'}); sel.push({...P.livohayaat,id:'livohayaat',reason:'Digestive & gut health support'}); }
         if(Object.values(S).some(v=>v!=null&&v<60)) sel.push({...P.fevodol,id:'fevodol',reason:'Immunity support'});
         const seen=new Set(),unique=sel.filter(p=>{if(seen.has(p.id))return false;seen.add(p.id);return true;});
         if(!unique.length){unique.push({...P.brainchamp,id:'brainchamp',reason:'General wellness'});unique.push({...P.fevodol,id:'fevodol',reason:'Immunity support'});}

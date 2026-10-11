@@ -51,9 +51,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const PRODUCT_MAP = {
     brain:       { id:'brainchamp',   thresh:2 },
-    digestion:   { id:'shahzyme',     thresh:2 },
+    digestion:   { id:'shahzyme', image:'images/shah-zyme-200.webp',     thresh:2 },
     acidity:     { id:'panasip',      thresh:2 },
-    blood:       { id:'bloodstorm',   thresh:2 },
+    blood:       { id:'bloodstorm', image:'images/blood-storm-200.webp',   thresh:2 },
     respiratory: { id:'coughxpro',   thresh:1 },
     skin:        { id:'musaffakhoon', thresh:2 },
     liver:       { id:'livohayaat',   thresh:2 },
