@@ -1,110 +1,273 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- HOMEPAGE -->
-  <!-- ═══════════════════════════════════════════ -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.shahhayaat.com/about.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/ayurvedic-acidity-treatment.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/ayurvedic-anemia-treatment-iron-tonic.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/ayurvedic-blood-sugar-control.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/ayurvedic-digestion-treatment.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/ayurvedic-immunity-booster.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/ayurvedic-joint-pain-treatment.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/ayurvedic-liver-detox.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/ayurvedic-memory-booster.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/ayurvedic-skin-treatment-blood-purifier.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/ayurvedic-vs-allopathic-liver-treatment.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/ayurvedic-womens-health-hormonal-balance.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/benefits-of-ayurveda.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/best-ayurvedic-medicines-liver-india.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/best-ayurvedic-treatment-india.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/blog.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/blood-storm-ayurvedic-iron-tonic.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/blood-storm-capsules.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/blood-storm-drops.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/brahmi-vs-ashwagandha-for-memory.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/brain-champ-ayurvedic-memory-booster.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/bundles.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/cardo-hayaat-tablets.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/catalogue.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/common-mistakes-in-ayurveda.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/conditions.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/contact.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/cost-ayurvedic-treatment-india.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/cough-x-pro-ayurvedic-herbal-cough-syrup.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/dia-ease-ayurvedic-blood-sugar-control.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/disclaimer.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/exercises.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/fevodol-ayurvedic-immunity-booster-giloy-tulsi.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/how-to-choose-ayurvedic-medicine.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
   <url>
     <loc>https://www.shahhayaat.com/</loc>
-    <lastmod>2026-04-05</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-10-11</lastmod>
     <priority>1.0</priority>
-    <image:image><image:loc>https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/brainchamp1.jpg</image:loc><image:title>Brain Champ — Ayurvedic Brain &amp; Memory Supplement India</image:title></image:image>
-    <image:image><image:loc>https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/livohayaat1.jpg</image:loc><image:title>Livo Hayaat — Ayurvedic Liver Detox Syrup India</image:title></image:image>
-    <image:image><image:loc>https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/orthohayaat1.jpg</image:loc><image:title>Ortho Hayaat — Ayurvedic Joint Pain Relief India</image:title></image:image>
   </url>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- CORE PAGES -->
-  <!-- ═══════════════════════════════════════════ -->
-  <url><loc>https://www.shahhayaat.com/products.html</loc><lastmod>2026-04-05</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://www.shahhayaat.com/conditions.html</loc><lastmod>2026-04-05</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://www.shahhayaat.com/blog.html</loc><lastmod>2026-04-05</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>
-  <url><loc>https://www.shahhayaat.com/ingredients.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://www.shahhayaat.com/wellness-lab.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.90</priority></url>
-  <url><loc>https://www.shahhayaat.com/exercises.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://www.shahhayaat.com/about.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.70</priority></url>
-  <url><loc>https://www.shahhayaat.com/contact.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
-
-  <!-- NEW PRODUCTS -->
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=bloodstormdrops</loc><changefreq>monthly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=shahzymejunior</loc><changefreq>monthly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=painflick</loc><changefreq>monthly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=orthohayaat_oil</loc><changefreq>monthly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=bloodstormcap</loc><changefreq>monthly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=cardohayaat</loc><changefreq>monthly</changefreq><priority>0.80</priority></url>
-
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=livohayaatds</loc><changefreq>monthly</changefreq><priority>0.80</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=utrohayaatds</loc><changefreq>monthly</changefreq><priority>0.80</priority></url>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- SEO CONDITION / TREATMENT GUIDE PAGES -->
-  <!-- Updated April 2026 — expanded content -->
-  <!-- ═══════════════════════════════════════════ -->
-  <url><loc>https://www.shahhayaat.com/ayurvedic-liver-detox.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.96</priority></url>
-  <url><loc>https://www.shahhayaat.com/ayurvedic-memory-booster.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://www.shahhayaat.com/ayurvedic-joint-pain-treatment.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://www.shahhayaat.com/ayurvedic-immunity-booster.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://www.shahhayaat.com/ayurvedic-digestion-treatment.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.94</priority></url>
-  <url><loc>https://www.shahhayaat.com/ayurvedic-acidity-treatment.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.94</priority></url>
-  <url><loc>https://www.shahhayaat.com/ayurvedic-anemia-treatment-iron-tonic.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.93</priority></url>
-  <url><loc>https://www.shahhayaat.com/ayurvedic-womens-health-hormonal-balance.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.93</priority></url>
-  <url><loc>https://www.shahhayaat.com/ayurvedic-blood-sugar-control.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.93</priority></url>
-  <url><loc>https://www.shahhayaat.com/ayurvedic-skin-treatment-blood-purifier.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.90</priority></url>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- COMPARISON & RANKING PAGES -->
-  <!-- ═══════════════════════════════════════════ -->
-  <url><loc>https://www.shahhayaat.com/best-ayurvedic-medicines-liver-india.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.93</priority></url>
-  <url><loc>https://www.shahhayaat.com/ayurvedic-vs-allopathic-liver-treatment.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.90</priority></url>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- CLEAN URL PRODUCT PAGES -->
-  <!-- ═══════════════════════════════════════════ -->
-  <url><loc>https://www.shahhayaat.com/brain-champ-ayurvedic-memory-booster.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.93</priority></url>
-  <url><loc>https://www.shahhayaat.com/livo-hayaat-ayurvedic-liver-detox.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.93</priority></url>
-  <url><loc>https://www.shahhayaat.com/ortho-hayaat-ayurvedic-joint-pain-relief.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.92</priority></url>
-  <url><loc>https://www.shahhayaat.com/dia-ease-ayurvedic-blood-sugar-control.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.92</priority></url>
-  <url><loc>https://www.shahhayaat.com/shah-zyme-ayurvedic-digestive-syrup.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.92</priority></url>
-  <url><loc>https://www.shahhayaat.com/blood-storm-ayurvedic-iron-tonic.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.92</priority></url>
-  <url><loc>https://www.shahhayaat.com/fevodol-ayurvedic-immunity-booster-giloy-tulsi.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.92</priority></url>
-  <url><loc>https://www.shahhayaat.com/panasip-ayurvedic-acidity-heartburn-relief.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.92</priority></url>
-  <url><loc>https://www.shahhayaat.com/cough-x-pro-ayurvedic-herbal-cough-syrup.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.90</priority></url>
-  <url><loc>https://www.shahhayaat.com/musaffa-khoon-ayurvedic-blood-purifier.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.90</priority></url>
-  <url><loc>https://www.shahhayaat.com/utro-hayaat-ayurvedic-womens-health.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.92</priority></url>
-  <url><loc>https://www.shahhayaat.com/passion-pulse-ayurvedic-male-vitality.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.90</priority></url>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- NEW BLOG PAGES — April 2026 -->
-  <!-- ═══════════════════════════════════════════ -->
-  <url><loc>https://www.shahhayaat.com/best-ayurvedic-treatment-india.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.91</priority></url>
-  <url><loc>https://www.shahhayaat.com/cost-ayurvedic-treatment-india.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.88</priority></url>
-  <url><loc>https://www.shahhayaat.com/benefits-of-ayurveda.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.89</priority></url>
-  <url><loc>https://www.shahhayaat.com/how-to-choose-ayurvedic-medicine.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.88</priority></url>
-  <url><loc>https://www.shahhayaat.com/common-mistakes-in-ayurveda.html</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.87</priority></url>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- LEGACY PRODUCT DETAIL URLs (backward compat) -->
-  <!-- ═══════════════════════════════════════════ -->
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=brainchamp</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=livohayaat</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=orthohayaat</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=diaease</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.72</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=shahzyme</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.72</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=bloodstorm</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.72</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=fevodol</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.72</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=panasip</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.72</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=coughxpro</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.70</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=musaffakhoon</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.70</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=utrohayaat</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.72</priority></url>
-  <url><loc>https://www.shahhayaat.com/product-detail.html?id=passionpulse</loc><lastmod>2026-04-05</lastmod><changefreq>monthly</changefreq><priority>0.70</priority></url>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- POLICY & SUPPORT PAGES -->
-  <!-- ═══════════════════════════════════════════ -->
-  <url><loc>https://www.shahhayaat.com/privacy.html</loc><lastmod>2026-04-05</lastmod><changefreq>yearly</changefreq><priority>0.40</priority></url>
-  <url><loc>https://www.shahhayaat.com/terms.html</loc><lastmod>2026-04-05</lastmod><changefreq>yearly</changefreq><priority>0.40</priority></url>
-  <url><loc>https://www.shahhayaat.com/disclaimer.html</loc><lastmod>2026-04-05</lastmod><changefreq>yearly</changefreq><priority>0.40</priority></url>
-
+  <url>
+    <loc>https://www.shahhayaat.com/ingredients.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/leadership.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/livo-hayaat-ayurvedic-liver-detox.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/livo-hayaat-ds-syrup.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/musaffa-khoon-ayurvedic-blood-purifier.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/ortho-hayaat-ayurvedic-joint-pain-relief.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/ortho-hayaat-oil.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/pain-flick-capsule.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/panasip-ayurvedic-acidity-heartburn-relief.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/passion-pulse-ayurvedic-male-vitality.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/privacy.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/products.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/shah-zyme-ayurvedic-digestive-syrup.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/shah-zyme-junior-pediatric-drops.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/shipping.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/terms.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/utro-hayaat-ayurvedic-womens-health.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/utro-hayaat-ds-syrup.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shahhayaat.com/wellness-lab.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <priority>0.7</priority>
+  </url>
 </urlset>
