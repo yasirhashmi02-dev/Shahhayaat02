@@ -273,6 +273,8 @@
   </script>
 <link rel="stylesheet" href="ticker.css?v=3">
 <script src="ticker.js?v=3" defer></script>
+<style>.pd-size{display:flex;gap:10px;margin:14px 0 0;flex-wrap:wrap}.pd-size-btn{padding:8px 20px;border-radius:50px;border:1.5px solid var(--green-700,#2A7A5A);background:#fff;color:var(--green-700,#2A7A5A);font:inherit;font-weight:700;cursor:pointer}.pd-size-btn.active{background:var(--green-700,#2A7A5A);color:#fff}.pd-size-btn:focus-visible{outline:2px solid #D4A017;outline-offset:2px}
+</style>
 </head>
 <body>
 
@@ -721,5 +723,30 @@ function getProductImage(e){
     /* ========== main.js ========== */
     function init(){initNavigation();var e=getQueryParam("id")||"brainchamp",t=PRODUCTS[e]||PRODUCTS.brainchamp,a=getWhatsAppUrl(t.name,t.price),n=getProductImage(t.id);document.title=t.name+", Ayurvedic "+t.tag+" | Shah Hayaat";var r=document.querySelector('meta[name="description"]');r&&r.setAttribute("content","Buy "+t.name+" online. "+t.desc+" ₹"+t.price+". Order on WhatsApp.");var o=document.querySelector('meta[property="og:title"]');o&&o.setAttribute("content",t.name+" | Shah Hayaat");var i=document.querySelector('meta[property="og:description"]');i&&i.setAttribute("content",t.desc);var s=document.querySelector('meta[property="og:image"]');s&&s.setAttribute("content",n);var c=document.querySelector('meta[property="og:url"]');c&&c.setAttribute("content","https://www.shahhayaat.com/product-detail.html?id="+t.id);var l=document.querySelector('link[rel="canonical"]');l&&l.setAttribute("href","https://www.shahhayaat.com/product-detail.html?id="+t.id);var d=document.querySelector('meta[name="twitter:title"]');d&&d.setAttribute("content",t.name+" | Shah Hayaat");var u=document.querySelector('meta[name="twitter:image"]');u&&u.setAttribute("content",n);var m=document.getElementById("product-schema");if(m){var f={"@context":"https://schema.org","@type":"Product",name:t.name,description:t.desc,image:n,brand:{"@type":"Brand",name:"Shah Hayaat"}};if(t.price!=null)f.offers={"@type":"Offer",price:t.price,priceCurrency:"INR",availability:"https://schema.org/InStock",url:"https://www.shahhayaat.com/product-detail.html?id="+t.id};m.textContent=JSON.stringify(f)}var p=document.getElementById("product-main");p&&(p.innerHTML=renderProductPage(t,a,n));var g=document.getElementById("sticky-buy-link");g&&(g.href=a);var h=Object.values(PRODUCTS).filter(function(e){return e.category===t.category&&e.id!==t.id}).slice(0,3);renderRelatedProducts(h);renderReviews();document.getElementById("submit-review").addEventListener("click",submitReview);var v=document.getElementById("year");v&&(v.textContent=(new Date).getFullYear());document.getElementById("back-top").addEventListener("click",function(e){e.preventDefault();window.scrollTo({top:0,behavior:"smooth"})})}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",init):init();
   </script>
+<script>
+(function(){
+  var id=new URLSearchParams(location.search).get('id');
+  var V={livohayaatds:{n:'Livo Hayaat DS',b:'livo-hayaat-ds',p:{200:160,100:99}},bloodstorm:{n:'Blood Storm',b:'blood-storm',p:{200:164,100:95}},shahzyme:{n:'Shah Zyme',b:'shah-zyme',p:{200:165,100:90}}}[id];
+  if(!V)return;
+  function pick(ml){
+    var pr=V.p[ml];
+    document.querySelectorAll('#pdSizes .pd-size-btn').forEach(function(b){var on=b.getAttribute('data-ml')==ml;b.classList.toggle('active',on);b.setAttribute('aria-pressed',on?'true':'false');});
+    var pe=document.querySelector('.pd-price');if(pe)pe.innerHTML='\u20B9'+pr+' <span class="pd-price-unit">/ '+ml+' ml pack</span>';
+    var im=document.querySelector('.pd-image img');if(im){im.src='images/'+V.b+'-'+ml+'.webp';im.alt=V.n+' '+ml+' ml';}
+    var wa=document.querySelector('.pd-actions a.btn-primary');
+    if(wa)wa.href='https://wa.me/917051056287?text='+encodeURIComponent('Hi! I want to order '+V.n+' ('+ml+' ml, \u20B9'+pr+'). Please share details.');
+  }
+  function inject(){
+    if(document.getElementById('pdSizes'))return true;
+    var pr=document.querySelector('.pd-price');if(!pr)return false;
+    var box=document.createElement('div');box.id='pdSizes';box.className='pd-size';box.setAttribute('role','group');box.setAttribute('aria-label','Pack size');
+    [200,100].forEach(function(ml,i){var b=document.createElement('button');b.type='button';b.className='pd-size-btn'+(i?'':' active');b.setAttribute('data-ml',ml);b.setAttribute('aria-pressed',i?'false':'true');b.textContent=ml+' ml';b.addEventListener('click',function(){pick(ml);});box.appendChild(b);});
+    pr.parentNode.insertBefore(box,pr);
+    pr.innerHTML='\u20B9'+V.p[200]+' <span class="pd-price-unit">/ 200 ml pack</span>';
+    return true;
+  }
+  if(!inject()){var mo=new MutationObserver(function(){if(inject())mo.disconnect();});mo.observe(document.documentElement,{childList:true,subtree:true});}
+})();
+</script>
 </body>
 </html>
