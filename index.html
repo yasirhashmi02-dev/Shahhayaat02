@@ -1375,19 +1375,27 @@ document.addEventListener('DOMContentLoaded',function(){buildReviewsWall();});
 document.addEventListener('DOMContentLoaded',function(){
   var GH='https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/';
   var slides=[
-    {id:'brainchamp',   name:'Brain Champ',     tag:'Brain & Focus',    price:'175'},
-    {id:'shahzyme', image:'images/shah-zyme-200.webp',     name:'Shah Zyme',        tag:'Digestion',        price:'165'},
-    {id:'bloodstorm', image:'images/blood-storm-200.webp',   name:'Blood Storm',      tag:'Blood & Immunity', price:'165'},
-    {id:'livohayaat',   name:'Livo Hayaat',      tag:'Liver Health',     price:'349'},
-    {id:'diaease',      name:'Dia-Ease',         tag:'Diabetes Care',    price:'695'},
-    {id:'orthohayaat',  name:'Ortho Hayaat',     tag:'Joint Care',       price:'649'},
-    {id:'utrohayaat',   name:'Utro Hayaat',      tag:'Female Health',    price:'625'},
-    {id:'passionpulse', name:'Passion Pulse',    tag:'Male Vitality',    price:'599'},
-    {id:'panasip',      name:'PanaSip',          tag:'Acidity',          price:'165'},
-    {id:'coughxpro',    name:'Cough X Pro',      tag:'Respiratory',      price:'90'},
-    {id:'musaffakhoon', name:'Musaffa Khoon',    tag:'Skin Care',        price:'165'},
-    {id:'fevodol',      name:'Fevodol',          tag:'Immunity',         price:'165'}
-  ];
+      {id:'brainchamp', image:'brainchamp1.webp', name:'Brain Champ', tag:'Brain & Focus'},
+      {id:'shahzyme', image:'images/shah-zyme-200.webp', name:'Shah Zyme', tag:'Digestion'},
+      {id:'bloodstorm', image:'images/blood-storm-200.webp', name:'Blood Storm', tag:'Blood & Immunity'},
+      {id:'livohayaat', image:'livohayaat1.webp', name:'Livo Hayaat', tag:'Liver Health'},
+      {id:'diaease', image:'diaease1.webp', name:'Dia-Ease', tag:'Diabetes Care'},
+      {id:'orthohayaat', image:'orthohayaat1.webp', name:'Ortho Hayaat', tag:'Joint Care'},
+      {id:'utrohayaat', image:'images/utro-hayaat-combo.webp', name:'Utro Hayaat', tag:'Female Health'},
+      {id:'passionpulse', image:'passionpulse1.webp', name:'Passion Pulse', tag:'Male Vitality'},
+      {id:'panasip', image:'panasip1.webp', name:'PanaSip', tag:'Acidity'},
+      {id:'coughxpro', image:'coughxpro1.webp', name:'Cough X Pro', tag:'Respiratory'},
+      {id:'musaffakhoon', image:'musaffakhoon1.webp', name:'Musaffa Khoon', tag:'Skin Care'},
+      {id:'fevodol', image:'images/fevodol.webp', name:'Fevodol', tag:'Immunity'},
+      {id:'bloodstormdrops', image:'images/blood-storm-drops.webp', name:'Blood Storm Drops', tag:'Blood & Wellness'},
+      {id:'bloodstormcap', image:'images/blood-storm-cap.webp', name:'Blood Storm Capsules', tag:'Blood & Wellness'},
+      {id:'shahzymejunior', image:'images/shah-zyme-junior.webp', name:'Shah Zyme Junior', tag:'Pediatric Digestion'},
+      {id:'livohayaatds', image:'images/livo-hayaat-ds-200.webp', name:'Livo Hayaat DS', tag:'Liver Health'},
+      {id:'utrohayaatds', image:'images/utro-hayaat-ds.webp', name:'Utro Hayaat DS', tag:'Female Health'},
+      {id:'orthohayaat_oil', image:'images/ortho-hayaat-oil.webp', name:'Ortho Hayaat Oil', tag:'Topical Joint Care'},
+      {id:'painflick', image:'images/pain-flick-cap.webp', name:'Pain Flick Capsule', tag:'Joint & Muscular Care'},
+      {id:'cardohayaat', image:'images/cardo-hayaat-tab.webp', name:'Cardo Hayaat Tablets', tag:'Cardiac Wellness'}
+    ];
   var TOTAL=slides.length;
   var img=document.getElementById('hero-product');
   var label=document.getElementById('hero-prod-label');
@@ -1408,7 +1416,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
   window.heroGoto=function(n){ dir=n>=idx?1:-1; go(n); resetTimer(); };
 
-  function imgSrc(id){ return GH+id+'1.jpg'; }
+  function imgSrc(id){ var s=slides.filter(function(x){return x.id===id;})[0]; return (s&&s.image)?s.image:GH+id+'1.jpg'; }
   function imgFb(id){ return GH+'images/'+id+'1.jpg'; }
 
   function updateDots(n){
