@@ -1,5 +1,5 @@
 /* ============================================================
-   SHAH HAYAAT — quiz.js  v3.1
+   SHAH HAYAAT: quiz.js  v3.1
    Smart Health Assessment Engine
 
    Architecture (matches provided spec):
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ─────────────────────────────────────────
-     SCREEN 1 — MODE SELECTION
+     SCREEN 1: MODE SELECTION
   ───────────────────────────────────────── */
   function renderModeSelection() {
     resetScores();
@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ─────────────────────────────────────────
-     SCREEN 2A — SPECIFIC CATEGORY SELECT
+     SCREEN 2A: SPECIFIC CATEGORY SELECT
   ───────────────────────────────────────── */
   function renderSpecificCategorySelect() {
     setHTML(`
@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ─────────────────────────────────────────
-     SCREEN 2B — SPECIFIC QUESTIONS
+     SCREEN 2B: SPECIFIC QUESTIONS
   ───────────────────────────────────────── */
   function renderSpecificQuestions(catDef, idx) {
     if (idx >= catDef.questions.length) {
@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ─────────────────────────────────────────
-     SCREEN 2C — SPECIFIC RESULT
+     SCREEN 2C: SPECIFIC RESULT
   ───────────────────────────────────────── */
   function renderSpecificResult(catDef) {
     const map      = PRODUCT_MAP[catDef.id];
@@ -420,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             text-decoration:none;transition:all 0.2s">
                     Learn More
                   </a>
-                  <a href="https://wa.me/917051056287?text=${encodeURIComponent('Hi! I\'d like to order ' + prod.name + ' — ₹' + prod.price)}"
+                  <a href="https://wa.me/917051056287?text=${encodeURIComponent('Hi! I\'d like to order ' + prod.name + ', ₹' + prod.price)}"
                      target="_blank" rel="noopener"
                      style="padding:0.48rem 1.1rem;border-radius:50px;
                             background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;
@@ -463,14 +463,14 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ─────────────────────────────────────────
-     SCREEN 3 — BASIC INFO (COMPLETE MODE)
+     SCREEN 3: BASIC INFO (COMPLETE MODE)
   ───────────────────────────────────────── */
   function renderBasicInfo() {
     setHTML(`
       <div ${CARD_STYLE}>
         <div style="margin-bottom:1.6rem">
           <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
-                       color:var(--gold)">Step 1 of 4 — About You</span>
+                       color:var(--gold)">Step 1 of 4: About You</span>
           <h3 style="color:var(--green-dark);margin:0.38rem 0 0.3rem">Basic Information</h3>
           <p style="font-size:0.88rem">Help us personalise your health assessment.</p>
         </div>
@@ -554,8 +554,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const b = +(w / ((h / 100) ** 2)).toFixed(1);
         const info = bmiInfo(b);
         bPrev.style.display = 'block';
-        bPrev.innerHTML = `<strong>BMI Preview:</strong> ${b} —
-          <span style="color:${info.color};font-weight:700">${info.cat}</span>`;
+        bPrev.innerHTML = `<strong>BMI Preview:</strong> ${b}, <span style="color:${info.color};font-weight:700">${info.cat}</span>`;
       } else {
         bPrev.style.display = 'none';
       }
@@ -596,7 +595,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ─────────────────────────────────────────
-     SCREEN 4 — COMPLETE QUESTIONS
+     SCREEN 4: COMPLETE QUESTIONS
   ───────────────────────────────────────── */
   function renderCompleteQuestion() {
     if (qIndex >= allQuestions.length) {
@@ -610,7 +609,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setHTML(`
       <div ${CARD_STYLE}>
         <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
-                     color:var(--gold)">Step 2 of 4 — Health Assessment</span>
+                     color:var(--gold)">Step 2 of 4: Health Assessment</span>
         ${progressBar(qIndex + 1, total)}
         <p style="font-size:1.04rem;font-weight:600;color:var(--text-dark);
                   line-height:1.55;margin-bottom:1.6rem">${q.q}</p>
@@ -644,7 +643,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ─────────────────────────────────────────
-     SCREEN 5 — COMPLETE RESULTS
+     SCREEN 5: COMPLETE RESULTS
   ───────────────────────────────────────── */
   function renderCompleteResults() {
     /* Build recommendations */

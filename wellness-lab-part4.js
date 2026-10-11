@@ -3,7 +3,7 @@
 window.mod_hormonalRhythm = function () {
   LAB.showDemo({
     title: '🌸 Hormonal Rhythm',
-    txt: '5 short questions about your monthly cycle. <strong>Completely private</strong> — nothing is stored anywhere. Takes under 2 minutes.',
+    txt: '5 short questions about your monthly cycle. <strong>Completely private</strong>, nothing is stored anywhere. Takes under 2 minutes.',
     hint: 'Private · Results stay on your device',
     voiceEN: 'Hormonal rhythm check. Five quick questions about your monthly cycle. All completely private.',
     btnLabel: 'Begin Hormonal Check →',
@@ -38,9 +38,9 @@ window.mod_hormonalRhythm = function () {
       <div class="fld">
         <label class="lbl">How severe are your pre-period symptoms (cramps, mood, bloating)?</label>
         ${LAB.optGrid('hrSymp',[
-          {l:'Mild — barely noticeable',v:100},
-          {l:'Moderate — manageable',v:72},
-          {l:'Severe — affects daily life',v:40},
+          {l:'Mild: barely noticeable',v:100},
+          {l:'Moderate: manageable',v:72},
+          {l:'Severe: affects daily life',v:40},
           {l:'Very severe / debilitating',v:18}
         ])}
       </div>
@@ -48,7 +48,7 @@ window.mod_hormonalRhythm = function () {
       <div class="fld">
         <label class="lbl">How is your energy in the week before your period?</label>
         ${LAB.optGrid('hrEnPre',[
-          {l:'Normal — no change',v:100},
+          {l:'Normal: no change',v:100},
           {l:'Slightly lower',v:75},
           {l:'Noticeably lower',v:50},
           {l:'Very low / exhausted',v:25}
@@ -98,7 +98,7 @@ window.mod_energyIron = function () {
   LAB.showDemo({
     title: '⚡ Energy & Iron Check',
     txt: '4 quick questions about energy, fatigue and common iron-deficiency signs. Gets you a simple score and practical advice.',
-    hint: 'Iron deficiency is very common — worth checking',
+    hint: 'Iron deficiency is very common, worth checking',
     voiceEN: 'Energy and iron check. Four questions about your energy levels and iron deficiency symptoms.',
     btnLabel: 'Begin Energy & Iron Assessment →',
     vis: `<div style="text-align:center">
@@ -122,10 +122,10 @@ window.mod_energyIron = function () {
       <div class="fld">
         <label class="lbl">How is your energy level on most days?</label>
         ${LAB.optGrid('eiEn',[
-          {l:'High — feel great',v:100},
-          {l:'Moderate — okay',v:72},
-          {l:'Low — often tired',v:42},
-          {l:'Very low — exhausted daily',v:15}
+          {l:'High: feel great',v:100},
+          {l:'Moderate: okay',v:72},
+          {l:'Low: often tired',v:42},
+          {l:'Very low: exhausted daily',v:15}
         ])}
       </div>
 
@@ -144,7 +144,7 @@ window.mod_energyIron = function () {
         ${LAB.optGrid('eiFlow',[
           {l:'Light to normal',v:100},
           {l:'Slightly heavy',v:72},
-          {l:'Heavy — changes frequently',v:45},
+          {l:'Heavy: changes frequently',v:45},
           {l:'Very heavy / flooding',v:18}
         ])}
       </div>
@@ -152,9 +152,9 @@ window.mod_energyIron = function () {
       <div class="fld">
         <label class="lbl">How is your diet in iron-rich foods? (meat, beans, spinach, lentils)</label>
         ${LAB.optGrid('eiDiet',[
-          {l:'Rich — eat these regularly',v:100},
+          {l:'Rich: eat these regularly',v:100},
           {l:'Moderate',v:70},
-          {l:'Low — rarely eat these',v:40},
+          {l:'Low: rarely eat these',v:40},
           {l:'Very low / vegetarian with no iron focus',v:22}
         ])}
       </div>
@@ -181,7 +181,7 @@ window.mod_energyIron = function () {
 window.mod_femCombined = function () {
   LAB.showDemo({
     title: '🌙 Sleep & Comfort',
-    txt: '5 questions combining sleep-cycle quality and physical comfort — specific to female health patterns.',
+    txt: '5 questions combining sleep-cycle quality and physical comfort, specific to female health patterns.',
     hint: 'Combines sleep cycle + comfort in one short check',
     voiceEN: 'Sleep and comfort check. Five questions about sleep quality linked to your cycle and physical comfort.',
     btnLabel: 'Begin Sleep & Comfort Assessment →',
@@ -197,13 +197,13 @@ window.mod_femCombined = function () {
       <div class="step-head">
         <div class="tag tag--pk">🌸 Female · 3 of 3</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.35rem">Sleep & Comfort</h2>
-        <p class="pg">Final female module — 5 questions, under 2 minutes.</p>
+        <p class="pg">Final female module: 5 questions, under 2 minutes.</p>
       </div>
 
       <div class="fld">
         <label class="lbl">Does your sleep quality change with your cycle?</label>
         ${LAB.optGrid('fcSlCyc',[
-          {l:'No change — stable sleep',v:100},
+          {l:'No change: stable sleep',v:100},
           {l:'Slight changes',v:78},
           {l:'Noticeable worsening before period',v:48},
           {l:'Significant disruption for many days',v:22}
@@ -214,8 +214,8 @@ window.mod_femCombined = function () {
         <label class="lbl">How often do you experience pelvic pain or discomfort?</label>
         ${LAB.optGrid('fcPelv',[
           {l:'Rarely or never',v:100},
-          {l:'Only during period — mild',v:75},
-          {l:'Often during period — moderate',v:45},
+          {l:'Only during period: mild',v:75},
+          {l:'Often during period: moderate',v:45},
           {l:'Frequent or severe / outside period too',v:18}
         ])}
       </div>
@@ -272,12 +272,12 @@ window.mod_femCombined = function () {
 
 
 /* ═══════════════════════════════════════════════════════
-   NEW MODULE — WORD RECALL
+   NEW MODULE: WORD RECALL
    Show 8 words for 10s, hide them, user types recalled words
 ═══════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════
-   NEW MODULE — PERIPHERAL VISION
+   NEW MODULE: PERIPHERAL VISION
    Dots flash at screen edges; user taps when they see them
 ═══════════════════════════════════════════════════════ */
 window.mod_peripheralVision = function () {
@@ -286,9 +286,9 @@ window.mod_peripheralVision = function () {
 
   LAB.showDemo({
     title: '🔍 Peripheral Vision',
-    txt: 'A dot flashes <strong>at the edges</strong> of the screen — top, bottom, left or right. Tap the screen <strong>as soon as you see it</strong>. Keep your eyes on the centre cross.',
-    hint: 'Eyes 4 of 5 — tests edge awareness',
-    voiceEN: "Peripheral vision test! A dot will flash at the edge of your screen. Keep your eyes on the centre cross — and tap the moment you see any dot appear at the edges.",
+    txt: 'A dot flashes <strong>at the edges</strong> of the screen: top, bottom, left or right. Tap the screen <strong>as soon as you see it</strong>. Keep your eyes on the centre cross.',
+    hint: 'Eyes 4 of 5: tests edge awareness',
+    voiceEN: "Peripheral vision test! A dot will flash at the edge of your screen. Keep your eyes on the centre cross, and tap the moment you see any dot appear at the edges.",
     btnLabel: 'Begin Peripheral Vision Assessment →',
     vis: `<div style="position:relative;width:130px;height:110px;margin:0 auto" id="pvDemoArea">
       <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1.1rem;color:var(--tq)">+</div>
@@ -331,7 +331,7 @@ window.mod_peripheralVision = function () {
         <div class="scb"><span class="v" id="pvMiss">0</span><span class="l">Missed</span></div>
       </div>
     </div></div>`);
-    LAB.say("Eyes on the centre cross — tap the moment you see a dot at the edges. Go!");
+    LAB.say("Eyes on the centre cross, tap the moment you see a dot at the edges. Go!");
     setTimeout(_pvNext, 800);
   });
 
@@ -377,18 +377,18 @@ window.mod_peripheralVision = function () {
     const eyeScores = ['cbScore','acuityScore','csScore','peripheralScore'].map(k=>LAB.raw[k]).filter(x=>x!=null);
     if (eyeScores.length) LAB.scores.eye = Math.round(LAB.avg(eyeScores));
     LAB.celebrate();
-    LAB.say(`Peripheral vision done! You spotted ${hits} out of ${ROUNDS} dots — that is ${LAB.scoreLbl(sc)}! One more eye check!`);
+    LAB.say(`Peripheral vision done! You spotted ${hits} out of ${ROUNDS} dots, that is ${LAB.scoreLbl(sc)}! One more eye check!`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1900);
   }
 };
 
 /* ═══════════════════════════════════════════════════════
-   NEW MODULE — EYE TRACKING
+   NEW MODULE: EYE TRACKING
    A dot moves slowly; user keeps finger on it; accuracy scored
 ═══════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════
-   NEW MODULE — CALM TIMER
+   NEW MODULE: CALM TIMER
    60s relaxation: user taps when they feel calm; HRV-style
 ═══════════════════════════════════════════════════════ */
 
@@ -429,7 +429,7 @@ LAB._buildStaminaCard = function() {
                  :               '<span style="color:#C97010;font-weight:600">→ Stable</span>';
   return '<div class="card" style="margin-bottom:2rem">'
     +'<h3 class="h3" style="margin-bottom:.35rem">🧠 Cognitive Stamina</h3>'
-    +'<p class="pg" style="margin-bottom:.8rem;font-size:.8rem">Performance trend across brain tests — shows if your mind stayed sharp or fatigued.</p>'
+    +'<p class="pg" style="margin-bottom:.8rem;font-size:.8rem">Performance trend across brain tests, shows if your mind stayed sharp or fatigued.</p>'
     +'<div style="overflow-x:auto">'
     +'<svg viewBox="0 0 '+W+' '+(H+8)+'" width="100%" style="max-width:'+W+'px;display:block;margin:0 auto">'
     +'<defs><linearGradient id="stGrad" x1="0" y1="0" x2="0" y2="1">'
@@ -476,7 +476,7 @@ LAB.showDashboard = function () {
     overall = catScore;
     completedDomains = catScore != null ? 1 : 0;
   } else {
-    /* Weighted overall score — weights are dynamically normalised to 1.0
+    /* Weighted overall score: weights are dynamically normalised to 1.0
        so adding or removing categories never inflates/deflates the result */
     const activeWeights = { ...CATEGORY_WEIGHTS };
     if (isFem && hormScore != null) activeWeights.hormonal = 0.10; /* inject female weight */
@@ -491,7 +491,7 @@ LAB.showDashboard = function () {
         completedCount++;
       }
     });
-    /* Divide by rawWeightSum (sum of COMPLETED domains) — normalises to 0–100 */
+    /* Divide by rawWeightSum (sum of COMPLETED domains), normalises to 0–100 */
     overall = rawWeightSum > 0 ? Math.round(weightedTotal / rawWeightSum) : null;
     completedDomains = completedCount;
   }
@@ -528,7 +528,7 @@ LAB.showDashboard = function () {
       const streakData = streakRaw ? JSON.parse(streakRaw) : { count: 0, lastDate: null };
       const yesterday = new Date(Date.now() - 86400000).toDateString();
       if (streakData.lastDate === today) {
-        /* already recorded today — no change */
+        /* already recorded today: no change */
       } else if (streakData.lastDate === yesterday) {
         streakData.count = (streakData.count || 0) + 1;
         streakData.lastDate = today;
@@ -550,7 +550,7 @@ LAB.showDashboard = function () {
     : `<span>✅ Assessment Complete</span>`;
   const subtitle = isCategoryMode && activeCat
     ? `${activeCat.tests.length} checks completed · ${activeCat.name} assessment<span style="display:inline-flex;align-items:center;gap:.28rem;margin-left:.6rem;padding:.18rem .55rem;background:#2A7A5A12;border:1px solid #2A7A5A28;border-radius:50px;font-size:.68rem;font-family:'JetBrains Mono',monospace;color:#2A7A5A;letter-spacing:.04em">✓ Results saved</span>`
-    : (completedDomains > 0 ? 'Based on ' + (isFem?'35':'33') + ' wellness checks across 9 health domains: cognitive, eye, respiratory, stress, stability, lifestyle and more.' : 'You skipped all activities — no data to score. Complete at least one test to see results.');
+    : (completedDomains > 0 ? 'Based on ' + (isFem?'35':'33') + ' wellness checks across 9 health domains: cognitive, eye, respiratory, stress, stability, lifestyle and more.' : 'You skipped all activities: no data to score. Complete at least one test to see results.');
   const scoreLabel = isCategoryMode && activeCat ? activeCat.name + ' Score' : 'Overall Wellness';
 
   /* ── Confidence: % of tests actually completed ── */
@@ -593,7 +593,7 @@ LAB.showDashboard = function () {
                   padding:1.6rem 2.2rem;box-shadow:var(--shm);margin-bottom:1.8rem">
         <canvas id="overallRing" width="140" height="140"></canvas>
         <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--t);line-height:1"
-             id="overallNum">${overall !== null ? overall : '—'}</div>
+             id="overallNum">${overall !== null ? overall : '-'}</div>
         <div style="font-size:.65rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;
                     letter-spacing:.1em;color:var(--tq)">${scoreLabel}</div>
         <div style="font-size:.85rem;font-weight:700;color:${overall !== null ? LAB.scoreCol(overall) : 'var(--tq)'}">
@@ -647,7 +647,7 @@ LAB.showDashboard = function () {
             }).join('')}
           </div>
           <div style="margin-top:1rem;padding:.75rem 1rem;background:linear-gradient(135deg,var(--g4),#F9FEF9);border-radius:var(--rs);text-align:center">
-            <span style="font-size:.72rem;color:var(--tq)">Overall Wellness Score — </span>
+            <span style="font-size:.72rem;color:var(--tq)">Overall Wellness Score: </span>
             <span style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:${LAB.scoreCol(overall)}">${overall} / 100</span>
             <span style="font-size:.75rem;font-weight:700;color:${LAB.scoreCol(overall)};margin-left:.4rem">${LAB.scoreLbl(overall)}</span>
           </div>
@@ -663,7 +663,7 @@ LAB.showDashboard = function () {
               <div style="font-size:.68rem;color:var(--tq);margin-top:.2rem">Your age: ${wa.actual}</div>
               <div style="font-size:.72rem;font-weight:700;color:${wa.delta <= 0 ? '#2A7A5A' : '#C97010'};margin-top:.15rem">${wa.icon} ${wa.label}</div>
             ` : `
-              <div style="font-size:.85rem;font-weight:700;color:var(--g);margin:.25rem 0">${wa ? wa.icon + ' ' + wa.label : '—'}</div>
+              <div style="font-size:.85rem;font-weight:700;color:var(--g);margin:.25rem 0">${wa ? wa.icon + ' ' + wa.label : '-'}</div>
               <div style="font-size:.68rem;color:var(--tq);margin-top:.15rem">Enter age for exact score</div>
             `}
           </div>
@@ -725,7 +725,7 @@ LAB.showDashboard = function () {
             low:  'Eye health indicators suggest some areas to address. Please consider a professional eye examination.'
           },
           breathing: {
-            good: 'Excellent breath control — your nervous system is well regulated. Keep up the practice.',
+            good: 'Excellent breath control: your nervous system is well regulated. Keep up the practice.',
             fair: 'Your breathing balance is moderate. Daily 5-minute slow breathing exercises can help significantly.',
             low:  'Breath control could be improved. Start with simple inhale-hold-exhale cycles each morning.'
           },
@@ -818,7 +818,7 @@ LAB.showDashboard = function () {
         <!-- Optional Herbal Support -->
         <div style="background:linear-gradient(135deg,#FFFBF0,#fff);border:1.5px solid rgba(201,120,0,.18);border-radius:var(--r);padding:1.3rem 1.5rem;margin-bottom:1rem">
           <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gd);margin-bottom:.5rem">🌿 Optional Herbal Support</div>
-          <div style="font-size:.78rem;color:var(--tq);margin-bottom:.65rem">Informational only — not a treatment. Always consult a healthcare professional before use.</div>
+          <div style="font-size:.78rem;color:var(--tq);margin-bottom:.65rem">Informational only: not a treatment. Always consult a healthcare professional before use.</div>
           <div style="font-weight:700;font-size:.98rem;color:var(--t);margin-bottom:.1rem">${herb.product}</div>
           <div style="font-size:.7rem;color:var(--tq);margin-bottom:.5rem;font-style:italic">${P[herb.id]?.desc || ''}</div>
           <div style="font-size:.68rem;font-weight:700;color:var(--tq);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem">Key Herbs</div>
@@ -836,7 +836,7 @@ LAB.showDashboard = function () {
           <div style="font-size:1.6rem;flex-shrink:0">👉</div>
           <div style="flex:1;min-width:160px">
             <div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:.2rem">Recommended Next Step</div>
-            <div style="font-size:.85rem;color:var(--t);line-height:1.5">${exs[0]} — <a href="exercises.html" style="color:var(--g);font-weight:600;text-decoration:none">open in Exercise Library →</a></div>
+            <div style="font-size:.85rem;color:var(--t);line-height:1.5">${exs[0]}: <a href="exercises.html" style="color:var(--g);font-weight:600;text-decoration:none">open in Exercise Library →</a></div>
           </div>
         </div>`;
       })()}` : ''}
@@ -857,7 +857,7 @@ LAB.showDashboard = function () {
           <div style="font-size:.6rem;font-family:'JetBrains Mono',monospace;font-weight:700;
                       text-transform:uppercase;letter-spacing:.1em;color:var(--tq);margin-bottom:.22rem">${d.icon} ${d.label}</div>
           <div style="font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;
-                      line-height:1;color:${skipped?'var(--tq)':d.col}">${skipped ? '—' : sc}</div>
+                      line-height:1;color:${skipped?'var(--tq)':d.col}">${skipped ? '-' : sc}</div>
           <div style="font-size:.68rem;color:${skipped?'var(--tq)':LAB.scoreCol(sc)};font-weight:600;margin-top:.18rem">
             ${skipped ? 'Skipped' : LAB.scoreLbl(sc)}</div>
         </div>`;
@@ -886,7 +886,7 @@ LAB.showDashboard = function () {
 
     <div style="margin-bottom:2rem">
       <h3 class="h3" style="margin-bottom:.4rem">💡 Personalised Recommendations</h3>
-      <p class="pg" style="margin-bottom:1.2rem">Based on your scores — things worth paying attention to.</p>
+      <p class="pg" style="margin-bottom:1.2rem">Based on your scores: things worth paying attention to.</p>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.9rem">
         ${recs.map(r=>`
           <div style="background:#fff;border:1.5px solid var(--b);border-radius:var(--r);
@@ -912,9 +912,9 @@ LAB.showDashboard = function () {
 
     <div style="background:var(--g4);border:1px solid rgba(42,122,90,.16);border-radius:var(--rs);
                 padding:1rem 1.2rem;font-size:.73rem;color:var(--tq);line-height:1.78;margin-bottom:2rem">
-      <strong style="color:var(--g)">Important:</strong> These results are wellness indicators only — they are <strong>not</strong> a medical diagnosis.
+      <strong style="color:var(--g)">Important:</strong> These results are wellness indicators only, they are <strong>not</strong> a medical diagnosis.
       The activities measure performance proxies, not clinical outcomes. If any score concerns you, please speak to a qualified healthcare professional.
-      No data has been sent anywhere — everything was calculated on your device.
+      No data has been sent anywhere, everything was calculated on your device.
     </div>
 
     <div style="margin-bottom:2rem">
@@ -1005,7 +1005,7 @@ LAB.showDashboard = function () {
           </div>
           <p style="font-size:.82rem;color:var(--tm);line-height:1.65;margin-bottom:.9rem">
             Based on your test results, specific exercises have been selected to address your weak areas.
-            Each exercise is guided by a live timer and voice instructions — takes just 2–6 minutes.
+            Each exercise is guided by a live timer and voice instructions, takes just 2–6 minutes.
           </p>
           <div id="exRecsBlock" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.9rem"></div>
           <a href="exercises.html" id="goExercisesBtn"
@@ -1025,7 +1025,7 @@ LAB.showDashboard = function () {
 
     <div class="community-banner" style="margin-bottom:1.4rem">
       <div>
-        <div class="cb-title">🎉 Assessment Complete — Join Our Community!</div>
+        <div class="cb-title">🎉 Assessment Complete: Join Our Community!</div>
         <div class="cb-msg">Share your wellness journey &amp; get daily health tips from Shah Hayaat</div>
         <div class="cb-sub">Connect with thousands of people on their wellness journey</div>
       </div>
@@ -1041,7 +1041,7 @@ LAB.showDashboard = function () {
 
     <div class="card" style="margin-bottom:1.4rem;padding:1.25rem 1.4rem">
       <h3 class="h3" style="margin-bottom:.5rem;font-size:.95rem">📄 Download Your PDF Report</h3>
-      <p class="pg" style="margin-bottom:.85rem;font-size:.82rem">Add your name to appear on the report — or leave it blank.</p>
+      <p class="pg" style="margin-bottom:.85rem;font-size:.82rem">Add your name to appear on the report, or leave it blank.</p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.85rem">
         <div class="fld">
           <label class="lbl" for="pdfNameInp">Your name (optional)</label>
@@ -1065,7 +1065,7 @@ LAB.showDashboard = function () {
     <!-- ── Shareable Wellness Card ─────────────────────────── -->
     <div class="card" style="margin-bottom:1.4rem;padding:1.25rem 1.4rem">
       <h3 class="h3" style="margin-bottom:.3rem;font-size:.95rem">📤 Share Your Score</h3>
-      <p class="pg" style="margin-bottom:1rem;font-size:.82rem">Share your wellness card — or challenge a friend to beat your score!</p>
+      <p class="pg" style="margin-bottom:1rem;font-size:.82rem">Share your wellness card: or challenge a friend to beat your score!</p>
 
       <!-- Preview card (the shareable visual) -->
       <div id="_shareCard" style="background:linear-gradient(135deg,#0A1F14 0%,#162E1E 100%);
@@ -1155,8 +1155,8 @@ LAB.showDashboard = function () {
   LAB.celebrate();
   trackWL('wellness_completed');
   LAB.say(overall !== null
-    ? `You did it! Congratulations! Your overall wellness score is ${overall} out of a hundred — that is ${LAB.scoreLbl(overall)}! Scroll down to see your full results, personalised tips, and download your free PDF report!`
-    : 'You reached the end — well done for trying! Complete at least a few checks to get your wellness score.');
+    ? `You did it! Congratulations! Your overall wellness score is ${overall} out of a hundred, that is ${LAB.scoreLbl(overall)}! Scroll down to see your full results, personalised tips, and download your free PDF report!`
+    : 'You reached the end: well done for trying! Complete at least a few checks to get your wellness score.');
 };
 
 LAB._drawRing = function(canvasId, score, color, radius) {
@@ -1183,29 +1183,29 @@ LAB._drawRing = function(canvasId, score, color, radius) {
 
 LAB._buildBreakdownRows = function() {
   const rows=[
-    {label:'⚡ Reaction Speed',      val:LAB.raw.rxAvg?LAB.raw.rxAvg+'ms avg':'—',      score:LAB.raw.rxScore},
-    {label:'🧩 Spatial Memory',        val:LAB.raw.memSpan?'Span '+LAB.raw.memSpan:'—',      score:LAB.raw.memScore},
-    {label:'🎨 Stroop Test',           val:LAB.raw.stroopCorrect!=null?LAB.raw.stroopCorrect+'/20 correct':'—', score:LAB.raw.stroopScore},
-      {label:'🔢 Digit Span',            val:LAB.raw.dsSpan!=null?LAB.raw.dsSpan+' digits':'—', score:LAB.raw.dsScore},
-      {label:'🔗 Trail Making',          val:LAB.raw.tmtTime!=null?LAB.raw.tmtTime+'s, '+LAB.raw.tmtErr+' mistakes':'—', score:LAB.raw.tmtScore},
-      {label:'🚦 Go / No-Go',            val:LAB.raw.gngErr!=null?LAB.raw.gngErr+' mistakes':'—', score:LAB.raw.gngScore},
-      {label:'🧍 One-Leg Stand',         val:LAB.raw.balanceSec!=null?LAB.raw.balanceSec+'s':'—', score:LAB.raw.balanceScore},
-    {label:'💪 Body Vitality',         val:LAB.raw.bodyVitality!=null?'6 domains':'—',          score:LAB.raw.bodyVitality},
-    {label:'🔤 Word Recall',           val:LAB.raw.wordRecallCorrect!==undefined?LAB.raw.wordRecallCorrect+' words recalled':'—', score:LAB.raw.wordRecallScore},
-    {label:'🎨 Colour Blindness',     val:LAB.raw.cbCorrect!==undefined?LAB.raw.cbCorrect+'/'+LAB.raw.cbTotal+' correct':'—', score:LAB.raw.cbScore},
-    {label:'🔍 Peripheral Vision',     val:LAB.raw.peripheralHits!==undefined?LAB.raw.peripheralHits+' hits':'—', score:LAB.raw.peripheralScore},
+    {label:'⚡ Reaction Speed',      val:LAB.raw.rxAvg?LAB.raw.rxAvg+'ms avg':'-',      score:LAB.raw.rxScore},
+    {label:'🧩 Spatial Memory',        val:LAB.raw.memSpan?'Span '+LAB.raw.memSpan:'-',      score:LAB.raw.memScore},
+    {label:'🎨 Stroop Test',           val:LAB.raw.stroopCorrect!=null?LAB.raw.stroopCorrect+'/20 correct':'-', score:LAB.raw.stroopScore},
+      {label:'🔢 Digit Span',            val:LAB.raw.dsSpan!=null?LAB.raw.dsSpan+' digits':'-', score:LAB.raw.dsScore},
+      {label:'🔗 Trail Making',          val:LAB.raw.tmtTime!=null?LAB.raw.tmtTime+'s, '+LAB.raw.tmtErr+' mistakes':'-', score:LAB.raw.tmtScore},
+      {label:'🚦 Go / No-Go',            val:LAB.raw.gngErr!=null?LAB.raw.gngErr+' mistakes':'-', score:LAB.raw.gngScore},
+      {label:'🧍 One-Leg Stand',         val:LAB.raw.balanceSec!=null?LAB.raw.balanceSec+'s':'-', score:LAB.raw.balanceScore},
+    {label:'💪 Body Vitality',         val:LAB.raw.bodyVitality!=null?'6 domains':'-',          score:LAB.raw.bodyVitality},
+    {label:'🔤 Word Recall',           val:LAB.raw.wordRecallCorrect!==undefined?LAB.raw.wordRecallCorrect+' words recalled':'-', score:LAB.raw.wordRecallScore},
+    {label:'🎨 Colour Blindness',     val:LAB.raw.cbCorrect!==undefined?LAB.raw.cbCorrect+'/'+LAB.raw.cbTotal+' correct':'-', score:LAB.raw.cbScore},
+    {label:'🔍 Peripheral Vision',     val:LAB.raw.peripheralHits!==undefined?LAB.raw.peripheralHits+' hits':'-', score:LAB.raw.peripheralScore},
     {label:'👀 Eye Tracking',          val:'Accuracy check', score:LAB.raw.eyeTrackScore},
     {label:'🌬 Breath Sync',          val:'Auto-timed',                                  score:LAB.raw.breathSyncScore},
-    {label:'♻ Recovery (HRV)',        val:LAB.raw.recoveryBPM?LAB.raw.recoveryBPM+' BPM':'—', score:LAB.raw.recoveryScore},
+    {label:'♻ Recovery (HRV)',        val:LAB.raw.recoveryBPM?LAB.raw.recoveryBPM+' BPM':'-', score:LAB.raw.recoveryScore},
     {label:'📱 Steady Hand',          val:'Motion analysis',                             score:LAB.raw.stabilityScore},
-    {label:'💤 Sleep',                val:LAB.raw.sleepHours?LAB.raw.sleepHours+'h':'—', score:LAB.raw.sleepScore},
+    {label:'💤 Sleep',                val:LAB.raw.sleepHours?LAB.raw.sleepHours+'h':'-', score:LAB.raw.sleepScore},
     {label:'⚖ Lifestyle',            val:'6 dimensions',                                score:LAB.raw.lifestyleScore},
-    {label:'💧 Hydration Risk',       val:LAB.raw.hydrationScore!=null?'Completed':'—', score:LAB.raw.hydrationScore},
-    {label:'🌅 Circadian Type',       val:LAB.raw.circadianType||'—', score:LAB.raw.circadianLifeScore||null},
-    {label:'🔀 Multitask Load',       val:LAB.raw.multitaskScore!=null?(LAB.raw.multitaskStarAcc!=null?'Star acc: '+LAB.raw.multitaskStarAcc+'%':'Completed'):'—', score:LAB.raw.multitaskScore},
-    {label:'⚡ Decision Speed',       val:LAB.raw.decisionScore!=null?(LAB.raw.decisionAcc!=null?LAB.raw.decisionAcc+'% acc':'Completed'):'—', score:LAB.raw.decisionScore},
-    {label:'⚡ Fatigue Drift',        val:LAB.raw.fatigueDrift!=null?(LAB.raw.fatigueDrift>0?'+'+LAB.raw.fatigueDrift+'ms slower':'Improved ⚡'):'—', score:LAB.raw.fatigueDriftScore},
-    {label:'🔢 Number Sequence',      val:LAB.raw.numberSeqTime!=null?LAB.raw.numberSeqTime+'s':'—', score:LAB.raw.numberSeqScore},
+    {label:'💧 Hydration Risk',       val:LAB.raw.hydrationScore!=null?'Completed':'-', score:LAB.raw.hydrationScore},
+    {label:'🌅 Circadian Type',       val:LAB.raw.circadianType||'-', score:LAB.raw.circadianLifeScore||null},
+    {label:'🔀 Multitask Load',       val:LAB.raw.multitaskScore!=null?(LAB.raw.multitaskStarAcc!=null?'Star acc: '+LAB.raw.multitaskStarAcc+'%':'Completed'):'-', score:LAB.raw.multitaskScore},
+    {label:'⚡ Decision Speed',       val:LAB.raw.decisionScore!=null?(LAB.raw.decisionAcc!=null?LAB.raw.decisionAcc+'% acc':'Completed'):'-', score:LAB.raw.decisionScore},
+    {label:'⚡ Fatigue Drift',        val:LAB.raw.fatigueDrift!=null?(LAB.raw.fatigueDrift>0?'+'+LAB.raw.fatigueDrift+'ms slower':'Improved ⚡'):'-', score:LAB.raw.fatigueDriftScore},
+    {label:'🔢 Number Sequence',      val:LAB.raw.numberSeqTime!=null?LAB.raw.numberSeqTime+'s':'-', score:LAB.raw.numberSeqScore},
   ];
   if(LAB.gender==='female'){
     rows.push(
@@ -1222,7 +1222,7 @@ LAB._buildBreakdownRows = function() {
       ${r.val?`<span style="font-size:.7rem;color:var(--tq);font-family:'JetBrains Mono',monospace;margin-right:.5rem">${r.val}</span>`:''}
       <span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;
                    color:${sc!=null?LAB.scoreCol(sc):'var(--tq)'};min-width:30px;text-align:right">
-        ${sc!=null?sc:'—'}
+        ${sc!=null?sc:'-'}
       </span>
     </div>`;
   }).join('');
@@ -1255,7 +1255,7 @@ LAB._buildFlagBox = function() {
 window.mod_hydration = function () {
   LAB.showDemo({
     title: '💧 Hydration Risk',
-    txt: 'Answer 5 quick questions about your hydration habits. Dehydration affects mood, cognition and energy — even when mild.',
+    txt: 'Answer 5 quick questions about your hydration habits. Dehydration affects mood, cognition and energy, even when mild.',
     hint: 'Takes under 60 seconds · be honest',
     voiceEN: 'Hydration check! Five quick questions about your water intake and related symptoms.',
     btnLabel: 'Begin Hydration Assessment →',
@@ -1309,7 +1309,7 @@ window.mod_hydration = function () {
       // Blend into lifestyle
       const lsVals=[LAB.raw.lifestyleScore, sc].filter(x=>x!=null);
       if(lsVals.length) LAB.scores.lifestyle = Math.round(LAB.avg(lsVals));
-      LAB.say(`Hydration score: ${sc}. ${sc < 60 ? 'Low hydration detected — try to drink more water daily.' : 'Good hydration habits!'}`);
+      LAB.say(`Hydration score: ${sc}. ${sc < 60 ? 'Low hydration detected: try to drink more water daily.' : 'Good hydration habits!'}`);
       setTimeout(()=>{ LAB.idx++; LAB.next(); }, 1500);
     };
   });
@@ -1448,7 +1448,7 @@ LAB._buildRecs = function() {
   // Fatigue Drift
   if(R.fatigueDrift!=null && R.fatigueDrift>30)
     recs.push({icon:'😴',title:'Mental Fatigue Detected',
-      body:'Your reaction time slowed by '+R.fatigueDrift+'ms across the test. This signals accumulating mental fatigue — likely from poor sleep, stress or long screen hours.',
+      body:'Your reaction time slowed by '+R.fatigueDrift+'ms across the test. This signals accumulating mental fatigue, likely from poor sleep, stress or long screen hours.',
       action:'Prioritise 7–9 hrs sleep · take regular screen breaks',col:'#7C3AED'});
 
   // Go/No-Go impulse control
@@ -1467,7 +1467,7 @@ LAB._buildRecs = function() {
       action:'Stay hydrated · take eye breaks · brain puzzles daily',col:'#2563EB'});
 
   if((S.cognitive||100)<60)
-    recs.push({icon:'🧩',title:'Brain Training',body:'Daily cognitive challenges — puzzles, memory games, or learning a new skill — can meaningfully improve processing speed and working memory.',action:'Try 10 min/day',col:'#2A7A5A'});
+    recs.push({icon:'🧩',title:'Brain Training',body:'Daily cognitive challenges: puzzles, memory games, or learning a new skill, can meaningfully improve processing speed and working memory.',action:'Try 10 min/day',col:'#2A7A5A'});
   if((R.rxAvg||0)>400)
     recs.push({icon:'⚡',title:'Faster Reactions',body:'Your reaction time is above average. Regular aerobic exercise and reducing screen fatigue before tests can shorten it.',action:'Aerobic exercise',col:'#059669'});
 
@@ -1482,17 +1482,17 @@ LAB._buildRecs = function() {
   if(R.eyeStrainScore!=null && R.eyeStrainScore<55)
     recs.push({icon:'🖥',title:'Digital Eye Strain Detected',body:'Your blink resistance was '+R.eyeStrainBlinkTime+'s and focus accuracy was '+R.eyeStrainFocusScore+'%. Extended screen use likely causes fatigue. Reduce daily screen time and apply the 20-20-20 rule.',action:'20-20-20 rule daily',col:'#2563EB'});
   else if(R.eyeStrainScore!=null && R.eyeStrainScore>=75)
-    recs.push({icon:'🖥',title:'Low Screen Fatigue',body:'Your eye strain score is excellent — good blink rate and focus switching ability indicate healthy visual endurance.',action:'Keep screen habits healthy',col:'#2A7A5A'});
+    recs.push({icon:'🖥',title:'Low Screen Fatigue',body:'Your eye strain score is excellent, good blink rate and focus switching ability indicate healthy visual endurance.',action:'Keep screen habits healthy',col:'#2A7A5A'});
 
   if((R.breathHold||100)<25)
     recs.push({icon:'🫁',title:'Breathing Exercises',body:'Short breath-hold time can indicate high CO₂ sensitivity or anxiety. Box breathing (4-4-4-4) practiced daily builds tolerance.',action:'Box breathing daily',col:'#059669'});
   if((S.respiratory||100)<55)
-    recs.push({icon:'🌬',title:'Lung Capacity',body:'Regular aerobic activity — walking, swimming or cycling — is the most effective way to improve respiratory efficiency over time.',action:'30 min aerobic/day',col:'#059669'});
+    recs.push({icon:'🌬',title:'Lung Capacity',body:'Regular aerobic activity: walking, swimming or cycling, is the most effective way to improve respiratory efficiency over time.',action:'30 min aerobic/day',col:'#059669'});
 
   if((S.stress||100)<55)
     recs.push({icon:'🔥',title:'Stress Management',body:'High stress reduces cognitive performance under pressure. Mindfulness, consistent sleep and limiting caffeine can improve scores.',action:'Try mindfulness',col:'#C97010'});
   if((R.stressRecoveryScore||100)<50)
-    recs.push({icon:'🧘',title:'Poor Stress Recovery',body:'Your body takes longer than average to recover from stressful events. Daily breathwork — even 5 minutes of box breathing (4-4-4-4) — can accelerate recovery speed measurably.',action:'Box breathing 5 min/day',col:'#7C3AED'});
+    recs.push({icon:'🧘',title:'Poor Stress Recovery',body:'Your body takes longer than average to recover from stressful events. Daily breathwork, even 5 minutes of box breathing (4-4-4-4), can accelerate recovery speed measurably.',action:'Box breathing 5 min/day',col:'#7C3AED'});
 
   if((R.tremorDev||0)>35)
     recs.push({icon:'✏',title:'Fine Motor Stability',body:'Higher tremor deviation can result from caffeine, poor sleep or stress. Reducing stimulants and practising steady-hand tasks helps.',action:'Reduce caffeine',col:'#7C3AED'});
@@ -1518,7 +1518,7 @@ LAB._buildRecs = function() {
   }
 
   if((S.cognitive||0)>=75)
-    recs.push({icon:'🏆',title:'Strong Cognition',body:'Your cognitive scores are excellent! Keep challenging your brain with varied activities — novelty is key to maintaining sharpness.',action:'Keep it up!',col:'#2A7A5A'});
+    recs.push({icon:'🏆',title:'Strong Cognition',body:'Your cognitive scores are excellent! Keep challenging your brain with varied activities, novelty is key to maintaining sharpness.',action:'Keep it up!',col:'#2A7A5A'});
 
   // Posture Balance
   if(R.postureScore!=null && R.postureScore<50)
@@ -1528,7 +1528,7 @@ LAB._buildRecs = function() {
 
   // Emotional Stress
   if(R.emotionalFalseAlarms!=null && R.emotionalFalseAlarms>2)
-    recs.push({icon:'😮',title:'High Emotional Reactivity',body:'You tapped '+R.emotionalFalseAlarms+' stress words accidentally. This suggests your nervous system responds quickly to threatening stimuli — a marker of elevated background stress or anxiety.',action:'Mindfulness · breathing exercises',col:'#C97010'});
+    recs.push({icon:'😮',title:'High Emotional Reactivity',body:'You tapped '+R.emotionalFalseAlarms+' stress words accidentally. This suggests your nervous system responds quickly to threatening stimuli, a marker of elevated background stress or anxiety.',action:'Mindfulness · breathing exercises',col:'#C97010'});
   else if(R.emotionalStressScore!=null && R.emotionalStressScore>=75)
     recs.push({icon:'😮',title:'Stable Emotional Response',body:'Your emotional stress response shows good inhibitory control. You can effectively suppress reactions to stressful stimuli.',action:'Maintain stress hygiene',col:'#2A7A5A'});
 
@@ -1536,7 +1536,7 @@ LAB._buildRecs = function() {
   if(R.cogFlexSwitchErrors!=null && R.cogFlexSwitchErrors>3)
     recs.push({icon:'🔄',title:'Cognitive Flexibility Below Average',body:'You made '+R.cogFlexSwitchErrors+' errors on rule-switch trials. Cognitive rigidity often links to sleep deprivation, chronic stress or insufficient mental variety. Brain training and novel activities help.',action:'Try new activities daily',col:'#2563EB'});
   else if(R.cogFlexScore!=null && R.cogFlexScore>=80)
-    recs.push({icon:'🔄',title:'High Cognitive Flexibility',body:'Excellent rule-switching ability. Your brain adapts quickly to changing demands — a strong predictor of resilience and problem-solving capacity.',action:'Keep challenging yourself!',col:'#2A7A5A'});
+    recs.push({icon:'🔄',title:'High Cognitive Flexibility',body:'Excellent rule-switching ability. Your brain adapts quickly to changing demands, a strong predictor of resilience and problem-solving capacity.',action:'Keep challenging yourself!',col:'#2A7A5A'});
 
   // Hydration
   if((R.hydrationScore||100)<55)
@@ -1750,7 +1750,7 @@ LAB._buildProductCards = function () {
   if ((S.eye ?? 100) < 70 || R.cbFlag || R.acuityFlag)
     selected.push({ ...P.musaffakhoon, id:'musaffakhoon', reason:'Blood purification supports eye health and clarity.' });
 
-  // Gut Health — shahzyme for digestion, panasip for acidity, livohayaat for liver
+  // Gut Health: shahzyme for digestion, panasip for acidity, livohayaat for liver
   if ((S.gut ?? 100) < 65) {
     selected.push({ ...P.shahzyme, id:'shahzyme', reason:'Gut health scores suggest digestive enzyme support.' });
     selected.push({ ...P.panasip,  id:'panasip',  reason:'Gut health score suggests acidity or gastric discomfort support.' });
@@ -1773,10 +1773,10 @@ LAB._buildProductCards = function () {
   if ((S.heart ?? 100) < 75 || (R.heartBPM ?? 72) > 90 || (R.heartBPM ?? 72) < 55)
     selected.push({ ...P.bloodstorm, id:'bloodstorm', reason:'Heart rate indicators suggest cardiovascular and energy support.' });
 
-  // Immunity — any low score
+  // Immunity: any low score
   const anyLow = Object.values(S).some(v => v != null && v < 60);
   if (anyLow)
-    selected.push({ ...P.fevodol, id:'fevodol', reason:'Multiple low scores — immunity support recommended.' });
+    selected.push({ ...P.fevodol, id:'fevodol', reason:'Multiple low scores: immunity support recommended.' });
 
   const seen = new Set();
   const unique = selected.filter(p => { if (seen.has(p.id)) return false; seen.add(p.id); return true; });
@@ -1858,7 +1858,7 @@ LAB._shareWellnessCard = function (platform) {
 
   const lbl = LAB.scoreLbl(overall);
   const url  = 'https://www.shahhayaat.com/wellness-lab.html';
-  const text = `🏅 My Shah Hayaat Wellness Score: *${overall}/100* — ${lbl}\n\n${breakdown}\n\nTake your free wellness check: ${url}`;
+  const text = `🏅 My Shah Hayaat Wellness Score: *${overall}/100*, ${lbl}\n\n${breakdown}\n\nTake your free wellness check: ${url}`;
   const encodedText = encodeURIComponent(text);
 
   trackWL('share_wellness_card', platform);
@@ -1937,12 +1937,12 @@ LAB.whatsappShare = LAB.sharePDFWhatsApp;
 LAB._buildTips = function(overall) {
   const tips=[
     {icon:'💧',text:'<strong>Drink water first thing.</strong> Starting the day with 400–500ml of water rehydrates your brain after sleep and improves morning alertness.'},
-    {icon:'🚶',text:'<strong>Walk after meals.</strong> A 10-minute walk after eating improves blood sugar regulation, digestion and afternoon energy — no gym required.'},
+    {icon:'🚶',text:'<strong>Walk after meals.</strong> A 10-minute walk after eating improves blood sugar regulation, digestion and afternoon energy, no gym required.'},
     {icon:'📵',text:'<strong>No screens 45 min before bed.</strong> Blue light delays melatonin release. This single habit measurably improves sleep depth over 2–3 weeks.'},
     {icon:'🌬',text:'<strong>Box breathing for stress.</strong> Inhale 4s · Hold 4s · Exhale 4s · Hold 4s. Two minutes of this activates the parasympathetic system immediately.'},
     {icon:'🥗',text:'<strong>Eat colourfully.</strong> The most practical nutrition advice: aim for 5–6 different colours of vegetables/fruits per day. Diversity beats quantity.'},
-    {icon:'😴',text:'<strong>Consistent wake time.</strong> Waking at the same time every day (even weekends) is the fastest way to fix sleep quality — stronger effect than bedtime.'},
-    {icon:'🧠',text:'<strong>Learn something new.</strong> Daily exposure to novel cognitive challenges — a language, an instrument, a puzzle type — builds cognitive reserve that protects brain health long-term.'},
+    {icon:'😴',text:'<strong>Consistent wake time.</strong> Waking at the same time every day (even weekends) is the fastest way to fix sleep quality, stronger effect than bedtime.'},
+    {icon:'🧠',text:'<strong>Learn something new.</strong> Daily exposure to novel cognitive challenges, a language, an instrument, a puzzle type, builds cognitive reserve that protects brain health long-term.'},
   ];
   if(overall<55) tips.push({icon:'🩺',text:'<strong>Consider a health check-up.</strong> Several of your scores were below average. A general check-up with your doctor is a sensible next step.'});
   return tips.map(t=>`
@@ -1973,12 +1973,12 @@ LAB.generatePDF = function () {
   const pdfTestCount = pdfCat ? `${pdfCat.tests.length} Activities` : (isFem?'19':'16') + ' Activities Completed';
 
   const scoreRows=[
-    ['🧠 Cognitive',   S.cognitive||'—'],
-    ['👁 Eye Health',  S.eye||'—'],
-    ['🌬 Respiratory', S.respiratory||'—'],
-    ['🔥 Stress',      S.stress||'—'],
-    ['📱 Stability',   S.stability||'—'],
-    ['⚖ Lifestyle',   S.lifestyle||'—'],
+    ['🧠 Cognitive',   S.cognitive||'-'],
+    ['👁 Eye Health',  S.eye||'-'],
+    ['🌬 Respiratory', S.respiratory||'-'],
+    ['🔥 Stress',      S.stress||'-'],
+    ['📱 Stability',   S.stability||'-'],
+    ['⚖ Lifestyle',   S.lifestyle||'-'],
     ...(isFem&&S.hormonal?[['🌸 Hormonal',S.hormonal]]:[] ),
     ...(S.heart   != null ? [['❤️ Heart & Pulse', S.heart]]   : []),
     ...(S.gut     != null ? [['🍽 Gut Health',    S.gut]]     : []),
@@ -2023,7 +2023,7 @@ LAB.generatePDF = function () {
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Shah Hayaat Wellness Report — ${dateStr}</title>
+<title>Shah Hayaat Wellness Report: ${dateStr}</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
   *{margin:0;padding:0;box-sizing:border-box}
@@ -2137,7 +2137,7 @@ LAB.generatePDF = function () {
     <div class="overall-info">
       ${userName?`<div style="font-size:26px;font-family:'Playfair Display',serif;font-weight:700;color:#B8860B;letter-spacing:.03em;line-height:1.2;margin-bottom:6px;text-shadow:0 1px 3px rgba(184,134,11,.18)">${userName}</div>`:''}
       <div class="overall-lbl">Overall Wellness Score</div>
-      <div class="overall-rating">${LAB.scoreLbl(overall)} — ${overall}/100</div>
+      <div class="overall-rating">${LAB.scoreLbl(overall)}, ${overall}/100</div>
       <div class="overall-sub">Combined from ${isFem?'7':'6'} health domains across ${isFem?'19':'16'} wellness activities.</div>
       <div style="margin-top:8px;height:10px;background:#D4E8DC;border-radius:5px;overflow:hidden">
         <div style="width:${overall}%;height:100%;background:${LAB.scoreCol(overall)};border-radius:5px"></div>
@@ -2150,8 +2150,8 @@ LAB.generatePDF = function () {
           <span style="font-size:22px">${wa.icon}</span>
           <div>
             <div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#6A8A6A;font-family:'JetBrains Mono',monospace">Wellness Age Indicator</div>
-            <div style="font-size:14px;font-weight:700;color:${LAB.scoreCol(overall)}">${wa.label}${wa.wellness?' — Wellness Age: '+wa.wellness:''}</div>
-            <div style="font-size:9.5px;color:#888;margin-top:1px">Performance indicator only — not a medical measurement</div>
+            <div style="font-size:14px;font-weight:700;color:${LAB.scoreCol(overall)}">${wa.label}${wa.wellness?', Wellness Age: '+wa.wellness:''}</div>
+            <div style="font-size:9.5px;color:#888;margin-top:1px">Performance indicator only: not a medical measurement</div>
           </div>
         </div>`;
       })()}
@@ -2161,11 +2161,11 @@ LAB.generatePDF = function () {
   <div class="sec-hdr">Health Domain Scores</div>
   <div class="score-grid">
     ${scoreRows.map(([name,sc])=>{
-      const col=sc!=='—'?LAB.scoreCol(Number(sc)):'#888';
+      const col=sc!=='-'?LAB.scoreCol(Number(sc)):'#888';
       return `<div class="score-card" style="--c:${col}">
         <div class="sc-name">${name}</div>
         <div class="sc-num">${sc}</div>
-        <div class="sc-lbl">${sc!=='—'?LAB.scoreLbl(Number(sc)):'Skipped'}</div>
+        <div class="sc-lbl">${sc!=='-'?LAB.scoreLbl(Number(sc)):'Skipped'}</div>
       </div>`;
     }).join('')}
   </div>
@@ -2228,9 +2228,9 @@ LAB.generatePDF = function () {
 
   ${(()=>{
     const f=[];
-    if(R.cbFlag) f.push('🎨 Colour perception — consider a clinical eye test');
-    if(R.acuityFlag) f.push('📏 Visual acuity — screen vision below typical threshold');
-    if((S.respiratory||100)<45) f.push('🌬 Respiratory scores are low — speak to a doctor if you have breathing difficulties');
+    if(R.cbFlag) f.push('🎨 Colour perception: consider a clinical eye test');
+    if(R.acuityFlag) f.push('📏 Visual acuity: screen vision below typical threshold');
+    if((S.respiratory||100)<45) f.push('🌬 Respiratory scores are low, speak to a doctor if you have breathing difficulties');
     if(!f.length) return '';
     return `<div style="background:#FFF8ED;border:1.5px solid rgba(201,120,0,.3);border-radius:10px;padding:12px 14px;margin-bottom:18px">
       <div style="font-weight:700;font-size:13px;color:#C97010;margin-bottom:8px">⚠ Items Worth Investigating</div>
@@ -2329,7 +2329,7 @@ LAB.generatePDF = function () {
   // Open report in a new tab and auto-trigger print → Save as PDF
   const win = window.open('', '_blank', 'width=900,height=700,noopener,noreferrer');
   if (!win) {
-    // Popup blocked — fallback: blob download as HTML
+    // Popup blocked: fallback: blob download as HTML
     try {
       const blob = new Blob([html], {type:'text/html;charset=utf-8'});
       const url  = URL.createObjectURL(blob);
@@ -2353,11 +2353,11 @@ LAB.generatePDF = function () {
 };
 
 /* ══════════════════════════════════════════════════════════════════════
-   NEW TEST MODULES — Phase 4
+   NEW TEST MODULES: Phase 4
    ══════════════════════════════════════════════════════════════════════ */
 
 /* ══════════════════════════════════════════════════════════════
-   mod_bodySymptoms — Body Vitality Check
+   mod_bodySymptoms: Body Vitality Check
    Measures: energy, joint comfort, immunity, skin & physical well-being
    Method: 6-domain interactive symptom map with animated body areas.
    Replaces unreliable tap-based heart rate test.
@@ -2386,8 +2386,8 @@ window.mod_bodySymptoms = function () {
       id:'immunity', icon:'🛡', label:'Immunity & Recovery',
       color:'#059669', bg:'#E8F5EE',
       questions:[
-        { q:'How often do you fall ill (cold, flu, infections)?', opts:[['Rarely — once a year or less',100],['2–3 times a year',70],['Every few months',42],['Very often, monthly',15]] },
-        { q:'How well do you recover from illness?', opts:[['Quickly — 2–3 days',100],['About a week',70],['Takes 2+ weeks',40],['I seem to stay unwell',15]] },
+        { q:'How often do you fall ill (cold, flu, infections)?', opts:[['Rarely: once a year or less',100],['2–3 times a year',70],['Every few months',42],['Very often, monthly',15]] },
+        { q:'How well do you recover from illness?', opts:[['Quickly: 2–3 days',100],['About a week',70],['Takes 2+ weeks',40],['I seem to stay unwell',15]] },
       ]
     },
     {
@@ -2420,9 +2420,9 @@ window.mod_bodySymptoms = function () {
 
   LAB.showDemo({
     title: '💪 Body Vitality Check',
-    txt: 'A quick check across <strong>6 body systems</strong> — energy, joints, immunity, skin, pain and circulation. Each section takes under 30 seconds. Honest answers give the most useful score.',
+    txt: 'A quick check across <strong>6 body systems</strong>, energy, joints, immunity, skin, pain and circulation. Each section takes under 30 seconds. Honest answers give the most useful score.',
     hint: '6 domains · 12 questions · ~2 minutes',
-    voiceEN: 'Body Vitality check! We will look at six areas — energy, joints, immunity, skin, pain, and circulation. Tap your honest answer for each question.',
+    voiceEN: 'Body Vitality check! We will look at six areas, energy, joints, immunity, skin, pain, and circulation. Tap your honest answer for each question.',
     btnLabel: 'Begin Body Check →',
     vis: `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:180px;margin:0 auto">
       ${[['⚡','#F0A020'],['🦴','#7C3AED'],['🛡','#059669'],['✨','#E74C3C'],['🩹','#C0392B'],['🩸','#E74C3C']].map(([ic,col])=>`
@@ -2546,7 +2546,7 @@ window.mod_gutHealth = function () {
     { q: 'Do you experience stomach cramps or abdominal discomfort?',
       opts: ['Rarely', 'Occasionally', 'Often (3+ times/week)', 'Almost daily'] },
     { q: 'How is your appetite and ability to digest different foods?',
-      opts: ['Good — most foods fine', 'Some foods cause issues', 'Many foods cause discomfort', 'Poor appetite or frequent nausea'] },
+      opts: ['Good: most foods fine', 'Some foods cause issues', 'Many foods cause discomfort', 'Poor appetite or frequent nausea'] },
     { q: 'Do you notice changes in stool consistency, mucus or undigested food?',
       opts: ['Never', 'Occasionally', 'Often', 'Regularly'] },
   ];
@@ -2554,7 +2554,7 @@ window.mod_gutHealth = function () {
 
   LAB.showDemo({
     title: '🍽 Gut Health Check',
-    txt: '5 quick questions about your digestive comfort over the <strong>past month</strong>. No right or wrong answers — just pick what fits best.',
+    txt: '5 quick questions about your digestive comfort over the <strong>past month</strong>. No right or wrong answers, just pick what fits best.',
     hint: '5 questions · ~2 min · tap to answer',
     btnLabel: 'Begin Digestive Health Assessment →',
     voiceEN: 'Gut health check. Five quick questions about your digestion over the past month. Tap the answer that best describes you.',
@@ -2586,7 +2586,7 @@ window.mod_gutHealth = function () {
         <!-- Question -->
         <p style="font-size:.98rem;font-weight:600;color:var(--t);line-height:1.5;margin-bottom:1.1rem">${q.q}</p>
 
-        <!-- Options — styled choice buttons -->
+        <!-- Options, styled choice buttons -->
         <div style="display:flex;flex-direction:column;gap:.55rem">
           ${q.opts.map((opt, j) => `
           <button onclick="window._gutPick(${i},${j})"
@@ -2624,12 +2624,12 @@ window.mod_gutHealth = function () {
     const lbl = sc >= 80 ? '✅ Healthy gut indicators'
               : sc >= 60 ? 'Mild digestive concerns'
               : sc >= 40 ? 'Moderate digestive issues'
-              : '⚠ Significant discomfort — consider consulting a doctor';
+              : '⚠ Significant discomfort: consider consulting a doctor';
     const col = LAB.scoreCol(sc);
     LAB.celebrate();
     LAB.say(`Gut health complete. ${lbl}.`);
 
-    /* Show result inline — no setTimeout wait before rendering */
+    /* Show result inline: no setTimeout wait before rendering */
     LAB.render(`
     <div class="mwrap">
       <div class="card card--pop" style="text-align:center">
@@ -2671,7 +2671,7 @@ window.mod_gutHealth = function () {
 
 window.mod_hearingCheck = function () {
   /*
-   * Adaptive Threshold Hearing Test — v3
+   * Adaptive Threshold Hearing Test, v3
    * ─────────────────────────────────────
    * Method : Modified Hughson–Westlake (simplified):
    *   Heard  → volume −1 step  (harder)
@@ -2688,7 +2688,7 @@ window.mod_hearingCheck = function () {
   const FREQS = [
     { hz: 1000, label: '1 kHz',  note: 'Speech range' },
     { hz: 3000, label: '3 kHz',  note: 'Clarity range' },
-    { hz: 6000, label: '6 kHz',  note: 'High-freq — early decline indicator' },
+    { hz: 6000, label: '6 kHz',  note: 'High-freq: early decline indicator' },
   ];
   const EARS = [
     { id: 'left',  label: 'Left Ear',  ch: 0, color: '#8E44AD' },
@@ -2698,7 +2698,7 @@ window.mod_hearingCheck = function () {
   /* Volume ladder: 0.04 – 0.58, 10 rungs (larger steps = faster convergence) */
   const STEPS = Array.from({length:10}, (_,i) => 0.04 + i*0.06);
   const START_STEP = 4;   /* start just below mid-range */
-  const MAX_STEPS  = 8;   /* hard cap — each freq done in ≤8 taps */
+  const MAX_STEPS  = 8;   /* hard cap, each freq done in ≤8 taps */
 
   let _ctx = null;
   /* thresholds[earId][freqHz] = estimated volume (lower=better hearing) */
@@ -2748,7 +2748,7 @@ window.mod_hearingCheck = function () {
 
   LAB.showDemo({
     title: '👂 Hearing Check',
-    txt: '<strong>Put on headphones or earbuds</strong> — this test measures hearing <em>sensitivity</em> in each ear across 5 frequencies. Tones get quieter when you hear them, louder when you miss, to find your personal threshold.',
+    txt: '<strong>Put on headphones or earbuds</strong>, this test measures hearing <em>sensitivity</em> in each ear across 5 frequencies. Tones get quieter when you hear them, louder when you miss, to find your personal threshold.',
     hint: '6 adaptive tones · both ears · ~2 min · headphones recommended',
     btnLabel: 'Begin Hearing Assessment →',
     voiceEN: 'Adaptive hearing test. Put on headphones. We will measure your hearing sensitivity in both ears across five frequencies. Tap yes or no for each tone.',
@@ -2799,7 +2799,7 @@ window.mod_hearingCheck = function () {
   window._htHpOk = function (isolated) {
     _headphoneOk = isolated;
     if (!isolated) {
-      /* Warn but still continue — don't block the test */
+      /* Warn but still continue, don't block the test */
       LAB.render(`
       <div class="mwrap"><div class="card card--pop" style="text-align:center;padding:2rem 1.5rem">
         <div style="font-size:3rem;margin-bottom:.8rem">⚠️</div>
@@ -2842,14 +2842,14 @@ window.mod_hearingCheck = function () {
       </p>
       <p style="font-size:.76rem;color:var(--tq);margin-bottom:.8rem">
         Tones at <strong>5 frequencies</strong> will play. They'll get quieter when you hear them<br>
-        and louder when you miss — to find your personal threshold.
+        and louder when you miss, to find your personal threshold.
       </p>
       <p style="font-size:.7rem;color:var(--tq);margin-bottom:1.6rem;padding:.5rem .8rem;background:var(--g3);border-radius:8px">
-        💡 Tap <strong>Yes</strong> the <em>moment</em> you hear anything — even very faint
+        💡 Tap <strong>Yes</strong> the <em>moment</em> you hear anything: even very faint
       </p>
       <button class="btn btn--p" style="min-width:210px;font-size:.92rem"
               onclick="window._htBeginEar('${earId}')">
-        Ready — Start ${ear.label} →
+        Ready: Start ${ear.label} →
       </button>
       ${isRight ? `<div style="margin-top:.8rem"><button class="btn btn--g" style="font-size:.76rem" onclick="LAB.skip()">Skip remaining →</button></div>` : ''}
     </div></div>`);
@@ -2864,7 +2864,7 @@ window.mod_hearingCheck = function () {
   /* ── Adaptive test per frequency ── */
   function _startFreq() {
     if (_curFreqIdx >= FREQS.length) {
-      /* This ear done — switch or finish */
+      /* This ear done: switch or finish */
       if (_curEar === 'left') {
         _earIntroScreen('right');
       } else {
@@ -2895,7 +2895,7 @@ window.mod_hearingCheck = function () {
                           opacity:${done||active?1:.35};transition:all .25s"></div>`;
     }).join('');
 
-    /* Volume visual — 5 bars showing relative loudness */
+    /* Volume visual: 5 bars showing relative loudness */
     const volPct = Math.round((vol / 0.60) * 100);
     const bars = Array.from({length:5}, (_,i) => {
       const thr = (i+1)*20;
@@ -3011,7 +3011,7 @@ window.mod_hearingCheck = function () {
       /* Brief pause between frequencies */
       setTimeout(() => _startFreq(), 400);
     } else {
-      /* Continue adaptive test — brief pause then play next tone */
+      /* Continue adaptive test: brief pause then play next tone */
       setTimeout(() => _showToneScreen(), 300);
     }
   };
@@ -3053,16 +3053,16 @@ window.mod_hearingCheck = function () {
     const asymNote = diff > 20
       ? `<div style="background:#FFF3CD;border:1px solid #F39C1266;border-radius:8px;
                      padding:.55rem .8rem;font-size:.76rem;color:#856404;margin:.7rem 0 0">
-           ⚠ Noticeable difference between ears (${diff} pts) — consider an audiologist check
+           ⚠ Noticeable difference between ears (${diff} pts), consider an audiologist check
          </div>` : '';
 
     const lbl = sc >= 85 ? '✅ Excellent sensitivity across both ears'
-              : sc >= 70 ? 'Good — minor sensitivity gaps detected'
-              : sc >= 50 ? 'Moderate — some frequency reduction'
-              : '⚠ Low sensitivity — recommend a professional hearing test';
+              : sc >= 70 ? 'Good: minor sensitivity gaps detected'
+              : sc >= 50 ? 'Moderate: some frequency reduction'
+              : '⚠ Low sensitivity: recommend a professional hearing test';
 
     LAB.celebrate();
-    LAB.say(`Adaptive hearing complete. Left ear ${lSc ?? '—'}, right ear ${rSc ?? '—'} out of 100. ${lbl}.`);
+    LAB.say(`Adaptive hearing complete. Left ear ${lSc ?? '-'}, right ear ${rSc ?? '-'} out of 100. ${lbl}.`);
 
     /* ── Audiogram canvas rendering ── */
     const audiogramId = '_htAudiogram';
@@ -3077,7 +3077,7 @@ window.mod_hearingCheck = function () {
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:1.1rem;text-align:center">
         <div style="background:var(--bg-cream);border:1.5px solid #8E44AD33;border-radius:10px;padding:.75rem .5rem">
           <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:#8E44AD;font-weight:700;margin-bottom:.25rem">👂 Left</div>
-          <div style="font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:${lSc?LAB.scoreCol(lSc):'var(--tq)'};line-height:1">${lSc??'—'}</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:${lSc?LAB.scoreCol(lSc):'var(--tq)'};line-height:1">${lSc??'-'}</div>
           <div style="height:4px;background:var(--b);border-radius:2px;margin-top:.4rem;overflow:hidden">
             <div style="height:100%;width:${lSc??0}%;background:#8E44AD;transition:width 1s ease"></div>
           </div>
@@ -3089,7 +3089,7 @@ window.mod_hearingCheck = function () {
         </div>
         <div style="background:var(--bg-cream);border:1.5px solid #2563EB33;border-radius:10px;padding:.75rem .5rem">
           <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:#2563EB;font-weight:700;margin-bottom:.25rem">👂 Right</div>
-          <div style="font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:${rSc?LAB.scoreCol(rSc):'var(--tq)'};line-height:1">${rSc??'—'}</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:${rSc?LAB.scoreCol(rSc):'var(--tq)'};line-height:1">${rSc??'-'}</div>
           <div style="height:4px;background:var(--b);border-radius:2px;margin-top:.4rem;overflow:hidden">
             <div style="height:100%;width:${rSc??0}%;background:#2563EB;transition:width 1s ease"></div>
           </div>
@@ -3117,7 +3117,7 @@ window.mod_hearingCheck = function () {
       ${asymNote}
 
       ${!_headphoneOk ? `<div style="font-size:.7rem;color:#856404;background:#FFF3CD;border-radius:6px;padding:.4rem .7rem;margin-top:.5rem">
-        ℹ️ Test run without isolated earbuds — left/right accuracy may be reduced
+        ℹ️ Test run without isolated earbuds, left/right accuracy may be reduced
       </div>` : ''}
       <p style="font-size:.68rem;color:var(--tq);text-align:center;margin-top:.7rem">
         Adaptive threshold estimate · Not a clinical audiogram · Consult an audiologist for medical assessment
@@ -3264,11 +3264,11 @@ LAB.offerLeaderboard = async function(testId, score, unit) {
       );
       LAB.toast('Score added to leaderboard! 🏅');
     } else {
-      /* storage API not available (GitHub Pages — not in artifact context) */
+      /* storage API not available (GitHub Pages, not in artifact context) */
       LAB.toast('Leaderboard available when running as an embedded app.');
     }
   } catch(e) {
-    LAB.toast('Could not save score — leaderboard unavailable right now.');
+    LAB.toast('Could not save score: leaderboard unavailable right now.');
   }
   trackWL('leaderboard_entry', testId);
 };
@@ -3293,7 +3293,7 @@ LAB.showLeaderboard = async function(testId, unit) {
   const top10 = entries.slice(0, 10);
 
   const html = top10.length === 0
-    ? '<p style="text-align:center;color:var(--tq);padding:1rem">No scores yet — be the first!</p>'
+    ? '<p style="text-align:center;color:var(--tq);padding:1rem">No scores yet: be the first!</p>'
     : `<div style="display:flex;flex-direction:column;gap:.5rem">
         ${top10.map((e, i) => `
           <div style="display:flex;align-items:center;gap:.75rem;padding:.7rem .9rem;
@@ -3370,7 +3370,7 @@ LAB.showLeaderboard = async function(testId, unit) {
       _origNext();
     };
 
-    /* Skip welcome — jump straight to instructions with challenge context */
+    /* Skip welcome: jump straight to instructions with challenge context */
     const testLabel = {
       mod_reactionSpeed:    'Reaction Speed',
       mod_workingMemory:    'Memory Test',
@@ -3406,7 +3406,7 @@ LAB.showLeaderboard = async function(testId, unit) {
       history.pushState({ lab: true }, '');
       LAB._confirmExit(null);
     }
-    /* If not in active test — let normal nav happen */
+    /* If not in active test, let normal nav happen */
   });
 })();
 
@@ -3436,7 +3436,7 @@ LAB.showLeaderboard = async function(testId, unit) {
       } catch(e) {}
     });
 
-    if (found.length === 0) return; // no history yet — hide panel
+    if (found.length === 0) return; // no history yet, hide panel
 
     panel.style.display = 'block';
     panel.innerHTML = `
@@ -3461,15 +3461,15 @@ LAB.showLeaderboard = async function(testId, unit) {
   const insights = [
     { text: 'Reaction speed often improves when sleep quality and breathing patterns are balanced together.', tag: 'Brain & Sleep' },
     { text: 'Just 5 minutes of slow, deep breathing can reduce stress hormone levels noticeably.', tag: 'Breathing & Stress' },
-    { text: 'Short memory exercises done daily — like the memory match test — strengthen focus over time.', tag: 'Brain Health' },
+    { text: 'Short memory exercises done daily, like the memory match test, strengthen focus over time.', tag: 'Brain Health' },
     { text: 'Your eyes need regular breaks. Every 20 minutes, look at something 20 feet away for 20 seconds.', tag: 'Eye Health' },
-    { text: 'Energy levels naturally peak twice a day — mid-morning and early afternoon. Use those windows for deep work.', tag: 'Energy Patterns' },
+    { text: 'Energy levels naturally peak twice a day, mid-morning and early afternoon. Use those windows for deep work.', tag: 'Energy Patterns' },
     { text: 'Consistent sleep and wake times are more important than total hours for mental sharpness.', tag: 'Sleep Quality' },
     { text: 'Hydration affects brain performance directly. Even mild dehydration can slow reaction times.', tag: 'Hydration & Brain' },
     { text: 'Your nervous system can be trained to calm faster. Breathing balance exercises are the simplest way.', tag: 'Stress Recovery' },
     { text: 'Herbs like Brahmi and Shankhpushpi have been traditionally used to support memory and mental clarity.', tag: 'Herbal Wisdom' },
     { text: 'Morning sunlight within 30 minutes of waking helps regulate your energy and sleep cycle naturally.', tag: 'Circadian Rhythm' },
-    { text: 'Hand tremors are normal — but tracking them weekly can reveal important patterns about rest quality.', tag: 'Motor Stability' },
+    { text: 'Hand tremors are normal: but tracking them weekly can reveal important patterns about rest quality.', tag: 'Motor Stability' },
     { text: 'Your body\'s stress response can be voluntarily slowed through extended exhale breathing.', tag: 'Calm Practice' },
   ];
   const el = document.getElementById('iodText');
@@ -3479,10 +3479,10 @@ LAB.showLeaderboard = async function(testId, unit) {
   const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
   const pick = insights[dayOfYear % insights.length];
   el.textContent = pick.text;
-  if (src) src.textContent = '— Topic: ' + pick.tag;
+  if (src) src.textContent = ', Topic: ' + pick.tag;
 })();
 
-/* ── Lab nav buttons — route to specific category after gender ── */
+/* ── Lab nav buttons, route to specific category after gender ── */
 (function() {
   const btn = document.getElementById('startBrainBtn');
   if (btn) {
@@ -3516,7 +3516,7 @@ LAB.showLeaderboard = async function(testId, unit) {
         try { history_data[key.replace('wl_hist_','')] = JSON.parse(localStorage.getItem(key)); } catch(e) {}
       }
     }
-    /* Will be populated after tests complete — show nothing on first visit */
+    /* Will be populated after tests complete, show nothing on first visit */
   } catch(e) {}
 })();
 

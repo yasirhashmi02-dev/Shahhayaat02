@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
-<!-- STRUCTURED DATA — SEO schemas for exercises page -->
+<!-- STRUCTURED DATA, SEO schemas for exercises page -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -81,7 +81,7 @@
       "name": "Can I do these Ayurvedic exercises on my mobile phone?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. All 22 exercises on Shah Hayaat's Wellness Clinic are fully optimised for mobile phones. No app download is required — open exercises.html in any mobile browser. Voice guidance works on all modern mobile browsers. The reaction speed test, memory match and number sequence games are specifically designed for touchscreen use."
+        "text": "Yes. All 22 exercises on Shah Hayaat's Wellness Clinic are fully optimised for mobile phones. No app download is required, open exercises.html in any mobile browser. Voice guidance works on all modern mobile browsers. The reaction speed test, memory match and number sequence games are specifically designed for touchscreen use."
       }
     },
     {
@@ -113,7 +113,7 @@
       "name": "Does Shah Hayaat's Wellness Clinic store my data or require login?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Shah Hayaat's Wellness Clinic requires no login, no account creation and no personal data. Your streak, scores and progress are saved locally on your device only (browser localStorage). The global leaderboard for the Reaction Speed Test requires only a display name (optional) — no email or phone number is collected."
+        "text": "No. Shah Hayaat's Wellness Clinic requires no login, no account creation and no personal data. Your streak, scores and progress are saved locally on your device only (browser localStorage). The global leaderboard for the Reaction Speed Test requires only a display name (optional), no email or phone number is collected."
       }
     }
   ]
@@ -152,7 +152,7 @@
   ]
 }
 </script>
-<!-- Early global stubs — must be defined before any HTML onclick fires -->
+<!-- Early global stubs, must be defined before any HTML onclick fires -->
 <script>
 // These are thin queue-and-delegate stubs.
 // The real implementations are defined in the main script block below.
@@ -331,7 +331,7 @@ body.nav-open{overflow:hidden}
 @media(min-width:640px){.ex-grid{grid-template-columns:repeat(3,1fr)}}
 @media(min-width:960px){.ex-grid{grid-template-columns:repeat(4,1fr)}}
 
-/* ── CARD — clean minimal ── */
+/* ── CARD: clean minimal ── */
 .ex-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-lg);display:flex;flex-direction:column;align-items:center;text-align:center;padding:1.2rem .9rem 1rem;gap:.45rem;transition:all .28s var(--ease);position:relative;cursor:pointer;overflow:hidden}
 .ex-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(212,160,23,.06),transparent 70%);opacity:0;transition:opacity .3s;pointer-events:none}
 .ex-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,.4),0 0 0 1px rgba(212,160,23,.15);border-color:rgba(212,160,23,.3)}
@@ -360,7 +360,7 @@ body.nav-open{overflow:hidden}
 .ex-card-benefit strong{color:var(--gold-l)}
 .ex-card-start{width:100%;margin-top:.5rem;padding:.7rem;border-radius:50px;font-size:.84rem;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#fff;border:none;transition:all .22s;letter-spacing:.03em;box-shadow:0 3px 14px rgba(184,134,11,.3)}
 .ex-card-start:hover{box-shadow:0 5px 22px rgba(184,134,11,.5);transform:scale(1.03)}
-/* Info toggle — detail drawer */
+/* Info toggle: detail drawer */
 .ex-card-info{width:100%;background:none;border:none;font-size:.68rem;color:var(--text-mu);cursor:pointer;padding:.2rem 0;margin-top:.1rem;transition:color .2s}
 .ex-card-info:hover{color:var(--text-m)}
 .ex-drawer{display:none;width:100%;text-align:left;background:rgba(255,255,255,.04);border-radius:10px;padding:.75rem;margin-top:.4rem;border:1px solid var(--border)}
@@ -514,7 +514,7 @@ body.nav-open{overflow:hidden}
 .ov-taps{font-size:clamp(4.5rem,18vw,6.5rem);font-weight:900;color:#22C55E;line-height:1;text-shadow:0 0 30px rgba(34,197,94,.5);transition:transform .1s,color .3s}
 .ov-taps.bump{transform:scale(1.12);color:#4ADE80}
 .ov-secs{font-size:2rem;font-weight:800;color:#D4A017;letter-spacing:.04em}
-/* .ov-tap-btn removed — replaced by #tapArea */
+/* .ov-tap-btn removed, replaced by #tapArea */
 
 /* ── MATH GAME ── */
 .ov-math{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;padding:1.2rem;text-align:center}
@@ -587,7 +587,7 @@ body.nav-open{overflow:hidden}
 .ov-btn-ready:active{transform:scale(.97)}
 .ov-btn-skip2{padding:.65rem 1.3rem;border-radius:50px;font-size:.82rem;font-weight:700;background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);border:1.5px solid rgba(255,255,255,.12);cursor:pointer}
 
-/* ── SKIP BUTTON — always visible during exercise ── */
+/* ── SKIP BUTTON: always visible during exercise ── */
 .ov-btn-skip{padding:.7rem 1.4rem;border-radius:50px;font-size:.88rem;font-weight:700;background:rgba(255,255,255,.08);color:rgba(255,255,255,.65);border:1.5px solid rgba(255,255,255,.15);cursor:pointer;transition:all .2s}
 .ov-btn-skip:hover{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.3)}
 
@@ -597,7 +597,7 @@ body.nav-open{overflow:hidden}
 .ov-htp-emoji{font-size:clamp(2.5rem,11vw,3.8rem);line-height:1;margin-bottom:.2rem}
 .ov-htp-title{font-family:var(--font-h);font-size:clamp(1.1rem,4.5vw,1.45rem);color:#fff;font-weight:800;margin-bottom:.1rem;line-height:1.2}
 .ov-htp-dur{font-size:.7rem;color:var(--gold-l);font-weight:700;letter-spacing:.08em;margin-bottom:.7rem}
-/* Step card — one at a time */
+/* Step card: one at a time */
 .ov-htp-card{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:360px;gap:.8rem;padding:.5rem 0}
 .ov-htp-step-num{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-mu)}
 .ov-htp-step-bubble{background:rgba(255,255,255,.05);border:1.5px solid rgba(212,160,23,.25);border-radius:20px;padding:1.4rem 1.2rem;width:100%;position:relative}
@@ -622,13 +622,13 @@ body.nav-open{overflow:hidden}
 .ov-htp-resume{width:100%;max-width:340px;padding:.9rem;border-radius:50px;font-size:1rem;font-weight:800;background:linear-gradient(135deg,#166534,#22C55E);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(34,197,94,.35);transition:all .2s;margin-top:.4rem}
 .ov-htp-resume:active{transform:scale(.97)}
 .ov-htp-skip{padding:.55rem 1.1rem;border-radius:50px;font-size:.78rem;font-weight:700;background:rgba(255,255,255,.04);color:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.1);cursor:pointer;margin-top:.3rem}
-/* Instructions button — glows gold when active (paused + viewing) */
+/* Instructions button: glows gold when active (paused + viewing) */
 .ov-instr-btn.active{background:rgba(212,160,23,.25) !important;color:#D4A017 !important;animation:voicePulse .8s ease-in-out infinite alternate}
 /* Paused pill shown in top bar when instructions are open mid-exercise */
 .ov-paused-pill{display:none;font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#F59E0B;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);border-radius:50px;padding:.18rem .55rem;white-space:nowrap}
 .ov-paused-pill.show{display:inline-flex;align-items:center;gap:.25rem}
 
-/* ── CHOICE SCREEN (shown first — instructions or jump in) ── */
+/* ── CHOICE SCREEN (shown first, instructions or jump in) ── */
 .ov-choice{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.8rem 1.4rem;text-align:center;gap:.6rem}
 .ov-choice-emoji{font-size:clamp(3.5rem,15vw,5rem);line-height:1;margin-bottom:.3rem}
 .ov-choice-title{font-family:var(--font-h);font-size:clamp(1.3rem,5.5vw,1.8rem);color:#fff;font-weight:800;line-height:1.2}
@@ -715,7 +715,7 @@ body.nav-open{overflow:hidden}
 /* ── LEADERBOARD + TAP BUTTON ── */
 .ov-game{position:relative}
 
-/* Big glowing tap button — maximally attractive */
+/* Big glowing tap button, maximally attractive */
 #tapArea{
   display:flex;align-items:center;justify-content:center;flex-direction:column;
   width:180px;height:180px;
@@ -860,7 +860,7 @@ body.nav-open{overflow:hidden}
 .rvw-skip:hover{color:rgba(255,255,255,.55)}
 
 /* ══════════════════════════════════════════════════════════
-   BOLD VISUAL UPGRADE — Shah Hayaat Wellness Exercises
+   BOLD VISUAL UPGRADE: Shah Hayaat Wellness Exercises
    ══════════════════════════════════════════════════════════ */
 
 /* ── HERO: richer depth, animated glow ── */
@@ -1195,25 +1195,25 @@ body.nav-open{overflow:hidden}
 </style>
 
 <!-- ═══════════════════════════════════════════════════════
-     STRUCTURED DATA — WebPage + ItemList + FAQPage + BreadcrumbList + SoftwareApplication
+     STRUCTURED DATA: WebPage + ItemList + FAQPage + BreadcrumbList + SoftwareApplication
 ════════════════════════════════════════════════════════ -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","name":"Free Guided Wellness Exercises India 2026 – Brain Training, Pranayama, Eye Yoga & Digestion","description":"22 free voice-guided wellness exercises — brain training games, pranayama breathing, eye yoga, digestion and body movement. Live timers, global leaderboard. No equipment needed.","url":"https://www.shahhayaat.com/exercises.html","inLanguage":"en-IN","dateModified":"2026-04-05","publisher":{"@type":"Organization","name":"Shah Hayaat","url":"https://www.shahhayaat.com"}}
+{"@context":"https://schema.org","@type":"WebPage","name":"Free Guided Wellness Exercises India 2026 – Brain Training, Pranayama, Eye Yoga & Digestion","description":"22 free voice-guided wellness exercises, brain training games, pranayama breathing, eye yoga, digestion and body movement. Live timers, global leaderboard. No equipment needed.","url":"https://www.shahhayaat.com/exercises.html","inLanguage":"en-IN","dateModified":"2026-04-05","publisher":{"@type":"Organization","name":"Shah Hayaat","url":"https://www.shahhayaat.com"}}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ItemList","name":"Free Guided Wellness Exercises – Shah Hayaat","url":"https://www.shahhayaat.com/exercises.html","numberOfItems":22,"itemListElement":[
 {"@type":"ListItem","position":1,"name":"Reaction Speed Test","description":"15-second tap challenge to test reaction speed. Global leaderboard.","url":"https://www.shahhayaat.com/exercises.html"},
 {"@type":"ListItem","position":2,"name":"Math Speed Challenge","description":"60-second mental maths game to activate the prefrontal cortex.","url":"https://www.shahhayaat.com/exercises.html"},
 {"@type":"ListItem","position":3,"name":"Memory Match Game","description":"Flip cards to find matching pairs. Strengthens short-term memory.","url":"https://www.shahhayaat.com/exercises.html"},
-{"@type":"ListItem","position":4,"name":"Candle Focus Exercise (Trataka)","description":"Ayurvedic concentration practice — gaze at a candle flame to improve focus.","url":"https://www.shahhayaat.com/exercises.html"},
+{"@type":"ListItem","position":4,"name":"Candle Focus Exercise (Trataka)","description":"Ayurvedic concentration practice: gaze at a candle flame to improve focus.","url":"https://www.shahhayaat.com/exercises.html"},
 {"@type":"ListItem","position":5,"name":"Number Sequence Game","description":"Tap numbers 1–25 in order as fast as possible. Trains visual attention.","url":"https://www.shahhayaat.com/exercises.html"},
 {"@type":"ListItem","position":6,"name":"Typing Speed Test","description":"30-second typing test measuring WPM and accuracy. Global leaderboard.","url":"https://www.shahhayaat.com/exercises.html"},
 {"@type":"ListItem","position":7,"name":"Alternate Nostril Breathing (Nadi Shodhana)","description":"Classical Pranayama that balances the nervous system and reduces stress hormones.","url":"https://www.shahhayaat.com/exercises.html"},
-{"@type":"ListItem","position":8,"name":"Humming Breath (Bhramari Pranayama)","description":"Bhramari creates calming vibrations proven to reduce blood pressure and anxiety.","url":"https://www.shahhayaat.com/exercises.html"},
+{"@type":"ListItem","position":8,"name":"Humming Breath (Bhramari Pranayama)","description":"Bhramari creates calming vibrations traditionally used to reduce blood pressure and anxiety.","url":"https://www.shahhayaat.com/exercises.html"},
 {"@type":"ListItem","position":9,"name":"Box Breathing","description":"Navy SEAL stress control technique. Four equal counts rebalance the nervous system.","url":"https://www.shahhayaat.com/exercises.html"},
 {"@type":"ListItem","position":10,"name":"4-7-8 Relaxation Breathing","description":"Extended exhale activates the parasympathetic relaxation response.","url":"https://www.shahhayaat.com/exercises.html"},
-{"@type":"ListItem","position":11,"name":"Kapalabhati – Quick Energy Breath","description":"Forceful breathing floods brain with oxygen for instant alertness.","url":"https://www.shahhayaat.com/exercises.html"},
-{"@type":"ListItem","position":12,"name":"After-Meal Sitting Pose (Vajrasana)","description":"Ayurvedic Vajrasana posture proven to support digestion after meals.","url":"https://www.shahhayaat.com/exercises.html"},
+{"@type":"ListItem","position":11,"name":"Kapalabhati – Quick Energy Breath","description":"Forceful breathing supports alertness.","url":"https://www.shahhayaat.com/exercises.html"},
+{"@type":"ListItem","position":12,"name":"After-Meal Sitting Pose (Vajrasana)","description":"Ayurvedic Vajrasana posture traditionally used to support digestion after meals.","url":"https://www.shahhayaat.com/exercises.html"},
 {"@type":"ListItem","position":13,"name":"Digestive Activation Routine","description":"Post-meal walking and massage may support healthy digestion.","url":"https://www.shahhayaat.com/exercises.html"},
 {"@type":"ListItem","position":14,"name":"Agni Breath (Kapalabhati for Digestion)","description":"Pranayama that awakens digestive fire. Each exhale massages the stomach.","url":"https://www.shahhayaat.com/exercises.html"},
 {"@type":"ListItem","position":15,"name":"Neck & Shoulder Release","description":"2-minute sequence to decompress the cervical spine for desk workers.","url":"https://www.shahhayaat.com/exercises.html"},
@@ -1228,18 +1228,18 @@ body.nav-open{overflow:hidden}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"Are these wellness exercises completely free?","acceptedAnswer":{"@type":"Answer","text":"Yes — all 22 guided wellness exercises on Shah Hayaat are 100% free, always. No login, no subscription, no payment required. Shah Hayaat built this as a free community health initiative for India."}},
-{"@type":"Question","name":"What equipment do I need for these exercises?","acceptedAnswer":{"@type":"Answer","text":"No equipment at all. Every exercise on Shah Hayaat Wellness Clinic is designed for anywhere — at your desk, bedroom, or after meals. You only need a phone or computer."}},
+{"@type":"Question","name":"Are these wellness exercises completely free?","acceptedAnswer":{"@type":"Answer","text":"Yes: all 22 guided wellness exercises on Shah Hayaat are 100% free, always. No login, no subscription, no payment required. Shah Hayaat built this as a free community health initiative for India."}},
+{"@type":"Question","name":"What equipment do I need for these exercises?","acceptedAnswer":{"@type":"Answer","text":"No equipment at all. Every exercise on Shah Hayaat Wellness Clinic is designed for anywhere, at your desk, bedroom, or after meals. You only need a phone or computer."}},
 {"@type":"Question","name":"What is the best free brain training exercise online in India?","acceptedAnswer":{"@type":"Answer","text":"Shah Hayaat Wellness Clinic offers 6 free brain training exercises with global leaderboards: Reaction Speed Test, Math Speed Challenge (60-second mental maths), Memory Match Game, Candle Focus (Ayurvedic Trataka), Number Sequence (tap 1-25 in order), and Typing Speed Test. No app download needed."}},
 {"@type":"Question","name":"What is Bhramari Pranayama and how do I do it?","acceptedAnswer":{"@type":"Answer","text":"Bhramari (Humming Bee Breath) is a Pranayama where you close your ears and eyes, breathe in fully, then make a long humming sound (Mmmmm) on the exhale. The vibration calms the nervous system, may lower blood pressure and improve sleep quality. Shah Hayaat's free guided version walks you through 5 rounds with voice guidance and a live timer."}},
-{"@type":"Question","name":"Which free eye exercises help with screen fatigue?","acceptedAnswer":{"@type":"Answer","text":"Shah Hayaat offers 3 free guided eye exercises: Eye Movement Exercise (all 6 eye muscles), the 20-20-20 Rule (every 20 minutes, look 20 feet away for 20 seconds — the optometrist standard for digital eye strain), and Ayurvedic Eye Massage (acupressure points that relieve eye fatigue and tension headaches)."}},
-{"@type":"Question","name":"What are the best Ayurvedic exercises for digestion?","acceptedAnswer":{"@type":"Answer","text":"Shah Hayaat offers 3 free guided digestion exercises: Vajrasana (After-Meal Sitting Pose — Ayurveda's most recommended post-meal practice), Digestive Activation Routine (post-meal walking and abdominal massage, traditionally practised to support healthy digestion after meals), and Agni Breath (Kapalabhati Pranayama — the digestive fire breathing technique)."}},
-{"@type":"Question","name":"How does the global leaderboard work on Shah Hayaat exercises?","acceptedAnswer":{"@type":"Answer","text":"The Reaction Speed Test, Math Challenge, Memory Match, Number Sequence and Typing Speed Test all feature live global leaderboards. After completing an exercise, enter your name to save your score and see your global rank instantly. The leaderboard updates in real-time every 4 seconds — completely free, no login needed."}},
-{"@type":"Question","name":"Is the 20-20-20 rule effective for eye strain?","acceptedAnswer":{"@type":"Answer","text":"Yes — the 20-20-20 rule is the gold standard recommendation from the American Optometric Association and eye doctors worldwide. Every 20 minutes, look at something at least 20 feet away for 20 seconds. This relaxes the ciliary muscles of the eye that control lens focus and have been under constant strain from screen use. Shah Hayaat's free guided version adds slow blinks, near-far focus switching, palming and eye massage for comprehensive digital eye strain relief."}}
+{"@type":"Question","name":"Which free eye exercises help with screen fatigue?","acceptedAnswer":{"@type":"Answer","text":"Shah Hayaat offers 3 free guided eye exercises: Eye Movement Exercise (all 6 eye muscles), the 20-20-20 Rule (every 20 minutes, look 20 feet away for 20 seconds, the optometrist standard for digital eye strain), and Ayurvedic Eye Massage (acupressure points that relieve eye fatigue and tension headaches)."}},
+{"@type":"Question","name":"What are the best Ayurvedic exercises for digestion?","acceptedAnswer":{"@type":"Answer","text":"Shah Hayaat offers 3 free guided digestion exercises: Vajrasana (After-Meal Sitting Pose, Ayurveda's most recommended post-meal practice), Digestive Activation Routine (post-meal walking and abdominal massage, traditionally practised to support healthy digestion after meals), and Agni Breath (Kapalabhati Pranayama, the digestive fire breathing technique)."}},
+{"@type":"Question","name":"How does the global leaderboard work on Shah Hayaat exercises?","acceptedAnswer":{"@type":"Answer","text":"The Reaction Speed Test, Math Challenge, Memory Match, Number Sequence and Typing Speed Test all feature live global leaderboards. After completing an exercise, enter your name to save your score and see your global rank instantly. The leaderboard updates in real-time every 4 seconds, completely free, no login needed."}},
+{"@type":"Question","name":"Is the 20-20-20 rule effective for eye strain?","acceptedAnswer":{"@type":"Answer","text":"Yes: the 20-20-20 rule is the gold standard recommendation from the American Optometric Association and eye doctors worldwide. Every 20 minutes, look at something at least 20 feet away for 20 seconds. This relaxes the ciliary muscles of the eye that control lens focus and have been under constant strain from screen use. Shah Hayaat's free guided version adds slow blinks, near-far focus switching, palming and eye massage for comprehensive digital eye strain relief."}}
 ]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Shah Hayaat Wellness Clinic","applicationCategory":"HealthApplication","operatingSystem":"Web Browser","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"description":"Free guided wellness web app with 22 exercises — brain training, pranayama, eye yoga, digestion and body movement. Voice guidance, live timers, global leaderboard, daily streak tracker. No app download, no login, always free.","url":"https://www.shahhayaat.com/exercises.html","featureList":"Voice-guided exercises, Live countdown timers, Global leaderboards, Daily streak tracking, No equipment needed, No login required, 100% free, 22 activities, 6 categories"}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Shah Hayaat Wellness Clinic","applicationCategory":"HealthApplication","operatingSystem":"Web Browser","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"description":"Free guided wellness web app with 22 exercises, brain training, pranayama, eye yoga, digestion and body movement. Voice guidance, live timers, global leaderboard, daily streak tracker. No app download, no login, always free.","url":"https://www.shahhayaat.com/exercises.html","featureList":"Voice-guided exercises, Live countdown timers, Global leaderboards, Daily streak tracking, No equipment needed, No login required, 100% free, 22 activities, 6 categories"}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.shahhayaat.com/"},{"@type":"ListItem","position":2,"name":"Free Wellness Exercises","item":"https://www.shahhayaat.com/exercises.html"}]}
@@ -1327,7 +1327,7 @@ body.nav-open{overflow:hidden}
 </style>
 <div class="eyebrow">22 Free Exercises · Voice-Guided · Live Timer · Global Leaderboard · No Equipment · No Login · India</div>
     <h1>Free Guided Wellness Exercises – Brain Training, Pranayama &amp; More | <em>Wellness Clinic</em></h1>
-    <p>India's only free Ayurvedic wellness exercise platform. 22 voice-guided activities: Nadi Shodhana Pranayama, Bhramari, Kapalabhati, Trataka (Candle Focus), Vajrasana, eye yoga, brain games &amp; more. Each activity explains every step in plain language with a live timer. No app download, no login — works on any phone.</p>
+    <p>India's only free Ayurvedic wellness exercise platform. 22 voice-guided activities: Nadi Shodhana Pranayama, Bhramari, Kapalabhati, Trataka (Candle Focus), Vajrasana, eye yoga, brain games &amp; more. Each activity explains every step in plain language with a live timer. No app download, no login, works on any phone.</p>
     <div class="hero-chips">
       <button class="hero-chip" onclick="scrollAndFilter('brain')">🧠 Brain &amp; Mind</button>
       <button class="hero-chip" onclick="scrollAndFilter('breath')">🌬️ Breathing</button>
@@ -1366,7 +1366,7 @@ body.nav-open{overflow:hidden}
 
     <!-- LAB RECOMMENDATION -->
     <div class="lab-rec-section" id="labRecSection">
-      <div class="lab-rec-title">🎯 Recommended for You — Based on Your Wellness Lab Results</div>
+      <div class="lab-rec-title">🎯 Recommended for You: Based on Your Wellness Lab Results</div>
       <div style="font-size:.8rem;color:rgba(255,255,255,.55);margin-bottom:.7rem;line-height:1.5">Your test results show areas that need attention. Tap any category below to see the activities that will help you most.</div>
       <div class="lab-rec-cards" id="labRecCards"></div>
       <div style="margin-top:.8rem;font-size:.72rem;color:rgba(255,255,255,.3)">Activities marked <span style="color:#86efac;font-weight:700">★ Recommended</span> on the cards below are matched to your results.</div>
@@ -1375,7 +1375,7 @@ body.nav-open{overflow:hidden}
     <div class="sec-head reveal">
       <div class="eyebrow">22 Guided Activities</div>
       <h2>Choose Your <em>Activity</em></h2>
-      <p>Filter by category or see all. Each activity guides you step by step — read the instructions, then press Start when you're ready.</p>
+      <p>Filter by category or see all. Each activity guides you step by step, read the instructions, then press Start when you're ready.</p>
       <button id="startAllBtn" onclick="startAllExercises()" style="margin-top:1.2rem;padding:.7rem 1.8rem;background:linear-gradient(135deg,var(--green-d),var(--green));color:#fff;border:none;border-radius:50px;font-size:.85rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:.5rem;box-shadow:0 4px 18px rgba(34,197,94,.3);transition:all .25s">
         ▶ Start All Activities
       </button>
@@ -1401,7 +1401,7 @@ body.nav-open{overflow:hidden}
     <div class="sec-head reveal">
       <div class="eyebrow">Build Your Habit</div>
       <h2>Daily Wellness <em>Routine</em></h2>
-      <p>Two short routines — morning and night — that build healthy habits over time. Tap any activity to begin, or start the full routine at once.</p>
+      <p>Two short routines: morning and night, that build healthy habits over time. Tap any activity to begin, or start the full routine at once.</p>
     </div>
     <div class="routine-grid reveal">
       <!-- MORNING -->
@@ -1526,7 +1526,7 @@ body.nav-open{overflow:hidden}
   </div>
 </section>
 
-<!-- BOOST WITH AYURVEDA — Product cross-links per exercise goal -->
+<!-- BOOST WITH AYURVEDA, Product cross-links per exercise goal -->
 <section class="section" style="background:var(--bg);padding-top:0">
   <div class="container">
     <div class="sec-head reveal" style="margin-bottom:1.4rem">
@@ -1544,20 +1544,20 @@ body.nav-open{overflow:hidden}
     <div class="sec-head reveal">
       <div class="eyebrow">Your Progress</div>
       <h2>Daily Wellness <em>Dashboard</em></h2>
-      <p>Track your exercises, scores and streaks. Your data is saved on this device — no login needed.</p>
+      <p>Track your exercises, scores and streaks. Your data is saved on this device, no login needed.</p>
     </div>
     <div class="dash-grid reveal">
 
       <!-- DAILY SCORE -->
       <div class="dash-card">
         <div class="dash-card-title">🏆 Daily Wellness Score</div>
-        <div class="dash-score-big" id="dashTotalScore">—</div>
+        <div class="dash-score-big" id="dashTotalScore">-</div>
         <div class="dash-score-lbl" id="dashTotalLbl">Complete exercises to build your score</div>
         <div class="dash-rows" style="margin-top:.9rem" id="dashScoreRows">
-          <div class="dash-row"><span class="dash-row-lbl">Brain</span><div class="dash-bar-wrap"><div class="dash-bar-fill" id="bar-brain" style="width:0%"></div></div><span class="dash-row-val" id="val-brain">—</span></div>
-          <div class="dash-row"><span class="dash-row-lbl">Breathing</span><div class="dash-bar-wrap"><div class="dash-bar-fill" id="bar-breath" style="width:0%;background:linear-gradient(90deg,#22C55E,#86efac)"></div></div><span class="dash-row-val" id="val-breath">—</span></div>
-          <div class="dash-row"><span class="dash-row-lbl">Body</span><div class="dash-bar-wrap"><div class="dash-bar-fill" id="bar-body" style="width:0%;background:linear-gradient(90deg,#F59E0B,#FCD34D)"></div></div><span class="dash-row-val" id="val-body">—</span></div>
-          <div class="dash-row"><span class="dash-row-lbl">Focus</span><div class="dash-bar-wrap"><div class="dash-bar-fill" id="bar-focus" style="width:0%;background:linear-gradient(90deg,#6366F1,#a5b4fc)"></div></div><span class="dash-row-val" id="val-focus">—</span></div>
+          <div class="dash-row"><span class="dash-row-lbl">Brain</span><div class="dash-bar-wrap"><div class="dash-bar-fill" id="bar-brain" style="width:0%"></div></div><span class="dash-row-val" id="val-brain">-</span></div>
+          <div class="dash-row"><span class="dash-row-lbl">Breathing</span><div class="dash-bar-wrap"><div class="dash-bar-fill" id="bar-breath" style="width:0%;background:linear-gradient(90deg,#22C55E,#86efac)"></div></div><span class="dash-row-val" id="val-breath">-</span></div>
+          <div class="dash-row"><span class="dash-row-lbl">Body</span><div class="dash-bar-wrap"><div class="dash-bar-fill" id="bar-body" style="width:0%;background:linear-gradient(90deg,#F59E0B,#FCD34D)"></div></div><span class="dash-row-val" id="val-body">-</span></div>
+          <div class="dash-row"><span class="dash-row-lbl">Focus</span><div class="dash-bar-wrap"><div class="dash-bar-fill" id="bar-focus" style="width:0%;background:linear-gradient(90deg,#6366F1,#a5b4fc)"></div></div><span class="dash-row-val" id="val-focus">-</span></div>
         </div>
       </div>
 
@@ -1572,9 +1572,9 @@ body.nav-open{overflow:hidden}
         <div class="week-dots" id="weekDots"></div>
         <div class="dash-card-title" style="margin-top:.9rem">🏅 Personal Bests</div>
         <div class="dash-rows" id="bestScores">
-          <div class="dash-row"><span class="dash-row-lbl">Fastest Reaction</span><span class="dash-row-val" id="pb-reaction">—</span></div>
-          <div class="dash-row"><span class="dash-row-lbl">Best Memory</span><span class="dash-row-val" id="pb-memory">—</span></div>
-          <div class="dash-row"><span class="dash-row-lbl">Best Math</span><span class="dash-row-val" id="pb-math">—</span></div>
+          <div class="dash-row"><span class="dash-row-lbl">Fastest Reaction</span><span class="dash-row-val" id="pb-reaction">-</span></div>
+          <div class="dash-row"><span class="dash-row-lbl">Best Memory</span><span class="dash-row-val" id="pb-memory">-</span></div>
+          <div class="dash-row"><span class="dash-row-lbl">Best Math</span><span class="dash-row-val" id="pb-math">-</span></div>
         </div>
       </div>
 
@@ -1610,7 +1610,7 @@ body.nav-open{overflow:hidden}
 </section>
 
 
-<!-- SEO CONTENT SECTION — keyword-rich, crawlable, helps Google understand the page -->
+<!-- SEO CONTENT SECTION, keyword-rich, crawlable, helps Google understand the page -->
 <section style="background:var(--bg2);border-top:1px solid var(--border);padding:clamp(40px,6vw,70px) 0">
   <div class="container" style="max-width:900px">
     <div class="sec-head reveal" style="margin-bottom:1.8rem">
@@ -1621,32 +1621,32 @@ body.nav-open{overflow:hidden}
 
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:1.4rem">
         <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin:0 0 .7rem">🧠 Free Brain Training Exercises with Global Leaderboard</h3>
-        <p style="color:var(--text-m);font-size:.87rem;line-height:1.8;margin:0">Shah Hayaat offers 6 free brain training exercises: <strong>Reaction Speed Test</strong> (15-second tap challenge with live global leaderboard), <strong>Math Speed Challenge</strong> (60-second mental maths), <strong>Memory Match Game</strong> (flip card pairs), <strong>Candle Focus</strong> (Ayurvedic Trataka concentration practice), <strong>Number Sequence</strong> (tap 1–25 in order), and <strong>Typing Speed Test</strong> (WPM with global ranking). All voice-guided with live timers. No app download, no login — completely free.</p>
+        <p style="color:var(--text-m);font-size:.87rem;line-height:1.8;margin:0">Shah Hayaat offers 6 free brain training exercises: <strong>Reaction Speed Test</strong> (15-second tap challenge with live global leaderboard), <strong>Math Speed Challenge</strong> (60-second mental maths), <strong>Memory Match Game</strong> (flip card pairs), <strong>Candle Focus</strong> (Ayurvedic Trataka concentration practice), <strong>Number Sequence</strong> (tap 1–25 in order), and <strong>Typing Speed Test</strong> (WPM with global ranking). All voice-guided with live timers. No app download, no login, completely free.</p>
       </div>
 
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:1.4rem">
         <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin:0 0 .7rem">🌬️ Free Pranayama & Breathing Exercises Online India</h3>
-        <p style="color:var(--text-m);font-size:.87rem;line-height:1.8;margin:0">5 free guided pranayama exercises: <strong>Alternate Nostril Breathing</strong> (Nadi Shodhana — balances nervous system, reduces cortisol), <strong>Bhramari Pranayama</strong> (Humming Breath — traditionally practised to support calm and relaxation), <strong>Box Breathing</strong> (Navy SEAL stress control technique), <strong>4-7-8 Relaxation Breathing</strong> (activates parasympathetic response for sleep), and <strong>Quick Energy Breath</strong> (floods brain with oxygen for instant alertness). Each has step-by-step voice guidance and breathing ring animation.</p>
+        <p style="color:var(--text-m);font-size:.87rem;line-height:1.8;margin:0">5 free guided pranayama exercises: <strong>Alternate Nostril Breathing</strong> (Nadi Shodhana: balances nervous system, reduces cortisol), <strong>Bhramari Pranayama</strong> (Humming Breath: traditionally practised to support calm and relaxation), <strong>Box Breathing</strong> (Navy SEAL stress control technique), <strong>4-7-8 Relaxation Breathing</strong> (activates parasympathetic response for sleep), and <strong>Quick Energy Breath</strong> (supports alertness). Each has step-by-step voice guidance and breathing ring animation.</p>
       </div>
 
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:1.4rem">
         <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin:0 0 .7rem">👁️ Free Eye Yoga & Digital Eye Strain Relief Exercises</h3>
-        <p style="color:var(--text-m);font-size:.87rem;line-height:1.8;margin:0">3 free guided eye exercises: <strong>Eye Movement Exercise</strong> (exercises all 6 eye muscles — up/down, left/right, diagonal circles, palming — reverses strain from screen use), <strong>20-20-20 Eye Rest Rule</strong> (the optometrist gold standard for digital eye strain prevention — look 20 feet away for 20 seconds every 20 minutes), and <strong>Ayurvedic Eye Massage</strong> (acupressure points along brow bone, under-eye ridge, temples and nose bridge to relieve headaches and eye fatigue).</p>
+        <p style="color:var(--text-m);font-size:.87rem;line-height:1.8;margin:0">3 free guided eye exercises: <strong>Eye Movement Exercise</strong> (exercises all 6 eye muscles, up/down, left/right, diagonal circles, palming, reverses strain from screen use), <strong>20-20-20 Eye Rest Rule</strong> (the optometrist gold standard for digital eye strain prevention, look 20 feet away for 20 seconds every 20 minutes), and <strong>Ayurvedic Eye Massage</strong> (acupressure points along brow bone, under-eye ridge, temples and nose bridge to relieve headaches and eye fatigue).</p>
       </div>
 
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:1.4rem">
         <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin:0 0 .7rem">🍃 Free Ayurvedic Digestion Exercises After Meals</h3>
-        <p style="color:var(--text-m);font-size:.87rem;line-height:1.8;margin:0">3 free guided Ayurvedic digestion exercises: <strong>Vajrasana After-Meal Sitting</strong> (classical Ayurvedic post-meal practice — compresses the digestive tract for better enzyme activity), <strong>Digestive Activation Routine</strong> (gentle post-meal walking + clockwise abdominal massage + belly breathing — traditionally practised to support healthy digestion after meals), and <strong>Agni Breath — Kapalabhati</strong> (pumping exhales that massage the stomach, awaken digestive fire and relieve bloating and gas).</p>
+        <p style="color:var(--text-m);font-size:.87rem;line-height:1.8;margin:0">3 free guided Ayurvedic digestion exercises: <strong>Vajrasana After-Meal Sitting</strong> (classical Ayurvedic post-meal practice: compresses the digestive tract for better enzyme activity), <strong>Digestive Activation Routine</strong> (gentle post-meal walking + clockwise abdominal massage + belly breathing, traditionally practised to support healthy digestion after meals), and <strong>Agni Breath: Kapalabhati</strong> (pumping exhales that massage the stomach, awaken digestive fire and relieve bloating and gas).</p>
       </div>
 
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:1.4rem">
         <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin:0 0 .7rem">🤸 Free Body Movement & Posture Exercises No Equipment</h3>
-        <p style="color:var(--text-m);font-size:.87rem;line-height:1.8;margin:0">4 free guided body exercises: <strong>Neck & Shoulder Release</strong> (2-minute cervical decompression for desk workers — tilts, circles, shoulder shrugs), <strong>Wrist & Hand Relief</strong> (prevents repetitive strain injury from typing — finger stretches, wrist circles, prayer stretch), <strong>Cross-Body Movement</strong> (activates both brain hemispheres simultaneously — used in brain rehabilitation worldwide), and <strong>Stand & Full Body Stretch</strong> (reverses effects of prolonged sitting in under 2 minutes).</p>
+        <p style="color:var(--text-m);font-size:.87rem;line-height:1.8;margin:0">4 free guided body exercises: <strong>Neck & Shoulder Release</strong> (2-minute cervical decompression for desk workers, tilts, circles, shoulder shrugs), <strong>Wrist & Hand Relief</strong> (prevents repetitive strain injury from typing, finger stretches, wrist circles, prayer stretch), <strong>Cross-Body Movement</strong> (activates both brain hemispheres simultaneously, used in brain rehabilitation worldwide), and <strong>Stand & Full Body Stretch</strong> (reverses effects of prolonged sitting in under 2 minutes).</p>
       </div>
 
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:1.4rem">
         <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin:0 0 .7rem">Why Shah Hayaat Wellness Clinic is India\'s Best Free Exercise Platform</h3>
-        <p style="color:var(--text-m);font-size:.87rem;line-height:1.8;margin:0">Unlike most wellness apps that require a subscription, account or app download, Shah Hayaat Wellness Clinic is <strong>100% free, forever</strong> — accessible on any phone or computer instantly. Features include: <strong>voice guidance</strong> that walks you through every step, <strong>live countdown timers</strong> so you always know where you are, <strong>global leaderboards</strong> for brain games, <strong>daily streak tracking</strong> saved automatically on your device, <strong>personalised exercise recommendations</strong> from the free Wellness Lab assessment, and <strong>Ayurvedic product pairing</strong> suggestions for each exercise category. This is Shah Hayaat\'s gift to India\'s health.</p>
+        <p style="color:var(--text-m);font-size:.87rem;line-height:1.8;margin:0">Unlike most wellness apps that require a subscription, account or app download, Shah Hayaat Wellness Clinic is <strong>100% free, forever</strong>, accessible on any phone or computer instantly. Features include: <strong>voice guidance</strong> that walks you through every step, <strong>live countdown timers</strong> so you always know where you are, <strong>global leaderboards</strong> for brain games, <strong>daily streak tracking</strong> saved automatically on your device, <strong>personalised exercise recommendations</strong> from the free Wellness Lab assessment, and <strong>Ayurvedic product pairing</strong> suggestions for each exercise category. This is Shah Hayaat\'s gift to India\'s health.</p>
       </div>
 
     </div>
@@ -1669,7 +1669,7 @@ body.nav-open{overflow:hidden}
   </div>
 </section>
 
-<!-- SEO CONTENT SECTION — rich keyword-targeted editorial text -->
+<!-- SEO CONTENT SECTION, rich keyword-targeted editorial text -->
 <section style="background:var(--bg);border-top:1px solid var(--border);padding:clamp(40px,5vw,70px) 0">
   <div class="container" style="max-width:900px">
     <div class="sec-head reveal" style="margin-bottom:2rem">
@@ -1680,34 +1680,34 @@ body.nav-open{overflow:hidden}
     <div style="display:grid;grid-template-columns:1fr;gap:2rem;color:var(--text-m);line-height:1.85;font-size:.88rem">
 
       <div>
-        <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin-bottom:.7rem">22 Free Voice-Guided Exercises — No App, No Login, No Equipment</h3>
-        <p>Shah Hayaat Wellness Clinic is India's most complete free guided wellness exercise platform. All 22 activities are 100% free, require no app download, no login and no equipment — just a phone or computer and a few minutes per day. Voice guidance in clear English walks you through every step, and a live countdown timer keeps you on track.</p>
-        <p>Each exercise includes a "How to Do This" step-by-step guide before you start, an optional voice companion during the exercise, and a completion summary at the end. You can do exercises individually, follow the morning or night routine, or start all activities in sequence. Your streak, scores and progress are automatically saved on your device — no account needed.</p>
+        <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin-bottom:.7rem">22 Free Voice-Guided Exercises: No App, No Login, No Equipment</h3>
+        <p>Shah Hayaat Wellness Clinic is India's most complete free guided wellness exercise platform. All 22 activities are 100% free, require no app download, no login and no equipment, just a phone or computer and a few minutes per day. Voice guidance in clear English walks you through every step, and a live countdown timer keeps you on track.</p>
+        <p>Each exercise includes a "How to Do This" step-by-step guide before you start, an optional voice companion during the exercise, and a completion summary at the end. You can do exercises individually, follow the morning or night routine, or start all activities in sequence. Your streak, scores and progress are automatically saved on your device, no account needed.</p>
       </div>
 
       <div>
-        <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin-bottom:.7rem">Pranayama Breathing Exercises — Nadi Shodhana, Bhramari, Box Breathing &amp; More</h3>
-        <p>The breathing category includes five evidence-backed Pranayama techniques used in Ayurveda and modern clinical settings. <strong>Nadi Shodhana</strong> (Alternate Nostril Breathing) balances the left and right hemispheres of the brain and reduces cortisol — 5 minutes of guided practice with phase-by-phase voice instruction. <strong>Bhramari</strong> (Humming Bee Breath) creates calming cranial vibrations traditionally practised to support calm and relaxation. <strong>Box Breathing</strong> — used by military personnel and athletes worldwide — uses four equal counts to rebalance the autonomic nervous system in under 5 minutes. <strong>4-7-8 Breathing</strong> activates the parasympathetic "rest and digest" system for deep relaxation. <strong>Quick Energy Breath</strong> (Kapalabhati-inspired) provides an immediate oxygen surge for energy and alertness without caffeine.</p>
+        <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin-bottom:.7rem">Pranayama Breathing Exercises: Nadi Shodhana, Bhramari, Box Breathing &amp; More</h3>
+        <p>The breathing category includes five evidence-backed Pranayama techniques used in Ayurveda and modern clinical settings. <strong>Nadi Shodhana</strong> (Alternate Nostril Breathing) balances the left and right hemispheres of the brain and reduces cortisol, 5 minutes of guided practice with phase-by-phase voice instruction. <strong>Bhramari</strong> (Humming Bee Breath) creates calming cranial vibrations traditionally practised to support calm and relaxation. <strong>Box Breathing</strong>, used by military personnel and athletes worldwide, uses four equal counts to rebalance the autonomic nervous system in under 5 minutes. <strong>4-7-8 Breathing</strong> activates the parasympathetic "rest and digest" system for deep relaxation. <strong>Quick Energy Breath</strong> (Kapalabhati-inspired) provides an immediate oxygen surge for energy and alertness without caffeine.</p>
       </div>
 
       <div>
-        <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin-bottom:.7rem">Brain Training Exercises — Reaction Test, Memory Match, Math Challenge &amp; Trataka</h3>
-        <p>Six free brain training exercises with global leaderboards. The <strong>Reaction Speed Test</strong> measures and trains your fastest possible tap response — users compete on a live global leaderboard. <strong>Math Speed Challenge</strong> activates the prefrontal cortex with 60 seconds of rapid mental arithmetic. <strong>Memory Match Game</strong> trains short-term visual memory — find all 8 emoji pairs in the fewest attempts. <strong>Candle Focus (Trataka)</strong> is the classical Ayurvedic concentration practice: fix your gaze on a candle flame shown on screen to develop single-pointed attention and reduce mind wandering. <strong>Number Sequence</strong> tests visual search speed and sustained attention — tap 1 to 25 in order as fast as possible. <strong>Typing Speed Test</strong> with Shah Hayaat\'s unique 100 wellness passage library trains finger agility, focus and hand-brain coordination.</p>
+        <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin-bottom:.7rem">Brain Training Exercises: Reaction Test, Memory Match, Math Challenge &amp; Trataka</h3>
+        <p>Six free brain training exercises with global leaderboards. The <strong>Reaction Speed Test</strong> measures and trains your fastest possible tap response, users compete on a live global leaderboard. <strong>Math Speed Challenge</strong> activates the prefrontal cortex with 60 seconds of rapid mental arithmetic. <strong>Memory Match Game</strong> trains short-term visual memory: find all 8 emoji pairs in the fewest attempts. <strong>Candle Focus (Trataka)</strong> is the classical Ayurvedic concentration practice: fix your gaze on a candle flame shown on screen to develop single-pointed attention and reduce mind wandering. <strong>Number Sequence</strong> tests visual search speed and sustained attention, tap 1 to 25 in order as fast as possible. <strong>Typing Speed Test</strong> with Shah Hayaat\'s unique 100 wellness passage library trains finger agility, focus and hand-brain coordination.</p>
       </div>
 
       <div>
-        <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin-bottom:.7rem">Eye Yoga &amp; Screen Relief — Trataka, 20-20-20 Rule &amp; Ayurvedic Eye Massage</h3>
-        <p>Three dedicated eye exercises for India's screen-dependent workforce and students. The <strong>Eye Movement Exercise</strong> trains all 6 eye muscles through up-down, left-right, diagonal and circular movements — recommended for everyone who spends more than 2 hours daily on screens. The <strong>20-20-20 Rule</strong> is the optometrist-recommended approach to digital eye strain: every 20 minutes, look 20 feet away for 20 seconds. Shah Hayaat\'s guided version adds slow blinks, near-far focus switching and eye palming. The <strong>Ayurvedic Eye Massage</strong> stimulates acupressure points around the eyes — brow bone, under-eye bone, nose bridge, temples — to relieve eye fatigue and tension headaches. All three exercises are free, guided and take under 3 minutes each.</p>
+        <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin-bottom:.7rem">Eye Yoga &amp; Screen Relief, Trataka, 20-20-20 Rule &amp; Ayurvedic Eye Massage</h3>
+        <p>Three dedicated eye exercises for India's screen-dependent workforce and students. The <strong>Eye Movement Exercise</strong> trains all 6 eye muscles through up-down, left-right, diagonal and circular movements, recommended for everyone who spends more than 2 hours daily on screens. The <strong>20-20-20 Rule</strong> is the optometrist-recommended approach to digital eye strain: every 20 minutes, look 20 feet away for 20 seconds. Shah Hayaat\'s guided version adds slow blinks, near-far focus switching and eye palming. The <strong>Ayurvedic Eye Massage</strong> stimulates acupressure points around the eyes, brow bone, under-eye bone, nose bridge, temples, to relieve eye fatigue and tension headaches. All three exercises are free, guided and take under 3 minutes each.</p>
       </div>
 
       <div>
-        <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin-bottom:.7rem">Digestive Exercises — Vajrasana After-Meal Pose, Agni Breath &amp; Digestive Routine</h3>
-        <p>Three Ayurvedic digestive exercises address India's most common health complaint. <strong>Vajrasana</strong> (After-Meal Sitting Pose) — sitting on your knees for 5 minutes after eating — compresses the digestive tract in the way Ayurveda has prescribed for centuries. Modern studies confirm it significantly reduces post-meal bloating. <strong>Digestive Activation Routine</strong> combines slow walking, clockwise abdominal massage and belly breathing — post-meal walking is traditionally recommended to support digestion. <strong>Agni Breath</strong> (Kapalabhati Pranayama) uses rapid pumping exhales to massage the stomach from inside — Ayurveda\'s primary technique for awakening digestive fire and clearing metabolic toxins (Ama).</p>
+        <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin-bottom:.7rem">Digestive Exercises: Vajrasana After-Meal Pose, Agni Breath &amp; Digestive Routine</h3>
+        <p>Three Ayurvedic digestive exercises address India's most common health complaint. <strong>Vajrasana</strong> (After-Meal Sitting Pose): sitting on your knees for 5 minutes after eating, compresses the digestive tract in the way Ayurveda has prescribed for centuries. Modern studies confirm it significantly reduces post-meal bloating. <strong>Digestive Activation Routine</strong> combines slow walking, clockwise abdominal massage and belly breathing, post-meal walking is traditionally recommended to support digestion. <strong>Agni Breath</strong> (Kapalabhati Pranayama) uses rapid pumping exhales to massage the stomach from inside, Ayurveda\'s primary technique for awakening digestive fire and clearing metabolic toxins (Ama).</p>
       </div>
 
       <div>
         <h3 style="font-family:var(--font-h);color:var(--gold-l);font-size:1.05rem;margin-bottom:.7rem">Pair Exercises with Ayurvedic Herbal Support</h3>
-        <p>Shah Hayaat's exercises are designed to complement its WHO-GMP certified Ayurvedic product range. Brain training exercises are most effective alongside <a href="brain-champ-ayurvedic-memory-booster.html" style="color:var(--gold)">Brain Champ</a> (Brahmi, Shankhpushpi, Ashwagandha — ₹164). Breathing and immunity exercises pair with <a href="fevodol-ayurvedic-immunity-booster-giloy-tulsi.html" style="color:var(--gold)">Fevodol</a> (Giloy, Tulsi — ₹180). Digestive exercises work alongside <a href="shah-zyme-ayurvedic-digestive-syrup.html" style="color:var(--gold)">Shah Zyme</a> digestive enzyme syrup (₹165). Joint and mobility exercises pair with <a href="ortho-hayaat-ayurvedic-joint-pain-relief.html" style="color:var(--gold)">Ortho Hayaat</a> (Shallaki, Guggul — ₹399). Exercise and herbal support together produce results faster than either alone.</p>
+        <p>Shah Hayaat's exercises are designed to complement its WHO-GMP certified Ayurvedic product range. Brain training exercises are most effective alongside <a href="brain-champ-ayurvedic-memory-booster.html" style="color:var(--gold)">Brain Champ</a> (Brahmi, Shankhpushpi, Ashwagandha: ₹164). Breathing and immunity exercises pair with <a href="fevodol-ayurvedic-immunity-booster-giloy-tulsi.html" style="color:var(--gold)">Fevodol</a> (Giloy, Tulsi: ₹180). Digestive exercises work alongside <a href="shah-zyme-ayurvedic-digestive-syrup.html" style="color:var(--gold)">Shah Zyme</a> digestive enzyme syrup (₹165). Joint and mobility exercises pair with <a href="ortho-hayaat-ayurvedic-joint-pain-relief.html" style="color:var(--gold)">Ortho Hayaat</a> (Shallaki, Guggul: ₹399). Exercise and herbal support together produce results faster than either alone.</p>
       </div>
 
       <!-- FAQ section for SEO -->
@@ -1716,15 +1716,15 @@ body.nav-open{overflow:hidden}
 
         <div style="border-bottom:1px solid var(--border);padding:.8rem 0">
           <p style="font-weight:700;color:var(--text);margin-bottom:.3rem">Are all exercises completely free?</p>
-          <p style="margin:0">Yes. All 22 exercises on Shah Hayaat Wellness Clinic are permanently free. No subscription, no premium tier, no in-app purchases. The free tools are a social initiative — Shah Hayaat\'s way of giving back to the community.</p>
+          <p style="margin:0">Yes. All 22 exercises on Shah Hayaat Wellness Clinic are permanently free. No subscription, no premium tier, no in-app purchases. The free tools are a social initiative, Shah Hayaat\'s way of giving back to the community.</p>
         </div>
         <div style="border-bottom:1px solid var(--border);padding:.8rem 0">
           <p style="font-weight:700;color:var(--text);margin-bottom:.3rem">What equipment do I need for these exercises?</p>
-          <p style="margin:0">No equipment at all. Every exercise is designed for anywhere — at your desk, bedroom floor, or immediately after a meal. You only need a phone or computer. Pranayama exercises only need a quiet place to sit.</p>
+          <p style="margin:0">No equipment at all. Every exercise is designed for anywhere, at your desk, bedroom floor, or immediately after a meal. You only need a phone or computer. Pranayama exercises only need a quiet place to sit.</p>
         </div>
         <div style="border-bottom:1px solid var(--border);padding:.8rem 0">
           <p style="font-weight:700;color:var(--text);margin-bottom:.3rem">What is the best free brain training exercise online in India?</p>
-          <p style="margin:0">Shah Hayaat offers 6 free brain training exercises with live leaderboards: Reaction Speed Test, Math Speed Challenge, Memory Match Game, Candle Focus (Trataka), Number Sequence (1 to 25), and Typing Speed Test — all in one place, free, with no download required.</p>
+          <p style="margin:0">Shah Hayaat offers 6 free brain training exercises with live leaderboards: Reaction Speed Test, Math Speed Challenge, Memory Match Game, Candle Focus (Trataka), Number Sequence (1 to 25), and Typing Speed Test, all in one place, free, with no download required.</p>
         </div>
         <div style="border-bottom:1px solid var(--border);padding:.8rem 0">
           <p style="font-weight:700;color:var(--text);margin-bottom:.3rem">Which Pranayama is best for beginners in India?</p>
@@ -1819,8 +1819,8 @@ body.nav-open{overflow:hidden}
   <div class="toast-next" id="toastNext" style="display:none">
     <div class="toast-next-info">
       <div class="toast-next-label">Up Next</div>
-      <div class="toast-next-name" id="toastNextName">—</div>
-      <div class="toast-next-dur"  id="toastNextDur">—</div>
+      <div class="toast-next-name" id="toastNextName">-</div>
+      <div class="toast-next-dur"  id="toastNextDur">-</div>
     </div>
     <button class="toast-next-btn" id="toastNextBtn" onclick="startNextFromToast()">Start Now</button>
   </div>
@@ -1835,12 +1835,12 @@ body.nav-open{overflow:hidden}
   <div class="ftg-card">
     <div class="ftg-badge">🌿 New Here?</div>
     <div class="ftg-title">Welcome to your<br><em>Wellness Clinic</em></div>
-    <div class="ftg-body">This is a free, guided exercise system for your brain, breathing, eyes, digestion and body. No equipment needed — just a few minutes a day.</div>
+    <div class="ftg-body">This is a free, guided exercise system for your brain, breathing, eyes, digestion and body. No equipment needed, just a few minutes a day.</div>
     <div class="ftg-steps">
-      <div class="ftg-step"><div class="ftg-n">1</div><span><strong>Pick a category</strong> — or start with the Morning Routine to build a simple daily habit.</span></div>
-      <div class="ftg-step"><div class="ftg-n">2</div><span><strong>Read the steps</strong> in each activity before pressing Start — it takes 30 seconds.</span></div>
-      <div class="ftg-step"><div class="ftg-n">3</div><span><strong>Follow the voice guidance</strong> — it walks you through every step with a live timer.</span></div>
-      <div class="ftg-step"><div class="ftg-n">4</div><span><strong>Check back daily</strong> — your streak and scores are saved automatically on this device.</span></div>
+      <div class="ftg-step"><div class="ftg-n">1</div><span><strong>Pick a category</strong>, or start with the Morning Routine to build a simple daily habit.</span></div>
+      <div class="ftg-step"><div class="ftg-n">2</div><span><strong>Read the steps</strong> in each activity before pressing Start, it takes 30 seconds.</span></div>
+      <div class="ftg-step"><div class="ftg-n">3</div><span><strong>Follow the voice guidance</strong>, it walks you through every step with a live timer.</span></div>
+      <div class="ftg-step"><div class="ftg-n">4</div><span><strong>Check back daily</strong>, your streak and scores are saved automatically on this device.</span></div>
     </div>
     <button class="ftg-btn" onclick="dismissGuide(true)">▶ Start with Morning Routine</button>
     <button class="ftg-skip" onclick="dismissGuide(false)">I'll explore on my own →</button>
@@ -1859,7 +1859,7 @@ body.nav-open{overflow:hidden}
       </div>
       <span class="ov-paused-pill" id="ovPausedPill">⏸ Paused</span>
     </div>
-    <!-- Instructions toggle — visible once exercise starts, pauses and shows steps -->
+    <!-- Instructions toggle, visible once exercise starts, pauses and shows steps -->
     <button class="ov-ico-btn ov-instr-btn" id="ovInstrBtn" onclick="toggleInstructions()" title="View instructions" style="display:none">📋</button>
     <button class="ov-ico-btn" id="ovVoice" onclick="toggleVoice()" title="Toggle voice guidance">🔇</button>
     <button class="ov-ico-btn" onclick="ovClose()" style="margin-left:.25rem" title="Close">✕</button>
@@ -1867,7 +1867,7 @@ body.nav-open{overflow:hidden}
 
   <div class="ov-pbar"><div class="ov-pbar-fill" id="ovPbar"></div></div>
 
-  <!-- CHOICE SCREEN — first thing user sees -->
+  <!-- CHOICE SCREEN, first thing user sees -->
   <div class="ov-choice" id="ovChoice">
     <div class="ov-choice-emoji" id="ovChoiceEmoji">🌿</div>
     <div class="ov-choice-title" id="ovChoiceTitle">Activity</div>
@@ -1880,7 +1880,7 @@ body.nav-open{overflow:hidden}
     </div>
   </div>
 
-  <!-- HOW TO PLAY SCREEN — shows ONE step at a time, synced with exercise -->
+  <!-- HOW TO PLAY SCREEN, shows ONE step at a time, synced with exercise -->
   <div class="ov-htp" id="ovHtp" style="display:none">
     <div>
       <div class="ov-htp-badge" id="ovHtpBadge">📋 How To Do This</div>
@@ -1888,7 +1888,7 @@ body.nav-open{overflow:hidden}
       <div class="ov-htp-title" id="ovHtpTitle">Activity</div>
       <div class="ov-htp-dur"   id="ovHtpDur">⏱ 3 min</div>
     </div>
-    <!-- Single step card — only the CURRENT step -->
+    <!-- Single step card, only the CURRENT step -->
     <div class="ov-htp-card">
       <div class="ov-htp-step-num" id="ovHtpStepNum">Step 1 of 4</div>
       <div class="ov-htp-step-bubble">
@@ -1897,17 +1897,17 @@ body.nav-open{overflow:hidden}
       </div>
       <div class="ov-htp-dots" id="ovHtpDots"></div>
     </div>
-    <!-- Avoid box — shown only on last step -->
+    <!-- Avoid box, shown only on last step -->
     <div class="ov-htp-avoid" id="ovHtpAvoid" style="display:none">
       <strong>⚠️ Who Should Avoid</strong>
       <span id="ovHtpAvoidText"></span>
     </div>
     <!-- Action buttons -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:.45rem;width:100%;max-width:340px">
-      <!-- "Do this step" — starts/resumes this phase -->
+      <!-- "Do this step", starts/resumes this phase -->
       <button class="ov-htp-start-final" id="ovHtpDoBtn" onclick="htpDoStep()" style="display:none">▶ Do This Step</button>
       <!-- Final start button for non-phase games -->
-      <button class="ov-htp-start-final" id="ovHtpStartBtn" onclick="ovBeginDirect()" style="display:none">▶ I'm Ready — Start</button>
+      <button class="ov-htp-start-final" id="ovHtpStartBtn" onclick="ovBeginDirect()" style="display:none">▶ I'm Ready: Start</button>
       <!-- Resume button (mid-exercise via 📋) -->
       <button class="ov-htp-resume" id="ovHtpResumeBtn" onclick="resumeFromInstructions()" style="display:none">▶ Resume Exercise</button>
       <button class="ov-htp-skip" id="ovHtpSkipBtn" onclick="ovSkip()" style="display:none">⏭ Skip this exercise</button>
@@ -1926,7 +1926,7 @@ body.nav-open{overflow:hidden}
     <div class="ov-action" id="ovAction">Get Ready</div>
     <div class="ov-tell"  id="ovTell"></div>
     <div class="ov-ring"  id="ovRing"><span class="ov-ring-txt" id="ovRingTxt"></span></div>
-    <div class="ov-count" id="ovCount">—</div>
+    <div class="ov-count" id="ovCount">-</div>
     <div class="ov-count-lbl">seconds</div>
   </div>
 
@@ -1943,7 +1943,7 @@ body.nav-open{overflow:hidden}
         <div style="font-size:.58rem;color:rgba(212,160,23,.7);letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-top:-.05rem">LEFT</div>
       </div>
       <div style="flex:1;text-align:center;background:rgba(184,134,11,.08);border:1px solid rgba(184,134,11,.2);border-radius:12px;padding:.5rem .3rem">
-        <div id="ovGameBestVal" style="font-size:clamp(1.5rem,5.5vw,2.1rem);font-weight:900;color:var(--gold-l);text-shadow:0 0 16px rgba(212,160,23,.3)">—</div>
+        <div id="ovGameBestVal" style="font-size:clamp(1.5rem,5.5vw,2.1rem);font-weight:900;color:var(--gold-l);text-shadow:0 0 16px rgba(212,160,23,.3)">-</div>
         <div style="font-size:.58rem;color:rgba(212,160,23,.5);letter-spacing:.12em;text-transform:uppercase;font-weight:700">🏆 BEST</div>
       </div>
     </div>
@@ -2011,7 +2011,7 @@ body.nav-open{overflow:hidden}
         <div style="font-size:.55rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em">WPM</div>
       </div>
       <div style="text-align:center">
-        <div id="tyOvAcc" style="font-size:clamp(1.4rem,6vw,2rem);font-weight:800;color:rgba(255,255,255,.7);line-height:1">—</div>
+        <div id="tyOvAcc" style="font-size:clamp(1.4rem,6vw,2rem);font-weight:800;color:rgba(255,255,255,.7);line-height:1">-</div>
         <div style="font-size:.55rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em">Accuracy</div>
       </div>
       <div style="text-align:center">
@@ -2079,7 +2079,7 @@ body.nav-open{overflow:hidden}
     </div>
     <!-- Number grid -->
     <div id="seqGrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:100%;max-width:340px"></div>
-    <div class="ov-seq-score" style="margin-top:.5rem">Best time: <strong id="seqBest">—</strong></div>
+    <div class="ov-seq-score" style="margin-top:.5rem">Best time: <strong id="seqBest">-</strong></div>
     <div style="width:100%;max-width:320px;margin-top:.6rem;flex-shrink:0">
       <div style="font-size:.62rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem;text-align:center">🌍 Global Top Scores</div>
       <div id="gameLbList_number_sequence" style="max-height:80px;overflow-y:auto">
@@ -2104,7 +2104,7 @@ body.nav-open{overflow:hidden}
       <!-- Passage (hidden until start) -->
       <div id="srPassage" style="display:none;background:rgba(255,255,255,.04);border:1px solid rgba(212,160,23,.25);border-radius:14px;padding:1rem 1.1rem;font-size:.85rem;line-height:1.78;color:rgba(255,255,255,.9);width:100%;max-width:460px;box-sizing:border-box;white-space:pre-wrap"></div>
       <button id="srStartBtn" onclick="srStart()" style="padding:.7rem 2rem;background:linear-gradient(135deg,#1e3a5f,#2563eb);color:#fff;border:none;border-radius:50px;font-weight:800;font-size:.95rem;cursor:pointer;box-shadow:0 4px 20px rgba(37,99,235,.4)">▶ Start Reading</button>
-      <button id="srDoneReadBtn" onclick="srDoneReading()" style="display:none;padding:.65rem 1.8rem;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border:none;border-radius:50px;font-weight:800;font-size:.9rem;cursor:pointer">✅ Done — Answer Questions</button>
+      <button id="srDoneReadBtn" onclick="srDoneReading()" style="display:none;padding:.65rem 1.8rem;background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff;border:none;border-radius:50px;font-weight:800;font-size:.9rem;cursor:pointer">✅ Done: Answer Questions</button>
     </div>
 
     <!-- Questions phase -->
@@ -2173,8 +2173,8 @@ body.nav-open{overflow:hidden}
     <div style="font-size:.82rem;color:rgba(255,255,255,.5);text-align:center;margin-bottom:1.2rem;line-height:1.6" id="challengeDesc">Share your score and challenge your friend to beat it!</div>
     <div style="background:rgba(212,160,23,.08);border:1px solid rgba(212,160,23,.2);border-radius:12px;padding:.9rem;text-align:center;margin-bottom:1.1rem">
       <div style="font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.3rem">Your Score</div>
-      <div id="challengeScoreDisplay" style="font-family:var(--font-h);font-size:1.8rem;font-weight:900;color:var(--gold-l)">—</div>
-      <div id="challengeScoreLbl" style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.15rem">—</div>
+      <div id="challengeScoreDisplay" style="font-family:var(--font-h);font-size:1.8rem;font-weight:900;color:var(--gold-l)">-</div>
+      <div id="challengeScoreLbl" style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.15rem">-</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:.55rem">
       <button onclick="shareChallenge('whatsapp')" style="width:100%;padding:.82rem 1rem;border-radius:14px;font-size:.9rem;font-weight:800;background:linear-gradient(135deg,#075E54,#128C7E,#25D366);background-size:200% 200%;animation:waShimmer 3s ease infinite;color:#fff;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(37,211,102,.35);display:flex;align-items:center;justify-content:center;gap:.55rem;position:relative;overflow:hidden">
@@ -2196,7 +2196,7 @@ body.nav-open{overflow:hidden}
 'use strict';
 
 /* ═══════════════════════════════════════════════════════
-   22 EXERCISES — 6 CATEGORIES
+   22 EXERCISES: 6 CATEGORIES
    brain · breath · digest · body · eyes · wake
 ═══════════════════════════════════════════════════════ */
 const EXERCISES = [
@@ -2205,7 +2205,7 @@ const EXERCISES = [
   { id:'reaction-test', cat:'brain', emoji:'⚡', title:'Reaction Speed Test',
     tag:'Brain & Mind', tagClass:'tag-brain', dur:'2 min', isTapGame:true,
     desc:'Test and train your reaction speed. Rapid tapping sends a rush of blood to your brain, improves alertness and beats drowsiness better than coffee.',
-    steps:['Sit up straight. Both feet flat on the floor.','Take 3 slow deep breaths to calm your mind first.','Press Start — tap the ⚡ button as fast as you can for 15 seconds.','Your taps, speed and reaction rating will be shown. Try to beat your score!'],
+    steps:['Sit up straight. Both feet flat on the floor.','Take 3 slow deep breaths to calm your mind first.','Press Start: tap the ⚡ button as fast as you can for 15 seconds.','Your taps, speed and reaction rating will be shown. Try to beat your score!'],
     avoid:'People with wrist injuries should tap lightly.',
     voiceIntro:'Reaction Speed Test. Sit straight. Take three deep breaths. Then tap as fast as you can.',
     benefit:'Sharpens', benefitVal:'reaction speed & alertness',
@@ -2213,9 +2213,9 @@ const EXERCISES = [
 
   { id:'math-challenge', cat:'brain', emoji:'🔢', title:'Math Speed Challenge',
     tag:'Brain & Mind', tagClass:'tag-brain', dur:'2 min', isMathGame:true,
-    desc:'Solve simple maths questions as fast as you can. This activates the prefrontal cortex — the part of your brain responsible for decision-making and focus.',
-    steps:['A maths question appears on screen. Choose the correct answer.','You have 60 seconds — answer as many as possible.','Your correct answers, wrong answers and time will be shown at the end.','The faster and more accurate you are, the higher your score.'],
-    avoid:'No restrictions — suitable for everyone.',
+    desc:'Solve simple maths questions as fast as you can. This activates the prefrontal cortex, the part of your brain responsible for decision-making and focus.',
+    steps:['A maths question appears on screen. Choose the correct answer.','You have 60 seconds: answer as many as possible.','Your correct answers, wrong answers and time will be shown at the end.','The faster and more accurate you are, the higher your score.'],
+    avoid:'No restrictions: suitable for everyone.',
     voiceIntro:'Math Speed Challenge. Answer each question as fast as you can.',
     benefit:'Activates', benefitVal:'prefrontal cortex',
     herbal:{name:'Brain Champ', product:'brainchamp', icon:'🧠', desc:'Supports focus and memory.', herbs:['Brahmi','Shankhpushpi','Ashwagandha']} },
@@ -2223,8 +2223,8 @@ const EXERCISES = [
   { id:'memory-match', cat:'brain', emoji:'🃏', title:'Memory Match Game',
     tag:'Brain & Mind', tagClass:'tag-brain', dur:'3 min', isMemoryGame:true,
     desc:'Flip cards to find matching pairs. Memory games strengthen short-term memory by forcing your brain to retain and compare visual information.',
-    steps:['16 face-down cards appear. Tap any card to flip it.','Flip a second card — if the two match, they stay open.','If they don\'t match, both flip back. Remember what you saw.','Match all 8 pairs to complete the game. Fewer attempts = better score!'],
-    avoid:'No restrictions — suitable for everyone.',
+    steps:['16 face-down cards appear. Tap any card to flip it.','Flip a second card: if the two match, they stay open.','If they don\'t match, both flip back. Remember what you saw.','Match all 8 pairs to complete the game. Fewer attempts = better score!'],
+    avoid:'No restrictions: suitable for everyone.',
     voiceIntro:'Memory Match Game. Flip cards and find all matching pairs.',
     benefit:'Strengthens', benefitVal:'short-term memory',
     herbal:{name:'Brain Champ', product:'brainchamp', icon:'🧠', desc:'Traditionally used for memory support.', herbs:['Brahmi','Shankhpushpi','Jatamansi']} },
@@ -2232,9 +2232,9 @@ const EXERCISES = [
   { id:'candle-focus', cat:'brain', emoji:'🕯️', title:'Candle Focus Exercise',
     tag:'Brain & Mind', tagClass:'tag-brain', dur:'3 min',
     desc:'A traditional Ayurvedic concentration practice (Trataka). Fix your gaze on the candle flame 🕯️ shown on screen to train single-pointed attention, improve concentration and calm mental chatter.',
-    phases:[{label:'Settle & breathe',sec:30},{label:'Gaze at the flame 🕯️',sec:60},{label:'Deepen your focus',sec:60},{label:'Close eyes — hold the image',sec:30}],
+    phases:[{label:'Settle & breathe',sec:30},{label:'Gaze at the flame 🕯️',sec:60},{label:'Deepen your focus',sec:60},{label:'Close eyes: hold the image',sec:30}],
     rounds:1,
-    steps:['Sit comfortably with your back straight. Dim your screen brightness slightly if possible.','Look at the candle flame 🕯️ on this screen. Let your gaze become soft and gentle — not a hard stare.','Keep your eyes still and focused on the flame. If your mind wanders, calmly bring your gaze back.','After the timer ends, close your eyes and hold the image of the flame in your mind for 30 seconds.'],
+    steps:['Sit comfortably with your back straight. Dim your screen brightness slightly if possible.','Look at the candle flame 🕯️ on this screen. Let your gaze become soft and gentle, not a hard stare.','Keep your eyes still and focused on the flame. If your mind wanders, calmly bring your gaze back.','After the timer ends, close your eyes and hold the image of the flame in your mind for 30 seconds.'],
     avoid:'People with severe dizziness, photosensitivity, or active eye infection should avoid.',
     voiceIntro:'Candle Focus Exercise. Sit comfortably. Look gently at the candle flame on your screen.',
     phaseVoice:['Settle your body. Breathe slowly. Relax your shoulders.','Look gently at the flame on screen. Let your gaze become soft and still.','Deepen your focus. If your mind wanders, calmly return to the flame.','Close your eyes now. Hold the image of the flame in your mind. Feel the calm.'],
@@ -2243,14 +2243,14 @@ const EXERCISES = [
 
   { id:'number-sequence', cat:'brain', emoji:'🔢', title:'Number Sequence',
     tag:'Brain & Mind', tagClass:'tag-brain', dur:'2 min', isSeqGame:true,
-    desc:'25 numbers are scattered on screen — tap them in order from 1 to 25, as fast as you can! Trains visual search speed, attention and focus.',
+    desc:'25 numbers are scattered on screen, tap them in order from 1 to 25, as fast as you can! Trains visual search speed, attention and focus.',
     steps:[
       '25 numbers (1–25) will appear scrambled across the screen.',
       'Your timer starts the moment you tap the number 1.',
       'Tap 1, then 2, then 3… all the way up to 25 in order.',
-      'Wrong taps flash red — only correct taps in sequence count. Race the clock!'
+      'Wrong taps flash red: only correct taps in sequence count. Race the clock!'
     ],
-    avoid:'No restrictions — suitable for everyone.',
+    avoid:'No restrictions: suitable for everyone.',
     voiceIntro:'Number Sequence. 25 numbers are scattered on screen. Find and tap 1, 2, 3, all the way to 25, as fast as you can!',
     benefit:'Trains', benefitVal:'visual search speed & attention',
     herbal:{name:'Brain Champ', product:'brainchamp', icon:'🧠', desc:'Traditionally used to support memory and focus.', herbs:['Brahmi','Shankhpushpi','Jatamansi']} },
@@ -2259,44 +2259,44 @@ const EXERCISES = [
   { id:'typing-speed', cat:'brain', emoji:'⌨️', title:'Typing Speed Test',
     tag:'Brain & Mind', tagClass:'tag-brain', dur:'30 sec', isTypingGame:true,
     desc:'Type a Shah Hayaat wellness passage as fast and accurately as you can in 30 seconds. Trains finger agility, focus and hand-brain coordination. Compete on the global leaderboard.',
-    steps:['A wellness passage appears on screen. Read it first.','Start typing into the box — the timer starts on your first keystroke.','Type as accurately and quickly as you can. Copy-paste is disabled to keep it fair.','Your WPM score and global rank will be shown when the 30 seconds end.'],
-    avoid:'No restrictions — suitable for everyone.',
+    steps:['A wellness passage appears on screen. Read it first.','Start typing into the box, the timer starts on your first keystroke.','Type as accurately and quickly as you can. Copy-paste is disabled to keep it fair.','Your WPM score and global rank will be shown when the 30 seconds end.'],
+    avoid:'No restrictions: suitable for everyone.',
     voiceIntro:'Typing Speed Test. A passage appears on screen. Type it as fast and accurately as you can. The timer starts when you begin.',
     benefit:'Trains', benefitVal:'finger agility & hand-brain coordination',
-    herbal:{name:'Brain Champ', product:'brainchamp', icon:'🧠', desc:'Supports focus, memory and mental clarity — ideal for those who rely on sharp cognitive performance daily.', herbs:['Brahmi','Shankhpushpi','Ashwagandha']} },
+    herbal:{name:'Brain Champ', product:'brainchamp', icon:'🧠', desc:'Supports focus, memory and mental clarity, ideal for those who rely on sharp cognitive performance daily.', herbs:['Brahmi','Shankhpushpi','Ashwagandha']} },
 
   /* ── 2. BREATHING & RELAXATION ── */
   { id:'nadi-shodhana', cat:'breath', emoji:'🌬️', title:'Alternate Nostril Breathing',
     tag:'Breathing', tagClass:'tag-breath', dur:'5 min', isBreath:true,
-    desc:'Nadi Shodhana is an ancient Pranayama technique proven to balance the nervous system, reduce stress hormones and improve focus within minutes.',
+    desc:'Nadi Shodhana is an ancient Pranayama technique traditionally used to balance the nervous system, reduce stress hormones and improve focus within minutes.',
     phases:[{label:'Breathe in through LEFT nostril',sec:4},{label:'Hold both closed',sec:2},{label:'Breathe out through RIGHT nostril',sec:4},{label:'Breathe in through RIGHT nostril',sec:4},{label:'Breathe out through LEFT nostril',sec:4}],
     rounds:5,
     steps:['Sit comfortably with your back straight. Rest left hand on your knee.','RIGHT HAND: Fold your index and middle finger inward. Use THUMB to close the right nostril and RING FINGER to close the left.','Close your right nostril with your thumb. Breathe IN slowly through your LEFT nostril for 4 counts.','Close both nostrils. Hold 2 seconds. Then release the right nostril. Breathe OUT through the RIGHT nostril for 4 counts. Inhale right, hold, exhale left. Repeat.'],
     avoid:'People with severe respiratory illness or nasal blockage should breathe through the mouth instead.',
     voiceIntro:'Alternate Nostril Breathing. Sit straight. Right hand ready.',
     benefit:'Balances', benefitVal:'nervous system & reduces stress',
-    herbal:{name:'Blood Storm', product:'bloodstorm', icon:'💧', desc:'A revitalising blood tonic that may support healthy circulation and oxygen flow — beneficial alongside breathing practices.', herbs:['Ashwagandha','Punarnava','Lauh Bhasma']} },
+    herbal:{name:'Blood Storm', product:'bloodstorm', icon:'💧', desc:'A revitalising blood tonic that may support healthy circulation and oxygen flow, beneficial alongside breathing practices.', herbs:['Ashwagandha','Punarnava','Lauh Bhasma']} },
 
   { id:'speed-reading', cat:'brain', emoji:'📖', title:'Speed Reading Challenge',
     tag:'Brain & Mind', tagClass:'tag-brain', dur:'1 min', isSpeedRead:true,
     desc:'Read a passage on an important UPSC topic, then answer 5 comprehension questions. Tests reading speed, retention and focus.',
     steps:[
       'A passage on an important UPSC topic will appear.',
-      'Read it carefully \u2014 you have 60 seconds.',
+      'Read it carefully: you have 60 seconds.',
       'When time is up (or you finish early), 5 questions appear.',
       'Answer all 5 questions. You score points for correct answers and speed.',
       'Your score is ranked on the global leaderboard!'
     ],
-    avoid:'No restrictions — suitable for everyone.',
+    avoid:'No restrictions: suitable for everyone.',
     voiceIntro:'Speed Reading Challenge. Read the passage carefully, then answer the questions.',
     benefit:'Builds', benefitVal:'reading speed & comprehension' },
 
   { id:'humming-bee', cat:'breath', emoji:'🐝', title:'Humming Breath (Bhramari)',
     tag:'Breathing', tagClass:'tag-breath', dur:'5 min', isBreath:true,
     desc:'Bhramari creates a calming vibration that soothes the nervous system. Research shows it may lower blood pressure, improve sleep quality and relieve anxiety.',
-    phases:[{label:'Close ears & eyes — settle',sec:15},{label:'Breathe in deeply',sec:5},{label:'Hum on the exhale',sec:8},{label:'Rest between rounds',sec:5}],
+    phases:[{label:'Close ears & eyes: settle',sec:15},{label:'Breathe in deeply',sec:5},{label:'Hum on the exhale',sec:8},{label:'Rest between rounds',sec:5}],
     rounds:5,
-    steps:['Sit comfortably. Press both ear flaps gently closed with your thumbs. Rest other fingers over your closed eyes — a gentle light block.','Breathe in slowly and fully through your nose. Fill your lungs completely.','Keep mouth closed. Make a long "Mmmmmm" humming sound as you breathe out. Feel the vibration in your skull.','Rest quietly for a few seconds. Notice the calm spreading through your body. Then repeat.'],
+    steps:['Sit comfortably. Press both ear flaps gently closed with your thumbs. Rest other fingers over your closed eyes, a gentle light block.','Breathe in slowly and fully through your nose. Fill your lungs completely.','Keep mouth closed. Make a long "Mmmmmm" humming sound as you breathe out. Feel the vibration in your skull.','Rest quietly for a few seconds. Notice the calm spreading through your body. Then repeat.'],
     avoid:'People with severe ear infections should not press the ear flaps. Practice without blocking ears.',
     voiceIntro:'Humming Breath. Sit comfortably. Close your ears and eyes gently.',
     benefit:'Calms mind', benefitVal:'& may improve sleep quality',
@@ -2305,18 +2305,18 @@ const EXERCISES = [
   { id:'box-breathing', cat:'breath', emoji:'🟦', title:'Box Breathing',
     tag:'Breathing', tagClass:'tag-breath', dur:'4 min', isBreath:true,
     desc:'Used by Navy SEALs and professional athletes to control stress. Four equal counts of inhale, hold, exhale and hold rebalance your autonomic nervous system.',
-    phases:[{label:'Breathe IN',sec:4},{label:'Hold — lungs full',sec:4},{label:'Breathe OUT',sec:4},{label:'Hold — lungs empty',sec:4}],
+    phases:[{label:'Breathe IN',sec:4},{label:'Hold: lungs full',sec:4},{label:'Breathe OUT',sec:4},{label:'Hold: lungs empty',sec:4}],
     rounds:5,
     steps:['Sit upright. Breathe out completely to empty your lungs.','Breathe IN through your nose for 4 counts: 1 … 2 … 3 … 4.','HOLD with lungs full: 1 … 2 … 3 … 4. Do not strain.','Breathe OUT through your mouth for 4 counts: 1 … 2 … 3 … 4. Then hold empty: 1 … 2 … 3 … 4. Repeat 5 times.'],
     avoid:'If you feel dizzy, breathe normally and stop. Avoid if pregnant or with serious lung conditions.',
     voiceIntro:'Box Breathing. Breathe out completely. We start with inhale for four counts.',
     benefit:'Reduces anxiety', benefitVal:'in under 5 minutes',
-    herbal:{name:'Blood Storm', product:'bloodstorm', icon:'💧', desc:'Traditionally used to support healthy blood and energy levels — a natural complement to daily breathing routines.', herbs:['Ashwagandha','Punarnava','Lauh Bhasma']} },
+    herbal:{name:'Blood Storm', product:'bloodstorm', icon:'💧', desc:'Traditionally used to support healthy blood and energy levels, a natural complement to daily breathing routines.', herbs:['Ashwagandha','Punarnava','Lauh Bhasma']} },
 
   { id:'478-breath', cat:'breath', emoji:'💤', title:'4-7-8 Relaxation Breathing',
     tag:'Breathing', tagClass:'tag-breath', dur:'4 min', isBreath:true,
-    desc:'Dr. Andrew Weil\'s famous breathing technique. The extended exhale activates the parasympathetic nervous system — your body\'s built-in relaxation response.',
-    phases:[{label:'Breathe OUT fully',sec:5},{label:'Breathe IN — 4 counts',sec:4},{label:'HOLD — 7 counts',sec:7},{label:'Breathe OUT — 8 counts',sec:8}],
+    desc:'Dr. Andrew Weil\'s famous breathing technique. The extended exhale activates the parasympathetic nervous system, your body\'s built-in relaxation response.',
+    phases:[{label:'Breathe OUT fully',sec:5},{label:'Breathe IN: 4 counts',sec:4},{label:'HOLD: 7 counts',sec:7},{label:'Breathe OUT: 8 counts',sec:8}],
     rounds:4,
     steps:['Sit up straight or lie down. Empty your lungs completely with a whoooosh sound.','Close your mouth. Breathe in through your NOSE for 4 counts: 1, 2, 3, 4.','HOLD without breathing for 7 counts: 1, 2, 3, 4, 5, 6, 7.','Breathe out through your mouth making a "whoooosh" sound for 8 counts. This is one full cycle. Repeat 4 times.'],
     avoid:'Avoid if you have serious heart or lung conditions. Stop if you feel very dizzy.',
@@ -2329,8 +2329,8 @@ const EXERCISES = [
     desc:'Short, forceful breaths flood your blood with oxygen. This technique is used by athletes worldwide to wake up instantly and boost alertness without caffeine.',
     phases:[{label:'30 rapid deep breaths',sec:45},{label:'Hold lungs empty',sec:20},{label:'One big slow inhale',sec:10},{label:'Hold lungs full',sec:10},{label:'Breathe out slowly',sec:5}],
     rounds:1,
-    steps:['Sit or lie down. Breathe in fully through your nose, then fully out through your mouth. Fast and forceful — like panting. Do 30 repetitions.','On the 30th breath: breathe OUT completely, then HOLD. Do not breathe in yet. Stay calm — you can hold longer than you think.','When you need air: take ONE very large, slow breath IN. Fill your lungs completely.','Hold this breath for 10 seconds, then breathe out slowly. Feel the energy and clarity.'],
-    avoid:'Do NOT do this while driving or standing. First-timers may feel tingling — this is normal. Stop if very dizzy.',
+    steps:['Sit or lie down. Breathe in fully through your nose, then fully out through your mouth. Fast and forceful, like panting. Do 30 repetitions.','On the 30th breath: breathe OUT completely, then HOLD. Do not breathe in yet. Stay calm, you can hold longer than you think.','When you need air: take ONE very large, slow breath IN. Fill your lungs completely.','Hold this breath for 10 seconds, then breathe out slowly. Feel the energy and clarity.'],
+    avoid:'Do NOT do this while driving or standing. First-timers may feel tingling, this is normal. Stop if very dizzy.',
     voiceIntro:'Quick Energy Breath. Thirty rapid full breaths, then a long hold. Ready.',
     phaseVoice:['Breathe in and out fast and fully. Thirty times. Start now.','Breathe out completely and hold. Do not breathe. Stay calm.','Take one deep slow breath in. Fill your lungs completely.','Hold that breath. Feel the oxygen.','Breathe out slowly. You are done. Feel the difference.'],
     benefit:'Floods brain', benefitVal:'with oxygen instantly' },
@@ -2339,9 +2339,9 @@ const EXERCISES = [
   { id:'knee-chest', cat:'digest', emoji:'🧘', title:'After-Meal Sitting Pose',
     tag:'Digestion', tagClass:'tag-digest', dur:'5 min',
     desc:'Sitting in Vajrasana (kneeling pose) after meals is an ancient Ayurvedic practice. Studies show it compresses the digestive tract in a way that supports efficient digestion.',
-    phases:[{label:'Settle into Vajrasana',sec:30},{label:'Sit tall — slow breaths',sec:120},{label:'Gentle abdominal breathing',sec:90},{label:'Slow rise & walk',sec:60}],
+    phases:[{label:'Settle into Vajrasana',sec:30},{label:'Sit tall: slow breaths',sec:120},{label:'Gentle abdominal breathing',sec:90},{label:'Slow rise & walk',sec:60}],
     rounds:1,
-    steps:['After eating, wait 5 minutes. Then sit on your knees (Vajrasana). Legs together, buttocks resting on your heels.','Keep your back STRAIGHT. Hands resting on your thighs. Chin slightly down.','Breathe slowly and deeply into your BELLY — let it expand on each inhale.','Stay for 5 minutes. Then rise slowly. Avoid sudden movements.'],
+    steps:['After eating, wait 5 minutes. Then sit on your knees (Vajrasana). Legs together, buttocks resting on your heels.','Keep your back STRAIGHT. Hands resting on your thighs. Chin slightly down.','Breathe slowly and deeply into your BELLY, let it expand on each inhale.','Stay for 5 minutes. Then rise slowly. Avoid sudden movements.'],
     avoid:'People with severe knee pain or recent knee surgery should use a cushion or sit in a chair instead.',
     voiceIntro:'After-Meal Sitting Pose. Sit on your knees. Back straight. Hands on thighs.',
     phaseVoice:['Find your position. Knees together, sitting on your heels. Back straight.','Hold this position. Breathe deeply into your belly. Relax your shoulders.','Continue breathing into your belly. Let your digestive system work.','Begin to come out slowly. Uncurl your legs gently.'],
@@ -2351,21 +2351,21 @@ const EXERCISES = [
   { id:'digestive-routine', cat:'digest', emoji:'🚶', title:'Digestive Activation Routine',
     tag:'Digestion', tagClass:'tag-digest', dur:'5 min',
     desc:'Three steps that activate your digestive system after a meal. Post-meal walking is traditionally recommended to support digestion and ease bloating.',
-    phases:[{label:'Walk slowly — very gentle',sec:60},{label:'Abdominal massage — clockwise',sec:90},{label:'Deep belly breathing',sec:60},{label:'Final stroll',sec:90}],
+    phases:[{label:'Walk slowly: very gentle',sec:60},{label:'Abdominal massage: clockwise',sec:90},{label:'Deep belly breathing',sec:60},{label:'Final stroll',sec:90}],
     rounds:1,
-    steps:['Walk VERY slowly — like strolling through a garden. Breathe through your nose. No rushing.','Place one palm flat on your belly. Massage in slow CLOCKWISE circles: up the right side, across the top, down the left. Gentle pressure.','Stand still. Place both hands on your belly. Take 5 DEEP BELLY BREATHS — belly pushes your hands out on each inhale.','End with a slow stroll for 90 seconds. Then rest in Vajrasana (kneeling pose) if comfortable.'],
+    steps:['Walk VERY slowly: like strolling through a garden. Breathe through your nose. No rushing.','Place one palm flat on your belly. Massage in slow CLOCKWISE circles: up the right side, across the top, down the left. Gentle pressure.','Stand still. Place both hands on your belly. Take 5 DEEP BELLY BREATHS, belly pushes your hands out on each inhale.','End with a slow stroll for 90 seconds. Then rest in Vajrasana (kneeling pose) if comfortable.'],
     avoid:'Avoid vigorous walking or exercise immediately after eating. Keep all movements gentle.',
     voiceIntro:'Digestive Activation Routine. Begin walking very slowly and gently.',
     phaseVoice:['Walk very gently. No rush. Breathe through your nose.','Hands on belly. Slow clockwise massage circles.','Stand still. Deep belly breaths. Belly pushes out on each inhale.','Final gentle stroll. Then rest and allow digestion.'],
     benefit:'Supports digestion', benefitVal:'after meals',
     herbal:{name:'Shah Zyme', product:'shahzyme', icon:'🌿', desc:'May support healthy digestion and metabolism.', herbs:['Triphala','Ginger','Ajwain']} },
 
-  { id:'agni-breath', cat:'digest', emoji:'🔥', title:'Agni Breath — Digestive Fire',
+  { id:'agni-breath', cat:'digest', emoji:'🔥', title:'Agni Breath: Digestive Fire',
     tag:'Digestion', tagClass:'tag-digest', dur:'4 min', isBreath:true,
-    desc:'Kapalabhati Pranayama — the Ayurvedic breath for awakening digestive fire. Each sharp exhale pumps and massages your stomach from the inside.',
-    phases:[{label:'Prepare — gentle breathing',sec:20},{label:'Sharp pumping exhales — Round 1',sec:30},{label:'Rest — big inhale, hold, out',sec:20},{label:'Sharp pumping exhales — Round 2',sec:30},{label:'Final 3 deep slow breaths',sec:40}],
+    desc:'Kapalabhati Pranayama: the Ayurvedic breath for awakening digestive fire. Each sharp exhale pumps and massages your stomach from the inside.',
+    phases:[{label:'Prepare: gentle breathing',sec:20},{label:'Sharp pumping exhales: Round 1',sec:30},{label:'Rest: big inhale, hold, out',sec:20},{label:'Sharp pumping exhales: Round 2',sec:30},{label:'Final 3 deep slow breaths',sec:40}],
     rounds:2,
-    steps:['Sit up very straight. Place one hand on your belly. Take 3 slow deep breaths.','KAPALABHATI: Give a short, SHARP exhale through your nose, pulling your belly button backward toward your spine. The inhale happens automatically.','Do 30 sharp pumping exhales in 30 seconds — like a steam engine. Focus only on the exhale.','After 30 pumps: take one BIG breath in, hold 5 seconds, breathe out slowly. Rest 20 seconds. Then repeat.'],
+    steps:['Sit up very straight. Place one hand on your belly. Take 3 slow deep breaths.','KAPALABHATI: Give a short, SHARP exhale through your nose, pulling your belly button backward toward your spine. The inhale happens automatically.','Do 30 sharp pumping exhales in 30 seconds, like a steam engine. Focus only on the exhale.','After 30 pumps: take one BIG breath in, hold 5 seconds, breathe out slowly. Rest 20 seconds. Then repeat.'],
     avoid:'Avoid during pregnancy, with hernia, or during menstruation. If you feel nauseous, stop and breathe normally.',
     voiceIntro:'Agni Breath. Sit straight. Hand on belly. Three slow deep breaths to prepare.',
     phaseVoice:['Sit straight. Hand on belly. Three gentle deep breaths.','Sharp pumping exhales through the nose. Belly button pumps in sharply. Begin.','Big inhale, hold five seconds, breathe out slowly. Rest and breathe normally.','Second round of sharp pumping exhales. Begin.','Three long slow deep breaths. Feel your digestion waking up.'],
@@ -2376,11 +2376,11 @@ const EXERCISES = [
   { id:'neck-shoulder', cat:'body', emoji:'🤸', title:'Neck & Shoulder Release',
     tag:'Body Movement', tagClass:'tag-body', dur:'2 min',
     desc:'Hours of sitting creates tension that travels from your neck down your spine. This 2-minute sequence decompresses the cervical spine and restores mobility.',
-    phases:[{label:'Neck tilts left and right',sec:30},{label:'Neck circles — slow',sec:30},{label:'Shoulder shrugs up and down',sec:20},{label:'Shoulder rolls forward',sec:20},{label:'Shoulder rolls backward',sec:20}],
+    phases:[{label:'Neck tilts left and right',sec:30},{label:'Neck circles: slow',sec:30},{label:'Shoulder shrugs up and down',sec:20},{label:'Shoulder rolls forward',sec:20},{label:'Shoulder rolls backward',sec:20}],
     rounds:1,
-    steps:['Sit or stand straight. DROP your shoulders first — they are probably up near your ears!','NECK TILTS: Lower right ear toward right shoulder. Hold 10 sec. Then left. Hold 10 sec.','NECK CIRCLES: Roll your head SLOWLY in a full circle. 5 times left, 5 times right.','SHOULDER SHRUGS: Lift both shoulders UP to your ears. Hold 3 sec. Drop them hard. Repeat 5 times.'],
+    steps:['Sit or stand straight. DROP your shoulders first, they are probably up near your ears!','NECK TILTS: Lower right ear toward right shoulder. Hold 10 sec. Then left. Hold 10 sec.','NECK CIRCLES: Roll your head SLOWLY in a full circle. 5 times left, 5 times right.','SHOULDER SHRUGS: Lift both shoulders UP to your ears. Hold 3 sec. Drop them hard. Repeat 5 times.'],
     avoid:'People with cervical spondylosis or neck injury should avoid full circles. Only tilt side to side.',
-    voiceIntro:'Neck and Shoulder Release. Drop your shoulders first — relax them completely.',
+    voiceIntro:'Neck and Shoulder Release. Drop your shoulders first, relax them completely.',
     phaseVoice:['Tilt right ear toward right shoulder. Hold. Now left ear to left shoulder. Hold.','Slow neck circles. Five times one way. Then five times the other.','Lift both shoulders to your ears. Hold three seconds. Drop them hard. Repeat.','Roll shoulders forward in large circles. Keep them relaxed.','Roll shoulders backward. Open your chest.'],
     benefit:'Reduces stiffness', benefitVal:'& improves neck mobility',
     herbal:{name:'Ortho Hayaat', product:'orthohayaat', icon:'🦴', desc:'Traditionally used to support joint mobility and comfort.', herbs:['Shallaki','Guggul','Nirgundi']} },
@@ -2400,9 +2400,9 @@ const EXERCISES = [
   { id:'cross-body', cat:'body', emoji:'🤹', title:'Cross-Body Movement',
     tag:'Body Movement', tagClass:'tag-body', dur:'3 min',
     desc:'Moving opposite limbs simultaneously activates both brain hemispheres, improves coordination and stimulates neural connections. Used in brain rehabilitation worldwide.',
-    phases:[{label:'Cross-crawl marching',sec:30},{label:'Right elbow to left knee',sec:20},{label:'Left elbow to right knee',sec:20},{label:'Figure-8 right hand',sec:20},{label:'Figure-8 left hand',sec:20},{label:'Hook-ups — breathe',sec:60}],
+    phases:[{label:'Cross-crawl marching',sec:30},{label:'Right elbow to left knee',sec:20},{label:'Left elbow to right knee',sec:20},{label:'Figure-8 right hand',sec:20},{label:'Figure-8 left hand',sec:20},{label:'Hook-ups: breathe',sec:60}],
     rounds:2,
-    steps:['Stand with feet shoulder-width apart. Relax your shoulders.','CROSS CRAWL: Lift your LEFT knee and touch it with your RIGHT elbow. Then RIGHT knee with LEFT elbow. Alternate for 30 sec — like a slow march.','FIGURE 8: Stretch your right arm forward, thumb up. Draw a large figure-8 (∞) in the air. Both eyes follow your thumb without moving your head.','HOOK-UPS: Cross right ankle over left. Cross wrists and clasp hands. Close eyes and breathe slowly for 60 seconds.'],
+    steps:['Stand with feet shoulder-width apart. Relax your shoulders.','CROSS CRAWL: Lift your LEFT knee and touch it with your RIGHT elbow. Then RIGHT knee with LEFT elbow. Alternate for 30 sec, like a slow march.','FIGURE 8: Stretch your right arm forward, thumb up. Draw a large figure-8 (∞) in the air. Both eyes follow your thumb without moving your head.','HOOK-UPS: Cross right ankle over left. Cross wrists and clasp hands. Close eyes and breathe slowly for 60 seconds.'],
     avoid:'People with recent knee surgery should do this seated. Avoid if severe balance issues.',
     voiceIntro:'Cross Body Movement. Stand with feet shoulder-width apart. Relax your shoulders.',
     phaseVoice:['Begin your cross-crawl march. Lift knees, touch opposite elbows.','Right elbow to left knee. Slow and deliberate. Feel the cross-body connection.','Left elbow to right knee. Keep moving.','Right arm out, thumb up. Draw a big figure eight in the air. Both eyes follow your thumb.','Now left arm. Same big figure eight.','Cross ankles. Cross wrists. Clasp hands. Close eyes. Breathe slowly.'],
@@ -2412,9 +2412,9 @@ const EXERCISES = [
   { id:'stand-stretch', cat:'body', emoji:'🙆', title:'Stand & Full Body Stretch',
     tag:'Body Movement', tagClass:'tag-body', dur:'2 min',
     desc:'Sitting compresses your spine and cuts blood flow to your muscles. This full-body stretch reverses the effects of sitting in under 2 minutes.',
-    phases:[{label:'Stand tall — deep breath',sec:10},{label:'Reach arms overhead',sec:20},{label:'Bend slightly backward',sec:15},{label:'Forward fold — arms hang',sec:20},{label:'Roll up slowly',sec:15},{label:'Side stretch left',sec:15},{label:'Side stretch right',sec:15}],
+    phases:[{label:'Stand tall: deep breath',sec:10},{label:'Reach arms overhead',sec:20},{label:'Bend slightly backward',sec:15},{label:'Forward fold: arms hang',sec:20},{label:'Roll up slowly',sec:15},{label:'Side stretch left',sec:15},{label:'Side stretch right',sec:15}],
     rounds:1,
-    steps:['Stand up. Place feet hip-width apart. Shake your body loose for 5 seconds.','Raise BOTH arms overhead. Reach as high as you can. Feel the stretch along your entire spine.','Clasp hands overhead. Bend gently backward. Look up at the ceiling. Hold 15 seconds.','Bend forward. Let your arms hang heavy toward the floor. Slightly bend knees. Hold 20 sec.','Roll up very slowly — one vertebra at a time. Head comes up LAST.'],
+    steps:['Stand up. Place feet hip-width apart. Shake your body loose for 5 seconds.','Raise BOTH arms overhead. Reach as high as you can. Feel the stretch along your entire spine.','Clasp hands overhead. Bend gently backward. Look up at the ceiling. Hold 15 seconds.','Bend forward. Let your arms hang heavy toward the floor. Slightly bend knees. Hold 20 sec.','Roll up very slowly: one vertebra at a time. Head comes up LAST.'],
     avoid:'People with high blood pressure should avoid the backward bend. People with herniated discs should avoid the forward fold.',
     voiceIntro:'Stand and Full Body Stretch. Stand up. Feet hip-width apart. Shake your body loose.',
     phaseVoice:['Stand tall. Take one deep breath in through your nose.','Raise both arms overhead. Reach as high as you can. Feel the spine lengthen.','Clasp hands. Bend gently backward. Open your chest.','Bend forward. Arms hang heavy. Knees slightly bent.','Roll up slowly. One vertebra at a time. Head comes up last.','Right arm overhead, lean gently to the left.','Left arm overhead, lean gently to the right.'],
@@ -2424,9 +2424,9 @@ const EXERCISES = [
   { id:'eye-movement', cat:'eyes', emoji:'👁️', title:'Eye Movement Exercise',
     tag:'Eye Relief', tagClass:'tag-eyes', dur:'3 min',
     desc:'Screen use locks your eyes in one focal distance for hours, weakening eye muscles. These movements exercise all 6 eye muscles and improve blood flow to the eyes.',
-    phases:[{label:'Up & down — 10 times',sec:30},{label:'Left & right — 10 times',sec:30},{label:'Diagonal top-left to bottom-right',sec:20},{label:'Diagonal top-right to bottom-left',sec:20},{label:'Clockwise circles — slow',sec:30},{label:'Anti-clockwise circles',sec:30},{label:'Palming — rest eyes',sec:40}],
+    phases:[{label:'Up & down: 10 times',sec:30},{label:'Left & right: 10 times',sec:30},{label:'Diagonal top-left to bottom-right',sec:20},{label:'Diagonal top-right to bottom-left',sec:20},{label:'Clockwise circles: slow',sec:30},{label:'Anti-clockwise circles',sec:30},{label:'Palming: rest eyes',sec:40}],
     rounds:1,
-    steps:['Sit straight. Keep your HEAD COMPLETELY STILL — only your eyes should move throughout.','UP & DOWN: Look up slowly. Hold 2 sec. Look down. Hold 2 sec. 10 times.','LEFT & RIGHT: Look as far left as you can. Hold 2 sec. Far right. Hold 2 sec. 10 times.','CIRCLES: Rotate eyes slowly in full clockwise circles — 5 rotations. Then anti-clockwise — 5 rotations. Then PALM your eyes.'],
+    steps:['Sit straight. Keep your HEAD COMPLETELY STILL, only your eyes should move throughout.','UP & DOWN: Look up slowly. Hold 2 sec. Look down. Hold 2 sec. 10 times.','LEFT & RIGHT: Look as far left as you can. Hold 2 sec. Far right. Hold 2 sec. 10 times.','CIRCLES: Rotate eyes slowly in full clockwise circles, 5 rotations. Then anti-clockwise, 5 rotations. Then PALM your eyes.'],
     avoid:'Stop if you feel eye pain. People with recent eye surgery should consult a doctor first.',
     voiceIntro:'Eye Movement Exercise. Sit straight. Head still. Only your eyes will move.',
     phaseVoice:['Look up slowly. Hold. Look down. Hold. Ten times.','Look far left. Hold. Far right. Hold. Ten times.','Look top-left corner. Hold. Bottom-right corner. Hold.','Look top-right corner. Hold. Bottom-left corner. Hold.','Slow clockwise circles. Five full rotations.','Anti-clockwise circles. Five full rotations.','Rub palms together until warm. Cup them over your closed eyes.'],
@@ -2436,9 +2436,9 @@ const EXERCISES = [
   { id:'twenty-twenty', cat:'eyes', emoji:'🏔️', title:'20-20-20 Eye Rest Rule',
     tag:'Eye Relief', tagClass:'tag-eyes', dur:'3 min',
     desc:'Optometrists worldwide recommend this: every 20 minutes, look at something 20 feet away for 20 seconds. This relaxes the ciliary muscles that control your lens focus.',
-    phases:[{label:'Look at something 20 feet away',sec:20},{label:'Slow blinks — 10 times',sec:20},{label:'Near-far focus switching',sec:30},{label:'Palming — warm eyes',sec:40},{label:'Gentle eye massage',sec:40}],
+    phases:[{label:'Look at something 20 feet away',sec:20},{label:'Slow blinks: 10 times',sec:20},{label:'Near-far focus switching',sec:30},{label:'Palming: warm eyes',sec:40},{label:'Gentle eye massage',sec:40}],
     rounds:1,
-    steps:['Look at something 20 FEET (6 metres) away — a wall, out the window, a distant object. Let your eyes go completely soft and relaxed.','Blink slowly 10 times — full, deliberate blinks. This re-moistens your eyes and resets the nervous system.','Hold one finger 30 cm from your face. Alternate focusing on your finger, then on something far away. 10 times.','Rub palms together until WARM. Cup gently over closed eyes. No pressure. Hold 40 seconds.'],
+    steps:['Look at something 20 FEET (6 metres) away, a wall, out the window, a distant object. Let your eyes go completely soft and relaxed.','Blink slowly 10 times: full, deliberate blinks. This re-moistens your eyes and resets the nervous system.','Hold one finger 30 cm from your face. Alternate focusing on your finger, then on something far away. 10 times.','Rub palms together until WARM. Cup gently over closed eyes. No pressure. Hold 40 seconds.'],
     avoid:'No restrictions. Recommended for everyone who uses screens.',
     voiceIntro:'Twenty Twenty Twenty. Look at something twenty feet away. Let your eyes relax completely.',
     phaseVoice:['Look far away. Twenty feet minimum. Let your eyes soften. Breathe.','Blink slowly ten times. Full blinks. Re-moisten your eyes.','One finger close. Focus on it. Now look far. Alternate ten times.','Rub palms together. Cup them over closed eyes. Warm and dark.','Gently massage around your eye socket with your fingertips.'],
@@ -2448,7 +2448,7 @@ const EXERCISES = [
   { id:'eye-massage', cat:'eyes', emoji:'🤌', title:'Ayurvedic Eye Massage',
     tag:'Eye Relief', tagClass:'tag-eyes', dur:'3 min',
     desc:'This Ayurvedic sequence stimulates acupressure points around the eyes that may relieve eye fatigue, headaches and tension accumulated from screen use.',
-    phases:[{label:'Press along brow bone',sec:25},{label:'Under-eye bone — very gentle',sec:25},{label:'Bridge of nose',sec:20},{label:'Temples — slow circles',sec:25},{label:'Full palming',sec:45},{label:'Gentle fingertip tapping',sec:25}],
+    phases:[{label:'Press along brow bone',sec:25},{label:'Under-eye bone: very gentle',sec:25},{label:'Bridge of nose',sec:20},{label:'Temples: slow circles',sec:25},{label:'Full palming',sec:45},{label:'Gentle fingertip tapping',sec:25}],
     rounds:1,
     steps:['Wash hands first. Sit straight with eyes closed.','BROW BONE: Press 2 fingers along the ridge above your eyes, from inner to outer corner. 3 slow passes.','UNDER EYE: Very gently press the bony ridge BELOW your eyes. Never press the soft eyeball. 3 passes.','TEMPLES: Index fingers on both temples. Slow clockwise circles for 15 sec, then anti-clockwise.'],
     avoid:'Never press directly on the eyeball. Avoid if you have an active eye infection or glaucoma.',
@@ -2460,18 +2460,18 @@ const EXERCISES = [
   /* ── 6. QUICK DAILY ACTIVATION ── */
   { id:'rapid-tap', cat:'wake', emoji:'⚡', title:'Rapid Tap Wake-Up',
     tag:'Daily Activation', tagClass:'tag-wake', dur:'2 min', isTapGame:true,
-    desc:'The fastest way to wake up your brain. Rapid tapping for 15 seconds sends a surge of blood to your head — more effective than coffee for instant alertness.',
-    steps:['Sit up straight. Both feet flat on the floor.','Take 3 slow deep breaths.','Press Start — tap the ⚡ button as fast as you can for 15 seconds.','Try to beat your score every time you do it!'],
+    desc:'The fastest way to wake up your brain. Rapid tapping for 15 seconds sends a surge of blood to your head, more effective than coffee for alertness.',
+    steps:['Sit up straight. Both feet flat on the floor.','Take 3 slow deep breaths.','Press Start: tap the ⚡ button as fast as you can for 15 seconds.','Try to beat your score every time you do it!'],
     avoid:'People with wrist injuries should tap lightly.',
     voiceIntro:'Rapid Tap Wake-Up. Sit straight. Take three deep breaths. Then tap as fast as you can.',
     benefit:'Beats drowsiness', benefitVal:'in 15 seconds' },
 
   { id:'movement-burst', cat:'wake', emoji:'🏃', title:'3-Minute Movement Burst',
     tag:'Daily Activation', tagClass:'tag-wake', dur:'3 min',
-    desc:'3 minutes of movement releases your brain\'s natural stimulants — dopamine, serotonin and norepinephrine. Better than an energy drink with zero crash.',
+    desc:'3 minutes of movement releases your brain\'s natural stimulants: dopamine, serotonin and norepinephrine. Better than an energy drink with zero crash.',
     phases:[{label:'March in place',sec:30},{label:'Jumping jacks',sec:30},{label:'High knees',sec:30},{label:'Rest & breathe',sec:20},{label:'Arm circles',sec:30},{label:'Cool down & breathe',sec:30}],
     rounds:1,
-    steps:['Stand up. Clear a small space. Shake your body loose.','MARCH: March in place for 30 sec — knees HIGH, arms swinging.','JACKS: Jumping jacks for 30 sec — feet out wide, arms up, back together.','HIGH KNEES: Run in place with knees lifted to hip height. Then arm circles, then deep breaths.'],
+    steps:['Stand up. Clear a small space. Shake your body loose.','MARCH: March in place for 30 sec, knees HIGH, arms swinging.','JACKS: Jumping jacks for 30 sec, feet out wide, arms up, back together.','HIGH KNEES: Run in place with knees lifted to hip height. Then arm circles, then deep breaths.'],
     avoid:'People with knee or hip pain should march only. No jumping.',
     voiceIntro:'Three Minute Movement Burst. Stand up right now.',
     phaseVoice:['March in place. Knees up, arms swinging. Keep going!','Jumping jacks. Feet out, arms up, back together.','High knees. Lift them to hip height. Keep going!','Rest. Three slow deep breaths.','Arm circles. Big and slow. Forward then backward.','Shake your hands. Roll your shoulders. Deep breath. Well done!'],
@@ -2480,7 +2480,7 @@ const EXERCISES = [
   { id:'energy-press', cat:'wake', emoji:'👆', title:'Energy Pressure Points',
     tag:'Daily Activation', tagClass:'tag-wake', dur:'2 min',
     desc:'Pressing 5 specific points on your head and hands sends alertness signals directly to your brain. Used in Ayurveda and Traditional Chinese Medicine for centuries.',
-    phases:[{label:'Brow point — between eyebrows',sec:15},{label:'Both temples',sec:15},{label:'Under the nose',sec:15},{label:'Both earlobes',sec:15},{label:'Scalp tapping',sec:30},{label:'Hand web point',sec:30}],
+    phases:[{label:'Brow point: between eyebrows',sec:15},{label:'Both temples',sec:15},{label:'Under the nose',sec:15},{label:'Both earlobes',sec:15},{label:'Scalp tapping',sec:30},{label:'Hand web point',sec:30}],
     rounds:1,
     steps:['Rub both palms together hard for 10 seconds to warm them up.','BROW POINT: Press 2 fingers between your eyebrows. Slow circles for 15 sec.','TEMPLES: Index fingers into the hollows beside your eyes. Slow circles.','EARLOBES: Pinch and squeeze both earlobes. SCALP: Tap all 10 fingertips firmly all over your head for 30 sec. HAND WEB: Press fleshy web between thumb and index finger.'],
     avoid:'Avoid deep pressure if you have migraines during an episode.',
@@ -2534,48 +2534,48 @@ const LAB_CAT_LABELS = {
 const PG = {
   'box-breathing':{
     'Breathe IN':         {icon:'👃',action:'BREATHE IN',  instr:'Breathe in through your NOSE slowly.\nFeel your belly rise.', breathDir:'in'},
-    'Hold — lungs full':  {icon:'⏸',action:'HOLD FULL',   instr:'Lungs are full — hold still.\nDo not breathe in or out.', breathDir:'hold'},
+    'Hold: lungs full':  {icon:'⏸',action:'HOLD FULL',   instr:'Lungs are full: hold still.\nDo not breathe in or out.', breathDir:'hold'},
     'Breathe OUT':        {icon:'💨',action:'BREATHE OUT', instr:'Breathe out through your MOUTH slowly.\nFeel your belly fall.', breathDir:'out'},
-    'Hold — lungs empty': {icon:'⏸',action:'HOLD EMPTY',  instr:'Lungs are empty — hold still.\nDo not breathe in or out.', breathDir:'hold'},
+    'Hold: lungs empty': {icon:'⏸',action:'HOLD EMPTY',  instr:'Lungs are empty: hold still.\nDo not breathe in or out.', breathDir:'hold'},
   },
   '478-breath':{
     'Breathe OUT fully':     {icon:'💨',action:'BREATHE OUT', instr:'Breathe out completely.\nMake a "whoooosh" sound.', breathDir:'out'},
-    'Breathe IN — 4 counts': {icon:'👃',action:'BREATHE IN',  instr:'Close mouth. Breathe in through your NOSE.\nCount: 1, 2, 3, 4.', breathDir:'in'},
-    'HOLD — 7 counts':       {icon:'⏸',action:'HOLD',         instr:'Hold — do not breathe.\nCount 1 to 7 slowly.', breathDir:'hold'},
-    'Breathe OUT — 8 counts':{icon:'💨',action:'BREATHE OUT',  instr:'Out through mouth — "whoooosh".\nCount 1 to 8 slowly.', breathDir:'out'},
+    'Breathe IN: 4 counts': {icon:'👃',action:'BREATHE IN',  instr:'Close mouth. Breathe in through your NOSE.\nCount: 1, 2, 3, 4.', breathDir:'in'},
+    'HOLD: 7 counts':       {icon:'⏸',action:'HOLD',         instr:'Hold: do not breathe.\nCount 1 to 7 slowly.', breathDir:'hold'},
+    'Breathe OUT: 8 counts':{icon:'💨',action:'BREATHE OUT',  instr:'Out through mouth: "whoooosh".\nCount 1 to 8 slowly.', breathDir:'out'},
   },
   'nadi-shodhana':{
-    'Breathe in through LEFT nostril':  {icon:'👃',action:'IN — LEFT',  instr:'Thumb closes RIGHT nostril.\nBreathe in slowly through LEFT.', breathDir:'in'},
+    'Breathe in through LEFT nostril':  {icon:'👃',action:'IN: LEFT',  instr:'Thumb closes RIGHT nostril.\nBreathe in slowly through LEFT.', breathDir:'in'},
     'Hold both closed':                 {icon:'⏸',action:'HOLD',        instr:'Close BOTH nostrils.\nHold 2 seconds.', breathDir:'hold'},
-    'Breathe out through RIGHT nostril':{icon:'💨',action:'OUT — RIGHT', instr:'Lift thumb. Right nostril open.\nBreathe out slowly through RIGHT.', breathDir:'out'},
-    'Breathe in through RIGHT nostril': {icon:'👃',action:'IN — RIGHT',  instr:'Left closed by ring finger.\nBreathe in through RIGHT nostril.', breathDir:'in'},
-    'Breathe out through LEFT nostril': {icon:'💨',action:'OUT — LEFT',  instr:'Lift ring finger. Left open.\nBreathe out slowly through LEFT.', breathDir:'out'},
+    'Breathe out through RIGHT nostril':{icon:'💨',action:'OUT: RIGHT', instr:'Lift thumb. Right nostril open.\nBreathe out slowly through RIGHT.', breathDir:'out'},
+    'Breathe in through RIGHT nostril': {icon:'👃',action:'IN: RIGHT',  instr:'Left closed by ring finger.\nBreathe in through RIGHT nostril.', breathDir:'in'},
+    'Breathe out through LEFT nostril': {icon:'💨',action:'OUT: LEFT',  instr:'Lift ring finger. Left open.\nBreathe out slowly through LEFT.', breathDir:'out'},
   },
   'humming-bee':{
-    'Close ears & eyes — settle':{icon:'🤫',action:'CLOSE & SETTLE', instr:'Press ear flaps closed with thumbs.\nRest fingers over your closed eyes.'},
+    'Close ears & eyes: settle':{icon:'🤫',action:'CLOSE & SETTLE', instr:'Press ear flaps closed with thumbs.\nRest fingers over your closed eyes.'},
     'Breathe in deeply':         {icon:'👃',action:'BREATHE IN DEEP',instr:'Breathe in slowly and fully.\nFill your lungs completely.', breathDir:'in'},
     'Hum on the exhale':         {icon:'🐝',action:'HUMMM…',         instr:'Mouth closed. Long "Mmmmmm" sound.\nFeel the vibration in your skull.'},
     'Rest between rounds':       {icon:'🤫',action:'REST & FEEL',    instr:'Sit quietly. Do not move.\nNotice the calm spreading through you.'},
   },
   'quick-energy-breath':{
-    '30 rapid deep breaths': {icon:'💨',action:'BREATHE FAST!', instr:'Fast full breaths in AND out.\nBig and forceful — like panting.'},
+    '30 rapid deep breaths': {icon:'💨',action:'BREATHE FAST!', instr:'Fast full breaths in AND out.\nBig and forceful, like panting.'},
     'Hold lungs empty':      {icon:'⏸',action:'HOLD EMPTY',    instr:'Breathe out. Then STOP breathing.\nHold. Stay calm.', breathDir:'hold'},
     'One big slow inhale':   {icon:'👃',action:'DEEP INHALE',   instr:'One very slow, DEEP breath in.\nFill your lungs completely.', breathDir:'in'},
     'Hold lungs full':       {icon:'⏸',action:'HOLD FULL',     instr:'Hold that big breath in.\nFeel the oxygen.', breathDir:'hold'},
     'Breathe out slowly':    {icon:'💨',action:'BREATHE OUT',   instr:'Breathe out very slowly.\nThen breathe normally.', breathDir:'out'},
   },
   'agni-breath':{
-    'Prepare — gentle breathing':      {icon:'🌬️',action:'PREPARE',       instr:'Sit straight. Hand on belly.\nThree slow gentle breaths.'},
-    'Sharp pumping exhales — Round 1': {icon:'🔥',action:'PUMP EXHALES!', instr:'Sharp exhales through nose.\nBelly pumps in on each exhale.'},
-    'Rest — big inhale, hold, out':    {icon:'⏸',action:'REST',           instr:'Big inhale, hold 5 sec, breathe out.\nRest and breathe normally.'},
-    'Sharp pumping exhales — Round 2': {icon:'🔥',action:'PUMP EXHALES!', instr:'Second round.\nSharp pumping exhales again.'},
+    'Prepare: gentle breathing':      {icon:'🌬️',action:'PREPARE',       instr:'Sit straight. Hand on belly.\nThree slow gentle breaths.'},
+    'Sharp pumping exhales: Round 1': {icon:'🔥',action:'PUMP EXHALES!', instr:'Sharp exhales through nose.\nBelly pumps in on each exhale.'},
+    'Rest: big inhale, hold, out':    {icon:'⏸',action:'REST',           instr:'Big inhale, hold 5 sec, breathe out.\nRest and breathe normally.'},
+    'Sharp pumping exhales: Round 2': {icon:'🔥',action:'PUMP EXHALES!', instr:'Second round.\nSharp pumping exhales again.'},
     'Final 3 deep slow breaths':       {icon:'💨',action:'FINISH',         instr:'Three long, slow deep breaths.\nFeel your digestion waking up.', breathDir:'out'},
   },
   'candle-focus':{
     'Settle & breathe':             {icon:'🕯️',action:'SETTLE',         instr:'Relax your body completely.\nBreathe slowly and deeply.'},
-    'Gaze at the flame 🕯️':         {icon:'🕯️',action:'FOCUS ON FLAME', instr:'Look gently at the 🕯️ on screen.\nSoft eyes — not a hard stare.'},
+    'Gaze at the flame 🕯️':         {icon:'🕯️',action:'FOCUS ON FLAME', instr:'Look gently at the 🕯️ on screen.\nSoft eyes, not a hard stare.'},
     'Deepen your focus':            {icon:'🎯',action:'DEEPEN FOCUS',   instr:'Mind wanders? Calmly return.\nThe flame is your only focus.'},
-    'Close eyes — hold the image':  {icon:'🌙',action:'CLOSE EYES',     instr:'Close your eyes now.\nHold the image of the flame in your mind.'},
+    'Close eyes: hold the image':  {icon:'🌙',action:'CLOSE EYES',     instr:'Close your eyes now.\nHold the image of the flame in your mind.'},
   },
   'rapid-tap': {},
   'reaction-test': {},
@@ -2587,16 +2587,16 @@ const PG = {
 const DAILY_TIPS = [
   'Practicing breathing exercises for just 5 minutes daily may support focus and reduce feelings of stress.',
   'The 20-20-20 rule is recommended by eye doctors worldwide to prevent digital eye strain.',
-  'Post-meal walking — even just 5 minutes — may help reduce blood sugar spikes after eating.',
+  'Post-meal walking: even just 5 minutes, may help reduce blood sugar spikes after eating.',
   'Box Breathing is used by Navy SEALs to stay calm under extreme pressure. You can use it too.',
   'Vajrasana (kneeling after meals) is a time-tested Ayurvedic practice for supporting digestion.',
-  'Memory exercises are most effective when done daily — consistency matters more than intensity.',
+  'Memory exercises are most effective when done daily, consistency matters more than intensity.',
   'Bhramari (humming breath) creates vibrations that may soothe the vagus nerve and calm anxiety.',
-  'Cross-body movements activate both brain hemispheres simultaneously — great for focus and coordination.',
+  'Cross-body movements activate both brain hemispheres simultaneously, great for focus and coordination.',
 ];
 
 /* ─────────────────────────────────────────────────────
-   RENDER CARDS — minimal, action-first
+   RENDER CARDS: minimal, action-first
 ───────────────────────────────────────────────────── */
 function _getRankBadgeForExercise(exId) {
   try {
@@ -2618,7 +2618,7 @@ function renderCards(filter, recIds) {
   grid.innerHTML = list.map(ex => {
     const isRec = recs.has(ex.id);
 
-    // Detail drawer — steps + avoid + herbal (hidden by default)
+    // Detail drawer: steps + avoid + herbal (hidden by default)
     const stepsHTML = (ex.steps || []).map((s, i) =>
       `<div class="ex-drawer-step"><span class="ex-drawer-step-n">${i+1}</span><span>${s}</span></div>`
     ).join('');
@@ -2686,7 +2686,7 @@ function filterByGoal(cat) {
   document.getElementById('exGrid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-/* Hero chip click — filter + smooth scroll to activity grid */
+/* Hero chip click: filter + smooth scroll to activity grid */
 function scrollAndFilter(cat) {
   // Activate the matching filter button
   document.querySelectorAll('.filter-btn').forEach(b =>
@@ -2760,10 +2760,10 @@ function loadDashboard() {
     const total = brain || breath || body || focus
       ? Math.round((brain * 0.3 + breath * 0.3 + body * 0.2 + focus * 0.2) || 0) : 0;
 
-    document.getElementById('val-brain').textContent   = brain  ? brain  + '%' : '—';
-    document.getElementById('val-breath').textContent  = breath ? breath + '%' : '—';
-    document.getElementById('val-body').textContent    = body   ? body   + '%' : '—';
-    document.getElementById('val-focus').textContent   = focus  ? focus  + '%' : '—';
+    document.getElementById('val-brain').textContent   = brain  ? brain  + '%' : '-';
+    document.getElementById('val-breath').textContent  = breath ? breath + '%' : '-';
+    document.getElementById('val-body').textContent    = body   ? body   + '%' : '-';
+    document.getElementById('val-focus').textContent   = focus  ? focus  + '%' : '-';
     document.getElementById('bar-brain').style.width   = brain  + '%';
     document.getElementById('bar-breath').style.width  = breath + '%';
     document.getElementById('bar-body').style.width    = body   + '%';
@@ -2790,9 +2790,9 @@ function loadDashboard() {
 
     // personal bests
     const pb = data.pb || {};
-    document.getElementById('pb-reaction').textContent = pb.reaction ? pb.reaction + ' ms' : '—';
-    document.getElementById('pb-memory').textContent   = pb.memory   ? pb.memory + ' moves' : '—';
-    document.getElementById('pb-math').textContent     = pb.math     ? pb.math + ' correct' : '—';
+    document.getElementById('pb-reaction').textContent = pb.reaction ? pb.reaction + ' ms' : '-';
+    document.getElementById('pb-memory').textContent   = pb.memory   ? pb.memory + ' moves' : '-';
+    document.getElementById('pb-math').textContent     = pb.math     ? pb.math + ' correct' : '-';
 
     // checklist
     const done = data.todayDone || [];
@@ -2893,7 +2893,7 @@ let _wgStartTime = 0; // track when game started for reaction-time ms
 let _wgActivePointerId = null; // single-pointer anti-cheat
 
 /* ══════════════════════════════════════════════════════════
-   REACTION TEST — GLOBAL LEADERBOARD
+   REACTION TEST: GLOBAL LEADERBOARD
    API: Google Apps Script (deployed as web app)
    Score = taps (higher is better)
    Anti-cheat: server validates 1–200 taps range
@@ -2927,18 +2927,18 @@ function toggleThemePanel() {
 })();
 
 // ═══════════════════════════════════════════════════════
-// PROMO SYSTEM — shown on 1st, 6th, 11th… reaction-test finish
+// PROMO SYSTEM: shown on 1st, 6th, 11th… reaction-test finish
 // ═══════════════════════════════════════════════════════
 var PROMO_MESSAGES = [
   {
     emoji: '🌿',
-    title: 'Your mind just performed — now give your body the same care.',
+    title: 'Your mind just performed: now give your body the same care.',
     body: 'Shah Hayaat blends ancient Unani wisdom with modern wellness. Explore handcrafted products trusted for generations.',
     cta: 'Explore Wellness Products →'
   },
   {
     emoji: '⚡',
-    title: 'Fast hands, sharp mind — and a body that deserves the best.',
+    title: 'Fast hands, sharp mind: and a body that deserves the best.',
     body: 'Discover natural formulas at Shah Hayaat that support energy, focus and everyday vitality. Crafted with purpose, not shortcuts.',
     cta: 'See What\'s Waiting for You →'
   },
@@ -2951,13 +2951,13 @@ var PROMO_MESSAGES = [
   {
     emoji: '🌙',
     title: 'Great performance starts from within.',
-    body: 'Quality sleep, balanced energy and a calm mind are not luxuries — they\'re foundations. Find yours at Shah Hayaat.',
+    body: 'Quality sleep, balanced energy and a calm mind are not luxuries, they\'re foundations. Find yours at Shah Hayaat.',
     cta: 'Discover the Collection →'
   },
   {
     emoji: '✨',
     title: 'You just proved you\'re someone who takes health seriously.',
-    body: 'Shah Hayaat rewards that mindset with products rooted in 200 years of healing tradition — and loved by thousands today.',
+    body: 'Shah Hayaat rewards that mindset with products rooted in 200 years of healing tradition, and loved by thousands today.',
     cta: 'Explore Shah Hayaat →'
   }
 ];
@@ -2986,7 +2986,7 @@ function _maybeShowPromo() {
 }
 
 // ═══════════════════════════════════════════════════════
-// GOOGLE REVIEW — shown once, on the 2nd reaction-test attempt only
+// GOOGLE REVIEW: shown once, on the 2nd reaction-test attempt only
 // ═══════════════════════════════════════════════════════
 var _reviewKey     = 'sh_review_shown';
 var _reviewTryKey  = 'sh_review_tries';
@@ -2996,7 +2996,7 @@ function _getReviewTries() { try { return parseInt(localStorage.getItem(_reviewT
 function _incReviewTries() { try { localStorage.setItem(_reviewTryKey, _getReviewTries()+1); } catch(e) {} }
 
 function _maybeShowReview() {
-  if (_hasShownReview()) return; // already shown once in lifetime — never again
+  if (_hasShownReview()) return; // already shown once in lifetime, never again
   _incReviewTries();
   var tries = _getReviewTries();
   if (tries !== 2) return; // only on the 2nd attempt
@@ -3053,7 +3053,7 @@ function lbLoad() {
 function _lbShowEmpty() {
   const list = document.getElementById('lbList');
   if (list && list.querySelector('.lb-loading')) {
-    list.innerHTML = '<div class="lb-empty">No scores yet — be first! 🏆</div>';
+    list.innerHTML = '<div class="lb-empty">No scores yet: be first! 🏆</div>';
   }
 }
 
@@ -3108,9 +3108,9 @@ function lbnSanitizeInput(inp) {
 function _lbnValidate(raw) {
   var name = raw.trim();
   if (!name) return {ok:true,name:'Anonymous'};
-  if (name.length < 2) return {ok:false,warn:'Name too short — min 2 characters'};
+  if (name.length < 2) return {ok:false,warn:'Name too short: min 2 characters'};
   if (!_LBN_ALLOWED.test(name)) return {ok:false,warn:'Only letters, numbers and spaces allowed'};
-  for (var i=0;i<_LBN_BLOCKED.length;i++) { if(_LBN_BLOCKED[i].test(name)) return {ok:false,warn:"That name isn\'t allowed — please choose another"}; }
+  for (var i=0;i<_LBN_BLOCKED.length;i++) { if(_LBN_BLOCKED[i].test(name)) return {ok:false,warn:"That name isn\'t allowed: please choose another"}; }
   if (/(.)\1{4,}/.test(name)) return {ok:false,warn:'Please use a real name'};
   return {ok:true,name:name};
 }
@@ -3140,11 +3140,11 @@ function _lbCloseModal() {
   if (modal) modal.classList.remove('show');
 }
 
-/* ── Single POST with name — no auto-save, no rename, no duplicates ── */
+/* ── Single POST with name, no auto-save, no rename, no duplicates ── */
 function _lbSaveWithName(name, taps, time) {
   var displayName = (name && name !== 'Anonymous') ? name : 'Anonymous';
 
-  // Show rank on the done screen — guard removed so rank displays even at "All Done" queue end
+  // Show rank on the done screen, guard removed so rank displays even at "All Done" queue end
   function rxShow(html, cls, addShow) {
     var el = document.getElementById('globalRank');
     if (!el) return;
@@ -3175,21 +3175,21 @@ function _lbSaveWithName(name, taps, time) {
       }
       setTimeout(lbLoad, 800);
     } else {
-      // API responded but no rank — show local estimate
+      // API responded but no rank, show local estimate
       var estRank = _estimateLocalRank(taps, 'reaction-test');
       _showAnimatedRank(estRank, taps, displayName, taps, 'reaction-test', 'globalRank');
       setTimeout(lbLoad, 800);
     }
   })
   .catch(function() {
-    // Network error — show local estimate so rank is never blank
+    // Network error: show local estimate so rank is never blank
     var estRank = _estimateLocalRank(taps, 'reaction-test');
     _showAnimatedRank(estRank, taps, displayName, taps, 'reaction-test', 'globalRank');
     setTimeout(lbLoad, 1500);
   });
 }
 
-/* ── Local rank estimator — used when API is unreachable ── */
+/* ── Local rank estimator, used when API is unreachable ── */
 function _estimateLocalRank(metric, exId) {
   // Returns a plausible rank based on the score using local history
   try {
@@ -3227,7 +3227,7 @@ function _estimateLocalRank(metric, exId) {
   }
 }
 
-/* ── Animated rank reveal — shared by all games ── */
+/* ── Animated rank reveal, shared by all games ── */
 // Cache the last rendered rank so it can survive _resetAllRankBoxes
 var _cachedRankData = null;
 
@@ -3238,7 +3238,7 @@ function _showAnimatedRank(rank, score, name, rawMetric, exId, elId) {
   var medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '🏅';
   var color = rank <= 3 ? '#FFD700' : rank <= 10 ? '#D4A017' : '#22C55E';
 
-  // Simple instant display — no animation, no bounce, no sound delay
+  // Simple instant display: no animation, no bounce, no sound delay
   el.innerHTML =
     '<div style="font-size:1.3rem;margin-bottom:4px">' + medal + '</div>' +
     '<div style="font-size:1.4rem;font-weight:900;color:' + color + '">Global Rank #' + rank + '</div>';
@@ -3249,7 +3249,7 @@ function _showAnimatedRank(rank, score, name, rawMetric, exId, elId) {
   // Cache for restore after _resetAllRankBoxes
   _cachedRankData = { rank: rank, score: score, name: name, rawMetric: rawMetric, exId: exId, elId: elId };
 
-  // Re-apply after current call stack clears — survives any synchronous resets
+  // Re-apply after current call stack clears, survives any synchronous resets
   setTimeout(function() {
     var _rel = document.getElementById(elId);
     if (_rel && _cachedRankData && _cachedRankData.elId === elId) {
@@ -3285,7 +3285,7 @@ function _rankBoxShow(el, extraClass, bg, borderColor) {
 
 
 
-function _lbFetchRank(name,taps){ return; // disabled — rank now comes from POST response directly
+function _lbFetchRank(name,taps){ return; // disabled, rank now comes from POST response directly
   fetch(LB_API+'?type=reaction_scores',{method:'GET',redirect:'follow',mode:'cors'})
   .then(function(r){return r.json();})
   .then(function(json){
@@ -3300,7 +3300,7 @@ function _lbFetchRank(name,taps){ return; // disabled — rank now comes from PO
         var medal=rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'🏅';
         el.innerHTML='<div style="font-size:1.4rem;margin-bottom:4px">'+medal+' Rank <strong>#'+rank+'</strong></div>'+
           '<div style="font-size:.9rem;margin-bottom:2px">⭐ Score: <strong>'+(score||taps*10)+'</strong></div>'+
-          '<div style="font-size:.72rem;color:rgba(255,255,255,.45)">'+(rank<=3?'🔥 Top 3 — incredible!':'Keep tapping to climb higher!')+'</div>';
+          '<div style="font-size:.72rem;color:rgba(255,255,255,.45)">'+(rank<=3?'🔥 Top 3: incredible!':'Keep tapping to climb higher!')+'</div>';
         if(rank<=3)el.classList.add('rank-top');el.classList.add('show');
         var myRankEl=document.getElementById('lbMyRank');
         if(myRankEl){myRankEl.textContent='Your rank: #'+rank;myRankEl.style.display='';}
@@ -3308,7 +3308,7 @@ function _lbFetchRank(name,taps){ return; // disabled — rank now comes from PO
         if(lbList){var prev=document.getElementById('lbRankBanner');if(prev)prev.remove();
           lbList.insertAdjacentHTML('afterbegin','<div id="lbRankBanner" style="padding:10px;background:rgba(34,197,94,.2);margin-bottom:10px;border-radius:8px;font-weight:bold;text-align:center;font-size:.85rem;color:#fff">🔥 You are #'+rank+' globally!</div>');}
       }else{
-        el.innerHTML='<div style="font-size:1rem">⚡ Score saved!</div><div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Not in Top 500 yet — keep practising!</div>';el.classList.add('show');
+        el.innerHTML='<div style="font-size:1rem">⚡ Score saved!</div><div style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:3px">Not in Top 500 yet, keep practising!</div>';el.classList.add('show');
       }
     }
   })
@@ -3371,13 +3371,13 @@ function gStart() {
       clearInterval(_wgTimer); _wgRunning = false;
       // Disable tap area
       if (ta) ta.classList.add('disabled');
-      const s = Math.min(_wgCount, 140); // cap at 140 — competitive ceiling
+      const s = Math.min(_wgCount, 140); // cap at 140, competitive ceiling
       // Update personal best
       var wasPB = s > _getPB();
       if (wasPB) { _setPB(s); _refreshBestDisplay(); setTimeout(function(){ showPBBurst(s + ' taps'); checkAchievements('pb', s); }, 900); }
       const r = s >= 120 ? '🔥 SUPERHUMAN!' : s >= 100 ? '⚡ Lightning!' : s >= 70 ? '💥 Incredible!' : s >= 50 ? '💪 Excellent!' : s >= 30 ? '👍 Good effort!' : '😊 Keep practising!';
       soundGameEnd();
-      $('ovGameLbl').textContent = s + ' taps — ' + r;
+      $('ovGameLbl').textContent = s + ' taps: ' + r;
       speak(s + ' taps. ' + r);
       savePB('reaction', Math.round(15000 / Math.max(s, 1)));
       saveScore('brain', Math.min(100, Math.round(s / 0.7)));
@@ -3637,9 +3637,9 @@ function _setPhase(phIdx, label) {
 function openExercise(id) {
   _ex = EXERCISES.find(e => e.id === id);
   if (!_ex) return;
-  // Clear cached rank — new exercise starting, old rank no longer relevant
+  // Clear cached rank: new exercise starting, old rank no longer relevant
   _cachedRankData = null;
-  // Wipe all rank boxes immediately — prevents any stale rank from a previous exercise
+  // Wipe all rank boxes immediately, prevents any stale rank from a previous exercise
   _resetAllRankBoxes();
   // Reset share card & achievement buttons
   var _scBtn = document.getElementById('ovShareCardBtn');
@@ -3686,7 +3686,7 @@ function openExercise(id) {
     : _ex.isSeqGame ? '▶ Start Sequence Game'
     : _ex.isTypingGame ? '▶ Start Typing Test'
     : _ex.isSpeedRead ? '▶ Start Speed Reading'
-    : '▶ I\'m Ready — Start';
+    : '▶ I\'m Ready: Start';
   document.getElementById('ovChoiceStart').textContent  = startLabel;
   document.getElementById('ovHtpStartBtn').textContent  = startLabel;
 
@@ -3699,7 +3699,7 @@ function openExercise(id) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   HOW TO PLAY — one step at a time, synced with exercise
+   HOW TO PLAY: one step at a time, synced with exercise
    ───────────────────────────────────────────────────────
    FLOW (guided mode):
      showHowToPlay()
@@ -3737,7 +3737,7 @@ function _renderHtpStep() {
   document.getElementById('ovHtpStepN').textContent    = _htpIdx + 1;
   document.getElementById('ovHtpStepText').textContent = steps[_htpIdx] || '';
 
-  // Progress dots — only current dot shown bright, rest dim
+  // Progress dots: only current dot shown bright, rest dim
   const dotsEl = document.getElementById('ovHtpDots');
   dotsEl.innerHTML = steps.map((_, i) => {
     const cls = i === _htpIdx ? 'active' : i < _htpIdx ? 'done' : '';
@@ -3768,8 +3768,8 @@ function _renderHtpStep() {
     if (doBtn) {
       doBtn.style.display = '';
       doBtn.textContent   = _htpIdx === 0
-        ? '▶ Start — Do This Step'
-        : '▶ Next Step — Do It Now';
+        ? '▶ Start: Do This Step'
+        : '▶ Next Step: Do It Now';
     }
   } else {
     // Non-phase games (tap/math/memory): all steps shown for reference, final button starts game
@@ -3780,7 +3780,7 @@ function _renderHtpStep() {
           (_ex.isTapGame ? '▶ Start Tap Challenge'
           : _ex.isMathGame ? '▶ Start Math Challenge'
           : _ex.isMemoryGame ? '▶ Start Memory Game'
-          : '▶ I\'m Ready — Start');
+          : '▶ I\'m Ready: Start');
       }
     } else {
       if (doBtn) { doBtn.style.display = ''; doBtn.textContent = 'Next →'; }
@@ -3865,7 +3865,7 @@ function htpAdvance(finishedStepIdx) {
   const next  = finishedStepIdx + 1;
 
   if (next >= steps.length) {
-    // All steps done — complete the exercise
+    // All steps done: complete the exercise
     saveScore(_ex.cat === 'breath' ? 'breath' : _ex.cat === 'eyes' ? 'eyes'
       : _ex.cat === 'digest' ? 'body' : _ex.cat === 'body' || _ex.cat === 'wake' ? 'body' : 'focus', 80);
     _showDone();
@@ -3878,7 +3878,7 @@ function htpAdvance(finishedStepIdx) {
   }
 }
 
-/* htpNext / htpPrev — kept for mid-exercise review navigation only */
+/* htpNext / htpPrev: kept for mid-exercise review navigation only */
 function htpNext() {
   const total = (_ex.steps || []).length;
   if (_htpIdx < total - 1) { _htpIdx++; _renderHtpStep(); }
@@ -3896,7 +3896,7 @@ function ovBeginDirect() {
     if (el) el.style.display = 'none';
   });
   document.getElementById('ovGo').style.display = 'none';
-  // Hide Skip Step for games — they use Skip Exercise instead
+  // Hide Skip Step for games, they use Skip Exercise instead
   const skipStepBtn = document.getElementById('ovSkip');
 
   if (_ex.isTapGame) {
@@ -3963,7 +3963,7 @@ function ovBeginDirect() {
     document.getElementById('ovCtrl').style.display = '';
     speak(_ex.voiceIntro || _ex.title);
   } else {
-    // Timed phase exercises — Skip Step is meaningful
+    // Timed phase exercises: Skip Step is meaningful
     if (skipStepBtn) skipStepBtn.style.display = '';
     ovBegin();
   }
@@ -4052,7 +4052,7 @@ function openInstructions() {
   const instrBtn = document.getElementById('ovInstrBtn');
   if (instrBtn) instrBtn.classList.add('active');
 
-  // 5. Set HTP to "resume mode" — show Resume button, hide Start button
+  // 5. Set HTP to "resume mode", show Resume button, hide Start button
   document.getElementById('ovHtpStartBtn').style.display  = 'none';
   document.getElementById('ovHtpResumeBtn').style.display = 'none'; // will show on last step
   const htpSkip = document.getElementById('ovHtpSkipBtn');
@@ -4086,7 +4086,7 @@ function resumeFromInstructions() {
     _timer = setInterval(tick, 1000);
     speak((_ex.phaseVoice && _ex.phaseVoice[_phaseIdx]) || (_ex.phases[_phaseIdx]?.label || ''));
   } else if (prev === 'game' && !_wgRunning && _wgSec > 0) {
-    // Tap game was mid-run — restart its timer + re-enable tap area
+    // Tap game was mid-run, restart its timer + re-enable tap area
     _wgRunning = true;
     const rta = document.getElementById('tapArea');
     if (rta) rta.classList.remove('disabled');
@@ -4099,7 +4099,7 @@ function resumeFromInstructions() {
         const s = Math.min(_wgCount, 140);
         if (s > _getPB()) { _setPB(s); _refreshBestDisplay(); }
         const r = s >= 120 ? '🔥 SUPERHUMAN!' : s >= 100 ? '⚡ Lightning!' : s >= 70 ? '💥 Incredible!' : s >= 50 ? '💪 Excellent!' : s >= 30 ? '👍 Good effort!' : '😊 Keep practising!';
-        document.getElementById('ovGameLbl').textContent = s + ' taps — ' + r;
+        document.getElementById('ovGameLbl').textContent = s + ' taps: ' + r;
         speak(s + ' taps. ' + r);
         savePB('reaction', Math.round(15000 / Math.max(s, 1)));
         saveScore('brain', Math.min(100, Math.round(s / 0.7)));
@@ -4166,7 +4166,7 @@ function skipPhase() {
   _phaseIdx++;
   if (_phaseIdx >= _ex.phases.length) { _phaseIdx = 0; _round++; }
   if (_round > (_ex.rounds || 1)) {
-    // All phases done — treat as completed
+    // All phases done: treat as completed
     _running = false;
     saveScore(_ex.cat === 'breath' ? 'breath' : _ex.cat === 'eyes' ? 'eyes' : _ex.cat === 'digest' ? 'body' : _ex.cat === 'body' || _ex.cat === 'wake' ? 'body' : 'focus', 80);
     _showDone(); return;
@@ -4242,7 +4242,7 @@ function _showDone(scoreHTML) {
     if (_sbSub) _sbSub.after(_sbPill);
   }
   document.getElementById('ovDoneScores').innerHTML = scoreHTML || '';
-  // Reset ALL rank boxes on each new done screen — prevents bleed-over between games
+  // Reset ALL rank boxes on each new done screen, prevents bleed-over between games
   _resetAllRankBoxes();
   // Show PDF button on done screen if speed reading just completed
   var _srPdfDoneBtn = document.getElementById('ovSrPdfBtn');
@@ -4296,9 +4296,9 @@ function _showDone(scoreHTML) {
       const ttl = won ? 'You Won!'              : tied ? "It\'s a Tie!"           : 'Not This Time!';
       const ttlColor = won ? '#22C55E'          : tied ? '#a5b4fc'              : '#EF4444';
       const sub = won
-        ? 'You beat ' + challengerScore + ' ' + metric + ' — champion!'
+        ? 'You beat ' + challengerScore + ' ' + metric + ', champion!'
         : tied
-        ? 'Both scored ' + challengerScore + ' ' + metric + ' — try again!'
+        ? 'Both scored ' + challengerScore + ' ' + metric + ', try again!'
         : 'The target was ' + challengerScore + ' ' + metric + '. Keep practising!';
 
       // Remove any previous result card so replaying shows fresh result
@@ -4341,7 +4341,7 @@ function _showDone(scoreHTML) {
 
     showToast(
       isLast ? 'All exercises complete! 🏆' : 'Great job! Keep going.',
-      isLast ? 'You\'ve completed your full session today.' : (_ex ? _ex.title + ' — well done!' : 'Exercise complete.'),
+      isLast ? 'You\'ve completed your full session today.' : (_ex ? _ex.title + ', well done!' : 'Exercise complete.'),
       pills,
       isLast ? '🏆' : '✅',
       isLast ? nextEx : null
@@ -4491,7 +4491,7 @@ function startNextFromToast() {
    FIRST-TIME USER GUIDE
 ───────────────────────────────────────────────────── */
 function initFirstTimeGuide() {
-  // Never show first-time guide on challenge links — user must play immediately
+  // Never show first-time guide on challenge links, user must play immediately
   if (window._isChallengeLink) return;
   try {
     if (localStorage.getItem('sh_seen_guide')) return;
@@ -4517,7 +4517,7 @@ function initWelcomeBack() {
   if (window._isChallengeLink) return;
   try {
     const data = JSON.parse(localStorage.getItem('sh_wellness') || '{}');
-    if (!data.lastActive) return; // First-time user — guide handles this
+    if (!data.lastActive) return; // First-time user, guide handles this
     const today     = new Date().toDateString();
     const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
     const isReturn  = data.lastActive && data.lastActive !== today;
@@ -4531,7 +4531,7 @@ function initWelcomeBack() {
     const greeting = hour < 12 ? 'Good morning!' : hour < 17 ? 'Good afternoon!' : 'Good evening!';
     document.getElementById('wbTitle').textContent = greeting + ' Welcome back 🌿';
     const streakMsg = streak > 1
-      ? `You\'re on a ${streak}-day streak — keep it going!`
+      ? `You\'re on a ${streak}-day streak, keep it going!`
       : 'Start today\'s routine to build your streak.';
     document.getElementById('wbSub').textContent = streakMsg;
     document.getElementById('wbStreak').innerHTML = streak
@@ -4594,7 +4594,7 @@ function seqStart() {
   try {
     const pb = JSON.parse(localStorage.getItem('sh_wellness') || '{}');
     const best = (pb.pb && pb.pb.sequence) || 0;
-    document.getElementById('seqBest').textContent = best ? best + 's' : '—';
+    document.getElementById('seqBest').textContent = best ? best + 's' : '-';
   } catch(e) {}
 
   // Shuffle 1–25
@@ -4614,7 +4614,7 @@ function seqStart() {
   if (doneEl) doneEl.textContent = '0/' + SEQ_TOTAL;
   if (hintEl) hintEl.style.display = '';
 
-  // Build grid — show 1 visible, all others as '?'
+  // Build grid: show 1 visible, all others as '?'
   _seqBuildGrid();
 
   speak('Number Sequence. Find number 1 and tap it to start the timer, then find 2, 3, all the way to 25!');
@@ -4641,7 +4641,7 @@ function _seqBuildGrid() {
 }
 
 function _seqRevealGrid() {
-  // Called on first correct tap — reveal all numbers at once
+  // Called on first correct tap, reveal all numbers at once
   document.querySelectorAll('#seqGrid button[data-num]').forEach(btn => {
     const n = parseInt(btn.getAttribute('data-num'));
     if (btn.disabled) return; // already matched, leave green
@@ -4656,7 +4656,7 @@ function _seqRevealGrid() {
 function seqTap(n) {
   if (!_seqRunning || _seqDone) return;
   if (n !== _seqNextExpected) {
-    // Wrong tap — flash red
+    // Wrong tap: flash red
     const btn = document.getElementById('seqBtn_' + n);
     if (btn) {
       const origBg = btn.style.background;
@@ -4814,7 +4814,7 @@ function shareChallenge(method) {
     + '?challenge=' + encodeURIComponent(_lastChallengeExId)
     + '&score='     + encodeURIComponent(_lastChallengeScore)
     + '&metric='    + encodeURIComponent(_lastChallengeName);
-  const msg  = `🏆 I scored ${_lastChallengeScore} ${_lastChallengeName} in "${name}" on Shah Hayaat Wellness Clinic!\n\nCan you beat me? 💪\nTap the link to play the same game — you\'ll instantly see if you won or lost!\n👉 ${deepLink}\n\n🌿 Shah Hayaat — Free guided wellness exercises`;
+  const msg  = `🏆 I scored ${_lastChallengeScore} ${_lastChallengeName} in "${name}" on Shah Hayaat Wellness Clinic!\n\nCan you beat me? 💪\nTap the link to play the same game, you\'ll instantly see if you won or lost!\n👉 ${deepLink}\n\n🌿 Shah Hayaat, Free guided wellness exercises`;
   if (method === 'whatsapp') {
     window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
   } else {
@@ -4940,7 +4940,7 @@ function shareChallenge(method) {
 
 
 
-  // ── Wire full-screen tap area — iPhone-hardened ──────────────────
+  // ── Wire full-screen tap area, iPhone-hardened ──────────────────
   // iOS Safari issues:
   // 1. pointercancel fires when system interrupts (scroll, notification, call)
   //    but doesn\'t always fire pointerup → lock gets stuck forever.
@@ -4963,7 +4963,7 @@ function shareChallenge(method) {
       // If a different pointer is actively held, ignore
       if (_wgActivePointerId !== null && _wgActivePointerId !== pointerId) return;
       _wgActivePointerId = pointerId;
-      // Auto-release stale lock after 200ms — catches missed pointerup on iOS
+      // Auto-release stale lock after 200ms, catches missed pointerup on iOS
       clearTimeout(_lockClearTimer);
       _lockClearTimer = setTimeout(function() { _wgActivePointerId = null; }, 200);
       gTap({ pointerId: pointerId });
@@ -4987,7 +4987,7 @@ function shareChallenge(method) {
     ta.addEventListener('pointercancel', function(e) { releaseLock(e.pointerId); });
     ta.addEventListener('pointerleave',  function(e) { releaseLock(e.pointerId); });
 
-    // Touch events — fallback for older iOS where pointer events are unreliable
+    // Touch events: fallback for older iOS where pointer events are unreliable
     // Guard with a flag so we don\'t double-count on devices that fire both
     var _lastPointerTs = 0;
     ta.addEventListener('touchstart', function(e) {
@@ -5033,7 +5033,7 @@ function shareChallenge(method) {
 
   /* ── CHALLENGE DEEP-LINK HANDLER ──────────────────────────────
      Link format: exercises.html?challenge=reaction-test&score=42&metric=taps%20in%2015%20sec
-     _challengeCtx is read by _showDone on every finish — no fragile patching.
+     _challengeCtx is read by _showDone on every finish, no fragile patching.
   ──────────────────────────────────────────────────────────────── */
   window._challengeCtx = null;
   window._isChallengeLink = false;
@@ -5058,7 +5058,7 @@ function shareChallenge(method) {
         lowerIsBetter: exId === 'number-sequence'
       };
 
-      // ── Full-screen challenge splash — shown instantly, covers the whole page ──
+      // ── Full-screen challenge splash, shown instantly, covers the whole page ──
       const splash = document.createElement('div');
       splash.id = 'challengeSplash';
       splash.style.cssText = [
@@ -5115,13 +5115,13 @@ function shareChallenge(method) {
 
       document.body.appendChild(splash);
 
-      // Wire up the play button — dismiss splash and launch game directly
+      // Wire up the play button, dismiss splash and launch game directly
       splash.querySelector('#csSplashPlayBtn').addEventListener('click', function() {
         splash.style.opacity = '0';
         splash.style.transition = 'opacity .25s ease';
         setTimeout(function() {
           if (splash.parentNode) splash.parentNode.removeChild(splash);
-          // Launch directly into the game — skip How To Play
+          // Launch directly into the game, skip How To Play
           _launchChallengeGame(exId);
         }, 250);
       });
@@ -5153,11 +5153,11 @@ function _launchChallengeGame(exId) {
 
 
 /* ═══════════════════════════════════════════════════════
-   SPEED READING GAME — Economic Survey 2025-26 (UPSC)
+   SPEED READING GAME: Economic Survey 2025-26 (UPSC)
    ═══════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════
-   SPEED READING GAME — Economic Survey 2025-26 (UPSC)
+   SPEED READING GAME: Economic Survey 2025-26 (UPSC)
    1 minute read → 8 MCQ (balanced options) → score → PDF
    ═══════════════════════════════════════════════════════ */
 
@@ -5392,7 +5392,7 @@ function srGeneratePDF() {
 
   /* Key facts */
   html += '<div class="sec">Detailed Concept Notes for UPSC</div>'
-    + '<div class="kf-head">Key Points — Read, Revise, Retain</div>'
+    + '<div class="kf-head">Key Points: Read, Revise, Retain</div>'
     + kfRows;
 
   /* Q&A */
@@ -5447,7 +5447,7 @@ function tyPickPassage() {
 function tyGetPB(){ try{ var v=parseInt(localStorage.getItem(TY_PB_KEY),10); return isNaN(v)?0:v; }catch(e){return 0;} }
 function tySetPB(v){ try{ localStorage.setItem(TY_PB_KEY,String(v)); }catch(e){} }
 
-/* Typing score is now saved directly via tySaveScore() — no queue needed */
+/* Typing score is now saved directly via tySaveScore(), no queue needed */
 
 function tyLbLoad() {
   fetch(TY_LB_API + '?type=typing_scores', {method:'GET', redirect:'follow', mode:'cors'})
@@ -5455,7 +5455,7 @@ function tyLbLoad() {
   .then(function(json){
     if (!json.ok || !json.data) { tyLbRender([]); return; }
     // Verify these are actually typing scores (must have wpm field)
-    // Reaction scores don\'t have wpm — reject and show empty state
+    // Reaction scores don\'t have wpm: reject and show empty state
     var isTypingData = json.data.length === 0 || json.data[0].wpm !== undefined;
     tyLbRender(isTypingData ? json.data : []);
   })
@@ -5494,7 +5494,7 @@ function tyLbRender(rows) {
 
 
 /* ═══════════════════════════════════════════════════════
-   TYPING SPEED GAME — exercises.html
+   TYPING SPEED GAME: exercises.html
    Global leaderboard via Sheet2: TypingLeaderboard
    Copy-paste disabled, 30 seconds, 100 unique passages
    ═══════════════════════════════════════════════════════ */
@@ -5554,7 +5554,7 @@ const TY_PASSAGES = [
   "Livohayaat is recommended for people who eat late, drink tea or coffee heavily, take frequent medications or simply feel that their energy recovery after sleep is never quite complete. The liver often lies at the root.",
   "Shah Hayaat products come with clear dosage guidance because the founders believe that informed customers get better results. Knowing how and when to take a formula is as important as choosing the right one in the first place.",
   "Dia-Ease supports the pancreas and helps reduce cravings that make managing blood sugar so difficult. The formula addresses multiple aspects of glucose balance together rather than targeting just one symptom.",
-  "Ayurveda says that prevention is always cheaper, easier and more effective than cure. Shah Hayaat designs products with this in mind, supporting the body before problems become serious rather than only responding to crisis.",
+  "Ayurveda says that prevention is always cheaper, easier and more effective than treatment later. Shah Hayaat designs products with this in mind, supporting the body before problems become serious rather than only responding to crisis.",
   "Blood Storm supports the kind of energy that comes from within. Not the temporary boost of caffeine or sugar, but the steady sustainable vitality that comes when the body has exactly what it actually needs to thrive.",
   "Musaffa Khoon has loyal customers who have used it for years because they noticed that when they stopped their skin and energy would gradually decline again. This kind of consistent response is what Shah Hayaat aims for.",
   "Dia-Ease supports the pancreas and helps reduce the cravings that make managing blood sugar so difficult. The formula addresses multiple aspects of glucose balance together rather than targeting just one symptom at a time.",
@@ -5618,7 +5618,7 @@ const TY_PASSAGES = [
   "Dia-Ease from Shah Hayaat supports healthy blood sugar balance through natural Ayurvedic herbs. It works alongside reduced sugar intake and regular walking. Take two tablets twice daily with water before meals for best results."
 ];
 
-/* Smart rotation — avoid last 8 shown */
+/* Smart rotation: avoid last 8 shown */
 function tyPickPassage() {
   try {
     var hist = JSON.parse(localStorage.getItem(TY_HIST_KEY) || '[]');
@@ -5638,7 +5638,7 @@ function tyPickPassage() {
 function tyGetPB(){ try{ var v=parseInt(localStorage.getItem(TY_PB_KEY),10); return isNaN(v)?0:v; }catch(e){return 0;} }
 function tySetPB(v){ try{ localStorage.setItem(TY_PB_KEY,String(v)); }catch(e){} }
 
-/* Typing score is now saved directly via tySaveScore() — no queue needed */
+/* Typing score is now saved directly via tySaveScore(), no queue needed */
 
 function tyLbLoad() {
   fetch(TY_LB_API + '?type=typing_scores', {method:'GET', redirect:'follow', mode:'cors'})
@@ -5646,7 +5646,7 @@ function tyLbLoad() {
   .then(function(json){
     if (!json.ok || !json.data) { tyLbRender([]); return; }
     // Verify these are actually typing scores (must have wpm field)
-    // Reaction scores don\'t have wpm — reject and show empty state
+    // Reaction scores don\'t have wpm: reject and show empty state
     var isTypingData = json.data.length === 0 || json.data[0].wpm !== undefined;
     tyLbRender(isTypingData ? json.data : []);
   })
@@ -5683,7 +5683,7 @@ function tyLbRender(rows) {
 }
 
 /* ════════════════════════════════════════════════════════════
-   GAME LEADERBOARD — Math, Memory, Number Sequence
+   GAME LEADERBOARD: Math, Memory, Number Sequence
    Each game saves {name, score, game, metric} via POST
    and shows rank on the done screen via #gameGlobalRank
    ════════════════════════════════════════════════════════════ */
@@ -5692,7 +5692,7 @@ var _gameLbPendingData = null; // {game, score, metric, wpm, acc} set by each ga
 
 /* Show the game name modal (reuses #tyExNameModal styling) */
 /* ═══════════════════════════════════════════════════════
-   GAME LEADERBOARDS — Math, Memory, Number Sequence
+   GAME LEADERBOARDS: Math, Memory, Number Sequence
    Each uses its own POST type and its own sheet in GAS
    ═══════════════════════════════════════════════════════ */
 var _gameLbPendingData = null;
@@ -5721,7 +5721,7 @@ function gameLbShowModal(postType, label, extraData) {
 function _gameDoSave(name, data) {
   var displayName = (name && name.length >= 2) ? name : 'Anonymous';
   var payload = Object.assign({ type: data.postType, name: displayName }, data.extra);
-  var savedExId = _ex ? _ex.id : null; // capture at call time — guard stale async responses
+  var savedExId = _ex ? _ex.id : null; // capture at call time, guard stale async responses
   var el2 = document.getElementById('gameGlobalRank');
   if (el2) {
     el2.innerHTML = '<div style="font-size:.85rem;color:rgba(255,255,255,.5)">⏳ Saving…</div>';
@@ -5736,10 +5736,10 @@ function _gameDoSave(name, data) {
   .then(function(json){
     if (json.ok && json.rank >= 1) {
       var rank=json.rank, savedExId2=savedExId;
-      // Guard removed — rank shows even at queue "All Done" screen
+      // Guard removed: rank shows even at queue "All Done" screen
       _showAnimatedRank(rank, json.score, '', 0, savedExId2, 'gameGlobalRank');
     } else {
-      // No rank returned — show local estimate
+      // No rank returned: show local estimate
       var savedExId3 = savedExId;
       var metricVal = data.extra ? (data.extra.score || data.extra.wpm || data.extra.taps || 0) : 0;
       var estRank = _estimateLocalRank(metricVal, savedExId3 || '');
@@ -5748,7 +5748,7 @@ function _gameDoSave(name, data) {
     setTimeout(function(){ gameLbLoad(data.postType.replace('_score','')); }, 800);
   })
   .catch(function(){
-    // Network error — show local estimate
+    // Network error: show local estimate
     var metricVal = data.extra ? (data.extra.score || data.extra.wpm || data.extra.taps || 0) : 0;
     var estRank = _estimateLocalRank(metricVal, savedExId || '');
     _showAnimatedRank(estRank, metricVal, '', 0, savedExId, 'gameGlobalRank');
@@ -5789,7 +5789,7 @@ function gameLbLoad(gameKey) {
 }
 
 /* ════════════════════════════════════════════════════════════
-   TYPING SCORE FLOW — name first, then single POST
+   TYPING SCORE FLOW: name first, then single POST
    1. Game finishes → show name modal immediately (nothing saved yet)
    2a. User enters name → POST {name, wpm, acc} → show rank from response
    2b. User skips      → POST {name:'Anonymous', wpm, acc} → silent save
@@ -5835,7 +5835,7 @@ function tySaveScore(name, wpm, acc) {
     if (json.ok && json.rank >= 1) {
       _tyShowRank(json.rank, json.score);
     } else {
-      // No rank from API — estimate locally
+      // No rank from API, estimate locally
       var pts = json.score || Math.round(wpm * (acc / 100) * 10);
       var estRank = _estimateLocalRank(wpm, 'typing-speed');
       _showAnimatedRank(estRank, pts, '', 0, 'typing-speed', 'tyGlobalRank');
@@ -5843,7 +5843,7 @@ function tySaveScore(name, wpm, acc) {
     setTimeout(tyLbLoad, 1000);
   })
   .catch(function() {
-    // Network error — show local estimate
+    // Network error: show local estimate
     var pts = Math.round(wpm * (acc / 100) * 10);
     var estRank = _estimateLocalRank(wpm, 'typing-speed');
     _showAnimatedRank(estRank, pts, '', 0, 'typing-speed', 'tyGlobalRank');
@@ -5858,7 +5858,7 @@ function _tyShowRank(rank, score) {
     bar.innerHTML = '<span style="font-size:.95rem;font-weight:800;color:var(--gold-l)">' + medal + ' Rank #' + rank + '</span>';
     bar.style.display = 'block';
   }
-  /* Done screen animated reveal — guard removed so rank shows at queue "All Done" too */
+  /* Done screen animated reveal, guard removed so rank shows at queue "All Done" too */
   _showAnimatedRank(rank, score, '', 0, 'typing-speed', 'tyGlobalRank');
 }
 
@@ -5908,7 +5908,7 @@ function tyInit() {
 
   /* Reset UI */
   var wEl=document.getElementById('tyOvWPM'); if(wEl) wEl.textContent='0';
-  var aEl=document.getElementById('tyOvAcc'); if(aEl) aEl.textContent='—';
+  var aEl=document.getElementById('tyOvAcc'); if(aEl) aEl.textContent='-';
   var tEl=document.getElementById('tyOvTimer'); if(tEl){tEl.textContent=TY_DURATION;tEl.style.color='#D4A017';}
   var bEl=document.getElementById('tyOvBar'); if(bEl) bEl.style.width='0%';
   var rEl=document.getElementById('tyOvRank'); if(rEl){rEl.style.display='none';rEl.innerHTML='';}
@@ -5919,7 +5919,7 @@ function tyInit() {
   tyRenderPassage('');
   tyLbLoad();
 
-  /* Wire up textarea immediately so it\'s ready — timer only starts on first keystroke */
+  /* Wire up textarea immediately so it\'s ready: timer only starts on first keystroke */
   setTimeout(function() {
     var inp = document.getElementById('tyOvInput');
     if (!inp) return;
@@ -6002,7 +6002,7 @@ function tyHandleInput() {
     _tyStartTime = Date.now();
     _tyTimerInt = setInterval(function(){
       if (!document.getElementById('tyOvTimer')) { clearInterval(_tyTimerInt); return; }
-      /* FIX: always read the CURRENT textarea value — never use the stale closure */
+      /* FIX: always read the CURRENT textarea value, never use the stale closure */
       var currentInp = document.getElementById('tyOvInput');
       var currentTyped = currentInp ? currentInp.value : '';
       var elapsed = (Date.now() - _tyStartTime) / 1000;
@@ -6067,15 +6067,15 @@ function tyFinish(typed) {
 }
 
 
-/* ── BOOST GRID — product cross-links per exercise goal ── */
+/* ── BOOST GRID: product cross-links per exercise goal ── */
 (function(){
   var BOOSTS = [
-    {icon:'🧠',goal:'Brain & Memory',text:'Pair brain exercises with <strong>Brain Champ</strong> — Brahmi, Shankhpushpi & Ashwagandha to support focus and recall.',name:'Brain Champ',price:'₹164',url:'brain-champ-ayurvedic-memory-booster.html',wa:'Hi Shah Hayaat! I want to order Brain Champ (₹164). Please guide me.'},
-    {icon:'🌬️',goal:'Breathing & Stress',text:'Support pranayama with <strong>Fevodol</strong> — Giloy & Tulsi to strengthen respiratory immunity.',name:'Fevodol',price:'₹180',url:'fevodol-ayurvedic-immunity-booster-giloy-tulsi.html',wa:'Hi Shah Hayaat! I want to order Fevodol (₹180). Please guide me.'},
-    {icon:'🍃',goal:'Digestion',text:'Enhance digestive exercises with <strong>Shah Zyme</strong> — herbal enzymes for gas, bloating and absorption.',name:'Shah Zyme',price:'₹165',url:'shah-zyme-ayurvedic-digestive-syrup.html',wa:'Hi Shah Hayaat! I want to order Shah Zyme (₹165). Please guide me.'},
-    {icon:'🦴',goal:'Joint & Body',text:'Pair mobility exercises with <strong>Ortho Hayaat</strong> — Shallaki & Guggul to reduce inflammation.',name:'Ortho Hayaat',price:'₹399',url:'ortho-hayaat-ayurvedic-joint-pain-relief.html',wa:'Hi Shah Hayaat! I want to order Ortho Hayaat (₹399). Please guide me.'},
-    {icon:'👁️',goal:'Eye Care',text:'Support eye yoga with <strong>Brain Champ</strong> — antioxidant herbs that help protect vision and reduce eye fatigue.',name:'Brain Champ',price:'₹164',url:'brain-champ-ayurvedic-memory-booster.html',wa:'Hi Shah Hayaat! I want to order Brain Champ (₹164). Please guide me.'},
-    {icon:'⚡',goal:'Energy & Wake-Up',text:'Fuel morning routines with <strong>Blood Storm</strong> — iron and Ashwagandha to combat fatigue and boost vitality.',name:'Blood Storm',price:'₹164',url:'blood-storm-ayurvedic-iron-tonic.html',wa:'Hi Shah Hayaat! I want to order Blood Storm (₹164). Please guide me.'}
+    {icon:'🧠',goal:'Brain & Memory',text:'Pair brain exercises with <strong>Brain Champ</strong>, Brahmi, Shankhpushpi & Ashwagandha to support focus and recall.',name:'Brain Champ',price:'₹164',url:'brain-champ-ayurvedic-memory-booster.html',wa:'Hi Shah Hayaat! I want to order Brain Champ (₹164). Please guide me.'},
+    {icon:'🌬️',goal:'Breathing & Stress',text:'Support pranayama with <strong>Fevodol</strong>, Giloy & Tulsi to strengthen respiratory immunity.',name:'Fevodol',price:'₹180',url:'fevodol-ayurvedic-immunity-booster-giloy-tulsi.html',wa:'Hi Shah Hayaat! I want to order Fevodol (₹180). Please guide me.'},
+    {icon:'🍃',goal:'Digestion',text:'Enhance digestive exercises with <strong>Shah Zyme</strong>, herbal enzymes for gas, bloating and absorption.',name:'Shah Zyme',price:'₹165',url:'shah-zyme-ayurvedic-digestive-syrup.html',wa:'Hi Shah Hayaat! I want to order Shah Zyme (₹165). Please guide me.'},
+    {icon:'🦴',goal:'Joint & Body',text:'Pair mobility exercises with <strong>Ortho Hayaat</strong>, Shallaki & Guggul to reduce inflammation.',name:'Ortho Hayaat',price:'₹399',url:'ortho-hayaat-ayurvedic-joint-pain-relief.html',wa:'Hi Shah Hayaat! I want to order Ortho Hayaat (₹399). Please guide me.'},
+    {icon:'👁️',goal:'Eye Care',text:'Support eye yoga with <strong>Brain Champ</strong>, antioxidant herbs that help protect vision and reduce eye fatigue.',name:'Brain Champ',price:'₹164',url:'brain-champ-ayurvedic-memory-booster.html',wa:'Hi Shah Hayaat! I want to order Brain Champ (₹164). Please guide me.'},
+    {icon:'⚡',goal:'Energy & Wake-Up',text:'Fuel morning routines with <strong>Blood Storm</strong>, iron and Ashwagandha to combat fatigue and boost vitality.',name:'Blood Storm',price:'₹164',url:'blood-storm-ayurvedic-iron-tonic.html',wa:'Hi Shah Hayaat! I want to order Blood Storm (₹164). Please guide me.'}
   ];
   var grid = document.getElementById('boostGrid');
   if (!grid) return;
@@ -6096,7 +6096,7 @@ function tyFinish(typed) {
 })();
 
 /* ═══════════════════════════════════════════════════════════
-   SOUND ENGINE — Web Audio API, no files needed
+   SOUND ENGINE: Web Audio API, no files needed
    ═══════════════════════════════════════════════════════════ */
 var _soundEnabled = true;
 var _audioCtx = null;
@@ -6177,17 +6177,17 @@ function showPBBurst(label) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   NEAR-RANK NUDGE — show if rank 11-20 or just outside top X
+   NEAR-RANK NUDGE: show if rank 11-20 or just outside top X
    ═══════════════════════════════════════════════════════════ */
 function _showNearRankNudge(rank) {
   var el = document.getElementById('nearRankNudge');
   if (!el) return;
   var msg = '';
   if (rank >= 11 && rank <= 15)      msg = '🔥 So close! Just ' + (rank-10) + ' spot' + (rank-10>1?'s':'') + ' away from Top 10!';
-  else if (rank >= 16 && rank <= 20) msg = '💪 You are in Top 20 — keep pushing!';
+  else if (rank >= 16 && rank <= 20) msg = '💪 You are in Top 20, keep pushing!';
   else if (rank >= 4 && rank <= 5)   msg = '⭐ Just ' + (rank-3) + ' step' + (rank-3>1?'s':'') + ' from the podium!';
-  else if (rank === 101)             msg = '😤 Just missed Top 100 — one more try!';
-  else if (rank >= 96 && rank <= 100) msg = '🎯 You are in Top 100 — almost Top 50!';
+  else if (rank === 101)             msg = '😤 Just missed Top 100, one more try!';
+  else if (rank >= 96 && rank <= 100) msg = '🎯 You are in Top 100, almost Top 50!';
   if (msg) {
     el.textContent = msg;
     el.classList.add('show');
@@ -6207,7 +6207,7 @@ function shareRankOnWhatsApp() {
   var medal = _lastRevealedRank===1?'🥇':_lastRevealedRank===2?'🥈':_lastRevealedRank===3?'🥉':'🏅';
   var gameTitle = _ex ? _ex.title : (_lastRevealedGame || 'Shah Hayaat');
   var msg = medal + ' I just ranked #' + _lastRevealedRank + ' globally in "' + gameTitle + '" on Shah Hayaat Wellness Clinic!\n\n' +
-    '🧠 Free brain training & wellness exercises — no login, no cost.\n' +
+    '🧠 Free brain training & wellness exercises, no login, no cost.\n' +
     '👉 https://www.shahhayaat.com/exercises.html\n\nCan you beat my rank? 💪';
   window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
 }
@@ -6226,7 +6226,7 @@ function _getStreakBonus() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   DAILY CHALLENGE — seeded by date so everyone gets same game
+   DAILY CHALLENGE: seeded by date so everyone gets same game
    ═══════════════════════════════════════════════════════════ */
 var _dcGames = ['reaction-test','math-challenge','memory-match','number-sequence'];
 
@@ -6272,7 +6272,7 @@ function _showDailyChallengeOnDone() {
     banner.style.display = 'none';
     return;
   }
-  desc.textContent = "Today\'s challenge: " + (ex ? ex.title : gameId) + " — play now to earn your daily badge!";
+  desc.textContent = "Today\'s challenge: " + (ex ? ex.title : gameId) + ", play now to earn your daily badge!";
   banner.style.display = 'block';
 }
 
@@ -6302,14 +6302,14 @@ function _renderStatsPanel() {
     var grid = document.getElementById('statsGrid');
     if (grid) {
       var items = [
-        { icon:'⚡', val: pb.reaction ? pb.reaction + ' ms' : '—', lbl:'Best Reaction' },
-        { icon:'🧠', val: pb.math     ? pb.math + ' correct' : '—', lbl:'Best Math' },
-        { icon:'🃏', val: pb.memory   ? pb.memory + ' attempts' : '—', lbl:'Best Memory' },
-        { icon:'⌨️', val: pb.typing   ? pb.typing + ' WPM' : '—', lbl:'Best Typing' },
-        { icon:'🔢', val: pb.sequence ? pb.sequence + 's' : '—', lbl:'Best Sequence' },
+        { icon:'⚡', val: pb.reaction ? pb.reaction + ' ms' : '-', lbl:'Best Reaction' },
+        { icon:'🧠', val: pb.math     ? pb.math + ' correct' : '-', lbl:'Best Math' },
+        { icon:'🃏', val: pb.memory   ? pb.memory + ' attempts' : '-', lbl:'Best Memory' },
+        { icon:'⌨️', val: pb.typing   ? pb.typing + ' WPM' : '-', lbl:'Best Typing' },
+        { icon:'🔢', val: pb.sequence ? pb.sequence + 's' : '-', lbl:'Best Sequence' },
         { icon:'🔥', val: streak + ' days', lbl:'Current Streak' },
         { icon:'🏆', val: best + ' days', lbl:'Best Streak' },
-        { icon:'📅', val: data.lastActive ? data.lastActive.split(' ').slice(1,3).join(' ') : '—', lbl:'Last Active' }
+        { icon:'📅', val: data.lastActive ? data.lastActive.split(' ').slice(1,3).join(' ') : '-', lbl:'Last Active' }
       ];
       grid.innerHTML = items.map(function(it) {
         return '<div class="stats-card"><div class="stats-card-icon">' + it.icon + '</div>' +
@@ -6328,7 +6328,7 @@ function _renderStatsPanel() {
         (bonus.label ? '<div class="streak-bonus-pill" style="margin:.5rem auto 0">' + bonus.label + '</div>' : '');
     }
 
-    // Rank board — pull from localStorage cache
+    // Rank board: pull from localStorage cache
     var ranksEl = document.getElementById('statsRanks');
     if (ranksEl) {
       var ranks = [];
@@ -6359,7 +6359,7 @@ function _saveMyRank(gameTitle, rank) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   WEEKLY LEADERBOARD — stored in GAS with date prefix
+   WEEKLY LEADERBOARD: stored in GAS with date prefix
    (lightweight: just tags each score with the week number)
    ═══════════════════════════════════════════════════════════ */
 function _getWeekKey() {
@@ -6373,7 +6373,7 @@ function _getWeekKey() {
    SPEED READING GAME
    ═══════════════════════════════════════════════════════════════ */
 /* ═══════════════════════════════════════════════════════════════
-   LEADERBOARD TABS — Global / This Week / India
+   LEADERBOARD TABS: Global / This Week / India
    ═══════════════════════════════════════════════════════════════ */
 var _lbCurrentTab = 'global';
 var _lbAllRows    = []; // cache of all rows from last fetch
@@ -6400,7 +6400,7 @@ function lbRenderFiltered(rows) {
       lbRenderRows(weekScores, true);
     } else {
       var list = document.getElementById('lbList');
-      if (list) list.innerHTML = '<div class="lb-empty">No scores this week yet — play to be first! 🏆</div>';
+      if (list) list.innerHTML = '<div class="lb-empty">No scores this week yet, play to be first! 🏆</div>';
     }
     return;
   }
@@ -6414,7 +6414,7 @@ function lbRenderRows(rows, isWeekly) {
   var myRankEl = document.getElementById('lbMyRank');
   if (!list) return;
   if (!rows.length) {
-    list.innerHTML = '<div class="lb-empty">' + (isWeekly ? 'No scores this week yet!' : 'No scores yet — be first! 🏆') + '</div>';
+    list.innerHTML = '<div class="lb-empty">' + (isWeekly ? 'No scores this week yet!' : 'No scores yet: be first! 🏆') + '</div>';
     return;
   }
   list.innerHTML = rows.map(function(r, i) {
@@ -6653,7 +6653,7 @@ function _checkGamesPlayed() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   SHARE CARD — Canvas-generated shareable image
+   SHARE CARD: Canvas-generated shareable image
    ═══════════════════════════════════════════════════════════════ */
 var _shareCardDataUrl = '';
 
@@ -6738,7 +6738,7 @@ function _generateShareCard() {
       ctx.fillText(scoreText, W/2, H/2 + 102);
     }
   } else {
-    // No rank — show wellness card
+    // No rank: show wellness card
     ctx.textAlign = 'center';
     ctx.font = '54px serif';
     ctx.fillText('🧠', W/2, H/2 - 10);
@@ -6803,7 +6803,7 @@ function shareCardWhatsApp() {
   var game    = _ex ? _ex.title : 'brain training';
   var rankStr = _lastRevealedRank > 0 ? ' I ranked #' + _lastRevealedRank + ' globally!' : '';
   var msg     = medal + ' Just completed ' + game + ' on Shah Hayaat Wellness Clinic!' + rankStr +
-    '\n\n🌿 Free guided wellness exercises — brain, breathing & body.\n' +
+    '\n\n🌿 Free guided wellness exercises, brain, breathing & body.\n' +
     '👉 https://www.shahhayaat.com/exercises.html\n\nCan you beat me? 💪';
   window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
 }
@@ -6849,15 +6849,15 @@ function shareOnWhatsApp() {
   <div class="rvw-box">
     <div class="rvw-ico">🌿</div>
     <div class="rvw-stars">⭐⭐⭐⭐⭐</div>
-    <div class="rvw-ttl">You\'re doing <em>amazing</em> —<br>could you do us one favour?</div>
+    <div class="rvw-ttl">You\'re doing <em>amazing</em>, <br>could you do us one favour?</div>
     <div class="rvw-body">
-      Shah Hayaat has been quietly changing lives for generations — but we need <strong>your voice</strong> to reach the people who need us most.<br><br>
-      A 5-star review takes 30 seconds and means the world to our small team. Share what you love — even one honest line makes a huge difference. 🙏
+      Shah Hayaat has been quietly changing lives for generations, but we need <strong>your voice</strong> to reach the people who need us most.<br><br>
+      A 5-star review takes 30 seconds and means the world to our small team. Share what you love, even one honest line makes a huge difference. 🙏
     </div>
     <a id="rvwBtn" class="rvw-btn" href="https://g.page/r/CXsr4edSqOKSEBM/review" target="_blank" rel="noopener" onclick="reviewDone()">
       ⭐ Leave a 5-Star Review
     </a>
-    <button class="rvw-skip" onclick="reviewDone()">Maybe later — remind me another time</button>
+    <button class="rvw-skip" onclick="reviewDone()">Maybe later: remind me another time</button>
   </div>
 </div>
 
@@ -6865,13 +6865,13 @@ function shareOnWhatsApp() {
 <div id="lbNameModal">
   <div class="lbn-box">
     <div style="font-size:2rem;margin-bottom:.4rem">🏆</div>
-    <div class="lbn-title">You scored <span id="lbnScoreVal">—</span> taps!</div>
+    <div class="lbn-title">You scored <span id="lbnScoreVal">-</span> taps!</div>
     <div class="lbn-sub">Enter your name to save your score on the global leaderboard, or skip to save as Anonymous.</div>
     <input class="lbn-inp" id="lbnInput" type="text" maxlength="16" placeholder="Your name (optional)" autocomplete="off" autocorrect="off" spellcheck="false" oninput="lbnSanitizeInput(this)">
     <div id="lbnWarn" style="font-size:.72rem;color:#f87171;min-height:.9rem;margin-top:-.4rem;margin-bottom:.3rem;text-align:center"></div>
     <div class="lbn-btns">
       <button class="lbn-submit" onclick="lbSubmitName()">🌍 Add to Leaderboard</button>
-      <button class="lbn-skip" onclick="lbSkipName()">Skip — save as Anonymous</button>
+      <button class="lbn-skip" onclick="lbSkipName()">Skip: save as Anonymous</button>
     </div>
   </div>
 </div>
@@ -6903,7 +6903,7 @@ function shareOnWhatsApp() {
       <button onclick="_tyExSkipName()"
         style="padding:.62rem 1rem;background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);
                border:1.5px solid rgba(255,255,255,.12);border-radius:50px;font-size:.8rem;cursor:pointer">
-        Skip — save as Anonymous
+        Skip: save as Anonymous
       </button>
     </div>
   </div>
@@ -6968,7 +6968,7 @@ function shareOnWhatsApp() {
 
 
 /* ════════════════════════════════════════════════════════════
-   GAME LEADERBOARD — Math, Memory, Number Sequence
+   GAME LEADERBOARD: Math, Memory, Number Sequence
    Each game saves {name, score, game, metric} via POST
    and shows rank on the done screen via #gameGlobalRank
    ════════════════════════════════════════════════════════════ */
@@ -6977,7 +6977,7 @@ var _gameLbPendingData = null; // {game, score, metric, wpm, acc} set by each ga
 
 /* Show the game name modal (reuses #tyExNameModal styling) */
 /* ═══════════════════════════════════════════════════════
-   GAME LEADERBOARDS — Math, Memory, Number Sequence
+   GAME LEADERBOARDS: Math, Memory, Number Sequence
    Each uses its own POST type and its own sheet in GAS
    ═══════════════════════════════════════════════════════ */
 var _gameLbPendingData = null;
@@ -7006,7 +7006,7 @@ function gameLbShowModal(postType, label, extraData) {
 function _gameDoSave(name, data) {
   var displayName = (name && name.length >= 2) ? name : 'Anonymous';
   var payload = Object.assign({ type: data.postType, name: displayName }, data.extra);
-  var savedExId = _ex ? _ex.id : null; // capture at call time — guard stale async responses
+  var savedExId = _ex ? _ex.id : null; // capture at call time, guard stale async responses
   var el2 = document.getElementById('gameGlobalRank');
   if (el2) {
     el2.innerHTML = '<div style="font-size:.85rem;color:rgba(255,255,255,.5)">⏳ Saving…</div>';
@@ -7021,10 +7021,10 @@ function _gameDoSave(name, data) {
   .then(function(json){
     if (json.ok && json.rank >= 1) {
       var rank=json.rank, savedExId2=savedExId;
-      // Guard removed — rank shows even at queue "All Done" screen
+      // Guard removed: rank shows even at queue "All Done" screen
       _showAnimatedRank(rank, json.score, '', 0, savedExId2, 'gameGlobalRank');
     } else {
-      // No rank returned — show local estimate
+      // No rank returned: show local estimate
       var savedExId3 = savedExId;
       var metricVal = data.extra ? (data.extra.score || data.extra.wpm || data.extra.taps || 0) : 0;
       var estRank = _estimateLocalRank(metricVal, savedExId3 || '');
@@ -7033,7 +7033,7 @@ function _gameDoSave(name, data) {
     setTimeout(function(){ gameLbLoad(data.postType.replace('_score','')); }, 800);
   })
   .catch(function(){
-    // Network error — show local estimate
+    // Network error: show local estimate
     var metricVal = data.extra ? (data.extra.score || data.extra.wpm || data.extra.taps || 0) : 0;
     var estRank = _estimateLocalRank(metricVal, savedExId || '');
     _showAnimatedRank(estRank, metricVal, '', 0, savedExId, 'gameGlobalRank');
@@ -7074,7 +7074,7 @@ function gameLbLoad(gameKey) {
 }
 
 /* ════════════════════════════════════════════════════════════
-   TYPING SCORE FLOW — name first, then single POST
+   TYPING SCORE FLOW: name first, then single POST
    1. Game finishes → show name modal immediately (nothing saved yet)
    2a. User enters name → POST {name, wpm, acc} → show rank from response
    2b. User skips      → POST {name:'Anonymous', wpm, acc} → silent save
@@ -7120,7 +7120,7 @@ function tySaveScore(name, wpm, acc) {
     if (json.ok && json.rank >= 1) {
       _tyShowRank(json.rank, json.score);
     } else {
-      // No rank from API — estimate locally
+      // No rank from API, estimate locally
       var pts = json.score || Math.round(wpm * (acc / 100) * 10);
       var estRank = _estimateLocalRank(wpm, 'typing-speed');
       _showAnimatedRank(estRank, pts, '', 0, 'typing-speed', 'tyGlobalRank');
@@ -7128,7 +7128,7 @@ function tySaveScore(name, wpm, acc) {
     setTimeout(tyLbLoad, 1000);
   })
   .catch(function() {
-    // Network error — show local estimate
+    // Network error: show local estimate
     var pts = Math.round(wpm * (acc / 100) * 10);
     var estRank = _estimateLocalRank(wpm, 'typing-speed');
     _showAnimatedRank(estRank, pts, '', 0, 'typing-speed', 'tyGlobalRank');
@@ -7143,7 +7143,7 @@ function _tyShowRank(rank, score) {
     bar.innerHTML = '<span style="font-size:.95rem;font-weight:800;color:var(--gold-l)">' + medal + ' Rank #' + rank + '</span>';
     bar.style.display = 'block';
   }
-  /* Done screen animated reveal — guard removed so rank shows at queue "All Done" too */
+  /* Done screen animated reveal, guard removed so rank shows at queue "All Done" too */
   _showAnimatedRank(rank, score, '', 0, 'typing-speed', 'tyGlobalRank');
 }
 
@@ -7193,7 +7193,7 @@ function tyInit() {
 
   /* Reset UI */
   var wEl=document.getElementById('tyOvWPM'); if(wEl) wEl.textContent='0';
-  var aEl=document.getElementById('tyOvAcc'); if(aEl) aEl.textContent='—';
+  var aEl=document.getElementById('tyOvAcc'); if(aEl) aEl.textContent='-';
   var tEl=document.getElementById('tyOvTimer'); if(tEl){tEl.textContent=TY_DURATION;tEl.style.color='#D4A017';}
   var bEl=document.getElementById('tyOvBar'); if(bEl) bEl.style.width='0%';
   var rEl=document.getElementById('tyOvRank'); if(rEl){rEl.style.display='none';rEl.innerHTML='';}
@@ -7204,7 +7204,7 @@ function tyInit() {
   tyRenderPassage('');
   tyLbLoad();
 
-  /* Wire up textarea immediately so it\'s ready — timer only starts on first keystroke */
+  /* Wire up textarea immediately so it\'s ready: timer only starts on first keystroke */
   setTimeout(function() {
     var inp = document.getElementById('tyOvInput');
     if (!inp) return;
@@ -7287,7 +7287,7 @@ function tyHandleInput() {
     _tyStartTime = Date.now();
     _tyTimerInt = setInterval(function(){
       if (!document.getElementById('tyOvTimer')) { clearInterval(_tyTimerInt); return; }
-      /* FIX: always read the CURRENT textarea value — never use the stale closure */
+      /* FIX: always read the CURRENT textarea value, never use the stale closure */
       var currentInp = document.getElementById('tyOvInput');
       var currentTyped = currentInp ? currentInp.value : '';
       var elapsed = (Date.now() - _tyStartTime) / 1000;
@@ -7354,15 +7354,15 @@ function tyFinish(typed) {
 }
 
 
-/* ── BOOST GRID — product cross-links per exercise goal ── */
+/* ── BOOST GRID: product cross-links per exercise goal ── */
 (function(){
   var BOOSTS = [
-    {icon:'🧠',goal:'Brain & Memory',text:'Pair brain exercises with <strong>Brain Champ</strong> — Brahmi, Shankhpushpi & Ashwagandha to support focus and recall.',name:'Brain Champ',price:'₹164',url:'brain-champ-ayurvedic-memory-booster.html',wa:'Hi Shah Hayaat! I want to order Brain Champ (₹164). Please guide me.'},
-    {icon:'🌬️',goal:'Breathing & Stress',text:'Support pranayama with <strong>Fevodol</strong> — Giloy & Tulsi to strengthen respiratory immunity.',name:'Fevodol',price:'₹180',url:'fevodol-ayurvedic-immunity-booster-giloy-tulsi.html',wa:'Hi Shah Hayaat! I want to order Fevodol (₹180). Please guide me.'},
-    {icon:'🍃',goal:'Digestion',text:'Enhance digestive exercises with <strong>Shah Zyme</strong> — herbal enzymes for gas, bloating and absorption.',name:'Shah Zyme',price:'₹165',url:'shah-zyme-ayurvedic-digestive-syrup.html',wa:'Hi Shah Hayaat! I want to order Shah Zyme (₹165). Please guide me.'},
-    {icon:'🦴',goal:'Joint & Body',text:'Pair mobility exercises with <strong>Ortho Hayaat</strong> — Shallaki & Guggul to reduce inflammation.',name:'Ortho Hayaat',price:'₹399',url:'ortho-hayaat-ayurvedic-joint-pain-relief.html',wa:'Hi Shah Hayaat! I want to order Ortho Hayaat (₹399). Please guide me.'},
-    {icon:'👁️',goal:'Eye Care',text:'Support eye yoga with <strong>Brain Champ</strong> — antioxidant herbs that help protect vision and reduce eye fatigue.',name:'Brain Champ',price:'₹164',url:'brain-champ-ayurvedic-memory-booster.html',wa:'Hi Shah Hayaat! I want to order Brain Champ (₹164). Please guide me.'},
-    {icon:'⚡',goal:'Energy & Wake-Up',text:'Fuel morning routines with <strong>Blood Storm</strong> — iron and Ashwagandha to combat fatigue and boost vitality.',name:'Blood Storm',price:'₹164',url:'blood-storm-ayurvedic-iron-tonic.html',wa:'Hi Shah Hayaat! I want to order Blood Storm (₹164). Please guide me.'}
+    {icon:'🧠',goal:'Brain & Memory',text:'Pair brain exercises with <strong>Brain Champ</strong>, Brahmi, Shankhpushpi & Ashwagandha to support focus and recall.',name:'Brain Champ',price:'₹164',url:'brain-champ-ayurvedic-memory-booster.html',wa:'Hi Shah Hayaat! I want to order Brain Champ (₹164). Please guide me.'},
+    {icon:'🌬️',goal:'Breathing & Stress',text:'Support pranayama with <strong>Fevodol</strong>, Giloy & Tulsi to strengthen respiratory immunity.',name:'Fevodol',price:'₹180',url:'fevodol-ayurvedic-immunity-booster-giloy-tulsi.html',wa:'Hi Shah Hayaat! I want to order Fevodol (₹180). Please guide me.'},
+    {icon:'🍃',goal:'Digestion',text:'Enhance digestive exercises with <strong>Shah Zyme</strong>, herbal enzymes for gas, bloating and absorption.',name:'Shah Zyme',price:'₹165',url:'shah-zyme-ayurvedic-digestive-syrup.html',wa:'Hi Shah Hayaat! I want to order Shah Zyme (₹165). Please guide me.'},
+    {icon:'🦴',goal:'Joint & Body',text:'Pair mobility exercises with <strong>Ortho Hayaat</strong>, Shallaki & Guggul to reduce inflammation.',name:'Ortho Hayaat',price:'₹399',url:'ortho-hayaat-ayurvedic-joint-pain-relief.html',wa:'Hi Shah Hayaat! I want to order Ortho Hayaat (₹399). Please guide me.'},
+    {icon:'👁️',goal:'Eye Care',text:'Support eye yoga with <strong>Brain Champ</strong>, antioxidant herbs that help protect vision and reduce eye fatigue.',name:'Brain Champ',price:'₹164',url:'brain-champ-ayurvedic-memory-booster.html',wa:'Hi Shah Hayaat! I want to order Brain Champ (₹164). Please guide me.'},
+    {icon:'⚡',goal:'Energy & Wake-Up',text:'Fuel morning routines with <strong>Blood Storm</strong>, iron and Ashwagandha to combat fatigue and boost vitality.',name:'Blood Storm',price:'₹164',url:'blood-storm-ayurvedic-iron-tonic.html',wa:'Hi Shah Hayaat! I want to order Blood Storm (₹164). Please guide me.'}
   ];
   var grid = document.getElementById('boostGrid');
   if (!grid) return;
@@ -7383,7 +7383,7 @@ function tyFinish(typed) {
 })();
 
 /* ═══════════════════════════════════════════════════════════
-   SOUND ENGINE — Web Audio API, no files needed
+   SOUND ENGINE: Web Audio API, no files needed
    ═══════════════════════════════════════════════════════════ */
 var _soundEnabled = true;
 var _audioCtx = null;
@@ -7464,17 +7464,17 @@ function showPBBurst(label) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   NEAR-RANK NUDGE — show if rank 11-20 or just outside top X
+   NEAR-RANK NUDGE: show if rank 11-20 or just outside top X
    ═══════════════════════════════════════════════════════════ */
 function _showNearRankNudge(rank) {
   var el = document.getElementById('nearRankNudge');
   if (!el) return;
   var msg = '';
   if (rank >= 11 && rank <= 15)      msg = '🔥 So close! Just ' + (rank-10) + ' spot' + (rank-10>1?'s':'') + ' away from Top 10!';
-  else if (rank >= 16 && rank <= 20) msg = '💪 You are in Top 20 — keep pushing!';
+  else if (rank >= 16 && rank <= 20) msg = '💪 You are in Top 20, keep pushing!';
   else if (rank >= 4 && rank <= 5)   msg = '⭐ Just ' + (rank-3) + ' step' + (rank-3>1?'s':'') + ' from the podium!';
-  else if (rank === 101)             msg = '😤 Just missed Top 100 — one more try!';
-  else if (rank >= 96 && rank <= 100) msg = '🎯 You are in Top 100 — almost Top 50!';
+  else if (rank === 101)             msg = '😤 Just missed Top 100, one more try!';
+  else if (rank >= 96 && rank <= 100) msg = '🎯 You are in Top 100, almost Top 50!';
   if (msg) {
     el.textContent = msg;
     el.classList.add('show');
@@ -7494,7 +7494,7 @@ function shareRankOnWhatsApp() {
   var medal = _lastRevealedRank===1?'🥇':_lastRevealedRank===2?'🥈':_lastRevealedRank===3?'🥉':'🏅';
   var gameTitle = _ex ? _ex.title : (_lastRevealedGame || 'Shah Hayaat');
   var msg = medal + ' I just ranked #' + _lastRevealedRank + ' globally in "' + gameTitle + '" on Shah Hayaat Wellness Clinic!\n\n' +
-    '🧠 Free brain training & wellness exercises — no login, no cost.\n' +
+    '🧠 Free brain training & wellness exercises, no login, no cost.\n' +
     '👉 https://www.shahhayaat.com/exercises.html\n\nCan you beat my rank? 💪';
   window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
 }
@@ -7513,7 +7513,7 @@ function _getStreakBonus() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   DAILY CHALLENGE — seeded by date so everyone gets same game
+   DAILY CHALLENGE: seeded by date so everyone gets same game
    ═══════════════════════════════════════════════════════════ */
 var _dcGames = ['reaction-test','math-challenge','memory-match','number-sequence'];
 
@@ -7559,7 +7559,7 @@ function _showDailyChallengeOnDone() {
     banner.style.display = 'none';
     return;
   }
-  desc.textContent = "Today\'s challenge: " + (ex ? ex.title : gameId) + " — play now to earn your daily badge!";
+  desc.textContent = "Today\'s challenge: " + (ex ? ex.title : gameId) + ", play now to earn your daily badge!";
   banner.style.display = 'block';
 }
 
@@ -7589,14 +7589,14 @@ function _renderStatsPanel() {
     var grid = document.getElementById('statsGrid');
     if (grid) {
       var items = [
-        { icon:'⚡', val: pb.reaction ? pb.reaction + ' ms' : '—', lbl:'Best Reaction' },
-        { icon:'🧠', val: pb.math     ? pb.math + ' correct' : '—', lbl:'Best Math' },
-        { icon:'🃏', val: pb.memory   ? pb.memory + ' attempts' : '—', lbl:'Best Memory' },
-        { icon:'⌨️', val: pb.typing   ? pb.typing + ' WPM' : '—', lbl:'Best Typing' },
-        { icon:'🔢', val: pb.sequence ? pb.sequence + 's' : '—', lbl:'Best Sequence' },
+        { icon:'⚡', val: pb.reaction ? pb.reaction + ' ms' : '-', lbl:'Best Reaction' },
+        { icon:'🧠', val: pb.math     ? pb.math + ' correct' : '-', lbl:'Best Math' },
+        { icon:'🃏', val: pb.memory   ? pb.memory + ' attempts' : '-', lbl:'Best Memory' },
+        { icon:'⌨️', val: pb.typing   ? pb.typing + ' WPM' : '-', lbl:'Best Typing' },
+        { icon:'🔢', val: pb.sequence ? pb.sequence + 's' : '-', lbl:'Best Sequence' },
         { icon:'🔥', val: streak + ' days', lbl:'Current Streak' },
         { icon:'🏆', val: best + ' days', lbl:'Best Streak' },
-        { icon:'📅', val: data.lastActive ? data.lastActive.split(' ').slice(1,3).join(' ') : '—', lbl:'Last Active' }
+        { icon:'📅', val: data.lastActive ? data.lastActive.split(' ').slice(1,3).join(' ') : '-', lbl:'Last Active' }
       ];
       grid.innerHTML = items.map(function(it) {
         return '<div class="stats-card"><div class="stats-card-icon">' + it.icon + '</div>' +
@@ -7615,7 +7615,7 @@ function _renderStatsPanel() {
         (bonus.label ? '<div class="streak-bonus-pill" style="margin:.5rem auto 0">' + bonus.label + '</div>' : '');
     }
 
-    // Rank board — pull from localStorage cache
+    // Rank board: pull from localStorage cache
     var ranksEl = document.getElementById('statsRanks');
     if (ranksEl) {
       var ranks = [];
@@ -7646,7 +7646,7 @@ function _saveMyRank(gameTitle, rank) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   WEEKLY LEADERBOARD — stored in GAS with date prefix
+   WEEKLY LEADERBOARD: stored in GAS with date prefix
    (lightweight: just tags each score with the week number)
    ═══════════════════════════════════════════════════════════ */
 function _getWeekKey() {
@@ -7660,7 +7660,7 @@ function _getWeekKey() {
    SPEED READING GAME
    ═══════════════════════════════════════════════════════════════ */
 /* ═══════════════════════════════════════════════════════════════
-   LEADERBOARD TABS — Global / This Week / India
+   LEADERBOARD TABS: Global / This Week / India
    ═══════════════════════════════════════════════════════════════ */
 var _lbCurrentTab = 'global';
 var _lbAllRows    = []; // cache of all rows from last fetch
@@ -7687,7 +7687,7 @@ function lbRenderFiltered(rows) {
       lbRenderRows(weekScores, true);
     } else {
       var list = document.getElementById('lbList');
-      if (list) list.innerHTML = '<div class="lb-empty">No scores this week yet — play to be first! 🏆</div>';
+      if (list) list.innerHTML = '<div class="lb-empty">No scores this week yet, play to be first! 🏆</div>';
     }
     return;
   }
@@ -7701,7 +7701,7 @@ function lbRenderRows(rows, isWeekly) {
   var myRankEl = document.getElementById('lbMyRank');
   if (!list) return;
   if (!rows.length) {
-    list.innerHTML = '<div class="lb-empty">' + (isWeekly ? 'No scores this week yet!' : 'No scores yet — be first! 🏆') + '</div>';
+    list.innerHTML = '<div class="lb-empty">' + (isWeekly ? 'No scores this week yet!' : 'No scores yet: be first! 🏆') + '</div>';
     return;
   }
   list.innerHTML = rows.map(function(r, i) {
@@ -7940,7 +7940,7 @@ function _checkGamesPlayed() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   SHARE CARD — Canvas-generated shareable image
+   SHARE CARD: Canvas-generated shareable image
    ═══════════════════════════════════════════════════════════════ */
 var _shareCardDataUrl = '';
 
@@ -8025,7 +8025,7 @@ function _generateShareCard() {
       ctx.fillText(scoreText, W/2, H/2 + 102);
     }
   } else {
-    // No rank — show wellness card
+    // No rank: show wellness card
     ctx.textAlign = 'center';
     ctx.font = '54px serif';
     ctx.fillText('🧠', W/2, H/2 - 10);
@@ -8090,7 +8090,7 @@ function shareCardWhatsApp() {
   var game    = _ex ? _ex.title : 'brain training';
   var rankStr = _lastRevealedRank > 0 ? ' I ranked #' + _lastRevealedRank + ' globally!' : '';
   var msg     = medal + ' Just completed ' + game + ' on Shah Hayaat Wellness Clinic!' + rankStr +
-    '\n\n🌿 Free guided wellness exercises — brain, breathing & body.\n' +
+    '\n\n🌿 Free guided wellness exercises, brain, breathing & body.\n' +
     '👉 https://www.shahhayaat.com/exercises.html\n\nCan you beat me? 💪';
   window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
 }
@@ -8136,15 +8136,15 @@ function shareOnWhatsApp() {
   <div class="rvw-box">
     <div class="rvw-ico">🌿</div>
     <div class="rvw-stars">⭐⭐⭐⭐⭐</div>
-    <div class="rvw-ttl">You\'re doing <em>amazing</em> —<br>could you do us one favour?</div>
+    <div class="rvw-ttl">You\'re doing <em>amazing</em>, <br>could you do us one favour?</div>
     <div class="rvw-body">
-      Shah Hayaat has been quietly changing lives for generations — but we need <strong>your voice</strong> to reach the people who need us most.<br><br>
-      A 5-star review takes 30 seconds and means the world to our small team. Share what you love — even one honest line makes a huge difference. 🙏
+      Shah Hayaat has been quietly changing lives for generations, but we need <strong>your voice</strong> to reach the people who need us most.<br><br>
+      A 5-star review takes 30 seconds and means the world to our small team. Share what you love, even one honest line makes a huge difference. 🙏
     </div>
     <a id="rvwBtn" class="rvw-btn" href="https://g.page/r/CXsr4edSqOKSEBM/review" target="_blank" rel="noopener" onclick="reviewDone()">
       ⭐ Leave a 5-Star Review
     </a>
-    <button class="rvw-skip" onclick="reviewDone()">Maybe later — remind me another time</button>
+    <button class="rvw-skip" onclick="reviewDone()">Maybe later: remind me another time</button>
   </div>
 </div>
 
@@ -8152,13 +8152,13 @@ function shareOnWhatsApp() {
 <div id="lbNameModal">
   <div class="lbn-box">
     <div style="font-size:2rem;margin-bottom:.4rem">🏆</div>
-    <div class="lbn-title">You scored <span id="lbnScoreVal">—</span> taps!</div>
+    <div class="lbn-title">You scored <span id="lbnScoreVal">-</span> taps!</div>
     <div class="lbn-sub">Enter your name to save your score on the global leaderboard, or skip to save as Anonymous.</div>
     <input class="lbn-inp" id="lbnInput" type="text" maxlength="16" placeholder="Your name (optional)" autocomplete="off" autocorrect="off" spellcheck="false" oninput="lbnSanitizeInput(this)">
     <div id="lbnWarn" style="font-size:.72rem;color:#f87171;min-height:.9rem;margin-top:-.4rem;margin-bottom:.3rem;text-align:center"></div>
     <div class="lbn-btns">
       <button class="lbn-submit" onclick="lbSubmitName()">🌍 Add to Leaderboard</button>
-      <button class="lbn-skip" onclick="lbSkipName()">Skip — save as Anonymous</button>
+      <button class="lbn-skip" onclick="lbSkipName()">Skip: save as Anonymous</button>
     </div>
   </div>
 </div>
@@ -8190,7 +8190,7 @@ function shareOnWhatsApp() {
       <button onclick="_tyExSkipName()"
         style="padding:.62rem 1rem;background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);
                border:1.5px solid rgba(255,255,255,.12);border-radius:50px;font-size:.8rem;cursor:pointer">
-        Skip — save as Anonymous
+        Skip: save as Anonymous
       </button>
     </div>
   </div>

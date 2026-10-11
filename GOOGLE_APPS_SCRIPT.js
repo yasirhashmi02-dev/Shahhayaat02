@@ -1,11 +1,11 @@
 // ════════════════════════════════════════════════════════════════
-// SHAH HAYAAT — GOOGLE APPS SCRIPT
+// SHAH HAYAAT: GOOGLE APPS SCRIPT
 // Deploy as Web App: Execute as Me, Access: Anyone (anonymous)
 // ════════════════════════════════════════════════════════════════
 
 const SPREADSHEET_ID = '1JzFvfZRwsk4sfed6r1R0i_5i5wA96UH-wE4VYVY2Se8';
 
-// Sheet tab names — must match exactly what you see at the bottom of the spreadsheet
+// Sheet tab names: must match exactly what you see at the bottom of the spreadsheet
 const SHEETS = {
   reaction : 'Leaderboard',        // reaction speed test
   typing   : 'TypingLeaderboard',  // typing speed test
@@ -85,7 +85,7 @@ function readSheet(sheetKey, mapFn) {
 }
 
 // ════════════════════════════════════════════════════════════════
-// doGet — all reads
+// doGet: all reads
 // ════════════════════════════════════════════════════════════════
 function doGet(e) {
   try {
@@ -106,7 +106,7 @@ function doGet(e) {
 }
 
 // ════════════════════════════════════════════════════════════════
-// doPost — all saves
+// doPost: all saves
 // ════════════════════════════════════════════════════════════════
 function doPost(e) {
   try {
@@ -264,7 +264,7 @@ function saveBlogReaction(d) {
 }
 
 // ════════════════════════════════════════════════════════════════
-// ONE-TIME SETUP — Run once to create all sheets
+// ONE-TIME SETUP: Run once to create all sheets
 // ════════════════════════════════════════════════════════════════
 function setupSheets() {
   getSheet('reaction', ['Name','Score','Timestamp']);

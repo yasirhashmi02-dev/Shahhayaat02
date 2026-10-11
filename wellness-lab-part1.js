@@ -2,7 +2,7 @@
 
 /* ── Central scoring weights configuration ──────────────────────────
    Base weights sum to exactly 1.0 (8 core domains).
-   Hormonal is NOT listed here — it is injected dynamically for
+   Hormonal is NOT listed here, it is injected dynamically for
    female users and the full set is re-normalised at runtime.
    Adjust weights here without touching any test code. */
 
@@ -24,7 +24,7 @@ const SH_PRODUCT_SLUGS = {
 function shProductUrl(id){ return SH_PRODUCT_SLUGS[id] || (id+'.html'); }
 
 const CATEGORY_WEIGHTS = {
-  cognitive:   0.25,  /* brain — highest weight */
+  cognitive:   0.25,  /* brain, highest weight */
   eye:         0.16,
   respiratory: 0.15,
   stress:      0.10,
@@ -134,7 +134,7 @@ const LAB = {
           <span style="font-size:1.3rem">▶</span>
           <div>
             <div style="font-size:.82rem;font-weight:700;color:var(--t)">Resume: ${catName}</div>
-            <div style="font-size:.68rem;color:var(--tq)">Started recently — continue where you left off?</div>
+            <div style="font-size:.68rem;color:var(--tq)">Started recently: continue where you left off?</div>
           </div>
         </div>
         <div style="display:flex;gap:.5rem">
@@ -170,7 +170,7 @@ const LAB = {
 
       const streakCount = streakData.count || 1;
       const msg = isStreak
-        ? `Your streak continues: <strong>${streakCount} day${streakCount > 1 ? 's' : ''}</strong> 🔥 — Try today\'s assessments to keep it going.`
+        ? `Your streak continues: <strong>${streakCount} day${streakCount > 1 ? 's' : ''}</strong> 🔥: Try today\'s assessments to keep it going.`
         : 'Welcome back! Begin today\'s Wellness Lab to track your improvement.';
 
       const banner = document.createElement('div');
@@ -205,13 +205,13 @@ const LAB = {
     trackWL('wellness_start');
     this.show('sInstr');
     this.setStatus('idle','Setup');
-    this.say("Welcome! I'll guide you through everything. It's really simple — just watch each demo and follow the signals. Let's go!");
+    this.say("Welcome! I'll guide you through everything. It's really simple: just watch each demo and follow the signals. Let's go!");
   },
 
   goGender() {
     this.show('sGender');
     this.setStatus('idle','Setup');
-    this.say('Almost there! Just tap Male or Female — and your wellness check will begin right away.');
+    this.say('Almost there! Just tap Male or Female, and your wellness check will begin right away.');
   },
 
   setGender(g) {
@@ -233,7 +233,7 @@ const LAB = {
     const gc = this.el('goCont');
     if (gc) gc.disabled = false;
     this.say(
-      g==='female' ? "Perfect! Starting your personalised check now — you've got this!" : "Great! Starting your check right now — you've got this!",
+      g==='female' ? "Perfect! Starting your personalised check now, you've got this!" : "Great! Starting your check right now, you've got this!",
       g==='female' ? 'خاتون منتخب کی گئی۔' : 'مرد منتخب کیا گیا۔',
       g==='female' ? 'महिला चुना गया।' : 'पुरुष चुना गया।'
     );
@@ -280,12 +280,12 @@ const LAB = {
     hearing: {
       id:'hearing', name:'Hearing Check', icon:'👂', color:'#8E44AD',
       tests:['mod_hearingCheck'],
-      scoreKey:'hearing', time:'~2 min', desc:'High-frequency tone detection — best with headphones'
+      scoreKey:'hearing', time:'~2 min', desc:'High-frequency tone detection: best with headphones'
     },
     female: {
       id:'female', name:"Women's Health", icon:'🌸', color:'#B83060',
       tests:['mod_hormonalRhythm','mod_energyIron','mod_femCombined'],
-      scoreKey:'hormonal', time:'~5 min', desc:'Hormonal rhythm, energy & iron, and sleep comfort — female-specific checks'
+      scoreKey:'hormonal', time:'~5 min', desc:'Hormonal rhythm, energy & iron, and sleep comfort, female-specific checks'
     }
   },
 
@@ -297,7 +297,7 @@ const LAB = {
     const done = Object.keys(this.categories).filter(k => this.scores[this.categories[k].scoreKey] != null);
     const available = Object.values(this.categories).filter(c => !done.includes(c.id));
     if (!available.length) {
-      /* All categories done — show dashboard */
+      /* All categories done: show dashboard */
       this.currentMode = 'full';
       this.showDashboard();
       return;
@@ -312,7 +312,7 @@ const LAB = {
         <div style="text-align:center;margin-bottom:1.2rem">
           <div style="width:36px;height:4px;background:var(--b);border-radius:2px;margin:0 auto .9rem"></div>
           <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:.3rem">Add More Tests</h3>
-          <p style="font-size:.78rem;color:var(--tq)">Pick a category to continue — your previous scores are saved.</p>
+          <p style="font-size:.78rem;color:var(--tq)">Pick a category to continue, your previous scores are saved.</p>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:1rem">
           ${available.map(c => `
@@ -392,7 +392,7 @@ const LAB = {
     this.next();
   },
 
-  /* ── v2: Full lab (enhanced — now driven from category registry) ─── */
+  /* ── v2: Full lab (enhanced, now driven from category registry) ─── */
   beginModules() {
     if (!this.gender) return;
     trackWL('full_lab_start');
@@ -419,7 +419,7 @@ const LAB = {
     /* Each 5-point deviation from baseline (70) = 2 years */
     const delta = Math.round((70 - overall) / 5) * 2;
     if (!actualAge || actualAge < 16 || actualAge > 90) {
-      /* No age entered — return relative label only */
+      /* No age entered: return relative label only */
       if (overall >= 80) return { label:'Functionally Younger', delta:-4, icon:'🌱' };
       if (overall >= 65) return { label:'Age-Appropriate',      delta:0,  icon:'✅' };
       return               { label:'Functionally Older',        delta:4,  icon:'⏳' };
@@ -625,7 +625,7 @@ const LAB = {
     const domainPart = sec ? `${sec.label} ${sec.num} of ${sec.of}` : '';
     const globalPart = `Test ${i} of ${n}`;
     const stepLbl = domainPart ? `${domainPart} · ${globalPart}` : globalPart;
-    const actLbl = this._mlabels[modKey] || '—';
+    const actLbl = this._mlabels[modKey] || '-';
     const set=(id,v)=>{const e=this.el(id);if(e)e.textContent=v;};
     set('pStep', stepLbl);
     set('pLbl', actLbl);

@@ -9,8 +9,8 @@ window.mod_breathSync = function () {
   LAB.showDemo({
     title: '🌬 Breath Sync',
     txt: 'A circle will grow and shrink. <strong>Breathe with it</strong>: inhale when it expands, hold when it pauses, exhale when it shrinks. Just follow its rhythm naturally.',
-    hint: '6 breathing cycles — find your calm',
-    voiceEN: "Breathing check — this one is actually calming! A circle will grow and shrink on screen. Just breathe with it — in as it grows, hold when it pauses, out as it shrinks. Follow its gentle rhythm.",
+    hint: '6 breathing cycles: find your calm',
+    voiceEN: "Breathing check: this one is actually calming! A circle will grow and shrink on screen. Just breathe with it, in as it grows, hold when it pauses, out as it shrinks. Follow its gentle rhythm.",
     btnLabel: 'Begin Breathing Assessment →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">
       <div id="bsDemoCirc" style="width:52px;height:52px;border-radius:50%;background:var(--g3);border:3px solid var(--g);transition:all .6s ease-in-out"></div>
@@ -53,13 +53,13 @@ window.mod_breathSync = function () {
 
       <div class="sc-row" style="justify-content:center">
         <div class="scb"><span class="v" id="bsCyc">0</span><span class="l">Cycles</span></div>
-        <div class="scb"><span class="v" id="bsPhase">—</span><span class="l">Phase</span></div>
-        <div class="scb"><span class="v" id="bsScore">—</span><span class="l">Sync Score</span></div>
+        <div class="scb"><span class="v" id="bsPhase">-</span><span class="l">Phase</span></div>
+        <div class="scb"><span class="v" id="bsScore">-</span><span class="l">Sync Score</span></div>
       </div>
 
       <div class="notice">
         <div class="ni">💡</div>
-        <p>Sit comfortably. Breathe through your nose if possible. Don't force it — just flow with the circle.</p>
+        <p>Sit comfortably. Breathe through your nose if possible. Don't force it: just flow with the circle.</p>
       </div>
 
       <div class="btn-row">
@@ -132,7 +132,7 @@ window.mod_breathSync = function () {
     const sc = LAB.clamp(Math.round(LAB.avg(_scores)), 40, 100);
     LAB.raw.breathSyncScore = sc;
     LAB.celebrate();
-    LAB.say(`Beautifully done! ${CYCLES} full breathing cycles — that is ${LAB.scoreLbl(sc)} breathing rhythm. Feel good? One more breathing check and then stability!`);
+    LAB.say(`Beautifully done! ${CYCLES} full breathing cycles, that is ${LAB.scoreLbl(sc)} breathing rhythm. Feel good? One more breathing check and then stability!`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   }
 };
@@ -143,13 +143,13 @@ window.mod_co2Tolerance = function () {
   LAB.showDemo({
     title: '⏱ Breath Hold Test',
     txt: 'Take a normal breath in, then breathe out slowly. Then <strong>hold your breath</strong> and tap the button when you feel you need to breathe. That\'s it!',
-    hint: 'Do NOT force it — stop when it feels natural',
-    voiceEN: "Breath hold test — totally safe, no pressure! Take a normal breath in, breathe out slowly, then hold as long as feels comfortable. Tap when you feel ready to breathe again.",
+    hint: 'Do NOT force it: stop when it feels natural',
+    voiceEN: "Breath hold test: totally safe, no pressure! Take a normal breath in, breathe out slowly, then hold as long as feels comfortable. Tap when you feel ready to breathe again.",
     btnLabel: 'Begin Assessment →',
     vis: `<div style="text-align:center;font-size:1.1rem">
       1. 😮‍💨 <strong>Breathe in</strong> normally<br>
       2. 💨 <strong>Breathe out</strong> slowly<br>
-      3. 😤 <strong>Hold</strong> — tap when done
+      3. 😤 <strong>Hold</strong>, tap when done
     </div>`,
     anim(vis) {
       const steps = ['😮‍💨 Breathe in…','💨 Breathe out…','😤 Hold! →'];
@@ -184,8 +184,8 @@ window.mod_co2Tolerance = function () {
       <span class="timer" id="bhTimer" style="display:none">0</span>
 
       <div class="sc-row" style="justify-content:center">
-        <div class="scb"><span class="v" id="bhHeld">—</span><span class="l">Held (seconds)</span></div>
-        <div class="scb"><span class="v" id="bhRating">—</span><span class="l">Rating</span></div>
+        <div class="scb"><span class="v" id="bhHeld">-</span><span class="l">Held (seconds)</span></div>
+        <div class="scb"><span class="v" id="bhRating">-</span><span class="l">Rating</span></div>
       </div>
 
       <div class="notice notice--am">
@@ -194,11 +194,11 @@ window.mod_co2Tolerance = function () {
       </div>
 
       <div class="btn-row" style="justify-content:center">
-        <button class="btn btn--p btn--lg" id="bhBtn" onclick="_bhNext()">✓ Done — Next Step →</button>
+        <button class="btn btn--p btn--lg" id="bhBtn" onclick="_bhNext()">✓ Done: Next Step →</button>
       </div>
     </div></div>`);
 
-    LAB.say("Perfect — take a slow, comfortable breath in through your nose. Nice and relaxed.");
+    LAB.say("Perfect: take a slow, comfortable breath in through your nose. Nice and relaxed.");
   });
 
   window._bhNext = function () {
@@ -209,19 +209,19 @@ window.mod_co2Tolerance = function () {
       if(em) em.textContent = '💨';
       if(t)  t.textContent  = 'Step 2 of 3: Breathe Out';
       if(d)  d.textContent  = 'Now breathe out slowly and completely. Tap when you have fully exhaled.';
-      if(b)  b.textContent  = '✓ Exhaled — Start Hold →';
-      LAB.say("Good — now breathe out slowly and fully. Take your time.");
+      if(b)  b.textContent  = '✓ Exhaled: Start Hold →';
+      LAB.say("Good: now breathe out slowly and fully. Take your time.");
 
     } else if (_phase === 'exhale') {
 
       _phase = 'hold'; _startT = performance.now();
       const em=document.getElementById('bhEmoji'), t=document.getElementById('bhTitle'), d=document.getElementById('bhDesc'), b=document.getElementById('bhBtn'), ti=document.getElementById('bhTimer');
       if(em) em.textContent='😤';
-      if(t)  t.textContent='🔴 HOLDING — tap when you need to breathe';
+      if(t)  t.textContent='🔴 HOLDING: tap when you need to breathe';
       if(d)  d.textContent='Hold still. The timer is counting. Tap the button when you feel the urge to breathe.';
-      if(b){ b.textContent='🫁 I Need to Breathe — Stop'; b.className='btn btn--gold btn--lg btn--full'; }
+      if(b){ b.textContent='🫁 I Need to Breathe, Stop'; b.className='btn btn--gold btn--lg btn--full'; }
       if(ti){ ti.style.display='block'; }
-      LAB.say("Now hold gently — timer is running. Tap the moment you feel ready to breathe. No need to push yourself.");
+      LAB.say("Now hold gently: timer is running. Tap the moment you feel ready to breathe. No need to push yourself.");
       _cd = setInterval(()=>{
         const elapsed = (performance.now()-_startT)/1000;
         const ti2 = document.getElementById('bhTimer');
@@ -253,7 +253,7 @@ window.mod_co2Tolerance = function () {
     if(b) b.style.display='none';
 
     LAB.celebrate();
-    LAB.say(`Fantastic! You held for ${Math.round(_held)} seconds — that is ${rating}! Breathing section complete. Now for stability — two quick motor checks!`);
+    LAB.say(`Fantastic! You held for ${Math.round(_held)} seconds, that is ${rating}! Breathing section complete. Now for stability, two quick motor checks!`);
     /* v2: Challenge button */
     const mc = LAB.el('modContent');
     if (mc && LAB.currentMode !== 'challenge') {
@@ -279,11 +279,11 @@ window.mod_stabilityHold = function () {
     title: '📱 Steady Hand',
     txt: '<strong>Hold your phone as still as possible</strong> for 20 seconds. On desktop, keep your mouse cursor inside the green circle without moving.',
     hint: 'The steadier you are, the higher your score',
-    voiceEN: "Steady hand! This one is fun — hold your phone as still as you possibly can for 20 seconds. On desktop, keep your cursor inside the green circle. How steady are you?",
+    voiceEN: "Steady hand! This one is fun, hold your phone as still as you possibly can for 20 seconds. On desktop, keep your cursor inside the green circle. How steady are you?",
     btnLabel: 'Begin Motor Stability Assessment →',
     vis: `<div style="text-align:center">
       <div style="font-size:2.5rem">📱</div>
-      <div style="font-size:.82rem;color:var(--tq);margin-top:.4rem">Hold still — don't move!</div>
+      <div style="font-size:.82rem;color:var(--tq);margin-top:.4rem">Hold still: don't move!</div>
       <div id="shDemoWave" style="display:flex;align-items:center;justify-content:center;gap:3px;margin-top:.6rem;height:28px">
         ${Array.from({length:12},(_,i)=>`<div id="shw${i}" style="width:4px;height:4px;border-radius:2px;background:var(--g2);transition:height .3s"></div>`).join('')}
       </div>
@@ -306,7 +306,7 @@ window.mod_stabilityHold = function () {
       <div class="step-head">
         <div class="tag">📱 Stability · 1 of 2</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.4rem">Steady Hand Test</h2>
-        <p class="pg"><strong>Hold your phone still</strong> for 20 seconds after pressing Start. On desktop — keep your cursor inside the circle.</p>
+        <p class="pg"><strong>Hold your phone still</strong> for 20 seconds after pressing Start. On desktop, keep your cursor inside the circle.</p>
       </div>
 
       <span class="timer" id="shTimer">20</span>
@@ -326,8 +326,8 @@ window.mod_stabilityHold = function () {
       </div>
 
       <div class="sc-row" style="justify-content:center">
-        <div class="scb"><span class="v" id="shMove">—</span><span class="l">Movement</span></div>
-        <div class="scb"><span class="v" id="shStab">—</span><span class="l">Stability %</span></div>
+        <div class="scb"><span class="v" id="shMove">-</span><span class="l">Movement</span></div>
+        <div class="scb"><span class="v" id="shStab">-</span><span class="l">Stability %</span></div>
       </div>
 
       <div class="notice">
@@ -427,7 +427,7 @@ window.mod_stabilityHold = function () {
     }
     LAB.raw.stabilityScore=sc;
     LAB.celebrate();
-    LAB.say(`Impressive! Steadiness score ${sc} — that is ${LAB.scoreLbl(sc)}. One more motor check and then lifestyle — almost there!`);
+    LAB.say(`Impressive! Steadiness score ${sc}, that is ${LAB.scoreLbl(sc)}. One more motor check and then lifestyle, almost there!`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   }
 };
@@ -440,7 +440,7 @@ window.mod_microTremor = function () {
   LAB.showDemo({
     title: '✏ Tremor Drawing',
     txt: 'You will see a zig-zag path on screen. <strong>Trace along it with your finger or mouse</strong> as smoothly and accurately as you can. We measure how steady your hand is.',
-    hint: 'Go slowly — accuracy matters more than speed',
+    hint: 'Go slowly: accuracy matters more than speed',
     voiceEN: "Last motor check! A zig-zag path appears on screen. Trace along it slowly and smoothly with your finger. Slow and steady wins this one!",
     btnLabel: 'Begin Tremor Assessment →',
     vis: `<div style="text-align:center">
@@ -484,8 +484,8 @@ window.mod_microTremor = function () {
       </div>
 
       <div class="sc-row" style="justify-content:center">
-        <div class="scb"><span class="v" id="trDev">—</span><span class="l">Deviation</span></div>
-        <div class="scb"><span class="v" id="trScore">—</span><span class="l">Steadiness</span></div>
+        <div class="scb"><span class="v" id="trDev">-</span><span class="l">Deviation</span></div>
+        <div class="scb"><span class="v" id="trScore">-</span><span class="l">Steadiness</span></div>
         <div class="scb"><span class="v" id="trStatus">Waiting</span><span class="l">Status</span></div>
       </div>
 
@@ -500,7 +500,7 @@ window.mod_microTremor = function () {
       </div>
     </div></div>`);
 
-    LAB.say("Start from the green circle on the left — trace slowly and smoothly. Take your time, no rush!");
+    LAB.say("Start from the green circle on the left, trace slowly and smoothly. Take your time, no rush!");
 
     setTimeout(_trSetup, 200);
   });
@@ -593,13 +593,13 @@ window.mod_microTremor = function () {
     const nb=document.getElementById('trNext'); if(nb) nb.style.display='flex';
 
     LAB.celebrate();
-    LAB.say(`Excellent! Drawing done — ${LAB.scoreLbl(sc)} hand steadiness. Now just two quick lifestyle questions and you are done! So close!`);
+    LAB.say(`Excellent! Drawing done, ${LAB.scoreLbl(sc)} hand steadiness. Now just two quick lifestyle questions and you are done! So close!`);
   }
 
   window._trClear = function () {
     _pts=[]; _drawing=false; _started=false;
     const c=document.getElementById('trCanvas'), s=document.getElementById('trScore'), dv=document.getElementById('trDev'), st=document.getElementById('trStatus'), nb=document.getElementById('trNext');
-    if(s) s.textContent='—'; if(dv) dv.textContent='—'; if(st) st.textContent='Waiting';
+    if(s) s.textContent='-'; if(dv) dv.textContent='-'; if(st) st.textContent='Waiting';
     if(nb) nb.style.display='none';
     if(c){ const ctx=c.getContext('2d'); ctx.clearRect(0,0,c.width,c.height); _trSetup(); }
   };
@@ -610,7 +610,7 @@ window.mod_sleepEfficiency = function () {
     title: '💤 Sleep Check',
     txt: 'Answer 5 quick questions about your sleep last night. We calculate a sleep quality score based on your answers.',
     hint: 'Honest answers = accurate score',
-    voiceEN: "Almost done! Quick sleep check — just 5 honest questions about last night. Honest answers give you the most useful result.",
+    voiceEN: "Almost done! Quick sleep check, just 5 honest questions about last night. Honest answers give you the most useful result.",
     btnLabel: 'Begin Sleep Quality Assessment →',
     vis: `<div style="text-align:center;font-size:2rem;margin-bottom:.5rem">💤</div>
     <div style="font-size:.82rem;color:var(--tq);text-align:center">5 quick questions<br>about last night's sleep</div>`,
@@ -651,7 +651,7 @@ window.mod_sleepEfficiency = function () {
       <div class="fld">
         <label class="lbl">How many times did you wake up during the night?</label>
         <select class="sel" id="slWakes">
-          <option value="0">0 times — slept through</option>
+          <option value="0">0 times: slept through</option>
           <option value="1">1 time</option>
           <option value="2">2 times</option>
           <option value="3">3 times</option>
@@ -670,7 +670,7 @@ window.mod_sleepEfficiency = function () {
       </div>
     </div></div>`);
 
-    LAB.say("Just 5 quick questions — tap your honest answers. You are nearly at the finish line now!");
+    LAB.say("Just 5 quick questions: tap your honest answers. You are nearly at the finish line now!");
   });
 
   window._slCalc = function () {
@@ -693,7 +693,7 @@ window.mod_sleepEfficiency = function () {
     LAB.raw.sleepHours=Math.round(hours*10)/10; LAB.raw.sleepScore=sc;
 
     LAB.celebrate();
-    LAB.say(`Sleep check done — you slept about ${Math.round(hours*10)/10} hours. That is ${LAB.scoreLbl(sc)} sleep quality. One final check and your results are ready!`);
+    LAB.say(`Sleep check done: you slept about ${Math.round(hours*10)/10} hours. That is ${LAB.scoreLbl(sc)} sleep quality. One final check and your results are ready!`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   };
 };
@@ -701,9 +701,9 @@ window.mod_sleepEfficiency = function () {
 window.mod_lifestyleLoad = function () {
   LAB.showDemo({
     title: '⚖ Lifestyle Score',
-    txt: 'Answer 6 quick questions about your daily habits — water intake, exercise, diet, stress, screen time and social time. Takes about 2 minutes.',
-    hint: 'No wrong answers — just be honest with yourself',
-    voiceEN: "Last one! Six quick questions about your daily habits — water, exercise, diet, stress, screens, and social life. Tap your honest answers and your full report is ready!",
+    txt: 'Answer 6 quick questions about your daily habits, water intake, exercise, diet, stress, screen time and social time. Takes about 2 minutes.',
+    hint: 'No wrong answers: just be honest with yourself',
+    voiceEN: "Last one! Six quick questions about your daily habits, water, exercise, diet, stress, screens, and social life. Tap your honest answers and your full report is ready!",
     btnLabel: 'Begin Lifestyle Assessment →',
     vis: `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;max-width:180px;margin:0 auto">
       ${['💧','🏃','🥗','😤','📱','👥'].map(e=>`<div style="aspect-ratio:1;background:var(--g3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem">${e}</div>`).join('')}
@@ -726,7 +726,7 @@ window.mod_lifestyleLoad = function () {
       { id:'liDiet', icon:'🥗', label:'How healthy is your daily diet overall?',
         opts:[['Mostly junk / processed',20],['Some healthy, some not',50],['Mostly healthy',78],['Very healthy',100]] },
       { id:'liStr', icon:'😤', label:'How is your stress level on most days?',
-        opts:[['Very high — often overwhelmed',20],['High — often tense',45],['Moderate — manageable',72],['Low — usually calm',100]] },
+        opts:[['Very high: often overwhelmed',20],['High: often tense',45],['Moderate: manageable',72],['Low: usually calm',100]] },
       { id:'liScr', icon:'📱', label:'How many hours of non-work screen time daily?',
         opts:[['Over 5 hours',25],['3–5 hours',55],['1–3 hours',80],['Under 1 hour',100]] },
       { id:'liSoc', icon:'👥', label:'How connected do you feel to friends and family?',
@@ -760,7 +760,7 @@ window.mod_lifestyleLoad = function () {
       </div>
     </div></div>`);
 
-    LAB.say("This is the last check — you are so close! Just tap your honest answers. Your full wellness report is almost ready!");
+    LAB.say("This is the last check, you are so close! Just tap your honest answers. Your full wellness report is almost ready!");
   });
 
   window._liCalc = function () {
@@ -772,7 +772,7 @@ window.mod_lifestyleLoad = function () {
     LAB.scores.lifestyle=sc;
 
     LAB.celebrate();
-    LAB.say(`Lifestyle score: ${sc} out of 100 — ${LAB.scoreLbl(sc)}. You did it! Now let's see your complete wellness results!`);
+    LAB.say(`Lifestyle score: ${sc} out of 100, ${LAB.scoreLbl(sc)}. You did it! Now let's see your complete wellness results!`);
     setTimeout(() => { LAB.idx++; LAB.next(); }, 1800);
   };
 };

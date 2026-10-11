@@ -1,5 +1,5 @@
 /* ============================================================
-   SHAH HAYAAT — main.js  v2.0
+   SHAH HAYAAT: main.js  v2.0
    All shared data + UI: nav, scroll, carousel, animations,
    product grid, blog grid, contact form, FAQ
    ============================================================ */
@@ -8,7 +8,7 @@
 /* ── CONSTANTS ─────────────────────────────────────────────── */
 const GH = 'https://raw.githubusercontent.com/yasirhashmi02-dev/Shahhayaat02/main/';
 
-/* Image filename map — exact filenames, case-sensitive */
+/* Image filename map: exact filenames, case-sensitive */
 const IMG = {
   brainchamp:   'brainchamp.jpg',
   shahzyme:     'shahzyme.jpg',
@@ -27,7 +27,7 @@ const IMG = {
 function imgSrc(id) { return GH + (IMG[id] || id); }
 
 /* ── PRODUCT DATA ───────────────────────────────────────────── */
-/* ── CLEAN URL SLUG MAP — SEO-friendly product page URLs ── */
+/* ── CLEAN URL SLUG MAP, SEO-friendly product page URLs ── */
 const PRODUCT_SLUGS = {
   brainchamp:   'brain-champ-ayurvedic-memory-booster.html',
   livohayaat:   'livo-hayaat-ayurvedic-liver-detox.html',
@@ -239,7 +239,7 @@ function renderProducts(container, { limit = null, cat = null } = {}) {
           <div class="product-price">₹${p.price}</div>
           <div class="product-actions-row">
             <a href="${productUrl(p.id)}" class="btn btn-outline btn-sm">Details</a>
-            <a href="https://wa.me/917051056287?text=${encodeURIComponent(`Hi! I'd like to order ${p.name} — ₹${p.price}`)}"
+            <a href="https://wa.me/917051056287?text=${encodeURIComponent(`Hi! I'd like to order ${p.name}, ₹${p.price}`)}"
                target="_blank" rel="noopener" class="btn btn-primary btn-sm">Order</a>
           </div>
         </div>
@@ -302,11 +302,11 @@ function initContactForm() {
         status.className = 'form-status ok';
         form.reset();
       } else {
-        status.textContent = 'Something went wrong — please try WhatsApp instead.';
+        status.textContent = 'Something went wrong: please try WhatsApp instead.';
         status.className = 'form-status err';
       }
     } catch {
-      status.textContent = 'Network error — please try WhatsApp instead.';
+      status.textContent = 'Network error: please try WhatsApp instead.';
       status.className = 'form-status err';
     }
     btn.disabled = false; btn.textContent = orig;

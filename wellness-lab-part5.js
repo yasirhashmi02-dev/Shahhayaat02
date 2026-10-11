@@ -33,7 +33,7 @@ window.mod_digitSpan=function(){
     st.inp.push(n);const e=$('dsIn');if(e)e.textContent='● '.repeat(st.inp.length).trim();
     const k=st.inp.length-1;
     if(n!==st.seq[k]){st.busy=true;st.fails++;LAB.flash('miss');
-      $('nwMsg')&&($('nwMsg').textContent=st.fails>=2?'That is your limit — well done!':'Not quite — try again');
+      $('nwMsg')&&($('nwMsg').textContent=st.fails>=2?'That is your limit: well done!':'Not quite: try again');
       return st.fails>=2?setTimeout(done,1200):setTimeout(round,1300);}
     if(st.inp.length===st.len){st.busy=true;st.best=st.len;st.fails=0;st.len++;LAB.flash('hit');
       $('dsBest')&&($('dsBest').textContent=st.best);$('nwMsg')&&($('nwMsg').textContent='Correct! One more digit…');
@@ -44,7 +44,7 @@ window.mod_digitSpan=function(){
     const span=st.best,sc=LAB.clamp(Math.round(35+(span-2)*13),20,100);
     LAB.raw.dsSpan=span;LAB.raw.dsScore=sc;
     if(typeof LAB._saveToHistory==='function')LAB._saveToHistory('Digit Span',span,'digits');
-    LAB.celebrate();LAB.say(`You remembered ${span} digits in a row — that is ${LAB.scoreLbl(sc)}!`);
+    LAB.celebrate();LAB.say(`You remembered ${span} digits in a row, that is ${LAB.scoreLbl(sc)}!`);
     $('nwMsg')&&($('nwMsg').innerHTML=`You remembered <strong>${span} digits</strong> in a row 🎉`);
     finish();
   }
@@ -73,7 +73,7 @@ window.mod_trailMaking=function(){
     const t=(performance.now()-st.t0)/1000,sc=LAB.clamp(Math.round(100-(t-8)*3-st.err*3),20,100);
     LAB.raw.tmtTime=Math.round(t*10)/10;LAB.raw.tmtErr=st.err;LAB.raw.tmtScore=sc;
     if(typeof LAB._saveToHistory==='function')LAB._saveToHistory('Trail Making',Math.round(t),'s');
-    LAB.celebrate();LAB.say(`Finished in ${Math.round(t)} seconds — that is ${LAB.scoreLbl(sc)}!`);
+    LAB.celebrate();LAB.say(`Finished in ${Math.round(t)} seconds, that is ${LAB.scoreLbl(sc)}!`);
     $('nwMsg')&&($('nwMsg').innerHTML=`Done in <strong>${t.toFixed(1)}s</strong> with ${st.err} mistake${st.err===1?'':'s'} 🎉`);
     finish();
   }
@@ -108,7 +108,7 @@ window.mod_goNoGo=function(){
   function done(){
     const m=st.rts.length?LAB.avg(st.rts):600,sc=LAB.clamp(Math.round(100-st.com*9-st.om*5-Math.max(0,m-380)/8),20,100);
     LAB.raw.gngErr=st.com+st.om;LAB.raw.gngScore=sc;
-    LAB.celebrate();LAB.say(`${st.com+st.om} mistakes in ${T} rounds — that is ${LAB.scoreLbl(sc)}!`);
+    LAB.celebrate();LAB.say(`${st.com+st.om} mistakes in ${T} rounds, that is ${LAB.scoreLbl(sc)}!`);
     $('nwMsg')&&($('nwMsg').innerHTML=`<strong>${st.com+st.om}</strong> mistake${st.com+st.om===1?'':'s'} in ${T} rounds 🎉`);
     finish();
   }
@@ -116,7 +116,7 @@ window.mod_goNoGo=function(){
 
 window.mod_oneLegStand=function(){
   let t0=0,iv=null;
-  LAB.showDemo({title:'🧍 One-Leg Stand',txt:'Stand next to a wall or sturdy chair. Lift one foot and balance as long as you can, up to <strong>30 seconds</strong>.',hint:'Safety first — skip if you have balance problems',btnLabel:'I am ready →',
+  LAB.showDemo({title:'🧍 One-Leg Stand',txt:'Stand next to a wall or sturdy chair. Lift one foot and balance as long as you can, up to <strong>30 seconds</strong>.',hint:'Safety first: skip if you have balance problems',btnLabel:'I am ready →',
     vis:'<div style="font-size:2.4rem;text-align:center">🧍‍♂️</div>'},start);
   function start(){
     LAB.render(CARD('🧍 Stability · 2 of 2','One-Leg Stand','Hold a wall or chair nearby. Tap Start, then lift one foot.',
@@ -125,12 +125,12 @@ window.mod_oneLegStand=function(){
   }
   window._olGo=function(){
     const b=$('olB');if(!b)return;
-    if(!t0){t0=performance.now();b.textContent='⏹ Foot down — Stop';
+    if(!t0){t0=performance.now();b.textContent='⏹ Foot down: Stop';
       iv=setInterval(()=>{const s=(performance.now()-t0)/1000;$('olT')&&($('olT').textContent=s.toFixed(1)+' s');if(s>=30)_olGo();},100);}
     else{clearInterval(iv);const s=Math.min(30,(performance.now()-t0)/1000);t0=0;b.style.display='none';
       const sc=LAB.clamp(Math.round(30+s*2.3),20,100);
       LAB.raw.balanceSec=Math.round(s*10)/10;LAB.raw.balanceScore=sc;
-      LAB.celebrate();LAB.say(`You balanced for ${Math.round(s)} seconds — that is ${LAB.scoreLbl(sc)}!`);
+      LAB.celebrate();LAB.say(`You balanced for ${Math.round(s)} seconds, that is ${LAB.scoreLbl(sc)}!`);
       $('nwMsg')&&($('nwMsg').innerHTML=`You balanced for <strong>${s.toFixed(1)}s</strong> 🎉`);finish();}
   };
 };
@@ -156,7 +156,7 @@ if(typeof LAB.showDashboard==='function'){
           <div style="font-size:.82rem;margin-top:.25rem;color:#555">${TIPS[low.c.scoreKey]||'Small daily habits add up over time.'}</div></div>
       </div>
       <button class="btn btn--p" onclick="LAB._origDash()">See my full report →</button>
-      <p style="font-size:.7rem;color:#777;margin-top:.9rem">Wellness indicators only — not a medical diagnosis.</p>
+      <p style="font-size:.7rem;color:#777;margin-top:.9rem">Wellness indicators only: not a medical diagnosis.</p>
     </div></div>`);
     LAB.celebrate();LAB.say('Well done! You completed your Wellness Lab. Here is your snapshot.');
   };

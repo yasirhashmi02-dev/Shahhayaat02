@@ -77,7 +77,7 @@ window.mod_reactionSpeed = function () {
     title: '⚡ Reaction Speed',
     txt: 'The box turns <strong style="color:var(--am)">red → Wait</strong> then suddenly goes <strong style="color:var(--g)">green → TAP!</strong><br>Hit it the instant you see green. <strong>Do NOT tap on Wait or you lose that round.</strong>',
     hint: '10 rounds · try to beat your best each time!',
-    voiceEN: "First up — Reaction Speed! A box appears. Red means wait, green means tap as fast as you can. Simple! Ten quick rounds — let's see how sharp you are!",
+    voiceEN: "First up: Reaction Speed! A box appears. Red means wait, green means tap as fast as you can. Simple! Ten quick rounds, let's see how sharp you are!",
     btnLabel: 'Begin Reaction Assessment →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.8rem;padding:.6rem">
       <div id="dRxBox" class="d3p" style="width:160px;height:58px;border-radius:16px;
@@ -125,12 +125,12 @@ window.mod_reactionSpeed = function () {
       <div class="rxh" id="rxH" aria-hidden="true"></div>
       <div class="sc-row">
         <div class="scb"><span class="v" id="rxRnd">0/${ROUNDS}</span><span class="l">Round</span></div>
-        <div class="scb"><span class="v" id="rxLast">—</span><span class="l">Last ms</span></div>
-        <div class="scb"><span class="v" id="rxBest">—</span><span class="l">Best ms</span></div>
-        <div class="scb"><span class="v" id="rxAvg">—</span><span class="l">Average</span></div>
+        <div class="scb"><span class="v" id="rxLast">-</span><span class="l">Last ms</span></div>
+        <div class="scb"><span class="v" id="rxBest">-</span><span class="l">Best ms</span></div>
+        <div class="scb"><span class="v" id="rxAvg">-</span><span class="l">Average</span></div>
       </div>
     </div></div>`);
-    LAB.say("You're doing great — keep your finger ready! Tap the moment it turns green. Go!");
+    LAB.say("You're doing great: keep your finger ready! Tap the moment it turns green. Go!");
     setTimeout(_rxSchedule, 900);
   });
 
@@ -193,7 +193,7 @@ window.mod_reactionSpeed = function () {
     LAB.raw.rxAvg=Math.round(m); LAB.raw.rxBest=best; LAB.raw.rxSD=Math.round(sd); LAB.raw.rxScore=sc;
     if (typeof LAB._saveToHistory === 'function') LAB._saveToHistory('Reaction Speed', Math.round(m), 'ms');
     LAB.celebrate();
-    LAB.say(`Nice one! Your average reaction was ${Math.round(m)} milliseconds — that is ${LAB.scoreLbl(sc)}! Keep going, you are doing brilliantly!`);
+    LAB.say(`Nice one! Your average reaction was ${Math.round(m)} milliseconds, that is ${LAB.scoreLbl(sc)}! Keep going, you are doing brilliantly!`);
     /* v2: Show challenge button briefly before auto-advance */
     const mc = LAB.el('modContent');
     if (mc && LAB.currentMode !== 'challenge') {
@@ -210,7 +210,7 @@ window.mod_reactionSpeed = function () {
 };
 
 /* ══════════════════════════════════════════════════════════════
-   mod_spatialMemory — Simon-style spatial pattern memory test
+   mod_spatialMemory: Simon-style spatial pattern memory test
    Measures: working memory, pattern recognition, visual-spatial recall
    Method: lights up a sequence of squares; user reproduces it.
    Starts at 3 items, increases until failure. Score = max span × accuracy.
@@ -223,7 +223,7 @@ window.mod_spatialMemory = function () {
 
   LAB.showDemo({
     title: '🧩 Spatial Memory',
-    txt: 'Watch squares light up in a sequence — then <strong>tap them in the same order</strong>. The sequence gets longer with each round. Tests your working memory and spatial recall.',
+    txt: 'Watch squares light up in a sequence, then <strong>tap them in the same order</strong>. The sequence gets longer with each round. Tests your working memory and spatial recall.',
     hint: 'Watch carefully · reproduce the pattern · gets harder',
     voiceEN: 'Spatial Memory test! Watch squares light up on a grid, then tap them back in the same order. It starts easy and gets longer. Get ready!',
     btnLabel: 'Begin Spatial Memory Test →',
@@ -272,7 +272,7 @@ window.mod_spatialMemory = function () {
       <div class="sc-row" style="justify-content:center">
         <div class="scb"><span class="v" id="smLvl">${_level}</span><span class="l">Sequence</span></div>
         <div class="scb"><span class="v" id="smCorrect">0</span><span class="l">✓ Correct</span></div>
-        <div class="scb"><span class="v" id="smProgress">—</span><span class="l">Input</span></div>
+        <div class="scb"><span class="v" id="smProgress">-</span><span class="l">Input</span></div>
       </div>
     </div></div>`);
   }
@@ -296,7 +296,7 @@ window.mod_spatialMemory = function () {
     // Update UI
     const lvl=document.getElementById('smLvl'); if(lvl) lvl.textContent=_seq.length;
     const prog=document.getElementById('smProgress'); if(prog) prog.textContent='Watching…';
-    _smMsg('Watch carefully — ' + _seq.length + ' squares will light up');
+    _smMsg('Watch carefully: ' + _seq.length + ' squares will light up');
     // Flash each square in sequence
     let delay=700;
     _seq.forEach((ci,idx)=>{
@@ -367,13 +367,13 @@ window.mod_spatialMemory = function () {
     const cog=[LAB.raw.rxScore,sc,LAB.raw.stroopScore].filter(x=>x!=null);
     if(cog.length) LAB.scores.cognitive=Math.round(LAB.avg(cog));
     LAB.celebrate();
-    LAB.say(`Spatial memory done! You reached a sequence of ${maxSpan} — that is ${LAB.scoreLbl(sc)}. Now the Stroop test!`);
+    LAB.say(`Spatial memory done! You reached a sequence of ${maxSpan}, that is ${LAB.scoreLbl(sc)}. Now the Stroop test!`);
     setTimeout(()=>{ LAB.idx++; LAB.next(); }, 2000);
   }
 };
 
 /* ══════════════════════════════════════════════════════════════
-   mod_stroopTest — Classic Stroop Colour-Word Interference Test
+   mod_stroopTest: Classic Stroop Colour-Word Interference Test
    Measures: cognitive flexibility, executive function, processing speed
    Method: word is a colour name printed in a DIFFERENT colour ink.
    User picks the INK colour (not what the word says).
@@ -394,9 +394,9 @@ window.mod_stroopTest = function () {
 
   LAB.showDemo({
     title: '🎨 Stroop Colour Test',
-    txt: 'A colour word appears — but printed in a <strong>different ink colour</strong>.<br>Tap <strong>the ink colour you see</strong> — NOT what the word says. This is trickier than it sounds!',
+    txt: 'A colour word appears: but printed in a <strong>different ink colour</strong>.<br>Tap <strong>the ink colour you see</strong>, NOT what the word says. This is trickier than it sounds!',
     hint: '20 trials · speed + accuracy both count',
-    voiceEN: 'Stroop test! A colour word appears in a different ink. Tap the colour of the ink — not what the word says. Classic brain test. Ready?',
+    voiceEN: 'Stroop test! A colour word appears in a different ink. Tap the colour of the ink, not what the word says. Classic brain test. Ready?',
     btnLabel: 'Begin Stroop Test →',
     vis: `<div style="text-align:center;padding:.5rem">
       <div style="font-size:2.2rem;font-weight:800;color:#2563EB;letter-spacing:.05em;margin-bottom:.5rem">RED</div>
@@ -413,7 +413,7 @@ window.mod_stroopTest = function () {
       <div class="step-head">
         <div class="tag">🎨 Brain · 3 of 3</div>
         <h2 class="h2" style="margin-top:.75rem;margin-bottom:.25rem">Stroop Test</h2>
-        <p class="pg" style="font-size:.82rem">Tap the <strong>ink colour</strong> — ignore what the word says</p>
+        <p class="pg" style="font-size:.82rem">Tap the <strong>ink colour</strong>, ignore what the word says</p>
       </div>
 
       <!-- Trial counter + progress bar -->
@@ -449,8 +449,8 @@ window.mod_stroopTest = function () {
       </div>
 
       <div class="sc-row" style="justify-content:center;margin-top:1.2rem">
-        <div class="scb"><span class="v" id="strAcc">—</span><span class="l">Accuracy</span></div>
-        <div class="scb"><span class="v" id="strSpeed">—</span><span class="l">Avg ms</span></div>
+        <div class="scb"><span class="v" id="strAcc">-</span><span class="l">Accuracy</span></div>
+        <div class="scb"><span class="v" id="strSpeed">-</span><span class="l">Avg ms</span></div>
         <div class="scb"><span class="v" id="strStreak" style="color:var(--g)">0</span><span class="l">Streak 🔥</span></div>
       </div>
 
@@ -458,7 +458,7 @@ window.mod_stroopTest = function () {
         <button class="btn btn--p" id="strStartBtn" onclick="window._strBegin()">▶ Start Stroop Test</button>
       </div>
     </div></div>`);
-    LAB.say('Remember — tap the colour the word is printed in, not what the word says!');
+    LAB.say('Remember: tap the colour the word is printed in, not what the word says!');
   });
 
   window._strBegin = function() {
@@ -520,7 +520,7 @@ window.mod_stroopTest = function () {
     const avgRT=_rts.length?Math.round(_rts.reduce((a,b)=>a+b,0)/_rts.length):0;
     const s=(id,v,c)=>{const e=document.getElementById(id);if(e){e.textContent=v;if(c)e.style.color=c;}};
     s('strAcc',acc+'%',acc>80?'var(--ok)':acc>60?'var(--am)':'var(--rd)');
-    s('strSpeed',avgRT?avgRT+'ms':'—');
+    s('strSpeed',avgRT?avgRT+'ms':'-');
     // Streak
     if(!window._strStrk) window._strStrk=0;
     window._strStrk = isCorrect ? window._strStrk+1 : 0;
@@ -546,7 +546,7 @@ window.mod_stroopTest = function () {
     const cog=[LAB.raw.rxScore,LAB.raw.memScore,sc].filter(x=>x!=null);
     if(cog.length) LAB.scores.cognitive=Math.round(LAB.avg(cog));
     LAB.celebrate();
-    LAB.say(`Stroop test complete! ${_correct} out of ${TOTAL} correct — ${LAB.scoreLbl(sc)} cognitive flexibility. Brain lab done!`);
+    LAB.say(`Stroop test complete! ${_correct} out of ${TOTAL} correct, ${LAB.scoreLbl(sc)} cognitive flexibility. Brain lab done!`);
     setTimeout(()=>{ LAB.idx++; LAB.next(); },2000);
   }
 };
@@ -602,9 +602,9 @@ window.mod_colourBlindness = function () {
 
   LAB.showDemo({
     title: '🎨 Colour Blindness Check',
-    txt: 'You will see a circle packed with coloured dots. <strong>A number is hidden inside</strong> — look carefully. Type the number or tap "Cannot see it".',
-    hint: '10 plates — takes about 3 minutes',
-    voiceEN: "Eye section! First — colour vision. A circle of coloured dots has a number hidden inside. Try to spot it! Do not worry if you cannot see it — just try your best.",
+    txt: 'You will see a circle packed with coloured dots. <strong>A number is hidden inside</strong>, look carefully. Type the number or tap "Cannot see it".',
+    hint: '10 plates: takes about 3 minutes',
+    voiceEN: "Eye section! First, colour vision. A circle of coloured dots has a number hidden inside. Try to spot it! Do not worry if you cannot see it, just try your best.",
     btnLabel: 'Begin Colour Perception Check →',
     vis: `<div style="display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:.3rem">
       <div class="d3f" style="border-radius:50%;box-shadow:0 8px 24px rgba(0,0,0,.15),0 2px 8px rgba(0,0,0,.08)">
@@ -664,7 +664,7 @@ window.mod_colourBlindness = function () {
       </div>
     </div></div>`);
     setTimeout(()=>{const inp=document.getElementById('cbInp');if(inp)inp.focus();},400);
-    LAB.say(`Plate ${curr+1} — look carefully at the dots. Take your time, no rush!`);
+    LAB.say(`Plate ${curr+1}: look carefully at the dots. Take your time, no rush!`);
   }
 
   window._cbAnswer=function(){
@@ -707,8 +707,8 @@ window.mod_visualAcuity = function () {
   LAB.showDemo({
     title: '📏 Visual Acuity',
     txt: 'Rows of letters appear, getting <strong>smaller and smaller</strong>. Tap the <strong>smallest row you can read clearly</strong> from where you are sitting.',
-    hint: '9 rows from large to very fine — keep glasses on',
-    voiceEN: "Vision check! You will see rows of letters getting smaller. Just tap the smallest row you can read clearly. Keep your glasses on if you wear them — no trick here!",
+    hint: '9 rows from large to very fine, keep glasses on',
+    voiceEN: "Vision check! You will see rows of letters getting smaller. Just tap the smallest row you can read clearly. Keep your glasses on if you wear them, no trick here!",
     btnLabel: 'Begin Visual Acuity Assessment →',
     vis: `<div style="text-align:center;transform-style:preserve-3d;transform:perspective(300px) rotateX(8deg);padding:.5rem .8rem" id="acDemoWrap">
       <div style="background:#fff;border-radius:10px;padding:.5rem .9rem;box-shadow:0 8px 24px rgba(0,0,0,.1),0 2px 6px rgba(0,0,0,.06);border:1.5px solid #D4E8DC">
@@ -753,7 +753,7 @@ window.mod_visualAcuity = function () {
         <button class="btn btn--g" onclick="_acNone()">Cannot read any row clearly</button>
       </div>
     </div></div>`);
-    LAB.say("Take a moment — look at the chart and tap the smallest row you can read comfortably. No squinting needed!");
+    LAB.say("Take a moment: look at the chart and tap the smallest row you can read comfortably. No squinting needed!");
   });
 
   window._acTap=function(i){
@@ -774,7 +774,7 @@ window.mod_visualAcuity = function () {
     const sc=LAB.clamp(scArr[Math.max(0,chosen+1)]??10,0,100);
     LAB.raw.acuityRow=chosen;LAB.raw.acuityScore=sc;LAB.raw.acuityFlag=chosen<3;
     LAB.celebrate();
-    LAB.say(`Vision check done! You could read down to row ${chosen+1} of 9 — that is ${LAB.scoreLbl(sc)} visual acuity. Great job!`);
+    LAB.say(`Vision check done! You could read down to row ${chosen+1} of 9, that is ${LAB.scoreLbl(sc)} visual acuity. Great job!`);
     setTimeout(()=>{LAB.idx++;LAB.next();},1800);
   }
 };
@@ -793,7 +793,7 @@ window.mod_contrastSensitivity = function () {
   LAB.showDemo({
     title: '⬜ Contrast Sensitivity',
     txt: 'A letter appears on a white background. Each round it gets <strong>harder to see</strong> as the contrast fades. Tap <strong>I Can See It</strong> while you still can. Stop when it becomes too faint.',
-    hint: 'The letter gradually fades — tap while visible',
+    hint: 'The letter gradually fades: tap while visible',
     voiceEN: 'A letter will appear on screen, and each round it will get harder to see as the contrast fades. Keep tapping while you can still see it, and stop when it becomes too faint.',
     btnLabel: 'Begin Contrast Sensitivity Check →',
     vis: `<div style="display:flex;gap:6px;justify-content:center;align-items:flex-end;transform-style:preserve-3d;transform:perspective(300px) rotateX(10deg);padding:.4rem .6rem">
@@ -835,7 +835,7 @@ window.mod_contrastSensitivity = function () {
                   -webkit-tap-highlight-color:transparent"
            onclick="_csSeen()" role="button" tabindex="0"
            onkeydown="if(event.key==='Enter'||event.key===' ')_csSeen()"
-           aria-label="Contrast letter — tap if you can see it">
+           aria-label="Contrast letter: tap if you can see it">
         <span style="font-size:5.5rem;font-weight:700;font-family:'JetBrains Mono',monospace;
                      color:${lv.fg};transition:color .4s;user-select:none">${lv.letter}</span>
       </div>
@@ -848,7 +848,7 @@ window.mod_contrastSensitivity = function () {
       </p>
       <div style="display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap">
         <button class="btn btn--p btn--lg" onclick="_csSeen()">✓ I Can See the Letter</button>
-        <button class="btn btn--g btn--lg" onclick="_csCant()">✗ Too Faint — Stop</button>
+        <button class="btn btn--g btn--lg" onclick="_csCant()">✗ Too Faint: Stop</button>
       </div>
     </div></div>`);
     LAB.say(`Level ${curr+1} now. Can you still make out the letter?`);
@@ -863,7 +863,7 @@ window.mod_contrastSensitivity = function () {
     const eyeScores=[LAB.raw.cbScore,LAB.raw.acuityScore,sc].filter(x=>x!=null);
     LAB.scores.eye=eyeScores.length?Math.round(LAB.avg(eyeScores)):sc;
     LAB.celebrate();
-    LAB.say(`Eye checks done — well done! You could see ${lastSeen+1} contrast levels, which is ${LAB.scoreLbl(sc)}. Now let's check your breathing — this one is actually relaxing!`);
+    LAB.say(`Eye checks done: well done! You could see ${lastSeen+1} contrast levels, which is ${LAB.scoreLbl(sc)}. Now let's check your breathing: this one is actually relaxing!`);
     setTimeout(()=>{LAB.idx++;LAB.next();},1900);
   }
 };

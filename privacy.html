@@ -18,10 +18,10 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy — Shah Hayaat</title>
+  <title>Privacy Policy: Shah Hayaat</title>
   <meta name="description" content="Shah Hayaat privacy policy. How we collect, use and protect your personal information.">
   <meta property="og:url" content="https://www.shahhayaat.com/privacy.html">
-  <meta property="og:title" content="Privacy Policy — Shah Hayaat">
+  <meta property="og:title" content="Privacy Policy: Shah Hayaat">
   <meta property="og:description" content="Shah Hayaat privacy policy. How we collect, use and protect your personal information.">
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/logo.jpg">
   <meta property="og:type" content="website">
@@ -34,8 +34,8 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"></noscript>
   <style>
 /* ============================================================
-   SHAH HAYAAT — Premium Ayurvedic Wellness
-   style.css — Global Stylesheet v2.0
+   SHAH HAYAAT: Premium Ayurvedic Wellness
+   style.css, Global Stylesheet v2.0
    ============================================================ */
 
 /* ---- Variables ---- */
@@ -468,7 +468,7 @@ p { color:#3D3D3D !important; }
 
 
 /* ═══ NAV-MOBILE DEFINITIVE FIX ═══
-   Single authoritative block — overrides all earlier nav-mobile rules.
+   Single authoritative block: overrides all earlier nav-mobile rules.
    Uses !important to beat any light-theme overrides.                  */
 .nav-mobile {
   position: fixed !important;
@@ -529,7 +529,7 @@ body.nav-open {
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "Privacy Policy — Shah Hayaat",
+  "name": "Privacy Policy: Shah Hayaat",
   "url": "https://www.shahhayaat.com/privacy.html",
   "isPartOf": {
     "@type": "WebSite",
@@ -625,7 +625,7 @@ body.nav-open {
         <ul>
           <li>Name and contact details (phone number, email address) when you reach out via WhatsApp or the contact form</li>
           <li>Order information when you place an order with us</li>
-          <li>Health information you voluntarily provide when using our Health Quiz — this is used only to provide product recommendations and is not stored</li>
+          <li>Health information you voluntarily provide when using our Health Quiz, this is used only to provide product recommendations and is not stored</li>
           <li>Basic website usage data via standard server logs</li>
         </ul>
 
@@ -731,7 +731,7 @@ body.nav-open {
 
 <script type="text/javascript" data-cfasync="false">
 /* ============================================================
-   SHAH HAYAAT — main.js  v2.0
+   SHAH HAYAAT: main.js  v2.0
    All shared data + UI: nav, scroll, carousel, animations,
    product grid, blog grid, contact form, FAQ
    ============================================================ */
@@ -740,7 +740,7 @@ body.nav-open {
 /* ── CONSTANTS ─────────────────────────────────────────────── */
 const GH = 'https://cdn.jsdelivr.net/gh/yasirhashmi02-dev/Shahhayaat02@main/images/';
 
-/* Image filename map — exact filenames, case-sensitive */
+/* Image filename map: exact filenames, case-sensitive */
 const IMG = {
   brainchamp:   'brainchamp.jpg',
   shahzyme:     'shahzyme.jpg',
@@ -851,7 +851,7 @@ const PRODUCTS = [
   {
     id: 'orthohayaat', name: 'Ortho Hayaat', price: 649, cat: 'joint', tag: 'Joint Care',
     desc: 'Specialised Ayurvedic blend for joint health, pain relief and improved mobility.',
-    full: 'Ortho Hayaat combines the most potent anti-inflammatory and analgesic Ayurvedic herbs for comprehensive joint care. It works to reduce inflammation, lubricate joints, strengthen bones and improve mobility — ideal for joint comfort support, knee pain and age-related joint degeneration.',
+    full: 'Ortho Hayaat combines the most potent anti-inflammatory and analgesic Ayurvedic herbs for comprehensive joint care. It works to reduce inflammation, lubricate joints, strengthen bones and improve mobility, ideal for joint comfort support, knee pain and age-related joint degeneration.',
     benefits: ['Reduces joint inflammation', 'Relieves chronic joint pain', 'Improves mobility & flexibility', 'Strengthens bones & cartilage', 'Anti-arthritis properties'],
     ingredients: 'Shallaki (Boswellia), Guggul, Rasna, Nirgundi, Ashwagandha, Sunthi',
     dosage: '1 capsule + 1 tablet twice daily after meals with milk or lukewarm water. Oil may be applied externally.',
@@ -970,7 +970,7 @@ function renderProducts(container, { limit = null, cat = null } = {}) {
           <div class="product-price">₹${p.price}</div>
           <div class="product-actions-row">
             <a href="${productUrl(p.id)}" class="btn btn-outline btn-sm">Details</a>
-            <a href="https://wa.me/917051056287?text=${encodeURIComponent(`Hi! I'd like to order ${p.name} — ₹${p.price}`)}"
+            <a href="https://wa.me/917051056287?text=${encodeURIComponent(`Hi! I'd like to order ${p.name}, ₹${p.price}`)}"
                target="_blank" rel="noopener" class="btn btn-primary btn-sm">Order</a>
           </div>
         </div>
@@ -1033,11 +1033,11 @@ function initContactForm() {
         status.className = 'form-status ok';
         form.reset();
       } else {
-        status.textContent = 'Something went wrong — please try WhatsApp instead.';
+        status.textContent = 'Something went wrong: please try WhatsApp instead.';
         status.className = 'form-status err';
       }
     } catch {
-      status.textContent = 'Network error — please try WhatsApp instead.';
+      status.textContent = 'Network error: please try WhatsApp instead.';
       status.className = 'form-status err';
     }
     btn.disabled = false; btn.textContent = orig;
