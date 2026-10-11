@@ -56,7 +56,7 @@ const PRODUCTS = [
   },
   {
     id: 'shahzyme', name: 'Shah Zyme', price: 165, cat: 'digestion', tag: 'Digestion',
-    desc: 'Herbal digestive syrup traditionally used to support comfortable digestion.',
+    desc: 'Herbal digestive syrup traditionally used to support comfortable digestion. Available in 200 ml and 100 ml.',
     full: 'Herbal digestive syrup combining Ajwain, Saunf, Jeera, Pudina, Harad and Amla, traditionally used to support digestion and comfort after meals.',
     benefits: ['Traditionally used for gas & bloating comfort', 'Supports digestion', 'Supports healthy appetite', 'Eases post-meal heaviness'],
     ingredients: 'Ajwain, Saunf (Fennel), Jeera (Cumin), Pudina (Mint), Harad, Baheda, Amla',
@@ -65,7 +65,7 @@ const PRODUCTS = [
   },
   {
     id: 'bloodstorm', name: 'Blood Storm', price: 164, cat: 'blood', tag: 'Blood & Immunity',
-    desc: 'Ayurvedic blood tonic traditionally used to support energy and healthy haemoglobin levels.',
+    desc: 'Ayurvedic blood tonic traditionally used to support energy and healthy haemoglobin levels. Available in 200 ml and 100 ml.',
     full: 'Ayurvedic blood tonic combining iron-rich herbs with rejuvenating ingredients, traditionally used to support haemoglobin levels, circulation and energy.',
     benefits: ['Traditionally used to support healthy haemoglobin', 'Supports energy & vitality', 'Supports healthy circulation', 'Supports overall wellbeing'],
     ingredients: 'Loha Bhasma, Punarnava, Shatavari, Ashwagandha, Amla, Draksha',
