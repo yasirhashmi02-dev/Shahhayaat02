@@ -1,8 +1,8 @@
 User-agent: *
 Allow: /
 
-# Disallow system paths
+# Disallow system / non-content paths
 Disallow: /cdn-cgi/
+Disallow: /thank-you.html
 
-# Sitemap
 Sitemap: https://www.shahhayaat.com/sitemap.xml
