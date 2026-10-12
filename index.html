@@ -1386,15 +1386,15 @@ document.addEventListener('DOMContentLoaded',function(){
       {id:'panasip', image:'panasip1.webp', name:'PanaSip', tag:'Acidity'},
       {id:'coughxpro', image:'coughxpro1.webp', name:'Cough X Pro', tag:'Respiratory'},
       {id:'musaffakhoon', image:'musaffakhoon1.webp', name:'Musaffa Khoon', tag:'Skin Care'},
-      {id:'fevodol', image:'images/fevodol.webp', name:'Fevodol', tag:'Immunity'},
-      {id:'bloodstormdrops', image:'images/blood-storm-drops.webp', name:'Blood Storm Drops', tag:'Blood & Wellness'},
-      {id:'bloodstormcap', image:'images/blood-storm-cap.webp', name:'Blood Storm Capsules', tag:'Blood & Wellness'},
-      {id:'shahzymejunior', image:'images/shah-zyme-junior.webp', name:'Shah Zyme Junior', tag:'Pediatric Digestion'},
-      {id:'livohayaatds', image:'images/livo-hayaat-ds-200.webp', name:'Livo Hayaat DS', tag:'Liver Health'},
-      {id:'utrohayaatds', image:'images/utro-hayaat-ds.webp', name:'Utro Hayaat DS', tag:'Female Health'},
-      {id:'orthohayaat_oil', image:'images/ortho-hayaat-oil.webp', name:'Ortho Hayaat Oil', tag:'Topical Joint Care'},
-      {id:'painflick', image:'images/pain-flick-cap.webp', name:'Pain Flick Capsule', tag:'Joint & Muscular Care'},
-      {id:'cardohayaat', image:'images/cardo-hayaat-tab.webp', name:'Cardo Hayaat Tablets', tag:'Cardiac Wellness'}
+      {id:'fevodol', image:'images/fevodol.webp', fb:'Fevodol.png', name:'Fevodol', tag:'Immunity'},
+      {id:'bloodstormdrops', image:'images/blood-storm-drops.webp', fb:'Blood Storm Drops.png', name:'Blood Storm Drops', tag:'Blood & Wellness'},
+      {id:'bloodstormcap', image:'images/blood-storm-cap.webp', fb:'Blood Storm Cap.png', name:'Blood Storm Capsules', tag:'Blood & Wellness'},
+      {id:'shahzymejunior', image:'images/shah-zyme-junior.webp', fb:'Shah Zyme Junior.png', name:'Shah Zyme Junior', tag:'Pediatric Digestion'},
+      {id:'livohayaatds', image:'images/livo-hayaat-ds-200.webp', fb:'Livo Hayaat DS.png', name:'Livo Hayaat DS', tag:'Liver Health'},
+      {id:'utrohayaatds', image:'images/utro-hayaat-ds.webp', fb:'Utro Hayaat DS.png', name:'Utro Hayaat DS', tag:'Female Health'},
+      {id:'orthohayaat_oil', image:'images/ortho-hayaat-oil.webp', fb:'Ortho Hayaat Oil.png', name:'Ortho Hayaat Oil', tag:'Topical Joint Care'},
+      {id:'painflick', image:'images/pain-flick-cap.webp', fb:'Pain Flick Cap.png', name:'Pain Flick Capsule', tag:'Joint & Muscular Care'},
+      {id:'cardohayaat', image:'images/cardo-hayaat-tab.webp', fb:'Cardo Hayaat Tab.png', name:'Cardo Hayaat Tablets', tag:'Cardiac Wellness'}
     ];
   var TOTAL=slides.length;
   var img=document.getElementById('hero-product');
@@ -1417,7 +1417,7 @@ document.addEventListener('DOMContentLoaded',function(){
   window.heroGoto=function(n){ dir=n>=idx?1:-1; go(n); resetTimer(); };
 
   function imgSrc(id){ var s=slides.filter(function(x){return x.id===id;})[0]; return (s&&s.image)?s.image:GH+id+'1.jpg'; }
-  function imgFb(id){ return GH+'images/'+id+'1.jpg'; }
+  function imgFb(id){ var s=slides.filter(function(x){return x.id===id;})[0]; return (s&&s.fb)?encodeURI(s.fb):GH+'images/'+id+'1.jpg'; }
 
   function updateDots(n){
     if(!dotsEl)return;
@@ -1470,7 +1470,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
   function next(){ dir=1;  go((idx+1)%TOTAL); resetTimer(); }
   function prev(){ dir=-1; go((idx-1+TOTAL)%TOTAL); resetTimer(); }
-  function resetTimer(){ clearInterval(timer); timer=setInterval(next, 4000); }
+  function resetTimer(){ clearInterval(timer); timer=setInterval(next, 2000); }
 
   // Swipe on mobile
   var tx=0, ty=0;
