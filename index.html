@@ -1118,11 +1118,12 @@ const $$ = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
 
 /* GitHub root image paths */
 const GH = 'https://www.shahhayaat.com/';
-function imgSrc(id){ return GH + id + '1.jpg'; }
-function imgFallback(id){
-  const tries = [GH+id+'1.jpg', GH+'images/'+id+'1.jpg', GH+'images/'+id+'.jpg'];
-  return tries[0];
+/* Product image: use the product's own `image` (200 ml pack by default); else <id>1.webp, then <id>1.jpg */
+function imgSrc(id){
+  var p=(typeof PRODUCTS!=='undefined'?PRODUCTS:[]).find(function(x){return x.id===id;});
+  return GH + ((p && p.image) ? p.image : id + '1.webp');
 }
+function imgFallback(id){ return GH + id + '1.jpg'; }
 
 /* Clean URL slug map */
 const PRODUCT_SLUGS={
@@ -1148,18 +1149,18 @@ const PRODUCTS=[
   {id:'livohayaat',name:'Livo Hayaat',price:349,tag:'Liver Health',desc:'Ayurvedic formulation traditionally used to support liver health.',badge:'Bestseller'},
   {id:'diaease',name:'Dia-Ease',price:695,tag:'Diabetes Care',desc:'Ayurvedic formulation traditionally used to support healthy blood sugar levels.'},
   {id:'orthohayaat',name:'Ortho Hayaat',price:399,tag:'Joint Care',desc:'Ayurvedic formulation traditionally used to support joint comfort and mobility.',badge:'Popular'},
-  {id:'utrohayaat',name:'Utro Hayaat',price:625,tag:'Female Health',desc:"Gentle Ayurvedic tonic for women's reproductive health and hormonal balance."},
+  {id:'utrohayaat', image:'images/utro-hayaat-combo.webp',name:'Utro Hayaat',price:625,tag:'Female Health',desc:"Gentle Ayurvedic tonic for women's reproductive health and hormonal balance."},
   {id:'passionpulse',name:'Passion Pulse',price:599,tag:'Male Vitality',desc:'Ayurvedic formulation traditionally used to support stamina and male vitality.'},
   {id:'panasip',name:'PanaSip',price:164,tag:'Acidity',desc:'Ayurvedic syrup traditionally used to support comfort from acidity and heartburn.'},
   {id:'coughxpro',name:'Cough X Pro',price:99,tag:'Respiratory',desc:'Herbal cough syrup traditionally used to soothe throat irritation and support respiratory comfort.'},
   {id:'musaffakhoon',name:'Musaffa Khoon',price:165,tag:'Skin Care',desc:'Traditional blood purifier traditionally used to support skin health.'},
-  {id:'fevodol',name:'Fevodol',price:180,tag:'Immunity',desc:'Ayurvedic formulation traditionally used to support immunity.'}
+  {id:'fevodol', image:'images/fevodol.webp',name:'Fevodol',price:180,tag:'Immunity',desc:'Ayurvedic formulation traditionally used to support immunity.'}
 ];
 
 const BLOGS=[
-  {title:'5 Ayurvedic Secrets for a Happy Gut',cat:'Digestion',img:GH+'image(3).png',desc:'Tired of bloating after meals? Discover simple, ancient tips to improve digestion naturally.'},
-  {title:'How Ashwagandha Calms Modern Stress',cat:'Wellness',img:GH+'image(6).png',desc:'Learn how this powerful adaptogen helps your body manage and recover from chronic stress.'},
-  {title:'Ayurvedic Tips for All-Day Energy',cat:'Energy',img:GH+'image(5).png',desc:'Discover Ayurvedic techniques for sustained natural energy without the afternoon crash.'}
+  {title:'5 Ayurvedic Secrets for a Happy Gut',cat:'Digestion',img:GH+'images/shah-zyme-200.webp',desc:'Tired of bloating after meals? Discover simple, ancient tips to improve digestion naturally.'},
+  {title:'How Ashwagandha Calms Modern Stress',cat:'Wellness',img:GH+'images/brainchamp.jpg',desc:'Learn how this powerful adaptogen helps your body manage and recover from chronic stress.'},
+  {title:'Ayurvedic Tips for All-Day Energy',cat:'Energy',img:GH+'images/blood-storm-200.webp',desc:'Discover Ayurvedic techniques for sustained natural energy without the afternoon crash.'}
 ];
 
 function renderProducts(container){

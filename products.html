@@ -709,7 +709,7 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* Year */
-document.getElementById('yr').textContent = new Date().getFullYear();
+(function(){var y=document.getElementById('yr')||document.getElementById('year');if(y)y.textContent=new Date().getFullYear();})();
 
 /* Reveal on scroll */
 const revealIO = new IntersectionObserver(entries => {
