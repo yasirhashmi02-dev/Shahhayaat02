@@ -505,6 +505,50 @@ body.nav-open {
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 <link rel="stylesheet" href="ticker.css?v=3">
 <script src="ticker.js?v=3" defer></script>
+<style id="wl2-style">
+/* ── Wellness Lab: simplified welcome screen ───────────────── */
+.wl2-hero{position:relative;overflow:hidden;margin:clamp(1.2rem,4vw,2.4rem) 0 1.6rem;padding:clamp(1.6rem,5vw,3rem) clamp(1.2rem,4vw,2.6rem);border-radius:26px;color:#fff;text-align:center;
+  background:radial-gradient(circle at 85% 8%,rgba(240,160,32,.30),transparent 42%),radial-gradient(circle at 8% 100%,rgba(56,168,122,.55),transparent 50%),linear-gradient(135deg,#0f4d33 0%,#2A7A5A 58%,#38A87A 100%);
+  box-shadow:0 18px 50px rgba(20,83,45,.28)}
+.wl2-hero::before{content:"";position:absolute;inset:auto -60px -90px auto;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.07);pointer-events:none}
+.wl2-chips{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:1.1rem}
+.wl2-chip{display:inline-flex;align-items:center;gap:.3rem;padding:.3rem .8rem;border-radius:50px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);font-size:.72rem;font-weight:700;letter-spacing:.04em;backdrop-filter:blur(4px)}
+.wl2-h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,6.4vw,3.3rem);line-height:1.1;font-weight:700;color:#fff;margin:0 0 .8rem}
+.wl2-h1 em{font-style:italic;color:#FFD27A}
+.wl2-lead{max-width:470px;margin:0 auto 1.6rem;font-size:clamp(.95rem,2.6vw,1.05rem);line-height:1.6;color:rgba(255,255,255,.92)}
+.wl2-cta{display:flex;flex-direction:column;align-items:center;gap:.7rem;margin-bottom:1.5rem}
+.wl2-btn{font-family:inherit;cursor:pointer;border:0;border-radius:50px;font-weight:700;transition:transform .2s,box-shadow .2s,background .2s}
+.wl2-btn--main{width:100%;max-width:360px;padding:1.05rem 1.6rem;font-size:1.05rem;background:#fff;color:#14532d;box-shadow:0 10px 28px rgba(0,0,0,.22);animation:wl2pulse 2.6s ease-in-out infinite}
+.wl2-btn--main:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,0,0,.28)}
+.wl2-btn--ghost{padding:.65rem 1.3rem;font-size:.86rem;background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.4)}
+.wl2-btn--ghost:hover{background:rgba(255,255,255,.22)}
+.wl2-btn:focus-visible,.wl2-tile:focus-visible,.wl2-link:focus-visible{outline:3px solid #F0A020;outline-offset:3px}
+@keyframes wl2pulse{0%,100%{box-shadow:0 10px 28px rgba(0,0,0,.22),0 0 0 0 rgba(255,255,255,.55)}50%{box-shadow:0 10px 28px rgba(0,0,0,.22),0 0 0 12px rgba(255,255,255,0)}}
+.wl2-steps{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center}
+.wl2-steps li{display:flex;align-items:center;gap:.5rem;padding:.4rem .85rem .4rem .45rem;border-radius:50px;background:rgba(0,0,0,.16);font-size:.78rem;font-weight:600;color:rgba(255,255,255,.95)}
+.wl2-steps b{display:inline-grid;place-items:center;width:1.45rem;height:1.45rem;border-radius:50%;background:#F0A020;color:#3a2300;font-size:.74rem}
+.wl2-h2{font-family:'Playfair Display',serif;font-size:clamp(1.25rem,3.6vw,1.6rem);text-align:center;color:var(--t);margin:2rem 0 1rem}
+.wl2-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin-bottom:1rem}
+.wl2-grid--one{grid-template-columns:1fr}
+@media(min-width:640px){.wl2-grid{grid-template-columns:repeat(4,1fr);gap:1rem}.wl2-grid--one{grid-template-columns:repeat(2,1fr)}}
+.wl2-tile{position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center;gap:.3rem;padding:1.15rem .7rem 1rem;font-family:inherit;cursor:pointer;
+  background:#fff;border:1.5px solid var(--b);border-radius:20px;box-shadow:0 2px 10px rgba(28,46,28,.05);transition:transform .22s,box-shadow .22s,border-color .22s}
+.wl2-tile::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--lab-col,var(--g))}
+.wl2-tile:hover{transform:translateY(-4px);border-color:var(--lab-col,var(--g));box-shadow:0 12px 28px rgba(28,46,28,.12)}
+.wl2-ico{display:grid;place-items:center;width:3.4rem;height:3.4rem;border-radius:50%;font-size:1.7rem;margin-bottom:.2rem;background:var(--g3);background:color-mix(in srgb,var(--lab-col,#2A7A5A) 13%,#fff)}
+.wl2-name{font-size:.92rem;font-weight:700;color:var(--t);line-height:1.25}
+.wl2-sub{font-size:.7rem;color:var(--tq);line-height:1.4}
+.wl2-dur{margin-top:.25rem;padding:.14rem .6rem;border-radius:50px;font-family:'JetBrains Mono',monospace;font-size:.64rem;font-weight:700;color:var(--lab-col,var(--g));background:var(--g4);background:color-mix(in srgb,var(--lab-col,#2A7A5A) 11%,#fff)}
+.wl2-insight{margin:1.8rem 0 1.2rem;padding:1rem 1.2rem;border-radius:18px;background:linear-gradient(135deg,#FFF8ED,#fff);border:1.5px solid rgba(201,120,0,.22);text-align:center}
+.wl2-insight-label{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gd);margin-bottom:.3rem}
+.wl2-insight-text{font-size:.9rem;color:var(--t);line-height:1.6}
+.wl2-insight-src{font-size:.7rem;color:var(--tq);margin-top:.25rem}
+.wl2-community{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.6rem .8rem;padding:1rem 0 2.2rem;font-size:.8rem;color:var(--tm)}
+.wl2-link{padding:.4rem .95rem;border-radius:50px;font-size:.78rem;font-weight:700;text-decoration:none;color:#fff;transition:transform .2s}
+.wl2-link:hover{transform:translateY(-2px)}
+.wl2-link--wa{background:#25D366}.wl2-link--ig{background:linear-gradient(135deg,#f58529,#dd2a7b 55%,#8134af)}
+@media(prefers-reduced-motion:reduce){.wl2-btn--main{animation:none}.wl2-tile,.wl2-btn,.wl2-link{transition:none}}
+</style>
 </head>
 <body id="top">
   <!-- Google Tag Manager (noscript) -->
@@ -549,195 +593,107 @@ body.nav-open {
 
 <section id="sWelcome" role="main">
   <div class="wrap">
-    <div class="hero">
-      <div class="hero-ey au">
-        <div class="tag">🧪 Wellness Lab</div>
-        <div class="tag tag--gd">✨ Free · Private · No Sign-Up</div>
+
+    <!-- ── HERO: one clear action ─────────────────────────── -->
+    <div class="wl2-hero au">
+      <div class="wl2-chips">
+        <span class="wl2-chip">🧪 Wellness Lab</span>
+        <span class="wl2-chip">✨ Free · Private · No sign-up</span>
+      </div>
+      <h1 class="wl2-h1">Check your health<br>in <em>2 minutes</em></h1>
+      <p class="wl2-lead">Simple, guided self-tests for your <strong>focus, breathing, vision and more</strong>. Just tap and follow along.</p>
+
+      <div class="wl2-cta">
+        <button class="wl2-btn wl2-btn--main" onclick="LAB.goInstr()" id="mainStartBtn">▶ Start Full Health Check</button>
+        <button class="wl2-btn wl2-btn--ghost" id="startBrainBtn" onclick="LAB.goInstr();LAB._pendingCat='brain'">🧠 Quick start: Brain Lab</button>
       </div>
 
-      <h1 class="h1 au d1" style="margin-bottom:.7rem">
-        Your Personal<br><span style="color:var(--g)">Wellness Lab</span>
-      </h1>
-
-      <p class="pg hero-desc au d2" style="font-size:.97rem;max-width:480px">
-        Simple self-tests that help you understand your <strong>focus, reaction speed, breathing and vision.</strong> Each check takes under 2 minutes. Fully guided, just tap and follow along.
-      </p>
-    </div>
-
-    <!-- ── START HERE BANNER ──────────────────────────────── -->
-    <div class="start-here-banner au d2" id="startHereBanner">
-      <div class="shb-icon">🌟</div>
-      <div class="shb-body">
-        <div class="shb-title">New here? We recommend beginning with the Brain Lab</div>
-        <div class="shb-desc">Measure your focus, reaction speed and attention in just 5 minutes. It's the best place to begin your wellness journey.</div>
-      </div>
-      <button class="btn btn--p" style="white-space:nowrap;flex-shrink:0" onclick="LAB.goInstr();setTimeout(()=>LAB.setGender&&LAB.beginCategory&&(LAB.gender?LAB.beginCategory('brain'):null),100)" id="startBrainBtn">
-        Begin Brain Assessment →
-      </button>
-    </div>
-
-    <!-- ── LAB NAVIGATION ──────────────────────────────── -->
-    <div style="margin-bottom:.5rem">
-
-      <div style="font-size:.7rem;font-weight:700;color:var(--tq);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1rem;text-align:center">Choose a Lab to Begin</div>
-
-      <!-- Row 1: Main / Most Popular -->
-      <div class="lab-section-title">Most Popular</div>
-      <div class="lab-nav-grid au d3" style="grid-template-columns:repeat(2,1fr);gap:.75rem;margin-bottom:.9rem">
-
-        <button class="lab-nav-btn lab-nav-btn--featured" style="--lab-col:#2A7A5A"
-          onclick="LAB.goInstr();LAB._pendingCat='brain'" aria-label="Brain Lab">
-          <span class="lnb-ico">🧠</span>
-          <span class="lnb-name">Brain Lab</span>
-          <span class="lnb-sub">Focus · Reaction · Attention</span>
-          <span class="lnb-dur">~4 min · 3 checks</span>
-        </button>
-
-        <button class="lab-nav-btn lab-nav-btn--featured" style="--lab-col:#059669"
-          onclick="LAB.goInstr();LAB._pendingCat='breathing'" aria-label="Breathing Lab">
-          <span class="lnb-ico">🌬</span>
-          <span class="lnb-name">Breathing Lab</span>
-          <span class="lnb-sub">Lung capacity · Calm · Control</span>
-          <span class="lnb-dur">~2 min · 2 checks</span>
-        </button>
-
-      </div>
-
-      <!-- Row 2: Body checks -->
-      <div class="lab-section-title">Body Checks</div>
-      <div class="lab-nav-grid au d3" style="grid-template-columns:repeat(3,1fr);gap:.65rem;margin-bottom:.9rem">
-
-        <button class="lab-nav-btn" style="--lab-col:#2563EB"
-          onclick="LAB.goInstr();LAB._pendingCat='eye'" aria-label="Eye Lab">
-          <span class="lnb-ico">👁</span>
-          <span class="lnb-name">Eye Lab</span>
-          <span class="lnb-sub">Vision · Colour · Tracking</span>
-          <span class="lnb-dur">~4 min</span>
-        </button>
-
-        <button class="lab-nav-btn" style="--lab-col:#E74C3C"
-          onclick="LAB.goInstr();LAB._pendingCat='body'" aria-label="Body Lab">
-          <span class="lnb-ico">💪</span>
-          <span class="lnb-name">Body Lab</span>
-          <span class="lnb-sub">Energy · Joints · Immunity</span>
-          <span class="lnb-dur">~2 min</span>
-        </button>
-
-        <button class="lab-nav-btn" style="--lab-col:#8E44AD"
-          onclick="LAB.goInstr();LAB._pendingCat='hearing'" aria-label="Hearing Lab">
-          <span class="lnb-ico">👂</span>
-          <span class="lnb-name">Hearing Lab</span>
-          <span class="lnb-sub">Tone · Detection</span>
-          <span class="lnb-dur">~2 min</span>
-        </button>
-
-        <button class="lab-nav-btn" style="--lab-col:#7C3AED"
-          onclick="LAB.goInstr();LAB._pendingCat='stability'" aria-label="Stability Lab">
-          <span class="lnb-ico">📱</span>
-          <span class="lnb-name">Stability Lab</span>
-          <span class="lnb-sub">Tremor · Balance</span>
-          <span class="lnb-dur">~2 min</span>
-        </button>
-
-        <button class="lab-nav-btn" style="--lab-col:#F39C12"
-          onclick="LAB.goInstr();LAB._pendingCat='gut'" aria-label="Gut Lab">
-          <span class="lnb-ico">🍽</span>
-          <span class="lnb-name">Gut Lab</span>
-          <span class="lnb-sub">Digestion · Comfort</span>
-          <span class="lnb-dur">~2 min</span>
-        </button>
-
-        <button class="lab-nav-btn" style="--lab-col:#C0392B"
-          onclick="LAB.goInstr();LAB._pendingCat='lifestyle'" aria-label="Lifestyle Lab">
-          <span class="lnb-ico">🌿</span>
-          <span class="lnb-name">Lifestyle Lab</span>
-          <span class="lnb-sub">Sleep · Habits · Recovery</span>
-          <span class="lnb-dur">~2 min</span>
-        </button>
-
-      </div>
-
-      <!-- Row 3: Women's Health (conditionally shown) -->
-      <div class="lab-section-title" id="femaleNavLabel" style="display:none">Women's Health</div>
-      <div class="lab-nav-grid" id="femaleNavRow" style="grid-template-columns:1fr;gap:.65rem;margin-bottom:.9rem;display:none">
-        <button class="lab-nav-btn lab-nav-btn--featured" style="--lab-col:#B83060"
-          onclick="LAB.goInstr();LAB._pendingCat='female'" aria-label="Women's Health Lab">
-          <span class="lnb-ico">🌸</span>
-          <span class="lnb-name">Women's Health Lab</span>
-          <span class="lnb-sub">Hormonal rhythm · Energy · Sleep comfort</span>
-          <span class="lnb-dur">~5 min · 3 checks</span>
-        </button>
-      </div>
-
-      <!-- Full assessment CTA -->
-      <div style="text-align:center;margin-top:.8rem">
-        <button class="btn btn--p btn--lg btn--cta" onclick="LAB.goInstr()" id="mainStartBtn" style="font-size:.9rem;width:100%;max-width:360px">
-          ▶ Start Full Wellness Assessment
-        </button>
-        <div style="font-size:.72rem;color:var(--tq);margin-top:.5rem">
-          ~12 minutes · 8 labs · Complete report
-        </div>
-      </div>
-
-    </div>
-
-
-    <!-- ── STATS ROW ──────────────────────────────────────── -->
-    <div class="stats-row" role="list">
-      <div class="stat-box" role="listitem"><span class="stat-n">8</span><span class="stat-l">Labs</span></div>
-      <div class="stat-box" role="listitem"><span class="stat-n">15+</span><span class="stat-l">Checks</span></div>
-      <div class="stat-box" role="listitem"><span class="stat-n">&lt;2</span><span class="stat-l">Min / Test</span></div>
-      <div class="stat-box" role="listitem"><span class="stat-n" style="font-size:1.1rem">🔐</span><span class="stat-l">Private</span></div>
-      <div class="stat-box" role="listitem"><span class="stat-n">Free</span><span class="stat-l">Always</span></div>
+      <ol class="wl2-steps" aria-label="How it works">
+        <li><b>1</b> Watch a short demo</li>
+        <li><b>2</b> Take the test</li>
+        <li><b>3</b> Get your result</li>
+      </ol>
     </div>
 
     <!-- ── PROGRESS HISTORY (shown after first test) ─────── -->
     <div id="labHistoryPanel" style="display:none;margin:1.2rem 0"></div>
 
-    <!-- ── WELLNESS INSIGHT OF THE DAY ──────────────────── -->
-    <div class="insight-of-day" id="insightOfDay">
-      <div class="iod-label">💡 Wellness Insight</div>
-      <div class="iod-text" id="iodText">Loading today's insight…</div>
-      <div class="iod-source" id="iodSource"></div>
+    <!-- ── LABS ───────────────────────────────────────────── -->
+    <h2 class="wl2-h2 au d1">Or pick one lab</h2>
+    <div class="wl2-grid au d2">
+      <button class="wl2-tile" style="--lab-col:#2A7A5A" onclick="LAB.goInstr();LAB._pendingCat='brain'" aria-label="Brain Lab">
+        <span class="wl2-ico" aria-hidden="true">🧠</span>
+        <span class="wl2-name">Brain Lab</span>
+        <span class="wl2-sub">Focus · Reaction · Memory</span>
+        <span class="wl2-dur">~4 min</span>
+      </button>
+      <button class="wl2-tile" style="--lab-col:#059669" onclick="LAB.goInstr();LAB._pendingCat='breathing'" aria-label="Breathing Lab">
+        <span class="wl2-ico" aria-hidden="true">🌬</span>
+        <span class="wl2-name">Breathing Lab</span>
+        <span class="wl2-sub">Lung capacity · Calm</span>
+        <span class="wl2-dur">~2 min</span>
+      </button>
+      <button class="wl2-tile" style="--lab-col:#2563EB" onclick="LAB.goInstr();LAB._pendingCat='eye'" aria-label="Eye Lab">
+        <span class="wl2-ico" aria-hidden="true">👁</span>
+        <span class="wl2-name">Eye Lab</span>
+        <span class="wl2-sub">Vision · Colour · Tracking</span>
+        <span class="wl2-dur">~4 min</span>
+      </button>
+      <button class="wl2-tile" style="--lab-col:#E74C3C" onclick="LAB.goInstr();LAB._pendingCat='body'" aria-label="Body Lab">
+        <span class="wl2-ico" aria-hidden="true">💪</span>
+        <span class="wl2-name">Body Lab</span>
+        <span class="wl2-sub">Energy · Joints · Immunity</span>
+        <span class="wl2-dur">~2 min</span>
+      </button>
+      <button class="wl2-tile" style="--lab-col:#8E44AD" onclick="LAB.goInstr();LAB._pendingCat='hearing'" aria-label="Hearing Lab">
+        <span class="wl2-ico" aria-hidden="true">👂</span>
+        <span class="wl2-name">Hearing Lab</span>
+        <span class="wl2-sub">Tone · Detection</span>
+        <span class="wl2-dur">~2 min</span>
+      </button>
+      <button class="wl2-tile" style="--lab-col:#7C3AED" onclick="LAB.goInstr();LAB._pendingCat='stability'" aria-label="Stability Lab">
+        <span class="wl2-ico" aria-hidden="true">📱</span>
+        <span class="wl2-name">Stability Lab</span>
+        <span class="wl2-sub">Tremor · Balance</span>
+        <span class="wl2-dur">~2 min</span>
+      </button>
+      <button class="wl2-tile" style="--lab-col:#F39C12" onclick="LAB.goInstr();LAB._pendingCat='gut'" aria-label="Gut Lab">
+        <span class="wl2-ico" aria-hidden="true">🍽</span>
+        <span class="wl2-name">Gut Lab</span>
+        <span class="wl2-sub">Digestion · Comfort</span>
+        <span class="wl2-dur">~2 min</span>
+      </button>
+      <button class="wl2-tile" style="--lab-col:#16A34A" onclick="LAB.goInstr();LAB._pendingCat='lifestyle'" aria-label="Lifestyle Lab">
+        <span class="wl2-ico" aria-hidden="true">🌿</span>
+        <span class="wl2-name">Lifestyle Lab</span>
+        <span class="wl2-sub">Sleep · Habits · Recovery</span>
+        <span class="wl2-dur">~2 min</span>
+      </button>
     </div>
 
-    <!-- ── HOW EACH LAB WORKS ────────────────────────────── -->
-    <div style="padding:1.2rem 0;border-top:1px solid var(--b)">
-      <div style="font-size:.63rem;font-weight:700;color:var(--tq);text-transform:uppercase;letter-spacing:.09em;margin-bottom:.8rem">How Each Lab Works</div>
-      <div class="step-flow">
-        <div class="step-flow-item">
-          <div class="step-flow-num">Step 1</div>
-          <div class="step-flow-title">Prepare</div>
-          <div class="step-flow-desc">Watch a quick demo: no guessing needed</div>
-        </div>
-        <div class="step-flow-item">
-          <div class="step-flow-num">Step 2</div>
-          <div class="step-flow-title">Assess</div>
-          <div class="step-flow-desc">Under 2 minutes, fully guided</div>
-        </div>
-        <div class="step-flow-item">
-          <div class="step-flow-num">Step 3</div>
-          <div class="step-flow-title">Insight</div>
-          <div class="step-flow-desc">Instant result + actionable advice</div>
-        </div>
-      </div>
+    <!-- Women's Health (shown by LAB.setGender('female')) -->
+    <div class="lab-section-title" id="femaleNavLabel" style="display:none">Women's Health</div>
+    <div class="wl2-grid wl2-grid--one" id="femaleNavRow" style="display:none">
+      <button class="wl2-tile" style="--lab-col:#B83060" onclick="LAB.goInstr();LAB._pendingCat='female'" aria-label="Women's Health Lab">
+        <span class="wl2-ico" aria-hidden="true">🌸</span>
+        <span class="wl2-name">Women's Health Lab</span>
+        <span class="wl2-sub">Hormonal rhythm · Energy · Sleep</span>
+        <span class="wl2-dur">~5 min</span>
+      </button>
     </div>
 
-    <!-- ── COMMUNITY BANNER ──────────────────────────────── -->
-    <div class="community-banner">
-      <div>
-        <div class="cb-title">🌿 Join Our Community</div>
-        <div class="cb-msg">Get wellness tips, product updates &amp; exclusive offers</div>
-        <div class="cb-sub">Follow along and share your wellness journey with us</div>
-      </div>
-      <div class="cb-links">
-        <a class="cb-btn cb-btn-wa" href="https://whatsapp.com/channel/0029VadgJDiJUM2VitsAVR1u" target="_blank" rel="noopener noreferrer">
-          💬 WhatsApp Channel
-        </a>
-        <a class="cb-btn cb-btn-ig" href="https://www.instagram.com/shahhayaatofficial?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">
-          📸 Instagram
-        </a>
-      </div>
+    <!-- ── DAILY INSIGHT ──────────────────────────────────── -->
+    <div class="wl2-insight" id="insightOfDay">
+      <div class="wl2-insight-label">💡 Wellness insight</div>
+      <div class="wl2-insight-text" id="iodText">Loading today's insight…</div>
+      <div class="wl2-insight-src" id="iodSource"></div>
+    </div>
+
+    <!-- ── COMMUNITY (compact) ────────────────────────────── -->
+    <div class="wl2-community">
+      <span>🌿 Get wellness tips &amp; offers</span>
+      <a class="wl2-link wl2-link--wa" href="https://whatsapp.com/channel/0029VadgJDiJUM2VitsAVR1u" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
+      <a class="wl2-link wl2-link--ig" href="https://www.instagram.com/shahhayaatofficial?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">📸 Instagram</a>
     </div>
 
   </div>
@@ -821,8 +777,9 @@ body.nav-open {
                onchange="LAB.raw.userAge=parseInt(this.value)||null">
       </div>
       <div class="btn-row" style="justify-content:center;margin-top:.8rem">
-        <button class="btn btn--p btn--lg" id="goCont" disabled onclick="LAB.renderCategoryDashboard()">Choose My Assessment →</button>
+        <button class="btn btn--p btn--lg" id="goCont" disabled onclick="LAB.renderCategoryDashboard()">Continue →</button>
       </div>
+      <p style="font-size:.72rem;color:var(--tq);margin:1rem 0 0">🔐 Your results stay on your device. This is a wellness check, not a medical diagnosis.</p>
     </div>
   </div>
 </section>
@@ -837,8 +794,8 @@ body.nav-open {
                   letter-spacing:.09em;text-transform:uppercase;margin-bottom:1rem">
         🧪 Choose Your Lab
       </div>
-      <h2 class="h1" style="margin-bottom:.55rem">Select Your Wellness Assessment</h2>
-      <p class="pg" style="max-width:420px;margin:0 auto">Each lab is a mini wellness experience, simple, guided, and finished in minutes. All results stay private on your device.</p>
+      <h2 class="h1" style="margin-bottom:.55rem">Choose Your Lab</h2>
+      <p class="pg" style="max-width:420px;margin:0 auto">Simple, guided and finished in minutes. Results stay private on your device.</p>
     </div>
 
     <!-- Full Lab CTA -->
@@ -914,14 +871,14 @@ body.nav-open {
   </div>
 </footer>
 
-<script src="wellness-lab-part1.js?v=20261013"></script>
+<script src="wellness-lab-part1.js?v=20261014"></script>
 
-<script src="wellness-lab-part2.js?v=20261013"></script>
+<script src="wellness-lab-part2.js?v=20261014"></script>
 
-<script src="wellness-lab-part3.js?v=20261013"></script>
+<script src="wellness-lab-part3.js?v=20261014"></script>
 
-<script src="wellness-lab-part4.js?v=20261013"></script>
-<script src="wellness-lab-part5.js?v=20261013"></script>
+<script src="wellness-lab-part4.js?v=20261014"></script>
+<script src="wellness-lab-part5.js?v=20261014"></script>
 
 
 </body>
