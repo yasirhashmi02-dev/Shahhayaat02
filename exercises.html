@@ -630,6 +630,15 @@ body.nav-open{overflow:hidden}
 .ov-htp-start-final:active{transform:scale(.97)}
 .ov-htp-resume{width:100%;max-width:340px;padding:.9rem;border-radius:50px;font-size:1rem;font-weight:800;background:linear-gradient(135deg,#166534,#22C55E);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(34,197,94,.35);transition:all .2s;margin-top:.4rem}
 .ov-htp-resume:active{transform:scale(.97)}
+.ov-htp-note{font-size:.82rem;color:rgba(255,255,255,.7);text-align:center;line-height:1.5;margin:0 0 .7rem}
+.ov-htp-list{width:100%;max-width:380px;display:flex;flex-direction:column;gap:.5rem;text-align:left}
+.ov-htp-item{display:flex;gap:.7rem;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(212,160,23,.22);border-radius:14px;padding:.65rem .8rem}
+.ov-htp-n{flex:0 0 1.7rem;height:1.7rem;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:#000;font-weight:900;font-size:.8rem;display:flex;align-items:center;justify-content:center}
+.ov-htp-ib{flex:1;min-width:0}
+.ov-htp-it{font-weight:800;color:#fff;font-size:.95rem;line-height:1.35;display:flex;justify-content:space-between;gap:.5rem}
+.ov-htp-it.plain{font-weight:500;font-size:.95rem;color:rgba(255,255,255,.9);line-height:1.5}
+.ov-htp-sec{font-size:.68rem;color:var(--gold-l);font-weight:700;white-space:nowrap;padding-top:.15rem}
+.ov-htp-is{font-size:.85rem;color:rgba(255,255,255,.75);line-height:1.5;margin-top:.15rem}
 .ov-htp-skip{padding:.55rem 1.1rem;border-radius:50px;font-size:.78rem;font-weight:700;background:rgba(255,255,255,.04);color:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.1);cursor:pointer;margin-top:.3rem}
 /* Instructions button: glows gold when active (paused + viewing) */
 .ov-instr-btn.active{background:rgba(212,160,23,.25) !important;color:#D4A017 !important;animation:voicePulse .8s ease-in-out infinite alternate}
@@ -1871,15 +1880,15 @@ body.nav-open{overflow:hidden}
     <div class="ov-choice-emoji" id="ovChoiceEmoji">🌿</div>
     <div class="ov-choice-title" id="ovChoiceTitle">Activity</div>
     <div class="ov-choice-dur"   id="ovChoiceDur">⏱ 3 min</div>
-    <div class="ov-choice-q">Would you like to see how to do this exercise first?</div>
+    <div class="ov-choice-q">Want a quick look at how it works first?</div>
     <div class="ov-choice-btns">
-      <button class="ov-choice-yes" onclick="showHowToPlay()">📋 Yes, show me how</button>
+      <button class="ov-choice-yes" onclick="showHowToPlay()">📋 Yes, show me the steps</button>
       <button class="ov-choice-no"  id="ovChoiceStart" onclick="ovBeginDirect()">▶ Start right away</button>
       <button class="ov-choice-skip" id="ovChoiceSkipBtn" onclick="ovSkip()" style="display:none">⏭ Skip this exercise</button>
     </div>
   </div>
 
-  <!-- HOW TO PLAY SCREEN, shows ONE step at a time, synced with exercise -->
+  <!-- HOW TO DO IT SCREEN: every step in one simple list -->
   <div class="ov-htp" id="ovHtp" style="display:none">
     <div>
       <div class="ov-htp-badge" id="ovHtpBadge">📋 How To Do This</div>
@@ -1887,16 +1896,12 @@ body.nav-open{overflow:hidden}
       <div class="ov-htp-title" id="ovHtpTitle">Activity</div>
       <div class="ov-htp-dur"   id="ovHtpDur">⏱ 3 min</div>
     </div>
-    <!-- Single step card, only the CURRENT step -->
-    <div class="ov-htp-card">
-      <div class="ov-htp-step-num" id="ovHtpStepNum">Step 1 of 4</div>
-      <div class="ov-htp-step-bubble">
-        <div class="ov-htp-step-n-big" id="ovHtpStepN">1</div>
-        <div class="ov-htp-step-text"  id="ovHtpStepText">Loading…</div>
-      </div>
-      <div class="ov-htp-dots" id="ovHtpDots"></div>
+    <!-- ALL steps shown together as one simple list -->
+    <div class="ov-htp-card" style="max-width:380px;justify-content:flex-start">
+      <div class="ov-htp-note" id="ovHtpNote"></div>
+      <div class="ov-htp-list" id="ovHtpList"></div>
     </div>
-    <!-- Avoid box, shown only on last step -->
+    <!-- Safety note -->
     <div class="ov-htp-avoid" id="ovHtpAvoid" style="display:none">
       <strong>⚠️ Who Should Avoid</strong>
       <span id="ovHtpAvoidText"></span>
@@ -2491,68 +2496,68 @@ const EXERCISES = [
   /* ── 7. DESK WAKE-UP (sleepy at your desk? no walking outside needed) ── */
   { id:'desk-power-reset', cat:'wake', emoji:'🪑', title:'Desk Power Reset',
     tag:'Daily Activation', tagClass:'tag-wake', dur:'3 min',
-    desc:'Feeling sleepy at your desk? This chair-side routine gets your blood moving again with no gym, no walking outside and no special clothes. Perfect for the 2 to 4 PM slump.',
-    phases:[{label:'Shoulder shrugs & rolls',sec:30},{label:'Seated spinal twist',sec:30},{label:'Fist clench & finger spread',sec:25},{label:'Straight-leg holds',sec:30},{label:'Stand up, sit down',sec:30},{label:'Deep breath reset',sec:25}],
+    desc:'Feeling sleepy at your desk? Follow these simple moves from your chair to get your body awake again.',
+    phases:[{label:'Roll your shoulders',sec:30},{label:'Twist left and right',sec:30},{label:'Open and close your hands',sec:25},{label:'Straighten your legs',sec:30},{label:'Stand up, sit down',sec:30},{label:'Slow breaths',sec:25}],
     rounds:1,
-    steps:['SHRUGS: Sit tall. Lift both shoulders up to your ears, hold 2 seconds, drop them. Then roll them backward in big slow circles.','TWIST: Hold the side of your chair or desk. Gently twist your upper body to the right, hold, then to the left. Keep your hips facing forward.','HANDS: Squeeze both fists tight for 3 seconds, then spread your fingers wide as if throwing water drops. Repeat. This wakes up tired hands from typing.','LEGS: Straighten one knee so your leg is level with the floor. Tighten the thigh and hold, then switch legs.','SIT-STAND: Stand up fully, then sit back down slowly with control. Repeat as many times as you can without rushing.','RESET: Sit tall. Breathe in through your nose for 4 counts and out slowly for 6 counts.'],
-    avoid:'If your chair has wheels, lock it or push it against a wall first. Skip the sit-stand step if you have knee pain or balance problems.',
-    voiceIntro:'Desk Power Reset. Stay at your desk. Sit tall. Let us wake your body up.',
-    phaseVoice:['Lift your shoulders to your ears. Hold. Drop. Now roll them backward, big and slow.','Hold your chair. Twist gently to the right. Hold. Now to the left. Keep your hips still.','Squeeze your fists tight. Now spread your fingers wide. Again.','Straighten one leg. Tighten the thigh. Hold. Now switch legs.','Stand up fully. Sit back down slowly. Repeat. Keep a steady pace.','Sit tall. Breathe in for four. Breathe out slowly for six. Well done.'],
+    steps:['Lift both shoulders up, then roll them back in big circles.','Sit tall. Turn your upper body to the right, then to the left. Keep your hips still.','Make tight fists, then spread your fingers wide. Repeat.','Lift one leg straight out and hold it. Then switch legs.','Stand up fully, then sit down slowly. Repeat at an easy pace.','Breathe in through your nose. Breathe out slowly. Relax.'],
+    avoid:'If your chair has wheels, push it against a wall first. Skip the stand-up step if you have knee pain.',
+    voiceIntro:'Desk Power Reset. Stay in your chair and follow each step.',
+    phaseVoice:['Lift both shoulders up, then roll them back in big circles.','Sit tall. Turn your upper body to the right, then to the left. Keep your hips still.','Make tight fists, then spread your fingers wide. Repeat.','Lift one leg straight out and hold it. Then switch legs.','Stand up fully, then sit down slowly. Repeat at an easy pace.','Breathe in through your nose. Breathe out slowly. Relax.'],
     benefit:'Wakes your body', benefitVal:'without leaving your desk' },
 
   { id:'desk-isometric', cat:'wake', emoji:'💪', title:'Silent Desk Strength Burst',
     tag:'Daily Activation', tagClass:'tag-wake', dur:'2 min',
-    desc:'Isometric holds use muscle tension, not movement, so nobody around you notices. Tensing big muscles gets your circulation going and helps shake off that heavy, sleepy feeling.',
-    phases:[{label:'Prayer-hands press',sec:20},{label:'Pull your hands apart',sec:20},{label:'Press palms into desk',sec:20},{label:'Squeeze thighs & glutes',sec:20},{label:'Alternate leg lifts',sec:20},{label:'Release & shake out',sec:15}],
+    desc:'Tighten your muscles while sitting still. Nobody will notice, and your body feels more awake.',
+    phases:[{label:'Press your palms together',sec:20},{label:'Pull your hands apart',sec:20},{label:'Push down on the desk',sec:20},{label:'Squeeze your legs',sec:20},{label:'Lift your feet',sec:20},{label:'Shake it out',sec:15}],
     rounds:1,
-    steps:['PRESS: Put your palms together in front of your chest. Push them hard against each other for the full time. Breathe normally.','PULL: Hook your fingers together in front of your chest and try to pull your hands apart without letting go.','DESK PRESS: Place both palms flat on top of your desk and push down firmly, as if pushing the desk into the floor.','SQUEEZE: Squeeze your thighs together and tighten your glutes and stomach. Hold. Do not hold your breath.','LEG LIFTS: Lift one foot a few centimetres off the floor and hold. Switch feet every few seconds.','RELEASE: Let everything go. Shake out your hands and arms. Roll your neck gently.'],
-    avoid:'Do not hold your breath while tensing. Skip or go gently if you have high blood pressure, a heart condition or a hernia, and ask your doctor first.',
-    voiceIntro:'Silent Desk Strength Burst. Nobody will even notice. Sit tall and breathe normally.',
-    phaseVoice:['Palms together. Push hard. Keep breathing.','Hook your fingers. Pull apart. Keep the tension.','Palms flat on the desk. Push down firmly.','Squeeze your thighs and glutes. Tighten your stomach. Keep breathing.','Lift one foot just above the floor. Hold. Switch feet.','Let everything go. Shake out your arms and hands. Well done.'],
-    benefit:'Boosts circulation', benefitVal:'with zero visible movement' },
+    steps:['Put your palms together in front of your chest. Push them hard together. Keep breathing.','Hook your fingers together and try to pull them apart.','Put both hands flat on the desk. Push down firmly.','Squeeze your thighs together and tighten your tummy. Keep breathing.','Lift one foot a little off the floor and hold. Then switch feet.','Relax. Shake out your hands and arms.'],
+    avoid:'Do not hold your breath. If you have high blood pressure or a heart problem, go gently or ask your doctor first.',
+    voiceIntro:'Silent Desk Strength Burst. Sit tall and keep breathing normally.',
+    phaseVoice:['Put your palms together in front of your chest. Push them hard together. Keep breathing.','Hook your fingers together and try to pull them apart.','Put both hands flat on the desk. Push down firmly.','Squeeze your thighs together and tighten your tummy. Keep breathing.','Lift one foot a little off the floor and hold. Then switch feet.','Relax. Shake out your hands and arms.'],
+    benefit:'Boosts circulation', benefitVal:'with no visible movement' },
 
   { id:'count-backwards', cat:'wake', emoji:'🔢', title:'Count Backwards Challenge',
     tag:'Daily Activation', tagClass:'tag-wake', dur:'2 min',
-    desc:'A sleepy brain cannot count backwards well. Doing it forces your attention and working memory to switch on. Do it silently or in a whisper, no screen needed.',
-    phases:[{label:'100 minus 7, again and again',sec:40},{label:'50 down by 3s',sec:30},{label:'Alphabet backwards',sec:30},{label:'Months backwards',sec:20}],
+    desc:'Counting backwards makes your brain work hard, which helps you feel more alert. Say it quietly or in your head.',
+    phases:[{label:'Count down from 100 by 7',sec:40},{label:'Count down from 50 by 3',sec:30},{label:'Say the alphabet backwards',sec:30},{label:'Say the months backwards',sec:20}],
     rounds:1,
-    steps:['Start at 100 and subtract 7 each time: 93, 86, 79 and so on. If you slip, go back to your last correct number and carry on.','Start at 50 and subtract 3 each time: 47, 44, 41 and so on. Try to go faster than the first round.','Say the alphabet backwards from Z. Take it one letter at a time. Stay calm if you get stuck.','Say the 12 months of the year in reverse order, starting from December. Then do it once more, faster.'],
-    avoid:'No restrictions. Suitable for everyone. It is fine to go slowly at first.',
-    voiceIntro:'Count Backwards Challenge. Silent or whispered. Start at one hundred and subtract seven.',
-    phaseVoice:['Start at one hundred. Subtract seven each time. If you slip, go back and continue.','Now start at fifty. Subtract three each time. Go a little faster.','Say the alphabet backwards from Z. One letter at a time.','Say the months of the year backwards, starting from December. Then try again, faster.'],
-    benefit:'Switches on', benefitVal:'focus and working memory' },
+    steps:['Start at 100 and take away 7 each time: 93, 86, 79... If you slip, restart from your last right number.','Start at 50 and take away 3 each time: 47, 44, 41...','Start at Z and go back to A: Z, Y, X...','Start at December and go back to January.'],
+    avoid:'Safe for everyone. Go slowly if it feels hard.',
+    voiceIntro:'Count Backwards Challenge. Start at one hundred and take away seven each time.',
+    phaseVoice:['Start at 100 and take away 7 each time: 93, 86, 79... If you slip, restart from your last right number.','Start at 50 and take away 3 each time: 47, 44, 41...','Start at Z and go back to A: Z, Y, X...','Start at December and go back to January.'],
+    benefit:'Switches on', benefitVal:'focus and memory' },
 
   { id:'desk-scan-recall', cat:'wake', emoji:'👀', title:'Desk Scan & Recall',
     tag:'Daily Activation', tagClass:'tag-wake', dur:'2 min',
-    desc:'A quick memory drill using only what is on your desk. Looking, closing your eyes and recalling forces your brain to pay attention, which is the opposite of zoning out.',
-    phases:[{label:'Scan & memorise 10 things',sec:20},{label:'Eyes closed: recall them',sec:30},{label:'Recall in reverse order',sec:30},{label:'Open eyes & check',sec:20}],
+    desc:'A quick memory game using only the things on your desk.',
+    phases:[{label:'Look at your desk',sec:20},{label:'Close your eyes and name them',sec:30},{label:'Name them backwards',sec:30},{label:'Open and check',sec:20}],
     rounds:1,
-    steps:['Look around your desk for 20 seconds. Pick 10 objects and notice their colour, position and shape.','Close your eyes. Name as many of the 10 objects as you can, along with where each one sits.','Still with eyes closed, say the objects again in reverse order. This is harder, so go slowly.','Open your eyes and check what you missed. Notice the details you overlooked and try again with a different set next time.'],
-    avoid:'No restrictions. Suitable for everyone.',
-    voiceIntro:'Desk Scan and Recall. Look around your desk and pick ten things to remember.',
-    phaseVoice:['Scan your desk. Pick ten objects. Notice colour and position.','Close your eyes. Name every object you can remember.','Keep your eyes closed. Now say them in reverse order.','Open your eyes. Check what you missed. Well done.'],
-    benefit:'Sharpens', benefitVal:'attention and visual memory' },
+    steps:['Look around your desk. Pick 10 things and try to remember them.','Close your eyes. Say the things you remember.','Keep your eyes closed. Say the same things in reverse order.','Open your eyes. See what you forgot.'],
+    avoid:'Safe for everyone.',
+    voiceIntro:'Desk Scan and Recall. Look at your desk and pick ten things to remember.',
+    phaseVoice:['Look around your desk. Pick 10 things and try to remember them.','Close your eyes. Say the things you remember.','Keep your eyes closed. Say the same things in reverse order.','Open your eyes. See what you forgot.'],
+    benefit:'Sharpens', benefitVal:'attention and memory' },
 
   { id:'other-hand-switch', cat:'wake', emoji:'✍️', title:'Other-Hand Brain Switch',
     tag:'Daily Activation', tagClass:'tag-wake', dur:'3 min',
-    desc:'Using your non-dominant hand and doing two things at once gets both sides of your brain working together. It feels awkward, and that awkwardness is exactly what pulls you out of autopilot.',
-    phases:[{label:'Write your name with other hand',sec:30},{label:'Draw circle, square, triangle',sec:30},{label:'Pat head, rub tummy',sec:30},{label:'Thumb-to-finger tapping',sec:30},{label:'Left hand circle, right hand line',sec:30}],
+    desc:'Use your weaker hand and do two things at once. It feels awkward, and that wakes your brain up. You need a pen and paper.',
+    phases:[{label:'Write your name',sec:30},{label:'Draw simple shapes',sec:30},{label:'Pat head, rub tummy',sec:30},{label:'Touch thumb to fingers',sec:30},{label:'Circle and line in the air',sec:30}],
     rounds:1,
-    steps:['Pick up a pen with your non-dominant hand. Write your full name slowly three times on any paper.','With the same hand, draw a circle, then a square, then a triangle. Try to keep the shapes neat.','Pat the top of your head with one hand while rubbing small circles on your stomach with the other. Then swap hands.','Touch your thumb to each fingertip in turn, one hand at a time, then both hands together. Speed up each round.','In the air, draw a circle with your left hand and a straight line up and down with your right. Then swap.'],
-    avoid:'No restrictions. Use a pen and plain paper only. It will feel clumsy, which is normal.',
-    voiceIntro:'Other Hand Brain Switch. Grab a pen and some paper. Use your non-dominant hand.',
-    phaseVoice:['Write your full name with your other hand. Slowly. Three times.','Draw a circle, a square and a triangle with the same hand.','Pat your head with one hand and rub your tummy with the other. Then swap.','Touch your thumb to each fingertip. One hand, then both together. Speed up.','Draw a circle in the air with your left hand and a straight line with your right. Then swap.'],
+    steps:['Hold a pen in your weaker hand (left if you are right-handed). Write your name slowly.','With the same hand, draw a circle, a square and a triangle.','Pat your head with one hand. Rub your tummy in circles with the other hand.','Touch your thumb to each finger, one by one. Do both hands. Go faster each time.','Draw a circle in the air with one hand and a straight line with the other.'],
+    avoid:'Safe for everyone. It will feel clumsy at first. That is normal.',
+    voiceIntro:'Other Hand Brain Switch. Pick up a pen and some paper.',
+    phaseVoice:['Hold a pen in your weaker hand (left if you are right-handed). Write your name slowly.','With the same hand, draw a circle, a square and a triangle.','Pat your head with one hand. Rub your tummy in circles with the other hand.','Touch your thumb to each finger, one by one. Do both hands. Go faster each time.','Draw a circle in the air with one hand and a straight line with the other.'],
     benefit:'Wakes both sides', benefitVal:'of your brain' },
 
   { id:'face-wake', cat:'wake', emoji:'🙂', title:'Face & Scalp Wake-Up',
     tag:'Daily Activation', tagClass:'tag-wake', dur:'2 min',
-    desc:'A quick self-massage that wakes up tired facial muscles and increases sensation across your head. Many people feel more alert right after, and nobody has to leave their seat.',
-    phases:[{label:'Cheek tapping',sec:20},{label:'Jaw release & big yawn',sec:20},{label:'Ear unfold massage',sec:25},{label:'Scalp scrub',sec:30},{label:'Back-of-neck rub',sec:20},{label:'Palm warm & eye rest',sec:15}],
+    desc:'A gentle self-massage for your face, ears, head and neck. Many people feel fresher right after.',
+    phases:[{label:'Tap your face',sec:20},{label:'Relax your jaw and yawn',sec:20},{label:'Rub your ears',sec:25},{label:'Rub your scalp',sec:30},{label:'Rub your neck',sec:20},{label:'Warm palms on eyes',sec:15}],
     rounds:1,
-    steps:['TAP: Use your fingertips to tap lightly and quickly all over your forehead, cheeks and chin.','JAW: Let your mouth hang open, move your jaw side to side, then take a big stretchy yawn, even a fake one.','EARS: Pinch the rim of each ear and gently pull outward, working from the top down to the lobe. Repeat.','SCALP: Spread your fingers and rub your scalp in small circles, front to back, as if shampooing.','NECK: Use your fingers to rub the back of your neck from the base of your skull down to your shoulders.','PALMS: Rub your palms together until warm. Rest them over your closed eyes for the remaining seconds.'],
-    avoid:'Use light pressure only. Avoid massaging areas that are sore, injured or have skin problems. Skip if you have jaw pain.',
-    voiceIntro:'Face and Scalp Wake-Up. Sit tall. Relax your shoulders.',
-    phaseVoice:['Tap lightly all over your forehead, cheeks and chin.','Let your jaw hang loose. Move it side to side. Now a big yawn.','Pinch the rim of your ears. Pull gently outward, top to bottom.','Spread your fingers. Rub small circles all over your scalp.','Rub the back of your neck from the skull down to the shoulders.','Rub your palms warm. Rest them over your closed eyes. Breathe slowly.'],
+    steps:['Tap lightly with your fingertips on your forehead, cheeks and chin.','Open your mouth, move your jaw side to side, then yawn wide.','Gently pinch and pull your ears from top to bottom.','Rub your whole scalp in small circles, like washing your hair.','Rub the back of your neck from your head down to your shoulders.','Rub your palms together. Rest them gently on your closed eyes.'],
+    avoid:'Press lightly. Skip any sore or injured area, or if you have jaw pain.',
+    voiceIntro:'Face and Scalp Wake-Up. Sit tall and relax your shoulders.',
+    phaseVoice:['Tap lightly with your fingertips on your forehead, cheeks and chin.','Open your mouth, move your jaw side to side, then yawn wide.','Gently pinch and pull your ears from top to bottom.','Rub your whole scalp in small circles, like washing your hair.','Rub the back of your neck from your head down to your shoulders.','Rub your palms together. Rest them gently on your closed eyes.'],
     benefit:'Wakes up', benefitVal:'face, scalp and senses' },
 
 ];
@@ -3675,7 +3680,7 @@ function _setPhase(phIdx, label) {
   const ph     = PG[_ex.id] && PG[_ex.id][label];
   const icon   = ph ? ph.icon   : _ex.emoji;
   const action = ph ? ph.action : label;
-  const instr  = ph ? ph.instr  : '';
+  const instr  = ph ? ph.instr  : ((_ex.phaseVoice && _ex.phaseVoice[phIdx]) || '');
   const bDir   = ph ? ph.breathDir : null;
 
   document.getElementById('ovIcon').textContent   = icon;
@@ -3754,7 +3759,7 @@ function openExercise(id) {
     : _ex.isSeqGame ? '▶ Start Sequence Game'
     : _ex.isTypingGame ? '▶ Start Typing Test'
     : _ex.isSpeedRead ? '▶ Start Speed Reading'
-    : '▶ I\'m Ready: Start';
+    : '▶ Start Now';
   document.getElementById('ovChoiceStart').textContent  = startLabel;
   document.getElementById('ovHtpStartBtn').textContent  = startLabel;
 
@@ -3796,66 +3801,54 @@ function showHowToPlay() {
 
 /* Render the current step card */
 function _renderHtpStep() {
-  const steps  = _ex.steps || [];
-  const total  = steps.length;
-  const isLast = _htpIdx >= total - 1;
+  /* EASY GUIDE: show every step at once in one short list.
+     Timed exercises list each timer phase (name + seconds + one simple sentence),
+     so the guide always matches what the timer will do. Games list their short steps. */
+  const isTimed = _ex.phases && _ex.phases.length > 0
+    && !_ex.isTapGame && !_ex.isMathGame && !_ex.isMemoryGame && !_ex.isSeqGame && !_ex.isTypingGame && !_ex.isSpeedRead;
+  const fmt = function(sec){ return sec >= 60 ? (Math.round(sec/6)/10) + ' min' : sec + ' sec'; };
+  const esc = function(t){ return String(t == null ? '' : t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); };
+  let html = '', note = '';
 
-  // Header
-  document.getElementById('ovHtpStepNum').textContent  = 'Step ' + (_htpIdx + 1) + ' of ' + total;
-  document.getElementById('ovHtpStepN').textContent    = _htpIdx + 1;
-  document.getElementById('ovHtpStepText').textContent = steps[_htpIdx] || '';
+  if (isTimed) {
+    const voice = _ex.phaseVoice || [];
+    html = _ex.phases.map(function(ph, i){
+      return '<div class="ov-htp-item"><div class="ov-htp-n">' + (i+1) + '</div><div class="ov-htp-ib">'
+        + '<div class="ov-htp-it"><span>' + esc(ph.label) + '</span><span class="ov-htp-sec">' + fmt(ph.sec) + '</span></div>'
+        + (voice[i] ? '<div class="ov-htp-is">' + esc(voice[i]) + '</div>' : '')
+        + '</div></div>';
+    }).join('');
+    note = '👆 ' + _ex.phases.length + ' easy steps. Just press Start and follow the timer and the voice.'
+      + (_ex.rounds > 1 ? ' The steps repeat ' + _ex.rounds + ' times.' : '');
+  } else {
+    html = (_ex.steps || []).map(function(t, i){
+      return '<div class="ov-htp-item"><div class="ov-htp-n">' + (i+1) + '</div><div class="ov-htp-ib">'
+        + '<div class="ov-htp-it plain">' + esc(t) + '</div></div></div>';
+    }).join('');
+    note = '👆 Read these quickly, then press Start.';
+  }
+  document.getElementById('ovHtpList').innerHTML = html;
+  document.getElementById('ovHtpNote').textContent = note;
 
-  // Progress dots: only current dot shown bright, rest dim
-  const dotsEl = document.getElementById('ovHtpDots');
-  dotsEl.innerHTML = steps.map((_, i) => {
-    const cls = i === _htpIdx ? 'active' : i < _htpIdx ? 'done' : '';
-    return `<div class="ov-htp-dot ${cls}"></div>`;
-  }).join('');
-
-  // Avoid box on last step only
+  // Safety note always visible at the bottom
   const avoidBox = document.getElementById('ovHtpAvoid');
   const avoidTxt = document.getElementById('ovHtpAvoidText');
-  if (isLast && _ex.avoid) { avoidTxt.textContent = _ex.avoid; avoidBox.style.display = ''; }
+  if (_ex.avoid) { avoidTxt.textContent = _ex.avoid; avoidBox.style.display = ''; }
   else { avoidBox.style.display = 'none'; }
 
-  // Button logic
+  // Buttons: one clear action
   const doBtn     = document.getElementById('ovHtpDoBtn');
   const startBtn  = document.getElementById('ovHtpStartBtn');
   const resumeBtn = document.getElementById('ovHtpResumeBtn');
   const skipBtn   = document.getElementById('ovHtpSkipBtn');
-
-  // Reset all
-  [doBtn, startBtn, resumeBtn].forEach(b => { if (b) b.style.display = 'none'; });
+  [doBtn, startBtn, resumeBtn].forEach(function(b){ if (b) b.style.display = 'none'; });
   if (skipBtn) skipBtn.style.display = _allExQueue.length > 1 ? '' : 'none';
+  if (_htpResumeMode) { if (resumeBtn) resumeBtn.style.display = ''; }
+  else if (startBtn)  { startBtn.style.display = ''; }
 
-  if (_htpResumeMode) {
-    // Mid-exercise: just show Resume
-    if (resumeBtn) resumeBtn.style.display = '';
-  } else if (_htpGuided) {
-    // Guided phase mode: "Do This Step" drives the timer
-    if (doBtn) {
-      doBtn.style.display = '';
-      doBtn.textContent   = _htpIdx === 0
-        ? '▶ Start: Do This Step'
-        : '▶ Next Step: Do It Now';
-    }
-  } else {
-    // Non-phase games (tap/math/memory): all steps shown for reference, final button starts game
-    if (isLast) {
-      if (startBtn) {
-        startBtn.style.display = '';
-        startBtn.textContent   = document.getElementById('ovHtpStartBtn').dataset.label ||
-          (_ex.isTapGame ? '▶ Start Tap Challenge'
-          : _ex.isMathGame ? '▶ Start Math Challenge'
-          : _ex.isMemoryGame ? '▶ Start Memory Game'
-          : '▶ I\'m Ready: Start');
-      }
-    } else {
-      if (doBtn) { doBtn.style.display = ''; doBtn.textContent = 'Next →'; }
-    }
-  }
-
-  speak('Step ' + (_htpIdx + 1) + '. ' + (steps[_htpIdx] || ''));
+  const scroller = document.getElementById('ovHtp');
+  if (scroller) scroller.scrollTop = 0;
+  if (!_htpResumeMode && _ex.voiceIntro) speak(_ex.voiceIntro);
 }
 
 /* "▶ Do This Step" / "Next →" button tapped */
