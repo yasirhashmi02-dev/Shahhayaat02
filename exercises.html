@@ -5092,6 +5092,23 @@ function shareChallenge(method) {
   window.lbnSanitizeInput = lbnSanitizeInput;
   window.reviewDone       = reviewDone;
 
+  /* ── HOMEPAGE CARD LINKS: exercises.html?cat=breath  or  ?routine=night ──
+     Opens the page already filtered to that category (or starts that routine). */
+  (function handleHomeCardLink() {
+    try {
+      const params  = new URLSearchParams(window.location.search);
+      if (params.get('challenge')) return;
+      const cat     = params.get('cat');
+      const routine = params.get('routine');
+      const okCats  = ['brain','breath','digest','body','eyes','wake'];
+      if (routine && ROUTINES[routine]) {
+        setTimeout(function(){ startRoutine(routine); }, 400);
+      } else if (cat && okCats.indexOf(cat) !== -1) {
+        setTimeout(function(){ scrollAndFilter(cat); }, 400);
+      }
+    } catch(e) {}
+  })();
+
   /* ── CHALLENGE DEEP-LINK HANDLER ──────────────────────────────
      Link format: exercises.html?challenge=reaction-test&score=42&metric=taps%20in%2015%20sec
      _challengeCtx is read by _showDone on every finish, no fragile patching.
