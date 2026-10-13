@@ -557,6 +557,17 @@ body.nav-open {
 #skipBtn.btn--skip-bold{font-weight:500;font-size:.78rem;opacity:.75;background:transparent;box-shadow:none}
 .demo-ftr .btn--g{background:none;border:0;box-shadow:none;color:var(--tq);text-decoration:underline;font-size:.78rem}
 .demo-ftr #demoStart{flex:1;font-size:1rem;padding:.8rem 1.2rem}
+
+.wl2-diet{display:flex;align-items:center;gap:.9rem;width:100%;text-align:left;font:inherit;cursor:pointer;margin:0 0 1.2rem;padding:1rem 1.1rem;border-radius:20px;border:2px solid #F0A020;background:linear-gradient(135deg,#FFF8ED,#fff);box-shadow:0 8px 24px rgba(201,120,0,.14);transition:transform .2s,box-shadow .2s}
+.wl2-diet:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(201,120,0,.22)}
+.wl2-diet:focus-visible{outline:3px solid #2A7A5A;outline-offset:3px}
+.wl2-diet-ico{display:grid;place-items:center;flex:0 0 auto;width:3.4rem;height:3.4rem;border-radius:50%;background:#fff;font-size:1.8rem;box-shadow:0 2px 10px rgba(201,120,0,.2)}
+.wl2-diet-txt{flex:1;min-width:0}
+.wl2-diet-txt b{display:block;font-size:1rem;color:var(--t)}
+.wl2-diet-txt i{font-style:normal;font-size:.62rem;font-weight:800;letter-spacing:.06em;padding:.12rem .45rem;margin-right:.35rem;border-radius:5px;background:#F0A020;color:#3a2300;vertical-align:middle}
+.wl2-diet-txt small{display:block;font-size:.74rem;color:var(--tm);line-height:1.45;margin-top:.15rem}
+.wl2-diet-go{flex:0 0 auto;padding:.5rem 1rem;border-radius:50px;background:linear-gradient(135deg,#2A7A5A,#38A87A);color:#fff;font-size:.82rem;font-weight:700}
+@media(max-width:480px){.wl2-diet-go{display:none}}
 </style>
 </head>
 <body id="top">
@@ -625,6 +636,13 @@ body.nav-open {
       </div>
       <p class="wl2-note">✅ Pause anytime &nbsp;·&nbsp; 🔐 Private, stays on your device</p>
     </div>
+
+    <!-- ── DIET LAB BANNER ───────────────────────────────── -->
+    <button class="wl2-diet au d1" onclick="LAB.startDiet()" aria-label="Start the Diet and Nutrition Plan quiz">
+      <span class="wl2-diet-ico" aria-hidden="true">🥗</span>
+      <span class="wl2-diet-txt"><b><i>NEW</i> Diet &amp; Nutrition Plan</b><small>Free BMI · daily calories · what to eat &amp; avoid · 3-day Indian meal plan</small></span>
+      <span class="wl2-diet-go" aria-hidden="true">Start →</span>
+    </button>
 
     <!-- ── PROGRESS HISTORY (shown after first test) ─────── -->
     <div id="labHistoryPanel" style="display:none;margin:1.2rem 0"></div>
@@ -829,6 +847,10 @@ body.nav-open {
   </div>
 </section>
 
+<section id="sDiet" style="display:none;padding:clamp(1.2rem,4vw,2.4rem) 0" aria-label="Diet and nutrition plan">
+  <div class="wrap"><div id="dietRoot"></div></div>
+</section>
+
 <div id="sModules">
   <div class="wrap" style="padding-top:1.5rem;padding-bottom:3rem">
     <div id="modContent" aria-live="polite" aria-atomic="false"></div>
@@ -890,7 +912,8 @@ body.nav-open {
 
 <script src="wellness-lab-part4.js?v=20261014"></script>
 <script src="wellness-lab-part5.js?v=20261014"></script>
-<script src="wellness-lab-boost.js?v=20261015"></script>
+<script src="wellness-lab-boost.js?v=20261016"></script>
+<script src="wellness-lab-diet.js?v=20261016"></script>
 
 
 </body>
