@@ -548,6 +548,15 @@ body.nav-open {
 .wl2-link:hover{transform:translateY(-2px)}
 .wl2-link--wa{background:#25D366}.wl2-link--ig{background:linear-gradient(135deg,#f58529,#dd2a7b 55%,#8134af)}
 @media(prefers-reduced-motion:reduce){.wl2-btn--main{animation:none}.wl2-tile,.wl2-btn,.wl2-link{transition:none}}
+
+.wl2-preview{list-style:none;margin:0 auto 1.5rem;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;max-width:420px}
+@media(min-width:560px){.wl2-preview{grid-template-columns:repeat(4,1fr);max-width:560px}}
+.wl2-preview li{display:flex;flex-direction:column;align-items:center;gap:.25rem;padding:.7rem .4rem;border-radius:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);font-size:.76rem;font-weight:700}
+.wl2-preview span{font-size:1.5rem}
+.wl2-note{margin:1.1rem 0 0;font-size:.76rem;color:rgba(255,255,255,.85)}
+#skipBtn.btn--skip-bold{font-weight:500;font-size:.78rem;opacity:.75;background:transparent;box-shadow:none}
+.demo-ftr .btn--g{background:none;border:0;box-shadow:none;color:var(--tq);text-decoration:underline;font-size:.78rem}
+.demo-ftr #demoStart{flex:1;font-size:1rem;padding:.8rem 1.2rem}
 </style>
 </head>
 <body id="top">
@@ -585,7 +594,7 @@ body.nav-open {
     <div class="prog-row">
       <span class="mono" style="font-size:.62rem;color:var(--tq);white-space:nowrap" id="pStep">-</span>
       <div class="prog-track"><div class="prog-fill" id="pFill" style="width:0%"></div></div>
-      <button class="btn btn--skip btn--skip-bold" onclick="LAB.skip()" id="skipBtn" aria-label="Skip this activity">Skip →</button>
+      <button class="btn btn--skip btn--skip-bold" onclick="LAB.askSkip()" id="skipBtn" aria-label="Skip this activity">Skip →</button>
     </div>
     <div class="prog-meta"><span id="pLbl">-</span><span id="pPct">0%</span></div>
   </div>
@@ -600,19 +609,21 @@ body.nav-open {
         <span class="wl2-chip">🧪 Wellness Lab</span>
         <span class="wl2-chip">✨ Free · Private · No sign-up</span>
       </div>
-      <h1 class="wl2-h1">Check your health<br>in <em>2 minutes</em></h1>
-      <p class="wl2-lead">Simple, guided self-tests for your <strong>focus, breathing, vision and more</strong>. Just tap and follow along.</p>
+      <h1 class="wl2-h1">Your free health snapshot<br>in <em>4 minutes</em></h1>
+      <p class="wl2-lead">4 short, fun activities with <strong>no right or wrong answers</strong>. Just tap and follow the guide. You get a personal wellness score and a free PDF report.</p>
+
+      <ul class="wl2-preview" aria-label="What you will do">
+        <li><span>⚡</span>Reaction game</li>
+        <li><span>🧩</span>Memory puzzle</li>
+        <li><span>🌬</span>Calm breathing</li>
+        <li><span>💧</span>Hydration quiz</li>
+      </ul>
 
       <div class="wl2-cta">
-        <button class="wl2-btn wl2-btn--main" onclick="LAB.goInstr()" id="mainStartBtn">▶ Start Full Health Check</button>
-        <button class="wl2-btn wl2-btn--ghost" id="startBrainBtn" onclick="LAB.goInstr();LAB._pendingCat='brain'">🧠 Quick start: Brain Lab</button>
+        <button class="wl2-btn wl2-btn--main" onclick="LAB._pendingCat='quick';LAB.goInstr()" id="mainStartBtn">▶ Start Quick Check · 4 min</button>
+        <button class="wl2-btn wl2-btn--ghost" onclick="LAB.goInstr()">Full health check · all labs, ~15 min</button>
       </div>
-
-      <ol class="wl2-steps" aria-label="How it works">
-        <li><b>1</b> Watch a short demo</li>
-        <li><b>2</b> Take the test</li>
-        <li><b>3</b> Get your result</li>
-      </ol>
+      <p class="wl2-note">✅ Pause anytime &nbsp;·&nbsp; 🔐 Private, stays on your device</p>
     </div>
 
     <!-- ── PROGRESS HISTORY (shown after first test) ─────── -->
@@ -743,8 +754,8 @@ body.nav-open {
   <div class="wrap">
     <div class="card card--pop" style="text-align:center">
       <div style="font-size:1.8rem;margin-bottom:.4rem">👤</div>
-      <h2 class="h2" style="margin-bottom:.3rem;font-size:1.2rem">One quick question</h2>
-      <p class="pg" style="font-size:.8rem;color:var(--tq);margin-bottom:1.3rem">Select your biological sex: shows the right checks for you.</p>
+      <h2 class="h2" style="margin-bottom:.3rem;font-size:1.2rem">Quick question before we start</h2>
+      <p class="pg" style="font-size:.8rem;color:var(--tq);margin-bottom:1.3rem">Helps us pick the right checks for you. Stays on your device.</p>
 
       <div class="gend-grid" role="group" aria-label="Select biological sex" style="margin:0 auto 1rem">
         <div class="gcard" id="gM" role="radio" aria-checked="false" tabindex="0"
@@ -828,7 +839,7 @@ body.nav-open {
   <div class="demo-box">
     <div class="demo-hdr">
       <h3 id="demoTitle">Demo</h3>
-      <span class="demo-badge" id="demoBadge">Watch · then Start</span>
+      <span class="demo-badge" id="demoBadge">Takes about a minute</span>
     </div>
     <div class="demo-body">
       <p class="demo-txt" id="demoTxt">Loading…</p>
@@ -836,7 +847,7 @@ body.nav-open {
       <div class="demo-hint" id="demoHint"></div>
     </div>
     <div class="demo-ftr">
-      <button class="btn btn--g btn--sm" onclick="LAB.closeDemo(true);LAB.skip()">Not now →</button>
+      <button class="btn btn--g btn--sm" onclick="LAB.askSkip()">Skip</button>
       <button class="btn btn--p btn--sm" id="demoStart" onclick="LAB.closeDemo(false)">Start →</button>
       <span id="demoCountdown" style="font-size:.72rem;color:var(--tq);font-family:'JetBrains Mono',monospace;display:none;align-self:center;min-width:60px;text-align:right"></span>
     </div>
@@ -871,7 +882,7 @@ body.nav-open {
   </div>
 </footer>
 
-<script src="wellness-lab-part1.js?v=20261014"></script>
+<script src="wellness-lab-part1.js?v=20261015"></script>
 
 <script src="wellness-lab-part2.js?v=20261014"></script>
 
@@ -879,6 +890,7 @@ body.nav-open {
 
 <script src="wellness-lab-part4.js?v=20261014"></script>
 <script src="wellness-lab-part5.js?v=20261014"></script>
+<script src="wellness-lab-boost.js?v=20261015"></script>
 
 
 </body>
