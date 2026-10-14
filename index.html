@@ -568,6 +568,41 @@ body.nav-open {
 @media(min-width:960px) and (max-width:1199px){.nav-desktop>a{padding:.4rem .6rem!important;font-size:.82rem!important}.nav-badge,.nav-ex-badge{display:none}.nav-cta-pill{display:none!important}}
 @media(min-width:960px){.nav-cta-pill{display:none!important}}
 </style>
+<style id="polish-2">
+/* 1 · hero */
+.hero h1{font-size:clamp(2.1rem,4.6vw,3.6rem)!important;line-height:1.12}
+.hero-btns{align-items:center}
+.hero-shop-link{color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:5px;text-decoration-color:rgba(242,193,78,.7);padding:.4rem .2rem}
+.hero-shop-link:hover{color:#F2C14E}
+/* announcement bar: gold to match theme */
+.tk--hero{border-color:rgba(242,193,78,.45)!important;color:#F2C14E!important;background:rgba(242,193,78,.07)!important}
+.tk--hero .tk-list a{color:#F2C14E!important;text-decoration-color:rgba(242,193,78,.45)!important}
+.tk--hero .tk-list a:hover{color:#FFE08A!important}
+.tk--hero .tk-list li::after{background:#F2C14E!important}
+.tk--hero .tk-pause{border-left-color:rgba(242,193,78,.4)!important}
+.tk--hero .tk-pause i{border-left-color:#F2C14E!important;border-right-color:#F2C14E!important}
+/* 3 · proof strip */
+.proof-badges{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;padding:.2rem 1rem 1.2rem}
+.proof-badge{font-size:.82rem;font-weight:700;color:#fff;padding:.4rem .95rem;border-radius:50px;background:rgba(212,160,23,.14);border:1px solid rgba(242,193,78,.4);text-decoration:none;white-space:nowrap}
+.proof-badge--link:hover{background:rgba(242,193,78,.3)}
+/* 5 · contrast */
+.stat-lbl{color:rgba(255,255,255,.78)!important;font-size:.76rem!important}
+.stat-num{font-size:1.9rem!important}
+.hero-trust-item{color:rgba(255,255,255,.82)!important;font-size:.85rem!important}
+.hero-sub{color:rgba(255,255,255,.85)!important}
+.assess-icon-label{color:rgba(255,255,255,.78)!important;font-size:.74rem!important}
+.assessment-section p{color:rgba(255,255,255,.82)!important}
+.trust-card p,.product-card p{color:rgba(255,255,255,.78)!important}
+.footer-col a,.footer-col li{color:rgba(255,255,255,.82)}
+/* 7 · gentle motion */
+.product-card,.trust-card,.ldr-home-card,.blog-card{transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+.product-card:hover,.trust-card:hover{transform:translateY(-6px)}
+.btn-glow,.btn-primary{will-change:transform}
+.hero-text>*{animation:heroIn .8s ease both}
+.hero-text>*:nth-child(2){animation-delay:.08s}.hero-text>*:nth-child(3){animation-delay:.16s}.hero-text>*:nth-child(4){animation-delay:.24s}.hero-text>*:nth-child(5){animation-delay:.32s}.hero-text>*:nth-child(6){animation-delay:.4s}
+@keyframes heroIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.hero-text>*{animation:none}.product-card:hover,.trust-card:hover{transform:none}}
+</style>
 </head>
 
 <body id="top">
@@ -643,18 +678,12 @@ body.nav-open {
       <div class="hero-text">
 <div class="tk tk--hero" role="region" aria-label="Announcements"><div class="tk-view"><div class="tk-track"><ul class="tk-list"><li><a href="products.html">Discover Our Range of Ayurvedic Medicines and Herbal Products</a></li><li><a href="conditions.html">Looking for Health and Wellness Tips? Explore Our Health Guides</a></li><li><a href="products.html">Get to Know Our Products, Including PanaSip, Shah Zyme, Livo Hayaat and Ortho Hayaat</a></li><li><a href="about.html">Learn More About Our Manufacturing and Quality Standards</a></li><li><a href="bundles.html">Explore Our Latest Products and Current Offers</a></li><li><a href="contact.html">Need Help Finding the Right Product? Get in Touch With Our Team</a></li><li><a href="shipping.html">Enjoy Free Delivery on Orders Above ₹499</a></li></ul><ul class="tk-list" aria-hidden="true"><li><a href="products.html" tabindex="-1">Discover Our Range of Ayurvedic Medicines and Herbal Products</a></li><li><a href="conditions.html" tabindex="-1">Looking for Health and Wellness Tips? Explore Our Health Guides</a></li><li><a href="products.html" tabindex="-1">Get to Know Our Products, Including PanaSip, Shah Zyme, Livo Hayaat and Ortho Hayaat</a></li><li><a href="about.html" tabindex="-1">Learn More About Our Manufacturing and Quality Standards</a></li><li><a href="bundles.html" tabindex="-1">Explore Our Latest Products and Current Offers</a></li><li><a href="contact.html" tabindex="-1">Need Help Finding the Right Product? Get in Touch With Our Team</a></li><li><a href="shipping.html" tabindex="-1">Enjoy Free Delivery on Orders Above ₹499</a></li></ul></div></div><button type="button" class="tk-pause" aria-pressed="false" aria-label="Pause announcements"><i></i></button></div>
         <div class="eyebrow">Trusted by 50,000+ Customers · WHO-GMP Certified · Natural</div>
-        <h1>Ayurvedic Care for Joints,<br>Liver &amp; Mind<br><em>Naturally</em></h1>
+        <h1>Ayurvedic Care for<br>Joints, Liver &amp; Mind<br><em>Naturally</em></h1>
         <p class="hero-sub">Traditional Ayurvedic formulations for Brain, Liver, Digestion, Joints &amp; Immunity. Crafted with traditional wisdom, modern standards.</p>
         <div class="hero-btns">
           <a href="wellness-lab.html" class="btn btn-glow btn-lg">🧪 Free Wellness Lab</a>
           <a href="exercises.html" class="btn btn-outline-white btn-lg">🧘 Daily Exercises</a>
-          <a href="#shop-by-need" class="btn btn-primary btn-lg">🛒 Shop by Need</a>
-        </div>
-        <div class="hero-trust">
-          <span class="hero-trust-item">🌍 WHO-GMP</span>
-          <span class="hero-trust-item">🏆 ISO 9001:2015</span>
-          <span class="hero-trust-item">✅ HACCP</span>
-          <span class="hero-trust-item">🌿 Natural</span>
+          <a href="#shop-by-need" class="hero-shop-link">or Shop by Need →</a>
         </div>
       </div>
       <div class="hero-img-col" aria-hidden="true">
@@ -676,13 +705,20 @@ body.nav-open {
   </div>
 </section>
 
-<!-- STATS BAR -->
-<div class="stats-bar">
+<!-- PROOF STRIP -->
+<div class="stats-bar proof-strip">
   <div class="container stats-inner">
-    <div class="stat-item"><span class="stat-num">20</span><div class="stat-lbl">Products</div></div>
-    <div class="stat-item"><span class="stat-num">50K+</span><div class="stat-lbl">Happy Customers</div></div>
-    <div class="stat-item"><span class="stat-num">4</span><div class="stat-lbl">Certifications</div></div>
+    <div class="stat-item"><span class="stat-num" data-count="50" data-suffix="K+">50K+</span><div class="stat-lbl">Happy Customers</div></div>
+    <div class="stat-item"><span class="stat-num" data-count="20">20</span><div class="stat-lbl">Products</div></div>
+    <div class="stat-item"><span class="stat-num" data-count="4">4</span><div class="stat-lbl">Certifications</div></div>
     <div class="stat-item"><span class="stat-num">Pan</span><div class="stat-lbl">India Delivery</div></div>
+  </div>
+  <div class="container proof-badges" aria-label="Certifications">
+    <span class="proof-badge">🌍 WHO-GMP Certified</span>
+    <span class="proof-badge">🏆 ISO 9001:2015</span>
+    <span class="proof-badge">✅ HACCP</span>
+    <span class="proof-badge">🌿 100% Natural</span>
+    <a class="proof-badge proof-badge--link" href="#reviews-heading">⭐ Read Google Reviews</a>
   </div>
 </div>
 
@@ -1506,5 +1542,19 @@ document.addEventListener('DOMContentLoaded',function(){
   </div>
 </div>
 <script>(function(){var y=document.getElementById("year");if(y)y.textContent=new Date().getFullYear();})();</script>
+<script>
+/* count-up for proof strip numbers */
+(function(){
+  var els=document.querySelectorAll('.stat-num[data-count]');
+  if(!els.length||matchMedia('(prefers-reduced-motion:reduce)').matches||!('IntersectionObserver' in window))return;
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(!e.isIntersecting)return; io.unobserve(e.target);
+    var el=e.target,end=+el.dataset.count,suf=el.dataset.suffix||'',t0=null;
+    function step(t){t0=t0||t;var p=Math.min((t-t0)/1200,1),v=Math.round(end*(1-Math.pow(1-p,3)));el.textContent=v+suf;if(p<1)requestAnimationFrame(step)}
+    requestAnimationFrame(step);
+  })},{threshold:.5});
+  els.forEach(function(el){io.observe(el)});
+})();
+</script>
 </body>
 </html>
