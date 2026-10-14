@@ -13,6 +13,7 @@
   var KEY = 'wl_diet_answers';
   var STEPS = 6;
   var STEP_NAMES = ['About you', 'Body & activity', 'Your goal', 'Food choices', 'Health', 'Eating habits'];
+  STEP_NAMES[4] = 'Health & how you feel';
 
   /* ───────────────────────── Option data ───────────────────────── */
   var ACT = [
@@ -41,6 +42,60 @@
     { id: 'anem', t: 'Anaemia / low iron' }, { id: 'liver', t: 'Fatty liver' }, { id: 'kid', t: 'Kidney disease' },
     { id: 'preg', t: 'Pregnant / breastfeeding', f: 1 }, { id: 'ed', t: 'Past or present eating disorder' }
   ];
+  var SYMP = [
+    { id: 'gas', t: 'Gas, bloating or indigestion' }, { id: 'acidity', t: 'Acidity or heartburn' }, { id: 'tired', t: 'Low energy or tiredness' },
+    { id: 'imm', t: 'Frequent colds or low immunity' }, { id: 'focus', t: 'Poor focus or memory' }, { id: 'joint', t: 'Joint stiffness or aches' },
+    { id: 'skin', t: 'Skin breakouts' }
+  ];
+  var WA = '917051056287';
+  /* Shah Hayaat products: wording follows each product page. Suggestions use "may support", never treat/cure claims. */
+  var PRODUCTS = {
+    shahzyme: { name: 'Shah Zyme', form: 'Digestive syrup', url: 'shah-zyme-ayurvedic-digestive-syrup.html',
+      herbs: 'Ajwain, Saunf, Jeera, Pudina, Harad',
+      use: 'A traditional digestive formula that may support digestion and comfort after meals.',
+      caution: 'Not for children under 5 without medical advice.' },
+    panasip: { name: 'PanaSip', form: 'Antacid syrup', url: 'panasip-ayurvedic-acidity-heartburn-relief.html',
+      herbs: 'Mulethi, Shatavari, Yashtimadhu',
+      use: 'A traditional Ayurvedic formula that may support stomach comfort when you get occasional acidity.',
+      caution: 'Not for use in pregnancy without physician advice. Long-term Mulethi use may affect blood pressure in some people.' },
+    bloodstorm: { name: 'Blood Storm', form: 'Ayurvedic blood tonic (syrup)', url: 'blood-storm-ayurvedic-iron-tonic.html',
+      herbs: 'Loha Bhasma, Ashwagandha, Shatavari',
+      use: 'An iron-rich Ayurvedic tonic that may support healthy blood and energy. It is a blood tonic, not a multivitamin.',
+      caution: 'Please get a blood test before taking any iron product. Consult a physician before use in pregnancy. Too much can cause constipation.',
+      alt: { t: 'Also available as Blood Storm Capsules (iron, calcium and vitamin C)', url: 'blood-storm-capsules.html' } },
+    livo: { name: 'Livo Hayaat DS', form: 'Liver tonic (syrup)', url: 'livo-hayaat-ds-syrup.html',
+      herbs: 'Kutki, Kalmegh, Kasni, Kakanchi, Punarnava',
+      use: 'An Ayurvedic liver tonic that may support liver wellness alongside the diet changes above.',
+      caution: 'For adults. A liver condition needs medical supervision, so use only as directed by your physician.' },
+    cardo: { name: 'Cardo Hayaat', form: 'Tablets', url: 'cardo-hayaat-tablets.html',
+      herbs: 'Arjun, Cinnamon, Black Seed',
+      use: 'A traditional herbal formula that may support heart wellness as part of a heart-friendly lifestyle.',
+      caution: 'For adults only. Use as directed by your physician, especially if you take medicines for blood pressure or cholesterol.' },
+    diaease: { name: 'Dia-Ease', form: 'Ayurvedic formula', url: 'dia-ease-ayurvedic-blood-sugar-control.html',
+      herbs: 'Karela, Jamun, Gurmar',
+      use: 'A traditional herbal formula that may support healthy blood sugar levels alongside diet and exercise.',
+      caution: 'Not a substitute for prescribed diabetes medicines. It may interact with them (risk of low sugar), so talk to your doctor first and keep checking your glucose.' },
+    fevodol: { name: 'Fevodol', form: 'Ayurvedic immunity formula', url: 'fevodol-ayurvedic-immunity-booster-giloy-tulsi.html',
+      herbs: 'Giloy, Tulsi, Chirayata',
+      use: 'A traditional herbal formula that may support your body\'s natural defences.',
+      caution: 'Not recommended with autoimmune conditions or immunosuppressant medicines. Ask your doctor first.' },
+    brain: { name: 'Brain Champ', form: 'Ayurvedic brain tonic', url: 'brain-champ-ayurvedic-memory-booster.html',
+      herbs: 'Brahmi, Shankhpushpi, Ashwagandha',
+      use: 'A traditional herbal formula that may support memory, focus and calm.',
+      caution: 'Not recommended in pregnancy. Check with your physician if you take regular medicines.' },
+    ortho: { name: 'Ortho Hayaat', form: 'Ayurvedic joint formula', url: 'ortho-hayaat-ayurvedic-joint-pain-relief.html',
+      herbs: 'Shallaki (Boswellia), Guggul, Ashwagandha',
+      use: 'A traditional herbal formula that may support joint comfort and mobility.',
+      caution: 'Check with your doctor if you take blood thinners. Not for use in pregnancy without medical advice.' },
+    musaffa: { name: 'Musaffa Khoon', form: 'Ayurvedic skin formula', url: 'musaffa-khoon-ayurvedic-blood-purifier.html',
+      herbs: 'Neem, Manjistha, Giloy',
+      use: 'A traditional herbal formula that may support skin wellness from within. Herbs work gradually, over weeks.',
+      caution: 'Not for use in pregnancy without physician advice.' },
+    utro: { name: 'Utro Hayaat DS', form: 'Syrup', url: 'utro-hayaat-ds-syrup.html',
+      herbs: 'Ashoka, Lodhar, Majuphal, Daru Haldi, Guduchi',
+      use: 'An Ayurvedic syrup presented for women\'s wellness support.',
+      caution: 'For adults. Use as directed by your physician. Not for use in pregnancy without medical advice.' }
+  };
   var SLEEP = [['lt5', 'Under 5 h'], ['5to6', '5 to 6 h'], ['6to7', '6 to 7 h'], ['7to9', '7 to 9 h'], ['gt9', 'Over 9 h']];
   var HAB = [
     { id: 'bf',    q: 'How often do you eat breakfast?', o: [['Every day', 2], ['Sometimes', 1], ['Rarely or never', 0]],
@@ -250,6 +305,55 @@
     return L;
   }
 
+  function suggestProducts(a, r) {
+    if (r.restrict || has(a, 'preg')) return [];
+    var cand = {};
+    function add(id, score, why) { if (!cand[id] || cand[id].score < score) cand[id] = { id: id, score: score, why: why }; }
+    function sy(id) { return a.symp && a.symp.indexOf(id) >= 0; }
+    function pts(id) { var q = HAB.filter(function (x) { return x.id === id; })[0], i = a.hab && a.hab[id]; return (!q || i === undefined || i === null) ? 2 : q.o[i][1]; }
+    var bp = has(a, 'bp');
+    if (has(a, 'anem')) add('bloodstorm', 100, 'You mentioned anaemia or low iron.');
+    if (has(a, 'liver')) add('livo', 90, 'You mentioned fatty liver.');
+    if (has(a, 'chol')) add('cardo', 90, 'You mentioned high cholesterol.');
+    if (bp) add('cardo', 80, 'You mentioned high blood pressure.');
+    if (has(a, 'diab')) add('diaease', 85, 'You mentioned diabetes or high blood sugar.');
+    if (has(a, 'acid') && !bp) add('panasip', 90, 'You mentioned acidity or GERD.');
+    if (has(a, 'pcos') && a.sex === 'f') add('utro', 70, 'You mentioned PCOD / PCOS.');
+    if (sy('gas')) add('shahzyme', 80, 'You mentioned gas, bloating or indigestion.');
+    if (sy('acidity') && !bp) add('panasip', 80, 'You mentioned acidity or heartburn.');
+    if (sy('tired')) add('bloodstorm', 60, 'You mentioned low energy or tiredness.');
+    if (sy('imm')) add('fevodol', 70, 'You mentioned frequent colds or low immunity.');
+    if (sy('focus')) add('brain', 70, 'You mentioned poor focus or memory.');
+    if (sy('joint')) add('ortho', 70, 'You mentioned joint stiffness or aches.');
+    if (sy('skin')) add('musaffa', 60, 'You mentioned skin breakouts.');
+    if (pts('late') === 0 || pts('out') === 0 || pts('fry') === 0) add('shahzyme', 40, 'You told us you often eat late, eat out or have fried food, which can leave digestion feeling heavy.');
+    if (a.sex === 'f' && r.age >= 18 && r.age <= 50 && (a.diet === 'veg' || a.diet === 'vegan' || a.diet === 'jain')) add('bloodstorm', 45, 'Plant-based diets can be lower in easily absorbed iron.');
+    return Object.keys(cand).map(function (k) { return cand[k]; })
+      .sort(function (x, y) { return y.score - x.score; }).slice(0, 3)
+      .map(function (c) { var p = PRODUCTS[c.id]; return { id: c.id, why: c.why, p: p }; });
+  }
+  LAB.dietProducts = suggestProducts;
+  var PROD_DISC = '<div class="dr-pdisc"><b>Important</b> These are traditional Ayurvedic herbal products. They <strong>may support</strong> general wellness when used with a balanced diet and a healthy lifestyle. They are not a substitute for nutritious food, medical advice or prescribed medicines, and are not intended to diagnose, treat, cure or prevent any disease. Results vary from person to person. Please check with your doctor before use, especially if you are pregnant or breastfeeding, take regular medicines, or have a medical condition, and always read the product label.</div>';
+  function productsHTML(a, r) {
+    if (has(a, 'preg')) {
+      return card('🤰', 'Supplements in pregnancy or breastfeeding', '<p>Please do not start any herbal product or supplement without your doctor\'s approval. Your diet plan above is the best place to begin.</p>');
+    }
+    var list = suggestProducts(a, r);
+    if (!list.length) return '';
+    return card('🌿', 'Herbal support you may consider',
+      '<p>Food comes first. Based on your answers, these Shah Hayaat Ayurvedic products <strong>may support</strong> you alongside the plan above.</p>' +
+      list.map(function (x) {
+        var p = x.p, msg = encodeURIComponent('Hi! I saw ' + p.name + ' in the Shah Hayaat Wellness Lab. Please share details.');
+        return '<div class="dr-prod"><div class="dr-prod-top"><b>' + esc(p.name) + '</b><span>' + esc(p.form) + '</span></div>' +
+          '<p class="dr-why">Why this: ' + esc(x.why) + '</p><p>' + esc(p.use) + '</p>' +
+          '<p class="dr-herbs">🌿 ' + esc(p.herbs) + '</p><p class="dr-cau">⚠️ ' + esc(p.caution) + '</p>' +
+          (p.alt ? '<p class="dr-alt"><a href="' + p.alt.url + '">' + esc(p.alt.t) + '</a></p>' : '') +
+          '<div class="dr-pbtns no-print"><a class="btn btn--p btn--sm" href="' + p.url + '" onclick="LAB._dProd(\'' + x.id + '\')">View details</a>' +
+          '<a class="btn btn--g btn--sm" href="https://wa.me/' + WA + '?text=' + msg + '" target="_blank" rel="noopener" onclick="LAB._dProd(\'' + x.id + '_wa\')">💬 Ask on WhatsApp</a></div></div>';
+      }).join('') + PROD_DISC);
+  }
+  LAB._dProd = function (id) { track('diet_product_' + id); };
+
   var AYU = [
     'Eat freshly cooked, warm meals, with your largest meal at midday when digestion is strongest.',
     'Sit down to eat, without screens, and chew well.',
@@ -432,6 +536,18 @@
     '.dr-score .n{flex:0 0 auto;width:4.6rem;height:4.6rem;border-radius:50%;display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-size:1.4rem;font-weight:800;color:#fff}',
     '.dr-ul{margin:.3rem 0 0;padding-left:1.1rem}',
     '.dr-ul li{font-size:.84rem;line-height:1.6;color:#3A5A3A;margin-bottom:.3rem}',
+    '.dr-prod{padding:.95rem 1rem;margin:.7rem 0;border-radius:16px;background:#F7FBF8;border:1.5px solid rgba(42,122,90,.2)}',
+    '.dr-prod-top{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem;flex-wrap:wrap}',
+    '.dr-prod-top b{font-size:1rem;color:#1C2E1C}',
+    '.dr-prod-top span{font-size:.7rem;font-weight:800;letter-spacing:.05em;color:#2A7A5A;text-transform:uppercase}',
+    '.dr-why{font-weight:700;color:#1C2E1C!important}',
+    '.dr-herbs{font-size:.78rem!important;color:#2A7A5A!important}',
+    '.dr-cau{font-size:.78rem!important;color:#7A4B00!important;background:#FFF8ED;border-radius:10px;padding:.5rem .65rem}',
+    '.dr-alt{font-size:.78rem!important}.dr-alt a{color:#2A7A5A;font-weight:700}',
+    '.dr-pbtns{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6rem}',
+    '.dr-pbtns .btn{text-decoration:none;text-align:center}',
+    '.dr-pdisc{margin-top:.9rem;padding:.8rem .95rem;border-radius:12px;background:#FFF8ED;border:1.5px solid rgba(201,120,0,.3);font-size:.76rem;line-height:1.6;color:#5a3a00}',
+    '.dr-pdisc b{display:block;letter-spacing:.06em;text-transform:uppercase;font-size:.68rem;margin-bottom:.2rem}',
     '.dr-cta{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.1rem 0}',
     '.dr-cta .btn{flex:1 1 150px}',
     '.dr-disc{font-size:.72rem;color:#6A8A6A;line-height:1.55;text-align:center;margin:1rem 0 2rem}',
@@ -441,7 +557,7 @@
 
   /* ───────────────────────── Quiz state ───────────────────────── */
   var S = null;
-  function fresh() { return { step: 1, sex: '', age: '', hUnit: 'cm', h: '', ft: '', inch: '', w: '', waist: '', hip: '', act: '', sleep: '', goal: '', pace: 'gentle', diet: '', allergies: [], conds: [], hab: {} }; }
+  function fresh() { return { step: 1, sex: '', age: '', hUnit: 'cm', h: '', ft: '', inch: '', w: '', waist: '', hip: '', act: '', sleep: '', goal: '', symp: [], pace: 'gentle', diet: '', allergies: [], conds: [], hab: {} }; }
   function load() {
     var s = fresh();
     try { var saved = JSON.parse(localStorage.getItem(KEY) || 'null'); if (saved && typeof saved === 'object') { for (var k in s) { if (k !== 'step' && saved[k] !== undefined) s[k] = saved[k]; } } } catch (e) {}
@@ -518,8 +634,10 @@
     },
     5: function () {
       var list = CONDS.filter(function (c) { return !(c.f && S.sex === 'm'); });
-      return '<h2>Any health conditions?</h2><p class="dq-sub">Select all that apply, or skip if none. This only changes the advice we show you.</p>' +
+      return '<h2>Your health</h2><p class="dq-sub">Select all that apply, or skip if none. This only changes the advice we show you.</p><span class="dq-lab" style="margin-top:0">HEALTH CONDITIONS</span>' +
         '<div class="dq-chips">' + list.map(function (x) { return chip(has(S, x.id), x.t, "LAB._dToggle('conds','" + x.id + "')"); }).join('') + '</div>' +
+        '<span class="dq-lab">ANYTHING BOTHERING YOU OFTEN? <small>(optional)</small></span><div class="dq-chips">' +
+        SYMP.map(function (x) { return chip((S.symp || []).indexOf(x.id) >= 0, x.t, "LAB._dToggle('symp','" + x.id + "')"); }).join('') + '</div>' +
         '<p class="dq-priv" style="text-align:left;margin-top:1rem">Your answers stay on your device.</p>';
     },
     6: function () {
@@ -670,6 +788,8 @@
     html += card('🏅', 'Your Diet Quality Score',
       '<div class="dr-score"><div class="n" style="background:' + scoreCol + '">' + q.score + '</div><div><p style="margin:0;font-weight:700;color:#1C2E1C">' + scoreMsg + '</p><p style="margin:.2rem 0 0;font-size:.76rem">Score out of 100, from your eating habits.</p></div></div>' +
       (tips.length ? '<div class="dr-grp">Your top 3 to 5 habit tips</div>' + ul(tips) : ''));
+
+    html += productsHTML(a, r);
 
     html += card('🌿', 'Traditional Ayurvedic eating habits', ul(AYU) + '<p style="font-size:.74rem;color:#6A8A6A">These are traditional lifestyle tips, not treatments for any condition.</p>');
 
