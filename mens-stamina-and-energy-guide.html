@@ -612,6 +612,19 @@ body.nav-open {
 <meta property="og:image" content="https://www.shahhayaat.com/logo.jpg">
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Men’s Stamina and Energy: Everyday Habits and Ashwagandha in Ayurveda", "description": "Everyday habits for energy and stamina, and the traditional use of Ashwagandha in Ayurveda.", "mainEntityOfPage": "https://www.shahhayaat.com/mens-stamina-and-energy-guide.html", "publisher": {"@type": "Organization", "name": "Shah Hayaat Private Limited", "logo": {"@type": "ImageObject", "url": "https://www.shahhayaat.com/logo.jpg"}}}</script>
+<style id="nav-priority">
+/* Priority nav: Wellness Lab first, then Daily Exercises, Leadership visible */
+.nav-lab,.nav-ex{display:inline-flex!important;align-items:center;gap:.4rem;font-weight:700!important}
+.nav-lab{color:#fff!important;background:linear-gradient(135deg,#1b7a4a,#2fa36b)!important;box-shadow:0 2px 12px rgba(47,163,107,.45)}
+.nav-lab:hover{background:linear-gradient(135deg,#22915a,#38b87b)!important}
+.nav-ex{color:#F2C14E!important;background:rgba(212,160,23,.14)}
+.nav-ex:hover{background:rgba(212,160,23,.28)!important}
+.nav-badge,.nav-ex-badge{font-size:.58rem;font-weight:800;letter-spacing:.05em;padding:.12rem .38rem;border-radius:4px;background:#D4A017;color:#071830}
+.nav-lab .nav-badge{background:#fff;color:#1b5e20}
+.nav-mobile-links .nav-lab,.nav-mobile-links .nav-ex{padding:.7rem 1rem;border-radius:8px;justify-content:center}
+@media(min-width:960px) and (max-width:1199px){.nav-desktop>a{padding:.4rem .6rem!important;font-size:.82rem!important}.nav-badge,.nav-ex-badge{display:none}.nav-cta-pill{display:none!important}}
+@media(min-width:960px){.nav-cta-pill{display:none!important}}
+</style>
 </head>
 <body id="top">
 <div class="tk" role="region" aria-label="Announcements"><div class="tk-view"><div class="tk-track"><ul class="tk-list"><li><a href="products.html">Discover Our Range of Ayurvedic Medicines and Herbal Products</a></li><li><a href="conditions.html">Looking for Health and Wellness Tips? Explore Our Health Guides</a></li><li><a href="products.html">Get to Know Our Products, Including PanaSip, Shah Zyme, Livo Hayaat and Ortho Hayaat</a></li><li><a href="about.html">Learn More About Our Manufacturing and Quality Standards</a></li><li><a href="bundles.html">Explore Our Latest Products and Current Offers</a></li><li><a href="contact.html">Need Help Finding the Right Product? Get in Touch With Our Team</a></li><li><a href="shipping.html">Enjoy Free Delivery on Orders Above ₹499</a></li></ul><ul class="tk-list" aria-hidden="true"><li><a href="products.html" tabindex="-1">Discover Our Range of Ayurvedic Medicines and Herbal Products</a></li><li><a href="conditions.html" tabindex="-1">Looking for Health and Wellness Tips? Explore Our Health Guides</a></li><li><a href="products.html" tabindex="-1">Get to Know Our Products, Including PanaSip, Shah Zyme, Livo Hayaat and Ortho Hayaat</a></li><li><a href="about.html" tabindex="-1">Learn More About Our Manufacturing and Quality Standards</a></li><li><a href="bundles.html" tabindex="-1">Explore Our Latest Products and Current Offers</a></li><li><a href="contact.html" tabindex="-1">Need Help Finding the Right Product? Get in Touch With Our Team</a></li><li><a href="shipping.html" tabindex="-1">Enjoy Free Delivery on Orders Above ₹499</a></li></ul></div></div><button type="button" class="tk-pause" aria-pressed="false" aria-label="Pause announcements"><i></i></button></div>
@@ -623,12 +636,15 @@ body.nav-open {
     </a>
     <nav class="nav-desktop" aria-label="Main navigation">
       <a href="products.html">Shop</a>
+      <a href="wellness-lab.html" class="nav-lab">🧪 Wellness Lab <span class="nav-badge">FREE</span></a>
+      <a href="exercises.html" class="nav-ex">🧘 Daily Exercises <span class="nav-ex-badge">FREE</span></a>
+      <a href="leadership.html">Leadership</a>
       <a href="bundles.html">Bundles</a>
       <a href="conditions.html">Health Guides</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
     </nav>
-    <a href="wellness-lab.html" class="nav-cta-pill">✦ Health Check</a>
+    <a href="wellness-lab.html" class="nav-cta-pill">✦ Wellness Lab</a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -637,13 +653,17 @@ body.nav-open {
 <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
   <div class="nav-mobile-links">
     <a href="products.html">Shop</a>
+    <a href="wellness-lab.html" class="nav-lab">🧪 Wellness Lab <span class="nav-badge">FREE</span></a>
+    <a href="exercises.html" class="nav-ex">🧘 Daily Exercises <span class="nav-ex-badge">FREE</span></a>
+    <a href="leadership.html">Leadership</a>
     <a href="bundles.html">Bundles</a>
     <a href="conditions.html">Health Guides</a>
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
   </div>
   <div class="nav-mobile-actions">
-    <a href="wellness-lab.html" class="btn btn-glow" style="justify-content:center;display:flex">✦ Free Health Check</a>
+    <a href="wellness-lab.html" class="btn btn-glow" style="justify-content:center;display:flex">🧪 Free Wellness Lab</a>
+    <a href="exercises.html" class="btn btn-outline-white" style="justify-content:center;display:flex">🧘 Free Daily Exercises</a>
     <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="btn btn-wa" style="justify-content:center;display:flex">💬 WhatsApp Us</a>
   </div>
 </nav>
