@@ -603,6 +603,25 @@ body.nav-open {
 @keyframes heroIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.hero-text>*{animation:none}.product-card:hover,.trust-card:hover{transform:none}}
 </style>
+<style id="polish-3">
+/* 4 · shorter homepage: show first 8 products, fold guide topics */
+#all-products-grid>.product-card:nth-child(n+9){display:none}
+.guides-fold{margin-bottom:2rem}
+.guides-fold summary{cursor:pointer;list-style:none;text-align:center;color:#F2C14E;font-weight:700;padding:.7rem 1rem;margin:0 auto 1.4rem;max-width:300px;border:1px solid rgba(242,193,78,.45);border-radius:50px}
+.guides-fold summary::-webkit-details-marker{display:none}
+.guides-fold summary:hover{background:rgba(242,193,78,.12)}
+/* 6 · consistent product cards */
+.product-card-img{height:auto!important;aspect-ratio:1/1}
+.product-card{height:100%}
+.product-body h3{min-height:2.6em;line-height:1.3}
+.product-desc{min-height:3.3em}
+.product-footer{flex-direction:column;align-items:stretch!important;margin-top:auto!important;gap:.7rem!important}
+.product-price{font-size:1.35rem}
+.product-actions{display:grid!important;grid-template-columns:1fr 1fr;gap:.5rem}
+.product-actions .btn{justify-content:center;text-align:center;padding:.6rem .4rem;white-space:nowrap}
+.best-btns{display:grid!important;grid-template-columns:1fr 1fr}
+.best-card{display:flex;flex-direction:column;height:100%}.best-body{flex:1;display:flex;flex-direction:column}.best-btns{margin-top:auto;align-items:stretch}.best-btns a{display:flex!important;align-items:center;justify-content:center;border-radius:50px!important;height:42px}.btn-best-wa{width:auto!important;height:42px!important;text-align:center;padding:.6rem .4rem;font-size:.8rem;white-space:nowrap}
+</style>
 </head>
 
 <body id="top">
@@ -823,7 +842,7 @@ body.nav-open {
           <div class="best-price">₹399 <span class="best-per">/ pack</span></div>
           <div class="best-btns">
             <a href="ortho-hayaat-ayurvedic-joint-pain-relief.html" class="btn-best-primary">Buy Now</a>
-            <a href="https://wa.me/917051056287?text=Hi!+I+want+to+order+Ortho+Hayaat+Rs.399" target="_blank" rel="noopener" class="btn-best-wa">💬</a>
+            <a href="https://wa.me/917051056287?text=Hi!+I+want+to+order+Ortho+Hayaat+Rs.399" target="_blank" rel="noopener" class="btn-best-wa">💬 WhatsApp</a>
           </div>
         </div>
       </div>
@@ -841,7 +860,7 @@ body.nav-open {
           <div class="best-price">₹349 <span class="best-per">/ pack</span></div>
           <div class="best-btns">
             <a href="livo-hayaat-ayurvedic-liver-detox.html" class="btn-best-primary">Buy Now</a>
-            <a href="https://wa.me/917051056287?text=Hi!+I+want+to+order+Livo+Hayaat+Rs.349" target="_blank" rel="noopener" class="btn-best-wa">💬</a>
+            <a href="https://wa.me/917051056287?text=Hi!+I+want+to+order+Livo+Hayaat+Rs.349" target="_blank" rel="noopener" class="btn-best-wa">💬 WhatsApp</a>
           </div>
         </div>
       </div>
@@ -859,7 +878,7 @@ body.nav-open {
           <div class="best-price">₹164 <span class="best-per">/ pack</span></div>
           <div class="best-btns">
             <a href="brain-champ-ayurvedic-memory-booster.html" class="btn-best-primary">Buy Now</a>
-            <a href="https://wa.me/917051056287?text=Hi!+I+want+to+order+Brain+Champ+Rs.164" target="_blank" rel="noopener" class="btn-best-wa">💬</a>
+            <a href="https://wa.me/917051056287?text=Hi!+I+want+to+order+Brain+Champ+Rs.164" target="_blank" rel="noopener" class="btn-best-wa">💬 WhatsApp</a>
           </div>
         </div>
       </div>
@@ -877,7 +896,7 @@ body.nav-open {
           <div class="best-price">₹180 <span class="best-per">/ pack</span></div>
           <div class="best-btns">
             <a href="fevodol-ayurvedic-immunity-booster-giloy-tulsi.html" class="btn-best-primary">Buy Now</a>
-            <a href="https://wa.me/917051056287?text=Hi!+I+want+to+order+Fevodol+Rs.180" target="_blank" rel="noopener" class="btn-best-wa">💬</a>
+            <a href="https://wa.me/917051056287?text=Hi!+I+want+to+order+Fevodol+Rs.180" target="_blank" rel="noopener" class="btn-best-wa">💬 WhatsApp</a>
           </div>
         </div>
       </div>
@@ -912,6 +931,7 @@ body.nav-open {
       <a href="products.html" class="btn btn-outline-green btn-sm reveal delay-2">View All 20 →</a>
     </div>
     <div class="product-grid" id="all-products-grid" role="list"></div>
+    <div class="text-center" style="margin-top:2rem"><a href="products.html" class="btn btn-glow btn-lg">View All 20 Products →</a></div>
   </div>
 </section>
 
@@ -1010,7 +1030,8 @@ body.nav-open {
       <h2 class="reveal delay-1" id="guides-heading">Ayurvedic Health Guides</h2>
       <p class="reveal delay-2" style="max-width:560px;margin:0 auto 2.5rem">In-depth Ayurvedic wellness guides for India's most common health conditions, backed by science, rooted in tradition.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-bottom:2rem">
+    <details class="guides-fold"><summary>Browse guide topics ▾</summary>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-bottom:2rem">
       <a href="ayurvedic-liver-detox.html" style="background:#0e2448;border:1px solid rgba(212,160,23,0.25);border-radius:12px;padding:1.2rem 1.4rem;text-decoration:none;display:block;transition:all 0.25s" onmouseover="this.style.borderColor='var(--gold-light)'" onmouseout="this.style.borderColor='rgba(212,160,23,0.25)'">
         <div style="font-size:1.5rem;margin-bottom:0.5rem">🫀</div>
         <div style="font-family:var(--font-head);color:var(--text-primary);font-weight:700;margin-bottom:0.3rem">Liver Detox</div>
@@ -1052,6 +1073,7 @@ body.nav-open {
         <div style="font-size:0.78rem;color:var(--text-muted)">PCOD, hormones, periods</div>
       </a>
     </div>
+    </details>
     <div class="text-center reveal"><a href="conditions.html" class="btn btn-outline-green">View All Health Guides →</a></div>
   </div>
 </section>
@@ -1261,8 +1283,8 @@ function renderProducts(container){
         <div class="product-footer">
           <div class="product-price">₹${p.price}</div>
           <div class="product-actions">
-            <a href="${productUrl(p.id)}" class="btn btn-outline-green btn-sm">Details</a>
-            <a href="https://wa.me/917051056287?text=${encodeURIComponent('Hello Shah Hayaat, I want to order '+p.name+'. Please guide me.')}" target="_blank" rel="noopener" class="btn btn-wa btn-sm">Order</a>
+            <a href="${productUrl(p.id)}" class="btn btn-primary btn-sm">Buy Now</a>
+            <a href="https://wa.me/917051056287?text=${encodeURIComponent('Hello Shah Hayaat, I want to order '+p.name+'. Please guide me.')}" target="_blank" rel="noopener" class="btn btn-wa btn-sm" aria-label="Order ${p.name} on WhatsApp">💬 WhatsApp</a>
           </div>
         </div>
       </div>
