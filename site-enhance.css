@@ -1,0 +1,77 @@
+/* Shah Hayaat: shared enhancements (cards, WhatsApp button, disclaimer, "Why Ayurveda" strip, gentle motion).
+   Everything is namespaced .sh-* so it cannot clash with page styles. */
+
+/* ───────── 1. PRODUCT CARD (one design for every listing) ───────── */
+.sh-pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.2rem;align-items:stretch}
+.sh-pcard{display:flex;flex-direction:column;height:100%;background:#fff;color:#1b2a22;border:1px solid #e6dfd2;border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:opacity .75s ease,transform .75s ease,translate .25s ease,box-shadow .25s ease,border-color .25s ease}
+.sh-pcard:hover{translate:0 -4px;box-shadow:0 12px 28px rgba(0,0,0,.16);border-color:rgba(184,134,11,.55)}
+.sh-pcard-media{position:relative;display:block;aspect-ratio:1/1;background:#f6f2ea;overflow:hidden}
+.sh-pcard-media img{display:block;width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box}
+.sh-pcard-tag{position:absolute;left:10px;top:10px;max-width:calc(100% - 20px);background:rgba(255,255,255,.95);color:#1b3a2a;font-size:.68rem;font-weight:700;letter-spacing:.02em;padding:.25rem .6rem;border-radius:50px;border:1px solid #e6dfd2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sh-pcard-badge{position:absolute;right:10px;top:10px;background:#B8860B;color:#fff;font-size:.66rem;font-weight:800;letter-spacing:.03em;padding:.25rem .6rem;border-radius:50px}
+.sh-pcard-body{display:flex;flex-direction:column;gap:.3rem;padding:1rem 1rem 1.1rem;flex:1}
+.sh-pcard .sh-pcard-name{margin:0;font-size:1.02rem;line-height:1.25;font-weight:700;color:#14261c}
+.sh-pcard .sh-pcard-name a{color:inherit;text-decoration:none}
+.sh-pcard p.sh-pcard-size{margin:0;font-size:.8rem;font-weight:600;color:#7a5a0c}
+.sh-pcard p.sh-pcard-desc{margin:.1rem 0 0;font-size:.83rem;line-height:1.5;color:#51605a;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:3.75em}
+.sh-pcard .sh-pcard-price{margin-top:auto;padding-top:.5rem;font-size:1.4rem;font-weight:800;line-height:1;color:#14261c}
+.sh-pcard a.sh-pcard-cta{display:flex;align-items:center;justify-content:center;gap:.45rem;min-height:44px;margin-top:.55rem;padding:.65rem 1rem;background:#0b7a3a;color:#fff;border-radius:50px;font-size:.9rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:background .2s ease}
+.sh-pcard a.sh-pcard-cta:hover{background:#095f2e}
+.sh-pcard a.sh-pcard-more{align-self:center;margin-top:.3rem;font-size:.78rem;font-weight:600;color:#6b5a2a;text-decoration:underline;text-underline-offset:3px}
+.sh-pcard a:focus-visible{outline:3px solid #D4A017;outline-offset:2px}
+/* cards must read on both light and dark sections */
+.sh-pcard.reveal{opacity:0;transform:translateY(18px)}
+.sh-pcard.reveal.in{opacity:1;transform:none}
+
+/* ───────── 2. FLOATING "ORDER ON WHATSAPP" (mobile only) ───────── */
+.sh-wa-fab{display:none}
+@media (max-width:720px){
+  .sh-wa-fab{display:flex;position:fixed;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:9970;align-items:center;gap:.6rem;max-width:calc(100vw - 24px);padding:.5rem 1.05rem .5rem .55rem;border-radius:999px;background:#0b7a3a;color:#fff;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.4),0 0 0 2px rgba(255,255,255,.85);opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
+  html.sh-no-bar .sh-wa-fab{bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+  .sh-wa-fab.sh-on{opacity:1;transform:none}
+  .sh-wa-fab:active{transform:scale(.97)}
+  .sh-wa-ic{display:flex;align-items:center;justify-content:center;flex:0 0 38px;width:38px;height:38px;border-radius:50%;background:#fff;font-size:1.25rem;line-height:1}
+  .sh-wa-tx{display:flex;flex-direction:column;min-width:0;line-height:1.15}
+  .sh-wa-tx strong{font-size:.92rem;font-weight:800;white-space:nowrap}
+  .sh-wa-tx small{font-size:.72rem;font-weight:600;opacity:.92;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px}
+  .sh-wa-fab::after{content:"";position:absolute;inset:0;border-radius:999px;box-shadow:0 0 0 0 rgba(11,122,58,.55);animation:shWaPulse 2.6s ease-out infinite;pointer-events:none}
+  @keyframes shWaPulse{0%{box-shadow:0 0 0 0 rgba(11,122,58,.5)}70%,100%{box-shadow:0 0 0 14px rgba(11,122,58,0)}}
+  html.sh-no-bar body{padding-bottom:84px}
+  body.nav-open .sh-wa-fab{display:none}
+  /* the old round WhatsApp button and the other floating buttons would collide: tidy them on mobile */
+  .wa-float{display:none!important}
+  .back-top{right:auto!important;left:.9rem!important;bottom:5.2rem!important}
+  .rate-fab{left:.9rem!important;right:auto!important;bottom:9.2rem!important}
+}
+
+/* ───────── 3. AYUSH DISCLAIMER (same block on every page) ───────── */
+.sh-disclaimer{background:#14231a;border-top:2px solid #B8860B;padding:1.15rem 0;text-align:center}
+.sh-disclaimer-in{max-width:900px;margin:0 auto;padding:0 1.25rem}
+.sh-disclaimer p.sh-disclaimer-text{margin:0;font-size:.8rem;line-height:1.7;color:rgba(255,255,255,.84)}
+.sh-disclaimer strong{color:#F2C14E}
+@media (max-width:720px){.sh-disclaimer{padding-bottom:1.4rem}}
+
+/* ───────── 4. "WHY AYURVEDA FROM US" STRIP ───────── */
+.sh-why{background:#0a1f3c;border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);padding:clamp(2.2rem,5vw,3.4rem) 0}
+.sh-why-head{text-align:center;margin-bottom:1.8rem}
+.sh-why-head .sh-why-eyebrow{display:block;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#F2C14E;margin-bottom:.5rem}
+.sh-why-head h2{margin:0;color:#fff;font-size:clamp(1.3rem,3.2vw,1.9rem);line-height:1.25}
+.sh-why-grid{list-style:none;margin:0 auto;padding:0;max-width:1100px;display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1rem}
+.sh-why-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.55rem;padding:1.3rem 1.1rem;background:rgba(255,255,255,.04);border:1px solid rgba(242,193,78,.22);border-radius:16px;transition:translate .25s ease,border-color .25s ease,background .25s ease}
+.sh-why-item:hover{translate:0 -4px;border-color:rgba(242,193,78,.55);background:rgba(255,255,255,.07)}
+.sh-why-ic{display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:50%;background:rgba(212,160,23,.14);border:1px solid rgba(242,193,78,.4);color:#F2C14E}
+.sh-why-ic svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sh-why-item strong{font-size:1rem;color:#fff}
+.sh-why-item p{margin:0;font-size:.84rem;line-height:1.6;color:rgba(255,255,255,.78)}
+
+/* ───────── 5. GENTLE MOTION ───────── */
+html.sh-fx .sh-fade{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+html.sh-fx .sh-fade.sh-in{opacity:1;transform:none}
+.stat-num[data-count]{font-variant-numeric:tabular-nums}
+
+/* Slow phones, data-saver, low-memory devices and OS "reduce motion": everything shows instantly, no lifts, no pulses */
+html.sh-lite .sh-fade,html.sh-lite .reveal{opacity:1!important;transform:none!important;transition:none!important}
+html.sh-lite .sh-pcard,html.sh-lite .sh-why-item,html.sh-lite .trust-card,html.sh-lite .product-card,html.sh-lite .prod-card,html.sh-lite .best-card,html.sh-lite .bundle-card,html.sh-lite .blog-card{transition:none!important;animation:none!important}
+html.sh-lite .sh-pcard:hover,html.sh-lite .sh-why-item:hover,html.sh-lite .trust-card:hover,html.sh-lite .product-card:hover,html.sh-lite .prod-card:hover,html.sh-lite .best-card:hover,html.sh-lite .bundle-card:hover,html.sh-lite .blog-card:hover{translate:none!important;transform:none!important}
+html.sh-lite .btn-glow,html.sh-lite .nav-cta-pill,html.sh-lite .sh-wa-fab::after{animation:none!important}
+html.sh-lite .sh-wa-fab{transition:none}

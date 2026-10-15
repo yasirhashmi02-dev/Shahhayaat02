@@ -2026,6 +2026,9 @@ body.nav-open{overflow:hidden}
     </div>
   </div>
 </footer>
+<!-- AYUSH LEGAL DISCLAIMER -->
+<div class="sh-disclaimer" role="note" aria-label="Disclaimer"><div class="sh-disclaimer-in"><p class="sh-disclaimer-text"><strong>Important Disclaimer:</strong> Shah Hayaat Private Limited products are Ayurvedic (AYUSH-category) herbal products. Information on this website is based on traditional Ayurvedic use and is for general information only. It is not intended to diagnose, treat, cure or prevent any disease and is not a substitute for medical advice. Individual results may vary. Please consult a qualified doctor or vaidya before use, especially if you have a medical condition, are pregnant or nursing, or take prescription medicine. Not recommended for children under 12 without medical supervision. Keep out of reach of children.</p></div></div>
+
 
 <a href="#top" class="back-top" id="back-top" aria-label="Back to top">↑</a>
 <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float" id="wa-float" aria-label="WhatsApp">💬</a>
@@ -2733,7 +2736,7 @@ const EXERCISES = [
     phases:[{label:'Count down from 100 by 7',sec:40},{label:'Count down from 50 by 3',sec:30},{label:'Say the alphabet backwards',sec:30},{label:'Say the months backwards',sec:20}],
     rounds:1,
     steps:['Start at 100 and take away 7 each time: 93, 86, 79... If you slip, restart from your last right number.','Start at 50 and take away 3 each time: 47, 44, 41...','Start at Z and go back to A: Z, Y, X...','Start at December and go back to January.'],
-    avoid:'Safe for everyone. Go slowly if it feels hard.',
+    avoid:'A gentle exercise for most people. Go slowly if it feels hard.',
     voiceIntro:'Count Backwards Challenge. Start at one hundred and take away seven each time.',
     phaseVoice:['Start at 100 and take away 7 each time: 93, 86, 79... If you slip, restart from your last right number.','Start at 50 and take away 3 each time: 47, 44, 41...','Start at Z and go back to A: Z, Y, X...','Start at December and go back to January.'],
     benefit:'Switches on', benefitVal:'focus and memory' },
@@ -2744,7 +2747,7 @@ const EXERCISES = [
     phases:[{label:'Look at your desk',sec:20},{label:'Close your eyes and name them',sec:30},{label:'Name them backwards',sec:30},{label:'Open and check',sec:20}],
     rounds:1,
     steps:['Look around your desk. Pick 10 things and try to remember them.','Close your eyes. Say the things you remember.','Keep your eyes closed. Say the same things in reverse order.','Open your eyes. See what you forgot.'],
-    avoid:'Safe for everyone.',
+    avoid:'A gentle exercise for most people.',
     voiceIntro:'Desk Scan and Recall. Look at your desk and pick ten things to remember.',
     phaseVoice:['Look around your desk. Pick 10 things and try to remember them.','Close your eyes. Say the things you remember.','Keep your eyes closed. Say the same things in reverse order.','Open your eyes. See what you forgot.'],
     benefit:'Sharpens', benefitVal:'attention and memory' },
@@ -2755,7 +2758,7 @@ const EXERCISES = [
     phases:[{label:'Write your name',sec:30},{label:'Draw simple shapes',sec:30},{label:'Pat head, rub tummy',sec:30},{label:'Touch thumb to fingers',sec:30},{label:'Circle and line in the air',sec:30}],
     rounds:1,
     steps:['Hold a pen in your weaker hand (left if you are right-handed). Write your name slowly.','With the same hand, draw a circle, a square and a triangle.','Pat your head with one hand. Rub your tummy in circles with the other hand.','Touch your thumb to each finger, one by one. Do both hands. Go faster each time.','Draw a circle in the air with one hand and a straight line with the other.'],
-    avoid:'Safe for everyone. It will feel clumsy at first. That is normal.',
+    avoid:'A gentle exercise for most people. It will feel clumsy at first. That is normal.',
     voiceIntro:'Other Hand Brain Switch. Pick up a pen and some paper.',
     phaseVoice:['Hold a pen in your weaker hand (left if you are right-handed). Write your name slowly.','With the same hand, draw a circle, a square and a triangle.','Pat your head with one hand. Rub your tummy in circles with the other hand.','Touch your thumb to each finger, one by one. Do both hands. Go faster each time.','Draw a circle in the air with one hand and a straight line with the other.'],
     benefit:'Wakes both sides', benefitVal:'of your brain' },
@@ -3289,7 +3292,7 @@ function _maybeShowReview() {
     var modal = document.getElementById('reviewModal');
     if (modal) modal.classList.add('show');
     setTimeout(function() {
-      speak('You have been wonderful! Could we ask one small favour? A 5-star review on Google would help Shah Hayaat reach more people who need natural healing. It takes just 30 seconds and means the world to us.');
+      speak('You have been wonderful! Could we ask one small favour? A 5-star review on Google would help Shah Hayaat reach more people looking for everyday wellness support. It takes just 30 seconds and means the world to us.');
     }, 600);
   }, 1200);
 }
@@ -5676,6 +5679,9 @@ function srGeneratePDF() {
 @media(min-width:960px) and (max-width:1199px){.nav-desktop>a{padding:.4rem .6rem!important;font-size:.82rem!important}.nav-badge,.nav-ex-badge{display:none}.nav-cta-pill{display:none!important}}
 @media(min-width:960px){.nav-cta-pill{display:none!important}}
 </style>
+<link rel="stylesheet" href="site-enhance.css?v=1">
+<script src="shop-cards.js?v=1" defer></script>
+<script src="site-enhance.js?v=1" defer></script>
 </head><body><div class="page">';
 
   /* Header */
@@ -5834,10 +5840,10 @@ const TY_PASSAGES = [
   "Fevodol is one of Shah Hayaats most loved products because immunity is something everyone wants but few know how to build naturally. This formula fills that gap with traditional wisdom that has stood the test of time.",
   "Shah Hayaat was built by people who grew up watching Ayurveda work in their own families. That personal connection to the healing tradition is what makes the brand different from companies that simply market herbal products.",
   "Livohayaat supports the liver which is responsible for over five hundred functions in the human body. When the liver is healthy everything else tends to follow, and Shah Hayaat recognised this important connection early.",
-  "Shah Hayaat products are available across India because the founders believe that quality natural wellness care should not be a luxury only available to people in big cities. Accessibility has always been part of the mission.",
+  "Shah Hayaat products are available across India because the founders believe that quality wellness care should not be a luxury only available to people in big cities. Accessibility has always been part of the mission.",
   "Blood Storm is particularly meaningful to Shah Hayaat because anaemia is one of the most common and most ignored health problems in India, especially among women and young people who push through exhaustion silently.",
   "Musaffa Khoon addresses something Ayurveda has understood for thousands of years, which is that clear blood means clear skin, clear eyes and a clearer mind. Internal purity is the foundation of genuine external vitality.",
-  "Shah Hayaat Wellness Lab is the brands way of giving back. By offering free health assessments online, the team hopes to help people understand their health better and take the first steps toward lasting natural wellness.",
+  "Shah Hayaat Wellness Lab is the brands way of giving back. By offering free health assessments online, the team hopes to help people understand their health better and take the first steps toward lasting wellness.",
   "Musaffa Khoon was inspired by the classical Ayurvedic understanding that many skin and energy problems begin with blood that is overloaded with impurities. Addressing the root produces better results than treating the surface.",
   "Dia-Ease supports people who are watching their blood sugar levels carefully. The formula is gentle enough for daily use and works alongside dietary changes to help the body maintain a healthier internal balance naturally.",
   "Shah Hayaat believes that honest communication builds more loyalty than any advertising campaign. The brand shares real customer stories and explains how products work without making claims it cannot fully support.",

@@ -1,0 +1,52 @@
+/* Shah Hayaat: the standard site header, as a standalone stylesheet.
+   Used by pages whose own CSS differs from the rest of the site (the Wellness Lab). Same look, same markup,
+   same behaviour as the header on index.html. Scoped to .site-header / .nav-mobile so it cannot clash. */
+body .site-header{--sh-gold:#B8860B;--sh-gold-light:#D4A017;position:sticky;top:0;z-index:9991;padding:13px 0;background:rgba(7,24,48,.97);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 1px 0 rgba(255,255,255,.08),0 4px 20px rgba(0,0,0,.3);font-family:'DM Sans','Inter',system-ui,sans-serif;line-height:1.4}
+body .site-header *,body .nav-mobile *{box-sizing:border-box}
+body .site-header .container{max-width:1180px;margin:0 auto;padding:0 20px}
+body .site-header .header-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+body .site-header a,body .nav-mobile a{text-decoration:none}
+body .site-header .logo{display:flex;align-items:center;gap:.75rem;font-family:'Playfair Display',Georgia,serif;font-size:1.15rem;font-weight:700;color:#fff;flex-shrink:0}
+body .site-header .logo img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(212,160,23,.5)}
+body .site-header .logo em{color:var(--sh-gold-light);font-style:normal}
+body .site-header .logo small{display:block;font-size:.52rem;color:rgba(255,255,255,.75);letter-spacing:.08em;font-family:'DM Sans','Inter',system-ui,sans-serif;font-weight:400;line-height:1;margin-top:1px}
+body .site-header .nav-desktop{display:none}
+@media(min-width:960px){body .site-header .nav-desktop{display:flex;align-items:center;gap:.1rem}.site-header .nav-desktop>a{display:block;white-space:nowrap}}
+body .site-header .nav-desktop a{padding:.4rem .9rem;font-size:.82rem;font-weight:500;color:rgba(255,255,255,.75);border-radius:6px;transition:all .25s}
+body .site-header .nav-desktop a:hover,body .site-header .nav-desktop a.active{color:#fff;background:rgba(255,255,255,.12)}
+@media(min-width:960px) and (max-width:1199px){body .site-header .nav-desktop>a{padding:.4rem .6rem}.site-header .nav-badge,.site-header .nav-ex-badge{display:none}}
+body .site-header .nav-lab,body .site-header .nav-ex,body .nav-mobile .nav-lab,body .nav-mobile .nav-ex{display:inline-flex;align-items:center;gap:.4rem;font-weight:700}
+body .site-header .nav-desktop a.nav-lab{font-weight:700;color:#fff;background:linear-gradient(135deg,#1b7a4a,#2fa36b);box-shadow:0 2px 12px rgba(47,163,107,.45)}
+body .site-header .nav-desktop a.nav-lab:hover{background:linear-gradient(135deg,#22915a,#38b87b)}
+body .site-header .nav-desktop a.nav-ex{font-weight:700;color:#F2C14E;background:rgba(212,160,23,.14)}
+body .site-header .nav-desktop a.nav-ex:hover{background:rgba(212,160,23,.28)}
+body .site-header .nav-badge,body .site-header .nav-ex-badge,body .nav-mobile .nav-badge,body .nav-mobile .nav-ex-badge{font-size:.58rem;font-weight:800;letter-spacing:.05em;padding:.12rem .38rem;border-radius:4px;background:#D4A017;color:#071830}
+body .site-header .nav-lab .nav-badge,body .nav-mobile .nav-lab .nav-badge{background:#fff;color:#1b5e20}
+body .site-header .nav-cta-pill{display:none}
+body .site-header .nav-toggle{background:none;border:none;cursor:pointer;padding:6px;display:flex;flex-direction:column;gap:5px;position:relative;z-index:9992}
+body .site-header .nav-toggle span{display:block;width:24px;height:2px;background:#fff;transition:all .28s;transform-origin:center}
+@media(min-width:960px){body .site-header .nav-toggle{display:none}}
+body.nav-open .site-header .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+body.nav-open .site-header .nav-toggle span:nth-child(2){opacity:0;transform:scaleX(0)}
+body.nav-open .site-header .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+/* mobile menu */
+body .nav-mobile{position:fixed;inset:0;z-index:9990;background:linear-gradient(160deg,#071830 0%,#0a2040 100%);padding:5.5rem 2rem 2.5rem;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);overflow-y:auto;font-family:'DM Sans','Inter',system-ui,sans-serif}
+body.nav-open .nav-mobile{transform:translateX(0)}
+body .nav-mobile-links{display:flex;flex-direction:column;gap:.2rem;margin-bottom:2.5rem}
+body .nav-mobile-links a{display:block;font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;font-style:italic;color:rgba(255,255,255,.8);padding:.55rem 0;border-bottom:1px solid rgba(255,255,255,.09);transition:color .2s}
+body .nav-mobile-links a:hover,body .nav-mobile-links a.active{color:#D4A017}
+body .nav-mobile-links .nav-lab,body .nav-mobile-links .nav-ex{padding:.7rem 1rem;border-radius:8px;justify-content:center}
+body .nav-mobile-links .nav-lab{color:#fff;background:linear-gradient(135deg,#1b7a4a,#2fa36b);border-bottom:none}
+body .nav-mobile-links .nav-ex{color:#F2C14E;background:rgba(212,160,23,.14);border-bottom:none}
+body .nav-mobile-actions{display:flex;flex-direction:column;gap:.8rem;margin-top:auto}
+body .nav-mobile .sh-btn{display:flex;align-items:center;justify-content:center;gap:.45rem;padding:.78rem 1.8rem;border-radius:50px;font-weight:600;font-size:.88rem;border:2px solid transparent}
+body .nav-mobile .sh-btn--gold{background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff}
+body .nav-mobile .sh-btn--outline{border-color:rgba(255,255,255,.35);color:rgba(255,255,255,.88)}
+body .nav-mobile .sh-btn--wa{background:#25D366;color:#fff;border-color:#25D366}
+/* mobile menu: clear the header (which can sit below the announcement ticker) and keep the buttons readable on every page */
+body .nav-mobile{padding-top:calc(5.5rem + 36px)!important;align-items:stretch!important;justify-content:flex-start!important}
+body .nav-mobile .nav-mobile-links,body .nav-mobile .nav-mobile-actions{width:100%}
+body .nav-mobile .nav-mobile-actions .btn{display:flex;align-items:center;justify-content:center;gap:.45rem;width:100%;padding:.78rem 1.8rem;border-radius:50px;font-family:'DM Sans','Inter',system-ui,sans-serif;font-weight:600;font-size:.88rem;line-height:1.2;text-align:center;border:2px solid transparent;text-decoration:none;cursor:pointer}
+body .nav-mobile .nav-mobile-actions .btn-glow,body .nav-mobile .nav-mobile-actions .btn-primary{background:linear-gradient(135deg,#B8860B,#D4A017);color:#fff!important}
+body .nav-mobile .nav-mobile-actions .btn-outline-white{background:transparent;border-color:rgba(255,255,255,.35);color:rgba(255,255,255,.92)!important}
+body .nav-mobile .nav-mobile-actions .btn-wa{background:#25D366;border-color:#25D366;color:#fff!important}

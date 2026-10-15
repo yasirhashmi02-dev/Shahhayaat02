@@ -543,6 +543,9 @@ body.nav-open {
 </script>
 <link rel="stylesheet" href="ticker.css?v=3">
 <script src="ticker.js?v=3" defer></script>
+<link rel="stylesheet" href="site-enhance.css?v=1">
+<link rel="stylesheet" href="site-header.css?v=1">
+<script src="site-enhance.js?v=1" defer></script>
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <style id="nav-priority">
@@ -608,7 +611,7 @@ body.nav-open {
         <a href="https://wa.me/917051056287?text=Hi!%20Please%20send%20me%20the%20Shah%20Hayaat%20product%20catalogue."
            target="_blank" rel="noopener" class="btn btn-primary">💬 Request PDF Catalogue</a>
       </div>
-      <div id="catalogue-grid" class="product-grid" role="list" aria-label="All products"></div>
+      <div id="catalogue-grid" class="sh-pgrid" aria-label="All products"></div>
     </div>
   </section>
 </main>
@@ -677,6 +680,8 @@ body.nav-open {
 <a href="#" class="back-top" aria-label="Back to top" aria-label="Back to top" aria-label="Back to top">↑</a>
 <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="wa-float" aria-label="Order on WhatsApp">💬</a>
 
+<script src="shop-cards.js?v=1"></script>
+<script>document.addEventListener('DOMContentLoaded',function(){var g=document.getElementById('catalogue-grid');if(g&&window.SH)SH.render(g,SH.products);});</script>
 <script>
 /* ============================================================
    SHAH HAYAAT: main.js  v2.0
@@ -905,32 +910,11 @@ function renderProducts(container, { limit = null, cat = null } = {}) {
   let list = cat && cat !== 'all' ? PRODUCTS.filter(p => p.cat === cat) : PRODUCTS;
   if (limit) list = list.slice(0, limit);
 
-  container.innerHTML = list.map((p, i) => `
-    <div class="product-card reveal delay-${(i % 4) + 1}" data-cat="${p.cat}">
-      <div class="product-card-img">
-        <img src="${imgSrc(p.id)}" alt="${p.name}" loading="lazy">
-        <span class="product-cat-tag">${p.tag}</span>
-      </div>
-      <div class="product-body">
-        <h3>${p.name}</h3>
-        <p class="product-desc">${p.desc}</p>
-        <div class="product-footer">
-          <div class="product-price">₹${p.price}</div>
-          <div class="product-actions-row">
-            <a href="${productUrl(p.id)}" class="btn btn-outline btn-sm">Details</a>
-            <a href="https://wa.me/917051056287?text=${encodeURIComponent(`Hi! I'd like to order ${p.name}, ₹${p.price}`)}"
-               target="_blank" rel="noopener" class="btn btn-primary btn-sm">Order</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  `).join('');
-
-  // Observe new cards
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  $$('.reveal', container).forEach(el => io.observe(el));
+  container.innerHTML = list.map((p, i) => {
+    const sp = window.SH && SH.byId(p.id);
+    return sp ? SH.card(sp, i) : '';
+  }).join('');
+  if (window.SH) SH.observe(container);
 }
 
 /* ── BLOG GRID ─────────────────────────────────────────────── */
@@ -1404,17 +1388,7 @@ window.SHAH = { PRODUCTS, BLOGS, IMG, GH, imgSrc, renderProducts, renderBlogs, $
 </script>
 <div style="background:rgba(42,70,51,.06);border-top:1px solid rgba(42,70,51,.1);padding:.65rem 0;text-align:center"><div style="max-width:860px;margin:0 auto;padding:0 1.5rem"><p style="font-size:.76rem;color:#3D3D3D;margin:0">🚚 <strong>Free delivery</strong> above ₹499 &nbsp;·&nbsp; Pan-India in 5–7 days &nbsp;·&nbsp; COD available &nbsp;·&nbsp; <a href="shipping.html" style="color:#2A4633;font-weight:600;text-decoration:underline">Shipping &amp; Returns →</a></p></div></div>
 <!-- AYUSH LEGAL DISCLAIMER -->
-<div style="background:#1C2A1A;border-top:2px solid #B8860B;padding:1rem 0;text-align:center;">
-  <div style="max-width:860px;margin:0 auto;padding:0 1.5rem;">
-    <p style="font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.7;margin:0;">
-      <strong style="color:rgba(255,255,255,0.75);">Important Disclaimer:</strong> 
-      Shah Hayaat products are Ayurvedic herbal supplements. This website does not make any claim to diagnose, treat, cure or prevent any disease. 
-      All content is for informational purposes only and is based on traditional Ayurvedic principles. 
-      Individual results may vary. Please consult a qualified healthcare professional before use, especially if you have a medical condition, are pregnant, nursing, or are on prescription medication. 
-      Not recommended for children under 12 without medical supervision.
-    </p>
-  </div>
-</div>
+<div class="sh-disclaimer" role="note" aria-label="Disclaimer"><div class="sh-disclaimer-in"><p class="sh-disclaimer-text"><strong>Important Disclaimer:</strong> Shah Hayaat Private Limited products are Ayurvedic (AYUSH-category) herbal products. Information on this website is based on traditional Ayurvedic use and is for general information only. It is not intended to diagnose, treat, cure or prevent any disease and is not a substitute for medical advice. Individual results may vary. Please consult a qualified doctor or vaidya before use, especially if you have a medical condition, are pregnant or nursing, or take prescription medicine. Not recommended for children under 12 without medical supervision. Keep out of reach of children.</p></div></div>
 <script>(function(){var y=document.getElementById("year");if(y)y.textContent=new Date().getFullYear();})();</script>
 </body>
 </html>

@@ -504,6 +504,8 @@ body.nav-open {
 </style>
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 <link rel="stylesheet" href="ticker.css?v=3">
+<link rel="stylesheet" href="site-header.css?v=1">
+<style>body .nav-mobile{padding-top:calc(5.5rem + 80px)!important}</style>
 <script src="ticker.js?v=3" defer></script>
 <style id="wl2-style">
 /* ── Wellness Lab: simplified welcome screen ───────────────── */
@@ -569,6 +571,9 @@ body.nav-open {
 .wl2-diet-go{flex:0 0 auto;padding:.5rem 1rem;border-radius:50px;background:linear-gradient(135deg,#2A7A5A,#38A87A);color:#fff;font-size:.82rem;font-weight:700}
 @media(max-width:480px){.wl2-diet-go{display:none}}
 </style>
+<link rel="stylesheet" href="site-enhance.css?v=1">
+<script src="shop-cards.js?v=1" defer></script>
+<script src="site-enhance.js?v=1" defer></script>
 </head>
 <body id="top">
   <!-- Google Tag Manager (noscript) -->
@@ -585,20 +590,43 @@ body.nav-open {
 <div style="height:44px"></div>
 
 <div class="tk" role="region" aria-label="Announcements"><div class="tk-view"><div class="tk-track"><ul class="tk-list"><li><a href="products.html">Discover Our Range of Ayurvedic Medicines and Herbal Products</a></li><li><a href="conditions.html">Looking for Health and Wellness Tips? Explore Our Health Guides</a></li><li><a href="products.html">Get to Know Our Products, Including PanaSip, Shah Zyme, Livo Hayaat and Ortho Hayaat</a></li><li><a href="about.html">Learn More About Our Manufacturing and Quality Standards</a></li><li><a href="bundles.html">Explore Our Latest Products and Current Offers</a></li><li><a href="contact.html">Need Help Finding the Right Product? Get in Touch With Our Team</a></li><li><a href="shipping.html">Enjoy Free Delivery on Orders Above ₹499</a></li></ul><ul class="tk-list" aria-hidden="true"><li><a href="products.html" tabindex="-1">Discover Our Range of Ayurvedic Medicines and Herbal Products</a></li><li><a href="conditions.html" tabindex="-1">Looking for Health and Wellness Tips? Explore Our Health Guides</a></li><li><a href="products.html" tabindex="-1">Get to Know Our Products, Including PanaSip, Shah Zyme, Livo Hayaat and Ortho Hayaat</a></li><li><a href="about.html" tabindex="-1">Learn More About Our Manufacturing and Quality Standards</a></li><li><a href="bundles.html" tabindex="-1">Explore Our Latest Products and Current Offers</a></li><li><a href="contact.html" tabindex="-1">Need Help Finding the Right Product? Get in Touch With Our Team</a></li><li><a href="shipping.html" tabindex="-1">Enjoy Free Delivery on Orders Above ₹499</a></li></ul></div></div><button type="button" class="tk-pause" aria-pressed="false" aria-label="Pause announcements"><i></i></button></div>
-<header id="hdr" role="banner">
-  <div class="hdr-in">
-    <a href="index.html" class="logo" aria-label="Shah Hayaat home">
-      <img src="https://www.shahhayaat.com/images/logo.jpg" alt="Shah Hayaat logo" loading="eager" fetchpriority="high" width="38" height="38">
-      <div><div class="logo-n">Shah <em style="color:var(--g);font-style:normal">Hayaat</em></div><div class="logo-s">Private Limited · Wellness Lab</div></div>
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="logo.jpg" onerror="this.onerror=null;this.src='images/logo.jpg'" alt="Shah Hayaat" width="38" height="38" loading="eager">
+      <span>Shah <em>Hayaat</em><small style="display:block;font-size:0.52rem;color:rgba(255,255,255,0.75);letter-spacing:0.08em;font-family:var(--font-body);font-weight:400;line-height:1;margin-top:1px">Private Limited</small></span>
     </a>
-    <div class="hdr-stat"><div class="hstat idle" id="hsDot" aria-hidden="true"></div><span id="hsText">Ready</span></div>
-    <div style="display:flex;align-items:center;gap:.8rem;font-size:.75rem">
-      <a href="index.html" class="nav-back" id="navHomeBtn" onclick="return LAB._confirmExit(event)">← Home</a>
-      <a href="about.html" style="color:var(--tq);text-decoration:none;transition:color .2s" onmouseenter="this.style.color='var(--g)'" onmouseleave="this.style.color='var(--tq)'">About</a>
-      <a href="products.html" style="color:var(--tq);text-decoration:none;transition:color .2s" onmouseenter="this.style.color='var(--g)'" onmouseleave="this.style.color='var(--tq)'">Products</a> · <a href="contact.html" style="color:var(--tq);text-decoration:none;transition:color .2s" onmouseenter="this.style.color='var(--g)'" onmouseleave="this.style.color='var(--tq)'">Contact</a>
-    </div>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <a href="products.html">Shop</a>
+      <a href="wellness-lab.html" class="nav-lab active" aria-current="page">🧪 Wellness Lab <span class="nav-badge">FREE</span></a>
+      <a href="exercises.html" class="nav-ex">🧘 Daily Exercises <span class="nav-ex-badge">FREE</span></a>
+      <a href="leadership.html">Leadership</a>
+      <a href="bundles.html">Bundles</a>
+      <a href="conditions.html">Health Guides</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+<nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
+  <div class="nav-mobile-links">
+    <a href="products.html">Shop</a>
+    <a href="wellness-lab.html" class="nav-lab">🧪 Wellness Lab <span class="nav-badge">FREE</span></a>
+    <a href="exercises.html" class="nav-ex">🧘 Daily Exercises <span class="nav-ex-badge">FREE</span></a>
+    <a href="leadership.html">Leadership</a>
+    <a href="bundles.html">Bundles</a>
+    <a href="conditions.html">Health Guides</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-mobile-actions">
+    <a href="exercises.html" class="sh-btn sh-btn--outline">🧘 Free Daily Exercises</a>
+    <a href="https://wa.me/917051056287" target="_blank" rel="noopener" class="sh-btn sh-btn--wa">💬 WhatsApp Us</a>
+  </div>
+</nav>
 
 <div id="progBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
   <div class="wrap">
@@ -903,10 +931,14 @@ body.nav-open {
     <p style="margin-top:.5rem;font-size:.6rem;color:var(--tq)">© <span id="labYear"></span> Shah Hayaat Private Limited · Wellness Lab · Health indicators only, not medical advice</p>
   </div>
 </footer>
+<!-- AYUSH LEGAL DISCLAIMER -->
+<div class="sh-disclaimer" role="note" aria-label="Disclaimer"><div class="sh-disclaimer-in"><p class="sh-disclaimer-text"><strong>Important Disclaimer:</strong> Shah Hayaat Private Limited products are Ayurvedic (AYUSH-category) herbal products. Information on this website is based on traditional Ayurvedic use and is for general information only. It is not intended to diagnose, treat, cure or prevent any disease and is not a substitute for medical advice. Individual results may vary. Please consult a qualified doctor or vaidya before use, especially if you have a medical condition, are pregnant or nursing, or take prescription medicine. Not recommended for children under 12 without medical supervision. Keep out of reach of children.</p></div></div>
 
-<script src="wellness-lab-part1.js?v=20261015"></script>
+
+<script src="wellness-lab-part1.js?v=20261016"></script>
 
 <script src="wellness-lab-part2.js?v=20261014"></script>
+<script src="site-header.js?v=1"></script>
 
 <script src="wellness-lab-part3.js?v=20261014"></script>
 
