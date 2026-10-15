@@ -873,49 +873,6 @@ body.nav-open {
     <p class="text-center" style="margin-top:1.2rem"><a href="https://wa.me/917051056287?text=Hi!+I+want+to+order+from+Shah+Hayaat." target="_blank" rel="noopener" class="btn btn-wa">💬 Order on WhatsApp</a></p>
   </div>
 </section>
-<!-- ALL 12 PRODUCTS -->
-<section class="products-section section" aria-labelledby="products-heading">
-  <div class="container">
-    <div class="products-header">
-      <div>
-        <div class="eyebrow reveal">Complete Range</div>
-        <h2 class="reveal delay-1" id="products-heading">Shah Hayaat Remedies</h2>
-      </div>
-      <a href="products.html" class="btn btn-outline-green btn-sm reveal delay-2">View All 20 →</a>
-    </div>
-    <div class="sh-pgrid" id="all-products-grid"></div>
-    <div class="text-center" style="margin-top:2rem"><a href="products.html" class="btn btn-glow btn-lg">View All 20 Products →</a></div>
-  </div>
-</section>
-
-
-<!-- LEADERSHIP -->
-<style>
-.ldr-home{background:linear-gradient(160deg,#061428,#0a1f3c);padding:clamp(56px,8vw,96px) 0;text-align:center}
-.ldr-home h2{color:#fff;margin-bottom:.6rem}
-.ldr-home .ldr-sub{color:rgba(255,255,255,.62);max-width:560px;margin:0 auto 2.2rem}
-.ldr-home-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.4rem;max-width:880px;margin:0 auto 2.2rem}
-.ldr-home-card{display:block;text-decoration:none;background:rgba(255,255,255,.05);border:1px solid rgba(212,160,23,.28);border-radius:16px;overflow:hidden;transition:transform .25s,box-shadow .25s}
-.ldr-home-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.35)}
-.ldr-home-card img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top;display:block}
-.ldr-home-card div{padding:.9rem .8rem 1.1rem}
-.ldr-home-card strong{display:block;color:#fff;font-size:1.05rem}
-.ldr-home-card span{color:#F2C14E;font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-</style>
-<section class="ldr-home" id="leadership" aria-labelledby="ldr-home-heading">
-  <div class="container">
-    <div class="eyebrow reveal" style="color:rgba(212,160,23,.85)">Our Leadership</div>
-    <h2 class="reveal delay-1" id="ldr-home-heading">Guided by Vision,<br><em style="color:var(--gold)">Rooted in Tradition</em></h2>
-    <p class="ldr-sub reveal delay-2">Meet the team steering Shah Hayaat Private Limited, with 30+ years of experience in Ayurveda and wellness.</p>
-    <div class="ldr-home-grid reveal delay-3">
-      <a class="ldr-home-card" href="leadership.html"><img src="chairman.webp" alt="Z.H. Shah, Chairman" loading="lazy" width="800" height="1000"><div><strong>Z.H. Shah</strong><span>Chairman &amp; Founder</span></div></a>
-      <a class="ldr-home-card" href="leadership.html"><img src="director.webp" alt="Abid Shah, Director" loading="lazy" width="666" height="1000"><div><strong>Abid Shah</strong><span>Director</span></div></a>
-      <a class="ldr-home-card" href="leadership.html"><img src="md.webp" alt="Sajad Shah, Managing Director" loading="lazy" width="578" height="1000"><div><strong>Sajad Shah</strong><span>Managing Director</span></div></a>
-    </div>
-    <a href="leadership.html" class="btn btn-glow btn-lg">Meet Our Leadership →</a>
-  </div>
-</section>
-
 <!-- WHY TRUST US -->
 <section class="section bg-white" aria-labelledby="trust-heading">
   <div class="container">
@@ -1300,7 +1257,6 @@ function setYear(){const el=$('#year');if(el)el.textContent=new Date().getFullYe
 
 document.addEventListener('DOMContentLoaded',()=>{
   initNav();initScroll();initFAQ();setYear();
-  renderProducts($('#all-products-grid'));
   renderBlogs($('#blog-preview-grid'));
 });
 </script>
