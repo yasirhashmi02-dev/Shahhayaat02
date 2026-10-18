@@ -23,22 +23,8 @@
 .sh-pcard.reveal{opacity:0;transform:translateY(18px)}
 .sh-pcard.reveal.in{opacity:1;transform:none}
 
-/* ───────── 2. FLOATING "ORDER ON WHATSAPP" (mobile only) ───────── */
-.sh-wa-fab{display:none}
+/* floating "Order on WhatsApp" sticker removed. Mobile tidy-up kept: */
 @media (max-width:720px){
-  .sh-wa-fab{display:flex;position:fixed;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:9970;align-items:center;gap:.6rem;max-width:calc(100vw - 24px);padding:.5rem 1.05rem .5rem .55rem;border-radius:999px;background:#0b7a3a;color:#fff;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.4),0 0 0 2px rgba(255,255,255,.85);opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
-  html.sh-no-bar .sh-wa-fab{bottom:calc(16px + env(safe-area-inset-bottom,0px))}
-  .sh-wa-fab.sh-on{opacity:1;transform:none}
-  .sh-wa-fab:active{transform:scale(.97)}
-  .sh-wa-ic{display:flex;align-items:center;justify-content:center;flex:0 0 38px;width:38px;height:38px;border-radius:50%;background:#fff;font-size:1.25rem;line-height:1}
-  .sh-wa-tx{display:flex;flex-direction:column;min-width:0;line-height:1.15}
-  .sh-wa-tx strong{font-size:.92rem;font-weight:800;white-space:nowrap}
-  .sh-wa-tx small{font-size:.72rem;font-weight:600;opacity:.92;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px}
-  .sh-wa-fab::after{content:"";position:absolute;inset:0;border-radius:999px;box-shadow:0 0 0 0 rgba(11,122,58,.55);animation:shWaPulse 2.6s ease-out infinite;pointer-events:none}
-  @keyframes shWaPulse{0%{box-shadow:0 0 0 0 rgba(11,122,58,.5)}70%,100%{box-shadow:0 0 0 14px rgba(11,122,58,0)}}
-  html.sh-no-bar body{padding-bottom:84px}
-  body.nav-open .sh-wa-fab{display:none}
-  /* the old round WhatsApp button and the other floating buttons would collide: tidy them on mobile */
   .wa-float{display:none!important}
   .back-top{right:auto!important;left:.9rem!important;bottom:5.2rem!important}
   .rate-fab{left:.9rem!important;right:auto!important;bottom:9.2rem!important}
@@ -73,5 +59,4 @@ html.sh-fx .sh-fade.sh-in{opacity:1;transform:none}
 html.sh-lite .sh-fade,html.sh-lite .reveal{opacity:1!important;transform:none!important;transition:none!important}
 html.sh-lite .sh-pcard,html.sh-lite .sh-why-item,html.sh-lite .trust-card,html.sh-lite .product-card,html.sh-lite .prod-card,html.sh-lite .best-card,html.sh-lite .bundle-card,html.sh-lite .blog-card{transition:none!important;animation:none!important}
 html.sh-lite .sh-pcard:hover,html.sh-lite .sh-why-item:hover,html.sh-lite .trust-card:hover,html.sh-lite .product-card:hover,html.sh-lite .prod-card:hover,html.sh-lite .best-card:hover,html.sh-lite .bundle-card:hover,html.sh-lite .blog-card:hover{translate:none!important;transform:none!important}
-html.sh-lite .btn-glow,html.sh-lite .nav-cta-pill,html.sh-lite .sh-wa-fab::after{animation:none!important}
-html.sh-lite .sh-wa-fab{transition:none}
+html.sh-lite .btn-glow,html.sh-lite .nav-cta-pill{animation:none!important}

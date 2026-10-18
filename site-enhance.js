@@ -1,5 +1,5 @@
 /* Shah Hayaat: shared enhancements. Needs shop-cards.js (window.SH) loaded first.
-   1) Floating "Order on WhatsApp" button on mobile, product name pre-filled
+   1) Bottom-bar WhatsApp button gets the product name pre-filled (floating sticker removed)
    2) Gentle section fade-ins
    3) Count-up on stat numbers ([data-count])
    Slow phones / data-saver / reduced-motion (html.sh-lite, set by shop-cards.js) skip all animation. */
@@ -25,25 +25,10 @@
     return 'https://wa.me/' + SH.PHONE + '?text=' + encodeURIComponent('Hi Shah Hayaat! I would like to order' + (p ? ' ' + p.name : '') + '. Please guide me.');
   }
 
-  /* ---------- 1. floating WhatsApp button ---------- */
-  function initFab() {
-    if (d.querySelector('.sh-wa-fab')) return;
+  /* ---------- 1. pre-fill product name in the bottom-bar WhatsApp button (no floating sticker) ---------- */
+  function initBarLink() {
     var p = currentProduct();
     var bar = d.querySelector('.mobile-bottom-bar');
-    if (!bar) root.classList.add('sh-no-bar');
-
-    var a = d.createElement('a');
-    a.className = 'sh-wa-fab';
-    a.href = linkFor(p);
-    a.target = '_blank';
-    a.rel = 'noopener';
-    a.setAttribute('aria-label', p ? 'Order ' + p.name + ' on WhatsApp' : 'Order on WhatsApp');
-    a.innerHTML = '<span class="sh-wa-ic" aria-hidden="true">💬</span><span class="sh-wa-tx"><strong>Order on WhatsApp</strong><small></small></span>';
-    a.querySelector('small').textContent = p ? p.name + ' · ₹' + p.price : 'Ask about any product';
-    d.body.appendChild(a);
-    w.setTimeout(function () { a.classList.add('sh-on'); }, LITE ? 0 : 700);
-
-    /* the existing bottom-bar WhatsApp button also gets the product name */
     if (p && bar) {
       var bw = bar.querySelector('.mbb-wa');
       if (bw) bw.href = linkFor(p);
@@ -95,6 +80,6 @@
     els.forEach(function (el) { io.observe(el); });
   }
 
-  function start() { initFab(); initFades(); initCounters(); }
+  function start() { initBarLink(); initFades(); initCounters(); }
   if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', start); else start();
 })(window, document);
