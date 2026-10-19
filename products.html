@@ -658,6 +658,16 @@ function buildGrid() {
     return;
   }
   SH.render(grid, visible);
+  // Ensure Sangh Bust's View Details link opens its dedicated product page directly.
+  // The shared shop-cards.js renderer may otherwise use the legacy query-string route.
+  grid.querySelectorAll('a').forEach(function(link) {
+    var card = link.closest('.prod-card, article, .product-card, .shop-card, [data-product-id]');
+    var scope = card || link.parentElement;
+    if (scope && /Sangh\s*Bust/i.test(scope.textContent || '') && /view\s*details/i.test(link.textContent || '')) {
+      link.href = 'sangh-bust-ayurvedic-alkaliser.html';
+      link.removeAttribute('onclick');
+    }
+  });
 }
 
 /* Filter buttons */
