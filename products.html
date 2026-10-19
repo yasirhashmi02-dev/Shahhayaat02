@@ -24,7 +24,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ItemList","name":"Shah Hayaat Ayurvedic Products",
 "description":"WHO-GMP and ISO 9001:2015 certified Ayurvedic medicines for brain, liver, digestion, joints, immunity, diabetes and skin.",
-"url":"https://www.shahhayaat.com/products.html","numberOfItems":12,
+"url":"https://www.shahhayaat.com/products.html","numberOfItems":13,
 "itemListElement":[
 {"@type":"ListItem","position":1,"item":{"@type":"Product","name":"Brain Champ","url":"https://www.shahhayaat.com/brain-champ-ayurvedic-memory-booster.html","offers":{"@type":"Offer","priceCurrency":"INR","price":"164","availability":"https://schema.org/InStock"}}},
 {"@type":"ListItem","position":2,"item":{"@type":"Product","name":"Livo Hayaat Combo","url":"https://www.shahhayaat.com/livo-hayaat-ayurvedic-liver-detox.html","offers":{"@type":"Offer","priceCurrency":"INR","price":"349","availability":"https://schema.org/InStock"}}},
@@ -37,7 +37,8 @@
 {"@type":"ListItem","position":9,"item":{"@type":"Product","name":"Cough X Pro","url":"https://www.shahhayaat.com/cough-x-pro-ayurvedic-herbal-cough-syrup.html","offers":{"@type":"Offer","priceCurrency":"INR","price":"99","availability":"https://schema.org/InStock"}}},
 {"@type":"ListItem","position":10,"item":{"@type":"Product","name":"Musaffa Khoon","url":"https://www.shahhayaat.com/musaffa-khoon-ayurvedic-blood-purifier.html","offers":{"@type":"Offer","priceCurrency":"INR","price":"165","availability":"https://schema.org/InStock"}}},
 {"@type":"ListItem","position":11,"item":{"@type":"Product","name":"Utro Hayaat Combo","url":"https://www.shahhayaat.com/utro-hayaat-ayurvedic-womens-health.html","offers":{"@type":"Offer","priceCurrency":"INR","price":"625","availability":"https://schema.org/InStock"}}},
-{"@type":"ListItem","position":12,"item":{"@type":"Product","name":"Passion Pulse","url":"https://www.shahhayaat.com/passion-pulse-ayurvedic-male-vitality.html","offers":{"@type":"Offer","priceCurrency":"INR","price":"599","availability":"https://schema.org/InStock"}}}
+{"@type":"ListItem","position":12,"item":{"@type":"Product","name":"Passion Pulse","url":"https://www.shahhayaat.com/passion-pulse-ayurvedic-male-vitality.html","offers":{"@type":"Offer","priceCurrency":"INR","price":"599","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":13,"item":{"@type":"Product","name":"Sangh Bust","url":"https://www.shahhayaat.com/sangh-bust-ayurvedic-alkaliser.html","image":"https://www.shahhayaat.com/sangh%20bust.png","offers":{"@type":"Offer","priceCurrency":"INR","price":"175","availability":"https://schema.org/InStock"}}}
 ]}
 </script>
   <meta name="description" content="Shop Shah Hayaat Ayurvedic products for brain, liver, joints, digestion, immunity and blood sugar support. Trusted by 50,000+ customers.">
@@ -630,8 +631,20 @@ const PRODUCT_SLUGS = {
   painflick:'pain-flick-capsule.html',
   shahzymejunior:'shah-zyme-junior-pediatric-drops.html',
   utrohayaatds:'utro-hayaat-ds-syrup.html',
+  sanghbust:'sangh-bust-ayurvedic-alkaliser.html',
 };
 function productUrl(id){ return PRODUCT_SLUGS[id] || ('product-detail.html?id=' + encodeURIComponent(id)); }
+
+// Sangh Bust listing. Upload "sangh bust.png" beside this page.
+if (window.SH && Array.isArray(SH.products) && !SH.products.some(p => p.id === 'sanghbust' || p.id === 'sangh-bust')) {
+  SH.products.push({
+    id: 'sanghbust', name: 'Sangh Bust', price: 175,
+    cat: ['all', 'urinary'], image: 'sangh bust.png',
+    desc: 'Ayurvedic alkaliser syrup. 200 ml.',
+    url: 'sangh-bust-ayurvedic-alkaliser.html',
+    tag: 'Urinary Wellness', size: '200 ml', mrp: 175
+  });
+}
 
 let currentCat = 'all';
 
