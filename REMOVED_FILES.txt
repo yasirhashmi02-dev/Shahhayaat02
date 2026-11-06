@@ -1,0 +1,4 @@
+Delete these files from the original website:
+images/product-detail.html
+images/products.html
+images/sangh-bust-ayurvedic-alkaliser.html

@@ -669,16 +669,17 @@ body.nav-open {
       </div>
       <div class="reveal-r d1">
         <div class="form-card">
-          <h3>Send a Message</h3>
-          <form id="contactForm" id="contactForm" novalidate>
+          <h3>Message us on WhatsApp</h3>
+          <form id="contactForm">
             <div class="form-group"><label for="c-name">Your Name *</label><input type="text" id="c-name" name="name" placeholder="e.g. Priya Sharma" required autocomplete="name"></div>
             <div class="form-group"><label for="c-email">Email Address *</label><input type="email" id="c-email" name="email" placeholder="your@email.com" required autocomplete="email"></div>
             <div class="form-group"><label for="c-phone">Phone / WhatsApp</label><input type="tel" id="c-phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel"></div>
             <div class="form-group"><label for="c-subject">Subject</label><input type="text" id="c-subject" name="subject" placeholder="e.g. Question about Brain Champ"></div>
             <div class="form-group"><label for="c-message">Message *</label><textarea id="c-message" name="message" rows="5" placeholder="Tell us how we can help you&#8230;" required></textarea></div>
-            <button type="submit" style="display:flex;align-items:center;justify-content:center;width:100%;padding:0.9rem 1.5rem;background:var(--navy-light);color:var(--gold);font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(198,167,94,0.35);cursor:pointer;transition:background 0.5s" onmouseover="this.style.background='var(--navy-mid)'" onmouseout="this.style.background='var(--navy-light)'">Send Message &#8594;</button>
+            <button type="submit" style="display:flex;align-items:center;justify-content:center;width:100%;padding:0.9rem 1.5rem;background:var(--navy-light);color:var(--gold);font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(198,167,94,0.35);cursor:pointer;transition:background 0.5s" onmouseover="this.style.background='var(--navy-mid)'" onmouseout="this.style.background='var(--navy-light)'">Continue on WhatsApp &#8594;</button>
           </form>
-          <div id="form-status" class="form-status"></div>
+          <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
+          <p class="form-note">Submitting opens WhatsApp with your entered details in a draft. Review the message and choose Send in WhatsApp to share it. No message is sent by this website.</p>
           <p class="form-note">We typically respond within 24 hours. For urgent queries, WhatsApp is fastest.</p>
         </div>
       </div>
@@ -803,7 +804,7 @@ document.addEventListener('DOMContentLoaded',function(){
       '\n\nMessage:\n' + message;
     window.open('https://wa.me/917051056287?text=' + encodeURIComponent(wa), '_blank', 'noopener');
     if (status) { status.textContent = 'Opening WhatsApp with your message. If it did not open, message us directly at +91 70510 56287.'; status.style.color = '#2A7A5A'; }
-    form.reset();
+    // Keep fields intact if the popup is blocked or the user cancels.
   });
 })();
 </script>
